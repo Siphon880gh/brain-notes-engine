@@ -1,0 +1,18 @@
+/* line 1, scss/index.scss */
+#new, #old {
+  float: left;
+  display: inline-block;
+  width: 48vw;
+  min-height: 160px;
+}
+
+/* line 7, scss/index.scss */
+#new .contents, #old .contents {
+  border: 1px solid darkgray;
+  margin: 5px;
+}
+
+/* line 12, scss/index.scss */
+#coverage:after {
+  content: "%";
+}

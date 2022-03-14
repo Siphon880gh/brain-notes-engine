@@ -1,0 +1,14 @@
+#new, #old {
+    float: left;
+    display: inline-block;
+    width: 48vw;
+    min-height: 160px;
+}
+#new .contents, #old .contents {
+    border: 1px solid darkgray;
+    margin: 5px;
+}
+
+#coverage:after {
+    content: "%";
+}
