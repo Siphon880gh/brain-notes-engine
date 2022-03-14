@@ -16,3 +16,8 @@
 #coverage:after {
   content: "%";
 }
+
+/* line 16, scss/index.scss */
+.highlight {
+  background-color: yellow;
+}

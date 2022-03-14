@@ -34,7 +34,8 @@ Setup compass, npm, and livereload
     <!-- jQuery and Bootstrap  -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-        
+    <script src="js/vendors/jquery.highlight-5.js"></script>
+
     <link href="css/index.css?v=<?php echo time(); ?>" rel="stylesheet">
     <script src="js/app.js?v=<?php echo time(); ?>"></script>
     
@@ -57,18 +58,18 @@ Setup compass, npm, and livereload
               <div class="header">
                 <h4>Old</h4>
                 <p>Paste notes here<a href="#" onclick="notes1()">...</a></p>
-                <div class="contents" contenteditable="true"></div>
+                <div class="contents" contenteditable="true">This is a <b>sample.</b></div>
               </div>
             </aside>
 
             <span style="clear:both;"></span>
           </div> <!-- /sides -->
 
-          <div id="results">
+          <!-- <div id="results">
             <label for="coverage">Coverage: </label>
             <span>&nbsp;</span>
             <span id="coverage">0</span>
-          </div> <!-- /results -->
+          </div> -->
 
         </div> <!-- /.container -->
         
