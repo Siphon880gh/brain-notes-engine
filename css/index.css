@@ -3,21 +3,21 @@
   float: left;
   display: inline-block;
   width: 48vw;
-  min-height: 160px;
 }
 
 /* line 7, scss/index.scss */
 #new .contents, #old .contents {
   border: 1px solid darkgray;
   margin: 5px;
+  white-space: pre;
 }
 
-/* line 12, scss/index.scss */
+/* line 13, scss/index.scss */
 #coverage:after {
   content: "%";
 }
 
-/* line 16, scss/index.scss */
+/* line 17, scss/index.scss */
 .highlight {
   background-color: orange !important;
 }

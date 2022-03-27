@@ -1,30 +1,9 @@
-<!DOCTYPE html>
-<?php /*
-Setup compass, npm, and livereload
----
-1. Run Command: compass init
-2. Create css and css/scss directories then add them to config.rb
-3. Run command: npm init
-4. Edit package.json's settings
-  "watch": {
-    "js_docs_watch": {
-      "patterns": [
-        "js"
-      ],
-      "extensions": "js",
-      "quiet": false
-    }
-  }
-4. Edit package.json's scripts:
-    "watch": "concurrently 'compass watch ./' 'livereload .' 'watch \"npm run js_docs_run\" js/'",
-    "js_docs_run": "jsdoc js/*"
-5. Run localhost:
-    - http-server command
-        Drawback: Node does not support Php so no Php extension or code runs. Ignores index.php)
-    - MAMP
-        a. npm run watch
-        b. Activate Livereload browser extension.
-*/ ?>
+<?php
+header('Expires: Sun, 01 Jan 2014 00:00:00 GMT');
+header('Cache-Control: no-store, no-cache, must-revalidate');
+header('Cache-Control: post-check=0, pre-check=0', FALSE);
+header('Pragma: no-cache');
+?><!DOCTYPE html>
 <html lang="en">
   <head>
    <title>Retype Notes</title>
@@ -38,6 +17,31 @@ Setup compass, npm, and livereload
 
     <link href="css/index.css?v=<?php echo time(); ?>" rel="stylesheet">
     <script src="js/app.js?v=<?php echo time(); ?>"></script>
+
+    <script>
+    function loadFile() {
+      var file = event.target.files[0];
+
+      // Only render plain text files
+      // if (!file.type === "text/plain")
+          // return;
+
+      var reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = function(event) {
+          var text = event.target.result;
+        $("#old .contents").html(text)
+      };
+
+    }; // loadFile
+    </script>
+
+    <script src="js/vendors/save-when-stop-typing.js"></script>
+    <script>
+    $(()=>{
+      var saver = SaveWhenStopTyping($("#notes"));
+    });
+    </script>
     
 </head>
     <body>
@@ -64,12 +68,21 @@ Setup compass, npm, and livereload
 
             <span style="clear:both;"></span>
           </div> <!-- /sides -->
+          
 
           <!-- <div id="results">
             <label for="coverage">Coverage: </label>
             <span>&nbsp;</span>
             <span id="coverage">0</span>
           </div> -->
+
+          <div style="float:left; width:100%; height:20px;"></div>
+          <div style="float:left; margin-top:5px; text-align:left;">
+            <button onclick='$("#load-file-input").click();'>Load file</button><input type="file" id="load-file-input" onchange="loadFile()" style="display:none;"/><br>
+          </div>
+
+          <div style="float:left; width:100%; height:10px;"></div>
+          <textarea id="notes" style="float:left; display:block; width:100%; height:50px; resize:none;" placeholder="Your table of contents notes"><?php include("data/data.txt"); ?></textarea>
 
         </div> <!-- /.container -->
         
