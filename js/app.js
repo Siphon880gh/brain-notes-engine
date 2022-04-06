@@ -66,7 +66,8 @@ $(()=>{
 
         // Extract words
         var text = $("#new .contents").text();
-        var words = text.match(/\b(\w{2,})\b/g);
+        // var words = text.match(/\b(\w{2,})\b/g);
+        var words = text.match(/\s([^\s])\s/g);
 
         // Remove duplicated words
         words = [...new Set(words)];
@@ -80,4 +81,39 @@ $(()=>{
         // recalculateCoverage();
     }); // keyup
 
+    $("#old .contents").on("input", ()=>{
+        var oldText = $("#old .contents").html();
+        localStorage.setItem("old", oldText);
+        window.location.hash = oldText;
+        console.log("setItem old, set hash: ", oldText);
+    });
+
+    $(document).delegate('textarea', 'keydown', function(e) {
+        var keyCode = e.keyCode || e.which;
+      
+        if (keyCode == 9) {
+          e.preventDefault();
+          var start = this.selectionStart;
+          var end = this.selectionEnd;
+      
+          // set textarea value to: text before caret + tab + text after caret
+          $(this).val($(this).val().substring(0, start)
+                      + "\t"
+                      + $(this).val().substring(end));
+      
+          // put caret at right position again
+          this.selectionStart =
+          this.selectionEnd = start + 1;
+        }
+      });
+
+    if(window.location.hash.length) {
+        var overrideByHash = window.location.hash;
+        overrideByHash = overrideByHash.substr(1);
+        overrideByHash = decodeURI(overrideByHash);
+        $("#old .contents").html(overrideByHash);
+    } else if(localStorage.getItem("old")) {
+        var overrideByLocalStorage = localStorage.getItem("old");
+        $("#old .contents").html(overrideByLocalStorage);
+    }
 }); // dom ready
