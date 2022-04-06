@@ -1,7 +1,6 @@
 /* line 1, scss/index.scss */
 #new, #old {
   float: left;
-  display: inline-block;
   width: 48vw;
 }
 
