@@ -59,7 +59,7 @@ header('Pragma: no-cache');
 
             <aside id="old">
               <div class="header">
-                <h4>Old</h4>
+                <h4>Template</h4>
                 <p>Paste correct text<a href="#" onclick="notes1()">...</a></p>
                 <div class="contents" contenteditable="true">This is a <b>sample.</b></div>
               </div>
@@ -67,8 +67,8 @@ header('Pragma: no-cache');
 
             <aside id="new" style="padding: 5px;">
               <div class="header">
-                <h4>New</h4>
-                <p>Test/Practice by typing</p>
+                <h4>Practice</h4>
+                <p>Start typing</p>
                 <textarea class="contents" style="width:100%; margin-top:-6px; resize:vertical;"></textarea>
               </div>
             </aside>

@@ -1,22 +1,18 @@
-/* line 1, scss/index.scss */
 #new, #old {
   float: left;
   width: 48vw;
 }
 
-/* line 7, scss/index.scss */
 #new .contents, #old .contents {
   border: 1px solid darkgray;
   margin: 5px;
   white-space: pre;
 }
 
-/* line 13, scss/index.scss */
 #coverage:after {
   content: "%";
 }
 
-/* line 17, scss/index.scss */
 .highlight {
   background-color: orange !important;
 }

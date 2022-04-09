@@ -71,8 +71,14 @@ function readjustInputHeight($field) {
                   + field.scrollHeight
                   + parseInt(computed.getPropertyValue('padding-bottom'), 10)
                   + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
+
+    if(height>maxHeight) height=maxHeight;
   
+    // field.style.height = (height>=maxHeight)?maxHeight:height + 'px';
     field.style.height = height + 'px';
+
+
+    // field.style.height = height + 'px';
 
     // textareaTop = parseInt(textareaTop);
     // windowHeight = parseInt(windowHeight);
@@ -80,38 +86,8 @@ function readjustInputHeight($field) {
     // $textarea.height( windowHeight-(textareaTop*2) );
   } // readjustInputHeight
 
-$(()=>{
-    $("#new .contents").on("keyup blur", (event)=> {
+function newInputted() {
         readjustInputHeight($("#new .contents"));
-
-        // var keyCode = event.keyCode;
-        // if(event.type === "blur" ||
-        //     keyCode===9 || // tap
-        //     keyCode===13 || // enter
-        //     keyCode===32 || // space
-        //     keyCode===49 || // 1 or !
-        //     keyCode===186 || // ;
-        //     keyCode===187 || // =
-        //     keyCode===188 || // ,
-        //     keyCode===189 || // -
-        //     keyCode===190 || // .
-        //     keyCode===191 || // /
-        //     keyCode===220 || // \
-        //     keyCode===222 // '
-        //   )
-        // {
-        //     // left blank
-        //     console.log("*");
-        // }
-        // else 
-        // {
-        //     return;
-        // }
-
-        // if(keyCode===13) {
-        //     $("#new .contents").text($("#new .contents").text() + " \n\r");
-        //     placeCaretAtEnd( $("#new .contents")[0] );
-        // }
 
         // Extract words
         var text = $("#new .contents").val();
@@ -128,7 +104,14 @@ $(()=>{
         }); // foreach
         
         // recalculateCoverage();
-    }); // keyup
+} // newInputted
+
+window.maxHeight = 0;
+$(()=>{
+    window.maxHeight = $(window).height() - 240; // the textarea max height should be the window height except header and coverage lines
+
+    $("#new .contents").on("keyup blur", newInputted); // keyup
+
 
     $("#old .contents").on("input", ()=>{
         var oldText = $("#old .contents").text(); // html -> text
