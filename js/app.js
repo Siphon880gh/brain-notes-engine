@@ -33,11 +33,22 @@ function evalDifferences() {
     formatters.forEach((formatter)=>{ oldText = formatter(oldText); });
     formatters.forEach((formatter)=>{ newText = formatter(newText); });
 
+    var typedSoFar = newText.length;
+    var typedTooFar = typedSoFar > oldText.length;
+    if(!typedTooFar)
+        oldText = oldText.substr(0, typedSoFar);
+    else
+        newText = newText.substr(0, oldText.length);
+        
     var percent = similarity(newText, oldText); // 0 - 0.XXXX - 1
-    percent*=100;
-    percent = "" + percent;
-    percent = percent.substr(0,5);
-    console.log("Percent: ", percent);
+
+    // NN.NN%
+    percent = ((p)=>{
+        p*=100;
+        p = "" + p;
+        return p.substr(0,5);
+    })(percent);
+
     $("#diff").text(percent);
 }
 
