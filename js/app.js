@@ -15,13 +15,23 @@ function notes1() {
 //     debugger;
 // };
 
+window.formatters = [
+    (text)=>{
+        // console.log("1");
+        return text.replace(/\s/g, ''); // space, tab, newline
+    },
+    (text)=>{
+        // console.log("2");
+        return text; // removing comments
+    }
+]
 
 function evalDifferences() {
     var newText = $("#new .contents").val();
     var oldText = $("#old .contents").text();
 
-    newText = newText.replace(/\s/g, ''); // space, tab, newline
-    oldText = oldText.replace(/\s/g, ''); // space, tab, newline
+    formatters.forEach((formatter)=>{ oldText = formatter(oldText); });
+    formatters.forEach((formatter)=>{ newText = formatter(newText); });
 
     var percent = similarity(newText, oldText); // 0 - 0.XXXX - 1
     percent*=100;
