@@ -2,18 +2,6 @@ function notes1() {
     alert("- RTF supported: You may copy and paste from Word Document or Text Edit and most formatting like bolding, font size, and lists will be copied over.\n- Shortcut keys: You may use shortcut keys for bold or italicized.\n- As you are rewording the notes on the left side, words get highlighted on this side. That's how you know you covered the concepts.");
 }
 
-// function recalculateCoverage() {
-//     var selectedElement = $("#old .contents").contents(); 
-    
-//     var textNodes = selectedElement.filter(function () {
-//         var skip = this.nodeValue===" "; 
-//         if(skip) 
-//             return false;
-//         else
-//             return this.nodeType === Node.TEXT_NODE; 
-//     }); 
-//     debugger;
-// };
 
 window.formatters = [
     (text)=>{
@@ -39,7 +27,7 @@ function evalDifferences() {
         oldText = oldText.substr(0, typedSoFar);
     else
         newText = newText.substr(0, oldText.length);
-        
+
     var percent = similarity(newText, oldText); // 0 - 0.XXXX - 1
 
     // NN.NN%
@@ -94,17 +82,8 @@ function readjustInputHeight($field) {
                   + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
 
     if(height>maxHeight) height=maxHeight;
-  
-    // field.style.height = (height>=maxHeight)?maxHeight:height + 'px';
     field.style.height = height + 'px';
-
-
-    // field.style.height = height + 'px';
-
-    // textareaTop = parseInt(textareaTop);
-    // windowHeight = parseInt(windowHeight);
-    // if( windowHeight-(textareaTop*2) >= minHeightTextarea )
-    // $textarea.height( windowHeight-(textareaTop*2) );
+    
   } // readjustInputHeight
 
 function newInputted() {
