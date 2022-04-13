@@ -83,7 +83,7 @@ header('Pragma: no-cache');
           <h4>Info</h4>
 
           <div class="bg-info" style="padding:5px; border-radius:5px; display:inline-block; margin-top:5px; text-align:left; margin-bottom:10px;">
-              <span style="font-weight:bold;">Accuracy: </span><span id="diff"></span>
+              <span style="font-weight:bold;">Accuracy (For Programming): </span><span id="diff"></span>
           </div>
 
           <!-- <div class="spacer"></div> -->

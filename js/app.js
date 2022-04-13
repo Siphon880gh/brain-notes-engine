@@ -1,5 +1,5 @@
 function notes1() {
-    alert("- RTF supported: You may copy and paste from Word Document or Text Edit and most formatting like bolding, font size, and lists will be copied over.\n- Shortcut keys: You may use shortcut keys for bold or italicized.\n- As you are rewording the notes on the left side, words get highlighted on this side. That's how you know you covered the concepts.");
+    alert("- RTF supported: You may copy and paste from Word Document or Text Edit and most formatting like bolding, font size, and lists will be copied over.\n- Shortcut keys: You may use shortcut keys for bold or italicized.");
 }
 
 
@@ -96,7 +96,7 @@ function newInputted() {
             $(".highlight").removeClass("highlight");
 
         // var words = text.match(/\b(\w{2,})\b/g);
-        words = text.match(/([^\s]+)[\s$]/g);
+        words = text.match(/([^\s]+)[\s]/g);
 
         // Remove duplicated words
         words = [...new Set(words)];
