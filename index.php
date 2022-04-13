@@ -44,12 +44,6 @@ header('Pragma: no-cache');
     });
     </script>
 
-    <style>
-    #diff:after {
-      content: "%";
-    }
-    </style>
-    
 </head>
     <body>
         <div class="container-full" style="margin: 10px 5px;">
@@ -68,7 +62,7 @@ header('Pragma: no-cache');
             <aside id="new" style="padding: 5px;">
               <div class="header">
                 <h4>Practice</h4>
-                <p>Start typing</p>
+                <p>Start typing <i class="fa fa-eraser clickable" onclick="if(confirm('Erase practice text?')) { $('#new .contents').val(''); $('.highlight').removeClass('highlight'); }"></i></p>
                 <textarea class="contents" style="width:100%; margin-top:-6px; resize:vertical;"></textarea>
               </div>
             </aside>
@@ -89,17 +83,17 @@ header('Pragma: no-cache');
           <h4>Info</h4>
 
           <div class="bg-info" style="padding:5px; border-radius:5px; display:inline-block; margin-top:5px; text-align:left; margin-bottom:10px;">
-              <span style="font-weight:bold;">Coverage: </span><span id="diff"></span>
-          </div><br/>
+              <span style="font-weight:bold;">Accuracy: </span><span id="diff"></span>
+          </div>
 
-          <div style="width:100%; height:10px;"></div>
-          <textarea id="notes" style="display:block; width:100%; height:50px; resize:none;" placeholder="Your table of contents notes"><?php include("data/data.txt"); ?></textarea>
+          <!-- <div class="spacer"></div> -->
+          <!-- <textarea id="notes" style="display:block; width:100%; height:50px; resize:none;" placeholder="Your table of contents notes"><?php include("data/data.txt"); ?></textarea> -->
+          <!-- <div class="spacer"></div> -->
 
-          <br/>
-          <div style="float:left; margin-top:5px; text-align:left;">
+          <!-- <div style="float:left; margin-top:5px; text-align:left;">
             <h4>File System</h4>
             <button onclick='$("#load-file-input").click();'>Load file</button><input type="file" id="load-file-input" onchange="loadFile()" style="display:none;"/><br>
-          </div>
+          </div> -->
 
         </div> <!-- /.container -->
         

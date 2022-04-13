@@ -16,3 +16,18 @@
 .highlight {
   background-color: orange !important;
 }
+.spacer {
+  width:100%;
+  height:5px;
+}
+
+#diff:after {
+  content: "%";
+}
+.clickable {
+  color: gray;
+  cursor: pointer;
+}
+.clickable:hover {
+  color: black;
+}

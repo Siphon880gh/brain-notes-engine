@@ -83,7 +83,7 @@ function readjustInputHeight($field) {
 
     if(height>maxHeight) height=maxHeight;
     field.style.height = height + 'px';
-    
+
   } // readjustInputHeight
 
 function newInputted() {
@@ -91,12 +91,19 @@ function newInputted() {
 
         // Extract words
         var text = $("#new .contents").val();
+        
+        if(text.replace(/\s/g, "").length===0) 
+            $(".highlight").removeClass("highlight");
+
         // var words = text.match(/\b(\w{2,})\b/g);
         words = text.match(/([^\s]+)[\s$]/g);
 
         // Remove duplicated words
         words = [...new Set(words)];
         console.log(words);
+
+        // Unhighlight old words
+        // $(".highlight").removeClass("highlight");
 
         // Highlight words (have to run through each word individually)
         words.forEach((word)=>{
@@ -108,7 +115,7 @@ function newInputted() {
 
 window.maxHeight = 0;
 $(()=>{
-    window.maxHeight = $(window).height() - 240; // the textarea max height should be the window height except header and coverage lines
+    window.maxHeight = $(window).height() - 240; // the textarea max height should be the window height except header and accuracy lines
 
     $("#new .contents").on("keyup blur", newInputted); // keyup
 
