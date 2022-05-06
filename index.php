@@ -132,21 +132,27 @@ header('Pragma: no-cache');
           $(document).on("show.bs.modal", "#modal-puzzle", ()=> {
             $("#modal-puzzle .list-group").html("");
             var $template = $("#old .contents");
-            var lines = $template.find("*").toArray(); // newlines are actually div's in contenteditable
+            var lines = $template.find("div").toArray(); // newlines are actually div's in contenteditable
+            if(lines.length===0) {
+              lines = $template.text().split("\n");
+              // debugger;
+            }
             // var template = $template.html();
             // var lines = template.split("\n");
+            // debugger;
             var listGroupEl = document.querySelector("#modal-puzzle .list-group");
             for(var i = 0; i<lines.length; i++) {
-              var line = lines[i].textContent;
+              var line = lines[i];
+              if(typeof line !== "string") line = line.textContent;
               var listGroupItemEl = document.createElement("div");
               listGroupItemEl.classList = "list-group-item";
               listGroupItemEl.textContent = line;
+              listGroupItemEl.setAttribute("data-correct-order", i);
               listGroupEl.appendChild(listGroupItemEl);
               console.log("line: " + line)
             }
             $("#modal-puzzle .list-group").sortable();
           });
-          
         </script>
 
 
@@ -193,14 +199,16 @@ header('Pragma: no-cache');
           if($summary.val().length) {
             var $template = $("#old .contents");
             var code = Array.from(summary.matchAll(/```(.*?)```/gi)).map(el => el[1]);
-            debugger;
+            // debugger;
             
             // If text has ```___```, then get all text between those backticks, otherwise just get all of the text
             if(code.length) {
               var code = code.join("\n");
               $template.text(code);
+              $template.trigger("input");
             } else {
               $template.text(summary);
+              $template.trigger("input");
             }
           } else {
             alert("Error: No summary loaded yet. Find a lesson to retype from the curriculum.")
