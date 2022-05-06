@@ -23,6 +23,20 @@
     <link href="assets/css/index.css?v=<?php echo time(); ?>" rel="stylesheet">
     <link href="assets/css/multistates.css?v=<?php echo time(); ?>" rel="stylesheet">
 
+    <style>
+    li {
+      color: blue;
+    }
+    li:hover {
+      color: darkblue;
+      cursor: pointer;
+    }
+    .contain .fa {
+      cursor: pointer;
+    }
+
+    </style>
+
     <?php
     // TODO:
     // https://stackoverflow.com/questions/33850412/merge-javascript-objects-in-array-with-same-key

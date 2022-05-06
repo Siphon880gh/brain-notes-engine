@@ -147,23 +147,50 @@ header('Pragma: no-cache');
               var listGroupItemEl = document.createElement("div");
               listGroupItemEl.classList = "list-group-item";
               listGroupItemEl.textContent = line;
+              listGroupItemEl.setAttribute("contenteditable", true);
               listGroupItemEl.setAttribute("data-correct-order", i);
               listGroupEl.appendChild(listGroupItemEl);
               console.log("line: " + line)
             }
-            $("#modal-puzzle .list-group").sortable();
+            $("#modal-puzzle .list-group").sortable({
+              // stop: (event, ui) => {
+              //   debugger;
+              // },
+              // When user drops a list item to a new position:
+              update: (event, ui) => {
+                // debugger;
+                var newPos = ui.item.index();
+                var correctPos = ui.item.data("correct-order");
+                ui.item.removeClass("li-correct").removeClass("li-incorrect")
+                if(newPos===correctPos) {
+                  ui.item.addClass("li-correct");
+                } else {
+                  ui.item.addClass("li-incorrect");
+                }
+              }
+            });
+            shuffle($(listGroupEl));
           });
+          function shuffle($listGroup){
+              var listItems = $listGroup.children(); //Extract all listItems from it.
+              listItems.sort(function(a,b){ //This function sorts the items.
+                  var compA = $(a).text().toUpperCase();
+                  var compB = $(b).text().toUpperCase();
+                  return (compA < compB) ? -1 : 1; //return a -1 or 1 depending upon specific condition.
+              });
+              $listGroup.append(listItems);
+          }
         </script>
-
-
-          <!-- <div class="spacer"></div> -->
-          <!-- <textarea id="notes" style="display:block; width:100%; height:50px; resize:none;" placeholder="Your table of contents notes"><?php include("data/data.txt"); ?></textarea> -->
-          <!-- <div class="spacer"></div> -->
-
-          <!-- <div style="float:left; margin-top:5px; text-align:left;">
-            <h2>File System</h2>
-            <button onclick='$("#load-file-input").click();'>Load file</button><input type="file" id="load-file-input" onchange="loadFile()" style="display:none;"/><br>
-          </div> -->
+        <style>
+        .li-correct {
+          border: 1px solid green;
+          background-color: lightgreen;
+        }
+        .li-incorrect {
+          border: 1px solid red;
+          background-color: #FFCCCB;
+        }
+        </style>
 
         </div> <!-- /.container -->
         
