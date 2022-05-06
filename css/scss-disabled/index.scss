@@ -1,10 +1,21 @@
-#new, #old {
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 18px;
+}
+
+#new,
+#old {
     float: left;
     // display: inline-block;
     width: 48vw;
     // min-height: 160px;
 }
-#new .contents, #old .contents {
+
+#new .contents,
+#old .contents {
     border: 1px solid darkgray;
     margin: 5px;
     white-space: pre; // make newlines recognizable to js
