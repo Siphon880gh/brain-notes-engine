@@ -122,10 +122,13 @@ header('Pragma: no-cache');
           $(document).on("show.bs.modal", "#modal-puzzle", ()=> {
             $("#modal-puzzle .list-group").html("");
             var $template = $("#old .contents");
-            var lines = $template.find("div").toArray(); // newlines are actually div's in contenteditable
+            var lines = $template.find("div").toArray(); // Sometimes newlines are actually div's in contenteditable
             if(lines.length===0) {
-              lines = $template.text().split("\n");
-              // debugger;
+              lines = $template.text().split("\n"); // And sometimes it's one whole text node
+            } else { // if it's not onewhole text node, you might still have textNode then followed by div's
+              let firstNode = $("#old .contents").contents()[0];
+              if(firstNode.nodeType===3) // test for textNode
+                lines.unshift(firstNode);
             }
             // var template = $template.html();
             // var lines = template.split("\n");
