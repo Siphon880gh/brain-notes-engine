@@ -16,7 +16,7 @@ window.formatters = [
 
 function evalDifferences() {
     var newText = $("#new .contents").val();
-    var oldText = $("#old .contents").val();
+    var oldText = $("#old .contents").text();
 
     formatters.forEach((formatter) => { oldText = formatter(oldText); });
     formatters.forEach((formatter) => { newText = formatter(newText); });
@@ -131,11 +131,14 @@ $(() => {
     $("#new .contents").on("keyup", evalDifferences);
 
     $('#new .contents', 'keydown', function(e) {
-        if (e.keyCode === 9) { var v = this.value,
+        if (e.keyCode === 9) {
+            var v = this.value,
                 s = this.selectionStart,
                 e = this.selectionEnd;
             this.value = v.substring(0, s) + '\t' + v.substring(e);
-            this.selectionStart = this.selectionEnd = s + 1; return false; }
+            this.selectionStart = this.selectionEnd = s + 1;
+            return false;
+        }
     });
 
     if (window.location.hash.length) {
