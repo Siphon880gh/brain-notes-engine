@@ -121,7 +121,8 @@ $(() => {
 
 
     $("#old .contents").on("input", () => {
-        var oldText = $("#old .contents").text(); // html -> text
+        var oldText = $("#old .contents").html(); // html -> text
+        oldText = oldText.replace(/<div>/gi, '\n').replace(/<\/div>/gi, '').trim();
         localStorage.setItem("old", oldText);
         window.location.hash = oldText;
         console.log("setItem old, set hash: ", oldText);
@@ -144,10 +145,31 @@ $(() => {
     if (window.location.hash.length) {
         var overrideByHash = window.location.hash;
         overrideByHash = overrideByHash.substr(1);
-        overrideByHash = decodeURI(overrideByHash);
+        overrideByHash = decodeURI(overrideByHash); // %20 becomes space
+        overrideByHash = decodeEntities(overrideByHash); // &lt; becomes <
         $("#old .contents").text(overrideByHash); // html -> text
     } else if (localStorage.getItem("old")) {
         var overrideByLocalStorage = localStorage.getItem("old");
         $("#old .contents").text(overrideByLocalStorage); // html -> text
     }
 }); // dom ready
+
+var decodeEntities = (function() {
+    // this prevents any overhead from creating the object each time
+    var element = document.createElement('div');
+
+    function decodeHTMLEntities(str) {
+        if (str && typeof str === 'string') {
+            // strip script/html tags
+            str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+            str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+            element.innerHTML = str;
+            str = element.textContent;
+            element.textContent = '';
+        }
+
+        return str;
+    }
+
+    return decodeHTMLEntities;
+})();
