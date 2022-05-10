@@ -159,14 +159,26 @@ header('Pragma: no-cache');
               // When user drops a list item to a new position:
               update: (event, ui) => {
                 // debugger;
-                var newPos = ui.item.index();
-                var correctPos = ui.item.data("correct-order");
-                ui.item.removeClass("li-correct").removeClass("li-incorrect")
-                if(newPos===correctPos) {
-                  ui.item.addClass("li-correct");
-                } else {
-                  ui.item.addClass("li-incorrect");
-                }
+                // var newPos = ui.item.index();
+                // var correctPos = ui.item.data("correct-order");
+                // ui.item.removeClass("li-correct").removeClass("li-incorrect")
+                // if(newPos===correctPos) {
+                //   ui.item.addClass("li-correct");
+                // } else {
+                //   ui.item.addClass("li-incorrect");
+                // }
+                let $listItems = $("#modal-puzzle .list-group .list-group-item");
+                $listItems.removeClass("li-correct").removeClass("li-incorrect");
+                $listItems.each( (i, el) => {
+                  var $listItem = $(el);
+                  var newPos = $listItem.index();
+                  var correctPos = $listItem.data("correct-order");
+                  if(newPos===correctPos) {
+                    $listItem.addClass("li-correct");
+                  } else {
+                    $listItem.addClass("li-incorrect");
+                  }
+                })
               }
             });
             shuffle($(listGroupEl));
