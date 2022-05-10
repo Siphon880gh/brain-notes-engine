@@ -76,16 +76,6 @@ header('Pragma: no-cache');
             <span style="clear:both;"></span>
           </div> <!-- /sides -->
           
-
-          <!-- <div id="results">
-            <label for="coverage">Coverage: </label>
-            <span>&nbsp;</span>
-            <span id="coverage">0</span>
-          </div> -->
-
-          <!-- <div style="float:left; width:100%; height:20px;"></div> -->
-
-          
           <div style="clear:both"></div>
           <h2><span class="fa fa-puzzle-piece"></span> Learn by resorting lines</h2>
           <p>Open now: <button class="btn btn-secondary btn-sm" onclick='if($("#old .contents").length===0) alert("Error: You need to have text in the template area"); else $("#modal-puzzle").modal("show");'>Resort</button></p>
