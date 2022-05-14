@@ -54,6 +54,7 @@ header('Pragma: no-cache');
     <body>
         <div class="container-full" style="margin: 10px 5px;">
           <h1 class="title">Retype Notes</h1>
+          <p>By Weng Fei Fung. Purpose of this app is to help you learn new programming languages and concepts by having a table of collection that explains code snippets, and lets you practice the boilerplate by retyping it with instant feedback on your accuracy. It also lets you rearrange the lines of code into correct order to understand how the written code flows.</p>
 
           <div id="sides">
 
@@ -77,8 +78,8 @@ header('Pragma: no-cache');
           </div> <!-- /sides -->
           
           <div style="clear:both"></div>
-          <h2><span class="fa fa-puzzle-piece"></span> Learn by resorting lines</h2>
-          <p>Open now: <button class="btn btn-secondary btn-sm" onclick='if($("#old .contents").length===0) alert("Error: You need to have text in the template area"); else $("#modal-puzzle").modal("show");'>Resort</button></p>
+          <h2><span class="fa fa-puzzle-piece"></span> Learn by rearranging lines</h2>
+          <p>Open now: <button class="btn btn-secondary btn-sm" onclick='if($("#old .contents").length===0) alert("Error: You need to have text in the template area"); else $("#modal-puzzle").modal("show");'>Rearrange</button></p>
 
           <div style="clear:both"></div>
           <h2><span class="fa fa-calculator"></span> Stats</h2>
@@ -88,7 +89,7 @@ header('Pragma: no-cache');
           </div>
 
           <h2><span class="fa fa-book-reader"></span> Notes</h2>
-          <p>Interested in retyping text surrounded with ```:<br/><button class="btn btn-secondary btn-sm" onclick="copyOver();">Copy over</button></p>
+          <p>Interested in retyping text surrounded with ```:<br/><button class="btn btn-secondary btn-sm" onclick="copyOver();">Copy over for retyping</button></p>
           <fieldset class="deemp-fieldset">
             <textarea id="summary-inner" style="height: 467.989px; resize: none; width:100%;"></textarea>
           </fieldset>
@@ -243,7 +244,7 @@ header('Pragma: no-cache');
               $template.trigger("input");
             }
           } else {
-            alert("Error: No summary loaded yet. Find a lesson to retype from the curriculum.")
+            alert("Error: Nothing loaded in notes. Find a lesson from the curriculum.")
           }
 
 
