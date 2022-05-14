@@ -54,7 +54,7 @@ header('Pragma: no-cache');
     <body>
         <div class="container-full" style="margin: 10px 5px;">
           <h1 class="title">Retype Notes</h1>
-          <p>By Weng Fei Fung. Purpose of this app is to help you learn new programming languages and concepts by having a table of collection that explains code snippets, and lets you practice the boilerplate by retyping it with instant feedback on your accuracy. It also lets you rearrange the lines of code into correct order to understand how the written code flows.</p>
+          <p>By Weng Fei Fung. Purpose of this app is to help you learn new programming languages and concepts by having a table of contents that explains code snippets, and lets you practice the boilerplate by retyping it with instant feedback on your accuracy. It also lets you rearrange the lines of code into correct order to understand how the written code flows.</p>
 
           <div id="sides">
 
@@ -79,7 +79,7 @@ header('Pragma: no-cache');
           
           <div style="clear:both"></div>
           <h2><span class="fa fa-puzzle-piece"></span> Learn by rearranging lines</h2>
-          <p>Open now: <button class="btn btn-secondary btn-sm" onclick='if($("#old .contents").length===0) alert("Error: You need to have text in the template area"); else $("#modal-puzzle").modal("show");'>Rearrange</button></p>
+          <p>Open now: <button class="btn btn-secondary btn-sm" onclick='if($("#old .contents").text().length===0) alert("Error: You need to have text in the template area"); else $("#modal-puzzle").modal("show");'>Rearrange</button></p>
 
           <div style="clear:both"></div>
           <h2><span class="fa fa-calculator"></span> Stats</h2>
@@ -106,7 +106,7 @@ header('Pragma: no-cache');
             <!-- Modal content-->
             <div class="modal-content">
               <div class="modal-header">
-                <h2 class="modal-title">Resort Lines</h2>
+                <h2 class="modal-title">Rearrange Lines</h2>
               </div>
               <div class="modal-body">
                 <div class="list-group">
@@ -131,21 +131,50 @@ header('Pragma: no-cache');
               if(firstNode.nodeType===3) // test for textNode
                 lines.unshift(firstNode);
             }
+            // lines = lines.split("\n");
             // var template = $template.html();
             // var lines = template.split("\n");
             // debugger;
             var listGroupEl = document.querySelector("#modal-puzzle .list-group");
-            for(var i = 0; i<lines.length; i++) {
-              var line = lines[i];
-              if(typeof line !== "string") line = line.textContent;
+            if(lines.length<=1) {
+              alert("Error: You need over 1 line to practice rearranging lines.");
+              return false;
+            }
+            function appendLine(line, i, lines) {
+
+              try {
+                if(typeof line !== "string") line = line.textContent;
+              } catch(err) {
+                
+              }
               var listGroupItemEl = document.createElement("div");
               listGroupItemEl.classList = "list-group-item";
               listGroupItemEl.textContent = line;
               listGroupItemEl.setAttribute("contenteditable", true);
               listGroupItemEl.setAttribute("data-correct-order", i);
               listGroupEl.appendChild(listGroupItemEl);
-              console.log("line: " + line)
+              console.log("Line: " + line);
+              if(typeof lines[i]==="undefined") return false;
+              else return true;
             }
+            var i = 0;
+            while(true) {
+              var line = lines[i];
+              var sublines=[];
+              try {
+                sublines = line.split("\n");
+              } catch(err) {
+
+              }
+              if(sublines.length>1) {
+                for(var j=0; j<sublines.length; j++) {
+                  if(!appendLine(sublines[j], j, sublines)) break;
+                } // for
+              } else {
+                  if(!appendLine(lines[i], i, lines)) break;
+                  i++;
+              }
+            } // while
             $("#modal-puzzle .list-group").sortable({
               // stop: (event, ui) => {
               //   debugger;
