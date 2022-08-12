@@ -150,26 +150,22 @@ $(() => {
         $("#old .contents").text(overrideByHash); // html -> text
     } else if (localStorage.getItem("old")) {
         var overrideByLocalStorage = localStorage.getItem("old");
+        overrideByLocalStorage = decodeEntities(overrideByLocalStorage); // &lt; becomes <
         $("#old .contents").text(overrideByLocalStorage); // html -> text
     }
 }); // dom ready
 
-var decodeEntities = (function() {
+function decodeEntities(str) {
     // this prevents any overhead from creating the object each time
-    var element = document.createElement('div');
+    // var element = document.createElement('div');
 
-    function decodeHTMLEntities(str) {
-        if (str && typeof str === 'string') {
-            // strip script/html tags
-            str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
-            str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
-            element.innerHTML = str;
-            str = element.textContent;
-            element.textContent = '';
-        }
-
-        return str;
+    if (str && typeof str === 'string') {
+        // strip script/html tags
+        str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+        str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+        str = str.replace(/&lt;/gmi, '<');
+        str = str.replace(/&gt;/gmi, '>');
     }
 
-    return decodeHTMLEntities;
-})();
+    return str;
+}
