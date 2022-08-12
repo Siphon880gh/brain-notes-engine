@@ -95,8 +95,9 @@ function newInputted() {
     if (text.replace(/\s/g, "").length === 0)
         $(".highlight").removeClass("highlight");
 
-    // var words = text.match(/\b(\w{2,})\b/g);
-    words = text.match(/([^\s]+)[\s]/g);
+    // words = text.match(/([^\s]+)[\s]/g);
+    words = text.match(/([^\s{}\(\)=+\.<>\\\/\~]+)[\s{}\(\)=+\.<>\\\/\~]/g);
+
 
     // Remove duplicated words
     words = [...new Set(words)];
