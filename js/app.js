@@ -38,6 +38,16 @@ function evalDifferences() {
     })(percent);
 
     $("#diff").text(percent);
+    percent = parseInt(percent);
+    if (percent == 100) {
+        $("#diff").css("background-color", "lightgreen");
+    } else if (percent >= 90) {
+        $("#diff").css("background-color", "yellow");
+    } else if (percent >= 85) {
+        $("#diff").css("background-color", "orange");
+    } else {
+        $("#diff").css("background-color", "red");
+    }
 }
 
 function placeCaretAtEnd(el) {

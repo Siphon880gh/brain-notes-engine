@@ -84,8 +84,8 @@ header('Pragma: no-cache');
           <div style="clear:both"></div>
           <h2><span class="fa fa-calculator"></span> Stats</h2>
 
-          <div class="bg-info-off" style="padding:5px; border-radius:5px; display:inline-block; margin-top:5px; text-align:left; margin-bottom:10px;">
-              <span style="font-weight:bold;">Programming Language Accuracy: </span><span id="diff" class="bg-info"></span>
+          <div style="padding:5px; border-radius:5px; display:inline-block; margin-top:5px; text-align:left; margin-bottom:10px;">
+              <span style="font-weight:bold;">Programming Language Accuracy: </span><span id="diff"></span>
           </div>
 
           <h2><span class="fa fa-book-reader"></span> Notes</h2>
