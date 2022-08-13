@@ -1,33 +1,34 @@
-#new, #old {
-  float: left;
-  width: 48vw;
+#new,
+#old {
+    float: left;
+    width: 48vw;
 }
 
-#new .contents, #old .contents {
-  border: 1px solid darkgray;
-  margin: 5px;
-  white-space: pre;
+#new .contents,
+#old .contents {
+    border: 1px solid darkgray;
+    margin: 5px;
+    white-space: pre;
 }
 
-#coverage:after {
-  content: "%";
+#diff:not(:empty)::after {
+    content: "%";
 }
 
 .highlight {
-  background-color: orange !important;
-}
-.spacer {
-  width:100%;
-  height:5px;
+    background-color: orange !important;
 }
 
-#diff:after {
-  content: "%";
+.spacer {
+    width: 100%;
+    height: 5px;
 }
+
 .clickable {
-  color: gray;
-  cursor: pointer;
+    color: gray;
+    cursor: pointer;
 }
+
 .clickable:hover {
-  color: black;
+    color: black;
 }
