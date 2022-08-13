@@ -56,11 +56,15 @@ header('Pragma: no-cache');
           <h1 class="title">Retype Notes</h1>
           <p>By Weng Fei Fung.<br/>Learn new programming languages and concepts by retyping them or rearranging their lines of code. Visual feedback lets you learn by trial and error. There is a table of contents you can edit in the source code.</p>
 
+          <div>
+            <hr/>
+            <h2>Practice Retyping</h2>
+          </div>
           <div id="sides">
 
             <aside id="old">
               <div class="header">
-                <h2>Template</h2>
+                <h3>Correct Code</h3>
                 <p>Paste correct text<a href="#" onclick="notes1()">...</a></p>
                 <div class="contents" contenteditable="true">This is a <b>sample.</b></div>
               </div>
@@ -68,8 +72,11 @@ header('Pragma: no-cache');
 
             <aside id="new" style="padding: 5px;">
               <div class="header">
-                <h2>Retype</h2>
-                <p>Practice <i class="fa fa-eraser clickable" onclick="if(confirm('Erase practice text?')) { $('#new .contents').val(''); $('.highlight').removeClass('highlight'); }"></i></p>
+                <h3>Retype</h3>
+                <p>
+                <span><i class="fa fa-eraser clickable" onclick="if(confirm('Erase practice text?')) { $('#new .contents').val(''); $('.highlight').removeClass('highlight'); }"></i></span>
+                <span style="display:inline; margin-right:2ch;"></span>
+                <span><span id="diff"></span></span></p>
                 <textarea class="contents" style="width:100%; margin-top:-6px; resize:vertical;"></textarea>
               </div>
             </aside>
@@ -80,13 +87,6 @@ header('Pragma: no-cache');
           <div style="clear:both"></div>
           <h2><span class="fa fa-puzzle-piece"></span> Learn by rearranging lines</h2>
           <p>Open now: <button class="btn btn-secondary btn-sm" onclick='if($("#old .contents").text().length===0) alert("Error: You need to have text in the template area"); else $("#modal-puzzle").modal("show");'>Rearrange</button></p>
-
-          <div style="clear:both"></div>
-          <h2><span class="fa fa-calculator"></span> Stats</h2>
-
-          <div style="padding:5px; border-radius:5px; display:inline-block; margin-top:5px; text-align:left; margin-bottom:10px;">
-              <span style="font-weight:bold;">Programming Language Accuracy: </span><span id="diff"></span>
-          </div>
 
           <h2><span class="fa fa-book-reader"></span> Notes</h2>
           <p>Interested in retyping text surrounded with ```:<br/><button class="btn btn-secondary btn-sm" onclick="copyOver();">Copy over for retyping</button></p>
