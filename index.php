@@ -54,7 +54,7 @@ header('Pragma: no-cache');
     <body>
         <div class="container-full" style="margin: 10px 5px;">
           <h1 class="title">Retype Notes</h1>
-          <p>By Weng Fei Fung. Purpose of this app is to help you learn new programming languages and concepts by having a table of contents that explains code snippets, and lets you practice the boilerplate by retyping it with instant feedback on your accuracy. It also lets you rearrange the lines of code into correct order to understand how the written code flows.</p>
+          <p>By Weng Fei Fung.<br/>Learn new programming languages and concepts by retyping them or rearranging their lines of code. Visual feedback lets you learn by trial and error. There is a table of contents you can edit in the source code.</p>
 
           <div id="sides">
 
