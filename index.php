@@ -58,7 +58,7 @@ header('Pragma: no-cache');
 
           <div>
             <hr/>
-            <h2>Practice Retyping</h2>
+            <h2><i class="fa fa-keyboard"></i> Learn by Retyping</h2>
           </div>
           <div id="sides">
 
@@ -86,7 +86,7 @@ header('Pragma: no-cache');
           
           <div style="clear:both"></div>
           <h2><span class="fa fa-puzzle-piece"></span> Learn by rearranging lines</h2>
-          <p>Open now: <button class="btn btn-secondary btn-sm" onclick='if($("#old .contents").text().length===0) alert("Error: You need to have text in the template area"); else $("#modal-puzzle").modal("show");'>Rearrange</button></p>
+          <p><button class="btn btn-secondary btn-sm" onclick='if($("#old .contents").text().length===0) alert("Error: You need to have text in the template area"); else $("#modal-puzzle").modal("show");'>Rearrange lines <i class="fa fa-sign-out-alt"></i></button></p>
 
           <h2><span class="fa fa-book-reader"></span> Notes</h2>
           <p>Interested in retyping text surrounded with ```:<br/><button class="btn btn-secondary btn-sm" onclick="copyOver();">Copy over for retyping</button></p>
