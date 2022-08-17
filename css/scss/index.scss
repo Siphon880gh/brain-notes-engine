@@ -11,6 +11,16 @@
     white-space: pre;
 }
 
+#diff {
+    padding: 2px 5px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+#diff:empty {
+    border: none;
+}
+
 #diff:not(:empty)::after {
     content: "%";
 }
