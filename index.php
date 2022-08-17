@@ -74,7 +74,7 @@ header('Pragma: no-cache');
               <div class="header">
                 <h3>Retype</h3>
                 <p>
-                <span><i class="fa fa-eraser clickable" onclick="if(confirm('Erase practice text?')) { $('#new .contents').val(''); $('.highlight').removeClass('highlight'); }"></i></span>
+                <span><i class="fa fa-eraser clickable" onclick="confirmEraseText()"></i></span>
                 <span style="display:inline; margin-right:2ch;"></span>
                 <span><span id="diff"></span></span></p>
                 <textarea class="contents" style="width:100%; margin-top:-6px; resize:vertical;"></textarea>

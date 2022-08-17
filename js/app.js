@@ -14,9 +14,23 @@ window.formatters = [
     }
 ]
 
+function confirmEraseText() {
+    if (confirm('Start all over retyping?')) {
+        $('#new .contents').val('');
+        $('.highlight').removeClass('highlight');
+        $("#new .contents").trigger("keyup"); // Call the delegator for evalDifference to clear accuracy text 
+    }
+}
+
 function evalDifferences() {
     var newText = $("#new .contents").val();
     var oldText = $("#old .contents").text();
+
+    // If user erases all text
+    if (newText.length === 0) {
+        $("#diff").text("").css("background-color", "transparent")
+        return;
+    }
 
     formatters.forEach((formatter) => { oldText = formatter(oldText); });
     formatters.forEach((formatter) => { newText = formatter(newText); });
