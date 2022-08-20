@@ -114,7 +114,7 @@ header('Pragma: no-cache');
             </div> <!-- footer wrapping another pair of heading body -->
 
             <div class="panel-body">
-              <p>Can parse entire contents to retyping/rearranging areas or between pairs of <code>```</code> if present in the notes:<br/><button class="btn btn-info btn-sm" onclick="copyOver();">Paste for retyping and rearranging</button></p>
+              <p>Can parse entire contents to retyping/rearranging sections. For specific pasting, have content surrounded by <code>```</code>:<br/><button class="btn btn-info btn-sm" onclick="copyOver();">Paste for retyping and rearranging</button></p>
               <fieldset class="deemp-fieldset">
                 <textarea id="summary-inner" style="height: 467.989px; resize: none; width:100%;"></textarea>
               </fieldset>
