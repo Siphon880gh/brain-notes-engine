@@ -56,8 +56,3 @@ h3 {
 .clickable:hover {
   color: black;
 }
-
-/* line 50, scss/index.scss */
-#summary-inner:empty {
-  display: none;
-}

@@ -208,7 +208,9 @@ function objToHtml(item) {
                 var $this = $(event.target);
                 var summary = $this.attr("data-summary");
                 summary = decodeURI(summary);
-                parent.document.querySelector("#summary-inner").value = summary;
+                let summaryInnerEl = parent.document.querySelector("#summary-inner");
+                summaryInnerEl.classList.remove("hide");
+                summaryInnerEl.value = summary;
                 setTimeout(() => {
                     autoExpand(window.top.document.querySelector("#summary-inner"))
                 }, 200);

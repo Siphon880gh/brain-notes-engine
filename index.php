@@ -114,10 +114,10 @@ header('Pragma: no-cache');
             </div> <!-- footer wrapping another pair of heading body -->
 
             <div class="panel-body">
-              <p>Can parse entire contents to retyping/rearranging sections. For specific pasting, have content surrounded by <code>```</code>:<br/><button class="btn btn-info btn-sm" onclick="copyOver();">Paste for retyping and rearranging</button></p>
               <fieldset class="deemp-fieldset">
-                <textarea id="summary-inner" style="height: 467.989px; resize: none; width:100%;"></textarea>
+                <textarea id="summary-inner" class="hide" style="height: 467.989px; resize: none; width:100%;"></textarea>
               </fieldset>
+              <p>Can parse entire contents to retyping/rearranging sections. For specific pasting, have content surrounded by <code>```</code>:<br/><button class="btn btn-info btn-sm" onclick="copyOver();">Paste for retyping and rearranging</button></p>
             </div>
 
           </div>
