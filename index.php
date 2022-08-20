@@ -104,7 +104,7 @@ header('Pragma: no-cache');
             </div>
             <div class="panel-footer">
               <div class="panel-heading">
-                <h2><span class="fa fa-microscope"></span> Explorer</h2>
+                <h2><span class="fa fa-microscope"></span> Explorer Curriculum</h2>
               </div>
               <div class="panel-body">
                 <iframe style="padding:5px; border-radius:5px; display:inline-block; margin-top:5px; text-align:left; margin-bottom:10px; width:100%;"
