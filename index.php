@@ -11,7 +11,7 @@ header('Pragma: no-cache');
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     <!-- jQuery and Bootstrap  -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="js/vendors/jquery.highlight-5.js"></script>
 
@@ -55,16 +55,17 @@ header('Pragma: no-cache');
         <div class="container-full" style="margin: 10px 5px;">
           <h1 class="title">Retype Notes</h1>
           <p>By Weng Fei Fung.</p>
-          <p>Learn new programming languages and concepts by retyping them or rearranging their lines of code. Visual feedback lets you learn by trial and error. There is a table of contents you can edit in the source code.
+          <p>
+            Learn new programming languages and concepts by retyping them or rearranging their lines of code. Visual feedback lets you learn by trial and error. There is a table of contents you can edit in the source code.
           </p>
         </div>
 
         <div class="container" style="margin-top:4ch;">
-          <div class="panel panel-default">
-            <div class="panel-heading">
+          <div class="card card-default">
+            <div class="card-header">
               <h2 class="text-center"><i class="fa fa-keyboard"></i> Learn by Retyping</h2>
             </div>
-            <div class="panel-body sides">
+            <div class="card-body sides">
 
               <aside id="old">
                 <div class="header">
@@ -85,35 +86,35 @@ header('Pragma: no-cache');
                 </div>
               </aside>
             </div> <!-- /sides -->
-          </div> <!-- panel -->
+          </div> <!-- card -->
           
           <div style="clear:both"></div>
 
-          <div class="panel panel-default">
-            <div class="panel-heading">
+          <div class="card card-default">
+            <div class="card-header">
               <h2 class="text-center"><span class="fa fa-puzzle-piece"></span> Learn by rearranging lines</h2>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
               <p class="text-center"><button class="btn btn-success btn-sm" onclick='if($("#old .contents").text().length===0) alert("Error: You need to have text in the template area"); else $("#modal-puzzle").modal("show");'>Rearrange lines <i class="fa fa-sign-out-alt"></i></button></p>
             </div>
           </div>
 
-          <div class="panel panel-primary">
-            <div class="panel-heading">
+          <div class="card card-primary">
+            <div class="card-header">
               <h2 class="text-center"><span class="fa fa-book-reader"></span> Notes</h2>
             </div>
-            <div class="panel-footer">
-              <div class="panel-heading">
+            <div class="card-footer">
+              <div class="card-header">
                 <h2><span class="fa fa-microscope"></span> Explorer Curriculum</h2>
               </div>
-              <div class="panel-body">
+              <div class="card-body">
                 <iframe style="padding:5px; border-radius:5px; display:inline-block; margin-top:5px; text-align:left; margin-bottom:10px; width:100%;"
               src="explorer.php">
                 </iframe>
               </div>
             </div> <!-- footer wrapping another pair of heading body -->
 
-            <div class="panel-body">
+            <div class="card-body">
               <fieldset class="deemp-fieldset">
                 <textarea id="summary-inner" class="hide" style="height: 467.989px; resize: none; width:100%;"></textarea>
               </fieldset>
@@ -258,12 +259,12 @@ header('Pragma: no-cache');
        
         <!-- jQuery UI, Bootstrap JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css"></link>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
-        <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
 
         <!-- Autosize textarea
             https://gomakethings.com/automatically-expand-a-textarea-as-the-user-types-using-vanilla-javascript/

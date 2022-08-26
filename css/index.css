@@ -56,3 +56,8 @@ h3 {
 .clickable:hover {
   color: black;
 }
+
+/* line 50, scss/index.scss */
+.card {
+  margin: 30px auto 30px auto;
+}
