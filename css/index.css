@@ -15,7 +15,7 @@ h3 {
 #old .contents {
   border: 1px solid darkgray;
   margin: 5px;
-  white-space: pre;
+  white-space: break-spaces;
 }
 
 /* line 18, scss/index.scss */
