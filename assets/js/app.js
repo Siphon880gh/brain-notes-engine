@@ -138,6 +138,22 @@ function newInputted() {
     // recalculateCoverage();
 } // newInputted
 
+/**
+ * 
+ * @function encodeURIFurther Chrome has default behavior of leaving " and ' as literal characters rather than encoding them when using location.href/hash
+ * So we use our own encoding strings
+ * 
+ */
+function encodeURIFurther(str) {
+
+    if (str && typeof str === 'string') {
+        str = str.replace(/%22/gmi, '__DQ__'); // "
+        str = str.replace(/%27/gmi, '__SQ__'); // '
+    }
+
+    return str;
+}
+
 window.maxHeight = 0;
 $(() => {
     window.maxHeight = $(window).height() - 240; // the textarea max height should be the window height except header and accuracy lines
@@ -150,6 +166,8 @@ $(() => {
         oldText = oldText.replace(/<div>/gi, '\n').replace(/<\/div>/gi, '').trim();
         localStorage.setItem("old", oldText);
         oldTextURI = encodeURI(oldText);
+        oldTextURI = encodeURIFurther(oldTextURI);
+        debugger;
         window.location.hash = oldTextURI;
         console.log("setItem old text: ", oldText);
         console.log("set URL hash: ", oldTextURI);
@@ -173,6 +191,7 @@ $(() => {
         var overrideByHash = window.location.hash;
         overrideByHash = overrideByHash.substr(1);
         overrideByHash = decodeURI(overrideByHash); // %20 becomes space
+        overrideByHash = decodeURIFurther(overrideByHash); // %22 becomes ", %27 becomes '
         overrideByHash = decodeEntities(overrideByHash); // &lt; becomes <
         $("#old .contents").text(overrideByHash); // html -> text
     } else if (localStorage.getItem("old")) {
@@ -182,14 +201,32 @@ $(() => {
     }
 }); // dom ready
 
+
+/**
+ * 
+ * @function decodeURIFurther Chrome has default behavior of leaving " and ' as literal characters rather than encoding them when using location.href/hash
+ * So we use our own encoding strings
+ * 
+ */
+function decodeURIFurther(str) {
+
+    if (str && typeof str === 'string') {
+        str = str.replace(/__DQ__/gmi, '"');
+        str = str.replace(/__SQ__/gmi, '\'');
+    }
+
+    return str;
+}
+
 function decodeEntities(str) {
 
     if (str && typeof str === 'string') {
-        // strip script/html tags
-        str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
-        str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
         str = str.replace(/&lt;/gmi, '<');
         str = str.replace(/&gt;/gmi, '>');
+        // strip script tags
+        str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+        // strip html tags
+        // str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
     }
 
     return str;
