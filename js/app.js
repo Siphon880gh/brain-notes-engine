@@ -149,8 +149,10 @@ $(() => {
         var oldText = $("#old .contents").html(); // html -> text
         oldText = oldText.replace(/<div>/gi, '\n').replace(/<\/div>/gi, '').trim();
         localStorage.setItem("old", oldText);
-        window.location.hash = oldText;
-        console.log("setItem old, set hash: ", oldText);
+        oldTextURI = encodeURI(oldText);
+        window.location.hash = oldTextURI;
+        console.log("setItem old text: ", oldText);
+        console.log("set URL hash: ", oldTextURI);
     });
 
     $("#old .contents").on("input", evalDifferences);
@@ -181,8 +183,6 @@ $(() => {
 }); // dom ready
 
 function decodeEntities(str) {
-    // this prevents any overhead from creating the object each time
-    // var element = document.createElement('div');
 
     if (str && typeof str === 'string') {
         // strip script/html tags
