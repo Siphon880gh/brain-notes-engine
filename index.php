@@ -13,11 +13,11 @@ header('Pragma: no-cache');
     <!-- jQuery and Bootstrap  -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="js/vendors/jquery.highlight-5.js"></script>
+    <script src="assets/js/vendors/jquery.highlight-5.js"></script>
 
-    <link href="css/index.css?v=<?php echo time(); ?>" rel="stylesheet">
-    <script src="js/diff.js?v=<?php echo time(); ?>"></script>
-    <script src="js/app.js?v=<?php echo time(); ?>"></script>
+    <link href="assets/css/index.css?v=<?php echo time(); ?>" rel="stylesheet">
+    <script src="assets/js/diff.js?v=<?php echo time(); ?>"></script>
+    <script src="assets/js/app.js?v=<?php echo time(); ?>"></script>
 
     <script>
     function loadFile() {
@@ -43,7 +43,7 @@ header('Pragma: no-cache');
     }, 200);
     </script>
 
-    <script src="js/vendors/save-when-stop-typing.js"></script>
+    <script src="assets/js/vendors/save-when-stop-typing.js"></script>
     <script>
     $(()=>{
       var saver = SaveWhenStopTyping($("#notes"));
@@ -269,7 +269,7 @@ header('Pragma: no-cache');
         <!-- Autosize textarea
             https://gomakethings.com/automatically-expand-a-textarea-as-the-user-types-using-vanilla-javascript/
         -->
-        <script src="js/vendors/autoExpand/autoExpand.js"></script>
+        <script src="assets/js/vendors/autoExpand/autoExpand.js"></script>
         <script id="auto-resize-textarea">
             document.querySelector("#summary-inner").addEventListener("input", (event) => {
                 autoExpand(event.target);
