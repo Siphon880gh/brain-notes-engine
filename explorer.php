@@ -267,8 +267,8 @@
     }
     </style>
 
-    <script src="js/app-snippets.js"></script>
-    <script src="js/multistates.js"></script>
+    <script src="assets/js/app-snippets.js"></script>
+    <script src="assets-explorer/js/multistates.js"></script>
 
 </head>
     <body>
@@ -388,10 +388,10 @@
         <!-- Autosize textarea
             https://gomakethings.com/automatically-expand-a-textarea-as-the-user-types-using-vanilla-javascript/
         -->
-        <script src="js/vendors/autoExpand/autoExpand.js"></script>
+        <script src="assets-explorer/js/vendors/autoExpand/autoExpand.js"></script>
 
         <!-- Highlighter -->
-        <script src="js/vendors/jquery.highlight.js"></script>
+        <script src="assets-explorer/js/vendors/jquery.highlight.js"></script>
         
     </body>
 </html>
