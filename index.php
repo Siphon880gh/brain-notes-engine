@@ -118,7 +118,7 @@ header('Pragma: no-cache');
               <fieldset class="deemp-fieldset">
                 <textarea id="summary-inner" class="hide" style="height: 467.989px; resize: none; width:100%;"></textarea>
               </fieldset>
-              <p>Can parse entire contents to retyping/rearranging sections. For specific pasting, have content surrounded by <code>```</code>:<br/><button class="btn btn-info btn-sm" onclick="copyOver();window.scrollTo({top:0}); ">Paste for retyping and rearranging</button></p>
+              <p>Can parse entire contents to retyping/rearranging sections. For specific pasting, have content surrounded by <code>```</code>:<br/><button class="btn btn-info btn-sm" onclick="copyOver();window.scrollTo({top:0}); ">Paste over to retyping and rearranging</button></p>
             </div>
 
           </div>
