@@ -95,7 +95,7 @@ header('Pragma: no-cache');
               <h2 class="text-center"><span class="fa fa-puzzle-piece"></span> Learn by rearranging lines</h2>
             </div>
             <div class="card-body">
-              <p class="text-center"><button class="btn btn-success btn-sm" onclick='if($("#old .contents").text().length===0) alert("Error: You need to have text in the template area"); else $("#modal-puzzle").modal("show");'>Rearrange lines <i class="fa fa-sign-out-alt"></i></button></p>
+              <p class="text-center"><button class="btn btn-success btn-sm" onclick='if($("#old .contents").text().length===0) { $("#modal-error .message").text("You need to have text in the template area"); $("#modal-error").modal("show"); } else $("#modal-puzzle").modal("show");'>Rearrange lines <i class="fa fa-sign-out-alt"></i></button></p>
             </div>
           </div>
 
@@ -161,7 +161,8 @@ header('Pragma: no-cache');
             // debugger;
             var listGroupEl = document.querySelector("#modal-puzzle .list-group");
             if(lines.length<=1) {
-              alert("Error: You need over 1 line to practice rearranging lines.");
+              $("#modal-error .message").text("You need over 1 line to practice rearranging lines.");
+              $("#modal-error").modal("show");
               return false;
             }
             function appendLine(line, i, lines) {
@@ -300,13 +301,36 @@ header('Pragma: no-cache');
               $template.trigger("input");
             }
           } else {
-            alert("Error: Nothing loaded in notes. Find a lesson from the curriculum.")
+            let html = `Nothing loaded in notes. Find a lesson from the curriculum and open it here by clicking the <i class="fa fa-book-reader"></i> icon.`;
+            $("#modal-error .message").html(html);
+            $("#modal-error").modal("show");
           }
 
 
         }
         </script>
         
+
+       <!-- Modal -->
+       <div id="modal-error" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title text-danger">Error</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+              </div>
+              <div class="modal-body">
+                <p class="message"></p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
 
     </body>
 </html>
