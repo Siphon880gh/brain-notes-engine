@@ -162,7 +162,10 @@ $(() => {
 
 
     $("#old .contents").on("input", () => {
-        var oldText = $("#old .contents").html(); // html -> text
+        var $old = $("#old .contents");
+        var $clonedDom = $old.clone();
+        $clonedDom.find('span.highlight').contents().unwrap();
+        var oldText = $clonedDom.html(); // html -> text
         oldText = oldText.replace(/<div>/gi, '\n').replace(/<\/div>/gi, '').trim();
         localStorage.setItem("old", oldText);
         oldTextURI = encodeURI(oldText);

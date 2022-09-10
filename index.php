@@ -43,13 +43,6 @@ header('Pragma: no-cache');
     }, 200);
     </script>
 
-    <script src="assets/js/vendors/save-when-stop-typing.js"></script>
-    <script>
-    $(()=>{
-      var saver = SaveWhenStopTyping($("#notes"));
-    });
-    </script>
-
 </head>
     <body>
         <div class="container-full" style="margin: 10px 5px;">
