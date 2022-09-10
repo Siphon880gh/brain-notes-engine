@@ -167,7 +167,7 @@ $(() => {
         localStorage.setItem("old", oldText);
         oldTextURI = encodeURI(oldText);
         oldTextURI = encodeURIFurther(oldTextURI);
-        debugger;
+        // debugger;
         window.location.hash = oldTextURI;
         console.log("setItem old text: ", oldText);
         console.log("set URL hash: ", oldTextURI);
