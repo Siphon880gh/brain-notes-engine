@@ -234,3 +234,12 @@ function decodeEntities(str) {
 
     return str;
 }
+
+$(() => {
+    // Difficulty level for retyping notes
+    $(".difficulty input").change((a, b) => {
+        let newLevel = $(".difficulty input:checked")[0].value;
+        $("#old").attr("data-class-level", newLevel);
+        // debugger;
+    });
+})

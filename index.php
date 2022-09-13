@@ -59,8 +59,27 @@ header('Pragma: no-cache');
               <h2 class="text-center"><i class="fa fa-keyboard"></i> Learn by Retyping</h2>
             </div>
             <div class="card-body sides">
+              <div class="info-nav-wrapper" style="height:80px; width:100%;">
 
-              <aside id="old">
+                <nav class="difficulty float-right">
+                  <span style="font-weight:500; margin-right:2ch;">Difficulty:</span>
+                  <div class="form-group inline-block">
+                    <input id="level-1" value="1" class="form-control" type="radio" name="level" checked="true">
+                    <label for="level-1" class="form-text">Level 1</label>
+                  </div>
+                  <div class="form-group inline-block">
+                    <input id="level-2" value="2" class="form-control" type="radio" name="level">
+                    <label for="level-2" class="form-text">Level 2</label>
+                  </div>
+                  <div class="form-group inline-block">
+                    <input id="level-3" value="3" class="form-control" type="radio" name="level">
+                    <label for="level-3" class="form-text">Level 3</label>
+                  </div>
+                </nav>
+                <span style="clear:left;"></span>
+                
+              </div>
+              <aside id="old" data-class-level="1">
                 <div class="header">
                   <h3>Correct Code</h3>
                   <p>Paste correct text<a href="#" onclick="notes1()">...</a></p>
