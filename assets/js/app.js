@@ -110,6 +110,10 @@ function readjustInputHeight($field) {
 
 } // readjustInputHeight
 
+function parseWords(text) {
+    return text.match(/([^\s{}\(\)=+\.<>\\\/\~]+)[\s{}\(\)=+\.<>\\\/\~]/g);
+}
+
 function newInputted() {
     readjustInputHeight($("#new .contents"));
 
@@ -120,8 +124,7 @@ function newInputted() {
         $(".highlight").removeClass("highlight");
 
     // words = text.match(/([^\s]+)[\s]/g);
-    words = text.match(/([^\s{}\(\)=+\.<>\\\/\~]+)[\s{}\(\)=+\.<>\\\/\~]/g);
-
+    words = parseWords(text);
 
     // Remove duplicated words
     words = [...new Set(words)];
@@ -165,6 +168,7 @@ $(() => {
         var $old = $("#old .contents");
         var $clonedDom = $old.clone();
         $clonedDom.find('span.highlight').contents().unwrap();
+        $clonedDom.find('span.fog').contents().unwrap();
         var oldText = $clonedDom.html(); // html -> text
         oldText = oldText.replace(/<div>/gi, '\n').replace(/<\/div>/gi, '').trim();
         localStorage.setItem("old", oldText);
@@ -242,4 +246,32 @@ $(() => {
         $("#old").attr("data-class-level", newLevel);
         // debugger;
     });
-})
+
+    // Tooltip
+    $('[data-toggle="toolbar"]').tooltip();
+
+    initLevel2();
+});
+
+function initLevel2() {
+
+    let oldText = $("#old .contents").text();
+    let word = parseWords(oldText);
+    word = word.map((word, i) => `<span class="fog fog-${i%3}">` + word + '</span>')
+    let newText = word.join("");
+    $("#old .contents").html(newText);
+
+    window.fogs = 0;
+    setInterval(() => {
+        $("#style-fogs").html(`
+        #old[data-class-level="2"] .fog {
+            background-color: black;
+        }
+        #old[data-class-level="2"] .fog.fog-${window.fogs} {
+            background-color: transparent;
+        }
+        `);
+        window.fogs++;
+        if (window.fogs > 3) window.fogs = 0;
+    }, 1000);
+}

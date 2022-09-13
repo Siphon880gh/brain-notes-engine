@@ -69,12 +69,12 @@ header('Pragma: no-cache');
                   </div>
                   <div class="form-group inline-block">
                     <input id="level-2" value="2" class="form-control" type="radio" name="level">
-                    <label for="level-2" class="form-text">Level 2</label>
+                    <label for="level-2" class="form-text" title="" data-toggle="toolbar">Level 2</label>
                   </div>
-                  <div class="form-group inline-block">
+                  <!-- <div class="form-group inline-block">
                     <input id="level-3" value="3" class="form-control" type="radio" name="level">
-                    <label for="level-3" class="form-text">Level 3</label>
-                  </div>
+                    <label for="level-3" class="form-text" title="Coming soon!" data-toggle="toolbar">Level 3</label>
+                  </div> -->
                 </nav>
                 <span style="clear:left;"></span>
                 
@@ -273,8 +273,6 @@ header('Pragma: no-cache');
         <!-- jQuery UI, Bootstrap JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css"></link>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
         <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
@@ -345,5 +343,12 @@ header('Pragma: no-cache');
           </div>
         </div>
 
+        <style id="style-fogs">
+        /* Dynamic fog styling */
+        </style>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script> <!-- PopperJs for Tooltip -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     </body>
 </html>
