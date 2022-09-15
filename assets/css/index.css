@@ -86,5 +86,5 @@ h3 {
 
 /* line 77, scss/index.scss */
 .fog {
-  transition: backgroundColor 200ms;
+  transition: background-color 200ms ease;
 }

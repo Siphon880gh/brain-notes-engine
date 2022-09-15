@@ -250,28 +250,49 @@ $(() => {
     // Tooltip
     $('[data-toggle="toolbar"]').tooltip();
 
-    initLevel2();
+    initLevel1();
 });
 
-function initLevel2() {
+window.fogsPoller = setInterval(() => {}, 1000);
+window.fogs = 0;
+
+function initFogs(covers, pollTime) {
 
     let oldText = $("#old .contents").text();
     let word = parseWords(oldText);
-    word = word.map((word, i) => `<span class="fog fog-${i%3}">` + word + '</span>')
+    word = word.map((word, i) => `<span class="fog fog-${i%covers}">` + word + '</span>')
     let newText = word.join("");
     $("#old .contents").html(newText);
 
-    window.fogs = 0;
-    setInterval(() => {
+    clearInterval(fogsPoller);
+    fogsPoller = setInterval(() => {
         $("#style-fogs").html(`
-        #old[data-class-level="2"] .fog {
+        #old[data-class-level="fog"] .fog {
             background-color: black;
         }
-        #old[data-class-level="2"] .fog.fog-${window.fogs} {
+        #old[data-class-level="fog"] .fog.fog-${window.fogs} {
             background-color: transparent;
         }
         `);
         window.fogs++;
-        if (window.fogs > 3) window.fogs = 0;
-    }, 1000);
+        if (window.fogs > covers) window.fogs = 0;
+    }, pollTime);
+}
+
+function initLevel1() {
+    clearInterval(fogsPoller);
+}
+
+function initLevel2() {
+    // 200ms, 2 covers
+    const covers = 2;
+    const pollTime = 200;
+    initFogs(covers, pollTime);
+}
+
+function initLevel3() {
+    // 1000ms, 3 covers
+    const covers = 3;
+    const pollTime = 5000;
+    initFogs(covers, pollTime);
 }
