@@ -271,7 +271,8 @@ $(() => {
     initLevel1();
 });
 
-window.fogsPoller = setInterval(() => {}, 1000);
+window.fogsMode = null;
+window.fogsMax = -1;
 window.fogs = 0;
 
 // Split randomly the text 5-8 chars
@@ -332,23 +333,47 @@ function reinitFogs(covers, pollTime) {
 
     $("#old .contents").html(newText);
 
-    clearInterval(fogsPoller);
-    fogsPoller = setInterval(() => {
-        $("#style-fogs").html(`
-        #old[data-class-level="fog"] .fog {
-            background-color: black;
+    // Using someInterval = setInterval(..) and clearInterval stops style from rendering so have to do this approach:
+    setInterval(function() {
+        if (window.fogsMode === "a") {
+            let fogsMax = 2;
+            console.log(`Setting style #style-fogs for up to ${fogsMax} every 200ms`);
+            document.querySelector("#style-fogs").innerHTML = `
+            #old[data-class-level="fog"] .fog {
+                background-color: black;
+            }
+            #old[data-class-level="fog"] .fog.fog-${window.fogs} {
+                background-color: transparent;
+            }
+            `;
+            window.fogs++;
+            if (window.fogs >= fogsMax) window.fogs = 0;
         }
-        #old[data-class-level="fog"] .fog.fog-${window.fogs} {
-            background-color: transparent;
+    }, 200);
+
+    setInterval(function() {
+        if (window.fogsMode === "b") {
+            let fogsMax = 3;
+            console.log(`Setting style #style-fogs for up to ${fogsMax} every 5s`);
+            console.log("Setting style #style-fogs");
+            document.querySelector("#style-fogs").innerHTML = `
+            #old[data-class-level="fog"] .fog {
+                background-color: black;
+            }
+            #old[data-class-level="fog"] .fog.fog-${window.fogs} {
+                background-color: transparent;
+            }
+            `;
+            window.fogs++;
+            if (window.fogs >= fogsMax) window.fogs = 0;
         }
-        `);
-        window.fogs++;
-        if (window.fogs > covers) window.fogs = 0;
-    }, pollTime);
+    }, 5000);
+
+    // debugger;
 }
 
 function initLevel1() {
-    clearInterval(fogsPoller);
+    clearInterval(window.fogsPoller);
 }
 
 function initLevel2() {
@@ -356,6 +381,7 @@ function initLevel2() {
     const covers = 2;
     const pollTime = 200;
     reinitFogs(covers, pollTime);
+    window.fogsMode = "a";
 }
 
 function initLevel3() {
@@ -363,4 +389,5 @@ function initLevel3() {
     const covers = 3;
     const pollTime = 5000;
     reinitFogs(covers, pollTime);
+    window.fogsMode = "b";
 }
