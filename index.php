@@ -71,7 +71,7 @@ header('Pragma: no-cache');
                     <input id="level-2" value="fog" class="form-control" type="radio" name="level">
                     <label for="level-2" class="form-text" title="" data-toggle="toolbar">Level 2</label>
                   </div>
-                  <div class="form-group inline-block" onclick="initLevel2()">
+                  <div class="form-group inline-block" onclick="initLevel3()">
                     <input id="level-3" value="fog" class="form-control" type="radio" name="level">
                     <label for="level-3" class="form-text" title="" data-toggle="toolbar">Level 3</label>
                   </div>

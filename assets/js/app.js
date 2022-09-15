@@ -110,6 +110,11 @@ function readjustInputHeight($field) {
 
 } // readjustInputHeight
 
+/**
+ * 
+ * @function parseWords Returns words between {}, [], periods, spaces, etc, but only those words
+ * @param {string} text Left text 
+ */
 function parseWords(text) {
     return text.match(/([^\s{}\(\)=+\.<>\\\/\~]+)[\s{}\(\)=+\.<>\\\/\~]/g);
 }
@@ -239,6 +244,19 @@ function decodeEntities(str) {
     return str;
 }
 
+function encodeEntities(str) {
+
+    if (str && typeof str === 'string') {
+        str = str.replace(/</gmi, '&lt;');
+        str = str.replace(/>/gmi, '&gt;');
+        // strip script tags
+        str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+        // strip html tags
+        // str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+    }
+
+    return str;
+}
 $(() => {
     // Difficulty level for retyping notes
     $(".difficulty input").change((a, b) => {
@@ -256,12 +274,62 @@ $(() => {
 window.fogsPoller = setInterval(() => {}, 1000);
 window.fogs = 0;
 
-function initFogs(covers, pollTime) {
+// Split randomly the text 5-8 chars
+function splitCharacters(text) {
+    // text = encodeEntities(text);
+    // text = encodeURI(text);
+    // text = encodeURIFurther(text);
+
+    // texts split by < and > html entities
+    // let texts = text.split(new RegExp("&lt;|&gt;"));
+
+    text = text.replace(/<\//gmi, '√');
+    text = text.replace(/</gmi, '£');
+    text = text.replace(/>/gmi, 'å');
+
+    let min = 5;
+    let max = 8;
+    text = text.split(""); // change "asdf" => ["a", "s", ...]
+    let randNum = function() {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    let splitted = [];
+    while (text.length) {
+        var chars = text.splice(0, randNum());
+        var psuedoWord = chars.join("");
+        splitted.push(psuedoWord);
+    }
+    // debugger;
+    // console.log({ splitted })
+
+    // debugger;
+    return splitted;
+} // splitCharacters
+
+function reinitFogs(covers, pollTime) {
 
     let oldText = $("#old .contents").text();
-    let word = parseWords(oldText);
+    let word = splitCharacters(oldText);
+    // word = word.map(word => {
+    //     // word = decodeURI(word); // %20 becomes space
+    //     // word = decodeURIFurther(word); // %22 becomes ", %27 becomes '
+    //     word = decodeEntities(word); // &lt; becomes <
+    // });
     word = word.map((word, i) => `<span class="fog fog-${i%covers}">` + word + '</span>')
     let newText = word.join("");
+
+    // debugger;
+    // newText = decodeEntities(newText);
+
+    // newText = newText.replace(/√/gmi, '</');
+    // newText = newText.replace(/£/gmi, '<');
+    // newText = newText.replace(/å/gmi, '>');
+
+    newText = newText.replace(/√/gmi, '&lt;/');
+    newText = newText.replace(/£/gmi, '&lt;');
+    newText = newText.replace(/å/gmi, '&gt;');
+
     $("#old .contents").html(newText);
 
     clearInterval(fogsPoller);
@@ -287,12 +355,12 @@ function initLevel2() {
     // 200ms, 2 covers
     const covers = 2;
     const pollTime = 200;
-    initFogs(covers, pollTime);
+    reinitFogs(covers, pollTime);
 }
 
 function initLevel3() {
     // 1000ms, 3 covers
     const covers = 3;
     const pollTime = 5000;
-    initFogs(covers, pollTime);
+    reinitFogs(covers, pollTime);
 }
