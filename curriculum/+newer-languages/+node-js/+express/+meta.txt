@@ -1,0 +1,51 @@
+Express lets you setup a website with an apparent html file hierarchy and / or restful API.
+
+First make sure express is installed.You can install it on the project or globally(refer to Setup).
+
+Then create a node js script such as server.js.Yes it share the same file extension as node js because it is a node js script.It just uses the node module express.
+```
+server.js
+```
+
+Require express and activate it with:
+```
+const express = require("express");
+const server = express();
+```
+
+Use a middleware that points to the static folder.You can use other middlewares to enhance this Express website.
+```
+server.use(express.static("public"))
+```
+
+Now you can create a file public / index.html:
+```
+public/index.html
+```
+
+Then you can setup a route to public / index.html:
+```
+server.get("/", (req, res) => {
+    res.sendFile(__dirname + "/index.html");
+});
+```
+
+Or you can setup a restful API to the GET method and
+return json to the API user:
+```
+server.get("/json", (req, res) => {
+    res.json({ message: "Hello world!" });
+});
+```
+
+Finally, you must setup listening on your server.If you want this server on a web server, you can run the server.js in the background.Refer to the lesson on running on web server.
+```
+let port = 4000;
+
+if (process && process.env && process.env.PORT)
+    port = process.env.PORT;
+
+server.listen(port, () => {
+    console.log(`Server listening at $ { port }`);
+});
+```
