@@ -19,6 +19,43 @@ header('Pragma: no-cache');
     <script src="assets/js/diff.js?v=<?php echo time(); ?>"></script>
     <script src="assets/js/app.js?v=<?php echo time(); ?>"></script>
 
+
+    <style>
+    /* Testing zoom levels on mobiles. Non-standard / Experimental */
+    @media screen AND (max-width: 768px) {
+      :root {
+        zoom: 1;
+        /* transform: scale(0.7); */
+        /* font-size: .7rem; */
+        /* max-width: 100vw;
+        margin: 0;
+        padding: 0; */
+      }
+      .container {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+      }
+      .card {
+        width: 100vw;
+      }
+      .card-body {
+        padding: 20px 0;
+      }
+      #old .contents, #new .contents {
+        margin: 0;
+      }
+      .contents {
+        font-size: .7rem;
+      }
+    }
+
+    /* Explore Curriculum is in a footer */
+    .card-footer {
+      padding: 0;
+    }
+    </style>
+
     <script>
     function loadFile() {
       var file = event.target.files[0];
@@ -117,7 +154,7 @@ header('Pragma: no-cache');
             </div>
             <div class="card-footer">
               <div class="card-header">
-                <h2><span class="fa fa-microscope"></span> Explorer Curriculum</h2>
+                <h2><span class="fa fa-microscope"></span> Explore Curriculum</h2>
               </div>
               <div class="card-body">
                 <iframe style="padding:5px; border-radius:5px; display:inline-block; margin-top:5px; text-align:left; margin-bottom:10px; width:100%;"
