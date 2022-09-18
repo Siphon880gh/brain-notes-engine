@@ -61,9 +61,9 @@ header('Pragma: no-cache');
             <div class="card-body sides">
               <div class="info-nav-wrapper" style="height:80px; width:100%;">
 
-                <nav class="difficulty float-right" onclick="initLevel1()">
+                <nav class="difficulty float-right">
                   <span style="font-weight:500; margin-right:2ch;">Difficulty:</span>
-                  <div class="form-group inline-block">
+                  <div class="form-group inline-block" onclick="location.reload(); /* initLevel1() */">
                     <input id="level-1" value="1" class="form-control" type="radio" name="level" checked="true">
                     <label for="level-1" class="form-text" title="Highlights code as you type" data-toggle="toolbar">Level 1</label>
                   </div>

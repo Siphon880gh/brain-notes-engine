@@ -168,7 +168,6 @@ $(() => {
 
     $("#new .contents").on("keyup blur", newInputted); // keyup
 
-
     $("#old .contents").on("input", () => {
         var $old = $("#old .contents");
         var $clonedDom = $old.clone();
@@ -375,11 +374,22 @@ function reinitFogs(covers, pollTime) {
     // debugger;
 }
 
+// function resetParsedClasses() {
+//     var $old = $("#old .contents");
+//     var $clonedDom = $old.clone();
+//     $clonedDom.find('span.highlight').contents().unwrap();
+//     $clonedDom.find('span.fog').contents().unwrap();
+//     $old.html($clonedDom.html());
+// }
+
 function initLevel1() {
-    clearInterval(window.fogsPoller);
+    // resetParsedClasses();
+
 }
 
 function initLevel2() {
+    // resetParsedClasses();
+
     // 200ms, 2 covers
     const covers = 2;
     const pollTime = 200;
@@ -388,6 +398,8 @@ function initLevel2() {
 }
 
 function initLevel3() {
+    // resetParsedClasses();
+
     // 1000ms, 3 covers
     const covers = 3;
     const pollTime = 5000;
