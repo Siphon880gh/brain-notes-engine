@@ -308,30 +308,7 @@ function splitCharacters(text) {
     return splitted;
 } // splitCharacters
 
-function reinitFogs(covers, pollTime) {
-
-    let oldText = $("#old .contents").text();
-    let word = splitCharacters(oldText);
-    // word = word.map(word => {
-    //     // word = decodeURI(word); // %20 becomes space
-    //     // word = decodeURIFurther(word); // %22 becomes ", %27 becomes '
-    //     word = decodeEntities(word); // &lt; becomes <
-    // });
-    word = word.map((word, i) => `<span class="fog fog-${i%covers}">` + word + '</span>')
-    let newText = word.join("");
-
-    // debugger;
-    // newText = decodeEntities(newText);
-
-    // newText = newText.replace(/√/gmi, '</');
-    // newText = newText.replace(/£/gmi, '<');
-    // newText = newText.replace(/å/gmi, '>');
-
-    newText = newText.replace(/√/gmi, '&lt;/');
-    newText = newText.replace(/£/gmi, '&lt;');
-    newText = newText.replace(/å/gmi, '&gt;');
-
-    $("#old .contents").html(newText);
+function initFogs() {
 
     // Using someInterval = setInterval(..) and clearInterval stops style from rendering so have to do this approach:
     setInterval(function() {
@@ -368,6 +345,32 @@ function reinitFogs(covers, pollTime) {
             if (window.fogs >= fogsMax) window.fogs = 0;
         }
     }, 5000);
+}
+
+function reinitFogs(covers, pollTime) {
+
+    let oldText = $("#old .contents").text();
+    let word = splitCharacters(oldText);
+    // word = word.map(word => {
+    //     // word = decodeURI(word); // %20 becomes space
+    //     // word = decodeURIFurther(word); // %22 becomes ", %27 becomes '
+    //     word = decodeEntities(word); // &lt; becomes <
+    // });
+    word = word.map((word, i) => `<span class="fog fog-${i%covers}">` + word + '</span>')
+    let newText = word.join("");
+
+    // debugger;
+    // newText = decodeEntities(newText);
+
+    // newText = newText.replace(/√/gmi, '</');
+    // newText = newText.replace(/£/gmi, '<');
+    // newText = newText.replace(/å/gmi, '>');
+
+    newText = newText.replace(/√/gmi, '&lt;/');
+    newText = newText.replace(/£/gmi, '&lt;');
+    newText = newText.replace(/å/gmi, '&gt;');
+
+    $("#old .contents").html(newText);
 
     // debugger;
 }
@@ -391,3 +394,5 @@ function initLevel3() {
     reinitFogs(covers, pollTime);
     window.fogsMode = "b";
 }
+
+initFogs();
