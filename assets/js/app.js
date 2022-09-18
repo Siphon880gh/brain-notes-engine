@@ -266,7 +266,7 @@ $(() => {
     });
 
     // Tooltip
-    $('[data-toggle="toolbar"]').tooltip();
+    $('[data-toggle="toolbar"]').tooltip({ placement: "bottom" });
 
     initLevel1();
 });
