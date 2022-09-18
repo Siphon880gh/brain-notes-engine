@@ -298,13 +298,14 @@ header('Pragma: no-cache');
           var summary = $summary.val();
           if($summary.val().length) {
             var $template = $("#old .contents");
-            // var code = Array.from(summary.matchAll(/\`\`\`(.*?)\`\`\`/gi)).map(el => el[1]);
-            // var code = Array.from(summary.matchAll(RegExp("```(.*?)```", "gmi"))).map(el => el[1]);
-            var code = [...summary.matchAll(new RegExp("`\`\`[\n\r]{0,}(.*?)[\n\r]{0,}\`\`\`", "gmi"))].map(regExpItr => regExpItr[1]);
+            // var code = [...summary.matchAll(new RegExp("`\`\`[\n\r]{0,}(.*?)[\n\r]{0,}\`\`\`", "gmi"))].map(regExpItr => regExpItr[1]);
+            var code = [...summary.matchAll(new RegExp("\`\`\`((.|\n|\r)*?)\`\`\`", "gmi"))].map(regExpItr => regExpItr[1]);
             
             // If text has ```___```, then get all text between those backticks, otherwise just get all of the text
             if(code.length) {
               var code = code.join("\n");
+              code = code.replaceAll("\n\n", "\n");
+              code = code.replaceAll("\r\r", "\r");
               $template.text(code);
               $template.trigger("input");
             } else {
