@@ -94,6 +94,7 @@ header('Pragma: no-cache');
           <div class="card card-default">
             <div class="card-header">
               <h2 class="text-center"><i class="fa fa-keyboard"></i> Learn by Retyping</h2>
+              <div style="float:right">Want to learn <a href="#explore-curriculum" onclick="animateExploreCurriculum();">other frameworks/languages</a>?</div>
             </div>
             <div class="card-body sides">
               <div class="info-nav-wrapper" style="height:80px; width:100%;">
@@ -152,7 +153,7 @@ header('Pragma: no-cache');
             <div class="card-header">
               <h2 class="text-center"><span class="fa fa-book-reader"></span> Notes</h2>
             </div>
-            <div class="card-footer">
+            <div id="explore-curriculum" class="card-footer">
               <div class="card-header">
                 <h2><span class="fa fa-microscope"></span> Explore Curriculum</h2>
               </div>

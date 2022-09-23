@@ -245,6 +245,9 @@
         }); // foreach
         $("#table-search-results pre").highlight($("#searcher").val());
         toggleSearchResults(true);
+
+        // Scroll to bottom where search results are
+        window.scrollTo(0,document.body.scrollHeight);
       });
     } // doSearcher
 
@@ -315,7 +318,7 @@
                 <form action=""></form>
                 <!-- <label for="alpha-strip" style="font-weight:400;">Text:</label> -->
                 <input id="searcher" onkeyup="checkSearcher(event)" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
-                <button id="searcher-btn" onclick="doSearcher()" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Find text</button>
+                <button id="searcher-btn" onclick="doSearcher();" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Find text</button>
                 <span>&nbsp;</span>
                 <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;">Clear</button>
           </div>

@@ -408,3 +408,10 @@ function initLevel3() {
 }
 
 initFogs();
+
+function animateExploreCurriculum() {
+    $("#explore-curriculum .card-header")
+        .animate({ "color": "red" }, 1000)
+        .delay(500)
+        .animate({ "color": "black" }, 2000)
+}
