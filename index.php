@@ -120,7 +120,7 @@ header('Pragma: no-cache');
               <aside id="old" data-class-level="1">
                 <div class="header">
                   <h3>Correct Code</h3>
-                  <p>Paste correct text<a href="#" onclick="notes1()">...</a></p>
+                  <p>Have correct code here<a href="#" onclick="notes1()">...</a></p>
                   <div class="contents" contenteditable="true">This is a <b>sample.</b></div>
                 </div>
               </aside>
