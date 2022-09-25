@@ -4,7 +4,7 @@ Useful command line user interface for Node JS.
 Ask user questions on the command line. 
 They can type responses, leave blank, choose answer, choose multiple answers, confirm with Y/N, type a response in their text editor, etc
 
-1. Setup package.json through command line, then install inquirer model
+1. Setup package.json through command line, then install inquirer module.
 
 2. You'll require the inquirer module.
 Documentation is here: https://www.npmjs.com/package/inquirer
