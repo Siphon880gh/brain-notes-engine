@@ -1,4 +1,6 @@
-Useful command line user interface.
+What is Inquirer?
+
+Useful command line user interface for Node JS.
 Ask user questions on the command line. 
 They can type responses, leave blank, choose answer, choose multiple answers, confirm with Y/N, type a response in their text editor, etc
 
