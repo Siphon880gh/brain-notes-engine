@@ -208,12 +208,19 @@ function objToHtml(item) {
                 var $this = $(event.target);
                 var summary = $this.attr("data-summary");
                 summary = decodeURI(summary);
+
+                // Show notes in textarea
                 let summaryInnerEl = parent.document.querySelector("#summary-inner");
                 summaryInnerEl.classList.remove("hide");
                 summaryInnerEl.value = summary;
+
+                // Allow copy from textarea to practice areas
+                let guideCopyToPractice = parent.document.querySelector("#js-visible-if-contents");
+                guideCopyToPractice.classList.remove("hide");
                 setTimeout(() => {
                     autoExpand(window.top.document.querySelector("#summary-inner"))
                 }, 200);
+
                 // var height = $("textarea")[0].scrollHeight;
                 // $("textarea").height(height);
             });

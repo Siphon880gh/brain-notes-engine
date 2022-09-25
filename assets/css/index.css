@@ -88,3 +88,8 @@ h3 {
 .fog {
   transition: background-color 200ms ease;
 }
+
+/* line 81, scss/index.scss */
+.hide {
+  display: none;
+}

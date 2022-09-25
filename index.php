@@ -168,7 +168,11 @@ header('Pragma: no-cache');
               <fieldset class="deemp-fieldset">
                 <textarea id="summary-inner" class="hide" style="height: 467.989px; resize: none; width:100%;"></textarea>
               </fieldset>
-              <p>Can parse entire contents to retyping/rearranging sections. For specific pasting, have content surrounded by <code>```</code>:<br/><button class="btn btn-info btn-sm" onclick="copyOver();window.scrollTo({top:0}); ">Practice retyping and rearranging</button></p>
+              <div id="js-visible-if-contents" class="hide">
+                <p>Want to practice? Can move the entire lesson to retyping/rearranging sections. For specific parts you want to practice, have content surrounded by <code>```</code>. You can have multiple sections surrounded with these backticks. 
+                <br/>
+                <button class="btn btn-info btn-sm" onclick="copyOver();window.scrollTo({top:0}); " style="margin-top:5px">Practice retyping and rearranging</button></p>
+              </div>
             </div>
 
           </div>
