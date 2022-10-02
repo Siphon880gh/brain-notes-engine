@@ -45,6 +45,17 @@ if(true) {
 console.log( increaseNum > 6 ); // is true
 ```
 
+Object keys: If assigning an object key to a variable with the same name, you don't have to type redundantly anymore
+```
+let animal = "cat",
+let vocal = "meow";
+
+let actionableAnimal = {
+    animal,
+    vocal
+}
+```
+
 # Shorten lines of code
 
 Ternary operation aka short circuiting because if-else may be too long to read
