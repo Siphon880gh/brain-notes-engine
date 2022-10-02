@@ -15,11 +15,11 @@ const inquirer = require("inquirer");
 
 3. Here you use the inquirer API
 You are chaining methods to inquirer object: prompt, then, catch. 
-Prompt receives an array of question objects where each object has field "name" where you give the variable name that stores the user's input in .then(). Furthermore, the question object indicates the type of question, the question message to display, and additional properties applicable to the question type.
-- The default type is input, so `type: "input"` is optional.
-- Some questions you don't want user to skip. Validate method will make sure the screen goes to the next question only if it returns true based on your logic with the input. Additionally, you can display a validation message by returning a string instead of false.
-The .then() method gets an array of answer objects where you get the inputs from the variable names you set at the "name" fields.
-The .catch() method catches any error. Inquirer forces you to chain onto .catch(), otherwise the Node script will error.
+- .prompt(..) receives an array of question objects where each object has field "name" where you give the variable name that stores the user's input in .then(). Furthermore, the question object indicates the type of question, the question message to display, and additional properties applicable to the question type.
+ - The default type is input, so `type: "input"` is optional.
+ - Some questions you don't want user to skip. Validate method will make sure the screen goes to the next question only if it returns true based on your logic with the input. Additionally, you can display a validation message by returning a string instead of false.
+- .then(..) method gets an array of answer objects where you get the inputs from the variable names you set at the "name" fields.
+- .catch() method catches any error. Inquirer forces you to chain onto .catch(), otherwise the Node script will error.
 
 ```
 inquirer.prompt([{
