@@ -115,39 +115,42 @@ function readjustInputHeight($field) {
  * @function parseWords Returns words between {}, [], periods, spaces, etc, but only those words
  * @param {string} text Left text 
  */
-// parseWords between {}, etc disabled because app lags after some typing. Instead, opt for parsing between spaces
-// function parseWords(text) {
-//     return text.match(/([^\s{}\(\)=+\.<>\\\/\~]+)[\s{}\(\)=+\.<>\\\/\~]/g);
-// }
 function parseWords(text) {
-    return text.match(/([^\s]+)[\s$]/g);
+    // Between space-type characters
+    // return text.match(/([^\s]+)[\s$]/g);
+
+    // Between special symbols and space-type characters:
+    const words = text.match(/([^\s{}\(\)=+\.<>\\\/\~]+)[\s{}\(\)=+\.<>\\\/\~]/g);
+
+    return words;
 }
 
-function newInputted() {
+function newInputted(event) {
+    let key = event.key;
+    key = key.toLowerCase();
+
+    if (key !== " " && key !== "enter" && key !== "{" && key !== "}" && key !== "(" && key !== ")" && key !== "[" && key !== "'" && key !== "\"" && key !== "\\" && key !== "/" && key !== ", " && key !== "." && key !== ": " && key !== ";" && key !== " - " && key !== " = ")
+        return;
+
     readjustInputHeight($("#new .contents"));
 
     // Extract words
     var text = $("#new .contents").val();
 
-    if (text.replace(/\s/g, "").length === 0)
-        $(".highlight").removeClass("highlight");
-
-    // words = text.match(/([^\s]+)[\s]/g);
-    words = parseWords(text);
+    let words = parseWords(text);
 
     // Remove duplicated words
     words = [...new Set(words)];
-    console.log(words);
+    console.log("words", words);
 
-    // Unhighlight old words
-    // $(".highlight").removeClass("highlight");
+    let resetHighlights = $("#old .contents").text();
+    $("#old .contents").text(resetHighlights);
 
     // Highlight words (have to run through each word individually)
     words.forEach((word) => {
         $("#old .contents").highlight(word);
     }); // foreach
 
-    // recalculateCoverage();
 } // newInputted
 
 /**
@@ -170,7 +173,8 @@ window.maxHeight = 0;
 $(() => {
     window.maxHeight = $(window).height() - 240; // the textarea max height should be the window height except header and accuracy lines
 
-    $("#new .contents").on("keyup blur", newInputted); // keyup
+    // $("#new .contents").on("keyup blur", newInputted); // keyup
+    $("#new .contents").on("keyup", newInputted); // keyup
 
     $("#old .contents").on("input", () => {
         var $old = $("#old .contents");
