@@ -20,8 +20,8 @@
     <!-- <script src="assets/js/vendor/ko.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
         
-    <link href="explorer-assets/css/index.css?v=<?php echo time(); ?>" rel="stylesheet">
-    <link href="explorer-assets/css/multistates.css?v=<?php echo time(); ?>" rel="stylesheet">
+    <link href="assets-explorer/css/index.css?v=<?php echo time(); ?>" rel="stylesheet">
+    <link href="assets-explorer/css/multistates.css?v=<?php echo time(); ?>" rel="stylesheet">
 
     <style>
     li {
@@ -271,7 +271,7 @@
     </style>
 
     <script src="assets/js/app-snippets.js"></script>
-    <script src="explorer-assets/js/multistates.js"></script>
+    <script src="assets-explorer/js/multistates.js"></script>
 
 </head>
     <body>
@@ -358,7 +358,7 @@
         <div id="copied-message" style="display:none; position:fixed; border-radius:5px; top:0; right:0; color:green; background-color:rgba(255,255,255,1); padding: 5px 10px 5px 5px;">Copied!</div>
         
         <!-- Highlighter -->
-        <script src="explorer-assets/js/jquery.highlight.js"></script>
+        <script src="assets-explorer/js/jquery.highlight.js"></script>
 
         <!-- Designer: Open Sans, Lato, FontAwesome, Waypoints, Skrollr, Pixel-Em-Converter -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300|Open+Sans+Condensed:300" rel="stylesheet">
@@ -370,7 +370,7 @@
         
         <!-- Rendering: Handlebars JS, LiveQuery, Sprintf JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
-        <script src="explorer-assets/js/vendor/livequery.js"></script>
+        <script src="assets-explorer/js/vendor/livequery.js"></script>
         <script src="https://raw.githack.com/azatoth/jquery-sprintf/master/jquery.sprintf.js"></script>
         
         <!-- Compatibility: Modernizr, jQuery Migrate (check browser) -->
@@ -391,10 +391,10 @@
         <!-- Autosize textarea
             https://gomakethings.com/automatically-expand-a-textarea-as-the-user-types-using-vanilla-javascript/
         -->
-        <script src="explorer-assets/js/vendors/autoExpand/autoExpand.js"></script>
+        <script src="assets-explorer/js/vendors/autoExpand/autoExpand.js"></script>
 
         <!-- Highlighter -->
-        <script src="explorer-assets/js/vendors/jquery.highlight.js"></script>
+        <script src="assets-explorer/js/vendors/jquery.highlight.js"></script>
         
     </body>
 </html>
