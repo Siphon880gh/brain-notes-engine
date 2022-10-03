@@ -115,8 +115,12 @@ function readjustInputHeight($field) {
  * @function parseWords Returns words between {}, [], periods, spaces, etc, but only those words
  * @param {string} text Left text 
  */
+// parseWords between {}, etc disabled because app lags after some typing. Instead, opt for parsing between spaces
+// function parseWords(text) {
+//     return text.match(/([^\s{}\(\)=+\.<>\\\/\~]+)[\s{}\(\)=+\.<>\\\/\~]/g);
+// }
 function parseWords(text) {
-    return text.match(/([^\s{}\(\)=+\.<>\\\/\~]+)[\s{}\(\)=+\.<>\\\/\~]/g);
+    return text.match(/([^\s]+)[\s$]/g);
 }
 
 function newInputted() {
