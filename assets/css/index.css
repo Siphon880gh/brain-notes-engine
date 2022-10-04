@@ -93,3 +93,8 @@ h3 {
 .hide {
   display: none;
 }
+
+/* line 85, scss/index.scss */
+#explore-curriculum iframe {
+  resize: vertical;
+}
