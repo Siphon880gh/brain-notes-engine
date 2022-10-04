@@ -32,15 +32,21 @@ app.get("/api/:subpath?key1=value&key2=value", (req, res) => {
 	res.json({success:true});
 
 });
+```
 
 4b. In this example, the client requests for a webpage or other file to be served. Instead of sending json as a response, you serve the filepath. Remember, that filepath has to exist. We will use path module because it builds the filepath with forward-slashes or backward-slashes depending on the server's operating system.
 ```
 const path = require("path");
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "animals.html"));
+	res.sendFile(path.join(__dirname, "public", "animals.html"));
 
 });
+```
+
+4c. We covered sending JSON and files. You can also send raw text:
+```
+	res.send("We see you there. The API is not finished. Please come back later!");
 ```
 
 
