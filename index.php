@@ -82,11 +82,11 @@ header('Pragma: no-cache');
 
 </head>
     <body>
-        <div class="container-full" style="margin: 10px 5px;">
+        <div class="site-header" style="margin: 10px 5px;">
           <h1 class="title">Retype Notes</h1>
           <p>By Weng Fei Fung.</p>
           <p>
-            Learn new programming languages and concepts by retyping them or rearranging their lines of code. Visual feedback lets you learn by trial and error. There is a table of contents you can edit in the source code.
+            Learn new programming languages and concepts by retyping them or rearranging their lines of code.<br/>Visual feedback lets you learn by trial and error.
           </p>
         </div>
 

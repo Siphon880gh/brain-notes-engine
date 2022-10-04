@@ -9,13 +9,18 @@ h3 {
 }
 
 /* line 11, scss/index.scss */
+.site-header {
+  text-align: center;
+}
+
+/* line 15, scss/index.scss */
 #new,
 #old {
   float: left;
   width: 50%;
 }
 
-/* line 17, scss/index.scss */
+/* line 21, scss/index.scss */
 #new .contents,
 #old .contents {
   border: 1px solid darkgray;
@@ -23,78 +28,78 @@ h3 {
   white-space: break-spaces;
 }
 
-/* line 24, scss/index.scss */
+/* line 28, scss/index.scss */
 #new textarea:blur {
   border-style: none !important;
   border-color: Transparent !important;
   overflow: auto !important;
 }
 
-/* line 33, scss/index.scss */
+/* line 37, scss/index.scss */
 #diff {
   padding: 2px 5px;
   border: 1px solid gray;
   border-radius: 5px;
 }
 
-/* line 39, scss/index.scss */
+/* line 43, scss/index.scss */
 #diff:empty {
   border: none;
 }
 
-/* line 43, scss/index.scss */
+/* line 47, scss/index.scss */
 #diff:not(:empty)::after {
   content: "%";
 }
 
-/* line 47, scss/index.scss */
+/* line 51, scss/index.scss */
 #old[data-class-level="1"] .highlight {
   background-color: orange !important;
 }
 
-/* line 51, scss/index.scss */
+/* line 55, scss/index.scss */
 .spacer {
   width: 100%;
   height: 5px;
 }
 
-/* line 56, scss/index.scss */
+/* line 60, scss/index.scss */
 .clickable {
   color: gray;
   cursor: pointer;
 }
 
-/* line 61, scss/index.scss */
+/* line 65, scss/index.scss */
 .clickable:hover {
   color: black;
 }
 
-/* line 65, scss/index.scss */
+/* line 69, scss/index.scss */
 .card {
   margin: 30px auto 30px auto;
 }
 
-/* line 69, scss/index.scss */
+/* line 73, scss/index.scss */
 .difficulty .form-control[type="radio"] {
   height: auto;
 }
 
-/* line 73, scss/index.scss */
+/* line 77, scss/index.scss */
 .difficulty .form-group {
   margin-right: 2ch;
 }
 
-/* line 77, scss/index.scss */
+/* line 81, scss/index.scss */
 .fog {
   transition: background-color 200ms ease;
 }
 
-/* line 81, scss/index.scss */
+/* line 85, scss/index.scss */
 .hide {
   display: none;
 }
 
-/* line 85, scss/index.scss */
+/* line 89, scss/index.scss */
 #explore-curriculum iframe {
   resize: vertical;
 }
