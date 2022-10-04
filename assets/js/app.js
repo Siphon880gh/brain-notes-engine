@@ -51,7 +51,7 @@ function evalDifferences() {
         return p.substr(0, 5);
     })(percent);
 
-    $("#diff").text(percent);
+    $("#diff").text("Accuracy: " + percent);
     percent = parseInt(percent);
     if (percent == 100) {
         $("#diff").css("background-color", "lightgreen");
