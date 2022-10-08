@@ -11,8 +11,8 @@ PORT=3001
 
 At the top of the server.js:
 ```
-require('dotenv').config();
-const processs = require("process");
+require("dotenv").config();
+const process = require("process");
 ```
 
 Your code assigns the port before listening:
