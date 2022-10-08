@@ -1,4 +1,6 @@
-Express is a node module that acts like a server. You'd run the node in the background, then it'd setup a port where clients (browser, apps, users) send requests with methods GET, POST, DELETE, PUT, etc, and the Express server will return a file, text, or JSON information. For example, it could setup localhost:3001 to serve websites or API resources.
+An Express server is basically a node process you leave running in the background so that the machine can act as a server that listens for requests and sends server responses. Then you can deploy this Express server on an online server that supports the node command. 
+
+You'd run the node in the background, then it'd setup a port where clients (browser, apps, users) send requests with methods GET, POST, DELETE, PUT, etc, and the Express server will return a file, text, or JSON information. For example, it could setup localhost:3001 to serve websites or API resources.
 
 1. Start npm project, install express, then create the node script:
 ```

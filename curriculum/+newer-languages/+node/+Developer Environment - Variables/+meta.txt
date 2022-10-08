@@ -1,0 +1,19 @@
+When developing a node module, often we want to quickly test it on our localhost before deploying to an online server. You may have different logins for localhost compared to the online server. Or you may want to have certain code to run only on localhost. Or you may have an express server which would require a port other than 80 when on localhost.
+
+Leverage the dotenv moduel that looks into /.env file. The key-values in the /.env file will be added to the process variable by dotenv. First, install dotenv module to the developer environment with `npm install --save-dev dotenv`.
+
+Create an .env file and add the values you want for localhost:
+```
+DEV=1
+```
+
+At the top of the server.js:
+```
+require('dotenv').config();
+const processs = require("process");
+```
+
+Your code assigns the variable based on whether you are on localhost. If you are on localhots, then the .env file variables are copied over to process:
+```
+const isLocalHost = process.env.DEV || false;
+```
