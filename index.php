@@ -157,6 +157,18 @@ header('Pragma: no-cache');
               <div class="card-header">
                 <h2><span class="fa fa-microscope"></span> Explore Curriculum</h2>
               </div>
+
+              <div class="card-body">
+                <div id="js-visible-if-contents" class="hide">
+                  <p>Want to practice? Can move the entire lesson to retyping/rearranging sections. For specific parts you want to practice, have content surrounded by <code>```</code>. You can have multiple sections surrounded with these backticks. 
+                  <br/>
+                  <button class="btn btn-info btn-sm" onclick="copyOver();window.scrollTo({top:0}); " style="margin-top:5px">Practice retyping and rearranging</button></p>
+                </div>
+                <fieldset class="deemp-fieldset">
+                  <textarea id="summary-inner" class="hide" style="height: 60vh; resize: none; width:100%;"></textarea>
+                </fieldset>
+              </div>
+
               <div class="card-body">
                 <iframe style="padding:5px; border-radius:5px; display:inline-block; margin-top:5px; text-align:left; margin-bottom:10px; width:100%;"
               src="explorer.php">
@@ -164,16 +176,6 @@ header('Pragma: no-cache');
               </div>
             </div> <!-- footer wrapping another pair of heading body -->
 
-            <div class="card-body">
-              <fieldset class="deemp-fieldset">
-                <textarea id="summary-inner" class="hide" style="height: 467.989px; resize: none; width:100%;"></textarea>
-              </fieldset>
-              <div id="js-visible-if-contents" class="hide">
-                <p>Want to practice? Can move the entire lesson to retyping/rearranging sections. For specific parts you want to practice, have content surrounded by <code>```</code>. You can have multiple sections surrounded with these backticks. 
-                <br/>
-                <button class="btn btn-info btn-sm" onclick="copyOver();window.scrollTo({top:0}); " style="margin-top:5px">Practice retyping and rearranging</button></p>
-              </div>
-            </div>
 
           </div>
 
