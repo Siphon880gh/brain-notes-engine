@@ -143,13 +143,17 @@ function newInputted(event) {
     words = [...new Set(words)];
     console.log("words", words);
 
-    let resetHighlights = $("#old .contents").text();
-    $("#old .contents").text(resetHighlights);
+    // If difficulty is level 1, we are highlighting as we type. This prevents collision with other difficulty levels
+    const isLevel1 = $(".difficulty :checked")[0].id === "level-1";
+    if (isLevel1) {
+        let resetHighlights = $("#old .contents").text();
+        $("#old .contents").text(resetHighlights);
 
-    // Highlight words (have to run through each word individually)
-    words.forEach((word) => {
-        $("#old .contents").highlight(word);
-    }); // foreach
+        // Highlight words (have to run through each word individually)
+        words.forEach((word) => {
+            $("#old .contents").highlight(word);
+        }); // foreach
+    }
 
 } // newInputted
 
