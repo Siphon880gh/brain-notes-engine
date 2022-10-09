@@ -132,7 +132,7 @@ header('Pragma: no-cache');
                   <span><i class="fa fa-eraser clickable" onclick="confirmEraseText()"></i></span>
                   <span style="display:inline; margin-right:2ch;"></span>
                   <span><span id="diff"></span></span></p>
-                  <textarea class="contents" style="width:100%; margin-top:-6px; resize:vertical;"></textarea>
+                  <textarea class="contents" style="width:100%; margin-top:-6px; resize:vertical;" placeholder="Type what's on the left"></textarea>
                 </div>
               </aside>
             </div> <!-- /sides -->
