@@ -5,6 +5,7 @@ Leverage the dotenv moduel that looks into /.env file. The key-values in the /.e
 Create an .env file and add the values you want for localhost:
 ```
 DEV=1
+API_KEY=***************
 ```
 
 At the top of the server.js:
@@ -17,3 +18,5 @@ Your code assigns the variable based on whether you are on localhost. If you are
 ```
 const isLocalHost = process.env.DEV || false;
 ```
+
+If using git, you'll also want to untrack .env in case you'll be putting secret development variables in there. You can refer to node lesson on untracking nodule_modules.

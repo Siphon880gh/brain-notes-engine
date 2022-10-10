@@ -19,3 +19,5 @@ Your code assigns the port before listening:
 ```
 port = process.env.PORT || 80
 ```
+
+If using git, you'll also want to untrack .env in case you'll be putting secret development variables in there. You can refer to node lesson on untracking nodule_modules.
