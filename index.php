@@ -340,6 +340,7 @@ header('Pragma: no-cache');
         function copyOver() {
           var $summary = $("#summary-inner");
           var summary = $summary.val();
+          summary = summary.trim();
           if($summary.val().length) {
             var $template = $("#old .contents");
             // var code = [...summary.matchAll(new RegExp("`\`\`[\n\r]{0,}(.*?)[\n\r]{0,}\`\`\`", "gmi"))].map(regExpItr => regExpItr[1]);
@@ -350,6 +351,7 @@ header('Pragma: no-cache');
               var code = code.join("\n");
               code = code.replaceAll("\n\n", "\n");
               code = code.replaceAll("\r\r", "\r");
+              code = code.trim();
               $template.text(code);
               $template.trigger("input");
             } else {
