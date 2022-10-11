@@ -1,0 +1,12 @@
+Coming soon!
+
+Sneak Peak:
+
+You install to package.json with:
+```
+npm install express-handlebars --save
+```
+
+I am guessing Handlebars is a node module that helps Express API deliver webpages using templates and partials. Think of partials as dynamic micro-peices of the template. Dynamic meaning it can take inputs and produce outputs, which is useful to keep code DRY because you don't have to repeat code if you have a set of many inputs to one partial template. 
+
+A quick review of Express. Express is an API you use in node js script that lets you run an Express server listening at an arbitary port for client requests with different methods and routes. Depending on the particular method and route, the Express will send a response back to the client. That response can be, among other types of data: Raw text, json, or webpage files. You can send raw text consisting of HTML code, and the client's javascript can choose to insert text or HTML onto the DOM. That's the idea of templates on the backend.

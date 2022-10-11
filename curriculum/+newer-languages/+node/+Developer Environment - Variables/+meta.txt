@@ -11,12 +11,17 @@ API_KEY=***************
 At the top of the server.js:
 ```
 require('dotenv').config();
-const processs = require("process");
+const process = require("process");
 ```
 
 Your code assigns the variable based on whether you are on localhost. If you are on localhots, then the .env file variables are copied over to process:
 ```
 const isLocalHost = process.env.DEV || false;
+```
+
+If you don't want to place the .env file at the root of the app, you may move it to another folder and specify a path property at dotenv:
+```
+require("dotenv").config({ path: "./config/.env" });
 ```
 
 If using git, you'll also want to untrack .env in case you'll be putting secret development variables in there. You can refer to node lesson on untracking nodule_modules.

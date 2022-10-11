@@ -1,0 +1,44 @@
+Python's official website is at: https://www.python.org
+
+## Basic Setup
+
+Mac has an older version of python so make sure you update:
+```
+brew install python
+```
+
+You can write python code in .py files, then you can run them with this command:
+```
+python app.py
+```
+
+If using Visual Code, you can install python extensions to format your code and have a convenient run button at the top right.
+
+## Basic Syntax:
+Notice function starts with the keyword `def` and it ends based on indentation patterns. 
+Notice how to call the function. 
+There is no semi-colon to end a line of code. 
+Notice multiple variables can be defined inline.
+```
+def fib(n):
+    a, b = 2, 1
+    print(a)
+fib(1000)
+```
+
+You can import built-in or packaged modules:
+```
+import sys, os, time, json
+import threading
+import webbrowser
+from http.server import HTTPServer, BaseHTTPRequestHandler
+from urllib.parse import parse_qs, quote_plus
+import requests
+import ssl
+```
+
+To get a packaged module, python's package manager is pip. Python3's package manager is pip3:
+```
+pip install __
+pip3 install __
+```

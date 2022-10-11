@@ -3,6 +3,8 @@ You can run your index.js file on the web server's SSH (Mnemonic: Nohup is no ha
 nohup node ./test.js > /dev/null 2>&1 &
 ```
 
+Explanation of the command: https://gist.github.com/andreasonny83/c35b51c4197d09af1b8c0510c0b1d1ea
+
 Then it will run in the background. You can kill the process later if you have to. Firsts find the process ID, then kill the ID:
 ```
 ps

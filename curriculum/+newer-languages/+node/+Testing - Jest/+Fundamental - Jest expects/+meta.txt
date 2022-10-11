@@ -15,5 +15,16 @@ expect(player.getHealth()).toEqual(expect.stringContaining(player.health.toStrin
 expect(player.getStats()).toHaveProperty('potions');
 ```
 
+Testing what's passed in console.log:
+```
+it('calls console.log with "hello"', () => {
+  const consoleSpy = jest.spyOn(console, 'log');
+
+  console.log('hello');
+
+  expect(consoleSpy).toHaveBeenCalledWith('hello');
+});
+```
+
 Documentation: Jest expect methods
 https://jestjs.io/docs/en/expect
