@@ -91,7 +91,7 @@ header('Pragma: no-cache');
           <p>
             Learn new programming languages by retyping them or rearranging lines of code with immediate visual feedback so you can learn through trial and error. Instead of picking a lesson, you can <a href="javascript:void();" onclick="event.preventDefault(); $('#retype-container, #rearrange-container').removeClass('hide'); document.querySelector('#retype-container').scrollIntoView();">go right to practicing.</a></p>
             <p>
-            All the lessons here are guides that get you started on the language and may have fundamentals or often used code. For a collection of snippets that are not introductory, fundamental, or commonly needed, you can check out <a href="../snippets-master" target="_blank">Snippets Mastery</a>.
+            All the lessons here are guides that get you started on the language and may have fundamentals or often used code. For a collection of snippets that are not introductory, fundamental, or commonly needed, you can check out <a href="../snippets-mastery" target="_blank">Snippets Mastery</a>.
             </p>
             </div>
             </div>
