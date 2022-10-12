@@ -91,7 +91,7 @@ header('Pragma: no-cache');
         </div>
 
         <div class="container" style="margin-top:4ch;">
-          <div class="card card-default">
+          <div id="retype-container" class="card card-default hide">
             <div class="card-header">
               <h2 class="text-center"><i class="fa fa-keyboard"></i> Learn by Retyping</h2>
               <div style="float:right">Want to learn <a href="#explore-curriculum" onclick="animateExploreCurriculum();">other languages/frameworks</a>?</div>
@@ -140,7 +140,7 @@ header('Pragma: no-cache');
           
           <div style="clear:both"></div>
 
-          <div class="card card-default">
+          <div id="rearrange-container" class="card card-default hide">
             <div class="card-header">
               <h2 class="text-center"><span class="fa fa-puzzle-piece"></span> Learn by rearranging lines</h2>
             </div>
@@ -162,7 +162,7 @@ header('Pragma: no-cache');
                 <div id="js-visible-if-contents" class="hide">
                   <p>Want to practice? Can move the entire lesson to retyping/rearranging sections. For specific parts you want to practice, have content surrounded by <code>```</code>. You can have multiple sections surrounded with these backticks. 
                   <br/>
-                  <button class="btn btn-info btn-sm" onclick="copyOver();window.scrollTo({top:0}); " style="margin-top:5px">Practice retyping and rearranging</button></p>
+                  <button class="btn btn-info btn-sm" onclick="$('#retype-container, #rearrange-container').removeClass('hide'); copyOver();window.scrollTo({top:0}); " style="margin-top:5px">Practice retyping and rearranging</button></p>
                 </div>
                 <fieldset class="deemp-fieldset">
                   <textarea id="summary-inner" class="hide" style="height: 60vh; resize: none; width:100%;"></textarea>
