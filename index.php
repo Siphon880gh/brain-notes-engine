@@ -85,9 +85,16 @@ header('Pragma: no-cache');
         <div class="site-header" style="margin: 10px 5px;">
           <h1 class="title">Retype Notes</h1>
           <p>By Weng Fei Fung.</p>
+
+          <div class="container">
+          <div class="card card-default p-2">
           <p>
-            Learn new programming languages and concepts by retyping them or rearranging their lines of code.<br/>Visual feedback lets you learn by trial and error.
-          </p>
+            Learn new programming languages by retyping them or rearranging lines of code with immediate visual feedback so you can learn through trial and error. Instead of picking a lesson, you can <a href="javascript:void();" onclick="event.preventDefault(); $('#retype-container, #rearrange-container').removeClass('hide'); document.querySelector('#retype-container').scrollIntoView();">go right to practicing.</a></p>
+            <p>
+            All the lessons here are guides that get you started on the language and may have fundamentals or often used code. For a collection of snippets that are not introductory, fundamental, or commonly needed, you can check out <a href="../snippets-master" target="_blank">Snippets Mastery</a>.
+            </p>
+            </div>
+            </div>
         </div>
 
         <div class="container" style="margin-top:4ch;">
@@ -162,7 +169,7 @@ header('Pragma: no-cache');
                 <div id="js-visible-if-contents" class="hide">
                   <p>Want to practice? Can move the entire lesson to retyping/rearranging sections. For specific parts you want to practice, have content surrounded by <code>```</code>. You can have multiple sections surrounded with these backticks. 
                   <br/>
-                  <button class="btn btn-info btn-sm" onclick="$('#retype-container, #rearrange-container').removeClass('hide'); copyOver();window.scrollTo({top:0}); " style="margin-top:5px">Practice retyping and rearranging</button></p>
+                  <button class="btn btn-info btn-sm" onclick="$('#retype-container, #rearrange-container').removeClass('hide'); copyOver(); document.querySelector('#retype-container').scrollIntoView()" style="margin-top:5px">Practice retyping and rearranging</button></p>
                 </div>
                 <fieldset class="deemp-fieldset">
                   <textarea id="summary-inner" class="hide" style="height: 60vh; resize: none; width:100%;"></textarea>
