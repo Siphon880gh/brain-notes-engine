@@ -288,12 +288,8 @@ function scrollToText(partial) {
         var $row = $(row)
         toOpenUp_Exec($row);
         toOpenUp_Highlight($row);
-        // setTimeout(() => {
-        //     $row[0].scrollIntoView();
-        // }, 1000);
         if (i === $row.length - 1)
             $finalJumpTo = $row[0];
-        // return false;
     });
 
     setTimeout(() => {
