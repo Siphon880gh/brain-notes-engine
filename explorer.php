@@ -349,7 +349,6 @@
                   <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;"><span class="fa fa-eraser" style="cursor: pointer;"> Clear</button>
                   <button onclick="toggleAllExpand();" style="cursor: pointer; border:0;"><span class="fa fa-eye" style="cursor: pointer;"> Toggle All</button>
                   <button onclick="window.print();" style="cursor: pointer; border:0;"><span class="fa fa-print" style="cursor: pointer;"> Print</button>
-                  <button onclick="" style="cursor: pointer; border:0;"><span class="fa fa-print" style="cursor: pointer;"> Test</button>
             </div>
             <script>
             function doSearcher2(searchText) {
