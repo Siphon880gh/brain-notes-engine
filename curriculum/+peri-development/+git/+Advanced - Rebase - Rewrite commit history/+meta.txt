@@ -54,6 +54,7 @@ After making the code changes, you can decide to make an extra commit after the 
 
 Override the current commit, making sure you run this in the Visual Code terminal:
 ```
+git add -A
 git commit -amend
 git rebase --continue
 ```

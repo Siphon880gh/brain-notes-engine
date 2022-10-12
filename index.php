@@ -170,7 +170,7 @@ header('Pragma: no-cache');
               </div>
 
               <div class="card-body">
-                <iframe style="padding:5px; border-radius:5px; display:inline-block; margin-top:5px; text-align:left; margin-bottom:10px; width:100%;"
+                <iframe style="padding:5px; border-radius:5px; display:inline-block; margin-top:5px; text-align:left; margin-bottom:10px; width:100%; height:400px;"
               src="explorer.php">
                 </iframe>
               </div>

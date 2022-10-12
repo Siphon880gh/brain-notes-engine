@@ -281,13 +281,26 @@ function scrollToUniqueId(uniqueId, startingMode) {
 } // scrollToUniqueId
 
 function scrollToText(partial) {
+    let $finalJumpTo = null;
     var $foundRow = $(`li:contains(${partial})`);
+    if ($foundRow.length === 0) alert(`Error: Not found among topic names: ${partial}`)
     $foundRow.each((i, row) => {
         var $row = $(row)
         toOpenUp_Exec($row);
         toOpenUp_Highlight($row);
-        $row[0].scrollIntoView();
+        // setTimeout(() => {
+        //     $row[0].scrollIntoView();
+        // }, 1000);
+        if (i === $row.length - 1)
+            $finalJumpTo = $row[0];
+        // return false;
     });
+
+    setTimeout(() => {
+        if ($finalJumpTo)
+            $finalJumpTo.scrollIntoView();
+    }, 800);
+
 } // scrollToText
 
 function scrollToNonoverridden(partial) {
