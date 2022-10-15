@@ -23,3 +23,7 @@ localStorage.setItem("key", 1);
 
 - And you always get a string back:
 let retrievedDataIsString = gettype localStorage.getItem("key") === "string"
+
+## When does localStorage clear?
+- In Chrome, localStorage is cleared when these conditions are met: (a) clear browsing data, (b) "cookies and other site data" is selected, (c) timeframe is "from beginning of time". In Chrome, it is also now possible to delete localStorage for one specific site.
+- In Firefox, localStorage is cleared when these three conditions are met: (a) user clears recent history, (b) cookies are selected to be cleared, (c) time range is "Everything"

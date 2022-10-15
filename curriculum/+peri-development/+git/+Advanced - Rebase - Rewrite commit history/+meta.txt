@@ -15,14 +15,7 @@ If too many commits appearing on the screen, you can limit to number of commits 
 git rebase -i HEAD^^^
 ```
 
-## Now that it shows the commits on the screen, you must edit what's on the screen
-You must be familiar with vi which is a terminal text editor. Quickly:
-- A lets you edit the text and move the text cursor with arrow keys. This is Insert Mode.
-- Otherwise, : lets you type commands. This is Commands Mode.
-- :wq means to write and quit
-- :q! means to quit without saving.
-- Also in Commands Mode, you can press commands. For example, pressing D twice deletes a line of text.
-- Switch from Insert Mode to Commands Mode by pressing Escape key.
+## Git then lists the commits in a temporarily opened text file for you to rewrite in vi cli text editor. Read lesson on vi text editor.
 
 ## Simple commit history changes
 Merge up: Let's say you have commit A and B in consecutive order. You can merge up commit B onto commit A by replacing "pick" on commit B:

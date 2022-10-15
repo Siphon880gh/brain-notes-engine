@@ -53,6 +53,7 @@ createProduct = () => {
       console.log(res.affectedRows + ' product inserted!\n');
       // Call updateProduct() AFTER the INSERT completes
       updateProduct();
+      connection.end();
     }
   );
   // logs the actual query being run
@@ -76,6 +77,7 @@ updateProduct = () => {
       console.log(res.affectedRows + ' products updated!\n');
       // Call deleteProduct() AFTER the UPDATE completes
       deleteProduct();
+      connection.end();
     }
   );
   // logs the actual query being run
@@ -94,6 +96,7 @@ deleteProduct = () => {
       console.log(res.affectedRows + ' products deleted!\n');
       // Call readProducts() AFTER the DELETE completes
       readProducts();
+      connection.end();
     }
   );
   // logs the actual query being run
@@ -110,5 +113,6 @@ readProducts = () => {
   });
 };
 ```
+Note that `connection.end()` is needed so the node process doesn't hang (get stuck there, blocking further code from running).
 
 Note the above SQL queries can be thought of as CRUD - create, read, update, delete - a common convention. And because we are modifying a table of video games, the functions are named like createProduct, readProducts, etc.
