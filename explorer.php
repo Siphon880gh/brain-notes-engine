@@ -416,6 +416,14 @@
               });
             })
             </script>
+            <style>
+              #searcher, #searcher-btn {
+                border-color: lightblue;
+              }
+              #searcher-2, #searcher-2-btn {
+                border-color: #FFCCCB; /* light red */
+              }
+            </style>
             <div id="searcher-container-2" style="float:right; margin-top:5px;">
                   <form action=""></form>
                   <!-- <label for="alpha-strip" style="font-weight:400;">Text:</label> -->

@@ -573,7 +573,7 @@ $(() => {
                         $topicBtn = $curriculumExplorer.find("#searcher-2-btn");;
                     $topicField.val(qtopic);
                     $topicBtn.click();
-                }, 800); // Just because part of a tree exist, doesn't mean the whole tree exists right away
+                }, 1200); // Just because part of a tree exist, doesn't mean the whole tree exists right away
             }
         }, 100);
     }
