@@ -427,3 +427,129 @@ function animateExploreCurriculum() {
         .delay(500)
         .animate({ "color": "black" }, 2000)
 }
+
+
+function loadFile() {
+    var file = event.target.files[0];
+
+    // Only render plain text files
+    // if (!file.type === "text/plain")
+    // return;
+
+    var reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = function(event) {
+        var text = event.target.result;
+        $("#old .contents").text(text)
+    };
+
+}; // loadFile
+
+// Always resize
+setInterval(() => {
+    if ($("#old .contents").css("display") !== "none" || $("#old .contents").css("visibility") !== "hidden")
+        $("#new .contents").height($("#old .contents").height());
+}, 200);
+
+/**
+ * resort-lines
+ */
+$(document).on("show.bs.modal", "#modal-puzzle", () => {
+    $("#modal-puzzle .list-group").html("");
+    var $template = $("#old .contents");
+    var lines = $template.find("div").toArray(); // Sometimes newlines are actually div's in contenteditable
+    if (lines.length === 0) {
+        lines = $template.text().split("\n"); // And sometimes it's one whole text node
+    } else { // if it's not onewhole text node, you might still have textNode then followed by div's
+        let firstNode = $("#old .contents").contents()[0];
+        if (firstNode.nodeType === 3) // test for textNode
+            lines.unshift(firstNode);
+    }
+    // lines = lines.split("\n");
+    // var template = $template.html();
+    // var lines = template.split("\n");
+    // debugger;
+    var listGroupEl = document.querySelector("#modal-puzzle .list-group");
+    if (lines.length <= 1) {
+        $("#modal-error .message").text("You need over 1 line to practice rearranging lines.");
+        $("#modal-error").modal("show");
+        return false;
+    }
+
+    function appendLine(line, i, lines) {
+
+        try {
+            if (typeof line !== "string") line = line.textContent;
+        } catch (err) {
+
+        }
+        var listGroupItemEl = document.createElement("div");
+        listGroupItemEl.classList = "list-group-item";
+        listGroupItemEl.textContent = line;
+        listGroupItemEl.setAttribute("contenteditable", true);
+        listGroupItemEl.setAttribute("data-correct-order", i);
+        listGroupEl.appendChild(listGroupItemEl);
+        console.log("Line: " + line);
+        if (typeof lines[i] === "undefined") return false;
+        else return true;
+    }
+    var i = 0;
+    while (true) {
+        var line = lines[i];
+        var sublines = [];
+        try {
+            sublines = line.split("\n");
+        } catch (err) {
+
+        }
+        if (sublines.length > 1) {
+            for (var j = 0; j < sublines.length; j++) {
+                if (!appendLine(sublines[j], j, sublines)) break;
+            } // for
+        } else {
+            if (!appendLine(lines[i], i, lines)) break;
+            i++;
+        }
+    } // while
+    $("#modal-puzzle .list-group").sortable({
+        // stop: (event, ui) => {
+        //   debugger;
+        // },
+        // When user drops a list item to a new position:
+        update: (event, ui) => {
+            // debugger;
+            // var newPos = ui.item.index();
+            // var correctPos = ui.item.data("correct-order");
+            // ui.item.removeClass("li-correct").removeClass("li-incorrect")
+            // if(newPos===correctPos) {
+            //   ui.item.addClass("li-correct");
+            // } else {
+            //   ui.item.addClass("li-incorrect");
+            // }
+            let $listItems = $("#modal-puzzle .list-group .list-group-item");
+            $listItems.removeClass("li-correct").removeClass("li-incorrect");
+            $listItems.each((i, el) => {
+                var $listItem = $(el);
+                var newPos = $listItem.index();
+                var correctPos = $listItem.data("correct-order");
+                if (newPos === correctPos) {
+                    $listItem.addClass("li-correct");
+                } else {
+                    $listItem.addClass("li-incorrect");
+                }
+            })
+        }
+    });
+    shuffle($(listGroupEl));
+});
+
+function shuffle($listGroup) {
+    var listItems = $listGroup.children(); //Extract all listItems from it.
+    listItems.sort(function(a, b) { //This function sorts the items.
+        var compA = $(a).text().toUpperCase();
+        var compB = $(b).text().toUpperCase();
+        return (compA < compB) ? -1 : 1; //return a -1 or 1 depending upon specific condition.
+    });
+    $listGroup.append(listItems);
+}
+// End: resort-lines
