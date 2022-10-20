@@ -13,7 +13,8 @@ Git? Vi is needed for more advance commands in Git cli. For example, you can cha
 
 In addition to writing commands, you can press commands.
 - D pressed twice deletes a line of text.
-- W lets you jump forward a word
+- W lets you jump forward a word. 
+- B jumps back a word.
 - $ jumps to end of a line (think Regular Expression)
 - ^ jumps to start of a line (think Regular Expression)
 
@@ -26,4 +27,9 @@ Searching in command mode is a combination of writing and pressing commands.
 
 SWITCH beteween the modes:
 - Escape from Insert mode goes to Command Mode
-- A pressed from Command Mode goes to Insert Mode.
+- A / I pressed from Command Mode goes to Insert Mode
+    - I inserts text left of the text cursor.
+    - A inserts text right of the text cursor, aka append.
+
+Here is a cheat sheet for vi:
+http://www.atmos.albany.edu/daes/atmclasses/atm350/vi_cheat_sheet.pdf
