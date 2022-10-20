@@ -553,3 +553,29 @@ function shuffle($listGroup) {
     $listGroup.append(listItems);
 }
 // End: resort-lines
+
+/**
+ * Detect presetted topic search in URL
+ */
+$(() => {
+    var params = new URLSearchParams(window.location.search);
+    var qtopic = params.get("topic");
+
+    if (qtopic) {
+        var checkIframeLoading = setInterval(() => {
+            var $curriculumExplorer = $("#explore-curriculum iframe").contents();
+            var doesTreeExist = () => $curriculumExplorer.find(".accordion").length > 0;
+
+            if (doesTreeExist) {
+                clearInterval(checkIframeLoading);
+                setTimeout(() => {
+                    $topicField = $curriculumExplorer.find("#searcher-2"),
+                        $topicBtn = $curriculumExplorer.find("#searcher-2-btn");;
+                    $topicField.val(qtopic);
+                    $topicBtn.click();
+                }, 800); // Just because part of a tree exist, doesn't mean the whole tree exists right away
+            }
+        }, 100);
+    }
+});
+// End: Detect hash then searh
