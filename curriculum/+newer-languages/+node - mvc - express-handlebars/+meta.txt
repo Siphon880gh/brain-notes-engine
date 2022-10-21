@@ -1,6 +1,6 @@
 ## Express-Handlebars Basics
 
-Handlebars is a templating engine for the backend so HTML is dynamically generated before sending to the client. Besides being fast, this also has SEO advantaged because the content is already generated for the robots to scrape.
+Handlebars is a templating engine for the backend so HTML is dynamically generated before sending to the client. Besides being fast, this also has SEO advantaged because the content is already generated for the robots to scrape. The other advantage is that you make your project easier to read for other developers or at a later time when you forget how your code flows, by adapting a MVC pattern with Express-Handlebars. Read the lesson on MVC paradigm.
 
 The specific handlebars we are using is actually express-handlebars because it was designed to work with express through their routes and the conventional `res.send(..)` but instead if `res.render(..)`. You can continue parsing requests or looking up database which will help generate personalized content on the webpage.
 
