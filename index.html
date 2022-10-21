@@ -12,6 +12,9 @@
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="assets/js/vendors/jquery.highlight-5.js"></script>
 
+    <!-- Autoexpand (app.js dependency )-->
+    <script src="assets/js/vendors/autoExpand/autoExpand.js"></script>
+
     <link href="assets/css/index.css" rel="stylesheet">
     <script src="assets/js/diff.js"></script>
     <script src="assets/js/app.js"></script>
@@ -153,63 +156,11 @@
     <!-- /.container -->
 
     <!-- Designer: FontAwesome -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
 
     <!-- jQuery UI, Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css"></link>
-
-    <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
-
-    <!-- Autosize textarea
-            https://gomakethings.com/automatically-expand-a-textarea-as-the-user-types-using-vanilla-javascript/
-        -->
-    <script src="assets/js/vendors/autoExpand/autoExpand.js"></script>
-    <script id="auto-resize-textarea">
-        document.querySelector("#summary-inner").addEventListener("input", (event) => {
-            autoExpand(event.target);
-        });
-
-        window.autoExpandNow = () => {
-            autoExpand(document.querySelector("#summary-inner"));
-        }
-        autoExpandNow();
-    </script>
-
-    <script id="copyNotesToTemplate">
-        function copyOver() {
-            var $summary = $("#summary-inner");
-            var summary = $summary.val();
-            summary = summary.trim();
-            if ($summary.val().length) {
-                var $template = $("#old .contents");
-                // var code = [...summary.matchAll(new RegExp("`\`\`[\n\r]{0,}(.*?)[\n\r]{0,}\`\`\`", "gmi"))].map(regExpItr => regExpItr[1]);
-                var code = [...summary.matchAll(new RegExp("\`\`\`((.|\n|\r)*?)\`\`\`", "gmi"))].map(regExpItr => regExpItr[1]);
-
-                // If text has ```___```, then get all text between those backticks, otherwise just get all of the text
-                if (code.length) {
-                    var code = code.join("\n");
-                    code = code.replaceAll("\n\n", "\n");
-                    code = code.replaceAll("\r\r", "\r");
-                    code = code.trim();
-                    $template.text(code);
-                    $template.trigger("input");
-                } else {
-                    $template.text(summary);
-                    $template.trigger("input");
-                }
-            } else {
-                let html = `Nothing loaded in notes. Find a lesson from the curriculum and open it here by clicking the <i class="fa fa-book-reader"></i> icon.`;
-                $("#modal-error .message").html(html);
-                $("#modal-error").modal("show");
-            }
-
-
-        }
-    </script>
-
 
     <!-- Modal -->
     <div id="modal-error" class="modal fade" role="dialog">

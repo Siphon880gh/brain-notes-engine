@@ -579,3 +579,45 @@ $(() => {
     }
 });
 // End: Detect hash then searh
+
+// Autoresize notes textarea
+document.querySelector("#summary-inner").addEventListener("input", (event) => {
+    autoExpand(event.target);
+});
+
+window.autoExpandNow = () => {
+    autoExpand(document.querySelector("#summary-inner"));
+}
+autoExpandNow();
+// End: Autoresize notes textarea
+
+
+// Copy over notes to retype template
+function copyOver() {
+    var $summary = $("#summary-inner");
+    var summary = $summary.val();
+    summary = summary.trim();
+    if ($summary.val().length) {
+        var $template = $("#old .contents");
+        // var code = [...summary.matchAll(new RegExp("`\`\`[\n\r]{0,}(.*?)[\n\r]{0,}\`\`\`", "gmi"))].map(regExpItr => regExpItr[1]);
+        var code = [...summary.matchAll(new RegExp("\`\`\`((.|\n|\r)*?)\`\`\`", "gmi"))].map(regExpItr => regExpItr[1]);
+
+        // If text has ```___```, then get all text between those backticks, otherwise just get all of the text
+        if (code.length) {
+            var code = code.join("\n");
+            code = code.replaceAll("\n\n", "\n");
+            code = code.replaceAll("\r\r", "\r");
+            code = code.trim();
+            $template.text(code);
+            $template.trigger("input");
+        } else {
+            $template.text(summary);
+            $template.trigger("input");
+        }
+    } else {
+        let html = `Nothing loaded in notes. Find a lesson from the curriculum and open it here by clicking the <i class="fa fa-book-reader"></i> icon.`;
+        $("#modal-error .message").html(html);
+        $("#modal-error").modal("show");
+    }
+}
+// End: Copy over notes to retype template
