@@ -1,0 +1,8 @@
+Quick review of mongo shell
+https://www.youtube.com/watch?v=nN2JlbVWy2k&feature=share&fbclid=IwAR1GfjKS3EfAdnOkR2yF9PpSHLY0Rt1YHfiv7XHeEJOpESx_I9nr28e8S9A
+
+--
+
+Mongo Shell
+- Run mongo shell with command `mongo` at cli to query databases with show, use, etc
+- Doesn't run? Try loading the process `mongod` at cli

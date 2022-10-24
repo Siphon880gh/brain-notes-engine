@@ -1,0 +1,6 @@
+Authentication and Login session
+ https://courses.bootcampspot.com/courses/300/assignments/6283?module_item_id=96317
+
+	- Notes and internalize: Login sessions (probably just look up tutorials for those two packages)
+
+	- Interalize/Readjust: Password authentication (from Retype Notes)

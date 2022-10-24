@@ -42,3 +42,14 @@ To get a packaged module, python's package manager is pip. Python3's package man
 pip install __
 pip3 install __
 ```
+
+There are other package managers that are better:
+Conda is not only a package manager that helps you find and install packages, but if you need a package that requires a different version of Python, you do not need to switch to a different environment manager, because conda is also an environment manager. With just a few commands, you can set up a totally separate environment to run that different version of Python, while continuing to run your usual version of Python in your normal environment.
+
+About Conda:
+https://docs.conda.io/en/latest/
+
+Download/install Conda:
+https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html
+
+Not to be confused with Anaconda which is a software/package suite that includes many things you need for data science such as python, Jupyter, etc.

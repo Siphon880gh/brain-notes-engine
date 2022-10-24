@@ -1,0 +1,30 @@
+Dev Mac: Create App with custom icon
+
+do shell script "open /System/Library/PreferencePanes/Sidecar.prefPane"
+```
+
+Go File -> Save., and for File Format, select Application. Go to the application and right click -> Show Packaged Contents.
+
+	Alternately you can `ls` into App.app (For example, if you saved the Application as App)
+
+Inside Contents/ you have in particular Info.plist and Resources/
+
+At Info.plist, you can indicate the file icon. The second value is the filename without file extension, case-sensitive (so it'll point to icon file applet.icns)
+```
+	<key>CFBundleIconFile</key>
+	<string>applet</string>
+```
+
+
+Then at Contents/Resources, you can have the file there. File extension is .icns. You can convert png to .icns at
+		https://cloudconvert.com/png-to-icns
+
+The dimensions must be one of these:
+16px × 16px
+32px × 32px
+128px × 128px
+256px × 256px
+512px × 512px
+1024px × 1024px
+
+The app icon should change. If it doesn't, move it to another folder to force an icon refresh through Finder.

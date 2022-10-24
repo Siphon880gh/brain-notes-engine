@@ -1,0 +1,87 @@
+
+--
+
+Dev React useEffect cleanup
+
+useEffect takes an optional return function that cleans up code. For example, emptying a currentBook on a webpage showing book details. Equivalent to componentWillUnmount
+
+---
+
+{..props} in tag
+https://kevinyckim33.medium.com/jsx-spread-operator-component-props-meaning-3c9bcadd2493
+
+--
+
+```
+store.dispatch({ type: 'counter/incremented' })
+console.log(store.getState())
+```
+
+
+---
+
+context vs redux:
+https://www.youtube.com/watch?v=OvM4hIxrqAw
+
+--
+
+for plain jsx ReadMe:
+- LiveReloadHttps
+- 
+livereload --exts "jsx,js,html,css"
+
+--
+
+React is good for:
+- React good for: Maintainability/scalability among team members
+- Also good for reusable code (so dont have to change more than one area in markdown when make changes)
+
+Some rules on data:
+
+- We pass state changes to props at their children
+- Props only go top to down. They're added like attributes in a HTML DOM tag
+
+function App() {
+	return (
+		<Header data={{a:1, b:2}>
+			<div>Hi there</div>
+		</Header>
+		<Header>
+		</Header>
+	)
+}
+
+Then can be used in the components/Header.js file:
+
+Make sure you pass props to the element definition
+
+function Header(props) {
+	const {children,data} = props;
+
+	return (<>
+		<div>{data.a}</div>
+		<div>{data.b}</div>
+		<div>{children}</div> <!-- Hi there -->
+	</>)
+}
+
+
+--
+
+React Developer Tools (Can see Component hierarchy in DevTools)
+And has a Profiler. (Turn on Profile then refresh the page).
+
+
+--
+React essential: Forcing one common ancestor in render()
+
+<React.Strict>
+<React.Fragment>, same as <>
+
+
+--
+React essential: Faster to code
+
+function App() {
+	return (<jsx...>)
+}

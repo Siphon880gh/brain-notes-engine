@@ -65,7 +65,8 @@ Read lesson on Sequelize methods
 ## Sequelize on ready
 One final thing. In your server.js if you are running express, you must wait for the Sequelize connection to be ready before you listen for express routes:
 ```
-sequelizeConnection({ force: false }).then(() => {
+const sequelizeConnection = require("./config/connection.js");
+sequelizeConnection.sync({ force: false }).then(() => {
     app.listen(PORT, function() {
         console.log('App listening on PORT ' + PORT);
     });

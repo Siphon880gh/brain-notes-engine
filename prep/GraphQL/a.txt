@@ -1,0 +1,15 @@
+Dev GraphQL
+
+graphql remember there is a client side and a server side (edited) 
+3:22
+server side has typeDefs that are like schemas, and the resolvers will take in graphql request from the web browser and connect it to mongoo
+3:23
+client side has all the queries / mutations in queries.js and mutations.js that you can call with useQuery hook at your React functional component. they are the same queries/mutations you can run in graphql playground which only shows up in developer mode at 3001:/graphql (edited) 
+3:23
+once you understand that, it's a smoother experience
+
+--
+
+apollo migration: https://www.apollographql.com/docs/react/migrating/apollo-client-3-migration/#updating-importsI
+
+

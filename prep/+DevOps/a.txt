@@ -1,0 +1,7 @@
+--
+
+webpack/imports uses
+export default __class/fxn/obj/etc__
+
+whereas npm/requireJs uses
+module.exports = __class/fxn/obj/etc__

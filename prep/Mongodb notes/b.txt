@@ -1,0 +1,65 @@
+If you want to study ahead for MongoDB:
+
+1. Install mongo. Mac: brew install mongo
+
+It comes with mongod which is server instance and mongo which is the mongodb shell (like running mysql -u root -p)
+
+If that fails to install, run:  `brew install mongodb-community@4.2`
+
+If you run mongod command and it fails, reinstall with `brew reinstall...` and it'll tell you the path to add to PATH.
+
+1a. Start the mongodb server:
+```
+mongod --dbpath ~/data/db
+```
+
+If starting the mongodb server fails because you're missing /data/db is what the error says, you can try to create that folder as admin or sudo. If you fail, you can always create /data/db at ~ on Mac, then be explicit about the path:
+
+mongod --dbpath ~/data/db
+
+In which case, you're better off creating an alias to that. I recommend mongodd (Two d's).
+```
+alias mongod="mongod --dbpath ~/data/db"
+```
+
+1b. Then you can run the shell with
+```
+mongodb
+```
+
+And confirm you have databases with `show databases` (there will be default databases)
+
+2. Install mongodb node module so you can work with it in node scripts too. `npm install mongodb --save`
+
+3. Get Robo3T at http://robomongo.org/
+That's like running MySQL Workbench to visualize data
+
+4. For a MongoDB ORM in node scripts, you install with: npm install mongoose --save
+
+Code could look like this:
+```
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true, useUnifiedTopology: true});
+
+
+const Cat = mongoose.model('Cat', { name: String });
+
+
+const kitty = new Cat({ name: 'Zildjian' });
+kitty.save().then(() => console.log('meow'));
+```
+
+From https://mongoosejs.com/
+
+Or could look like:
+```
+const MongoClient = require("mongodb").MongoClient;
+
+MongoClient.connect("mongodb://localhots:27017", (err, dbclient)=> {
+
+	const db_test = dbclient.db("test");
+	db_test.stats((err,results)=>{
+		console.log(JSON.strinigify(result));
+	});
+});
+```
