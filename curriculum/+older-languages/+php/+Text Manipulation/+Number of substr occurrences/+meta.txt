@@ -1,1 +1,0 @@
-$tabCount = substr_count($line, "\t");
