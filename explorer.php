@@ -334,8 +334,12 @@
         <div class="container">
         
           <?php
-            
-            if(!`which pcregrep 2>/dev/null`) {
+            include("./putenv-pcregrep.php");
+
+            //var_dump($pcregrep);
+            //die();
+
+            if(!`which $pcregrep 2>/dev/null`) {
               echo "<div class='error'>Error: Your server does not support pcregrep necessary to find text in files. Search will fail. Please contact your server administrator.</div>";
             }
 

@@ -1,4 +1,4 @@
-Jupyter lets you make notebooks that have markdown text but also incorporates graphs and equations that can run dynamically. You can publish into PDF etc
+Jupyter lets you make notebooks that have markdown text but also incorporates graphs and equations that can run dynamically. You can publish into PDF, etc. The language is based in python. The editing philosophy is combo of VIM and Excel. There's an edit/command mode and you have a vertical stack of cells where you enter either "labels" (really, markdown text) or "formula's" (really, code).
 
 JupyterLab is the next generation of the Jupyter Notebook. It's a different GUI and provides more: It aims at fixing many usability issues of the Notebook, and it greatly expands its scope. JupyterLab offers a general framework for interactive computing and data science in the browser, using Python, Julia, R, or one of many other languages.
 
