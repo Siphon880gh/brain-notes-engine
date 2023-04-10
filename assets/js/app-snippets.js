@@ -420,8 +420,9 @@ $(() => {
     setTimeout(() => {
         //close tooltip if clicked outside
         $('body').on('click', function(e) {
+            //debugger;
             var $el = $(e.target);
-            if ($el.data('toggle') !== 'tooltip' && $el.closest(".tooltip").length === 0) {
+            if ($el?.data('toggle') !== 'tooltip' && $el.closest(".tooltip").length === 0) {
                 $(".tooltip-inner").closest(".tooltip").prev().click();
             }
         });

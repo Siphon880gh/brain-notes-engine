@@ -1,1 +1,0 @@
-Separation of Concerns is a process; the Single Responsibility Principle is a design / architecture philosophy.
