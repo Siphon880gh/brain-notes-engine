@@ -42,20 +42,45 @@
     // https://stackoverflow.com/questions/33850412/merge-javascript-objects-in-array-with-same-key
     // ggl - array of objects same keys merge
 
-      function rglob($pattern, $flags = GLOB_ONLYDIR) {
-        global $warningSearchWillFail_Arr;
+      // function rglob($pattern, $flags = GLOB_ONLYDIR) {
+      //   global $warningSearchWillFail_Arr;
 
+      //   $files = glob($pattern, $flags); 
+      //   foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR) as $dir) {
+      //       $files = array_merge($files, rglob($dir.'/'.basename($pattern), $flags));
+      //       $folderName = basename($dir);
+      //       if(strpos($folderName, ":")!==false || strpos($folderName, "/")!==false) {
+      //         array_push($warningSearchWillFail_Arr, $folderName);
+      //       }
+      //       // die();
+      //   }
+      //   return $files;
+      // } // rglob
+
+
+      function rglob($pattern, $flags = 0) {
+        global $warningSearchWillFail_Arr;
+    
         $files = glob($pattern, $flags); 
         foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR) as $dir) {
             $files = array_merge($files, rglob($dir.'/'.basename($pattern), $flags));
             $folderName = basename($dir);
-            if(strpos($folderName, ":")!==false || strpos($folderName, "/")!==false) {
-              array_push($warningSearchWillFail_Arr, $folderName);
+            if (strpos($folderName, ":") !== false || strpos($folderName, "/") !== false) {
+                array_push($warningSearchWillFail_Arr, $folderName);
             }
-            // die();
         }
-        return $files;
-      }
+        
+        // Filter files based on extensions or if dir
+        $filteredFiles = [];
+        foreach ($files as $file) {
+            if (is_dir($file) || in_array(pathinfo($file, PATHINFO_EXTENSION), ['md', 'json'])) {
+                $filteredFiles[] = $file;
+            }
+        }
+        
+        return $filteredFiles;
+    } // rglob
+
       $dirs = rglob("$DIR_SNIPPETS+?*");
       $lookup_metas = [];
       $lookup_saveids = [];
@@ -66,12 +91,13 @@
         global $lookup_metas;
         global $lookup_saveids;
         
+        // tp trailing path?
         $path_tp = substr($path, strlen($DIR_SNIPPETS)+1); // trailing parsed
 
         // Assure trailing forward slash /
-        $lastChar = $path[strlen($path)-1];
-        $path = ($lastChar==='/') ? $path : "$path/";
-        $desc = $thumbnail = $gotos = null;
+        // $lastChar = $path[strlen($path)-1];
+        // $path = ($lastChar==='/') ? $path : "$path/";
+        // $desc = $thumbnail = $gotos = null;
 
         $decorated = [
           "current" => "",
@@ -79,20 +105,27 @@
           "path_tp" => $path_tp,
           "next" => []
         ];
+        //var_dump($path);
+        //echo "<br/>";
 
-        if(file_exists($path . "+meta.json")) {
-          $lookup_metas[$path] = @json_decode(file_get_contents($path . "+meta.json"), true);
+        $lastFiveChars = substr($path, -5);
+
+
+        if (stripos($lastFiveChars, ".json") !== false) {
+          $lookup_metas[$path] = @json_decode(file_get_contents($path), true);
+          //var_dump( $lookup_metas[$path]);
+          //die();
         }
 
         // var_dump($lookup_metas);
         // die();
-        if(file_exists($path . "+meta.txt")) {
+        if (stripos($lastFiveChars, ".md") !== false) {
           // var_dump($lookup_metas);
           // die();
           if(!isset($lookup_metas[$path]["summary"]))
             $lookup_metas[$path]["summary"] = array();
           $file_contents = "";
-          $file_contents = @file_get_contents($path . "+meta.txt");
+          $file_contents = @file_get_contents($path);
           array_push($lookup_metas[$path]["summary"], $file_contents);
           // var_dump($lookup_metas);
           // die();
