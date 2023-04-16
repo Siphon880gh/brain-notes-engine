@@ -99,6 +99,17 @@ console.log(folders);
 window.summary = "";
 
 function objToHtml(item) {
+    function getBasePath(filePath) {
+        // Get the last index of the directory separator ("/" or "\\")
+        const separatorIndex = Math.max(filePath.lastIndexOf('/'), filePath.lastIndexOf('\\'));
+        
+        // Extract the substring from the start to the separator index
+        const basePath = filePath.substring(0, separatorIndex + 1);
+        
+        return basePath;
+      } // getBasePath
+
+      
     var uniqueId = lookupUniqueIds[item.path];
     uniqueId = uniqueId.substr(1);
     var $liDom = $(`<li class="accordion meta" data-uid="${uniqueId}" data-path="${item.path}"></li>`);
@@ -130,7 +141,7 @@ function objToHtml(item) {
                 var $img = $(el);
                 var src = $img.attr("src");
                 if (src.indexOf("./") == 0) {
-                    src = item.path + src.substr(2);
+                    src = getBasePath(item.path) + src.substr(2);
                     $img.attr("src", src);
                 }
             }); // imgs
@@ -139,7 +150,7 @@ function objToHtml(item) {
                 var $a = $(el);
                 var href = $a.attr("href");
                 if (href.indexOf("./") == 0) {
-                    href = item.path + href.substr(2);
+                    href = getBasePath(item.path) + href.substr(2);
                     $a.attr("href", href);
                 }
             });
