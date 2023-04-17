@@ -3,8 +3,12 @@
   ini_set('display_startup_errors', 1);
   error_reporting(E_ALL);
 
+  // Env variables
+
+  include("./env/pcregrep.php");
+  include("./env/dir-snippets.php");
+
   // Configurable
-  $DIR_SNIPPETS = "curriculum/";
   $DEFAULT_THUMBNAIL_SIZE = "90x90"; // height x width
   $warningSearchWillFail_Arr = [];
 ?><!DOCTYPE html>
@@ -108,7 +112,7 @@
         //var_dump($path);
         //echo "<br/>";
 
-        $lastFiveChars = substr($path, -5);
+        $lastFiveChars = substr($path, -6); // Changed to last 6 chars in case of a .no.md that you want to ignore in the learning app
 
 
         if (stripos($lastFiveChars, ".json") !== false) {
@@ -367,10 +371,6 @@
         <div class="container">
         
           <?php
-            include("./putenv-pcregrep.php");
-
-            //var_dump($pcregrep);
-            //die();
 
             if(!`which $pcregrep 2>/dev/null`) {
               echo "<div class='error'>Error: Your server does not support pcregrep necessary to find text in files. Search will fail. Please contact your server administrator.</div>";

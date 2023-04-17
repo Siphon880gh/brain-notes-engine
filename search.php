@@ -1,7 +1,7 @@
 <?php
 
 if(isset($_POST["search"])) {
-  include("./putenv-pcregrep.php");
+  include("./env/pcregrep.php");
   $search = $_POST["search"];
   // pcregrep: case insensitive, I ignoring binary files, recursive search
   // $cmd = 'pcregrep --binary-files=without-match -ri "' . $search . '" "./curriculum"'; 
