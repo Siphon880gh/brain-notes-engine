@@ -445,11 +445,11 @@ function loadFile() {
 
 }; // loadFile
 
-// Always resize
-setInterval(() => {
-    if ($("#old .contents").css("display") !== "none" || $("#old .contents").css("visibility") !== "hidden")
-        $("#new .contents").height($("#old .contents").height());
-}, 200);
+// // Always resize
+// setInterval(() => {
+//     if ($("#side-a").css("display") !== "none" && $("#side-a").css("visibility") !== "hidden")
+//         $("#side-b").height($("#side-a").height());
+// }, 200);
 
 /**
  * resort-lines

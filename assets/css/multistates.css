@@ -153,3 +153,30 @@
   -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: ease-in-out;
 }
+
+/* REFACTORED IN from ./assets-explorer/css/... */
+/* line 101, scss/multistates.scss */
+.multistates-wrapper {
+  margin-left: 6px !important;
+}
+
+/* line 104, scss/multistates.scss */
+.multistates {
+  height: .9rem;
+  padding-left: 3px !important;
+  padding-right: 0 !important;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+}
+/* line 111, scss/multistates.scss */
+.multistates .p1, .multistates .p2, .multistates .p3, .multistates .p4 {
+  font-size: .9rem !important;
+}
+
+/* line 115, scss/multistates.scss */
+.multistates .p1, .multistates .p4 {
+  border-left: 0 !important;
+  border-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}

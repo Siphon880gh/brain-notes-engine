@@ -1,6 +1,9 @@
 # Curriculum will be another git
 curriculum/
 
+# Backups
+backups/
+
 +saveid*
 .DS_Store
 thumbs.db

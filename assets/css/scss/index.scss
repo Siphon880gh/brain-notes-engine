@@ -1,12 +1,72 @@
-// Styling classes
+/* General Styling */
+h3 {
+    font-size: 1.5rem;
+}
+
+
+/* Testing zoom levels on mobiles. Non-standard / Experimental */
+@media screen AND (max-width: 768px) {
+    :root {
+       zoom: 1;
+       /* transform: scale(0.7); */
+       /* font-size: .7rem; */
+       /* max-width: 100vw;
+         margin: 0;
+         padding: 0; */
+   }
+   .container {
+       margin: 0;
+       padding: 0;
+       width: 100vw;
+   }
+   .card {
+       width: 100vw;
+   }
+   .card-body {
+       padding: 20px 0;
+   }
+   #old .contents,
+   #new .contents {
+       margin: 0;
+   }
+   .contents {
+       font-size: .7rem;
+   }
+}
+
+
+/* Styling classes */
+
+.clickable {
+    color: gray;
+    cursor: pointer;
+}
+
+.clickable:hover {
+    color: black;
+}
+.fullwidth100 {
+    width: 100% !important;
+    height: 125px;
+}
+.hide, .hidden {
+    display: none;
+}
+.highlight {
+    background-color: orange;
+}
 .inline-block {
     display: inline-block;
 }
 
-// Components
-h3 {
-    font-size: 1.5rem;
+.spacer {
+    width: 100%;
+    height: 5px;
 }
+
+
+
+/* General Layout */
 
 .site-header {
     text-align: center;
@@ -52,100 +112,53 @@ h3 {
     background-color: orange !important;
 }
 
-.spacer {
-    width: 100%;
-    height: 5px;
-}
-
-.clickable {
-    color: gray;
-    cursor: pointer;
-}
-
-.clickable:hover {
-    color: black;
-}
-
 .card {
     margin: 30px auto 30px auto;
 }
 
-.difficulty .form-control[type="radio"] {
-    height: auto;
-}
-
-.difficulty .form-group {
-    margin-right: 2ch;
-}
-
-.fog {
-    transition: background-color 200ms ease;
-}
-
-.hide {
-    display: none;
-}
 
 #explore-curriculum iframe {
     resize: vertical;
 }
 
-
-/* Testing zoom levels on mobiles. Non-standard / Experimental */
-
-@media screen AND (max-width: 768px) {
-     :root {
-        zoom: 1;
-        /* transform: scale(0.7); */
-        /* font-size: .7rem; */
-        /* max-width: 100vw;
-          margin: 0;
-          padding: 0; */
-    }
-    .container {
-        margin: 0;
-        padding: 0;
-        width: 100vw;
-    }
-    .card {
-        width: 100vw;
-    }
-    .card-body {
-        padding: 20px 0;
-    }
-    #old .contents,
-    #new .contents {
-        margin: 0;
-    }
-    .contents {
-        font-size: .7rem;
-    }
+#summary-inner textarea {
+    border-color: white;
 }
 
 
-/* Explore Curriculum is in a footer */
+/* Fieldset layout */
+#explore-curriculum fieldset {
+    display: block;
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+    padding-block-start: 0.35em;
+    padding-inline-start: 0.75em;
+    padding-inline-end: 0.75em;
+    padding-block-end: 0.625em;
+    min-inline-size: min-content;
+    border-width: 2px;
+    border-style: groove;
+    border-color: threedface;
+    border-image: initial;
 
-.card-footer {
-    padding: 0;
+   legend {
+      display: inline-block !important;
+      padding-inline-start: 4px;
+      padding-inline-end: 4px;
+      border-width: initial;
+      border-style: none;
+      border-color: initial;
+      border-image: initial;
+      border-bottom: 0 !important;
+      width: auto !important;
+      margin-bottom: 0;
+      /* min-width: 0 !important; */
+    }
 }
 
+/* Toggle side by side curriculum explorer along notes view */
 
-/* Resort-lines */
-
-.li-correct {
-    border: 1px solid green;
-    background-color: lightgreen;
-}
-
-.li-incorrect {
-    border: 1px solid red;
-    background-color: #FFCCCB;
-}
-
-
-/* Toggle side by side for curriculum explorer and its notes */
-
-.side-by-side {
+#explore-curriculum .side-by-side {
     float: left;
     width: 50%;
 }

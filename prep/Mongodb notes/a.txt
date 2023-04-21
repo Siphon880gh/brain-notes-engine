@@ -1,6 +1,0 @@
-Robo 3T - Mongodb
-
-https://www.educative.io/blog/what-are-database-schemas-examples#nosql
-
-
-You can run mongo but may not see the database, tables unless they have data. They're created on demand if doesn't exist.

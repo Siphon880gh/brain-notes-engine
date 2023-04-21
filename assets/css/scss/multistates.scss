@@ -96,3 +96,25 @@
   -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: ease-in-out;
 }
+
+/* REFACTORED IN from ./assets-explorer/css/... */
+.multistates-wrapper {
+  margin-left: 6px !important;
+}
+.multistates {
+  height: .9rem;
+  padding-left: 3px !important;
+  padding-right: 0 !important;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+
+  .p1, .p2, .p3, .p4 {
+      font-size: .9rem !important;
+  } 
+}
+.multistates .p1, .multistates .p4 {
+  border-left: 0 !important;
+  border-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}

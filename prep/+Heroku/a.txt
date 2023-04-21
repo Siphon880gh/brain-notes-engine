@@ -1,4 +1,0 @@
-Running script at Heroku
-```
-heroku run npm run seed
-```

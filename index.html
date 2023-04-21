@@ -15,9 +15,13 @@
     <!-- Autoexpand (app.js dependency)-->
     <script src="assets/js/vendors/autoExpand/autoExpand.js"></script>
 
+    <!-- CSS Assets -->
     <link href="assets/css/index.css" rel="stylesheet">
+    <link href="assets/css/game.css" rel="stylesheet">
+
+    <!-- JS Assets -->
     <script src="assets/js/diff.js"></script>
-    <script src="assets/js/app.js"></script>
+    <script src="assets/js/index.js"></script>
 
 </head>
 
@@ -125,13 +129,13 @@
                         <button class="btn btn-default btn-sm" onclick="$('#explore-curriculum .side-by-side-possible').toggleClass('side-by-side');" style="margin-top:5px">See more topics side by side</button>
                     </p>
                 </div>
-                <div class="card-body side-by-side-possible">
-                    <fieldset class="deemp-fieldset">
-                        <textarea id="summary-inner" class="hide" style="height: 60vh; resize: none; width:100%;"></textarea>
+                <div id="side-a" class="card-body side-by-side-possible hidden">
+                    <fieldset class="deemp-fieldset" style="height: 100%;">
+                        <textarea id="summary-inner" style="height: 100%; resize: none; width:100%;"></textarea>
                     </fieldset>
                 </div>
 
-                <div class="card-body side-by-side-possible">
+                <div id="side-b" class="card-body side-by-side-possible">
                     <iframe style="padding:5px; border-radius:5px; display:inline-block; margin-top:5px; text-align:left; margin-bottom:10px; width:100%; height:400px;" src="explorer.php">
                 </iframe>
                 </div>

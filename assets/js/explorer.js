@@ -1,9 +1,15 @@
+/** UTILITY FUNCTIONS **/
+
 // NEW selector is case insensitive
 $.expr[":"].contains = $.expr.createPseudo(function(arg) {
     return function(elem) {
         return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
     };
 });
+
+/** RECURSIVE LOGIC */
+
+
 
 //window.lastOpenedUid = "";
 
@@ -219,6 +225,7 @@ function objToHtml(type, item) {
         function createSummaryIconAndContents(text, $contain, ajaxed) {
             var $summary = $(`<span class="fas fa-book-reader" data-summary="${text}"></span>`);
             $summary.on("click", (event) => {
+                parent.document.querySelector(".side-by-side-possible.hidden")?.classList?.remove("hidden");
                 var $this = $(event.target);
                 var summary = $this.attr("data-summary");
                 summary = decodeURI(summary);
@@ -278,21 +285,6 @@ function objToHtml(type, item) {
     //   debugger;
     return $liDom;
 } // objToHtml
-
-function scrollToUniqueId(uniqueId, startingMode) {
-    /* Get the $row */
-    if (uniqueId.length && uniqueId[0] === '+')
-        uniqueId = uniqueId.substr(1);
-
-    var selector = `[data-uid="${uniqueId}"]`;
-    var $foundRow = $(selector);
-    if ($foundRow.length === 0) return;
-
-    toOpenUp_Exec($foundRow);
-    if (!startingMode)
-        toOpenUp_Highlight($foundRow);
-    $foundRow[0].scrollIntoView();
-} // scrollToUniqueId
 
 function scrollToText(partial) {
     let $finalJumpTo = null;
@@ -375,11 +367,9 @@ function openCommand_ToRoot() {
 }
 
 $(() => {
-    //https://gist.github.com/arunprasadr/9662545
-    //gist not found anymore.. empty profile
-
     var $ul = $("<ul>");
     //console.log({folders})
+
     for (var i = 0; i < folders.length; i++) {
         var item = folders[i];
         var func = (item, $ul) => {
@@ -403,18 +393,14 @@ $(() => {
 
     // Open up accordions initially
     $(".accordion").each((i, li) => {
-        // debugger;
         var $this = $(li);
         $this.children(".contain, ul").toggle("active");
-        // $this.addClass("minus");
+        // $this.toggleClass("minus");
     });
 
     // Accordion onclicks
     $(".name").on("click", (event) => {
         var $name = $(event.target);
-        // var uid = $name.closest("li").attr("data-uid");
-        // window.lastOpenedUid = uid;
-        // console.log(`Clicked uid/name: ${uid}/${$name[0].innerText}`);
 
         // Expanding/collapsing
         $li = $name.closest("li.accordion");
@@ -445,3 +431,140 @@ $(() => {
 
     }, 100)
 }); // on dom
+
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+  }
+
+  function selectAndCopyTextarea($el, cb) {
+    this.selectTextarea = function($el, callback) {
+      var isIOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+
+      if(isIOS)
+        $el.get(0).setSelectionRange(0,9999);
+      else
+        $el.select();
+
+      callback();
+    } // selectTextarea
+
+    this.saveToClipboard =function() {
+      try {
+        var successful = document.execCommand( 'copy' );
+        var msg = successful ? 'successful' : 'unsuccessful';
+        console.log('Copying text command was ' + msg);
+        $done.fadeIn(800).delay(1200).fadeOut(500);
+      } catch (err) {
+        console.log('Oops, unable to copy');
+      }
+
+    } // saveToClipboard
+
+    this.selectTextarea($el, saveToClipboard);
+    if(cb) cb();
+
+  } // selectAndCopyTextarea
+
+  function animateCopied() {
+    $done = $("#copied-message");
+    $done.fadeIn(800).delay(1200).fadeOut(500);
+  }
+
+  function toggleSearchResults(display) {
+    $div = $("#search-results");
+    if(display)
+      $div.fadeIn(800);
+    else
+      $div.fadeOut(500);
+  }
+
+  // If user erases content in input, dynamically erase any present search results
+  // If user presses enter on input, then click the search
+  function checkSearcherSubmit(event, $btn) {
+    $searcher = $("#searcher");
+    if($searcher.val().length===0)
+      toggleSearchResults(false);
+
+    if(event.keyCode === 13)
+      {
+        $(".ui-autocomplete").hide();
+        event.preventDefault();
+        $btn.click();
+      }
+  } // checkSearcherSubmit
+
+  function doSearcher() {
+    $searcher = $("#searcher");
+    query = $searcher.val();
+    query = escapeRegExp(query);
+    if(query.length===0) return;
+
+    $div = $("#search-results .contents");
+    $.post("search.php", {search:query})
+    .done(greps=>{
+      greps = JSON.parse(greps); // grep results array
+      greps = greps["res"];
+      console.log(greps);
+      
+      // Reset
+      $div.html(`<div><table id="table-search-results">
+          <thead>
+            <th>Concept (Folder)</th>
+            <th>File</th>
+            <th>Context</th>
+          <thead>
+          <tbody>
+          </tbody>
+        </table></div>`)
+      $tbody = $div.find("tbody");
+
+      // Match and render
+      greps.forEach(res=> {
+        // x/y/z/filepath: surrounding_text
+
+        // Reset placeholders
+        var afterFirstDoubleColon="", beforeFirstDoubleColon="", folder = ""; file="", context="";
+
+        afterFirstDoubleColon = res.match(/:(.*)/im);
+        afterFirstDoubleColon = afterFirstDoubleColon[1];
+        afterFirstDoubleColon = afterFirstDoubleColon.trim();
+        context = afterFirstDoubleColon;
+
+        beforeFirstDoubleColon = res.match(/(.*?):/im);
+        beforeFirstDoubleColon = beforeFirstDoubleColon[1];
+        beforeFirstDoubleColon = beforeFirstDoubleColon.trim();
+
+        i = beforeFirstDoubleColon.lastIndexOf("/")
+        file = beforeFirstDoubleColon.substr(i+1);
+
+        folder = beforeFirstDoubleColon.split("/").slice(-2, -1);
+
+        $tbody.append(`
+            <tr>
+              <td><a onclick="scrollToNonoverridden('${folder}')" href="javascript:void(0);">${folder}</a></td>
+              <td>${file}</td>
+              <td class="context"><pre>${context}</pre></td>
+            </tr>`);
+      }); // foreach
+      $("#table-search-results pre").highlight($("#searcher").val());
+      toggleSearchResults(true);
+
+      // Scroll to bottom where search results are
+      window.scrollTo(0,document.body.scrollHeight);
+    });
+  } // doSearcher
+
+  function clearSearcher() {
+    $searcher = $("#searcher");
+    $searcher.val("");
+    toggleSearchResults(false);
+  }
+  function toggleAllExpand() {
+    const $styleBlock = $("#style-toggle-all-expand");
+    const isOn = $styleBlock.text().trim().length>0;
+    if(isOn) {
+      $styleBlock.text("");
+    } else {
+      $styleBlock.html("ul { display: block !important; }");
+    }
+  }

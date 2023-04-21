@@ -1,0 +1,28 @@
+/* Retype Game: Difficulty levels */
+.difficulty .form-control[type="radio"] {
+    height: auto;
+}
+
+.difficulty .form-group {
+    margin-right: 2ch;
+}
+
+/* Retype Game: Hiding parts at higher difficulty levels */
+.fog {
+    transition: background-color 200ms ease;
+}
+
+
+/* Resort-lines */
+
+.li-correct {
+    border: 1px solid green;
+    background-color: lightgreen;
+}
+
+.li-incorrect {
+    border: 1px solid red;
+    background-color: #FFCCCB;
+}
+
+

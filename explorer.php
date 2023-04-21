@@ -3,6 +3,10 @@
   ini_set('display_startup_errors', 1);
   error_reporting(E_ALL);
 
+  header("Cache-Control: no-cache, no-store, must-revalidate");
+  header("Pragma: no-cache");
+  header("Expires: 0");
+
   // Env variables
 
   include("./env/pcregrep.php");
@@ -21,25 +25,12 @@
     <!-- jQuery and Bootstrap  -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <!-- <script src="assets/js/vendor/ko.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
         
-    <link href="assets-explorer/css/index.css?v=<?php echo time(); ?>" rel="stylesheet">
-    <link href="assets-explorer/css/multistates.css?v=<?php echo time(); ?>" rel="stylesheet">
+    <link href="assets/css/explorer.css?v=<?php echo time(); ?>" rel="stylesheet">
+    <link href="assets/css/multistates.css?v=<?php echo time(); ?>" rel="stylesheet">
+    <link href="assets/css/thermos.css?v=<?php echo time(); ?>" rel="stylesheet">
 
-    <style>
-    li {
-      color: blue;
-    }
-    li:hover {
-      color: darkblue;
-      cursor: pointer;
-    }
-    .contain .fa {
-      cursor: pointer;
-    }
-
-    </style>
 
     <?php
     // TODO:
@@ -171,206 +162,9 @@
     ?>
     </script>
 
-    <script>
-    function escapeRegExp(string) {
-      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-    }
+    <script src="assets/js/explorer.js"></script>
+    <script src="assets/js/multistates.js"></script>
 
-    function selectAndCopyTextarea($el, cb) {
-      this.selectTextarea = function($el, callback) {
-        var isIOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
-
-        if(isIOS)
-          $el.get(0).setSelectionRange(0,9999);
-        else
-          $el.select();
-
-        callback();
-      } // selectTextarea
-
-      this.saveToClipboard =function() {
-        try {
-          var successful = document.execCommand( 'copy' );
-          var msg = successful ? 'successful' : 'unsuccessful';
-          console.log('Copying text command was ' + msg);
-          $done.fadeIn(800).delay(1200).fadeOut(500);
-        } catch (err) {
-          console.log('Oops, unable to copy');
-        }
-
-      } // saveToClipboard
-
-      this.selectTextarea($el, saveToClipboard);
-      if(cb) cb();
-
-    } // selectAndCopyTextarea
-
-    function animateCopied() {
-      $done = $("#copied-message");
-      $done.fadeIn(800).delay(1200).fadeOut(500);
-    }
-
-    function toggleSearchResults(display) {
-      $div = $("#search-results");
-      if(display)
-        $div.fadeIn(800);
-      else
-        $div.fadeOut(500);
-    }
-
-    // If user erases content in input, dynamically erase any present search results
-    // If user presses enter on input, then click the search
-    function checkSearcherSubmit(event, $btn) {
-      $searcher = $("#searcher");
-      if($searcher.val().length===0)
-        toggleSearchResults(false);
-
-      if(event.keyCode === 13)
-        {
-          $(".ui-autocomplete").hide();
-          event.preventDefault();
-          $btn.click();
-        }
-    } // checkSearcherSubmit
-
-    function doSearcher() {
-      $searcher = $("#searcher");
-      query = $searcher.val();
-      query = escapeRegExp(query);
-      if(query.length===0) return;
-
-      $div = $("#search-results .contents");
-      $.post("search.php", {search:query})
-      .done(greps=>{
-        greps = JSON.parse(greps); // grep results array
-        greps = greps["res"];
-        console.log(greps);
-        
-        // Reset
-        $div.html(`<div><table id="table-search-results">
-            <thead>
-              <th>Concept (Folder)</th>
-              <th>File</th>
-              <th>Context</th>
-            <thead>
-            <tbody>
-            </tbody>
-          </table></div>`)
-        $tbody = $div.find("tbody");
-
-        // Match and render
-        greps.forEach(res=> {
-          // x/y/z/filepath: surrounding_text
-
-          // Reset placeholders
-          var afterFirstDoubleColon="", beforeFirstDoubleColon="", folder = ""; file="", context="";
-
-          afterFirstDoubleColon = res.match(/:(.*)/im);
-          afterFirstDoubleColon = afterFirstDoubleColon[1];
-          afterFirstDoubleColon = afterFirstDoubleColon.trim();
-          context = afterFirstDoubleColon;
-
-          beforeFirstDoubleColon = res.match(/(.*?):/im);
-          beforeFirstDoubleColon = beforeFirstDoubleColon[1];
-          beforeFirstDoubleColon = beforeFirstDoubleColon.trim();
-
-          i = beforeFirstDoubleColon.lastIndexOf("/")
-          file = beforeFirstDoubleColon.substr(i+1);
-
-          folder = beforeFirstDoubleColon.split("/").slice(-2, -1);
-
-          $tbody.append(`
-              <tr>
-                <td><a onclick="scrollToNonoverridden('${folder}')" href="javascript:void(0);">${folder}</a></td>
-                <td>${file}</td>
-                <td class="context"><pre>${context}</pre></td>
-              </tr>`);
-        }); // foreach
-        $("#table-search-results pre").highlight($("#searcher").val());
-        toggleSearchResults(true);
-
-        // Scroll to bottom where search results are
-        window.scrollTo(0,document.body.scrollHeight);
-      });
-    } // doSearcher
-
-    function clearSearcher() {
-      $searcher = $("#searcher");
-      $searcher.val("");
-      toggleSearchResults(false);
-    }
-    </script>
-
-    <style>
-    .error {
-      color:red; border:1px solid red; background-color:lightred;
-      padding: 10px 20px 10px 20px;
-      margin-top: 10px;
-      border-radius: 2px;
-      margin-left: 10px;
-      margin-right: 10px;
-      margin-bottom: 10px;
-    }
-    </style>
-
-    <script>
-    function toggleAllExpand() {
-      const $styleBlock = $("#style-toggle-all-expand");
-      const isOn = $styleBlock.text().trim().length>0;
-      if(isOn) {
-        $styleBlock.text("");
-      } else {
-        $styleBlock.html("ul { display: block !important; }");
-      }
-    }
-    </script>
-
-    <style>
-    @media print {
-      #searcher-containers {
-        display: none;
-      }
-      #printer-title::after {
-        content: "Curriculum";
-        font-size: 2rem;
-      }
-    }
-    @media SCREEN and (max-width: 768px) {
-      #searcher-containers, .container {
-        padding: 0;
-      }
-      .mobile-flush-top {
-        position:absolute;
-        top:2px;
-        right: 2px;
-      }
-    }
-    @media SCREEN and (min-width: 768px) {
-      #searcher-2-btn::after {
-        content: " (with autocomplete)";
-      }
-    }
-    #searcher-btn, #searcher-2-btn {
-      margin-left: -5px;
-    }
-    #searcher, #searcher-2 {
-      margin-left: 10px;
-    }
-    </style>
-
-    <script src="assets/js/app-snippets.js"></script>
-    <script src="assets-explorer/js/multistates.js"></script>
-
-    <style>
-    /** Stop ios making buttons rounded **/
-    .override-ios-button-style {
-        -webkit-appearance: none !important;
-        -webkit-border-radius: 0 !important;
-        border-radius: 0 !important;
-        height: 2.5rem;
-        /* color: red; */
-    }
-    </style>
 </head>
     <body>
         <div class="container">
@@ -411,7 +205,7 @@
           </div>
 
           <div style="width:1px; height:10px; clear:both;"></div>
-          <div id="searcher-containers" style="border-right:1px solid black; float:right; padding:15px;">
+          <div id="searcher-containers" style="float:right; padding:15px;">
 
             <div id="searcher-container" style="float:right; margin-top:5px;">
                   <form action=""></form>
@@ -458,14 +252,7 @@
               });
             })
             </script>
-            <style>
-              #searcher, #searcher-btn {
-                border-color: lightblue;
-              }
-              #searcher-2, #searcher-2-btn {
-                border-color: #FFCCCB; /* light red */
-              }
-            </style>
+            
             <div id="searcher-container-2" style="float:right; margin-top:5px;">
                   <form action=""></form>
                   <!-- <label for="alpha-strip" style="font-weight:400;">Text:</label> -->
@@ -487,26 +274,6 @@
             <div class="contents"></div>
           </fieldset>
 
-          <fieldset class="deemp-fieldset hidden-off">
-            <legend>Testing</legend>
-            <small>Search and open by folder name: scrollToText("Some Title"):</small><br/>
-            <input type="text" id="by-search" value="">
-            <button onclick='scrollToText($("#by-search").val())'>Run function</button>
-            <br><br>
-
-            <small>Open by unique Id (Id is in li[data-uid] or folder contents): scrollToUniqueId("unique....dat"):</small><br/>
-            <input type="text" id="by-uid" value="saveid1562162987.2096.dat">
-            <button onclick='scrollToUniqueId($("#by-uid").val())'>Run function</button>
-            <br/><br/>
-
-            <p>
-              <small>Search or open by unique Id with &#10094;a&#10095; tags:<br/>
-              The story is about a man who started understanding the concept of <a href="javascript:void(0)" onclick='scrollToUniqueId("saveid1562162987.2094.dat");'>number 1</a>.
-              </small>
-            </p>
-
-          </fieldset>
-
         </div> <!-- /.container -->
 
         <div id="copied-message" style="display:none; position:fixed; border-radius:5px; top:0; right:0; color:green; background-color:rgba(255,255,255,1); padding: 5px 10px 5px 5px;">Copied!</div>
@@ -515,7 +282,7 @@
         </style>
 
         <!-- Highlighter -->
-        <script src="assets-explorer/js/jquery.highlight.js"></script>
+        <script src="assets/js/vendors/jquery.highlight.js"></script>
 
         <!-- Designer: Open Sans, Lato, FontAwesome, Waypoints, Skrollr, Pixel-Em-Converter -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300|Open+Sans+Condensed:300" rel="stylesheet">
@@ -527,7 +294,7 @@
         
         <!-- Rendering: Handlebars JS, LiveQuery, Sprintf JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
-        <script src="assets-explorer/js/vendor/livequery.js"></script>
+        <script src="assets/js/vendors/livequery.js"></script>
         <script src="https://raw.githack.com/azatoth/jquery-sprintf/master/jquery.sprintf.js"></script>
         
         <!-- Compatibility: Modernizr, jQuery Migrate (check browser) -->
@@ -548,10 +315,10 @@
         <!-- Autosize textarea
             https://gomakethings.com/automatically-expand-a-textarea-as-the-user-types-using-vanilla-javascript/
         -->
-        <script src="assets-explorer/js/vendors/autoExpand/autoExpand.js"></script>
+        <script src="assets/js/vendors/autoExpand/autoExpand.js"></script>
 
         <!-- Highlighter -->
-        <script src="assets-explorer/js/vendors/jquery.highlight.js"></script>
+        <script src="assets/js/vendors/jquery.highlight.js"></script>
         
     </body>
 </html>

@@ -1,0 +1,158 @@
+/** GENERAL LAYOUT **/
+/** Stop ios making buttons rounded **/
+/* line 3, scss/explorer.scss */
+.override-ios-button-style {
+  -webkit-appearance: none !important;
+  -webkit-border-radius: 0 !important;
+  border-radius: 0 !important;
+  height: 2.5rem;
+  /* color: red; */
+}
+
+/** STYLING CLASSES **/
+/* line 14, scss/explorer.scss */
+.error {
+  color: red;
+  border: 1px solid red;
+  background-color: lightred;
+  padding: 10px 20px 10px 20px;
+  margin-top: 10px;
+  border-radius: 2px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+/** COMPONENTS **/
+/* Searcher */
+/* line 28, scss/explorer.scss */
+#searcher, #searcher-btn {
+  border-color: lightblue;
+}
+
+/* line 31, scss/explorer.scss */
+#searcher-2, #searcher-2-btn {
+  border-color: #FFCCCB;
+  /* light red */
+}
+
+/* line 35, scss/explorer.scss */
+#table-search-results th, #table-search-results td {
+  padding: 5px;
+}
+/* line 38, scss/explorer.scss */
+#table-search-results td:nth-child(3) {
+  width: 100%;
+}
+/* line 41, scss/explorer.scss */
+#table-search-results pre {
+  white-space: pre-wrap;
+  width: 100%;
+}
+
+@media print {
+  /* line 48, scss/explorer.scss */
+  #searcher-containers {
+    display: none;
+  }
+
+  /* line 51, scss/explorer.scss */
+  #printer-title::after {
+    content: "Curriculum";
+    font-size: 2rem;
+  }
+}
+@media SCREEN and (max-width: 768px) {
+  /* line 57, scss/explorer.scss */
+  #searcher-containers, .container {
+    padding: 0;
+  }
+
+  /* line 60, scss/explorer.scss */
+  .mobile-flush-top {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+  }
+}
+@media SCREEN and (min-width: 768px) {
+  /* line 67, scss/explorer.scss */
+  #searcher-2-btn::after {
+    content: " (with autocomplete)";
+  }
+}
+/* line 71, scss/explorer.scss */
+#searcher-btn, #searcher-2-btn {
+  margin-left: -5px;
+}
+
+/* line 74, scss/explorer.scss */
+#searcher, #searcher-2 {
+  margin-left: 10px;
+}
+
+/* List Items */
+/* line 81, scss/explorer.scss */
+.accordion {
+  cursor: pointer;
+}
+
+/* line 84, scss/explorer.scss */
+.accordion.meta {
+  padding: 5px;
+}
+
+/* line 89, scss/explorer.scss */
+li {
+  color: blue;
+}
+
+/* line 92, scss/explorer.scss */
+li:hover {
+  color: darkblue;
+  cursor: pointer;
+}
+
+/* line 96, scss/explorer.scss */
+.contain .fa {
+  cursor: pointer;
+}
+
+/* Tooltip for .json file's description property  */
+/* line 102, scss/explorer.scss */
+.tooltip {
+  opacity: 1 !important;
+}
+
+/* line 105, scss/explorer.scss */
+.tooltip-inner {
+  font-size: 12px;
+  background: lightgreen;
+  border: 1px solid #737373;
+  text-align: left;
+  max-width: 80% !important;
+  max-height: 80% !important;
+  overflow: scroll;
+}
+/* line 113, scss/explorer.scss */
+.tooltip-inner img {
+  width: 100%;
+}
+
+/* Explore Curriculum is in a footer */
+/* line 121, scss/explorer.scss */
+.card-footer {
+  padding: 0;
+}
+
+/* REFACTORED IN from ./assets-explorer/css/... */
+/* Buttons fit */
+/* line 128, scss/explorer.scss */
+.fa-info, .fa-book-reader:not(.summary-header), .gotos-click, .thermo, .multistates-wrapper {
+  margin-left: 1ch;
+}
+
+/* line 131, scss/explorer.scss */
+.fa-info:hover, .fa-book-reader:not(.summary-header):hover, .gotos-click:hover {
+  color: darkgreen;
+}
