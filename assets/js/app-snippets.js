@@ -27,8 +27,9 @@ function mergeByCommonPath(data) {
 
     // Iterate over each item in data array
     return data.map(function(item) {
-        // Separate the item's current by +
-        var folders = item.path_tp.split('/+')
+        // Separate the item's current by /
+        //console.log({"item-path-tp":item.path_tp})
+        var folders = item.path_tp.split('/')
             // console.log(folders)
 
         // Return nested folders starting from the top-level folder
@@ -98,7 +99,7 @@ folders = mergeByKey(folders);
 console.log(folders);
 window.summary = "";
 
-function objToHtml(item) {
+function objToHtml(type, item) {
     function getBasePath(filePath) {
         // Get the last index of the directory separator ("/" or "\\")
         const separatorIndex = Math.max(filePath.lastIndexOf('/'), filePath.lastIndexOf('\\'));
@@ -109,6 +110,7 @@ function objToHtml(item) {
         return basePath;
       } // getBasePath
 
+    //console.log({"item-current": item.current})
       
     var uniqueId = lookupUniqueIds[item.path];
     uniqueId = uniqueId.substr(1);
@@ -373,12 +375,14 @@ function openCommand_ToRoot() {
 
 $(() => {
     //https://gist.github.com/arunprasadr/9662545
+    //gist not found anymore.. empty profile
 
     var $ul = $("<ul>");
+    //console.log({folders})
     for (var i = 0; i < folders.length; i++) {
         var item = folders[i];
         var func = (item, $ul) => {
-            var $newLi = objToHtml(item);
+            var $newLi = objToHtml("snippet-list-item", item);
             // console.log(`var $newLi = objToHtml(item);`);
             // debugger;
             var $newUl = $("<ul>");

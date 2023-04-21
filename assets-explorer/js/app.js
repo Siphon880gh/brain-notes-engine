@@ -97,7 +97,7 @@ folders = mergeByKey(folders);
 console.log(folders);
 window.summary = "";
 
-function objToHtml(item) {
+function objToHtml(type, item) {
   var uniqueId = lookupUniqueIds[item.path];
   uniqueId = uniqueId.substr(1);
   var $liDom = $(`<li class="accordion meta" data-uid="${uniqueId}" data-path="${item.path}"></li>`);
@@ -482,7 +482,7 @@ $(()=>{
   for(var i=0; i<folders.length; i++) {
     var item = folders[i];
     var func = (item, $ul)=> {
-      var $newLi = objToHtml(item);
+      var $newLi = objToHtml("snippet-list-item", item);
       // console.log(`var $newLi = objToHtml(item);`);
       // debugger;
       var $newUl = $("<ul>");

@@ -581,12 +581,13 @@ $(() => {
 // End: Detect hash then searh
 
 // Autoresize notes textarea
-document.querySelector("#summary-inner").addEventListener("input", (event) => {
+document.querySelector("#summary-inner")?.addEventListener("input", (event) => {
     autoExpand(event.target);
 });
 
 window.autoExpandNow = () => {
-    autoExpand(document.querySelector("#summary-inner"));
+    if(document.querySelector("#summary-inner")?.length)
+        autoExpand(document.querySelector("#summary-inner"));
 }
 autoExpandNow();
 // End: Autoresize notes textarea

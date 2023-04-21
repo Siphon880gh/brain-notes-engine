@@ -85,23 +85,25 @@
         return $filteredFiles;
     } // rglob
 
-      $dirs = rglob("$DIR_SNIPPETS+?*");
+      $dirs = rglob("$DIR_SNIPPETS?*");
       $lookup_metas = [];
       $lookup_saveids = [];
 
       function map_tp_dec($path) { // trailing parsed (removed preceding snippet/ and may remove ending slash /) and decorated object
+        // var_dump($path);
         global $DIR_SNIPPETS;
         global $DEFAULT_THUMBNAIL_SIZE;
         global $lookup_metas;
         global $lookup_saveids;
         
         // tp trailing path?
-        $path_tp = substr($path, strlen($DIR_SNIPPETS)+1); // trailing parsed
+        $path_tp = substr($path, strlen($DIR_SNIPPETS)); // trailing parsed
 
         // Assure trailing forward slash /
         // $lastChar = $path[strlen($path)-1];
         // $path = ($lastChar==='/') ? $path : "$path/";
         // $desc = $thumbnail = $gotos = null;
+        
 
         $decorated = [
           "current" => "",
@@ -158,6 +160,9 @@
       echo "lookupMetas = " . json_encode($lookup_metas) . ";";
       echo "lookupUniqueIds = " . json_encode($lookup_saveids) . ";";
       echo "</script>";
+
+      // var_dump($dirs);
+      // die();
     ?>
 
     <script>
