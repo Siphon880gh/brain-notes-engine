@@ -141,7 +141,7 @@
         $saveid_globs = glob($path . "+saveid*.dat");
         if(count($saveid_globs)===0) {
           $microtime = microtime(true);
-          file_put_contents($path . "+saveid" . $microtime . ".dat", "");
+          //file_put_contents($path . "+saveid" . $microtime . ".dat", "");
           $saveid_glob = $microtime . ".dat";
         } else {
           $saveid_glob = basename($saveid_globs[0]);
@@ -487,10 +487,10 @@
             <div class="contents"></div>
           </fieldset>
 
-          <fieldset class="deemp-fieldset hidden">
+          <fieldset class="deemp-fieldset hidden-off">
             <legend>Testing</legend>
             <small>Search and open by folder name: scrollToText("Some Title"):</small><br/>
-            <input type="text" id="by-search" value="II">
+            <input type="text" id="by-search" value="">
             <button onclick='scrollToText($("#by-search").val())'>Run function</button>
             <br><br>
 

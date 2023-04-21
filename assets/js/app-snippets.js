@@ -5,7 +5,7 @@ $.expr[":"].contains = $.expr.createPseudo(function(arg) {
     };
 });
 
-window.lastOpenedUid = "";
+//window.lastOpenedUid = "";
 
 function mergeByCommonPath(data) {
     // the function where the nesting magic happens
@@ -112,9 +112,10 @@ function objToHtml(type, item) {
 
     //console.log({"item-current": item.current})
       
-    var uniqueId = lookupUniqueIds[item.path];
-    uniqueId = uniqueId.substr(1);
-    var $liDom = $(`<li class="accordion meta" data-uid="${uniqueId}" data-path="${item.path}"></li>`);
+    // var uniqueId = lookupUniqueIds[item.path];
+    // uniqueId = uniqueId.substr(1);
+    // var $liDom = $(`<li class="accordion meta" data-uid="${uniqueId}" data-path="${item.path}"></li>`);
+    var $liDom = $(`<li class="accordion meta" data-path="${item.path}"></li>`);
     $liDom.append($(`<span class="name">${item.current}</span>`));
     $contain = $(`<span class="contain"></span>`);
     var $meta = $liDom;
@@ -331,7 +332,7 @@ function scrollToNonoverridden(partial) {
         toOpenUp_Highlight($row);
         $row[0].scrollIntoView();
     });
-} // scrollToText
+} // scrollToNonoverridden
 
 var toOpenUp = [];
 
@@ -411,9 +412,9 @@ $(() => {
     // Accordion onclicks
     $(".name").on("click", (event) => {
         var $name = $(event.target);
-        var uid = $name.closest("li").attr("data-uid");
-        window.lastOpenedUid = uid;
-        console.log(`Clicked uid/name: ${uid}/${$name[0].innerText}`);
+        // var uid = $name.closest("li").attr("data-uid");
+        // window.lastOpenedUid = uid;
+        // console.log(`Clicked uid/name: ${uid}/${$name[0].innerText}`);
 
         // Expanding/collapsing
         $li = $name.closest("li.accordion");
