@@ -1,58 +1,58 @@
-/** UTILITY FUNCTIONS **/
+/** @ UTILITY FUNCTIONS **/
 
-// NEW selector is case insensitive
-$.expr[":"].contains = $.expr.createPseudo(function(arg) {
-    return function(elem) {
+// New :contains that is case-insensitive
+$.expr[":"].contains = $.expr.createPseudo(function (arg) {
+    return function (elem) {
         return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
     };
 });
 
-/** RECURSIVE LOGIC */
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
 
-
-
-//window.lastOpenedUid = "";
+/** @ RECURSIVE LOGIC - Rendering all */
 
 function mergeByCommonPath(data) {
     // the function where the nesting magic happens
     // this function generates an object for each folder recursively
-    var nestnext = function(folders, item, index) {
+    var nestnext = function (folders, item, index) {
 
-            var newObj = {};
-            Object.assign(newObj, item);
-            newObj.current = folders[index]; // title is based on folder name
+        var newObj = {};
+        Object.assign(newObj, item);
+        newObj.current = folders[index]; // title is based on folder name
 
-            newObj.next = (index + 1 < folders.length) ?
-                nestnext(folders, item, index + 1) // If there is next element, that is `index` is lesser than `folders` length, run this function recursively with the `index` of the next item
-                :
-                [] // else return empty object
+        newObj.next = (index + 1 < folders.length) ?
+            nestnext(folders, item, index + 1) // If there is next element, that is `index` is lesser than `folders` length, run this function recursively with the `index` of the next item
+            :
+            [] // else return empty object
 
-            return newObj;
+        return newObj;
 
-        } // nestnext
+    } // nestnext
 
     // Iterate over each item in data array
-    return data.map(function(item) {
+    return data.map(function (item) {
         // Separate the item's current by /
         //console.log({"item-path-tp":item.path_tp})
         var folders = item.path_tp.split('/')
-            // console.log(folders)
+        // console.log(folders)
 
         // Return nested folders starting from the top-level folder
         return nestnext(folders, item, 0)
     })
 } // nestFolders
-console.log(folders);
-folders = mergeByCommonPath(folders);
-console.log(folders);
 
+// console.log(folders);
+folders = mergeByCommonPath(folders);
+// console.log(folders);
 
 function mergeByKey(array) {
 
-    var output = array.reduce(function(o, cur) {
+    var output = array.reduce(function (o, cur) {
 
         // Get the index of the key-value pair.
-        var occurs = o.reduce(function(n, item, i) {
+        var occurs = o.reduce(function (n, item, i) {
             // if((item.current === cur.current)) debugger;
             return (item.current === cur.current) ? i : n;
         }, -1);
@@ -102,22 +102,26 @@ function mergeByKey(array) {
 
 folders = mergeByKey(folders);
 
-console.log(folders);
+// console.log(folders);
 window.summary = "";
 
+/**
+ * @function objToHtml
+ * @description Receives the array of topic objects, and converts them into <li>
+ */
 function objToHtml(type, item) {
     function getBasePath(filePath) {
         // Get the last index of the directory separator ("/" or "\\")
         const separatorIndex = Math.max(filePath.lastIndexOf('/'), filePath.lastIndexOf('\\'));
-        
+
         // Extract the substring from the start to the separator index
         const basePath = filePath.substring(0, separatorIndex + 1);
-        
+
         return basePath;
-      } // getBasePath
+    } // getBasePath
 
     //console.log({"item-current": item.current})
-      
+
     // var uniqueId = lookupUniqueIds[item.path];
     // uniqueId = uniqueId.substr(1);
     // var $liDom = $(`<li class="accordion meta" data-uid="${uniqueId}" data-path="${item.path}"></li>`);
@@ -199,7 +203,7 @@ function objToHtml(type, item) {
             $.ajax({
                 cache: false,
                 url: url,
-                success: function(footerFileContent) {
+                success: function (footerFileContent) {
                     var $contain = this;
 
                     if (typeof footerFileContent === "object")
@@ -209,12 +213,12 @@ function objToHtml(type, item) {
                     summaryFinalText = (summaryText && summaryText.length) ? `${summaryText}<br/>${footerFileContent}` : footerFileContent;
                     createSummaryIconAndContents(summaryFinalText, $contain, true);
                 }.bind($contain),
-                error: function(error) {
-                        var $contain = this;
-                        if (summaryText && summaryText.length) {
-                            createSummaryIconAndContents(summaryText, $contain, true);
-                        }
-                    }.bind($contain) // fail
+                error: function (error) {
+                    var $contain = this;
+                    if (summaryText && summaryText.length) {
+                        createSummaryIconAndContents(summaryText, $contain, true);
+                    }
+                }.bind($contain) // fail
             })
 
             // Render summary text if summary file text does not exist and summary text does exist
@@ -286,6 +290,135 @@ function objToHtml(type, item) {
     return $liDom;
 } // objToHtml
 
+
+$(() => {
+    var $ul = $("<ul>");
+    //console.log({folders})
+
+    for (var i = 0; i < folders.length; i++) {
+        var item = folders[i];
+        var func = (item, $ul) => {
+            var $newLi = objToHtml("snippet-list-item", item);
+            // console.log(`var $newLi = objToHtml(item);`);
+            // debugger;
+            var $newUl = $("<ul>");
+            if (item.next && item.next.length) {
+                for (var j = 0; j < item.next.length; j++) {
+                    func(item.next[j], $newUl);
+                }
+            } else {
+                $newLi.addClass("empty");
+            }
+            $newLi.append($newUl)
+            $ul.append($newLi);
+        }
+        func(item, $ul);
+    }
+    $ul.appendTo("#target");
+
+    // Open up accordions initially
+    $(".accordion").each((i, li) => {
+        var $this = $(li);
+        $this.children(".contain, ul").toggle("active");
+    });
+
+    // Accordion onclicks
+    $(".name").on("click", (event) => {
+        var $name = $(event.target);
+
+        // Expanding/collapsing
+        $li = $name.closest("li.accordion");
+        $li.children(".contain, ul").toggle("active");
+        $name.toggleClass("minus");
+
+        // Open command
+        path = $li.attr("data-path");
+        $("#open-command").val(`cd '${realpath}/${path}'`);
+
+
+        event.preventDefault();
+        event.stopPropagation();
+    });
+
+    setTimeout(() => {
+        //close tooltip if clicked outside
+        $('body').on('click', function (e) {
+            //debugger;
+            var $el = $(e.target);
+            if ($el?.data('toggle') !== 'tooltip' && $el.closest(".tooltip").length === 0) {
+                $(".tooltip-inner").closest(".tooltip").prev().click();
+            }
+        });
+
+    }, 100)
+}); // on dom
+
+
+$(()=>{
+
+    function recurseAllFolderObjects(folders) {
+
+      let folderFlattenedNames = [];
+
+      // recurseFolderObjects
+      let rFO = (nestedObject) => {
+            if (nestedObject.next.length)
+                nestedObject.next.forEach(rFO);
+                folderFlattenedNames.push(nestedObject.current);    
+      }
+      folders.forEach(rFO);
+
+      return folderFlattenedNames;
+    }
+
+    const folderFlattenedNames = recurseAllFolderObjects(folders)
+
+    $( "#searcher-2" ).autocomplete({
+      source: folderFlattenedNames
+    });
+  })
+
+/** @ ACCORDION LOGIC */
+
+var toOpenUp = [];
+
+function toOpenUp_Exec($row) {
+    // console.log($row);
+
+    toOpenUp = [];
+    toOpenUp.unshift($row);
+
+    // closest looks on itself and ancestors
+    while ($row.parent().closest("li").length) {
+        $row = $row.parent().closest("li");
+        toOpenUp.unshift($row);
+    }
+
+    toOpenUp.forEach((li) => {
+        var $li = $(li),
+            isCollapsed = $li.children(".contain").css("display") === "none";
+        if (isCollapsed) {
+            $li.children(".contain, ul",).toggle("active");
+        }
+        // debugger;
+    }); // 1st li is outermost
+}
+
+function toOpenUp_Highlight($row) {
+    $row.css("border", "1px solid black");
+    $row.css("border-radius", "3px");
+    // $row.css("padding", "1px");
+    $row.on("hover", () => {
+        $row.css("border", "none");
+        $row.css("border-radius", "none");
+        // $row.css("padding", "0");
+        $row.off("hover");
+    });
+}
+
+
+/** @ JUMP/SCROLL TO **/
+
 function scrollToText(partial) {
     let $finalJumpTo = null;
     var $foundRow = $(`li:contains(${partial})`);
@@ -326,188 +459,50 @@ function scrollToNonoverridden(partial) {
     });
 } // scrollToNonoverridden
 
-var toOpenUp = [];
 
-function toOpenUp_Exec($row) {
-    // console.log($row);
-
-    toOpenUp = [];
-    toOpenUp.unshift($row);
-
-    // closest looks on itself and ancestors
-    while ($row.parent().closest("li").length) {
-        $row = $row.parent().closest("li");
-        toOpenUp.unshift($row);
+/** EXPLORER BUTTONS **/
+function toggleAllExpand() {
+    const $styleBlock = $("#style-toggle-all-expand");
+    const isOn = $styleBlock.text().trim().length > 0;
+    if (isOn) {
+        $styleBlock.text("");
+    } else {
+        $styleBlock.html("ul { display: block !important; }");
     }
-
-    toOpenUp.forEach((li) => {
-        var $li = $(li),
-            isCollapsed = $li.children(".contain").css("display") === "none";
-        if (isCollapsed) {
-            $li.children(".contain, ul", ).toggle("active");
-        }
-        // debugger;
-    }); // 1st li is outermost
 }
 
-function toOpenUp_Highlight($row) {
-    $row.css("border", "1px solid black");
-    $row.css("border-radius", "3px");
-    // $row.css("padding", "1px");
-    $row.on("hover", () => {
-        $row.css("border", "none");
-        $row.css("border-radius", "none");
-        // $row.css("padding", "0");
-        $row.off("hover");
-    });
-}
 
-function openCommand_ToRoot() {
-    $("#open-command").val(`cd '${realpath}'`);
-}
+/** SEARCH */
 
-$(() => {
-    var $ul = $("<ul>");
-    //console.log({folders})
-
-    for (var i = 0; i < folders.length; i++) {
-        var item = folders[i];
-        var func = (item, $ul) => {
-            var $newLi = objToHtml("snippet-list-item", item);
-            // console.log(`var $newLi = objToHtml(item);`);
-            // debugger;
-            var $newUl = $("<ul>");
-            if (item.next && item.next.length) {
-                for (var j = 0; j < item.next.length; j++) {
-                    func(item.next[j], $newUl);
-                }
-            } else {
-                $newLi.addClass("empty");
-            }
-            $newLi.append($newUl)
-            $ul.append($newLi);
-        }
-        func(item, $ul);
-    }
-    $ul.appendTo("#target");
-
-    // Open up accordions initially
-    $(".accordion").each((i, li) => {
-        var $this = $(li);
-        $this.children(".contain, ul").toggle("active");
-        // $this.toggleClass("minus");
-    });
-
-    // Accordion onclicks
-    $(".name").on("click", (event) => {
-        var $name = $(event.target);
-
-        // Expanding/collapsing
-        $li = $name.closest("li.accordion");
-        $li.children(".contain, ul").toggle("active");
-        $name.toggleClass("minus");
-        // $li.children(".name").toggleClass("minus");
-
-        // Open command
-        path = $li.attr("data-path");
-        $("#open-command").val(`cd '${realpath}/${path}'`);
-
-        // Update last opened tree part
-        // updateDb();
-
-        event.preventDefault();
-        event.stopPropagation();
-    });
-
-    setTimeout(() => {
-        //close tooltip if clicked outside
-        $('body').on('click', function(e) {
-            //debugger;
-            var $el = $(e.target);
-            if ($el?.data('toggle') !== 'tooltip' && $el.closest(".tooltip").length === 0) {
-                $(".tooltip-inner").closest(".tooltip").prev().click();
-            }
-        });
-
-    }, 100)
-}); // on dom
-
-function escapeRegExp(string) {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-  }
-
-  function selectAndCopyTextarea($el, cb) {
-    this.selectTextarea = function($el, callback) {
-      var isIOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
-
-      if(isIOS)
-        $el.get(0).setSelectionRange(0,9999);
-      else
-        $el.select();
-
-      callback();
-    } // selectTextarea
-
-    this.saveToClipboard =function() {
-      try {
-        var successful = document.execCommand( 'copy' );
-        var msg = successful ? 'successful' : 'unsuccessful';
-        console.log('Copying text command was ' + msg);
-        $done.fadeIn(800).delay(1200).fadeOut(500);
-      } catch (err) {
-        console.log('Oops, unable to copy');
-      }
-
-    } // saveToClipboard
-
-    this.selectTextarea($el, saveToClipboard);
-    if(cb) cb();
-
-  } // selectAndCopyTextarea
-
-  function animateCopied() {
-    $done = $("#copied-message");
-    $done.fadeIn(800).delay(1200).fadeOut(500);
-  }
-
-  function toggleSearchResults(display) {
-    $div = $("#search-results");
-    if(display)
-      $div.fadeIn(800);
-    else
-      $div.fadeOut(500);
-  }
-
-  // If user erases content in input, dynamically erase any present search results
-  // If user presses enter on input, then click the search
-  function checkSearcherSubmit(event, $btn) {
+// If user erases content in input, dynamically erase any present search results
+// If user presses enter on input, then click the search
+function checkSearcherSubmit(event, $btn) {
     $searcher = $("#searcher");
-    if($searcher.val().length===0)
-      toggleSearchResults(false);
+    if ($searcher.val().length === 0)
+        toggleSearchResults(false);
 
-    if(event.keyCode === 13)
-      {
+    if (event.keyCode === 13) {
         $(".ui-autocomplete").hide();
         event.preventDefault();
         $btn.click();
-      }
-  } // checkSearcherSubmit
+    }
+} // checkSearcherSubmit
 
-  function doSearcher() {
+function doSearcher() {
     $searcher = $("#searcher");
     query = $searcher.val();
     query = escapeRegExp(query);
-    if(query.length===0) return;
+    if (query.length === 0) return;
 
     $div = $("#search-results .contents");
-    $.post("search.php", {search:query})
-    .done(greps=>{
-      greps = JSON.parse(greps); // grep results array
-      greps = greps["res"];
-      console.log(greps);
-      
-      // Reset
-      $div.html(`<div><table id="table-search-results">
+    $.post("search.php", { search: query })
+        .done(greps => {
+            greps = JSON.parse(greps); // grep results array
+            greps = greps["res"];
+            console.log(greps);
+
+            // Reset
+            $div.html(`<div><table id="table-search-results">
           <thead>
             <th>Concept (Folder)</th>
             <th>File</th>
@@ -516,55 +511,62 @@ function escapeRegExp(string) {
           <tbody>
           </tbody>
         </table></div>`)
-      $tbody = $div.find("tbody");
+            $tbody = $div.find("tbody");
 
-      // Match and render
-      greps.forEach(res=> {
-        // x/y/z/filepath: surrounding_text
+            // Match and render
+            greps.forEach(res => {
+                // x/y/z/filepath: surrounding_text
 
-        // Reset placeholders
-        var afterFirstDoubleColon="", beforeFirstDoubleColon="", folder = ""; file="", context="";
+                // Reset placeholders
+                var afterFirstDoubleColon = "", beforeFirstDoubleColon = "", folder = ""; file = "", context = "";
 
-        afterFirstDoubleColon = res.match(/:(.*)/im);
-        afterFirstDoubleColon = afterFirstDoubleColon[1];
-        afterFirstDoubleColon = afterFirstDoubleColon.trim();
-        context = afterFirstDoubleColon;
+                afterFirstDoubleColon = res.match(/:(.*)/im);
+                afterFirstDoubleColon = afterFirstDoubleColon[1];
+                afterFirstDoubleColon = afterFirstDoubleColon.trim();
+                context = afterFirstDoubleColon;
 
-        beforeFirstDoubleColon = res.match(/(.*?):/im);
-        beforeFirstDoubleColon = beforeFirstDoubleColon[1];
-        beforeFirstDoubleColon = beforeFirstDoubleColon.trim();
+                beforeFirstDoubleColon = res.match(/(.*?):/im);
+                beforeFirstDoubleColon = beforeFirstDoubleColon[1];
+                beforeFirstDoubleColon = beforeFirstDoubleColon.trim();
 
-        i = beforeFirstDoubleColon.lastIndexOf("/")
-        file = beforeFirstDoubleColon.substr(i+1);
+                i = beforeFirstDoubleColon.lastIndexOf("/")
+                file = beforeFirstDoubleColon.substr(i + 1);
 
-        folder = beforeFirstDoubleColon.split("/").slice(-2, -1);
+                folder = beforeFirstDoubleColon.split("/").slice(-2, -1);
 
-        $tbody.append(`
+                $tbody.append(`
             <tr>
               <td><a onclick="scrollToNonoverridden('${folder}')" href="javascript:void(0);">${folder}</a></td>
               <td>${file}</td>
               <td class="context"><pre>${context}</pre></td>
             </tr>`);
-      }); // foreach
-      $("#table-search-results pre").highlight($("#searcher").val());
-      toggleSearchResults(true);
+            }); // foreach
+            $("#table-search-results pre").highlight($("#searcher").val());
+            toggleSearchResults(true);
 
-      // Scroll to bottom where search results are
-      window.scrollTo(0,document.body.scrollHeight);
-    });
-  } // doSearcher
+            // Scroll to bottom where search results are
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+} // doSearcher
 
-  function clearSearcher() {
+function doSearcher2(searchText) {
+    if(searchText.length===0) {
+      alert("Error: Nothing typed!");
+      return false;
+    }
+    scrollToText(searchText);
+  }
+
+function toggleSearchResults(display) {
+    $div = $("#search-results");
+    if (display)
+        $div.fadeIn(800);
+    else
+        $div.fadeOut(500);
+}
+
+function clearSearcher() {
     $searcher = $("#searcher");
     $searcher.val("");
     toggleSearchResults(false);
-  }
-  function toggleAllExpand() {
-    const $styleBlock = $("#style-toggle-all-expand");
-    const isOn = $styleBlock.text().trim().length>0;
-    if(isOn) {
-      $styleBlock.text("");
-    } else {
-      $styleBlock.html("ul { display: block !important; }");
-    }
-  }
+}

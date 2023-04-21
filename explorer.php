@@ -186,24 +186,6 @@
 
           ?>
 
-
-          <div id="help-templates" class="hidden" style="float:right; margin-top:5px; border: 1px solid black; padding:10px; text-align:left;">
-            <div>
-              <span style="font-weight:500;">Here are quick instructions on adding more snippets:</span><br/>
-              <div style="width:1px; height:5px;"></div>
-              <span>1. Go to <a href="javascript:void(0)" onclick="openCommand_ToRoot();">Snippet Mastery's folder</a> in termal: </span><input id="open-command" style="background-color:darkgray; color:white; padding: 0 5px 0 5px; width:350px;" onclick="selectAndCopyTextarea($('#open-command'), animateCopied);" value="cd `filepath`"></input>
-            </div>
-            <div style="margin-top:5px;"><span>2. Then inside /snippets folder, create folders preceded with '+' to be parsed by Snippets Mastery. You can create as much nesting as you want by having "+" type folders in other "+" type folders.</div>
-            <div style="margin-top:5px;"><span>3. For a folder that's a snippet, create a file +meta.json that follows some conventions, such as in these templates: </span>
-              <a href="templates/1/+meta.json" target="_blank">Basic</a> | 
-              <a href="templates/2/+meta.json" target="_blank">Overriding</a> | 
-              <a href="templates/3/+meta.json" target="_blank">Advanced</a>
-            </div>
-            <div style="margin-top:5px;">
-              <span>Or create a quick summary with +meta.txt (notice .txt rather than .json)</span>
-            </div>
-          </div>
-
           <div style="width:1px; height:10px; clear:both;"></div>
           <div id="searcher-containers" style="float:right; padding:15px;">
 
@@ -219,39 +201,6 @@
                     <button onclick="window.print();" style="cursor: pointer; border:0;"><span class="fa fa-print" style="cursor: pointer;"> Print</button>
                   </span>
             </div>
-            <script>
-            function doSearcher2(searchText) {
-              if(searchText.length===0) {
-                alert("Error: Nothing typed!");
-                return false;
-              }
-              scrollToText(searchText);
-            }
-
-            $(()=>{
-
-              function recurseAllFolderObjects(folders) {
-
-                let folderFlattenedNames = [];
-
-                // recurseFolderObjects
-                let rFO = (nestedObject) => {
-                      if (nestedObject.next.length)
-                          nestedObject.next.forEach(rFO);
-                          folderFlattenedNames.push(nestedObject.current);    
-                }
-                folders.forEach(rFO);
-
-                return folderFlattenedNames;
-              }
-
-              const folderFlattenedNames = recurseAllFolderObjects(folders)
-
-              $( "#searcher-2" ).autocomplete({
-                source: folderFlattenedNames
-              });
-            })
-            </script>
             
             <div id="searcher-container-2" style="float:right; margin-top:5px;">
                   <form action=""></form>
