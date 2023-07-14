@@ -40,7 +40,7 @@ You can jump to different concepts from a summary.
 
 ## Searching snippets
 
-You can search snippets (not the filenames). There is a search bar at the top right of the explorer. This tool uses pcregrep to search snippets. If your os does not support pcregrep, you will see a notice at the top in red.
+You can search by topic title or contents. The search bars are to the top of the topics explorer. This tool uses pcregrep to search files.
 
 ## Future Features
 In the future, you can store your ratings for each folder based on how important (thermometer) and your mastery (parentheses = maybe will fail, square brackets = definitely failed, checked = recalled well).
