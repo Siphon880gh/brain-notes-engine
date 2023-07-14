@@ -68,7 +68,8 @@
         // Filter files based on extensions or if dir
         $filteredFiles = [];
         foreach ($files as $file) {
-            if (is_dir($file) || in_array(pathinfo($file, PATHINFO_EXTENSION), ['md', 'json'])) {
+            if (is_dir($file) || (in_array(pathinfo($file, PATHINFO_EXTENSION), ['md', 'json']) && !preg_match('/\.no\.(md|json)$/', $file))) {
+            // if (is_dir($file) || in_array(pathinfo($file, PATHINFO_EXTENSION), ['md', 'json'])) {
                 $filteredFiles[] = $file;
             }
         }
@@ -78,14 +79,12 @@
 
       $dirs = rglob("$DIR_SNIPPETS?*");
       $lookup_metas = [];
-      $lookup_saveids = [];
 
       function map_tp_dec($path) { // trailing parsed (removed preceding snippet/ and may remove ending slash /) and decorated object
         // var_dump($path);
         global $DIR_SNIPPETS;
         global $DEFAULT_THUMBNAIL_SIZE;
         global $lookup_metas;
-        global $lookup_saveids;
         
         // tp trailing path?
         $path_tp = substr($path, strlen($DIR_SNIPPETS)); // trailing parsed
@@ -105,10 +104,10 @@
         //var_dump($path);
         //echo "<br/>";
 
-        $lastFiveChars = substr($path, -6); // Changed to last 6 chars in case of a .no.md that you want to ignore in the learning app
+        $lastFiveChars = substr($path, -5); // Changed to last 6 chars in case of a .no.md that you want to ignore in the learning app
 
 
-        if (stripos($lastFiveChars, ".json") !== false) {
+        if (stripos($lastFiveChars, ".json") !== false) { // Btw, .no.json files had already been stripped away
           $lookup_metas[$path] = @json_decode(file_get_contents($path), true);
           //var_dump( $lookup_metas[$path]);
           //die();
@@ -116,7 +115,7 @@
 
         // var_dump($lookup_metas);
         // die();
-        if (stripos($lastFiveChars, ".md") !== false) {
+        if (stripos($lastFiveChars, ".md") !== false) { // Btw, .no.md files had already been stripped away
           // var_dump($lookup_metas);
           // die();
           if(!isset($lookup_metas[$path]["summary"]))
@@ -129,16 +128,6 @@
           // $lookup_metas[$path]["summary"] .= file_get_contents($path . "+meta.txt");
         }
 
-        $saveid_globs = glob($path . "+saveid*.dat");
-        if(count($saveid_globs)===0) {
-          $microtime = microtime(true);
-          //file_put_contents($path . "+saveid" . $microtime . ".dat", "");
-          $saveid_glob = $microtime . ".dat";
-        } else {
-          $saveid_glob = basename($saveid_globs[0]);
-        }
-        $lookup_saveids[$path] = $saveid_glob;
-
         // die();
         
         return $decorated;
@@ -149,7 +138,6 @@
       echo "var folders = " . json_encode($dirs) . ",";
       echo "ori = folders, ";
       echo "lookupMetas = " . json_encode($lookup_metas) . ";";
-      echo "lookupUniqueIds = " . json_encode($lookup_saveids) . ";";
       echo "</script>";
 
       // var_dump($dirs);
