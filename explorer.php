@@ -8,7 +8,6 @@
   header("Expires: 0");
 
   // Env variables
-
   include("./env/pcregrep.php");
   include("./env/dir-snippets.php");
 
@@ -139,6 +138,9 @@
       echo "ori = folders, ";
       echo "lookupMetas = " . json_encode($lookup_metas) . ";";
       echo "</script>";
+
+      // var_dump($lookup_metas);
+      // die();
 
       // var_dump($dirs);
       // die();

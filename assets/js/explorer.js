@@ -154,7 +154,12 @@ function objToHtml(type, item) {
                 var $img = $(el);
                 var src = $img.attr("src");
                 if (src.indexOf("./") == 0) {
-                    src = getBasePath(item.path) + src.substr(2);
+                    // debugger;
+                    // console.log(getBasePath(item.path_tp));
+                    // src = getBasePath(item.path) + src.substr(2);
+                    // No more getBasePath because that's going to depend on developer local environment vs production environment
+                    // src = "./img-pathing.php?image=" + item.path_tp;
+                    src = "img-pathing.php?image=" + getBasePath(item.path_tp) + src;
                     $img.attr("src", src);
                 }
             }); // imgs
