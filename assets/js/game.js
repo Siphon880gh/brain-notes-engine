@@ -426,15 +426,25 @@ $(() => {
  */
 $(document).on("show.bs.modal", "#modal-puzzle", () => {
     $("#modal-puzzle .list-group").html("");
-    var $template = $("#old .contents");
-    var lines = $template.find("div").toArray(); // Sometimes newlines are actually div's in contenteditable
-    if (lines.length === 0) {
-        lines = $template.text().split("\n"); // And sometimes it's one whole text node
-    } else { // if it's not onewhole text node, you might still have textNode then followed by div's
-        let firstNode = $("#old .contents").contents()[0];
-        if (firstNode.nodeType === 3) // test for textNode
-            lines.unshift(firstNode);
-    }
+
+    var $template = $("#old .contents"); // Retype template
+    // var lines = $template.find("div").toArray(); // Sometimes newlines are actually div's in contenteditable
+    // if (lines.length === 0) {
+    //     debugger;
+    //     lines = $template.text().split("\n"); // And sometimes it's one whole text node
+    // } else { // if it's not onewhole text node, you might still have textNode then followed by div's
+    //     debugger;
+    //     let firstNode = $("#old .contents").contents()[0];
+    //     if (firstNode.nodeType === 3) // test for textNode
+    //     lines.unshift(firstNode);
+    
+    // }
+    // Probably can be simplified into:
+
+    var lines = $("#old .contents div").length>1?$("#old .contents div").map(div=>$(div).text()).get().split("\n"):$template.text().split("\n");    
+
+    lines = lines.filter(line=>line.length); // Skip blank lines
+    console.log({lines})
     // lines = lines.split("\n");
     // var template = $template.html();
     // var lines = template.split("\n");
@@ -448,11 +458,14 @@ $(document).on("show.bs.modal", "#modal-puzzle", () => {
 
     function appendLine(line, i, lines) {
 
+        if (typeof lines[i] === "undefined") return false;
+
         try {
             if (typeof line !== "string") line = line.textContent;
         } catch (err) {
-
+            debugger;
         }
+
         var listGroupItemEl = document.createElement("div");
         listGroupItemEl.classList = "list-group-item";
         listGroupItemEl.textContent = line;
@@ -460,18 +473,20 @@ $(document).on("show.bs.modal", "#modal-puzzle", () => {
         listGroupItemEl.setAttribute("data-correct-order", i);
         listGroupEl.appendChild(listGroupItemEl);
         console.log("Line: " + line);
-        if (typeof lines[i] === "undefined") return false;
-        else return true;
-    }
+        return true;
+    } // appendLine
+    
     var i = 0;
     while (true) {
         var line = lines[i];
+
         var sublines = [];
         try {
             sublines = line.split("\n");
         } catch (err) {
 
         }
+
         if (sublines.length > 1) {
             for (var j = 0; j < sublines.length; j++) {
                 if (!appendLine(sublines[j], j, sublines)) break;
@@ -481,10 +496,28 @@ $(document).on("show.bs.modal", "#modal-puzzle", () => {
             i++;
         }
     } // while
+
+    // Shuffle list items
+    // Detach the children from the DOM.
+    let parent = $(listGroupEl);
+    let children = parent.children();
+
+    children.detach();
+
+    // Sort the children in random order (shuffle them).
+    children.sort(function() {
+    return Math.random() - 0.5; // This gives a 50/50 chance of a or b being first.
+    });
+
+    // Append them back to the parent.
+    parent.append(children);
+
+
+    // Reinit sortable/rearrangeable
     $("#modal-puzzle .list-group").sortable({
-        // stop: (event, ui) => {
-        //   debugger;
-        // },
+        stop: (event, ui) => {
+          debugger;
+        },
         // When user drops a list item to a new position:
         update: (event, ui) => {
             let $listItems = $("#modal-puzzle .list-group .list-group-item");
@@ -501,16 +534,6 @@ $(document).on("show.bs.modal", "#modal-puzzle", () => {
             })
         }
     });
-    shuffleLis($(listGroupEl));
 });
 
-function shuffleLis($listGroup) {
-    var listItems = $listGroup.children(); //Extract all listItems from it.
-    listItems.sort(function(a, b) { //This function sorts the items.
-        var compA = $(a).text().toUpperCase();
-        var compB = $(b).text().toUpperCase();
-        return (compA < compB) ? -1 : 1; //return a -1 or 1 depending upon specific condition.
-    });
-    $listGroup.append(listItems);
-}
 // End: resort-lines
