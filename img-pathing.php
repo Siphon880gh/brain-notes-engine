@@ -8,7 +8,8 @@ $baseDirectory = $DIR_SNIPPETS;
 $requestedImage = $_GET['image'];
 
 // Construct the full path to the requested image
-$imagePath = "./" . $baseDirectory . $requestedImage;
+// $imagePath = "./" . $baseDirectory . $requestedImage;
+$imagePath = $baseDirectory . $requestedImage;
 
 // <php 5.3.0 uses mime_content_type to get mime content type of a file
 // php 5.3.0 deprecated mime_content_type in favor of finfo_open and finfo_file
