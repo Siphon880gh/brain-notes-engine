@@ -25,6 +25,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
+
+    <!-- Autoexpand, Markdown (dependencies)-->
+    <script src="assets/js/vendors/autoExpand/autoExpand.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
         
     <link href="assets/css/explorer.css?v=<?php echo time(); ?>" rel="stylesheet">
     <link href="assets/css/multistates.css?v=<?php echo time(); ?>" rel="stylesheet">

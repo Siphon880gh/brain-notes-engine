@@ -130,9 +130,12 @@ function parseWords(text) {
 // Copy over notes to retype template
 function copyOver() {
     var $summary = $("#summary-inner");
-    var summary = $summary.val();
+    // var summary = $summary.val();
+    var summary = $summary.text();
     summary = summary.trim();
-    if ($summary.val().length) {
+    // if ($summary.val().length) {
+        // debugger;
+    if ($summary.text().length) {
         var $template = $("#old .contents");
         // var code = [...summary.matchAll(new RegExp("`\`\`[\n\r]{0,}(.*?)[\n\r]{0,}\`\`\`", "gmi"))].map(regExpItr => regExpItr[1]);
         var code = [...summary.matchAll(new RegExp("\`\`\`((.|\n|\r)*?)\`\`\`", "gmi"))].map(regExpItr => regExpItr[1]);

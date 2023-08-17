@@ -1,28 +1,33 @@
 /* Retype Game: Difficulty levels */
-/* line 2, scss/game.scss */
+/* line 3, scss/game.scss */
+.instructions {
+  height: 50px;
+}
+
+/* line 7, scss/game.scss */
 .difficulty .form-control[type="radio"] {
   height: auto;
 }
 
-/* line 6, scss/game.scss */
+/* line 11, scss/game.scss */
 .difficulty .form-group {
   margin-right: 2ch;
 }
 
 /* Retype Game: Hiding parts at higher difficulty levels */
-/* line 11, scss/game.scss */
+/* line 16, scss/game.scss */
 .fog {
   transition: background-color 200ms ease;
 }
 
 /* Resort-lines */
-/* line 18, scss/game.scss */
+/* line 23, scss/game.scss */
 .li-correct {
   border: 1px solid green;
   background-color: lightgreen;
 }
 
-/* line 23, scss/game.scss */
+/* line 28, scss/game.scss */
 .li-incorrect {
   border: 1px solid red;
   background-color: #FFCCCB;

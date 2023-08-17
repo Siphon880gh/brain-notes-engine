@@ -125,6 +125,9 @@ h3 {
     border-color: white;
 }
 
+#summary-inner img { 
+    max-width: 100%; 
+}
 
 /* Fieldset layout */
 #explore-curriculum fieldset {
@@ -158,9 +161,20 @@ h3 {
 
 /* Toggle side by side curriculum explorer along notes view */
 
-#explore-curriculum .side-by-side {
-    float: left;
-    width: 50%;
+// #explore-curriculum .side-by-side {
+//     float: left;
+//     width: 50%;
+// }
+.sides:has(.side-by-side) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+.side-by-side {
+    min-width: 50%;
+    max-width: 50%;
 }
 
 #js-visible-if-contents {

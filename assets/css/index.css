@@ -148,8 +148,13 @@ h3 {
   border-color: white;
 }
 
+/* line 128, scss/index.scss */
+#summary-inner img {
+  max-width: 100%;
+}
+
 /* Fieldset layout */
-/* line 130, scss/index.scss */
+/* line 133, scss/index.scss */
 #explore-curriculum fieldset {
   display: block;
   margin-inline-start: 2px;
@@ -164,7 +169,7 @@ h3 {
   border-color: threedface;
   border-image: initial;
 }
-/* line 144, scss/index.scss */
+/* line 147, scss/index.scss */
 #explore-curriculum fieldset legend {
   display: inline-block !important;
   padding-inline-start: 4px;
@@ -180,13 +185,22 @@ h3 {
 }
 
 /* Toggle side by side curriculum explorer along notes view */
-/* line 161, scss/index.scss */
-#explore-curriculum .side-by-side {
-  float: left;
-  width: 50%;
+/* line 168, scss/index.scss */
+.sides:has(.side-by-side) {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
 }
 
-/* line 166, scss/index.scss */
+/* line 175, scss/index.scss */
+.side-by-side {
+  min-width: 50%;
+  max-width: 50%;
+}
+
+/* line 180, scss/index.scss */
 #js-visible-if-contents {
   padding-top: 10px;
   padding-left: 10px;
