@@ -247,6 +247,10 @@ function objToHtml(type, item) {
                     html: true,
                     linkify: true});
                 var summaryHTML = md.render(summary);
+                parent.document.querySelector("#summary-title").textContent = event.target.closest("li").querySelector(".name").textContent;
+                parent.document.querySelector("#summary-collapser").classList.remove("d-none");
+                parent.document.querySelector("#summary-collapser").classList.add("stated");
+                parent.document.querySelector("#side-a .deemp-fieldset").classList.remove("d-none");
 
                 // summaryInnerEl.value = summaryHTML;
                 summaryInnerEl.innerHTML = summaryHTML;
@@ -582,3 +586,15 @@ function clearSearcher() {
     $searcher.val("");
     toggleSearchResults(false);
 }
+
+
+document.querySelector("#summary-collapser")?.addEventListener("click", (event) => {
+    if(event.target.className.includes("stated")) {
+        event.target.classList.remove("stated");
+        document.querySelector("#side-a .deemp-fieldset").classList.add("d-none");
+    } else {
+        event.target.classList.add("stated");
+        document.querySelector("#side-a .deemp-fieldset").classList.remove("d-none");
+    }
+
+});

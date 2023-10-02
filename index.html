@@ -135,11 +135,15 @@
                     <p>Want to practice? Can move the entire lesson to retyping/rearranging sections. For specific parts you want to practice, have content surrounded by <code>```</code>. You can have multiple sections surrounded with these backticks.
                         <p></p>
                         <button class="btn btn-info btn-sm" onclick="$('#retype-container, #rearrange-container').removeClass('hide'); copyOver(); document.querySelector('#retype-container').scrollIntoView()" style="margin-top:5px">Practice retyping and rearranging</button>
-                        <button class="btn btn-default btn-sm" onclick="$('#explore-curriculum .side-by-side-possible').toggleClass('side-by-side');" style="margin-top:5px">See more topics side by side</button>
+                        <!-- <button class="btn btn-default btn-sm" onclick="$('#explore-curriculum .side-by-side-possible').toggleClass('side-by-side');" style="margin-top:5px">See more topics side by side</button> -->
                     </p>
                 </div>
                 <div class="sides">
                     <div id="side-a" class="card-body side-by-side-possible hidden">
+                        <div>
+                            <h3 id="summary-title" style="display:inline;"></h3>
+                            <span id="summary-collapser" class="d-none">></span>
+                        </div>
                         <fieldset class="deemp-fieldset" style="height: 100%;">
                             <!-- <textarea id="summary-inner" style="height: 100%; resize: none; width:100%;"></textarea> -->
                             <div id="summary-inner" style="height: 100%; resize: none; width:100%;"></div>

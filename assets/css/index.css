@@ -190,7 +190,8 @@ h3 {
 }
 
 /* Toggle side by side curriculum explorer along notes view */
-/* line 172, scss/index.scss */
+/* Superceded by collapser which is next to the summary title */
+/* line 173, scss/index.scss */
 .sides:has(.side-by-side) {
   display: flex;
   flex-direction: row;
@@ -199,15 +200,28 @@ h3 {
   align-items: stretch;
 }
 
-/* line 179, scss/index.scss */
+/* line 180, scss/index.scss */
 .side-by-side {
   min-width: 50%;
   max-width: 50%;
 }
 
-/* line 184, scss/index.scss */
+/* line 185, scss/index.scss */
 #js-visible-if-contents {
   padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+/* line 191, scss/index.scss */
+#summary-collapser {
+  cursor: pointer;
+  display: inline-block;
+  /* transform rotate wouldn't work on inline */
+  color: gray;
+}
+
+/* line 196, scss/index.scss */
+#summary-collapser.stated {
+  transform: rotate(90deg);
 }

@@ -164,6 +164,7 @@ h3 {
 }
 
 /* Toggle side by side curriculum explorer along notes view */
+/* Superceded by collapser which is next to the summary title */
 
 // #explore-curriculum .side-by-side {
 //     float: left;
@@ -185,4 +186,13 @@ h3 {
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
+}
+
+#summary-collapser {
+    cursor: pointer; 
+    display: inline-block; /* transform rotate wouldn't work on inline */
+    color: gray;
+}
+#summary-collapser.stated {
+    transform: rotate(90deg); 
 }

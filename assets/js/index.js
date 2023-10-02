@@ -86,3 +86,18 @@ window.autoExpandNow = () => {
 }
 autoExpandNow();
 // End: Autoresize notes textarea
+
+
+$(()=>{
+    document.querySelector("#summary-collapser")?.addEventListener("click", (event) => {
+        if(event.target.className.includes("stated")) {
+            event.target.classList.remove("stated");
+            document.querySelector("#side-a .deemp-fieldset").classList.add("d-none");
+        } else {
+            event.target.classList.add("stated");
+            document.querySelector("#side-a .deemp-fieldset").classList.remove("d-none");
+        }
+    
+    });
+
+})
