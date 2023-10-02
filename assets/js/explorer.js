@@ -587,3 +587,8 @@ function clearSearcher() {
     $searcher.val("");
     toggleSearchResults(false);
 }
+
+$(()=>{
+    // Secondary: Can send topic to friends
+    window.parent.runtimeOnMessageReadyExplorer();
+})

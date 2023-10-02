@@ -406,18 +406,18 @@ $(() => {
         }
     });
 
-    if (window.location.hash.length) {
-        var overrideByHash = window.location.hash;
-        overrideByHash = overrideByHash.substr(1);
-        overrideByHash = decodeURI(overrideByHash); // %20 becomes space
-        overrideByHash = decodeURIFurther(overrideByHash); // %22 becomes ", %27 becomes '
-        overrideByHash = decodeEntities(overrideByHash); // &lt; becomes <
-        $("#old .contents").text(overrideByHash); // html -> text
-    } else if (localStorage.getItem("old")) {
-        var overrideByLocalStorage = localStorage.getItem("old");
-        overrideByLocalStorage = decodeEntities(overrideByLocalStorage); // &lt; becomes <
-        $("#old .contents").text(overrideByLocalStorage); // html -> text
-    }
+    // if (window.location.hash.length) {
+    //     var overrideByHash = window.location.hash;
+    //     overrideByHash = overrideByHash.substr(1);
+    //     overrideByHash = decodeURI(overrideByHash); // %20 becomes space
+    //     overrideByHash = decodeURIFurther(overrideByHash); // %22 becomes ", %27 becomes '
+    //     overrideByHash = decodeEntities(overrideByHash); // &lt; becomes <
+    //     $("#old .contents").text(overrideByHash); // html -> text
+    // } else if (localStorage.getItem("old")) {
+    //     var overrideByLocalStorage = localStorage.getItem("old");
+    //     overrideByLocalStorage = decodeEntities(overrideByLocalStorage); // &lt; becomes <
+    //     $("#old .contents").text(overrideByLocalStorage); // html -> text
+    // }
 }); // dom ready. readying retype game
 
 

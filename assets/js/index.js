@@ -111,4 +111,13 @@ $(()=>{
         document.querySelector('#retype-container').scrollIntoView()
     });
 
-})
+}); // On index.html ready
+
+// Secondary: Can send topic to friends
+function runtimeOnMessageReadyExplorer() {
+    if (window.location.hash.length) {
+        var explorer = document.querySelector("iframe").contentWindow.document
+        explorer.querySelector("#searcher-2").value = decodeURIComponent(window.location.hash.length?window.location.hash.substr(1):"")
+        explorer.querySelector("#searcher-2-btn").click()
+    }
+} // runtimeOnMessageReadyExplorer
