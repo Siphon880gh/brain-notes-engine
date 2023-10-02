@@ -243,7 +243,9 @@ function objToHtml(type, item) {
                 let summaryInnerEl = parent.document.querySelector("#summary-inner");
                 summaryInnerEl.classList.remove("hide");
 
-                var md = window.markdownit();
+                var md = window.markdownit({
+                    html: true,
+                    linkify: true});
                 var summaryHTML = md.render(summary);
 
                 // summaryInnerEl.value = summaryHTML;
