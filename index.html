@@ -117,7 +117,7 @@
                 <h2 class="text-center"><span class="fa fa-puzzle-piece"></span> Learn by rearranging lines</h2>
             </div>
             <div class="card-body">
-                <p class="text-center"><button class="btn btn-success btn-sm" onclick='if($("#old .contents").text().length===0) { $("#modal-error .message").text("You need to have text in the template area"); $("#modal-error").modal("show"); } else $("#modal-puzzle").modal("show");'>Rearrange lines <i class="fa fa-sign-out-alt"></i></button></p>
+                <p class="text-center"><button class="btn btn-success-off btn-sm" onclick='if($("#old .contents").text().length===0) { $("#modal-error .message").text("You need to have text in the template area"); $("#modal-error").modal("show"); } else $("#modal-puzzle").modal("show");'>Rearrange lines <i class="fa fa-sign-out-alt"></i></button></p>
             </div>
         </div>
 
@@ -133,7 +133,7 @@
                 <div id="js-visible-if-contents" class="hide">
                     <p>Want to practice? Can move the entire lesson to retyping/rearranging sections. For specific parts you want to practice, have content surrounded by <code>```</code>. You can have multiple sections surrounded with these backticks.
                         <p></p>
-                        <button class="btn btn-info btn-sm" onclick="$('#retype-container, #rearrange-container').removeClass('hide'); copyOver(); document.querySelector('#retype-container').scrollIntoView()" style="margin-top:5px">Practice retyping and rearranging</button>
+                        <button class="btn btn-info-off btn-success btn-sm" id="gamify-now" style="margin-top:5px">Play learning games!</button>
                         <!-- <button class="btn btn-default btn-sm" onclick="$('#explore-curriculum .side-by-side-possible').toggleClass('side-by-side');" style="margin-top:5px">See more topics side by side</button> -->
                     </p>
                 </div>

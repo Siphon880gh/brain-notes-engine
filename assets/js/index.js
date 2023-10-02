@@ -89,6 +89,7 @@ autoExpandNow();
 
 
 $(()=>{
+    // UX: Can collapse summary reading to more easily reach the topics navigator
     document.querySelector("#summary-collapser")?.addEventListener("click", (event) => {
         if(event.target.className.includes("stated")) {
             event.target.classList.remove("stated");
@@ -98,6 +99,16 @@ $(()=>{
             document.querySelector("#side-a .deemp-fieldset").classList.remove("d-none");
         }
     
+    });
+
+
+
+    // UX: Copy summary to practice area
+    document.querySelector("#gamify-now")?.addEventListener("click", (event) => {
+        debugger;
+        $('#retype-container, #rearrange-container').removeClass('hide'); 
+        copyOver(); 
+        document.querySelector('#retype-container').scrollIntoView()
     });
 
 })

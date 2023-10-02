@@ -245,7 +245,8 @@ function objToHtml(type, item) {
 
                 var md = window.markdownit({
                     html: true,
-                    linkify: true});
+                    linkify: true
+                });
                 var summaryHTML = md.render(summary);
                 parent.document.querySelector("#summary-title").textContent = event.target.closest("li").querySelector(".name").textContent;
                 parent.document.querySelector("#summary-collapser").classList.remove("d-none");
@@ -370,29 +371,29 @@ $(() => {
 }); // on dom
 
 
-$(()=>{
+$(() => {
 
     function recurseAllFolderObjects(folders) {
 
-      let folderFlattenedNames = [];
+        let folderFlattenedNames = [];
 
-      // recurseFolderObjects
-      let rFO = (nestedObject) => {
+        // recurseFolderObjects
+        let rFO = (nestedObject) => {
             if (nestedObject.next.length)
                 nestedObject.next.forEach(rFO);
-                folderFlattenedNames.push(nestedObject.current);    
-      }
-      folders.forEach(rFO);
+            folderFlattenedNames.push(nestedObject.current);
+        }
+        folders.forEach(rFO);
 
-      return folderFlattenedNames;
+        return folderFlattenedNames;
     }
 
     const folderFlattenedNames = recurseAllFolderObjects(folders)
 
-    $( "#searcher-2" ).autocomplete({
-      source: folderFlattenedNames
+    $("#searcher-2").autocomplete({
+        source: folderFlattenedNames
     });
-  })
+})
 
 /** @ ACCORDION LOGIC */
 
@@ -566,12 +567,12 @@ function doSearcher() {
 } // doSearcher
 
 function doSearcher2(searchText) {
-    if(searchText.length===0) {
-      alert("Error: Nothing typed!");
-      return false;
+    if (searchText.length === 0) {
+        alert("Error: Nothing typed!");
+        return false;
     }
     scrollToText(searchText);
-  }
+}
 
 function toggleSearchResults(display) {
     $div = $("#search-results");
@@ -586,15 +587,3 @@ function clearSearcher() {
     $searcher.val("");
     toggleSearchResults(false);
 }
-
-
-document.querySelector("#summary-collapser")?.addEventListener("click", (event) => {
-    if(event.target.className.includes("stated")) {
-        event.target.classList.remove("stated");
-        document.querySelector("#side-a .deemp-fieldset").classList.add("d-none");
-    } else {
-        event.target.classList.add("stated");
-        document.querySelector("#side-a .deemp-fieldset").classList.remove("d-none");
-    }
-
-});
