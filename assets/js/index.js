@@ -52,27 +52,27 @@ function animateExploreCurriculum() {
 /**
  * Detect presetted topic search in URL
  */
-$(() => {
-    var params = new URLSearchParams(window.location.search);
-    var qtopic = params.get("topic");
+// $(() => {
+//     var params = new URLSearchParams(window.location.search);
+//     var qtopic = params.get("topic");
 
-    if (qtopic) {
-        var checkIframeLoading = setInterval(() => {
-            var $curriculumExplorer = $("#explore-curriculum iframe").contents();
-            var doesTreeExist = () => $curriculumExplorer.find(".accordion").length > 0;
+//     if (qtopic) {
+//         var checkIframeLoading = setInterval(() => {
+//             var $curriculumExplorer = $("#explore-curriculum iframe").contents();
+//             var doesTreeExist = () => $curriculumExplorer.find(".accordion").length > 0;
 
-            if (doesTreeExist) {
-                clearInterval(checkIframeLoading);
-                setTimeout(() => {
-                    $topicField = $curriculumExplorer.find("#searcher-2"),
-                        $topicBtn = $curriculumExplorer.find("#searcher-2-btn");;
-                    $topicField.val(qtopic);
-                    $topicBtn.click();
-                }, 1200); // Just because part of a tree exist, doesn't mean the whole tree exists right away
-            }
-        }, 100);
-    }
-});
+//             if (doesTreeExist) {
+//                 clearInterval(checkIframeLoading);
+//                 setTimeout(() => {
+//                     $topicField = $curriculumExplorer.find("#searcher-2"),
+//                         $topicBtn = $curriculumExplorer.find("#searcher-2-btn");;
+//                     $topicField.val(qtopic);
+//                     $topicBtn.click();
+//                 }, 1200); // Just because part of a tree exist, doesn't mean the whole tree exists right away
+//             }
+//         }, 100);
+//     }
+// });
 // End: Detect hash then searh
 
 // Autoresize notes textarea
@@ -102,10 +102,8 @@ $(()=>{
     });
 
 
-
     // UX: Copy summary to practice area
     document.querySelector("#gamify-now")?.addEventListener("click", (event) => {
-        debugger;
         $('#retype-container, #rearrange-container').removeClass('hide'); 
         copyOver(); 
         document.querySelector('#retype-container').scrollIntoView()
@@ -115,9 +113,20 @@ $(()=>{
 
 // Secondary: Can send topic to friends
 function runtimeOnMessageReadyExplorer() {
-    if (window.location.hash.length) {
-        var explorer = document.querySelector("iframe").contentWindow.document
-        explorer.querySelector("#searcher-2").value = decodeURIComponent(window.location.hash.length?window.location.hash.substr(1):"")
-        explorer.querySelector("#searcher-2-btn").click()
-    }
+    setTimeout(()=>{
+        if (window.location.hash.length) {
+            var explorer = document.querySelector("iframe").contentWindow.document
+            explorer.querySelector("#searcher-2").value = decodeURIComponent(window.location.hash.length?window.location.hash.substr(1):"")
+
+            var button = explorer.querySelector("#searcher-2-btn");
+            var event = new MouseEvent('click', {
+                bubbles: false,
+                cancelable: true
+            });
+
+            // Dispatch the event to the button
+            button.dispatchEvent(event);
+        }
+    }, 300)
+
 } // runtimeOnMessageReadyExplorer
