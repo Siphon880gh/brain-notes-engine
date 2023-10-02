@@ -247,6 +247,7 @@ function objToHtml(type, item) {
                     html: true,
                     linkify: true
                 });
+
                 var summaryHTML = md.render(summary);
                 parent.document.querySelector("#summary-title").textContent = event.target.closest("li").querySelector(".name").textContent;
                 parent.document.querySelector("#summary-collapser").classList.remove("d-none");
@@ -255,6 +256,9 @@ function objToHtml(type, item) {
 
                 // summaryInnerEl.value = summaryHTML;
                 summaryInnerEl.innerHTML = summaryHTML;
+                summaryInnerEl.querySelectorAll("a").forEach(a=>{
+                    a.target = "_blank"
+                })
 
                 // Allow copy from textarea to practice areas
                 let guideCopyToPractice = parent.document.querySelector("#js-visible-if-contents");
