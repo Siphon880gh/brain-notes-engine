@@ -143,7 +143,7 @@
                 <div class="sides">
                     <div id="side-a" class="card-body side-by-side-possible hidden" style="border: 1px solid darkgray;">
                         <div>
-                            <h3 id="summary-title" style="display:inline;"></h3>
+                            <h3 id="summary-title" style="display:inline; cursor:pointer;" onclick="document.querySelector('#summary-collapser').click();"></h3>
                             <span id="summary-collapser" class="d-none">></span>
                         </div>
                         <div class="deemp-fieldset" style="height: 100%;">
@@ -219,6 +219,10 @@
     <style id="style-fogs">
         /* Dynamic fog styling */
     </style>
+
+    <div id="dashboard">
+        <i id="shortcut-summary-collapser" class="fa fa-eye" onclick="document.querySelector('#summary-collapser').click();"></i>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>

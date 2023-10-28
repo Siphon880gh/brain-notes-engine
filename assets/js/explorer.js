@@ -262,6 +262,7 @@ function objToHtml(type, item) {
                 parent.document.querySelector("#summary-collapser").classList.remove("d-none");
                 parent.document.querySelector("#summary-collapser").classList.add("stated");
                 parent.document.querySelector("#side-a .deemp-fieldset").classList.remove("d-none");
+                parent.document.querySelector("#dashboard").classList.add("active");
 
                 // summaryInnerEl.value = summaryHTML;
                 summaryInnerEl.innerHTML = summaryHTML;
