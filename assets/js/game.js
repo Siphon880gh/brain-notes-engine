@@ -130,14 +130,11 @@ function parseWords(text) {
 // Copy over notes to retype template
 function copyOver() {
     var $summary = $("#summary-inner");
-    // var summary = $summary.val();
     var summary = $summary.text();
     summary = summary.trim();
-    // if ($summary.val().length) {
-        // debugger;
+    
     if ($summary.text().length) {
         var $template = $("#old .contents");
-        // var code = [...summary.matchAll(new RegExp("`\`\`[\n\r]{0,}(.*?)[\n\r]{0,}\`\`\`", "gmi"))].map(regExpItr => regExpItr[1]);
         var code = [...summary.matchAll(new RegExp("\`\`\`((.|\n|\r)*?)\`\`\`", "gmi"))].map(regExpItr => regExpItr[1]);
 
         // If text has ```___```, then get all text between those backticks, otherwise just get all of the text
@@ -381,15 +378,14 @@ $(() => {
         var $clonedDom = $old.clone();
         $clonedDom.find('span.highlight').contents().unwrap();
         $clonedDom.find('span.fog').contents().unwrap();
-        var oldText = $clonedDom.html(); // html -> text
-        oldText = oldText.replace(/<div>/gi, '\n').replace(/<\/div>/gi, '').trim();
-        localStorage.setItem("old", oldText);
-        oldTextURI = encodeURI(oldText);
-        oldTextURI = encodeURIFurther(oldTextURI);
-        // debugger;
-        window.location.hash = oldTextURI;
-        console.log("setItem old text: ", oldText);
-        console.log("set URL hash: ", oldTextURI);
+        // var oldText = $clonedDom.html(); // html -> text
+        // oldText = oldText.replace(/<div>/gi, '\n').replace(/<\/div>/gi, '').trim();
+        // localStorage.setItem("old", oldText);
+        // oldTextURI = encodeURI(oldText);
+        // oldTextURI = encodeURIFurther(oldTextURI);
+        // window.location.hash = oldTextURI;
+        // console.log("setItem old text: ", oldText);
+        // console.log("set URL hash: ", oldTextURI);
     });
 
     $("#old .contents").on("input", evalDifferences);

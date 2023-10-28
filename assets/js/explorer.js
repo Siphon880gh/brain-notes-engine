@@ -1,4 +1,5 @@
 /** @ UTILITY FUNCTIONS **/
+// alert("explorer.js loaded");
 
 // New :contains that is case-insensitive
 $.expr[":"].contains = $.expr.createPseudo(function (arg) {
@@ -72,7 +73,6 @@ function mergeByKey(array) {
 
             // append the current value to its list of values.
             o[occurs].next = o[occurs].next.concat(cur.next);
-            // debugger;
 
             // Otherwise,
         } else {
@@ -248,9 +248,9 @@ function objToHtml(type, item) {
                     linkify: true
                 });
 
-                md.renderer.rules.newline = (tokens, idx) => {
-                    return '\n';
-                };
+                // md.renderer.rules.newline = (tokens, idx) => {
+                //     return '\n';
+                // };
 
                 const doubleNewLine = (source) => {
                     return source.replace(/([^\n])\n([^\n])/g, '$1\n\n$2');
@@ -272,12 +272,7 @@ function objToHtml(type, item) {
                 // Allow copy from textarea to practice areas
                 let guideCopyToPractice = parent.document.querySelector("#js-visible-if-contents");
                 guideCopyToPractice.classList.remove("hide");
-                // setTimeout(() => {
-                //     autoExpand(window.top.document.querySelector("#summary-inner"))
-                // }, 200);
 
-                // var height = $("textarea")[0].scrollHeight;
-                // $("textarea").height(height);
             });
             $queriedInfoButton = $contain.find(".fa-info");
             if ($queriedInfoButton.length) {
@@ -285,12 +280,7 @@ function objToHtml(type, item) {
             } else {
                 $contain.prepend($summary);
             }
-            // ajaxed now obsoleted
-            // if(ajaxed)
-            //   $contain.prepend($summary);
-            // else
-            //   $contain.append($summary);
-        }
+        } // createSummaryIconAndContents
 
         if (gotos && gotos.length) {
             $meta.data("gotos", gotos);
@@ -315,8 +305,6 @@ function objToHtml(type, item) {
 
     $liDom.append($contain);
 
-    // if(item.path==="snippets/+I/");
-    //   debugger;
     return $liDom;
 } // objToHtml
 
@@ -477,9 +465,6 @@ function scrollToNonoverridden(partial) {
         $(el).attr("data-folder-name").toLowerCase().indexOf(partial) >= 0
     );
     $foundRow = $foundRow.map((i, el) => $(el).closest("li"));
-
-    // console.log("found", $foundRow);
-    // var $foundRow = $(`.name[data-folder-name^=main]`);
 
     $foundRow.each((i, row) => {
         var $row = $(row)

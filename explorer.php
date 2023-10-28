@@ -212,10 +212,10 @@
           </main>
 
           <br/>
-          <fieldset id="search-results" class="deemp-fieldset" style="display:none;">
+          <div id="search-results" class="deemp-fieldset" style="display:none;">
             <legend style="font-size:15.75px;"><span class="fa fa-search"></span> Search Results</legend>
             <div class="contents"></div>
-          </fieldset>
+          </div>
 
         </div> <!-- /.container -->
 
