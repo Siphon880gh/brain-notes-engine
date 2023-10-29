@@ -190,11 +190,11 @@ function objToHtml(type, item) {
         // Prepare summary text if exists
         if (summary && summary.length) {
             if (Array.isArray(summary))
-                summaryText = encodeURI(summary.join("<br/>"));
+                summaryText = summary.join("<br/>");
             else
                 summaryText = summary;
 
-            // alert(summaryText);
+            // console.log(summaryText);
         }
 
         // Get and prepare summary file text if exists, then render
@@ -232,12 +232,13 @@ function objToHtml(type, item) {
         }
 
         function createSummaryIconAndContents(text, $contain, ajaxed) {
-            var $summary = $(`<span class="fas fa-book-reader" data-summary="${text}"></span>`);
+            var $summary = $(`<span class="fas fa-book-reader"></span>`);
+            $summary.data("summary", text);
             $summary.on("click", (event) => {
                 parent.document.querySelector(".side-by-side-possible.hidden")?.classList?.remove("hidden");
                 var $this = $(event.target);
-                var summary = $this.attr("data-summary");
-                summary = decodeURI(summary);
+                var summary = $this.data("summary");
+                // alert(summary);
 
                 // Show notes in textarea
                 let summaryInnerEl = parent.document.querySelector("#summary-inner");
@@ -264,8 +265,14 @@ function objToHtml(type, item) {
                 parent.document.querySelector("#side-a .deemp-fieldset").classList.remove("d-none");
                 parent.document.querySelector("#dashboard").classList.add("active");
 
-                // summaryInnerEl.value = summaryHTML;
+                // When copied HTML from W3School to Obsidian, it's a special space character. 
+                // This special space character will get rid of // from https:// in src
+                // So lets convert back to typical space
+
+                summaryHTML = summaryHTML.replaceAll(/\xA0/g, " ");
+                console.log(summaryHTML)
                 summaryInnerEl.innerHTML = summaryHTML;
+                // summaryInnerEl.innerHTML = `<iframe src="https://www.w3schools.com" title="W3Schools Free Online Web Tutorials!!"></iframe>`;
                 summaryInnerEl.querySelectorAll("a").forEach(a=>{
                     a.target = "_blank"
                 })

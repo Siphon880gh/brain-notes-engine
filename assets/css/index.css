@@ -152,15 +152,18 @@ h3 {
 /* line 138, scss/index.scss */
 #summary-inner pre {
   white-space: break-spaces;
+  color: white;
+  background-color: #969696;
+  margin: 10px;
 }
 
-/* line 142, scss/index.scss */
+/* line 145, scss/index.scss */
 #summary-inner img {
   max-width: 100%;
 }
 
 /* Fieldset layout */
-/* line 147, scss/index.scss */
+/* line 150, scss/index.scss */
 #explore-curriculum fieldset {
   display: block;
   margin-inline-start: 2px;
@@ -175,7 +178,7 @@ h3 {
   border-color: threedface;
   border-image: initial;
 }
-/* line 161, scss/index.scss */
+/* line 164, scss/index.scss */
 #explore-curriculum fieldset legend {
   display: inline-block !important;
   padding-inline-start: 4px;
@@ -192,7 +195,7 @@ h3 {
 
 /* Toggle side by side curriculum explorer along notes view */
 /* Superceded by collapser which is next to the summary title */
-/* line 183, scss/index.scss */
+/* line 186, scss/index.scss */
 .sides:has(.side-by-side) {
   display: flex;
   flex-direction: row;
@@ -201,20 +204,20 @@ h3 {
   align-items: stretch;
 }
 
-/* line 191, scss/index.scss */
+/* line 194, scss/index.scss */
 .side-by-side {
   min-width: 50%;
   max-width: 50%;
 }
 
-/* line 196, scss/index.scss */
+/* line 199, scss/index.scss */
 #js-visible-if-contents {
   padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
 }
 
-/* line 202, scss/index.scss */
+/* line 205, scss/index.scss */
 #summary-collapser {
   cursor: pointer;
   display: inline-block;
@@ -222,17 +225,17 @@ h3 {
   color: gray;
 }
 
-/* line 209, scss/index.scss */
+/* line 212, scss/index.scss */
 #summary-collapser.stated {
   transform: rotate(90deg);
 }
 
-/* line 212, scss/index.scss */
+/* line 215, scss/index.scss */
 #dashboard:not(.active) {
   display: none;
 }
 
-/* line 215, scss/index.scss */
+/* line 218, scss/index.scss */
 #dashboard {
   position: fixed;
   bottom: 0;
@@ -246,40 +249,40 @@ h3 {
   opacity: 0.5;
 }
 
-/* line 227, scss/index.scss */
+/* line 230, scss/index.scss */
 #dashboard:hover {
   opacity: 1;
 }
 
-/* line 230, scss/index.scss */
+/* line 233, scss/index.scss */
 #dashboard i {
   font-size: 20px;
 }
 
-/* line 233, scss/index.scss */
+/* line 236, scss/index.scss */
 i#shortcut-summary-collapser {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.5);
   transition: all 200ms ease-in;
 }
 
-/* line 238, scss/index.scss */
+/* line 241, scss/index.scss */
 i#shortcut-summary-collapser:hover {
   color: black;
 }
 
 @media screen and (max-width: 768px) {
-  /* line 243, scss/index.scss */
+  /* line 246, scss/index.scss */
   #dashboard {
     padding: 20px 20px;
   }
 
-  /* line 246, scss/index.scss */
+  /* line 249, scss/index.scss */
   #dashboard i {
     font-size: 28px;
   }
 }
-/* line 251, scss/index.scss */
+/* line 254, scss/index.scss */
 body {
   padding-bottom: 20px;
 }
