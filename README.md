@@ -43,7 +43,8 @@ You can jump to different concepts from a summary.
 You can search by topic title or contents. The search bars are to the top of the topics explorer. This tool uses pcregrep to search files.
 
 ## Future Features
-In the future, you can store your ratings for each folder based on how important (thermometer) and your mastery (parentheses = maybe will fail, square brackets = definitely failed, checked = recalled well).
+- In the future, you can store your ratings for each folder based on how important (thermometer) and your mastery (parentheses = maybe will fail, square brackets = definitely failed, checked = recalled well).
+- If many users find this helpful, I'll improve loading performance by having a JSON cache mechanism that refreshes whenever the lessons are modified.
 
 ### Future Feature: Thermometer
 The thermometer upon clicking goes from empty, to partially filled, to completely filled, and you can make it to mean whatever you want. It could mean how important the concept is to focus on.

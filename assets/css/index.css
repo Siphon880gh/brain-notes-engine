@@ -242,43 +242,44 @@ h3 {
   justify-content: flex-end;
   background-color: rgba(150, 150, 150, 0.5);
   padding: 10px 10px;
+  padding-right: 30px;
   opacity: 0.5;
 }
 
-/* line 226, scss/index.scss */
+/* line 227, scss/index.scss */
 #dashboard:hover {
   opacity: 1;
 }
 
-/* line 229, scss/index.scss */
+/* line 230, scss/index.scss */
 #dashboard i {
   font-size: 20px;
 }
 
-/* line 232, scss/index.scss */
+/* line 233, scss/index.scss */
 i#shortcut-summary-collapser {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.5);
   transition: all 200ms ease-in;
 }
 
-/* line 237, scss/index.scss */
+/* line 238, scss/index.scss */
 i#shortcut-summary-collapser:hover {
   color: black;
 }
 
 @media screen and (max-width: 768px) {
-  /* line 242, scss/index.scss */
+  /* line 243, scss/index.scss */
   #dashboard {
     padding: 20px 20px;
   }
 
-  /* line 245, scss/index.scss */
+  /* line 246, scss/index.scss */
   #dashboard i {
     font-size: 28px;
   }
 }
-/* line 250, scss/index.scss */
+/* line 251, scss/index.scss */
 body {
   padding-bottom: 20px;
 }
