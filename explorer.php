@@ -151,6 +151,58 @@
     ?>
 
     <script>
+    if(lookupMetas?.["curriculum/sortspec.md"]?.summary?.[0]) {
+      // This is the content of sortspec.md
+      // const sortCriteriaMd = `
+      // ---
+      // sorting-spec: |
+      //   AI App Development
+      //   Game Development, Unreal
+      //   Web Development
+      //   Web Development - Rapid Development
+      // ---
+      // `;
+      const sortCriteriaMd = lookupMetas?.["curriculum/sortspec.md"]?.summary?.[0];
+      console.log({sortCriteriaMd})
+
+      // Function to parse the sorting spec
+      function parseSortSpec(content) {
+        // Find the sorting-spec block and extract the folders
+        const match = content.match(/sorting-spec:\s*\|\s*([\s\S]*?)\s*---/);
+        if (match && match[1]) {
+          // Split the block into lines and trim whitespace
+          return match[1].split('\n').map(s => s.trim()).filter(Boolean);
+        }
+        return [];
+      }
+
+      // Get the ordered folders from the sort spec
+
+      const sortCriteria = parseSortSpec(sortCriteriaMd);
+      console.log({sortCriteria}); // Logs the ordered folder names criteria
+
+      // Sort the folders array based on the order defined in sortCriteria
+      folders = folders.sort((a, b) => {
+          const indexA = sortCriteria.indexOf(a.path_tp);
+          const indexB = sortCriteria.indexOf(b.path_tp);
+          if (indexA !== -1 && indexB !== -1) {
+            return indexA - indexB; // both in ordered list, sort by their order
+          } else if (indexA !== -1) {
+            return -1; // only a is in ordered list, a comes first
+          } else if (indexB !== -1) {
+            return 1; // only b is in ordered list, b comes first
+          } else {
+            return a.path_tp.localeCompare(b.path_tp); // neither in ordered list, sort alphabetically
+          }
+        });
+
+
+      console.log("Retrieved sortspec.md from Obsidian and rearranged folders: " + folders.map(f=>f.path_tp))
+
+    } // if there's a sortspec.md
+    </script>
+
+    <script>
     <?php
         echo 'var realpath = "' . dirname(realpath("explorer.php")) . '"';
     ?>
