@@ -253,10 +253,10 @@ function objToHtml(type, item) {
                 //     return '\n';
                 // };
 
-                const doubleNewLine = (source) => {
-                    return source.replace(/([^\n])\n([^\n])/g, '$1\n\n$2');
-                };
-                summary = doubleNewLine(summary);
+                // const doubleNewLine = (source) => {
+                //     return source.replace(/([^\n])\n([^\n])/g, '$1\n\n$2');
+                // };
+                // summary = doubleNewLine(summary);
 
                 var summaryHTML = md.render(summary);
                 parent.document.querySelector("#summary-title").textContent = event.target.closest("li").querySelector(".name").textContent;
