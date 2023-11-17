@@ -202,6 +202,49 @@
     } // if there's a sortspec.md
     </script>
 
+
+<style>
+            #searcher {
+              width:180px;
+            }
+            #searcher-2 {
+              width:180px;
+            }
+
+            @media screen AND (min-width: 550px) {
+              #searcher-btn::after, #searcher-2-btn::after {
+                content: " Search";
+              }
+              #searcher-container, #searcher-container-2 {
+                width:370px;
+                text-align: right;
+              }
+
+            }
+            @media screen AND (max-width: 549px) {
+              #searcher-containers {
+                width: 100%;
+              }
+              #searcher-container, #searcher-container-2 {
+                width:100% !important;
+              }
+              #searcher-containers label {
+                display:block !important;
+                text-align: center !important;
+                width: 100%;
+              }
+              #searcher {
+                width:80%;
+              }
+              #searcher-2 {
+                width:80%;
+              }
+              #searcher + button, #searcher-2 + button {
+                width: 15%;
+              }
+            }
+            </style>
+
     <script>
     <?php
         echo 'var realpath = "' . dirname(realpath("explorer.php")) . '"';
@@ -237,26 +280,27 @@
 
             <div id="searcher-container" style="float:right; margin-top:5px;">
                   <label for="searcher">Text content:</label>
-                  <input id="searcher" onkeyup="checkSearcherSubmit(event, $('#searcher-btn'))" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
-                  <button id="searcher-btn" class="override-ios-button-style" onclick="doSearcher();" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Search</button>
-                  <span>&nbsp;</span>
+                  <input id="searcher" onkeyup="checkSearcherSubmit(event, $('#searcher-btn'))" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                  <button id="searcher-btn" class="override-ios-button-style" onclick="doSearcher();" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span></button>
+                  <!-- <span>&nbsp;</span> -->
                   <span class="mobile-flush-top">
                     <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;"><span class="fa fa-eraser" style="cursor: pointer;"> Clear</button>
                     <button onclick="toggleAllExpand();" style="cursor: pointer; border:0;"><span class="fa fa-eye" style="cursor: pointer;"> Toggle All</button>
                     <button onclick="window.print();" style="cursor: pointer; border:0;"><span class="fa fa-print" style="cursor: pointer;"> Print</button>
                   </span>
             </div>
+
             
             <div id="searcher-container-2" style="float:right; margin-top:5px;">
                   <label for="searcher-2">Topic Title:</label>
-                  <input id="searcher-2" onkeyup="checkSearcherSubmit(event, $('#searcher-2-btn'))"class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
+                  <input id="searcher-2" onkeyup="checkSearcherSubmit(event, $('#searcher-2-btn'))"class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                   <button id="searcher-2-btn" class="override-ios-button-style" 
                     onclick="doSearcher2($('#searcher-2').val(), ()=>{ 
                       $('#shareSnippet').val(`https://wengindustry.com/tools/gamified-knowledge/#${$('#searcher-2').val()}`);
                       document.getElementById('share-search-title-wrapper').classList.remove('hidden')
                     }); " 
                     style="cursor: pointer;"
-                  ><span class="fa fa-search" style="cursor: pointer;"></span> Search</button>
+                  ><span class="fa fa-search" style="cursor: pointer;"></span></button>
             </div>
             <div style="clear:both;"></div>
             <div id="share-search-title-wrapper" class="hidden" 
