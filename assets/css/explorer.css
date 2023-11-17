@@ -67,6 +67,9 @@
   #searcher-containers, .container {
     padding: 0;
   }
+  #searcher-containers {
+    margin-top: 20px;
+  }
 
   /* line 60, scss/explorer.scss */
   .mobile-flush-top {
