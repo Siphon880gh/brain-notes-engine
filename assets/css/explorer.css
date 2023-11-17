@@ -67,67 +67,68 @@
   #searcher-containers, .container {
     padding: 0;
   }
+
+  /* line 61, scss/explorer.scss */
   #searcher-containers {
     margin-top: 20px;
   }
 
-  /* line 60, scss/explorer.scss */
+  /* line 65, scss/explorer.scss */
   .mobile-flush-top {
     position: absolute;
     top: 2px;
     right: 2px;
   }
 }
-@media SCREEN and (min-width: 768px) {
-  /* line 67, scss/explorer.scss */
-  #searcher-2-btn::after {
-    content: " (with autocomplete)";
-  }
-}
-/* line 71, scss/explorer.scss */
+/* line 76, scss/explorer.scss */
 #searcher-btn, #searcher-2-btn {
   margin-left: -5px;
 }
 
-/* line 74, scss/explorer.scss */
+/* line 79, scss/explorer.scss */
 #searcher, #searcher-2 {
   margin-left: 10px;
 }
 
+/* line 83, scss/explorer.scss */
+#share-search-title-wrapper a:hover {
+  text-decoration: none;
+}
+
 /* List Items */
-/* line 81, scss/explorer.scss */
+/* line 89, scss/explorer.scss */
 .accordion {
   cursor: pointer;
 }
 
-/* line 84, scss/explorer.scss */
+/* line 92, scss/explorer.scss */
 .accordion.meta {
   padding: 5px;
 }
 
-/* line 89, scss/explorer.scss */
+/* line 97, scss/explorer.scss */
 li {
   color: blue;
 }
 
-/* line 92, scss/explorer.scss */
+/* line 100, scss/explorer.scss */
 li:hover {
   color: darkblue;
   cursor: pointer;
 }
 
-/* line 96, scss/explorer.scss */
+/* line 104, scss/explorer.scss */
 .contain .fa {
   cursor: pointer;
 }
 
 /* Tooltip for .json file's description property  */
-/* line 102, scss/explorer.scss */
+/* line 110, scss/explorer.scss */
 .tooltip {
   opacity: 1 !important;
 }
 
-/* line 105, scss/explorer.scss */
+/* line 113, scss/explorer.scss */
 .tooltip-inner {
   font-size: 12px;
   background: lightgreen;
@@ -137,25 +138,25 @@ li:hover {
   max-height: 80% !important;
   overflow: scroll;
 }
-/* line 113, scss/explorer.scss */
+/* line 121, scss/explorer.scss */
 .tooltip-inner img {
   width: 100%;
 }
 
 /* Explore Curriculum is in a footer */
-/* line 121, scss/explorer.scss */
+/* line 129, scss/explorer.scss */
 .card-footer {
   padding: 0;
 }
 
 /* REFACTORED IN from ./assets-explorer/css/... */
 /* Buttons fit */
-/* line 128, scss/explorer.scss */
+/* line 136, scss/explorer.scss */
 .fa-info, .fa-book-reader:not(.summary-header), .gotos-click, .thermo, .multistates-wrapper {
   margin-left: 1ch;
 }
 
-/* line 131, scss/explorer.scss */
+/* line 139, scss/explorer.scss */
 .fa-info:hover, .fa-book-reader:not(.summary-header):hover, .gotos-click:hover {
   color: darkgreen;
 }

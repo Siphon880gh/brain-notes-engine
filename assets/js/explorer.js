@@ -445,7 +445,7 @@ function toOpenUp_Highlight($row) {
 
 /** @ JUMP/SCROLL TO **/
 
-function scrollToText(partial) {
+function scrollToText(partial, callback=false) {
     let $finalJumpTo = null;
     var $foundRow = $(`li:contains(${partial})`);
     if ($foundRow.length === 0) alert(`Error: Not found among topic names: ${partial}`)
@@ -457,9 +457,14 @@ function scrollToText(partial) {
             $finalJumpTo = $row[0];
     });
 
+
     setTimeout(() => {
         if ($finalJumpTo)
             $finalJumpTo.scrollIntoView();
+        setTimeout(()=>{
+            if(callback)
+                callback();
+        }, 500)
     }, 800);
 
 } // scrollToText
@@ -572,12 +577,12 @@ function doSearcher() {
         });
 } // doSearcher
 
-function doSearcher2(searchText) {
+function doSearcher2(searchText, callback) {
     if (searchText.length === 0) {
         alert("Error: Nothing typed!");
         return false;
     }
-    scrollToText(searchText);
+    scrollToText(searchText, callback);
 }
 
 function toggleSearchResults(display) {

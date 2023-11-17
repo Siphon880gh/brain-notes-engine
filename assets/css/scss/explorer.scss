@@ -57,6 +57,11 @@
     #searcher-containers, .container {
       padding: 0;
     }
+
+    #searcher-containers {
+      margin-top: 20px;
+    }
+
     .mobile-flush-top {
       position:absolute;
       top:2px;
@@ -64,9 +69,9 @@
     }
   }
   @media SCREEN and (min-width: 768px) {
-    #searcher-2-btn::after {
-      content: " (with autocomplete)";
-    }
+    // #searcher-2-btn::after {
+    //   content: " (with autocomplete)";
+    // }
   }
   #searcher-btn, #searcher-2-btn {
     margin-left: -5px;
@@ -75,6 +80,9 @@
     margin-left: 10px;
   }
 
+  #share-search-title-wrapper a:hover {
+    text-decoration: none;
+  }
 
 /* List Items */
 

@@ -236,8 +236,6 @@
           <div id="searcher-containers" style="float:right; padding:15px;">
 
             <div id="searcher-container" style="float:right; margin-top:5px;">
-                  <form action=""></form>
-                  <!-- <label for="alpha-strip" style="font-weight:400;">Text:</label> -->
                   <label for="searcher">Text content:</label>
                   <input id="searcher" onkeyup="checkSearcherSubmit(event, $('#searcher-btn'))" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
                   <button id="searcher-btn" class="override-ios-button-style" onclick="doSearcher();" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Search</button>
@@ -250,14 +248,70 @@
             </div>
             
             <div id="searcher-container-2" style="float:right; margin-top:5px;">
-                  <form action=""></form>
-                  <!-- <label for="alpha-strip" style="font-weight:400;">Text:</label> -->
                   <label for="searcher-2">Topic Title:</label>
                   <input id="searcher-2" onkeyup="checkSearcherSubmit(event, $('#searcher-2-btn'))"class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
-                  <button id="searcher-2-btn" class="override-ios-button-style" onclick="doSearcher2($('#searcher-2').val());" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Search</button>
+                  <button id="searcher-2-btn" class="override-ios-button-style" 
+                    onclick="doSearcher2($('#searcher-2').val(), ()=>{ 
+                      $('#shareSnippet').val(`https://wengindustry.com/tools/gamified-knowledge/#${$('#searcher-2').val()}`);
+                      document.getElementById('share-search-title-wrapper').classList.remove('hidden')
+                    }); " 
+                    style="cursor: pointer;"
+                  ><span class="fa fa-search" style="cursor: pointer;"></span> Search</button>
             </div>
             <div style="clear:both;"></div>
+            <div id="share-search-title-wrapper" class="hidden" 
+              style="margin-top:10px; text-align:right; position:fixed; right:10px; bottom:0; padding:0; background-color:white;">
+              <a href="javascript:void()" onclick='$("#shareModal").modal("show");'>
+                <i>Share the search:</i>
+                <span class="fas fa-share-alt"></span>
+              </a>
+            </div>
           </div> <!-- #searcher-containers -->
+
+
+          <script>
+          $(document).ready(function() {
+            $('#copyButton').click(function() {
+              var copyText = document.getElementById("shareSnippet");
+              copyText.select();
+              document.execCommand("copy");
+              // alert("Copied the text: " + copyText.value); // Optional: alert message
+            });
+          });
+
+          $(window).scroll(function() {
+            // if($(window).scrollTop() + $(window).height() == $(document).height()) {
+              // alert("bottom!");
+              // window.print();
+            // }
+            $("#share-search-title-wrapper").addClass("hidden");
+          });
+          </script>
+
+          
+          <!-- Modal -->
+          <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="shareModalLabel">Share this link</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position:absolute; top:10px; right:10px;">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <!-- Embed Code Textarea -->
+                  <textarea id="shareSnippet" class="form-control" rows="1"></textarea>
+                </div>
+                <div class="modal-footer">
+                  <!-- Copy to Clipboard Button -->
+                  <button type="button" class="btn btn-default" id="copyButton">
+                    <i class="fas fa-copy"></i> Copy to Clipboard
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div id="printer-title"></div>
           <br style="clear:both;"/><br/>
