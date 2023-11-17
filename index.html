@@ -169,12 +169,23 @@
                     </p>
                 </div>
                 <div class="sides">
+
+                    <script>
+                        function shareTutorial() {
+
+                            $("#shareModal").modal("show");
+                            $("#shareSnippet").val(`https://wengindustry.com/tools/gamified-knowledge/##${$("#summary-title").text()}`)
+                        }
+                    </script>
                     <div id="side-a" class="card-body side-by-side-possible hidden"
                         style="border: 1px solid darkgray; padding-left:5px; padding-right:5px;">
                         <div>
                             <h3 id="summary-title" style="display:inline; cursor:pointer;"
                                 onclick="document.querySelector('#summary-collapser').click();"></h3>
                             <span id="summary-collapser" class="d-none">></span>
+                            <a id="summary-sharer" class="d-none" href="javascript:void(0)" style="position:absolute; right:35px;" onclick='shareTutorial()'>
+                                <span class="fas fa-share-alt"></span>
+                            </a>
                         </div>
                         <div class="deemp-fieldset" style="height: 100%; margin-top: 20px; padding-left: 5px; padding-right: 5px;">
                             <!-- <textarea id="summary-inner" style="height: 100%; resize: none; width:100%;"></textarea> -->
@@ -187,7 +198,10 @@
                         <iframe class="d-none"
                             style="padding:5px; border-radius:5px; display:inline-block; margin-top:5px; text-align:left; margin-bottom:10px; width:100%; height:400px;"
                             src="explorer.php"
-                            onload="event.target.classList.remove('d-none'); document.getElementById('skeleton-explorer').classList.add('d-none');"></iframe>
+                            onload="
+                                event.target.classList.remove('d-none');
+                                document.getElementById('skeleton-explorer').classList.add('d-none');"
+                            ></iframe>
 
                         <div id="skeleton-explorer"
                             style="padding:5px; border-radius:5px; display:inline-block; margin-top:5px; text-align:left; margin-bottom:10px; width:100%; height:400px;">
@@ -290,6 +304,41 @@
 
     </div>
     <!-- /.container -->
+
+    <script>
+        $(document).ready(function() {
+          $('#copyButton').click(function() {
+            var copyText = document.getElementById("shareSnippet");
+            copyText.select();
+            document.execCommand("copy");
+            // alert("Copied the text: " + copyText.value); // Optional: alert message
+          });
+        });
+        </script>
+          
+    <!-- Modal -->
+    <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h4 class="modal-title" id="shareModalLabel">Share this link</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position:absolute; top:10px; right:10px;">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <!-- Embed Code Textarea -->
+            <textarea id="shareSnippet" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="modal-footer">
+            <!-- Copy to Clipboard Button -->
+            <button type="button" class="btn btn-default" id="copyButton">
+                <i class="fas fa-copy"></i> Copy to Clipboard
+            </button>
+            </div>
+        </div>
+        </div>
+    </div>
 
     <!-- Designer: FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">

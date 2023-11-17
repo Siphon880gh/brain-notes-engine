@@ -262,6 +262,7 @@ function objToHtml(type, item) {
                 parent.document.querySelector("#summary-title").textContent = event.target.closest("li").querySelector(".name").textContent;
                 parent.document.querySelector("#summary-collapser").classList.remove("d-none");
                 parent.document.querySelector("#summary-collapser").classList.add("stated");
+                parent.document.querySelector("#summary-sharer").classList.remove("d-none");
                 parent.document.querySelector("#side-a .deemp-fieldset").classList.remove("d-none");
                 parent.document.querySelector("#dashboard").classList.add("active");
 

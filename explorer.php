@@ -301,7 +301,7 @@
                 </div>
                 <div class="modal-body">
                   <!-- Embed Code Textarea -->
-                  <textarea id="shareSnippet" class="form-control" rows="1"></textarea>
+                  <textarea id="shareSnippet" class="form-control" rows="3"></textarea>
                 </div>
                 <div class="modal-footer">
                   <!-- Copy to Clipboard Button -->

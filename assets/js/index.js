@@ -117,17 +117,46 @@ $(()=>{
 function runtimeOnMessageReadyExplorer() {
     setTimeout(()=>{
         if (window.location.hash.length) {
-            var explorer = document.querySelector("iframe").contentWindow.document
-            explorer.querySelector("#searcher-2").value = decodeURIComponent(window.location.hash.length?window.location.hash.substr(1):"")
+            if(window.location.hash.substr(0,3).includes("##")) {
+                function attemptOpenTutorial() {
+                    var title = window.location.hash.substr(2);
+                    title = decodeURIComponent(title);
+                    var $curriculumExplorer = $("#explore-curriculum iframe").contents();
+                    var $target = $curriculumExplorer.find(`.name[data-folder-name]:contains('${title}')`); // files have data-folder-name
+                    if($target.length) {
+                        $target.parent().find(".fa-book-reader").click()
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                setTimeout(()=>{
+                    var success = attemptOpenTutorial();
+                    if(!success) {
+                        setTimeout(()=>{
+                            var success = attemptOpenTutorial();
+                            if(!success) {
+                                setTimeout(()=>{
+                                    var success = attemptOpenTutorial();
+                                }, 300) // if not successful, repeat 2nd time
+                            }
+                        }, 300)
+                    } // if not successful, repeat 2nd time
+                }, 300)
 
-            var button = explorer.querySelector("#searcher-2-btn");
-            var event = new MouseEvent('click', {
-                bubbles: false,
-                cancelable: true
-            });
+            } else {
+                var explorer = document.querySelector("iframe").contentWindow.document
+                explorer.querySelector("#searcher-2").value = decodeURIComponent(window.location.hash.length?window.location.hash.substr(1):"")
 
-            // Dispatch the event to the button
-            button.dispatchEvent(event);
+                var button = explorer.querySelector("#searcher-2-btn");
+                var event = new MouseEvent('click', {
+                    bubbles: false,
+                    cancelable: true
+                });
+
+                // Dispatch the event to the button
+                button.dispatchEvent(event);
+            }
         }
     }, 300)
 
