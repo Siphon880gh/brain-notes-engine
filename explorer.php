@@ -279,10 +279,9 @@
           <div id="searcher-containers" style="float:right; padding:15px;">
 
             <div id="searcher-container" style="float:right; margin-top:5px;">
-                  <label for="searcher">Text content:</label>
+                  <!-- <label for="searcher">Text content:</label>
                   <input id="searcher" onkeyup="checkSearcherSubmit(event, $('#searcher-btn'))" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                  <button id="searcher-btn" class="override-ios-button-style" onclick="doSearcher();" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span></button>
-                  <!-- <span>&nbsp;</span> -->
+                  <button id="searcher-btn" class="override-ios-button-style" onclick="doSearcher();" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span></button> -->
                   <span class="mobile-flush-top">
                     <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;"><span class="fa fa-eraser" style="cursor: pointer;"> Clear</button>
                     <button onclick="toggleAllExpand();" style="cursor: pointer; border:0;"><span class="fa fa-eye" style="cursor: pointer;"> Toggle All</button>
@@ -296,7 +295,7 @@
                   <input id="searcher-2" onkeyup="checkSearcherSubmit(event, $('#searcher-2-btn'))"class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                   <button id="searcher-2-btn" class="override-ios-button-style" 
                     onclick="doSearcher2($('#searcher-2').val(), ()=>{ 
-                      $('#shareSnippet').val(`https://wengindustry.com/tools/gamified-knowledge/#${$('#searcher-2').val()}`);
+                      $('#shareSnippet').val(`https://wengindustry.com/tools/gamified-knowledge/#${encodeURI($('#searcher-2').val())}`);
                       document.getElementById('share-search-title-wrapper').classList.remove('hidden')
                     }); " 
                     style="cursor: pointer;"

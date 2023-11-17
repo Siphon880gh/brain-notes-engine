@@ -174,7 +174,7 @@
                         function shareTutorial() {
 
                             $("#shareModal").modal("show");
-                            $("#shareSnippet").val(`https://wengindustry.com/tools/gamified-knowledge/##${$("#summary-title").text()}`)
+                            $("#shareSnippet").val(`https://wengindustry.com/tools/gamified-knowledge/##${encodeURI($("#summary-title").text())}`)
                         }
                     </script>
                     <div id="side-a" class="card-body side-by-side-possible hidden"

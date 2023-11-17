@@ -526,7 +526,14 @@ function doSearcher() {
     $div = $("#search-results .contents");
     $.post("search.php", { search: query })
         .done(greps => {
-            greps = JSON.parse(greps); // grep results array
+            try {
+
+                greps = JSON.parse(greps); // grep results array
+            } catch(err) {
+                console.error(err);
+                console.log({greps});
+                debugger;
+            }
             greps = greps["res"];
             console.log(greps);
 
