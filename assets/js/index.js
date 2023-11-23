@@ -91,6 +91,11 @@ $(()=>{
 // Secondary: Can send topic to friends
 function runtimeOnMessageReadyExplorer() {
     setTimeout(()=>{
+        // Some apps like WhatsApp will encode # into %23 if it follows another #.
+        let url = window.location.href;
+        if(url.includes("%23")) {
+            window.location.href=window.location.href.replaceAll(/%23/g, "#");
+        }
         if (window.location.hash.length || window.location.search) {
             if(window.location.hash.substr(0,3).includes("##")) {
                 var topic = "";
@@ -98,10 +103,12 @@ function runtimeOnMessageReadyExplorer() {
                     var trail = window.location.hash.substr(2);
                     var jumpTo = "";
                     trail = decodeURIComponent(trail);
-                    if(trail.includes("#")) {
+                    if(trail.includes("#")) { // ##tutorialName#jumpToSection
                         var index = trail.indexOf("#");
                         jumpTo = trail.substring(index)
                         topic = trail.substring(0, index)
+                    } else {
+                        topic = trail; // ##tutorialName
                     }
                     var $curriculumExplorer = $("#explore-curriculum iframe").contents();
                     var $target = $curriculumExplorer.find(`.name[data-folder-name]:contains('${topic}')`); // files have data-folder-name
