@@ -235,6 +235,20 @@ function objToHtml(type, item) {
             var $summary = $(`<span class="fas fa-book-reader"></span>`);
             $summary.data("summary", text);
             $summary.on("click", (event) => {
+                const title = event.target.closest("li").querySelector(".name").textContent;
+
+                // remove ?topic=topicName, so when you click jump anchor link, the url doesn't become ?topic=topicName#subtopic
+                (function pushStateWithoutSearch() {
+                    // Get the current URL
+                    const currentUrl = new URL(window.location);
+                
+                    // Modify the URL to remove the search part (query parameters)
+                    currentUrl.search = '';
+                
+                    // Use history.pushState to change the URL without reloading
+                    history.pushState({}, '', currentUrl);
+                })();
+
                 parent.document.querySelector(".side-by-side-possible.hidden")?.classList?.remove("hidden");
                 var $this = $(event.target);
                 var summary = $this.data("summary");
@@ -247,6 +261,19 @@ function objToHtml(type, item) {
                 var md = window.markdownit({
                     html: true,
                     linkify: true
+                }).use(window.markdownItAnchor, {
+                    level: [1, 2, 3, 4, 5, 6], // Apply to all heading levels
+                    slugify: function(s) {
+                        return s.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '');
+                    },
+                    permalink: true,
+                    permalinkHref: (slug, state) => {
+                        let s = slug;
+                        s = "##" + encodeURI(title) + "#" + s; // ##Data%20Lake.md#Section1
+                        return s;
+                    },
+                    permalinkSymbol: '🔗' // Set to true if you want a permalink symbol
+                    // Other options as needed
                 });
 
                 // md.renderer.rules.newline = (tokens, idx) => {
@@ -259,7 +286,7 @@ function objToHtml(type, item) {
                 // summary = doubleNewLine(summary);
 
                 var summaryHTML = md.render(summary);
-                parent.document.querySelector("#summary-title").textContent = event.target.closest("li").querySelector(".name").textContent;
+                parent.document.querySelector("#summary-title").textContent = title;
                 parent.document.querySelector("#summary-collapser").classList.remove("d-none");
                 parent.document.querySelector("#summary-collapser").classList.add("stated");
                 parent.document.querySelector("#summary-sharer").classList.remove("d-none");
@@ -273,10 +300,16 @@ function objToHtml(type, item) {
                 summaryHTML = summaryHTML.replaceAll(/\xA0/g, " ");
                 console.log(summaryHTML)
                 summaryInnerEl.innerHTML = summaryHTML;
-                // summaryInnerEl.innerHTML = `<iframe src="https://www.w3schools.com" title="W3Schools Free Online Web Tutorials!!"></iframe>`;
-                summaryInnerEl.querySelectorAll("a").forEach(a=>{
-                    a.target = "_blank"
-                })
+                setTimeout(()=>{
+                    summaryInnerEl.querySelectorAll("a").forEach(a=>{
+                        if(a.href.length && !a.href.includes("wengindustry.com") && !a.href.includes("#"))
+                            a.target = "_blank"
+                        if(a.innerText.includes("🔗")) {
+                            // a.href = "##" + encodeURI($("#summary-title").text()) + a.href
+                            a.target = "_blank"
+                        }
+                    })
+                }, 250);
 
                 // Allow copy from textarea to practice areas
                 let guideCopyToPractice = parent.document.querySelector("#js-visible-if-contents");
@@ -449,7 +482,8 @@ function toOpenUp_Highlight($row) {
 function scrollToText(partial, callback=false) {
     let $finalJumpTo = null;
     var $foundRow = $(`li:contains(${partial})`);
-    if ($foundRow.length === 0) alert(`Error: Not found among topic names: ${partial}`)
+    if ($foundRow.length === 0) 
+        alert("The search returned blank:\n" +partial)
     $foundRow.each((i, row) => {
         var $row = $(row)
         toOpenUp_Exec($row);

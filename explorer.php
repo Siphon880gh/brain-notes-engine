@@ -28,7 +28,11 @@
 
     <!-- Autoexpand, Markdown (dependencies)-->
     <script src="assets/js/vendors/autoExpand/autoExpand.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@12.0.4/dist/markdown-it.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it-emoji/1.4.0/markdown-it-emoji.min.js"></script>
+    <script src="https://unpkg.com/markdown-it-anchor@8.6.5/dist/markdownItAnchor.umd.js"></script>
+
         
     <link href="assets/css/explorer.css?v=<?php echo time(); ?>" rel="stylesheet">
     <link href="assets/css/multistates.css?v=<?php echo time(); ?>" rel="stylesheet">
@@ -295,7 +299,7 @@
                   <input id="searcher-2" onkeyup="checkSearcherSubmit(event, $('#searcher-2-btn'))"class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                   <button id="searcher-2-btn" class="override-ios-button-style" 
                     onclick="doSearcher2($('#searcher-2').val(), ()=>{ 
-                      $('#shareSnippet').val(`https://wengindustry.com/tools/gamified-knowledge/#${encodeURI($('#searcher-2').val())}`);
+                      $('#shareSnippet').val(`https://wengindustry.com/tools/gamified-knowledge/?topic=${encodeURI($('#searcher-2').val())}`);
                       document.getElementById('share-search-title-wrapper').classList.remove('hidden')
                     }); " 
                     style="cursor: pointer;"

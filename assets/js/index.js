@@ -51,31 +51,6 @@ function animateExploreCurriculum() {
         .animate({ "color": "black" }, 2000)
 }
 
-/**
- * Detect presetted topic search in URL
- */
-// $(() => {
-//     var params = new URLSearchParams(window.location.search);
-//     var qtopic = params.get("topic");
-
-//     if (qtopic) {
-//         var checkIframeLoading = setInterval(() => {
-//             var $curriculumExplorer = $("#explore-curriculum iframe").contents();
-//             var doesTreeExist = () => $curriculumExplorer.find(".accordion").length > 0;
-
-//             if (doesTreeExist) {
-//                 clearInterval(checkIframeLoading);
-//                 setTimeout(() => {
-//                     $topicField = $curriculumExplorer.find("#searcher-2"),
-//                         $topicBtn = $curriculumExplorer.find("#searcher-2-btn");;
-//                     $topicField.val(qtopic);
-//                     $topicBtn.click();
-//                 }, 1200); // Just because part of a tree exist, doesn't mean the whole tree exists right away
-//             }
-//         }, 100);
-//     }
-// });
-// End: Detect hash then searh
 
 // Autoresize notes textarea
 document.querySelector("#summary-inner")?.addEventListener("input", (event) => {
@@ -116,15 +91,28 @@ $(()=>{
 // Secondary: Can send topic to friends
 function runtimeOnMessageReadyExplorer() {
     setTimeout(()=>{
-        if (window.location.hash.length) {
+        if (window.location.hash.length || window.location.search) {
             if(window.location.hash.substr(0,3).includes("##")) {
+                var topic = "";
                 function attemptOpenTutorial() {
-                    var title = window.location.hash.substr(2);
-                    title = decodeURIComponent(title);
+                    var trail = window.location.hash.substr(2);
+                    var jumpTo = "";
+                    trail = decodeURIComponent(trail);
+                    if(trail.includes("#")) {
+                        var index = trail.indexOf("#");
+                        jumpTo = trail.substring(index)
+                        topic = trail.substring(0, index)
+                    }
                     var $curriculumExplorer = $("#explore-curriculum iframe").contents();
-                    var $target = $curriculumExplorer.find(`.name[data-folder-name]:contains('${title}')`); // files have data-folder-name
+                    var $target = $curriculumExplorer.find(`.name[data-folder-name]:contains('${topic}')`); // files have data-folder-name
                     if($target.length) {
                         $target.parent().find(".fa-book-reader").click()
+                        if(jumpTo) {
+                            setTimeout(()=>{
+                                console.log({jumpTo})
+                                document.querySelector(jumpTo).scrollIntoView();
+                            }, 250)
+                        }
                         return true;
                     } else {
                         return false;
@@ -138,6 +126,7 @@ function runtimeOnMessageReadyExplorer() {
                             if(!success) {
                                 setTimeout(()=>{
                                     var success = attemptOpenTutorial();
+                                    alert("The tutorial you are looking for is not found. Please reach out to your friend who shared it:\n" + topic)
                                 }, 300) // if not successful, repeat 2nd time
                             }
                         }, 300)
@@ -145,17 +134,48 @@ function runtimeOnMessageReadyExplorer() {
                 }, 300)
 
             } else {
-                var explorer = document.querySelector("iframe").contentWindow.document
-                explorer.querySelector("#searcher-2").value = decodeURIComponent(window.location.hash.length?window.location.hash.substr(1):"")
+                
+                /**
+                 * Detect presetted topic search in URL
+                 * #topicName
+                 */
 
-                var button = explorer.querySelector("#searcher-2-btn");
-                var event = new MouseEvent('click', {
-                    bubbles: false,
-                    cancelable: true
-                });
+                // Decided to phase out so that anchor jumping is possible with # in the URL
+                // var explorer = document.querySelector("iframe").contentWindow.document
+                // explorer.querySelector("#searcher-2").value = decodeURIComponent(window.location.hash.length?window.location.hash.substr(1):"")
 
-                // Dispatch the event to the button
-                button.dispatchEvent(event);
+                // var button = explorer.querySelector("#searcher-2-btn");
+                // var event = new MouseEvent('click', {
+                //     bubbles: false,
+                //     cancelable: true
+                // });
+
+                // // Dispatch the event to the button
+                // button.dispatchEvent(event);
+
+                /**
+                 * Detect presetted topic search in URL
+                 * ?topic=topicName
+                 */
+                    var params = new URLSearchParams(window.location.search);
+                    var qtopic = params.get("topic");
+
+                    if (qtopic) {
+                        var checkIframeLoading = setInterval(() => {
+                            var $curriculumExplorer = $("#explore-curriculum iframe").contents();
+                            var doesTreeExist = () => $curriculumExplorer.find(".accordion").length > 0;
+
+                            if (doesTreeExist) {
+                                clearInterval(checkIframeLoading);
+                                setTimeout(() => {
+                                    $topicField = $curriculumExplorer.find("#searcher-2"),
+                                        $topicBtn = $curriculumExplorer.find("#searcher-2-btn");;
+                                    $topicField.val(qtopic);
+                                    $topicBtn.click();
+                                }, 1200); // Just because part of a tree exist, doesn't mean the whole tree exists right away
+                            }
+                        }, 100);
+                    }
             }
         }
     }, 300)
