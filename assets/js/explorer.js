@@ -237,18 +237,6 @@ function objToHtml(type, item) {
             $summary.on("click", (event) => {
                 const title = event.target.closest("li").querySelector(".name").textContent;
 
-                // remove ?topic=topicName, so when you click jump anchor link, the url doesn't become ?topic=topicName#subtopic
-                (function pushStateWithoutSearch() {
-                    // Get the current URL
-                    const currentUrl = new URL(window.location);
-                
-                    // Modify the URL to remove the search part (query parameters)
-                    currentUrl.search = '';
-                
-                    // Use history.pushState to change the URL without reloading
-                    history.pushState({}, '', currentUrl);
-                })();
-
                 parent.document.querySelector(".side-by-side-possible.hidden")?.classList?.remove("hidden");
                 var $this = $(event.target);
                 var summary = $this.data("summary");

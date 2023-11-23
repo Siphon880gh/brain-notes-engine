@@ -162,10 +162,23 @@ function runtimeOnMessageReadyExplorer() {
 
                 /**
                  * Detect presetted topic search in URL
-                 * ?topic=topicName
+                 * ?search-titles=topicName
                  */
                     var params = new URLSearchParams(window.location.search);
-                    var qtopic = params.get("topic");
+                    var qtopic = params.get("search-titles");
+
+
+                    // remove ?search-titles=topicName, so when you click jump anchor link, the url doesn't become ?search-titles=topicName#subtopic
+                    (function pushStateWithoutSearch() {
+                        // Get the current URL
+                        const currentUrl = new URL(window.location);
+                    
+                        // Modify the URL to remove the search part (query parameters)
+                        currentUrl.search = '';
+                    
+                        // Use history.pushState to change the URL without reloading
+                        history.pushState({}, '', currentUrl);
+                    })();
 
                     if (qtopic) {
                         var checkIframeLoading = setInterval(() => {
