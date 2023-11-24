@@ -176,37 +176,6 @@ function objToHtml(type, item) {
                     href = getBasePath(item.path) + href.substr(2);
                     $a.attr("href", href);
                 }
-
-                // // Exit quickly if this is the wrong type of URL
-                // if (this.protocol !== 'http:' && this.protocol !== 'https:') {
-                //     return;
-                // }
-
-                // // Find the ID of the YouTube video
-                // var id, matches;
-                // if (this.hostname === 'youtube.com' || this.hostname === 'www.youtube.com') {
-                //     // For URLs like https://www.youtube.com/watch?v=xLrLlu6KDss
-                //     matches = this.search.match(/[?&]v=([^&]*)/);
-                //     id = matches && matches[1];
-                // } else if (this.hostname === 'youtu.be') {
-                //     // For URLs like https://youtu.be/xLrLlu6KDss
-                //     id = this.pathname.substr(1);
-                // }
-
-                // // Check that the ID only has alphanumeric characters, to make sure that
-                // // we don't introduce any XSS vulnerabilities.
-                // var validatedID;
-                // if (id && id.match(/^[a-zA-Z0-9]*$/)) {
-                //     validatedID = id;
-                // }
-
-                // // Add the embedded YouTube video, and remove the link.
-                // if (validatedID) {
-                //     $(this)
-                //     .before('<iframe width="200" height="100" src="https://www.youtube.com/embed/' + validatedID + '" frameborder="0" allowfullscreen></iframe>')
-                //     .remove();
-                // }
-
             });
 
             // debugger;
@@ -332,12 +301,55 @@ function objToHtml(type, item) {
                             // a.href = "##" + encodeURI($("#summary-title").text()) + a.href
                             a.target = "_blank"
                         }
+
+                        (function (){
+                            // debugger;
+
+                            // Exit quickly if this is the wrong type of URL
+                            if (this.protocol !== 'http:' && this.protocol !== 'https:') {
+                                return;
+                            }
+
+                            // Find the ID of the YouTube video
+                            var id, matches;
+                            if (this.hostname === 'youtube.com' || this.hostname === 'www.youtube.com') {
+                                // For URLs like https://www.youtube.com/watch?v=xLrLlu6KDss
+                                // debugger;
+                                matches = this.search.match(/[?&]v=([^&]*)/);
+                                id = matches && matches[1];
+                            } else if (this.hostname === 'youtu.be') {
+                                // For URLs like https://youtu.be/xLrLlu6KDss
+                                id = this.pathname.substr(1);
+                            }
+                            console.log({hostname:this.hostname})
+
+                            // Check that the ID only has alphanumeric characters, to make sure that
+                            // we don't introduce any XSS vulnerabilities.
+                            var validatedID;
+                            if (id && id.match(/^[a-zA-Z0-9\_]*$/)) {
+                                validatedID = id;
+                            }
+
+                            // Add the embedded YouTube video, and remove the link.
+                            if (validatedID) {
+                                $(this)
+                                .before('<div class="responsive-iframe-container"><iframe src="https://www.youtube.com/embed/' + validatedID + '" frameborder="0" allowfullscreen></iframe></div>')
+                                .remove();
+                            }
+
+                        }).call(a);
+
+                        // Jump up to content
+                        window.parent.document.getElementById("summary-title").scrollIntoView();
                     })
                 }, 250);
+
+                // Scroll up
 
                 // Allow copy from textarea to practice areas
                 let guideCopyToPractice = parent.document.querySelector("#js-visible-if-contents");
                 guideCopyToPractice.classList.remove("hide");
+
 
             });
             $queriedInfoButton = $contain.find(".fa-info");

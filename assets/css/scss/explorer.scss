@@ -104,6 +104,22 @@ li {
   .contain .fa {
     cursor: pointer;
   }
+.fa-book-reader::after {
+    content: " Read";
+}
+.responsive-iframe-container {
+  position: relative;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+}
+
+.responsive-iframe-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 
 
 /* Tooltip for .json file's description property  */
@@ -139,6 +155,4 @@ li {
 .fa-info:hover, .fa-book-reader:not(.summary-header):hover, .gotos-click:hover {
     color: darkgreen;
 }
-.fa-book-reader::after {
-    content: " Read";
-}
+

@@ -122,13 +122,35 @@ li:hover {
   cursor: pointer;
 }
 
-/* Tooltip for .json file's description property  */
+/* line 107, scss/explorer.scss */
+.fa-book-reader::after {
+  content: " Read";
+}
+
 /* line 110, scss/explorer.scss */
+.responsive-iframe-container {
+  position: relative;
+  padding-top: 56.25%;
+  /* 16:9 Aspect Ratio */
+  height: 0;
+}
+
+/* line 116, scss/explorer.scss */
+.responsive-iframe-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Tooltip for .json file's description property  */
+/* line 126, scss/explorer.scss */
 .tooltip {
   opacity: 1 !important;
 }
 
-/* line 113, scss/explorer.scss */
+/* line 129, scss/explorer.scss */
 .tooltip-inner {
   font-size: 12px;
   background: lightgreen;
@@ -138,30 +160,25 @@ li:hover {
   max-height: 80% !important;
   overflow: scroll;
 }
-/* line 121, scss/explorer.scss */
+/* line 137, scss/explorer.scss */
 .tooltip-inner img {
   width: 100%;
 }
 
 /* Explore Curriculum is in a footer */
-/* line 129, scss/explorer.scss */
+/* line 145, scss/explorer.scss */
 .card-footer {
   padding: 0;
 }
 
 /* REFACTORED IN from ./assets-explorer/css/... */
 /* Buttons fit */
-/* line 136, scss/explorer.scss */
+/* line 152, scss/explorer.scss */
 .fa-info, .fa-book-reader:not(.summary-header), .gotos-click, .thermo, .multistates-wrapper {
   margin-left: 1ch;
 }
 
-/* line 139, scss/explorer.scss */
+/* line 155, scss/explorer.scss */
 .fa-info:hover, .fa-book-reader:not(.summary-header):hover, .gotos-click:hover {
   color: darkgreen;
-}
-
-/* line 142, scss/explorer.scss */
-.fa-book-reader::after {
-  content: " Read";
 }
