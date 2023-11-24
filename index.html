@@ -183,6 +183,11 @@
                             $("#shareModal").modal("show");
                             $("#shareSnippet").val(`https://wengindustry.com/tools/gamified-knowledge/##${encodeURI($("#summary-title").text())}`)
                         }
+                        function shareTutorialSection(trailingHash) {
+
+                            $("#shareModal").modal("show");
+                            $("#shareSnippet").val(`https://wengindustry.com/tools/gamified-knowledge/${trailingHash}`)
+                        }
                     </script>
                     <div id="side-a" class="card-body side-by-side-possible hidden"
                         style="border: 1px solid darkgray; padding-left:5px; padding-right:5px;">

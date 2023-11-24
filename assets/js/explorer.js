@@ -262,7 +262,7 @@ function objToHtml(type, item) {
                     permalink: true,
                     permalinkHref: (slug, state) => {
                         let s = slug;
-                        s = "##" + encodeURI(title) + "#" + s; // ##Data%20Lake.md#Section1
+                        s = "javascript:window.parent.shareTutorialSection('##" + encodeURI(title) + "#" + s + "');"; // ##Data%20Lake.md#Section1
                         return s;
                     },
                     permalinkSymbol: '🔗' // Set to true if you want a permalink symbol
@@ -297,10 +297,10 @@ function objToHtml(type, item) {
                     summaryInnerEl.querySelectorAll("a").forEach(a=>{
                         if(a.href.length && !a.href.includes("wengindustry.com") && !a.href.includes("#"))
                             a.target = "_blank"
-                        if(a.innerText.includes("🔗")) {
-                            // a.href = "##" + encodeURI($("#summary-title").text()) + a.href
-                            a.target = "_blank"
-                        }
+                        // if(a.innerText.includes("🔗")) {
+                        //     // a.href = "##" + encodeURI($("#summary-title").text()) + a.href
+                        //     a.target = "_blank"
+                        // }
 
                         (function (){
                             // debugger;
