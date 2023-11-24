@@ -146,11 +146,16 @@ h3 {
 }
 
 /* line 134, scss/index.scss */
+#summary-title {
+  background-color: pink;
+}
+
+/* line 138, scss/index.scss */
 #summary-inner textarea {
   border-color: white;
 }
 
-/* line 138, scss/index.scss */
+/* line 142, scss/index.scss */
 #summary-inner pre {
   white-space: break-spaces;
   color: white;
@@ -158,13 +163,13 @@ h3 {
   margin: 10px;
 }
 
-/* line 145, scss/index.scss */
+/* line 149, scss/index.scss */
 #summary-inner img {
   max-width: 100%;
 }
 
 /* Fieldset layout */
-/* line 150, scss/index.scss */
+/* line 154, scss/index.scss */
 #explore-curriculum fieldset {
   display: block;
   margin-inline-start: 2px;
@@ -179,7 +184,7 @@ h3 {
   border-color: threedface;
   border-image: initial;
 }
-/* line 164, scss/index.scss */
+/* line 168, scss/index.scss */
 #explore-curriculum fieldset legend {
   display: inline-block !important;
   padding-inline-start: 4px;
@@ -196,7 +201,7 @@ h3 {
 
 /* Toggle side by side curriculum explorer along notes view */
 /* Superceded by collapser which is next to the summary title */
-/* line 186, scss/index.scss */
+/* line 190, scss/index.scss */
 .sides:has(.side-by-side) {
   display: flex;
   flex-direction: row;
@@ -205,20 +210,20 @@ h3 {
   align-items: stretch;
 }
 
-/* line 194, scss/index.scss */
+/* line 198, scss/index.scss */
 .side-by-side {
   min-width: 50%;
   max-width: 50%;
 }
 
-/* line 199, scss/index.scss */
+/* line 203, scss/index.scss */
 #js-visible-if-contents {
   padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
 }
 
-/* line 205, scss/index.scss */
+/* line 209, scss/index.scss */
 #summary-collapser {
   cursor: pointer;
   display: inline-block;
@@ -226,17 +231,17 @@ h3 {
   color: gray;
 }
 
-/* line 212, scss/index.scss */
+/* line 216, scss/index.scss */
 #summary-collapser.stated {
   transform: rotate(90deg);
 }
 
-/* line 215, scss/index.scss */
+/* line 219, scss/index.scss */
 #dashboard:not(.active) {
   display: none;
 }
 
-/* line 218, scss/index.scss */
+/* line 222, scss/index.scss */
 #dashboard {
   position: fixed;
   bottom: 0;
@@ -250,46 +255,46 @@ h3 {
   opacity: 0.5;
 }
 
-/* line 230, scss/index.scss */
+/* line 234, scss/index.scss */
 #dashboard:hover {
   opacity: 1;
 }
 
-/* line 233, scss/index.scss */
+/* line 237, scss/index.scss */
 #dashboard i {
   font-size: 20px;
 }
 
-/* line 236, scss/index.scss */
+/* line 240, scss/index.scss */
 i#shortcut-summary-collapser {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.5);
   transition: all 200ms ease-in;
 }
 
-/* line 241, scss/index.scss */
+/* line 245, scss/index.scss */
 i#shortcut-summary-collapser:hover {
   color: black;
 }
 
 @media screen and (max-width: 768px) {
-  /* line 246, scss/index.scss */
+  /* line 250, scss/index.scss */
   #dashboard {
     padding: 20px 20px;
   }
 
-  /* line 249, scss/index.scss */
+  /* line 253, scss/index.scss */
   #dashboard i {
     font-size: 28px;
   }
 }
-/* line 254, scss/index.scss */
+/* line 258, scss/index.scss */
 body {
   padding-bottom: 20px;
 }
 
 /* Table of contents at top right */
-/* line 260, scss/index.scss */
+/* line 264, scss/index.scss */
 #toc-toggler {
   cursor: pointer;
   position: fixed;
@@ -300,12 +305,12 @@ body {
   background-color: white;
 }
 
-/* line 270, scss/index.scss */
+/* line 274, scss/index.scss */
 #toc-toggler:has(#toc:empty) {
   display: none;
 }
 
-/* line 274, scss/index.scss */
+/* line 278, scss/index.scss */
 #toc {
   display: none;
   position: fixed;
@@ -322,22 +327,22 @@ body {
   z-index: 500;
 }
 
-/* line 289, scss/index.scss */
+/* line 293, scss/index.scss */
 #toc:empty {
   display: none !important;
 }
 
-/* line 293, scss/index.scss */
+/* line 297, scss/index.scss */
 #toc-toggler:hover #toc {
   display: block;
 }
 
-/* line 297, scss/index.scss */
+/* line 301, scss/index.scss */
 #mobile-tap.active + #toc {
   display: block;
 }
 
-/* line 301, scss/index.scss */
+/* line 305, scss/index.scss */
 #toc .h1,
 #toc .h2,
 #toc .h3,
@@ -351,52 +356,52 @@ body {
   font-size: 1.2rem;
 }
 
-/* line 315, scss/index.scss */
+/* line 319, scss/index.scss */
 #toc .h2 {
   margin-left: 2ch;
 }
 
-/* line 319, scss/index.scss */
+/* line 323, scss/index.scss */
 #toc .h2::before {
   content: "•\00a0";
 }
 
-/* line 323, scss/index.scss */
+/* line 327, scss/index.scss */
 #toc .h3 {
   margin-left: 4ch;
 }
 
-/* line 327, scss/index.scss */
+/* line 331, scss/index.scss */
 #toc .h3::before {
   content: "—";
 }
 
-/* line 331, scss/index.scss */
+/* line 335, scss/index.scss */
 #toc .h4 {
   margin-left: 6ch;
 }
 
-/* line 335, scss/index.scss */
+/* line 339, scss/index.scss */
 #toc .h4::before {
   content: "➣";
 }
 
-/* line 339, scss/index.scss */
+/* line 343, scss/index.scss */
 #toc .h5 {
   margin-left: 8ch;
 }
 
-/* line 343, scss/index.scss */
+/* line 347, scss/index.scss */
 #toc .h5::before {
   content: "➨";
 }
 
-/* line 347, scss/index.scss */
+/* line 351, scss/index.scss */
 #toc .h6 {
   margin-left: 10ch;
 }
 
-/* line 351, scss/index.scss */
+/* line 355, scss/index.scss */
 #toc .h6::before {
   content: "◦\00a0";
 }
