@@ -314,19 +314,20 @@ body {
   max-height: 100vh;
   overflow-y: scroll;
   z-index: 100;
+  margin-bottom: 55px;
 }
 
-/* line 284, scss/index.scss */
+/* line 285, scss/index.scss */
 #toc:empty {
   display: none !important;
 }
 
-/* line 288, scss/index.scss */
+/* line 289, scss/index.scss */
 #toc-toggler:hover #toc {
   display: block;
 }
 
-/* line 292, scss/index.scss */
+/* line 293, scss/index.scss */
 #mobile-tap.active + #toc {
   display: block;
 }

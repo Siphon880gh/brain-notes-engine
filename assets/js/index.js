@@ -205,6 +205,7 @@ function runtimeOnMessageReadyExplorer() {
 
 function htmlTableOfContents(tocEl, markdownContentEl) {
     var headings = [].slice.call(markdownContentEl.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+    tocEl.innerHTML = "";
 
     headings.forEach(function(heading, i) {
         var ref = "toc" + i;
@@ -216,6 +217,7 @@ function htmlTableOfContents(tocEl, markdownContentEl) {
         var link = document.createElement("a");
         link.setAttribute("href", "#" + ref);
         link.textContent = heading.textContent;
+        link.textContent = link.textContent.replaceAll("🔗","").trim()
 
         var div = document.createElement("div");
         div.classList.add(heading.tagName.toLowerCase());
