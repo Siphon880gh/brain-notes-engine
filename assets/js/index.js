@@ -224,7 +224,7 @@ function htmlTableOfContents(tocEl, markdownContentEl) {
         link.addEventListener("click", (event) => {
             document.querySelector('#mobile-tap').classList.remove('active')
         })
-        tocEl.appendChild(link);
-        toc.appendChild(div);
+        div.appendChild(link);
+        tocEl.appendChild(div);
     });
 }

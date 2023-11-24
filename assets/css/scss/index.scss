@@ -261,7 +261,10 @@ body {
     cursor: pointer;
     position: fixed;
     top: 0;
-    right: 20px;
+    right: 10px;
+    padding-left:10px;
+    padding-right:10px;
+    background-color:white;
 }
 
 #toc-toggler:has(#toc:empty) {
@@ -276,11 +279,12 @@ body {
     padding: 5px;
     background-color: white;
     line-height: 1.5rem;
+    font-size: 1rem;
+    max-width: 90vw;
     /* If long TOC clipped off on mobile */
-    max-height: 100vh;
+    max-height: calc(100vh - 65px);
     overflow-y: scroll;
-    z-index: 100;
-    margin-bottom: 55px;
+    z-index: 500;
 }
 #toc:empty {
     display:none !important;
@@ -292,4 +296,58 @@ body {
 
 #mobile-tap.active+#toc {
     display: block;
+}
+
+#toc .h1, 
+#toc .h2, 
+#toc .h3, 
+#toc .h4, 
+#toc .h5, 
+#toc .h6 
+{
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: clip;
+    font-size: 1.2rem;
+}
+
+#toc .h2 {
+    margin-left: 2ch;
+}
+
+#toc .h2::before {
+    content: "•\00a0";
+}
+
+#toc .h3 {
+    margin-left: 4ch;
+}
+
+#toc .h3::before {
+    content: "—";
+}
+
+#toc .h4 {
+    margin-left: 6ch;
+}
+
+#toc .h4::before {
+    content: "➣";
+}
+
+#toc .h5 {
+    margin-left: 8ch;
+}
+
+#toc .h5::before {
+    content: "➨";
+}
+
+#toc .h6 {
+    margin-left: 10ch;
+}
+
+#toc .h6::before {
+    content: "◦\00a0";
 }

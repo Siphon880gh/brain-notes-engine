@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* General Styling */
 /* line 2, scss/index.scss */
 h3 {
@@ -293,15 +294,18 @@ body {
   cursor: pointer;
   position: fixed;
   top: 0;
-  right: 20px;
+  right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: white;
 }
 
-/* line 267, scss/index.scss */
+/* line 270, scss/index.scss */
 #toc-toggler:has(#toc:empty) {
   display: none;
 }
 
-/* line 271, scss/index.scss */
+/* line 274, scss/index.scss */
 #toc {
   display: none;
   position: fixed;
@@ -310,24 +314,89 @@ body {
   padding: 5px;
   background-color: white;
   line-height: 1.5rem;
+  font-size: 1rem;
+  max-width: 90vw;
   /* If long TOC clipped off on mobile */
-  max-height: 100vh;
+  max-height: calc(100vh - 65px);
   overflow-y: scroll;
-  z-index: 100;
-  margin-bottom: 55px;
+  z-index: 500;
 }
 
-/* line 285, scss/index.scss */
+/* line 289, scss/index.scss */
 #toc:empty {
   display: none !important;
 }
 
-/* line 289, scss/index.scss */
+/* line 293, scss/index.scss */
 #toc-toggler:hover #toc {
   display: block;
 }
 
-/* line 293, scss/index.scss */
+/* line 297, scss/index.scss */
 #mobile-tap.active + #toc {
   display: block;
+}
+
+/* line 301, scss/index.scss */
+#toc .h1,
+#toc .h2,
+#toc .h3,
+#toc .h4,
+#toc .h5,
+#toc .h6 {
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: clip;
+  font-size: 1.2rem;
+}
+
+/* line 315, scss/index.scss */
+#toc .h2 {
+  margin-left: 2ch;
+}
+
+/* line 319, scss/index.scss */
+#toc .h2::before {
+  content: "•\00a0";
+}
+
+/* line 323, scss/index.scss */
+#toc .h3 {
+  margin-left: 4ch;
+}
+
+/* line 327, scss/index.scss */
+#toc .h3::before {
+  content: "—";
+}
+
+/* line 331, scss/index.scss */
+#toc .h4 {
+  margin-left: 6ch;
+}
+
+/* line 335, scss/index.scss */
+#toc .h4::before {
+  content: "➣";
+}
+
+/* line 339, scss/index.scss */
+#toc .h5 {
+  margin-left: 8ch;
+}
+
+/* line 343, scss/index.scss */
+#toc .h5::before {
+  content: "➨";
+}
+
+/* line 347, scss/index.scss */
+#toc .h6 {
+  margin-left: 10ch;
+}
+
+/* line 351, scss/index.scss */
+#toc .h6::before {
+  content: "◦\00a0";
 }

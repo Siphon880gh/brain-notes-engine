@@ -345,7 +345,7 @@ function objToHtml(type, item) {
                         // Render table of contents at top right
 
                         let tocEl = window.parent.document.querySelector("#toc")
-                        let markdownContentEl = window.parent.document.querySelector("#side-a")
+                        let markdownContentEl = window.parent.document.querySelector("#summary-inner")
                         window.parent.htmlTableOfContents(tocEl, markdownContentEl);
                     })
                 }, 250);
