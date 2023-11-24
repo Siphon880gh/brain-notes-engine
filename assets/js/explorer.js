@@ -341,6 +341,12 @@ function objToHtml(type, item) {
 
                         // Jump up to content
                         window.parent.document.getElementById("summary-title").scrollIntoView();
+
+                        // Render table of contents at top right
+
+                        let tocEl = window.parent.document.querySelector("#toc")
+                        let markdownContentEl = window.parent.document.querySelector("#side-a")
+                        window.parent.htmlTableOfContents(tocEl, markdownContentEl);
                     })
                 }, 250);
 

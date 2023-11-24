@@ -27,7 +27,12 @@
 
 </head>
 
-<body>
+<body onclick="if(!event.target.matches('#mobile-tap')) { document.querySelector('#mobile-tap').classList.remove('active'); }">
+    <div id="toc-toggler">
+        <div id="mobile-tap" onclick="event.target.classList.toggle('active')">📖 TOC</div>
+        <div id="toc"></div>
+    </div>
+
     <div class="site-header" style="margin: 10px 5px;">
         <h1 class="title">Gamified Knowledge</h1>
         <p>By Weng Fei Fung</p>
@@ -149,7 +154,9 @@
             </div>
         </div>
 
-        <div class="card card-primary">
+
+        <!-- Wouldn't allow table of contents to z-index on top if you hadn't unset position away from relative -->
+        <div class="card card-primary" style="position:unset;">
             <!-- <div class="card-header">
                 <h2 class="text-center"><span class="fa fa-book-reader"></span> Notes</h2>
             </div> -->
@@ -183,7 +190,7 @@
                             <h3 id="summary-title" style="display:inline; cursor:pointer;"
                                 onclick="document.querySelector('#summary-collapser').click();"></h3>
                             <span id="summary-collapser" class="d-none">></span>
-                            <a id="summary-sharer" class="d-none" href="javascript:void(0)" style="position:absolute; right:35px;" onclick='shareTutorial()'>
+                            <a id="summary-sharer" class="d-none" href="javascript:void(0)" style="float:right; margin-right:5px;" onclick='shareTutorial()'>
                                 <span class="fas fa-share-alt"></span>
                             </a>
                         </div>

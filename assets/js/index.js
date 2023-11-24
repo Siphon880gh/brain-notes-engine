@@ -201,3 +201,28 @@ function runtimeOnMessageReadyExplorer() {
     }, 300)
 
 } // runtimeOnMessageReadyExplorer
+
+
+function htmlTableOfContents(tocEl, markdownContentEl) {
+    var headings = [].slice.call(markdownContentEl.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+
+    headings.forEach(function(heading, i) {
+        var ref = "toc" + i;
+        if (heading.hasAttribute("id"))
+            ref = heading.getAttribute("id");
+        else
+            heading.setAttribute("id", ref);
+
+        var link = document.createElement("a");
+        link.setAttribute("href", "#" + ref);
+        link.textContent = heading.textContent;
+
+        var div = document.createElement("div");
+        div.classList.add(heading.tagName.toLowerCase());
+        link.addEventListener("click", (event) => {
+            document.querySelector('#mobile-tap').classList.remove('active')
+        })
+        tocEl.appendChild(link);
+        toc.appendChild(div);
+    });
+}

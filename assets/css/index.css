@@ -286,3 +286,47 @@ i#shortcut-summary-collapser:hover {
 body {
   padding-bottom: 20px;
 }
+
+/* Table of contents at top right */
+/* line 260, scss/index.scss */
+#toc-toggler {
+  cursor: pointer;
+  position: fixed;
+  top: 0;
+  right: 20px;
+}
+
+/* line 267, scss/index.scss */
+#toc-toggler:has(#toc:empty) {
+  display: none;
+}
+
+/* line 271, scss/index.scss */
+#toc {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 0;
+  padding: 5px;
+  background-color: white;
+  line-height: 1.5rem;
+  /* If long TOC clipped off on mobile */
+  max-height: 100vh;
+  overflow-y: scroll;
+  z-index: 100;
+}
+
+/* line 284, scss/index.scss */
+#toc:empty {
+  display: none !important;
+}
+
+/* line 288, scss/index.scss */
+#toc-toggler:hover #toc {
+  display: block;
+}
+
+/* line 292, scss/index.scss */
+#mobile-tap.active + #toc {
+  display: block;
+}

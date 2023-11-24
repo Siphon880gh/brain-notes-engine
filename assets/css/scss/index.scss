@@ -254,3 +254,41 @@ i#shortcut-summary-collapser:hover {
 body {
     padding-bottom: 20px;
 }
+
+/* Table of contents at top right */
+
+#toc-toggler {
+    cursor: pointer;
+    position: fixed;
+    top: 0;
+    right: 20px;
+}
+
+#toc-toggler:has(#toc:empty) {
+    display:none;
+}
+
+#toc {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 0;
+    padding: 5px;
+    background-color: white;
+    line-height: 1.5rem;
+    /* If long TOC clipped off on mobile */
+    max-height: 100vh;
+    overflow-y: scroll;
+    z-index: 100;
+}
+#toc:empty {
+    display:none !important;
+}
+
+#toc-toggler:hover #toc {
+    display: block;
+}
+
+#mobile-tap.active+#toc {
+    display: block;
+}
