@@ -127,6 +127,11 @@ function objToHtml(type, item) {
     // var $liDom = $(`<li class="accordion meta" data-uid="${uniqueId}" data-path="${item.path}"></li>`);
     var $liDom = $(`<li class="accordion meta" data-path="${item.path}"></li>`);
     $liDom.append($(`<span class="name">${item.current}</span>`));
+
+    // sortspec.md wasn't hidden from the php side because we needed it in js for custom sorting criteria. Now hide it from user though
+    if(item.current.includes("sortspec.md")) {
+        $liDom.hide();
+    }
     $contain = $(`<span class="contain"></span>`);
     var $meta = $liDom;
     // var $meta = $liDom.find(".meta");

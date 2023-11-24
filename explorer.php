@@ -73,13 +73,54 @@
         }
         
         // Filter files based on extensions or if dir
-        $filteredFiles = [];
+        // $filteredFiles = [];
+        // foreach ($files as $file) {
+        //     if (is_dir($file) || (in_array(pathinfo($file, PATHINFO_EXTENSION), ['md', 'json']) && !preg_match('/\.no\.(md|json)$/', $file))) {
+        //     // if (is_dir($file) || in_array(pathinfo($file, PATHINFO_EXTENSION), ['md', 'json'])) {
+        //         array_push($filteredFiles, $file);
+        //     }
+        // }
+
+        $filteredFiles = []; // Initialize an empty array to store filtered files
+
         foreach ($files as $file) {
-            if (is_dir($file) || (in_array(pathinfo($file, PATHINFO_EXTENSION), ['md', 'json']) && !preg_match('/\.no\.(md|json)$/', $file))) {
-            // if (is_dir($file) || in_array(pathinfo($file, PATHINFO_EXTENSION), ['md', 'json'])) {
+            // Check if the file is a directory
+            $isDirectory = is_dir($file);
+
+            // Get the file extension
+            $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
+
+            // Check if the file has a valid extension (md or json)
+            // $isValidExtension = in_array($fileExtension, ['md', 'json']);
+            $isValidExtension = in_array($fileExtension, ['md']);
+
+            // Check if the file name does not end with '.no.md' or '.no.json'
+            $isNotExcluded = !preg_match('/\.no\.md$/', $file) && !preg_match('/\.hide\.md$/', $file);
+
+            // If the file is not a directory and has a valid, non-excluded extension, add it to the filtered list
+            if (!$isDirectory && $isValidExtension && $isNotExcluded) {
                 $filteredFiles[] = $file;
             }
         }
+
+
+        // $filteredFiles = [];
+        // foreach ($files as $file) {
+        //     // Check if the file is a directory or if the filename starts with a dot
+        //     if (is_dir($file) || $file[0] === '.') {
+        //         continue; // Skip the file if it's a directory or starts with a dot
+        //     }
+
+        //     // Get the file extension
+        //     $extension = pathinfo($file, PATHINFO_EXTENSION);
+
+        //     // Check if the file ends with .no.md or does not end with .md
+        //     // Don't hide sortspec.md or else the JS can't detect the file's content and perform custom sort
+        //     // if ( $extension === 'md' && !preg_match('/\.no\.md$/', $file) && !preg_match('/sortspec\.md$/', $file) ) {
+        //     if ( $extension === 'md' && !preg_match('/\.no\.md$/', $file)  ) {
+        //         array_push($filteredFiles, $file);
+        //     }
+        // } // foreach
         
         return $filteredFiles;
     } // rglob
@@ -155,6 +196,9 @@
     ?>
 
     <script>
+    // Sort the folders array based on the order defined in sortCriteria
+    // Please note this only work on remote because the remote copy will switch out the path to some Obsidian path in another ~ folder, 
+    // whereas remote copy will have Obsidian path in the same root folder
     if(lookupMetas?.["curriculum/sortspec.md"]?.summary?.[0]) {
       // This is the content of sortspec.md
       // const sortCriteriaMd = `
