@@ -160,3 +160,8 @@ li:hover {
 .fa-info:hover, .fa-book-reader:not(.summary-header):hover, .gotos-click:hover {
   color: darkgreen;
 }
+
+/* line 142, scss/explorer.scss */
+.fa-book-reader::after {
+  content: " Read";
+}

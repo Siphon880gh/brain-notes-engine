@@ -83,26 +83,40 @@
 
         $filteredFiles = []; // Initialize an empty array to store filtered files
 
+        // foreach ($files as $file) {
+        //     // Check if the file is a directory
+        //     $isDirectory = is_dir($file);
+
+        //     // Get the file extension
+        //     $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
+
+        //     // Check if the file has a valid extension (md or json)
+        //     // $isValidExtension = in_array($fileExtension, ['md', 'json']);
+        //     $isValidExtension = in_array($fileExtension, ['md']);
+
+        //     // Check if the file name does not end with '.no.md' or '.no.json'
+        //     $isNotExcluded = !preg_match('/\.no\.md$/', $file) && !preg_match('/\.hide\.md$/', $file);
+
+        //     // If the file is not a directory and has a valid, non-excluded extension, add it to the filtered list
+        //     if ($isDirectory && $isValidExtension && $isNotExcluded) {
+        //         $filteredFiles[] = $file;
+        //     }
+        // }
+        // $filteredFiles = [];
+        // foreach ($files as $file) {
+        //     if (is_dir($file) || (in_array(pathinfo($file, PATHINFO_EXTENSION), ['md', 'json']) && !preg_match('/\.no\.(md|json)$/', $file))) {
+        //     // if (is_dir($file) || in_array(pathinfo($file, PATHINFO_EXTENSION), ['md', 'json'])) {
+        //         $filteredFiles[] = $file;
+        //     }
+        // }
+        $filteredFiles = [];
         foreach ($files as $file) {
-            // Check if the file is a directory
-            $isDirectory = is_dir($file);
-
-            // Get the file extension
-            $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
-
-            // Check if the file has a valid extension (md or json)
-            // $isValidExtension = in_array($fileExtension, ['md', 'json']);
-            $isValidExtension = in_array($fileExtension, ['md']);
-
-            // Check if the file name does not end with '.no.md' or '.no.json'
-            $isNotExcluded = !preg_match('/\.no\.md$/', $file) && !preg_match('/\.hide\.md$/', $file);
-
-            // If the file is not a directory and has a valid, non-excluded extension, add it to the filtered list
-            if (!$isDirectory && $isValidExtension && $isNotExcluded) {
+          // if directory, is acceptable file extension, though no secondary extension .hide or .no
+            if (is_dir($file) || (in_array(pathinfo($file, PATHINFO_EXTENSION), ['md']) && !preg_match('/\.(no|hide)\.md$/', $file))) {
+            // if (is_dir($file) || in_array(pathinfo($file, PATHINFO_EXTENSION), ['md', 'json'])) {
                 $filteredFiles[] = $file;
             }
         }
-
 
         // $filteredFiles = [];
         // foreach ($files as $file) {

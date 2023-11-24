@@ -139,3 +139,6 @@ li {
 .fa-info:hover, .fa-book-reader:not(.summary-header):hover, .gotos-click:hover {
     color: darkgreen;
 }
+.fa-book-reader::after {
+    content: " Read";
+}
