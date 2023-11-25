@@ -181,7 +181,7 @@
                         function shareTutorial() {
 
                             $("#shareModal").modal("show");
-                            $("#shareSnippet").val(`https://wengindustry.com/tools/gamified-knowledge/##${encodeURI($("#summary-title").text())}`)
+                            $("#shareSnippet").val(`https://wengindustry.com/tools/gamified-knowledge/?open=${encodeURI($("#summary-title").text())}`)
                         }
                         function shareTutorialSection(trailingHash) {
 

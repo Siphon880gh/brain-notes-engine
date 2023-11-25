@@ -262,7 +262,7 @@ function objToHtml(type, item) {
                     permalink: true,
                     permalinkHref: (slug, state) => {
                         let s = slug;
-                        s = "javascript:window.parent.shareTutorialSection('##" + encodeURI(title) + "#" + s + "');"; // ##Data%20Lake.md#Section1
+                        s = "javascript:window.parent.shareTutorialSection('?open=" + encodeURI(title) + "#" + s + "');"; // ?open=Data%20Lake.md#Section1
                         return s;
                     },
                     permalinkSymbol: '🔗' // Set to true if you want a permalink symbol
@@ -295,13 +295,17 @@ function objToHtml(type, item) {
                 summaryInnerEl.innerHTML = summaryHTML;
                 setTimeout(()=>{
                     summaryInnerEl.querySelectorAll("a").forEach(a=>{
-                        if(a.href.length && !a.href.includes("wengindustry.com") && !a.href.includes("#"))
-                            a.target = "_blank"
+                        // if(a.href.length && !a.href.includes("wengindustry.com") && !a.href.includes("#"))
+                        if(a.href.includes("wengindustry.com"))
+                            return true;
+
+                        a.setAttribute("target", "_blank");
                         // if(a.innerText.includes("🔗")) {
                         //     // a.href = "##" + encodeURI($("#summary-title").text()) + a.href
                         //     a.target = "_blank"
                         // }
 
+                        // Youtube Embeds
                         (function (){
                             // debugger;
 
@@ -343,11 +347,11 @@ function objToHtml(type, item) {
                         window.parent.document.getElementById("summary-title").scrollIntoView();
 
                         // Render table of contents at top right
-
                         let tocEl = window.parent.document.querySelector("#toc")
                         let markdownContentEl = window.parent.document.querySelector("#summary-inner")
                         window.parent.htmlTableOfContents(tocEl, markdownContentEl);
-                    })
+
+                    }) // for all a in the tutorial
                 }, 250);
 
                 // Scroll up

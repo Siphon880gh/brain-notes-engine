@@ -112,7 +112,7 @@
         $filteredFiles = [];
         foreach ($files as $file) {
           // if directory, is acceptable file extension, though no secondary extension .hide or .no
-            if (is_dir($file) || (in_array(pathinfo($file, PATHINFO_EXTENSION), ['md']) && !preg_match('/\.(no|hide)\.md$/', $file))) {
+            if (is_dir($file) || (in_array(pathinfo($file, PATHINFO_EXTENSION), ['md', 'json']) && !preg_match('/\.(no|hide)\.md$/', $file))) {
             // if (is_dir($file) || in_array(pathinfo($file, PATHINFO_EXTENSION), ['md', 'json'])) {
                 $filteredFiles[] = $file;
             }
@@ -266,46 +266,46 @@
 
 
 <style>
-            #searcher {
-              width:180px;
-            }
-            #searcher-2 {
-              width:180px;
-            }
+#searcher {
+  width:180px;
+}
+#searcher-2 {
+  width:180px;
+}
 
-            @media screen AND (min-width: 550px) {
-              #searcher-btn::after, #searcher-2-btn::after {
-                content: " Search";
-              }
-              #searcher-container, #searcher-container-2 {
-                width:370px;
-                text-align: right;
-              }
+@media screen AND (min-width: 550px) {
+  #searcher-btn::after, #searcher-2-btn::after {
+    content: " Search";
+  }
+  #searcher-container, #searcher-container-2 {
+    width:370px;
+    text-align: right;
+  }
 
-            }
-            @media screen AND (max-width: 549px) {
-              #searcher-containers {
-                width: 100%;
-              }
-              #searcher-container, #searcher-container-2 {
-                width:100% !important;
-              }
-              #searcher-containers label {
-                display:block !important;
-                text-align: center !important;
-                width: 100%;
-              }
-              #searcher {
-                width:80%;
-              }
-              #searcher-2 {
-                width:80%;
-              }
-              #searcher + button, #searcher-2 + button {
-                width: 15%;
-              }
-            }
-            </style>
+}
+@media screen AND (max-width: 549px) {
+  #searcher-containers {
+    width: 100%;
+  }
+  #searcher-container, #searcher-container-2 {
+    width:100% !important;
+  }
+  #searcher-containers label {
+    display:block !important;
+    text-align: center !important;
+    width: 100%;
+  }
+  #searcher {
+    width:80%;
+  }
+  #searcher-2 {
+    width:80%;
+  }
+  #searcher + button, #searcher-2 + button {
+    width: 15%;
+  }
+}
+</style>
 
     <script>
     <?php

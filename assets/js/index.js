@@ -91,24 +91,13 @@ $(()=>{
 // Secondary: Can send topic to friends
 function runtimeOnMessageReadyExplorer() {
     setTimeout(()=>{
-        // Some apps like WhatsApp will encode # into %23 if it follows another #.
-        let url = window.location.href;
-        if(url.includes("%23")) {
-            window.location.href=window.location.href.replaceAll(/%23/g, "#");
-        }
-        if (window.location.hash.length || window.location.search) {
-            if(window.location.hash.substr(0,3).includes("##")) {
+        if (window.location.search.includes("open=")) {
                 var topic = "";
                 function attemptOpenTutorial() {
-                    var trail = window.location.hash.substr(2);
+                    var topic = (new URLSearchParams(window.location.search).get("open")); // ?open=topicName
                     var jumpTo = "";
-                    trail = decodeURIComponent(trail);
-                    if(trail.includes("#")) { // ##tutorialName#jumpToSection
-                        var index = trail.indexOf("#");
-                        jumpTo = trail.substring(index)
-                        topic = trail.substring(0, index)
-                    } else {
-                        topic = trail; // ##tutorialName
+                    if(window.location.hash) { // ?open=topicName#jumpToSection
+                        jumpTo = window.location.hash;
                     }
                     var $curriculumExplorer = $("#explore-curriculum iframe").contents();
                     var $target = $curriculumExplorer.find(`.name[data-folder-name]:contains('${topic}')`); // files have data-folder-name
@@ -140,7 +129,7 @@ function runtimeOnMessageReadyExplorer() {
                     } // if not successful, repeat 2nd time
                 }, 300)
 
-            } else {
+        } else if(window.location.search.includes("search-titles=")) {
                 
                 /**
                  * Detect presetted topic search in URL
@@ -195,9 +184,8 @@ function runtimeOnMessageReadyExplorer() {
                                 }, 1200); // Just because part of a tree exist, doesn't mean the whole tree exists right away
                             }
                         }, 100);
-                    }
-            }
-        }
+                }
+        } // if search-titles
     }, 300)
 
 } // runtimeOnMessageReadyExplorer
