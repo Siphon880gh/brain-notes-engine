@@ -273,10 +273,13 @@ function objToHtml(type, item) {
                 //     return '\n';
                 // };
 
-                // const doubleNewLine = (source) => {
-                //     return source.replace(/([^\n])\n([^\n])/g, '$1\n\n$2');
-                // };
-                // summary = doubleNewLine(summary);
+                // Fixes: I have separate lines in md format. How come they're run-on's when rendered with markdown?
+                // Principle: Markdown's Line Break Rules: In Markdown, simply pressing "Enter" once at the end of a line does not create a new paragraph or line break in the rendered output. Instead, lines directly below each other without an empty line between them are treated as part of the same paragraph and are joined together.
+                // Solution: Add two spaces at the end of each line to force a line break, unless the adjacent line is a blank line.
+                const doubleNewLine = (text) => {
+                    return text.replace(/(.+)(\n)(?!\n)/g, "$1  \n");
+                };
+                summary = doubleNewLine(summary);
 
                 var summaryHTML = md.render(summary);
                 parent.document.querySelector("#summary-title").textContent = title;
@@ -296,7 +299,7 @@ function objToHtml(type, item) {
                 setTimeout(()=>{
                     summaryInnerEl.querySelectorAll("a").forEach(a=>{
                         // if(a.href.length && !a.href.includes("wengindustry.com") && !a.href.includes("#"))
-                        if(a.href.includes("wengindustry.com"))
+                        if(a.href.includes("wengindustry.com") || a.innerText.includes("🔗"))
                             return true;
 
                         a.setAttribute("target", "_blank");
