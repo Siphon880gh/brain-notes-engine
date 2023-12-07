@@ -693,4 +693,6 @@ function clearSearcher() {
 $(()=>{
     // Secondary: Can send topic to friends
     window.parent.runtimeOnMessageReadyExplorer();
+
+
 })

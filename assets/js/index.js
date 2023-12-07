@@ -216,3 +216,24 @@ function htmlTableOfContents(tocEl, markdownContentEl) {
         tocEl.appendChild(div);
     });
 }
+
+// Visiting from https://wengindustry.com/devbrain ?? Then rebrand
+if(window.location.href.includes("devbrain")) {
+
+    $("h1.title").text("Developer Brain")
+    
+    $(".site-header summary small").html(`<span>Read more...</span>
+    <p>
+    Everything on coding - web development, mobile development, data science, AI and related fields - in bite size guides, code snippet and references. All here in one place for programmers of all levels.
+    </p>
+    
+    `)
+    
+    $(".site-header details .container .card").html(`
+    <p>
+        <a target="_blank" href="https://wengindustry.com">Weng<a/> will keep adding to this knowledge brain as he tries to become a coder of multiple tech fields finding new opportunities as a tech enterpreneur
+    </p>
+    
+    `)
+    
+}

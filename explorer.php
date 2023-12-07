@@ -357,7 +357,7 @@
                   <input id="searcher-2" onkeyup="checkSearcherSubmit(event, $('#searcher-2-btn'))"class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                   <button id="searcher-2-btn" class="override-ios-button-style" 
                     onclick="doSearcher2($('#searcher-2').val(), ()=>{ 
-                      $('#shareSnippet').val(`https://wengindustry.com/tools/gamified-knowledge/?search-titles=${encodeURI($('#searcher-2').val())}`);
+                      $('#shareSnippet').val((window.location.hostname + window.location.pathname).replaceAll('explorer.php', '') + `?search-titles=${encodeURI($('#searcher-2').val())}`);
                       document.getElementById('share-search-title-wrapper').classList.remove('hidden')
                     }); " 
                     style="cursor: pointer;"
