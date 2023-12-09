@@ -225,7 +225,7 @@ if(window.location.href.includes("devbrain")) {
     
     $(".site-header summary small").html(`<span>Read more...</span>
     <p class="container" style="padding-left:30px; padding-right:30px;">
-    Everything on coding - web development, mobile development, game development, data science, AI and related fields - in bite size guides, code snippet and references. All here in one place for programmers of all levels.
+    Everything on coding - web development, mobile development, game development, data science, AI and related fields - in bite size guides, code snippets and references. All here in one place for programmers of all levels.
     </p>
     
     `)
