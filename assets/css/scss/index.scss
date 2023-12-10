@@ -248,7 +248,9 @@ i#shortcut-summary-collapser:hover {
 
 @media screen AND (max-width:768px) {
     #dashboard {
-        padding: 20px 20px;
+        // padding: 20px 20px;
+        padding: 5px;
+        padding-right:20px;
     }
     #dashboard i {
         font-size: 28px;

@@ -104,6 +104,10 @@ li {
   .contain .fa {
     cursor: pointer;
   }
+.fa-book-reader {
+  opacity:0.5;
+  font-size: 80%;
+}
 .fa-book-reader::after {
     content: " Read";
 }

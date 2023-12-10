@@ -68,6 +68,10 @@ autoExpandNow();
 $(()=>{
     // UX: Can collapse summary reading to more easily reach the topics navigator
     document.querySelector("#summary-collapser")?.addEventListener("click", (event) => {
+        // Reset the bottom expand/collapse shortcut button
+        document?.querySelector("#shortcut-summary-collapser")?.classList.toggle("fa-minus");
+        document?.querySelector("#shortcut-summary-collapser")?.classList.toggle("fa-plus");
+
         if(event.target.className.includes("stated")) {
             event.target.classList.remove("stated");
             document.querySelector("#side-a .deemp-fieldset").classList.add("d-none");
@@ -102,7 +106,7 @@ function runtimeOnMessageReadyExplorer() {
                     var $curriculumExplorer = $("#explore-curriculum iframe").contents();
                     var $target = $curriculumExplorer.find(`.name[data-folder-name]:contains('${topic}')`); // files have data-folder-name
                     if($target.length) {
-                        $target.parent().find(".fa-book-reader").click()
+                        // $target.parent().find(".fa-book-reader").click()
                         if(jumpTo) {
                             setTimeout(()=>{
                                 console.log({jumpTo})

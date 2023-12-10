@@ -280,21 +280,22 @@ i#shortcut-summary-collapser:hover {
 @media screen and (max-width: 768px) {
   /* line 250, scss/index.scss */
   #dashboard {
-    padding: 20px 20px;
+    padding: 5px;
+    padding-right: 20px;
   }
 
-  /* line 253, scss/index.scss */
+  /* line 255, scss/index.scss */
   #dashboard i {
     font-size: 28px;
   }
 }
-/* line 258, scss/index.scss */
+/* line 260, scss/index.scss */
 body {
   padding-bottom: 20px;
 }
 
 /* Table of contents at top right */
-/* line 264, scss/index.scss */
+/* line 266, scss/index.scss */
 #toc-toggler {
   cursor: pointer;
   position: fixed;
@@ -306,12 +307,12 @@ body {
   z-index: 500;
 }
 
-/* line 279, scss/index.scss */
+/* line 281, scss/index.scss */
 #toc-toggler:not(.filled) {
   display: none;
 }
 
-/* line 283, scss/index.scss */
+/* line 285, scss/index.scss */
 #toc {
   display: none;
   position: fixed;
@@ -328,22 +329,22 @@ body {
   z-index: 500;
 }
 
-/* line 298, scss/index.scss */
+/* line 300, scss/index.scss */
 #toc:empty {
   display: none !important;
 }
 
-/* line 302, scss/index.scss */
+/* line 304, scss/index.scss */
 #toc-toggler:hover #toc {
   display: block;
 }
 
-/* line 306, scss/index.scss */
+/* line 308, scss/index.scss */
 #mobile-tap.active + #toc {
   display: block;
 }
 
-/* line 310, scss/index.scss */
+/* line 312, scss/index.scss */
 #toc .h1,
 #toc .h2,
 #toc .h3,
@@ -357,52 +358,52 @@ body {
   font-size: 1.2rem;
 }
 
-/* line 324, scss/index.scss */
+/* line 326, scss/index.scss */
 #toc .h2 {
   margin-left: 2ch;
 }
 
-/* line 328, scss/index.scss */
+/* line 330, scss/index.scss */
 #toc .h2::before {
   content: "•\00a0";
 }
 
-/* line 332, scss/index.scss */
+/* line 334, scss/index.scss */
 #toc .h3 {
   margin-left: 4ch;
 }
 
-/* line 336, scss/index.scss */
+/* line 338, scss/index.scss */
 #toc .h3::before {
   content: "—";
 }
 
-/* line 340, scss/index.scss */
+/* line 342, scss/index.scss */
 #toc .h4 {
   margin-left: 6ch;
 }
 
-/* line 344, scss/index.scss */
+/* line 346, scss/index.scss */
 #toc .h4::before {
   content: "➣";
 }
 
-/* line 348, scss/index.scss */
+/* line 350, scss/index.scss */
 #toc .h5 {
   margin-left: 8ch;
 }
 
-/* line 352, scss/index.scss */
+/* line 354, scss/index.scss */
 #toc .h5::before {
   content: "➨";
 }
 
-/* line 356, scss/index.scss */
+/* line 358, scss/index.scss */
 #toc .h6 {
   margin-left: 10ch;
 }
 
-/* line 360, scss/index.scss */
+/* line 362, scss/index.scss */
 #toc .h6::before {
   content: "◦\00a0";
 }

@@ -126,7 +126,27 @@ function objToHtml(type, item) {
     // uniqueId = uniqueId.substr(1);
     // var $liDom = $(`<li class="accordion meta" data-uid="${uniqueId}" data-path="${item.path}"></li>`);
     var $liDom = $(`<li class="accordion meta" data-path="${item.path}"></li>`);
-    $liDom.append($(`<span class="name">${item.current}</span>`));
+
+    var possFolderStr = (()=>{
+        if(item.next.length && !item.current.includes(".md"))
+            return `<span class="fas fa-folder"></span>&nbsp;`
+        else
+            return "";
+    })();
+    var name = possFolderStr + item.current
+    var $name = $(`<span class="name">${name}</span>`);
+    if(possFolderStr.length) {
+        $name.addClass("is-folder");
+    } else {
+        $name.addClass("is-file");
+    }
+
+    $name.click((event) => {
+        var $self = $(event.target);
+        if($self.hasClass("is-file"))
+            $self.parent().find(".fa-book-reader").click();
+    })
+    $liDom.append($name);
 
     // sortspec.md wasn't hidden from the php side because we needed it in js for custom sorting criteria. Now hide it from user though
     if(item.current.includes("sortspec.md")) {
@@ -237,6 +257,7 @@ function objToHtml(type, item) {
         }
 
         function createSummaryIconAndContents(text, $contain, ajaxed) {
+
             var $summary = $(`<span class="fas fa-book-reader"></span>`);
             $summary.data("summary", text);
             $summary.on("click", (event) => {
@@ -345,7 +366,10 @@ function objToHtml(type, item) {
 
                 // Scroll up
                 // Jump up to content
-                window.parent.document.getElementById("summary-title").scrollIntoView();
+                // window.parent.document.getElementById("summary-title").scrollIntoView();
+                window.parent.document.getElementById("explore-curriculum").scrollIntoView({
+                    behavior: "smooth",
+                  });
 
                 // Render table of contents at top right
                 let tocEl = window.parent.document.querySelector("#toc")
@@ -355,7 +379,6 @@ function objToHtml(type, item) {
                 // Allow copy from textarea to practice areas
                 let guideCopyToPractice = parent.document.querySelector("#js-visible-if-contents");
                 guideCopyToPractice.classList.remove("hide");
-
 
             });
             $queriedInfoButton = $contain.find(".fa-info");
