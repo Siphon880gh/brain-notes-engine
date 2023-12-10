@@ -303,14 +303,15 @@ body {
   padding-left: 10px;
   padding-right: 10px;
   background-color: white;
+  z-index: 500;
 }
 
-/* line 274, scss/index.scss */
-#toc-toggler:has(#toc:empty) {
+/* line 279, scss/index.scss */
+#toc-toggler:not(.filled) {
   display: none;
 }
 
-/* line 278, scss/index.scss */
+/* line 283, scss/index.scss */
 #toc {
   display: none;
   position: fixed;
@@ -327,22 +328,22 @@ body {
   z-index: 500;
 }
 
-/* line 293, scss/index.scss */
+/* line 298, scss/index.scss */
 #toc:empty {
   display: none !important;
 }
 
-/* line 297, scss/index.scss */
+/* line 302, scss/index.scss */
 #toc-toggler:hover #toc {
   display: block;
 }
 
-/* line 301, scss/index.scss */
+/* line 306, scss/index.scss */
 #mobile-tap.active + #toc {
   display: block;
 }
 
-/* line 305, scss/index.scss */
+/* line 310, scss/index.scss */
 #toc .h1,
 #toc .h2,
 #toc .h3,
@@ -356,52 +357,52 @@ body {
   font-size: 1.2rem;
 }
 
-/* line 319, scss/index.scss */
+/* line 324, scss/index.scss */
 #toc .h2 {
   margin-left: 2ch;
 }
 
-/* line 323, scss/index.scss */
+/* line 328, scss/index.scss */
 #toc .h2::before {
   content: "•\00a0";
 }
 
-/* line 327, scss/index.scss */
+/* line 332, scss/index.scss */
 #toc .h3 {
   margin-left: 4ch;
 }
 
-/* line 331, scss/index.scss */
+/* line 336, scss/index.scss */
 #toc .h3::before {
   content: "—";
 }
 
-/* line 335, scss/index.scss */
+/* line 340, scss/index.scss */
 #toc .h4 {
   margin-left: 6ch;
 }
 
-/* line 339, scss/index.scss */
+/* line 344, scss/index.scss */
 #toc .h4::before {
   content: "➣";
 }
 
-/* line 343, scss/index.scss */
+/* line 348, scss/index.scss */
 #toc .h5 {
   margin-left: 8ch;
 }
 
-/* line 347, scss/index.scss */
+/* line 352, scss/index.scss */
 #toc .h5::before {
   content: "➨";
 }
 
-/* line 351, scss/index.scss */
+/* line 356, scss/index.scss */
 #toc .h6 {
   margin-left: 10ch;
 }
 
-/* line 355, scss/index.scss */
+/* line 360, scss/index.scss */
 #toc .h6::before {
   content: "◦\00a0";
 }

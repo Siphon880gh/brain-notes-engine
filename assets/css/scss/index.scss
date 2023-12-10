@@ -269,9 +269,14 @@ body {
     padding-left:10px;
     padding-right:10px;
     background-color:white;
+    z-index: 500;
 }
 
-#toc-toggler:has(#toc:empty) {
+// iOS is glitch about :empty, so using different approach below
+// #toc-toggler:has(#toc:empty) {
+//     display:none;
+// }
+#toc-toggler:not(.filled) {
     display:none;
 }
 

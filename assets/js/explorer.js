@@ -297,21 +297,15 @@ function objToHtml(type, item) {
                 console.log(summaryHTML)
                 summaryInnerEl.innerHTML = summaryHTML;
                 setTimeout(()=>{
+                    // target blank for links
                     summaryInnerEl.querySelectorAll("a").forEach(a=>{
-                        // if(a.href.length && !a.href.includes("wengindustry.com") && !a.href.includes("#"))
-                        if(a.href.includes("wengindustry.com") || a.innerText.includes("🔗"))
+                        if(a.href.includes("wengindustry.com") || a.href.includes("localhost") || a.innerText.includes("🔗"))
                             return true;
 
                         a.setAttribute("target", "_blank");
-                        // if(a.innerText.includes("🔗")) {
-                        //     // a.href = "##" + encodeURI($("#summary-title").text()) + a.href
-                        //     a.target = "_blank"
-                        // }
 
                         // Youtube Embeds
                         (function (){
-                            // debugger;
-
                             // Exit quickly if this is the wrong type of URL
                             if (this.protocol !== 'http:' && this.protocol !== 'https:') {
                                 return;
@@ -346,18 +340,17 @@ function objToHtml(type, item) {
 
                         }).call(a);
 
-                        // Jump up to content
-                        window.parent.document.getElementById("summary-title").scrollIntoView();
-
-                        // Render table of contents at top right
-                        let tocEl = window.parent.document.querySelector("#toc")
-                        let markdownContentEl = window.parent.document.querySelector("#summary-inner")
-                        window.parent.htmlTableOfContents(tocEl, markdownContentEl);
-
                     }) // for all a in the tutorial
                 }, 250);
 
                 // Scroll up
+                // Jump up to content
+                window.parent.document.getElementById("summary-title").scrollIntoView();
+
+                // Render table of contents at top right
+                let tocEl = window.parent.document.querySelector("#toc")
+                let markdownContentEl = window.parent.document.querySelector("#summary-inner")
+                window.parent.htmlTableOfContents(tocEl, markdownContentEl);
 
                 // Allow copy from textarea to practice areas
                 let guideCopyToPractice = parent.document.querySelector("#js-visible-if-contents");

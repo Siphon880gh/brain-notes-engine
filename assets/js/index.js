@@ -195,17 +195,23 @@ function htmlTableOfContents(tocEl, markdownContentEl) {
     var headings = [].slice.call(markdownContentEl.querySelectorAll('h1, h2, h3, h4, h5, h6'));
     tocEl.innerHTML = "";
 
+    // var debuggingHeadings = "";
+    // alert(headings.length)
+
     headings.forEach(function(heading, i) {
+        // ref is either generic (toc-1) or the jump link of the subheading
         var ref = "toc" + i;
         if (heading.hasAttribute("id"))
             ref = heading.getAttribute("id");
         else
             heading.setAttribute("id", ref);
 
+        // alert(ref)
         var link = document.createElement("a");
         link.setAttribute("href", "#" + ref);
         link.textContent = heading.textContent;
         link.textContent = link.textContent.replaceAll("🔗","").trim()
+        // alert(link.textContent.replaceAll("🔗","").trim());
 
         var div = document.createElement("div");
         div.classList.add(heading.tagName.toLowerCase());
@@ -214,8 +220,18 @@ function htmlTableOfContents(tocEl, markdownContentEl) {
         })
         div.appendChild(link);
         tocEl.appendChild(div);
+
+        // console.log({heading});
+        // debuggingHeadings+=heading.outerHTML;
     });
-}
+
+    if(headings.length) {
+        document.querySelector('#toc-toggler').classList.add('filled')
+    } else {
+        document.querySelector('#toc-toggler').classList.remove('filled')
+    }
+    // console.log(debuggingHeadings)
+} // htmlTableOfContents
 
 // Visiting from https://wengindustry.com/devbrain ?? Then rebrand
 if(window.location.href.includes("devbrain")) {
