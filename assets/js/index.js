@@ -106,7 +106,9 @@ function runtimeOnMessageReadyExplorer() {
                     var $curriculumExplorer = $("#explore-curriculum iframe").contents();
                     var $target = $curriculumExplorer.find(`.name[data-folder-name]:contains('${topic}')`); // files have data-folder-name
                     if($target.length) {
-                        // $target.parent().find(".fa-book-reader").click()
+                        $target.parent().find(".fa-book-reader").click()
+                        // debugger;
+                        // Go to specific section of the tutorial, if applicable
                         if(jumpTo) {
                             setTimeout(()=>{
                                 console.log({jumpTo})
@@ -175,7 +177,7 @@ function runtimeOnMessageReadyExplorer() {
 
                     if (qtopic) {
                         var checkIframeLoading = setInterval(() => {
-                            var $curriculumExplorer = $("#explore-curriculum iframe").contents();
+                            window.$curriculumExplorer = $("#explore-curriculum iframe").contents();
                             var doesTreeExist = () => $curriculumExplorer.find(".accordion").length > 0;
 
                             if (doesTreeExist) {
