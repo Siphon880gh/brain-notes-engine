@@ -152,6 +152,10 @@ function objToHtml(type, item) {
     if(item.current.includes("sortspec.md")) {
         $liDom.hide();
     }
+    // package.json hidden (for now have client do this)
+    if(item.current.includes("package.json")) {
+        $liDom.hide();
+    }
     $contain = $(`<span class="contain"></span>`);
     var $meta = $liDom;
     // var $meta = $liDom.find(".meta");
