@@ -1,16 +1,18 @@
-# Gamified Knowledge: Snippets, Guides, and Tutorials
+# Developer Brain: Snippets, Guides, and Tutorials
 
-By Weng Fei Fung. Great for studying (like biology), collecting code snippets (for programming), or full-blown tutorials. Each folder is a concept. Each nested folder is a deeper concept. This tool shows those folders of information such as openable links and/or your own html code and/or document files and/or images, as well as your own summary that lets you jump to other concepts. 
+By Weng Fei Fung. 
+
+Collection of coding guides and snippets that I curated and wrote. Each folder is a concept. Each nested folder is a deeper concept. This tool shows those folders of information such as openable links and/or your own html code and/or document files and/or images, as well as your own summary that lets you jump to other concepts.
 
 ## Live Demo
 
-Please [try it out](http://wengindustry.com/tools/gamified-knowledge/)
+Please [try it out](http://wengindustry.com/tools/devbrain/)
 
 ## Organizing the folders and files
 
 Folders of MD files. For a beefed up version that is more than MD files, you can have .JSON files. Take a look at JSON Example section below. Place these in curriculum/.
 
-Note that the curriculum at this repo is empty but the deployed app still renders content at <a target="_blank" href="https://wengindustry.com/tools/gamified-knowledge/">the demo</a>. For the curriculum content, visit my [Coding Snipppets and Guides repository](https://github.com/Siphon880gh/code-wiki). I chose to separate the content so people can contribute guides and snippets more easily. My deployment server automatically combines this repo with the curriculum repo as a pipeline.
+Note that the curriculum at this repo is empty but the deployed app still renders content at <a target="_blank" href="https://wengindustry.com/tools/devbrain/">the demo</a>. For the curriculum content, visit my [Coding Snipppets and Guides repository](https://github.com/Siphon880gh/devbrain). I chose to separate the content so people can contribute guides and snippets more easily. My deployment server automatically combines this repo with the curriculum repo as a pipeline.
 
 ### JSON Example
 
