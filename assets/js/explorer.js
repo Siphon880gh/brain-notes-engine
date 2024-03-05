@@ -484,7 +484,7 @@ $(() => {
         }
     });
 
-    window.parent.document.querySelector("#count-notes").innerText = `${window.countNotes} Notes!`;
+    window.parent.document.querySelector("#count-notes").innerText = `${window.countNotes-2} Notes!`;
 
     setTimeout(() => {
         //close tooltip if clicked outside
