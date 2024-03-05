@@ -8,7 +8,7 @@
   header("Expires: 0");
 
   // Env variables
-  include("./env/pcregrep.php");
+  include("./env/all/pcregrep.php");
   include("./env/dir-snippets.php");
 
   // Configurable
