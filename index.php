@@ -31,17 +31,17 @@
 
     <div class="site-header" style="margin: 10px 5px;">
         <h1 class="title"><?php include 'env/title.php'; ?></h1>
-        <p>By Weng Fei Fung</p>
-        <details>
-            <summary><small>More info...</small></summary>
+        <div class="container" style="display:flex; flex-flow: row nowrap; justify-content:space-between; margin: 20px auto;">
 
-            <div class="container">
-                <div class="card card-default p-2">
-                    <?php include 'env/description.php'; ?>
-                </div>
-            </div>
+            <div><span id="count-notes"><span style="color:green; font-weight:bolder;">Loading the notes!</span></div>
+            <div>By Weng Fei Fung</div>
+            <div><a target="_blank" href="<?php include("env/url-update-log.php"); ?>">See recent additions</a></div>
+        </div>
 
-        </details>
+        <div style="margin:20px auto">
+            <?php include 'env/description-must.php'; ?>
+        </div>
+
     </div>
 
     <div class="container" style="margin-top:4ch;">
@@ -130,6 +130,17 @@
             <div id="explore-curriculum" class="card-footer">
                 <div class="card-header">
                     <h2><span class="fa-off fa-microscope-off fas fa-book-reader"></span> Open a lesson</h2>
+
+                    <details>
+                        <summary>More info...</summary>
+
+                        <div class="container">
+                            <div class="card card-default p-2">
+                                <?php include 'env/description.php'; ?>
+                            </div>
+                        </div>
+
+                    </details>
                 </div>
 
                 <div id="js-visible-if-contents" class="hide">

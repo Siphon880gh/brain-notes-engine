@@ -1,1 +1,1 @@
-Business Brain - Notes on Entrepreneurship, Funding, SaaS, etc
+Tech Business Brain - Notes on Startups, SaaS, Entrepreneurship, Funding, etc

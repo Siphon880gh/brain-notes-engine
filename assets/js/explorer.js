@@ -1,6 +1,8 @@
 /** @ UTILITY FUNCTIONS **/
 // alert("explorer.js loaded");
 
+window.countNotes = 0;
+
 // New :contains that is case-insensitive
 $.expr[":"].contains = $.expr.createPseudo(function (arg) {
     return function (elem) {
@@ -139,6 +141,7 @@ function objToHtml(type, item) {
         $name.addClass("is-folder");
     } else {
         $name.addClass("is-file");
+        window.countNotes++;
     }
 
     $name.click((event) => {
@@ -479,8 +482,9 @@ $(() => {
                 $(el).attr("icon", icons[folderName]);
             }
         }
-
     });
+
+    window.parent.document.querySelector("#count-notes").innerText = `${window.countNotes} Notes!`;
 
     setTimeout(() => {
         //close tooltip if clicked outside

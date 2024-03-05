@@ -8,7 +8,7 @@
 </div>
 <br>
 
-    <p class="container" style="padding-left:30px; padding-right:30px;">
+    <p>
         Everything on coding - web development, mobile development, game development, data science, AI and related fields - in bite size guides, code snippets and references. All here in one place for programmers of all levels.
     </p>
     <p>

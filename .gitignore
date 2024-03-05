@@ -1,9 +1,11 @@
 # Same front-end that's polymorphic to different note collections
-./env/description.php
-./env/title.php
-./env/title-long.php
-./env/dir-snippets.php
-./env/icons.js
+env/description-must.php
+env/description.php
+env/dir-snippets.php
+env/icons.js
+env/title-long.php
+env/title.php
+env/url-update-log.php
 
 # Backups
 backups/
