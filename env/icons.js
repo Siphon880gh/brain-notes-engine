@@ -1,3 +1,9 @@
 var icons = {
-    "Business Meetings - Mental Math": "➗"
+    "AI Developer": "🤖",
+    "AI Engineer": "🤖",
+    "AWS Cloud": "☁️",
+    "Databases": "⌸",
+    "DevOps": "⚙️",
+    "Web Development": "🌐",
+    "Web Development - Rapid Development": "🌐"
   }

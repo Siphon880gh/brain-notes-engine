@@ -1,6 +1,3 @@
-# Curriculum will be another git
-curriculum/*
-
 # Same front-end that's polymorphic to different note collections
 ./env/description.php
 ./env/title.php
