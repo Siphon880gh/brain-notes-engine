@@ -271,7 +271,7 @@
     ?>
     </script>
 
-    <script src="data/icons.js"></script>
+    <script src="env/icons.js"></script>
     <script src="assets/js/explorer.js"></script>
     <script src="assets/js/multistates.js"></script>
 

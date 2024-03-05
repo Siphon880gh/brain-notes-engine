@@ -1,5 +1,12 @@
 # Curriculum will be another git
-curriculum/
+curriculum/*
+
+# Same front-end that's polymorphic to different note collections
+./env/description.php
+./env/title.php
+./env/title-long.php
+./env/dir-snippets.php
+./env/icons.js
 
 # Backups
 backups/

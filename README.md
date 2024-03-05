@@ -1,18 +1,27 @@
-# Developer Brain: Snippets, Guides, and Tutorials
+# Brain: Note Collections
 
 By Weng Fei Fung. 
 
-Collection of coding guides and snippets that I curated and wrote. Each folder is a concept. Each nested folder is a deeper concept. This tool shows those folders of information such as openable links and/or your own html code and/or document files and/or images, as well as your own summary that lets you jump to other concepts.
+Thousands of notes on various topics. This is the frontend that can easily switch between hosting developer notes, 3d notes or business notes. NPM scripts are used to switch between different repositories of notes. See this same brain deployed for different knowledge areas:
 
-## Live Demo
+- Developer notes: [http://wengindustry.com/tools/devbrain/](http://wengindustry.com/tools/devbrain/)
+- 3d notes: [http://wengindustry.com/tools/3dbrain/](http://wengindustry.com/tools/3dbrain/)
+- Business notes: [http://wengindustry.com/tools/bizbrain/](http://wengindustry.com/tools/bizbrain/)
 
-Please [try it out](http://wengindustry.com/tools/devbrain/)
+## Contribute knowledge
+
+You can contribute knowledge if you know github. The frontend will update with your notes when I approve.
+
+
+- Contribute Developer notes: [https://github.com/Siphon880gh/devbrain/](https://github.com/Siphon880gh/devbrain/)
+- Contribute 3d notes: [https://github.com/Siphon880gh/3dbrain/](https://github.com/Siphon880gh/3dbrain/)
+- Contribute Business notes: [https://github.com/Siphon880gh/bizbrain/](https://github.com/Siphon880gh/bizbrain/)
 
 ## Organizing the folders and files
 
 Folders of MD files. For a beefed up version that is more than MD files, you can have .JSON files. Take a look at JSON Example section below. Place these in curriculum/.
 
-Note that the curriculum at this repo is empty but the deployed app still renders content at <a target="_blank" href="https://wengindustry.com/tools/devbrain/">the demo</a>. For the curriculum content, visit my [Coding Snipppets and Guides repository](https://github.com/Siphon880gh/devbrain). I chose to separate the content so people can contribute guides and snippets more easily. My deployment server automatically combines this repo with the curriculum repo as a pipeline.
+Note that the curriculum at this repo is empty but the deployed app still renders content at <a target="_blank" href="https://wengindustry.com/tools/devbrain/">the demo (developer notees)</a>. For the curriculum content, visit my [Coding Snipppets and Guides repository](https://github.com/Siphon880gh/devbrain). I chose to separate the content so people can contribute guides and snippets more easily. My deployment server automatically combines this repo with the curriculum repo as a pipeline. This applies to my 3d notes and business notes as well.
 
 ### JSON Example
 
