@@ -469,6 +469,19 @@ $(() => {
         event.stopPropagation();
     });
 
+    // Root icons
+    // Would not be performant if done at all levels
+    $("#target > ul > li > span.name.is-folder").each((i,el)=>{
+    
+        const folderName = $(el).text().trim(); 
+        if(typeof icons!=="undefined" && icons) {
+            if(icons[folderName]) {
+                $(el).attr("icon", icons[folderName]);
+            }
+        }
+
+    });
+
     setTimeout(() => {
         //close tooltip if clicked outside
         $('body').on('click', function (e) {
@@ -715,4 +728,18 @@ $(()=>{
     window.parent.runtimeOnMessageReadyExplorer();
 
 
+    $('#copyButton').click(function() {
+        var copyText = document.getElementById("shareSnippet");
+        copyText.select();
+        document.execCommand("copy");
+        // alert("Copied the text: " + copyText.value); // Optional: alert message
+    });
+
+    $(window).scroll(function() {
+    // if($(window).scrollTop() + $(window).height() == $(document).height()) {
+        // alert("bottom!");
+        // window.print();
+    // }
+    $("#share-search-title-wrapper").addClass("hidden");
+    });
 })

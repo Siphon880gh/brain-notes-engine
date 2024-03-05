@@ -265,54 +265,13 @@
     </script>
 
 
-<style>
-#searcher {
-  width:180px;
-}
-#searcher-2 {
-  width:180px;
-}
-
-@media screen AND (min-width: 550px) {
-  #searcher-btn::after, #searcher-2-btn::after {
-    content: " Search";
-  }
-  #searcher-container, #searcher-container-2 {
-    width:370px;
-    text-align: right;
-  }
-
-}
-@media screen AND (max-width: 549px) {
-  #searcher-containers {
-    width: 100%;
-  }
-  #searcher-container, #searcher-container-2 {
-    width:100% !important;
-  }
-  #searcher-containers label {
-    display:block !important;
-    text-align: center !important;
-    width: 100%;
-  }
-  #searcher {
-    width:80%;
-  }
-  #searcher-2 {
-    width:80%;
-  }
-  #searcher + button, #searcher-2 + button {
-    width: 15%;
-  }
-}
-</style>
-
     <script>
     <?php
         echo 'var realpath = "' . dirname(realpath("explorer.php")) . '"';
     ?>
     </script>
 
+    <script src="data/icons.js"></script>
     <script src="assets/js/explorer.js"></script>
     <script src="assets/js/multistates.js"></script>
 
@@ -372,27 +331,6 @@
               </a>
             </div>
           </div> <!-- #searcher-containers -->
-
-
-          <script>
-          $(document).ready(function() {
-            $('#copyButton').click(function() {
-              var copyText = document.getElementById("shareSnippet");
-              copyText.select();
-              document.execCommand("copy");
-              // alert("Copied the text: " + copyText.value); // Optional: alert message
-            });
-          });
-
-          $(window).scroll(function() {
-            // if($(window).scrollTop() + $(window).height() == $(document).height()) {
-              // alert("bottom!");
-              // window.print();
-            // }
-            $("#share-search-title-wrapper").addClass("hidden");
-          });
-          </script>
-
           
           <!-- Modal -->
           <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel">

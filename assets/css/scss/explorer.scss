@@ -1,119 +1,146 @@
 /** GENERAL LAYOUT **/
 /** Stop ios making buttons rounded **/
-    .override-ios-button-style {
-    -webkit-appearance: none !important;
-    -webkit-border-radius: 0 !important;
-    border-radius: 0 !important;
-    height: 2.5rem;
-    /* color: red; */
+.override-ios-button-style {
+  -webkit-appearance: none !important;
+  -webkit-border-radius: 0 !important;
+  border-radius: 0 !important;
+  height: 2.5rem;
+  /* color: red; */
 }
 
 
 /** STYLING CLASSES **/
 
 .error {
-    color:red; border:1px solid red; background-color:lightred;
-    padding: 10px 20px 10px 20px;
-    margin-top: 10px;
-    border-radius: 2px;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-  }
+  color: red;
+  border: 1px solid red;
+  background-color: lightred;
+  padding: 10px 20px 10px 20px;
+  margin-top: 10px;
+  border-radius: 2px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
 
 
 /** COMPONENTS **/
 
 /* Searcher */
-#searcher, #searcher-btn {
-    border-color: lightblue;
+#searcher,
+#searcher-btn {
+  border-color: lightblue;
 }
-#searcher-2, #searcher-2-btn {
-    border-color: #FFCCCB; /* light red */
+
+#searcher-2,
+#searcher-2-btn {
+  border-color: #FFCCCB;
+  /* light red */
 }
+
 #table-search-results {
-    th, td {
-        padding: 5px;
-    }
-    td:nth-child(3) {
-        width: 100%;
-    }
-    pre {
-        white-space: pre-wrap;
-        width: 100%;
-    }
+
+  th,
+  td {
+    padding: 5px;
+  }
+
+  td:nth-child(3) {
+    width: 100%;
+  }
+
+  pre {
+    white-space: pre-wrap;
+    width: 100%;
+  }
 }
 
 @media print {
-    #searcher-containers {
-      display: none;
-    }
-    #printer-title::after {
-      content: "Curriculum";
-      font-size: 2rem;
-    }
-  }
-  @media SCREEN and (max-width: 768px) {
-    #searcher-containers, .container {
-      padding: 0;
-    }
-
-    #searcher-containers {
-      margin-top: 20px;
-    }
-
-    .mobile-flush-top {
-      position:absolute;
-      top:2px;
-      right: 2px;
-    }
-  }
-  @media SCREEN and (min-width: 768px) {
-    // #searcher-2-btn::after {
-    //   content: " (with autocomplete)";
-    // }
-  }
-  #searcher-btn, #searcher-2-btn {
-    margin-left: -5px;
-  }
-  #searcher, #searcher-2 {
-    margin-left: 10px;
+  #searcher-containers {
+    display: none;
   }
 
-  #share-search-title-wrapper a:hover {
-    text-decoration: none;
+  #printer-title::after {
+    content: "Curriculum";
+    font-size: 2rem;
   }
+}
+
+@media SCREEN and (max-width: 768px) {
+
+  #searcher-containers,
+  .container {
+    padding: 0;
+  }
+
+  #searcher-containers {
+    margin-top: 20px;
+  }
+
+  .mobile-flush-top {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+  }
+}
+
+@media SCREEN and (min-width: 768px) {
+  // #searcher-2-btn::after {
+  //   content: " (with autocomplete)";
+  // }
+}
+
+#searcher-btn,
+#searcher-2-btn {
+  margin-left: -5px;
+}
+
+#searcher,
+#searcher-2 {
+  margin-left: 10px;
+}
+
+#share-search-title-wrapper a:hover {
+  text-decoration: none;
+}
 
 /* List Items */
 
 .accordion {
-    cursor: pointer;
+  cursor: pointer;
 }
+
 .accordion.meta {
-    padding: 5px;
+  padding: 5px;
 }
 
 
 li {
-    color: blue;
-  }
-  li:hover {
-    color: darkblue;
-    cursor: pointer;
-  }
-  .contain .fa {
-    cursor: pointer;
-  }
+  color: blue;
+}
+
+li:hover {
+  color: darkblue;
+  cursor: pointer;
+}
+
+.contain .fa {
+  cursor: pointer;
+}
+
 .fa-book-reader {
-  opacity:0.5;
+  opacity: 0.5;
   font-size: 80%;
 }
+
 .fa-book-reader::after {
-    content: " Read";
+  content: " Read";
 }
+
 .responsive-iframe-container {
   position: relative;
-  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  padding-top: 56.25%;
+  /* 16:9 Aspect Ratio */
   height: 0;
 }
 
@@ -128,35 +155,106 @@ li {
 
 /* Tooltip for .json file's description property  */
 .tooltip {
-    opacity: 1 !important;
+  opacity: 1 !important;
 }
+
 .tooltip-inner {
-    font-size: 12px;
-    background:lightgreen;
-    border: 1px solid #737373;
-    text-align: left;
-    max-width: 80% !important;
-    max-height: 80% !important;
-    overflow: scroll;
-    img {
-        width: 100%;
-    }
+  font-size: 12px;
+  background: lightgreen;
+  border: 1px solid #737373;
+  text-align: left;
+  max-width: 80% !important;
+  max-height: 80% !important;
+  overflow: scroll;
+
+  img {
+    width: 100%;
+  }
 }
 
 
 /* Explore Curriculum is in a footer */
 
 .card-footer {
-    padding: 0;
+  padding: 0;
 }
 
 
 /* REFACTORED IN from ./assets-explorer/css/... */
 /* Buttons fit */
-.fa-info, .fa-book-reader:not(.summary-header), .gotos-click, .thermo, .multistates-wrapper {
-    margin-left:1ch;
-}
-.fa-info:hover, .fa-book-reader:not(.summary-header):hover, .gotos-click:hover {
-    color: darkgreen;
+.fa-info,
+.fa-book-reader:not(.summary-header),
+.gotos-click,
+.thermo,
+.multistates-wrapper {
+  margin-left: 1ch;
 }
 
+.fa-info:hover,
+.fa-book-reader:not(.summary-header):hover,
+.gotos-click:hover {
+  color: darkgreen;
+}
+
+
+
+#target>ul>li>.name.is-folder[icon]::before {
+  content: attr(icon) !important;
+}
+
+#target>ul>li>.name.is-folder[icon] .fa-folder::before {
+  content: "" !important;
+}
+
+#searcher {
+  width: 180px;
+}
+
+#searcher-2 {
+  width: 180px;
+}
+
+@media screen AND (min-width: 550px) {
+
+  #searcher-btn::after,
+  #searcher-2-btn::after {
+    content: " Search";
+  }
+
+  #searcher-container,
+  #searcher-container-2 {
+    width: 370px;
+    text-align: right;
+  }
+
+}
+
+@media screen AND (max-width: 549px) {
+  #searcher-containers {
+    width: 100%;
+  }
+
+  #searcher-container,
+  #searcher-container-2 {
+    width: 100% !important;
+  }
+
+  #searcher-containers label {
+    display: block !important;
+    text-align: center !important;
+    width: 100%;
+  }
+
+  #searcher {
+    width: 80%;
+  }
+
+  #searcher-2 {
+    width: 80%;
+  }
+
+  #searcher+button,
+  #searcher-2+button {
+    width: 15%;
+  }
+}
