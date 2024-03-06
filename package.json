@@ -9,7 +9,8 @@
         "pull": "git stash; git pull origin main;",
         "build-devbrain": "cp -r ./env/templates-devbrain/* ./env",
         "build-3dbrain": "cp -r ./env/templates-3dbrain/* ./env",
-        "build-bizbrain": "cp -r ./env/templates-bizbrain/* ./env"
+        "build-bizbrain": "cp -r ./env/templates-bizbrain/* ./env",
+        "build-healthbrain": "cp -r ./env/templates-healthbrain/* ./env"
     },
     "author": "",
     "license": "ISC",
