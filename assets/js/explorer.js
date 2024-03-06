@@ -744,6 +744,6 @@ $(()=>{
         // alert("bottom!");
         // window.print();
     // }
-    $("#share-search-title-wrapper").addClass("hidden");
+        $("#share-search-title-wrapper").addClass("hidden");
     });
 })

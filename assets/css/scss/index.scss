@@ -372,4 +372,7 @@ body {
     padding: 5px;
     border-radius: 5px;
     font-weight: 250;
+    overflow-y: hidden;
+    text-align:center;
+    transition: height 5s ease;
 }

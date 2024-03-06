@@ -35,7 +35,7 @@
 
             <div><span id="count-notes"><span style="color:green; font-weight:bolder;">Loading the notes!</span></div>
             <div>By Weng Fei Fung</div>
-            <div><a target="_blank" href="<?php include("env/url-update-log.php"); ?>">See recent additions</a></div>
+            <div><a target="_blank" href="<?php include("env/url-update-log.php"); ?>">Change Log</a></div>
         </div>
 
         <div style="margin:20px auto">

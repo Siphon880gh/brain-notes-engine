@@ -17,7 +17,7 @@
                 </div>
                 <br/>
 
-                <p>Collection of SaaS tech entrepreneur notes. The goal is to record what I learn as I start tech businesses, read business books, talk to business persons, etc. I want to leverage what I know from software development into my own startups.
+                <p>Collection of SaaS tech entrepreneur notes. The goal is to record what I learn as I start tech businesses, read business books, meet with entrepreneurs, etc. I want to leverage what I know from software development into my own startups.
                 </p>
                 <p>You can contribute to this knowledge if familiar with github: <a
                         href="https://github.com/Siphon880gh/bizbrain" target="_blank">Business Brain</a>.

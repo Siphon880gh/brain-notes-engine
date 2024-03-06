@@ -256,3 +256,14 @@ function htmlTableOfContents(tocEl, markdownContentEl) {
 //     `)
     
 // }
+
+function triggeredHideAlternateUF(event) {
+    var isOutsideA = !event.target.matches(".description-must")
+    var isOutsideB = !event.target.closest(".description-must")
+    //console.log({isOutsideA, isOutsideB})
+    if(isOutsideA && isOutsideB) {
+        $(".description-must").css("padding", 0).height(0);
+        document.body.removeEventListener("click", triggeredHideAlternateUF);
+    }
+}
+document.body.addEventListener("click", triggeredHideAlternateUF);
