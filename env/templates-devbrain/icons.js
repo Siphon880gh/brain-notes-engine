@@ -2,7 +2,7 @@ var icons = {
     "AI Developer": "🤖",
     "AI Engineer": "🤖",
     "AWS Cloud": "☁️",
-    "Databases": "🗃",
+    "Databases - MySQL, NoSQL, and More!": "🗃",
     "Data Structures, Algorithms, Architechtures, Systems Design": "Ω",
     "DevOps": "⚙️",
     "Plug-in Development": "🔌",
