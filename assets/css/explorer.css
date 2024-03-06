@@ -204,31 +204,41 @@ li:hover {
 /* line 201, scss/explorer.scss */
 #target > ul > li > .name.is-folder[icon]::before {
   content: attr(icon) !important;
+  filter: sepia(1) hue-rotate(180deg);
+  display: inline-block;
+  min-width: 15px;
 }
 
-/* line 205, scss/explorer.scss */
-#target > ul > li > .name.is-folder[icon] .fa-folder::before {
+/* The default folder icon is actually nested */
+/* line 209, scss/explorer.scss */
+#target > ul > li > .name.is-folder[icon] > .fa-folder::before {
   content: "" !important;
 }
 
-/* line 209, scss/explorer.scss */
+/* line 212, scss/explorer.scss */
+#target > ul > li > .name.is-folder:not([icon]) > .fa-folder::before {
+  min-width: 15px;
+  display: inline-block;
+}
+
+/* line 217, scss/explorer.scss */
 #searcher {
   width: 180px;
 }
 
-/* line 213, scss/explorer.scss */
+/* line 221, scss/explorer.scss */
 #searcher-2 {
   width: 180px;
 }
 
 @media screen and (min-width: 550px) {
-  /* line 219, scss/explorer.scss */
+  /* line 227, scss/explorer.scss */
   #searcher-btn::after,
   #searcher-2-btn::after {
     content: " Search";
   }
 
-  /* line 224, scss/explorer.scss */
+  /* line 232, scss/explorer.scss */
   #searcher-container,
   #searcher-container-2 {
     width: 370px;
@@ -236,35 +246,35 @@ li:hover {
   }
 }
 @media screen and (max-width: 549px) {
-  /* line 233, scss/explorer.scss */
+  /* line 241, scss/explorer.scss */
   #searcher-containers {
     width: 100%;
   }
 
-  /* line 237, scss/explorer.scss */
+  /* line 245, scss/explorer.scss */
   #searcher-container,
   #searcher-container-2 {
     width: 100% !important;
   }
 
-  /* line 242, scss/explorer.scss */
+  /* line 250, scss/explorer.scss */
   #searcher-containers label {
     display: block !important;
     text-align: center !important;
     width: 100%;
   }
 
-  /* line 248, scss/explorer.scss */
+  /* line 256, scss/explorer.scss */
   #searcher {
     width: 80%;
   }
 
-  /* line 252, scss/explorer.scss */
+  /* line 260, scss/explorer.scss */
   #searcher-2 {
     width: 80%;
   }
 
-  /* line 256, scss/explorer.scss */
+  /* line 264, scss/explorer.scss */
   #searcher + button,
   #searcher-2 + button {
     width: 15%;
