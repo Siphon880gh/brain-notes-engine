@@ -284,6 +284,9 @@
         padding-left: unset;
         max-width: unset;
       }
+      a {
+        text-shadow: none !important;
+      }
     </style>
 </head>
     <body>

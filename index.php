@@ -28,6 +28,10 @@
         margin-right: unset;
         padding-left: unset;
         max-width: unset;
+        text-shadow: none;
+      }
+      a {
+        text-shadow: none !important;
       }
     </style>
 </head>
