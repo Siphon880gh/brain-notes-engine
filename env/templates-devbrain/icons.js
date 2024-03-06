@@ -3,6 +3,7 @@ var icons = {
     "AI Engineer": "🤖",
     "AWS Cloud": "☁️",
     "Databases": "🗃",
+    "Data Structures, Algorithms, Architechtures, Systems Design": "Ω",
     "DevOps": "⚙️",
     "Plug-in Development": "🔌",
     "Web Development": "🌐",
