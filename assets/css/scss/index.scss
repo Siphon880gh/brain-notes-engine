@@ -132,7 +132,7 @@ h3 {
 }
 
 #summary-title {
-    background-color: pink;
+    background-color: rgba(0, 180, 0, 0.33);;
 }
 
 #summary-inner textarea {
@@ -142,7 +142,7 @@ h3 {
 #summary-inner pre {
     white-space: break-spaces;
     color: white;
-    background-color: rgba(150,150,150,1);
+    background-color: rgba(150, 150, 150, 1);
     margin: 10px;
 }
 
@@ -216,42 +216,49 @@ h3 {
 #summary-collapser.stated {
     transform: rotate(90deg);
 }
+
 #dashboard:not(.active) {
-    display:none;
+    display: none;
 }
+
 #dashboard {
     position: fixed;
     bottom: 0;
     left: 0;
-    width:100%;
-    display:flex;
+    width: 100%;
+    display: flex;
     justify-content: flex-end;
-    background-color: rgba(150,150,150,0.5);
+    background-color: rgba(150, 150, 150, 0.5);
     padding: 10px 10px;
-    padding-right:30px;
-    opacity:0.5;
+    padding-right: 30px;
+    opacity: 0.5;
 }
+
 #dashboard:hover {
-    opacity:1;
+    opacity: 1;
 }
+
 #dashboard i {
     font-size: 20px;
 }
+
 i#shortcut-summary-collapser {
     cursor: pointer;
-    color: rgba(0,0,0,0.5);
+    color: rgba(0, 0, 0, 0.5);
     transition: all 200ms ease-in;
 }
+
 i#shortcut-summary-collapser:hover {
-    color: rgba(0,0,0,1);
+    color: rgba(0, 0, 0, 1);
 }
 
 @media screen AND (max-width:768px) {
     #dashboard {
         // padding: 20px 20px;
         padding: 5px;
-        padding-right:20px;
+        padding-right: 20px;
     }
+
     #dashboard i {
         font-size: 28px;
     }
@@ -268,9 +275,9 @@ body {
     position: fixed;
     top: 0;
     right: 10px;
-    padding-left:10px;
-    padding-right:10px;
-    background-color:white;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
     z-index: 500;
 }
 
@@ -279,7 +286,7 @@ body {
 //     display:none;
 // }
 #toc-toggler:not(.filled) {
-    display:none;
+    display: none;
 }
 
 #toc {
@@ -297,8 +304,9 @@ body {
     overflow-y: scroll;
     z-index: 500;
 }
+
 #toc:empty {
-    display:none !important;
+    display: none !important;
 }
 
 #toc-toggler:hover #toc {
@@ -309,13 +317,12 @@ body {
     display: block;
 }
 
-#toc .h1, 
-#toc .h2, 
-#toc .h3, 
-#toc .h4, 
-#toc .h5, 
-#toc .h6 
-{
+#toc .h1,
+#toc .h2,
+#toc .h3,
+#toc .h4,
+#toc .h5,
+#toc .h6 {
     display: block;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -373,6 +380,22 @@ body {
     border-radius: 5px;
     font-weight: 250;
     overflow-y: hidden;
-    text-align:center;
+    text-align: center;
     transition: height 5s ease;
+}
+
+
+/* UI UX: Left vertical green bar to collapse lesson */
+#side-a>.deemp-fieldset {
+    position: relative;
+}
+
+#side-a>.deemp-fieldset>.left-bar {
+    position: absolute;
+    height: calc(100% + 50px + 10px);
+    width: 15px;
+    left: -15px;
+    top: -49px;
+    background-color: rgba(0, 180, 0, 0.33);
+    cursor: pointer;
 }

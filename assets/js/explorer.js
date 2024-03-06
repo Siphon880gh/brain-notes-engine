@@ -315,7 +315,7 @@ function objToHtml(type, item) {
                 parent.document.querySelector("#summary-collapser").classList.add("stated");
                 parent.document.querySelector("#summary-sharer").classList.remove("d-none");
                 parent.document.querySelector("#side-a .deemp-fieldset").classList.remove("d-none");
-                parent.document.querySelector("#dashboard").classList.add("active");
+                // parent.document.querySelector("#dashboard").classList.add("active");
 
                 // When copied HTML from W3School to Obsidian, it's a special space character. 
                 // This special space character will get rid of // from https:// in src

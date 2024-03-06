@@ -180,6 +180,7 @@
                         </div>
                         <div class="deemp-fieldset" style="height: 100%; margin-top: 20px; padding-left: 5px; padding-right: 5px;">
                             <!-- <textarea id="summary-inner" style="height: 100%; resize: none; width:100%;"></textarea> -->
+                            <div class="left-bar" onclick="$('#summary-collapser').click()"></div>
                             <div id="summary-inner" style="height: 100%; resize: none; width:100%;"></div>
 
                         </div>
@@ -364,10 +365,10 @@
         /* Dynamic fog styling */
     </style>
 
-    <div id="dashboard">
+    <!-- <div id="dashboard">
         <i id="shortcut-summary-collapser" class="fa fa-minus"
             onclick="document.querySelector('#summary-collapser').click();"> Lesson</i>
-    </div>
+    </div> -->
 
     <style>
         .skeleton {
