@@ -275,6 +275,16 @@
     <script src="assets/js/explorer.js"></script>
     <script src="assets/js/multistates.js"></script>
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" rel="stylesheet">
+    <style>
+      body {
+        width: unset;
+        margin-left: unset;
+        margin-right: unset;
+        padding-left: unset;
+        max-width: unset;
+      }
+    </style>
 </head>
     <body>
         <div class="container">
