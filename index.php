@@ -45,9 +45,9 @@
     <div class="site-header" style="margin: 10px 5px;">
         <h1 class="title"><?php include 'env/title.php'; ?></h1>
         <div class="container" style="display:flex; flex-flow: row nowrap; justify-content:space-between; margin: 20px auto;">
-
+        
             <div><span id="count-notes"><span style="color:green; font-weight:bolder;">Loading the notes!</span></div>
-            <div>By Weng Fei Fung</div>
+            <div>By <a href="javascript:void(0)" data-toggle="modal" data-target="#promoModal">Weng Fei Fung</a></div>
             <div><a target="_blank" href="<?php include("env/url-update-log.php"); ?>">Change Log</a></div>
         </div>
 
@@ -284,6 +284,27 @@
         <!-- footer wrapping another pair of heading body -->
 
 
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="promoModal" tabindex="-1" role="dialog" aria-labelledby="promoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header" style="border-bottom:none;">
+            <h5 class="modal-title" id="promoModalLabel">Who is Weng</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <?php include 'env/whoami.php'; ?>
+        </div>
+        <div class="modal-footer" style="border-top:none">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Return</button>
+        </div>
+        </div>
+    </div>
     </div>
 
     <!-- Modal -->
