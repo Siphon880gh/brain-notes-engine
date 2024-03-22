@@ -201,7 +201,7 @@
 
                     <div id="side-b" class="card-body side-by-side-possible">
                         <iframe class="d-none"
-                            style="padding:5px; border-radius:5px; display:inline-block; margin-top:5px; text-align:left; margin-bottom:10px; width:100%; height:490px;"
+                            style="padding:5px; border-radius:5px; display:inline-block; margin-top:5px; text-align:left; margin-bottom:10px; width:100%; height:580px;"
                             src="explorer.php"
                             onload="
                                 event.target.classList.remove('d-none');
