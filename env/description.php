@@ -14,7 +14,6 @@
 
     <a href="https://www.paypal.com/donate?business=T42BK25TYPZSA&amp;item_name=Buy+me+coffee+%28I+develop+free+apps%29&amp;currency_code=USD" target="_blank" title="Donate to this project using Buy Me A Coffee" alt="Paypal">
         <img class="my-badge" src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button"></a>
-
 </div>
 <br>
 

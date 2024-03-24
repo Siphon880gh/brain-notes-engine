@@ -1,7 +1,7 @@
 <div>
 
     <a href="https://github.com/Siphon880gh/" rel="nofollow" target="_blank">
-        <img class="my-badge" src="https://img.shields.io/badge/Github-white?style=flat&amp;logo=github&amp;labelColor=darkgray&amp;logoColor=white" alt="Youtube" data-canonical-src="https://img.shields.io/badge/Github-white?style=flat&amp;logo=youtube&amp;labelColor=lightgray&amp;labelColor=white"></a>
+        <img class="my-badge" src="https://img.shields.io/badge/Github-darkgray?style=flat&amp;logo=github&amp;labelColor=darkgray&amp;logoColor=white" alt="Youtube" data-canonical-src="https://img.shields.io/badge/Github-darkgray?style=flat&amp;logo=youtube&amp;labelColor=lightgray&amp;labelColor=white"></a>
                 
     <a href="https://www.linkedin.com/in/weng-fung/" rel="nofollow" target="_blank">
         <img class="my-badge" src="https://img.shields.io/badge/LinkedIn-blue?style=flat&amp;logo=linkedin&amp;labelColor=blue" alt="Linked-In" data-canonical-src="https://img.shields.io/badge/LinkedIn-blue?style=flat&amp;logo=linkedin&amp;labelColor=blue"></a>
