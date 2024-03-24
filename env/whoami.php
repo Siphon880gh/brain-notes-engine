@@ -1,19 +1,22 @@
 
-<div>
-                    <a href="https://www.youtube.com/user/Siphon880yt/" rel="nofollow" target="_blank">
-                        <img src="https://img.shields.io/badge/Youtube-red?style=flat&amp;logo=youtube&amp;labelColor=red"
-                            alt="Youtube"
-                            data-canonical-src="https://img.shields.io/badge/Youtube-red?style=flat&amp;logo=youtube&amp;labelColor=red"
-                            style="max-width:100%;"></a>
-                    <a href="https://www.linkedin.com/in/weng-fung/" rel="nofollow" target="_blank">
-                        <img src="https://img.shields.io/badge/LinkedIn-blue?style=flat&amp;logo=linkedin&amp;labelColor=blue"
-                            alt="Linked-In"
-                            data-canonical-src="https://img.shields.io/badge/LinkedIn-blue?style=flat&amp;logo=linkedin&amp;labelColor=blue"
-                            style="max-width:100%;"></a>
-                    <a href="https://www.paypal.com/donate?business=T42BK25TYPZSA&item_name=Buy+me+coffee+%28I+develop+free+apps%29&currency_code=USD"
-                        target="_blank" title="Donate to this project using Buy Me A Coffee" alt="Paypal">
-                        <img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg"
-                            alt="Buy Me A Coffee donate button" /></a>
+<div>   
+
+                <a href="https://github.com/Siphon880gh/" rel="nofollow" target="_blank">
+                    <img class="my-badge" src="https://img.shields.io/badge/Github-white?style=flat&amp;logo=github&amp;labelColor=darkgray&amp;logoColor=white" alt="Youtube" data-canonical-src="https://img.shields.io/badge/Github-white?style=flat&amp;logo=youtube&amp;labelColor=lightgray&amp;labelColor=white"></a>
+                
+                <a href="https://www.linkedin.com/in/weng-fung/" rel="nofollow" target="_blank">
+                    <img class="my-badge" src="https://img.shields.io/badge/LinkedIn-blue?style=flat&amp;logo=linkedin&amp;labelColor=blue" alt="Linked-In" data-canonical-src="https://img.shields.io/badge/LinkedIn-blue?style=flat&amp;logo=linkedin&amp;labelColor=blue"></a>
+
+                <a href="https://www.youtube.com/user/Siphon880yt/" rel="nofollow" target="_blank">
+                    <img class="my-badge" src="https://img.shields.io/badge/Youtube-red?style=flat&amp;logo=youtube&amp;labelColor=red" alt="Youtube" data-canonical-src="https://img.shields.io/badge/Youtube-red?style=flat&amp;logo=youtube&amp;labelColor=red"></a>
+
+                <a href="https://www.linkedin.com/in/weng-fung/" rel="nofollow" target="_blank">
+                <img class="my-badge" src="https://img.shields.io/badge/WengIndustry.com-black?style=flat&amp;logo=googlehome&amp;labelColor=black&amp;logoColor=white" alt="Website" data-canonical-src="https://img.shields.io/badge/WengIndustry.com-black?style=flat&amp;logo=googlehome&amp;labelColor=black&amp;logoColor=black"></a>
+
+                <a href="https://www.paypal.com/donate?business=T42BK25TYPZSA&amp;item_name=Buy+me+coffee+%28I+develop+free+apps%29&amp;currency_code=USD" target="_blank" title="Donate to this project using Buy Me A Coffee" alt="Paypal">
+                    <img class="my-badge" src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button"></a>
+                
+                            
                 </div>
                 <br/>
 

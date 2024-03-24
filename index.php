@@ -33,6 +33,10 @@
       a {
         text-shadow: none !important;
       }
+      img {
+        width: unset;
+        max-width: unset;
+      }
     </style>
 </head>
 

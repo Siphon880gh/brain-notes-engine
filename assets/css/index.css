@@ -435,7 +435,12 @@ body {
   height: calc(100% + 50px + 10px);
   width: 15px;
   left: -15px;
-  top: -49px;
+  top: -51px;
   background-color: rgba(0, 180, 0, 0.33);
   cursor: pointer;
+}
+
+/* line 403, scss/index.scss */
+.my-badge {
+  margin-bottom: 6px;
 }
