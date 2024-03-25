@@ -28,15 +28,25 @@
         margin-right: unset;
         padding-left: unset;
         max-width: unset;
-        text-shadow: none;
       }
       a {
         text-shadow: none !important;
       }
-      img {
-        width: unset;
-        max-width: unset;
-      }
+
+    @media (prefers-color-scheme:dark) {
+        body {
+            background-color: unset;
+            color: unset;
+        }
+    }
+    @media (prefers-color-scheme:dark) {
+
+        .hover-tufte-underline:hover,
+        .tufte-underline,
+        a:link {
+            text-shadow: unset;
+        }
+    }
     </style>
 </head>
 

@@ -22,8 +22,5 @@
             "extensions": "js",
             "quiet": false
         }
-    },
-    "devDependencies": {
-        "cross-env": "^7.0.3"
     }
 }
