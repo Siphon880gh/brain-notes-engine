@@ -58,12 +58,14 @@
 
     <div class="site-header" style="margin: 10px 5px;">
         <h1 class="title"><?php include 'env/title.php'; ?></h1>
-        <div class="container" style="display:flex; flex-flow: row nowrap; justify-content:space-between; margin: 20px auto;">
-        
-            <div><span id="count-notes"><span style="color:green; font-weight:bolder;">Loading the notes!</span></div>
-            <div>By <a href="javascript:void(0)" data-toggle="modal" data-target="#promoModal">Weng Fei Fung</a></div>
-            <div><a target="_blank" href="<?php include("env/url-update-log.php"); ?>">Change Log</a></div>
+        <div style="width:100%; margin: 20px auto; padding: 0 10px;">
+            <div style="display:flex; flex-flow: row nowrap; justify-content:space-between; width:100%;">
+                <div><span id="count-notes"><span style="color:green; font-weight:bolder;">Loading the notes!</span></span></div>
+                <div>By <a href="javascript:void(0)" data-toggle="modal" data-target="#promoModal">Weng Fei Fung</a></div>
+                <div><a target="_blank" href="<?php include('env/url-update-log.php'); ?>">Change Log</a></div>
+            </div>
         </div>
+
 
         <div style="margin:20px auto">
             <?php include 'env/description-must.php'; ?>
