@@ -175,10 +175,8 @@
                     <details>
                         <summary>More info...</summary>
 
-                        <div class="container">
-                            <div class="card card-default p-2">
-                                <?php include 'env/description.php'; ?>
-                            </div>
+                        <div class="bg-gray-200 p-3">
+                            <?php include 'env/description.php'; ?>
                         </div>
 
                     </details>

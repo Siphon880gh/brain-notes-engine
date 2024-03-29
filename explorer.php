@@ -304,7 +304,7 @@
     }
     </style>
 </head>
-    <body>
+    <body style="padding-right:5px">
         <div class="container">
         
           <?php
@@ -325,21 +325,22 @@
           ?>
 
           <div style="width:1px; height:10px; clear:both;"></div>
-          <div id="searcher-containers" style="float:right; padding:15px;">
+          <div id="searcher-containers" style="float:right;">
 
             <div id="searcher-container" style="float:right; margin-top:5px;">
                   <!-- <label for="searcher">Text content:</label>
                   <input id="searcher" onkeyup="checkSearcherSubmit(event, $('#searcher-btn'))" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                   <button id="searcher-btn" class="override-ios-button-style" onclick="doSearcher();" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span></button> -->
                   <span class="mobile-flush-top">
-                    <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;"><span class="fa fa-eraser" style="cursor: pointer;"> Clear</button>
+                    <button onclick="$('#searcher-container-2').removeClass('hidden');" style="cursor: pointer; border:0;"><span class="fa fa-search" style="cursor: pointer;"> Search</button>
+                    <!-- <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;"><span class="fa fa-eraser" style="cursor: pointer;"> Clear</button> -->
                     <button onclick="toggleAllExpand();" style="cursor: pointer; border:0;"><span class="fa fa-eye" style="cursor: pointer;"> Toggle All</button>
                     <button onclick="window.print();" style="cursor: pointer; border:0;"><span class="fa fa-print" style="cursor: pointer;"> Print</button>
                   </span>
             </div>
 
             
-            <div id="searcher-container-2" style="float:right; margin-top:5px;">
+            <div id="searcher-container-2" class="hidden" style="float:right; margin-top:5px;">
                   <label for="searcher-2">Topic Title:</label>
                   <input id="searcher-2" onkeyup="checkSearcherSubmit(event, $('#searcher-2-btn'))"class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                   <button id="searcher-2-btn" class="override-ios-button-style" 
