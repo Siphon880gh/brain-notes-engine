@@ -47,6 +47,64 @@ function mergeByCommonPath(data) {
 } // nestFolders
 
 // console.log(folders);
+
+
+
+// Sort the folders array based on the order defined in sortCriteria
+// Please note this only work on remote because the remote copy will switch out the path to some Obsidian path in another ~ folder, 
+// whereas remote copy will have Obsidian path in the same root folder
+
+if (window?.sortspecs) {
+
+    var sortCriteriaMd = window.sortspecs;
+
+    // This is the content of sortspec.md
+    // const sortCriteriaMd = `
+    // ---
+    // sorting-spec: |
+    //   AI App Development
+    //   Game Development, Unreal
+    //   Web Development
+    //   Web Development - Rapid Development
+    // ---
+    // `;
+    // console.log({sortCriteriaMd})
+
+    // Function to parse the sorting spec
+    function parseSortSpec(content) {
+        // Find the sorting-spec block and extract the folders
+        const match = content.match(/sorting-spec:\s*\|\s*([\s\S]*?)\s*---/);
+        if (match && match[1]) {
+            // Split the block into lines and trim whitespace
+            return match[1].split('\n').map(s => s.trim()).filter(Boolean);
+        }
+        return [];
+    }
+
+    // Get the ordered folders from the sort spec
+
+    const sortCriteria = parseSortSpec(sortCriteriaMd);
+    console.log({ sortCriteria }); // Logs the ordered folder names criteria
+
+    // Sort the folders array based on the order defined in sortCriteria
+    folders = folders.sort((a, b) => {
+        const indexA = sortCriteria.indexOf(a.path_tp);
+        const indexB = sortCriteria.indexOf(b.path_tp);
+        if (indexA !== -1 && indexB !== -1) {
+            return indexA - indexB; // both in ordered list, sort by their order
+        } else if (indexA !== -1) {
+            return -1; // only a is in ordered list, a comes first
+        } else if (indexB !== -1) {
+            return 1; // only b is in ordered list, b comes first
+        } else {
+            return a.path_tp.localeCompare(b.path_tp); // neither in ordered list, sort alphabetically
+        }
+    });
+
+    // console.log("Retrieved sortspec.md from Obsidian and rearranged folders:\n" + folders.map(f=>f.path_tp))
+
+} // if sortspec
+
 folders = mergeByCommonPath(folders);
 // console.log(folders);
 
@@ -127,15 +185,15 @@ function objToHtml(type, item) {
     // var $liDom = $(`<li class="accordion meta" data-uid="${uniqueId}" data-path="${item.path}"></li>`);
     var $liDom = $(`<li class="accordion meta" data-path="${item.path}"></li>`);
 
-    var possFolderStr = (()=>{
-        if(item.next.length && !item.current.includes(".md"))
+    var possFolderStr = (() => {
+        if (item.next.length && !item.current.includes(".md"))
             return `<span class="fas fa-folder"></span>&nbsp;`
         else
             return "";
     })();
     var name = possFolderStr + item.current
     var $name = $(`<span class="name">${name}</span>`);
-    if(possFolderStr.length) {
+    if (possFolderStr.length) {
         $name.addClass("is-folder");
     } else {
         $name.addClass("is-file");
@@ -144,17 +202,18 @@ function objToHtml(type, item) {
 
     $name.click((event) => {
         var $self = $(event.target);
-        if($self.hasClass("is-file"))
+        if ($self.hasClass("is-file"))
             $self.parent().find(".fa-book-reader").click();
     })
     $liDom.append($name);
 
     // sortspec.md wasn't hidden from the php side because we needed it in js for custom sorting criteria. Now hide it from user though
-    if(item.current.includes("sortspec.md")) {
+    if (item.current.includes("sortspec.md")) {
         $liDom.hide();
     }
+
     // package.json hidden (for now have client do this)
-    if(item.current.includes("package.json")) {
+    if (item.current.includes("package.json")) {
         $liDom.hide();
     }
     $noteBtns = $(`<span class="note-item-buttons"></span>`);
@@ -163,48 +222,45 @@ function objToHtml(type, item) {
 
     if (lookupMetas[item.path]) {
         // Extract property from metas. If property not defined at +meta.json, then it'll be value undefined
-        var { summary, footerFile, titleOverridden, desc, gotos } = lookupMetas[item.path];
-        // TODO
-        // debugger;
-        console.log({summary, footerFile, titleOverridden, desc, gotos})
+        // var { summary, footerFile, titleOverridden, desc, gotos } = lookupMetas[item.path];
 
         // Folder text overridden vs not overridden
-        $meta.find(".name").attr("data-folder-name", item.current);
-        if (titleOverridden && titleOverridden.length) {
-            $meta.find(".name").html(titleOverridden);
-        }
+        // $meta.find(".name").attr("data-folder-name", item.current);
+        // if (titleOverridden && titleOverridden.length) {
+        //     $meta.find(".name").html(titleOverridden);
+        // }
 
         createSummaryIconAndContents(item.path_tp, $noteBtns);
 
         function createSummaryIconAndContents(url, $noteBtns) {
             // TODO: item.path
-            debugger;
+            // debugger;
 
             var $summary = $(`<span class="fas fa-book-reader"></span>`);
 
             $summary.on("click", (event) => {
                 const title = event.target.closest("li").querySelector(".name").textContent;
-                // console.log({dirSnippetsFilePath:window.dirSnippets+encodeURIComponent(url)})
+
                 url = url.replaceAll("+", "___plus___"); // encodeURI doesn't encode +, so we do it manually, and decode it in php
                 url = url.replaceAll("&", "___and___");
                 var newUrl = window.dirSnippets + url;
                 newUrl = encodeURI(newUrl);
-                console.log({dirSnippetsFilePath:newUrl});
+                console.log({ dirSnippetsFilePath: newUrl });
 
-                fetch("local-open.php?filepath=" + newUrl).then(response=>response.text()).then((summary) => {
+                fetch("local-open.php?filepath=" + newUrl).then(response => response.text()).then((summary) => {
 
                     parent.document.querySelector(".side-by-side-possible.hidden")?.classList?.remove("hidden");
-    
+
                     // Show notes in textarea
                     let summaryInnerEl = parent.document.querySelector("#summary-inner");
                     summaryInnerEl.classList.remove("hide");
-    
+
                     var md = window.markdownit({
                         html: true,
                         linkify: true
                     }).use(window.markdownItAnchor, {
                         level: [1, 2, 3, 4, 5, 6], // Apply to all heading levels
-                        slugify: function(s) {
+                        slugify: function (s) {
                             return s.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '');
                         },
                         permalink: true,
@@ -216,18 +272,18 @@ function objToHtml(type, item) {
                         permalinkSymbol: '🔗' // Set to true if you want a permalink symbol
                         // Other options as needed
                     });
-    
+
                     // md.renderer.rules.newline = (tokens, idx) => {
                     //     return '\n';
                     // };
-    
+
                     // Fixes: I have separate lines in md format. How come they're run-on's when rendered with markdown?
                     // Principle: Markdown's Line Break Rules: In Markdown, simply pressing "Enter" once at the end of a line does not create a new paragraph or line break in the rendered output. Instead, lines directly below each other without an empty line between them are treated as part of the same paragraph and are joined together.
                     // Solution: Add two spaces at the end of each line to force a line break, unless the adjacent line is a blank line.
                     summary = (function doubleNewLine(text) {
                         return text.replace(/(.+)(\n)(?!\n)/g, "$1  \n");
                     })(summary);
-    
+
                     var summaryHTML = md.render(summary);
                     parent.document.querySelector("#summary-title").textContent = title;
                     parent.document.querySelector("#summary-collapser").classList.remove("d-none");
@@ -235,29 +291,29 @@ function objToHtml(type, item) {
                     parent.document.querySelector("#summary-sharer").classList.remove("d-none");
                     parent.document.querySelector("#side-a .deemp-fieldset").classList.remove("d-none");
                     // parent.document.querySelector("#dashboard").classList.add("active");
-    
+
                     // When copied HTML from W3School to Obsidian, it's a special space character. 
                     // This special space character will get rid of // from https:// in src
                     // So lets convert back to typical space
-    
+
                     summaryHTML = summaryHTML.replaceAll(/\xA0/g, " ");
                     console.log(summaryHTML)
                     summaryInnerEl.innerHTML = summaryHTML;
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         // target blank for links
-                        summaryInnerEl.querySelectorAll("a").forEach(a=>{
-                            if(a.href.includes("wengindustry.com") || a.href.includes("localhost") || a.innerText.includes("🔗"))
+                        summaryInnerEl.querySelectorAll("a").forEach(a => {
+                            if (a.href.includes("wengindustry.com") || a.href.includes("localhost") || a.innerText.includes("🔗"))
                                 return true;
-    
+
                             a.setAttribute("target", "_blank");
-    
+
                             // Youtube Embeds
-                            (function (){
+                            (function () {
                                 // Exit quickly if this is the wrong type of URL
                                 if (this.protocol !== 'http:' && this.protocol !== 'https:') {
                                     return;
                                 }
-    
+
                                 // Find the ID of the YouTube video
                                 var id, matches;
                                 if (this.hostname === 'youtube.com' || this.hostname === 'www.youtube.com') {
@@ -269,39 +325,39 @@ function objToHtml(type, item) {
                                     // For URLs like https://youtu.be/xLrLlu6KDss
                                     id = this.pathname.substr(1);
                                 }
-                                console.log({hostname:this.hostname})
-    
+                                console.log({ hostname: this.hostname })
+
                                 // Check that the ID only has alphanumeric characters, to make sure that
                                 // we don't introduce any XSS vulnerabilities.
                                 var validatedID;
                                 if (id && id.match(/^[a-zA-Z0-9\_]*$/)) {
                                     validatedID = id;
                                 }
-    
+
                                 // Add the embedded YouTube video, and remove the link.
                                 if (validatedID) {
                                     $(this)
-                                    .before('<div class="responsive-iframe-container"><iframe src="https://www.youtube.com/embed/' + validatedID + '" frameborder="0" allowfullscreen></iframe></div>')
-                                    .remove();
+                                        .before('<div class="responsive-iframe-container"><iframe src="https://www.youtube.com/embed/' + validatedID + '" frameborder="0" allowfullscreen></iframe></div>')
+                                        .remove();
                                 }
-    
+
                             }).call(a);
-    
+
                         }) // for all a in the tutorial
                     }, 250);
-    
+
                     // Scroll up
                     // Jump up to content
                     // window.parent.document.getElementById("summary-title").scrollIntoView();
                     window.parent.document.getElementById("explore-curriculum").scrollIntoView({
                         behavior: "smooth",
-                      });
-    
+                    });
+
                     // Render table of contents at top right
                     let tocEl = window.parent.document.querySelector("#toc")
                     let markdownContentEl = window.parent.document.querySelector("#summary-inner")
                     window.parent.htmlTableOfContents(tocEl, markdownContentEl);
-    
+
                     // Allow copy from textarea to practice areas
                     let guideCopyToPractice = parent.document.querySelector("#js-visible-if-contents");
                     guideCopyToPractice.classList.remove("hide");
@@ -378,17 +434,17 @@ $(() => {
 
     // Root icons
     // Would not be performant if done at all levels
-    $("#target > ul > li > span.name.is-folder").each((i,el)=>{
-    
-        const folderName = $(el).text().trim(); 
-        if(typeof icons!=="undefined" && icons) {
-            if(icons[folderName]) {
+    $("#target > ul > li > span.name.is-folder").each((i, el) => {
+
+        const folderName = $(el).text().trim();
+        if (typeof icons !== "undefined" && icons) {
+            if (icons[folderName]) {
                 $(el).attr("icon", icons[folderName]);
             }
         }
     });
 
-    window.parent.document.querySelector("#count-notes").innerText = `${window.countNotes-2} Notes!`;
+    window.parent.document.querySelector("#count-notes").innerText = `${window.countNotes - 2} Notes!`;
 
     setTimeout(() => {
         //close tooltip if clicked outside
@@ -469,11 +525,11 @@ function toOpenUp_Highlight($row) {
 
 /** @ JUMP/SCROLL TO **/
 
-function scrollToText(partial, callback=false) {
+function scrollToText(partial, callback = false) {
     let $finalJumpTo = null;
     var $foundRow = $(`li:contains(${partial})`);
-    if ($foundRow.length === 0) 
-        alert("The search returned blank:\n" +partial)
+    if ($foundRow.length === 0)
+        alert("The search returned blank:\n" + partial)
     $foundRow.each((i, row) => {
         var $row = $(row)
         toOpenUp_Exec($row);
@@ -486,8 +542,8 @@ function scrollToText(partial, callback=false) {
     setTimeout(() => {
         if ($finalJumpTo)
             $finalJumpTo.scrollIntoView();
-        setTimeout(()=>{
-            if(callback)
+        setTimeout(() => {
+            if (callback)
                 callback();
         }, 500)
     }, 800);
@@ -553,9 +609,9 @@ function doSearcher() {
             try {
 
                 greps = JSON.parse(greps); // grep results array
-            } catch(err) {
+            } catch (err) {
                 console.error(err);
-                console.log({greps});
+                console.log({ greps });
                 debugger;
             }
             greps = greps["res"];
@@ -631,23 +687,22 @@ function clearSearcher() {
     toggleSearchResults(false);
 }
 
-$(()=>{
+$(() => {
     // Secondary: Can send topic to friends
     window.parent.runtimeOnMessageReadyExplorer();
 
-
-    $('#copyButton').click(function() {
+    $('#copyButton').click(function () {
         var copyText = document.getElementById("shareSnippet");
         copyText.select();
         document.execCommand("copy");
         // alert("Copied the text: " + copyText.value); // Optional: alert message
     });
 
-    $(window).scroll(function() {
-    // if($(window).scrollTop() + $(window).height() == $(document).height()) {
+    $(window).scroll(function () {
+        // if($(window).scrollTop() + $(window).height() == $(document).height()) {
         // alert("bottom!");
         // window.print();
-    // }
+        // }
         $("#share-search-title-wrapper").addClass("hidden");
     });
 })

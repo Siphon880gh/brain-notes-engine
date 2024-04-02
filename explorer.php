@@ -144,12 +144,14 @@
 
       $dirs = rglob("$DIR_SNIPPETS?*");
       $lookup_metas = [];
+      $sortSpec = "";
 
       function map_tp_dec($path) { // trailing parsed (removed preceding snippet/ and may remove ending slash /) and decorated object
         // var_dump($path);
         global $DIR_SNIPPETS;
         global $DEFAULT_THUMBNAIL_SIZE;
         global $lookup_metas;
+        global $sortspec;
         
         // tp trailing path?
         $path_tp = substr($path, strlen($DIR_SNIPPETS)); // trailing parsed
@@ -169,25 +171,17 @@
         //var_dump($path);
         //echo "<br/>";
 
-        $lastFiveChars = substr($path, -5); // Changed to last 6 chars in case of a .no.md that you want to ignore in the learning app
+        $lastChars = substr($path, -11); // In case of a .no.md that you want to ignore in the learning app
 
-
-        if (stripos($lastFiveChars, ".json") !== false) { // Btw, .no.json files had already been stripped away
+        // Btw, .no.json and .no.md files had already been stripped away
+        if (stripos($lastChars, ".json") !== false || stripos($lastChars, ".md") !== false) { 
           // $lookup_metas[$path] = @json_decode(file_get_contents($path), true);
-          $lookup_metas[$path] = "";
+          $lookup_metas[$path] = array("pathTP"=>$path_tp);
+          if (stripos($lastChars, "sortspec.md") !== false) { 
+            // $lookup_metas[$path] = @json_decode(file_get_contents($path), true);
+            $sortspec = file_get_contents($path);
+          }
         }
-
-        if (stripos($lastFiveChars, ".md") !== false) { // Btw, .no.md files had already been stripped away
-
-          if(!isset($lookup_metas[$path]["summary"]))
-            $lookup_metas[$path]["summary"] = array();
-          // $file_contents = "";
-          // $file_contents = @file_get_contents($path);
-          // array_push($lookup_metas[$path]["summary"], $file_contents);
-          array_push($lookup_metas[$path]["summary"], 0); // Removed. Kept here for now in case do want to decide to cache the file contents
-        }
-
-        // die();
         
         return $decorated;
       } // map_tp_dec
@@ -195,8 +189,8 @@
 
       echo "<script>";
       echo "var folders = " . json_encode($dirs) . ",";
-      echo "ori = folders, ";
-      echo "lookupMetas = " . json_encode($lookup_metas) . ";";
+      echo "lookupMetas = " . json_encode($lookup_metas) . ",";
+      echo "sortspecs = " . json_encode($sortspec) . ";";
       echo "</script>";
 
       // var_dump($lookup_metas);
@@ -205,62 +199,6 @@
       // var_dump($dirs);
       // die();
     ?>
-
-    <script>
-    // Sort the folders array based on the order defined in sortCriteria
-    // Please note this only work on remote because the remote copy will switch out the path to some Obsidian path in another ~ folder, 
-    // whereas remote copy will have Obsidian path in the same root folder
-    if(lookupMetas?.["curriculum/sortspec.md"]?.summary?.[0]) {
-      // This is the content of sortspec.md
-      // const sortCriteriaMd = `
-      // ---
-      // sorting-spec: |
-      //   AI App Development
-      //   Game Development, Unreal
-      //   Web Development
-      //   Web Development - Rapid Development
-      // ---
-      // `;
-      const sortCriteriaMd = lookupMetas?.["curriculum/sortspec.md"]?.summary?.[0];
-      console.log({sortCriteriaMd})
-
-      // Function to parse the sorting spec
-      function parseSortSpec(content) {
-        // Find the sorting-spec block and extract the folders
-        const match = content.match(/sorting-spec:\s*\|\s*([\s\S]*?)\s*---/);
-        if (match && match[1]) {
-          // Split the block into lines and trim whitespace
-          return match[1].split('\n').map(s => s.trim()).filter(Boolean);
-        }
-        return [];
-      }
-
-      // Get the ordered folders from the sort spec
-
-      const sortCriteria = parseSortSpec(sortCriteriaMd);
-      console.log({sortCriteria}); // Logs the ordered folder names criteria
-
-      // Sort the folders array based on the order defined in sortCriteria
-      folders = folders.sort((a, b) => {
-          const indexA = sortCriteria.indexOf(a.path_tp);
-          const indexB = sortCriteria.indexOf(b.path_tp);
-          if (indexA !== -1 && indexB !== -1) {
-            return indexA - indexB; // both in ordered list, sort by their order
-          } else if (indexA !== -1) {
-            return -1; // only a is in ordered list, a comes first
-          } else if (indexB !== -1) {
-            return 1; // only b is in ordered list, b comes first
-          } else {
-            return a.path_tp.localeCompare(b.path_tp); // neither in ordered list, sort alphabetically
-          }
-        });
-
-
-      console.log("Retrieved sortspec.md from Obsidian and rearranged folders: " + folders.map(f=>f.path_tp))
-
-    } // if there's a sortspec.md
-    </script>
-
 
     <script>
     <?php
