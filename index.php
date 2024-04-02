@@ -71,6 +71,10 @@
         <div id="toc"></div>
     </div>
 
+    <div id="jump-curriculum">
+        <div onclick="document.querySelector('#side-b').scrollIntoView()">📗 Topics</div>
+    </div>
+
     <div class="site-header" style="margin: 10px 5px;">
         <h1 class="title"><?php include 'env/title.php'; ?></h1>
         <div style="width:100%; margin: 20px auto; padding: 0 10px;">

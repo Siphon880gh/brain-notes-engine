@@ -280,6 +280,19 @@ body {
     z-index: 500;
 }
 
+/* Jump to explorer at bottom right */
+
+#jump-curriculum {
+    cursor: pointer;
+    position: fixed;
+    bottom: 0;
+    right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+    z-index: 500;
+}
+
 // iOS is glitch about :empty, so using different approach below
 // #toc-toggler:has(#toc:empty) {
 //     display:none;

@@ -307,12 +307,25 @@ body {
   z-index: 500;
 }
 
-/* line 287, scss/index.scss */
+/* Jump to explorer at bottom right */
+/* line 285, scss/index.scss */
+#jump-curriculum {
+  cursor: pointer;
+  position: fixed;
+  bottom: 0;
+  right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: white;
+  z-index: 500;
+}
+
+/* line 300, scss/index.scss */
 #toc-toggler:not(.filled) {
   display: none;
 }
 
-/* line 291, scss/index.scss */
+/* line 304, scss/index.scss */
 #toc {
   display: none;
   position: fixed;
@@ -329,22 +342,22 @@ body {
   z-index: 500;
 }
 
-/* line 307, scss/index.scss */
+/* line 320, scss/index.scss */
 #toc:empty {
   display: none !important;
 }
 
-/* line 311, scss/index.scss */
+/* line 324, scss/index.scss */
 #toc-toggler:hover #toc {
   display: block;
 }
 
-/* line 315, scss/index.scss */
+/* line 328, scss/index.scss */
 #mobile-tap.active + #toc {
   display: block;
 }
 
-/* line 319, scss/index.scss */
+/* line 332, scss/index.scss */
 #toc .h1,
 #toc .h2,
 #toc .h3,
@@ -358,57 +371,57 @@ body {
   font-size: 1.2rem;
 }
 
-/* line 332, scss/index.scss */
+/* line 345, scss/index.scss */
 #toc .h2 {
   margin-left: 2ch;
 }
 
-/* line 336, scss/index.scss */
+/* line 349, scss/index.scss */
 #toc .h2::before {
   content: "•\00a0";
 }
 
-/* line 340, scss/index.scss */
+/* line 353, scss/index.scss */
 #toc .h3 {
   margin-left: 4ch;
 }
 
-/* line 344, scss/index.scss */
+/* line 357, scss/index.scss */
 #toc .h3::before {
   content: "—";
 }
 
-/* line 348, scss/index.scss */
+/* line 361, scss/index.scss */
 #toc .h4 {
   margin-left: 6ch;
 }
 
-/* line 352, scss/index.scss */
+/* line 365, scss/index.scss */
 #toc .h4::before {
   content: "➣";
 }
 
-/* line 356, scss/index.scss */
+/* line 369, scss/index.scss */
 #toc .h5 {
   margin-left: 8ch;
 }
 
-/* line 360, scss/index.scss */
+/* line 373, scss/index.scss */
 #toc .h5::before {
   content: "➨";
 }
 
-/* line 364, scss/index.scss */
+/* line 377, scss/index.scss */
 #toc .h6 {
   margin-left: 10ch;
 }
 
-/* line 368, scss/index.scss */
+/* line 381, scss/index.scss */
 #toc .h6::before {
   content: "◦\00a0";
 }
 
-/* line 372, scss/index.scss */
+/* line 385, scss/index.scss */
 .description-must {
   margin: 10px auto;
   background-color: rgba(125, 125, 125, 0.4);
@@ -424,12 +437,12 @@ body {
 }
 
 /* UI UX: Left vertical green bar to collapse lesson */
-/* line 388, scss/index.scss */
+/* line 401, scss/index.scss */
 #side-a > .deemp-fieldset {
   position: relative;
 }
 
-/* line 392, scss/index.scss */
+/* line 405, scss/index.scss */
 #side-a > .deemp-fieldset > .left-bar {
   position: absolute;
   height: calc(100% + 50px + 10px);
@@ -440,7 +453,7 @@ body {
   cursor: pointer;
 }
 
-/* line 402, scss/index.scss */
+/* line 415, scss/index.scss */
 .my-badge {
   margin-bottom: 6px;
 }
