@@ -60,6 +60,9 @@
         background: 0 !important;
     }
     </style>
+    <script>
+        window.dirSnippets = "<?php include 'env/dir-snippets.php'; ?>";
+    </script>
 </head>
 
 <body onclick="if(!event.target.matches('#mobile-tap')) { document.querySelector('#mobile-tap').classList.remove('active'); }">

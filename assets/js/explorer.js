@@ -105,8 +105,6 @@ function mergeByKey(array) {
 folders = mergeByKey(folders);
 
 // console.log(folders);
-window.summary = "";
-
 /**
  * @function objToHtml
  * @description Receives the array of topic objects, and converts them into <li>
@@ -159,14 +157,16 @@ function objToHtml(type, item) {
     if(item.current.includes("package.json")) {
         $liDom.hide();
     }
-    $contain = $(`<span class="contain"></span>`);
+    $noteBtns = $(`<span class="note-item-buttons"></span>`);
     var $meta = $liDom;
     // var $meta = $liDom.find(".meta");
 
     if (lookupMetas[item.path]) {
         // Extract property from metas. If property not defined at +meta.json, then it'll be value undefined
         var { summary, footerFile, titleOverridden, desc, gotos } = lookupMetas[item.path];
+        // TODO
         // debugger;
+        console.log({summary, footerFile, titleOverridden, desc, gotos})
 
         // Folder text overridden vs not overridden
         $meta.find(".name").attr("data-folder-name", item.current);
@@ -174,250 +174,154 @@ function objToHtml(type, item) {
             $meta.find(".name").html(titleOverridden);
         }
 
-        if (desc && desc.length) {
-            var $info = $(`<span class="fas fa-info"></span>`);
-            $info.attr("data-toggle", "tooltip");
-            $info.attr("data-trigger", "click");
-            $dom = $(`<div>${desc}</div>`);
-            var $imgs = $dom.find("img");
-            var $a = $dom.find("a");
+        createSummaryIconAndContents(item.path_tp, $noteBtns);
 
-            $imgs.each((i, el) => {
-                var $img = $(el);
-                var src = $img.attr("src");
-                if (src.indexOf("./") == 0) {
-                    // debugger;
-                    // console.log(getBasePath(item.path_tp));
-                    // src = getBasePath(item.path) + src.substr(2);
-                    // No more getBasePath because that's going to depend on developer local environment vs production environment
-                    // src = "./img-pathing.php?image=" + item.path_tp;
-                    src = "img-pathing.php?image=" + getBasePath(item.path_tp) + src;
-                    $img.attr("src", src);
-                }
-            }); // imgs
-
-            $a.each((i, el) => {
-                var $a = $(el);
-                var href = $a.attr("href");
-                if (href.indexOf("./") == 0) {
-                    href = getBasePath(item.path) + href.substr(2);
-                    $a.attr("href", href);
-                }
-            });
-
-            // debugger;
-            // Tooltip attributes
-            $info.attr("title", `
-          <b style="font-size:21px;">Description</b><p/>
-          <u>${titleOverridden || item.current}</u>:<br/>
-          ${$dom.html()}
-        `);
-            $info.tooltip({ placement: "bottom", html: true, delay: { show: 50 } });
-            $contain.append($info);
-        } // if desc
-
-        var summaryText = "",
-            footerFileText = "";
-
-        // Prepare summary text if exists
-        if (summary && summary.length) {
-            if (Array.isArray(summary))
-                summaryText = summary.join("<br/>");
-            else
-                summaryText = summary;
-
-            // console.log(summaryText);
-        }
-
-        // Get and prepare summary file text if exists, then render
-        if (footerFile && footerFile.length) {
-            var url = footerFile;
-            if (url.length && url[0] === ".") {
-                var path = $meta.attr("data-path");
-                url = path + url;
-            }
-            console.log($contain)
-            $.ajax({
-                cache: false,
-                url: url,
-                success: function (footerFileContent) {
-                    var $contain = this;
-
-                    if (typeof footerFileContent === "object")
-                        footerFileContent = "<textarea class=fullwidth100>" + encodeURI(JSON.stringify(footerFileContent)) + "</textarea>"; // if you're referencing a json file with footerFile, force type to be string. 
-
-                    footerFileContent = footerFileContent.replace(/\n/g, "<br>").replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-                    summaryFinalText = (summaryText && summaryText.length) ? `${summaryText}<br/>${footerFileContent}` : footerFileContent;
-                    createSummaryIconAndContents(summaryFinalText, $contain, true);
-                }.bind($contain),
-                error: function (error) {
-                    var $contain = this;
-                    if (summaryText && summaryText.length) {
-                        createSummaryIconAndContents(summaryText, $contain, true);
-                    }
-                }.bind($contain) // fail
-            })
-
-            // Render summary text if summary file text does not exist and summary text does exist
-        } else if (summaryText && summaryText.length) {
-            createSummaryIconAndContents(summaryText, $contain, false);
-        }
-
-        function createSummaryIconAndContents(text, $contain, ajaxed) {
+        function createSummaryIconAndContents(url, $noteBtns) {
+            // TODO: item.path
+            debugger;
 
             var $summary = $(`<span class="fas fa-book-reader"></span>`);
-            $summary.data("summary", text);
+
             $summary.on("click", (event) => {
                 const title = event.target.closest("li").querySelector(".name").textContent;
+                // console.log({dirSnippetsFilePath:window.dirSnippets+encodeURIComponent(url)})
+                url = url.replaceAll("+", "___plus___"); // encodeURI doesn't encode +, so we do it manually, and decode it in php
+                url = url.replaceAll("&", "___and___");
+                var newUrl = window.dirSnippets + url;
+                newUrl = encodeURI(newUrl);
+                console.log({dirSnippetsFilePath:newUrl});
 
-                parent.document.querySelector(".side-by-side-possible.hidden")?.classList?.remove("hidden");
-                var $this = $(event.target);
-                var summary = $this.data("summary");
-                // alert(summary);
+                fetch("local-open.php?filepath=" + newUrl).then(response=>response.text()).then((summary) => {
 
-                // Show notes in textarea
-                let summaryInnerEl = parent.document.querySelector("#summary-inner");
-                summaryInnerEl.classList.remove("hide");
-
-                var md = window.markdownit({
-                    html: true,
-                    linkify: true
-                }).use(window.markdownItAnchor, {
-                    level: [1, 2, 3, 4, 5, 6], // Apply to all heading levels
-                    slugify: function(s) {
-                        return s.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '');
-                    },
-                    permalink: true,
-                    permalinkHref: (slug, state) => {
-                        let s = slug;
-                        s = "javascript:window.parent.shareTutorialSection('?open=" + encodeURI(title) + "#" + s + "');"; // ?open=Data%20Lake.md#Section1
-                        return s;
-                    },
-                    permalinkSymbol: '🔗' // Set to true if you want a permalink symbol
-                    // Other options as needed
-                });
-
-                // md.renderer.rules.newline = (tokens, idx) => {
-                //     return '\n';
-                // };
-
-                // Fixes: I have separate lines in md format. How come they're run-on's when rendered with markdown?
-                // Principle: Markdown's Line Break Rules: In Markdown, simply pressing "Enter" once at the end of a line does not create a new paragraph or line break in the rendered output. Instead, lines directly below each other without an empty line between them are treated as part of the same paragraph and are joined together.
-                // Solution: Add two spaces at the end of each line to force a line break, unless the adjacent line is a blank line.
-                const doubleNewLine = (text) => {
-                    return text.replace(/(.+)(\n)(?!\n)/g, "$1  \n");
-                };
-                summary = doubleNewLine(summary);
-
-                var summaryHTML = md.render(summary);
-                parent.document.querySelector("#summary-title").textContent = title;
-                parent.document.querySelector("#summary-collapser").classList.remove("d-none");
-                parent.document.querySelector("#summary-collapser").classList.add("stated");
-                parent.document.querySelector("#summary-sharer").classList.remove("d-none");
-                parent.document.querySelector("#side-a .deemp-fieldset").classList.remove("d-none");
-                // parent.document.querySelector("#dashboard").classList.add("active");
-
-                // When copied HTML from W3School to Obsidian, it's a special space character. 
-                // This special space character will get rid of // from https:// in src
-                // So lets convert back to typical space
-
-                summaryHTML = summaryHTML.replaceAll(/\xA0/g, " ");
-                console.log(summaryHTML)
-                summaryInnerEl.innerHTML = summaryHTML;
-                setTimeout(()=>{
-                    // target blank for links
-                    summaryInnerEl.querySelectorAll("a").forEach(a=>{
-                        if(a.href.includes("wengindustry.com") || a.href.includes("localhost") || a.innerText.includes("🔗"))
-                            return true;
-
-                        a.setAttribute("target", "_blank");
-
-                        // Youtube Embeds
-                        (function (){
-                            // Exit quickly if this is the wrong type of URL
-                            if (this.protocol !== 'http:' && this.protocol !== 'https:') {
-                                return;
-                            }
-
-                            // Find the ID of the YouTube video
-                            var id, matches;
-                            if (this.hostname === 'youtube.com' || this.hostname === 'www.youtube.com') {
-                                // For URLs like https://www.youtube.com/watch?v=xLrLlu6KDss
-                                // debugger;
-                                matches = this.search.match(/[?&]v=([^&]*)/);
-                                id = matches && matches[1];
-                            } else if (this.hostname === 'youtu.be') {
-                                // For URLs like https://youtu.be/xLrLlu6KDss
-                                id = this.pathname.substr(1);
-                            }
-                            console.log({hostname:this.hostname})
-
-                            // Check that the ID only has alphanumeric characters, to make sure that
-                            // we don't introduce any XSS vulnerabilities.
-                            var validatedID;
-                            if (id && id.match(/^[a-zA-Z0-9\_]*$/)) {
-                                validatedID = id;
-                            }
-
-                            // Add the embedded YouTube video, and remove the link.
-                            if (validatedID) {
-                                $(this)
-                                .before('<div class="responsive-iframe-container"><iframe src="https://www.youtube.com/embed/' + validatedID + '" frameborder="0" allowfullscreen></iframe></div>')
-                                .remove();
-                            }
-
-                        }).call(a);
-
-                    }) // for all a in the tutorial
-                }, 250);
-
-                // Scroll up
-                // Jump up to content
-                // window.parent.document.getElementById("summary-title").scrollIntoView();
-                window.parent.document.getElementById("explore-curriculum").scrollIntoView({
-                    behavior: "smooth",
-                  });
-
-                // Render table of contents at top right
-                let tocEl = window.parent.document.querySelector("#toc")
-                let markdownContentEl = window.parent.document.querySelector("#summary-inner")
-                window.parent.htmlTableOfContents(tocEl, markdownContentEl);
-
-                // Allow copy from textarea to practice areas
-                let guideCopyToPractice = parent.document.querySelector("#js-visible-if-contents");
-                guideCopyToPractice.classList.remove("hide");
+                    parent.document.querySelector(".side-by-side-possible.hidden")?.classList?.remove("hidden");
+    
+                    // Show notes in textarea
+                    let summaryInnerEl = parent.document.querySelector("#summary-inner");
+                    summaryInnerEl.classList.remove("hide");
+    
+                    var md = window.markdownit({
+                        html: true,
+                        linkify: true
+                    }).use(window.markdownItAnchor, {
+                        level: [1, 2, 3, 4, 5, 6], // Apply to all heading levels
+                        slugify: function(s) {
+                            return s.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '');
+                        },
+                        permalink: true,
+                        permalinkHref: (slug, state) => {
+                            let s = slug;
+                            s = "javascript:window.parent.shareTutorialSection('?open=" + encodeURI(title) + "#" + s + "');"; // ?open=Data%20Lake.md#Section1
+                            return s;
+                        },
+                        permalinkSymbol: '🔗' // Set to true if you want a permalink symbol
+                        // Other options as needed
+                    });
+    
+                    // md.renderer.rules.newline = (tokens, idx) => {
+                    //     return '\n';
+                    // };
+    
+                    // Fixes: I have separate lines in md format. How come they're run-on's when rendered with markdown?
+                    // Principle: Markdown's Line Break Rules: In Markdown, simply pressing "Enter" once at the end of a line does not create a new paragraph or line break in the rendered output. Instead, lines directly below each other without an empty line between them are treated as part of the same paragraph and are joined together.
+                    // Solution: Add two spaces at the end of each line to force a line break, unless the adjacent line is a blank line.
+                    summary = (function doubleNewLine(text) {
+                        return text.replace(/(.+)(\n)(?!\n)/g, "$1  \n");
+                    })(summary);
+    
+                    var summaryHTML = md.render(summary);
+                    parent.document.querySelector("#summary-title").textContent = title;
+                    parent.document.querySelector("#summary-collapser").classList.remove("d-none");
+                    parent.document.querySelector("#summary-collapser").classList.add("stated");
+                    parent.document.querySelector("#summary-sharer").classList.remove("d-none");
+                    parent.document.querySelector("#side-a .deemp-fieldset").classList.remove("d-none");
+                    // parent.document.querySelector("#dashboard").classList.add("active");
+    
+                    // When copied HTML from W3School to Obsidian, it's a special space character. 
+                    // This special space character will get rid of // from https:// in src
+                    // So lets convert back to typical space
+    
+                    summaryHTML = summaryHTML.replaceAll(/\xA0/g, " ");
+                    console.log(summaryHTML)
+                    summaryInnerEl.innerHTML = summaryHTML;
+                    setTimeout(()=>{
+                        // target blank for links
+                        summaryInnerEl.querySelectorAll("a").forEach(a=>{
+                            if(a.href.includes("wengindustry.com") || a.href.includes("localhost") || a.innerText.includes("🔗"))
+                                return true;
+    
+                            a.setAttribute("target", "_blank");
+    
+                            // Youtube Embeds
+                            (function (){
+                                // Exit quickly if this is the wrong type of URL
+                                if (this.protocol !== 'http:' && this.protocol !== 'https:') {
+                                    return;
+                                }
+    
+                                // Find the ID of the YouTube video
+                                var id, matches;
+                                if (this.hostname === 'youtube.com' || this.hostname === 'www.youtube.com') {
+                                    // For URLs like https://www.youtube.com/watch?v=xLrLlu6KDss
+                                    // debugger;
+                                    matches = this.search.match(/[?&]v=([^&]*)/);
+                                    id = matches && matches[1];
+                                } else if (this.hostname === 'youtu.be') {
+                                    // For URLs like https://youtu.be/xLrLlu6KDss
+                                    id = this.pathname.substr(1);
+                                }
+                                console.log({hostname:this.hostname})
+    
+                                // Check that the ID only has alphanumeric characters, to make sure that
+                                // we don't introduce any XSS vulnerabilities.
+                                var validatedID;
+                                if (id && id.match(/^[a-zA-Z0-9\_]*$/)) {
+                                    validatedID = id;
+                                }
+    
+                                // Add the embedded YouTube video, and remove the link.
+                                if (validatedID) {
+                                    $(this)
+                                    .before('<div class="responsive-iframe-container"><iframe src="https://www.youtube.com/embed/' + validatedID + '" frameborder="0" allowfullscreen></iframe></div>')
+                                    .remove();
+                                }
+    
+                            }).call(a);
+    
+                        }) // for all a in the tutorial
+                    }, 250);
+    
+                    // Scroll up
+                    // Jump up to content
+                    // window.parent.document.getElementById("summary-title").scrollIntoView();
+                    window.parent.document.getElementById("explore-curriculum").scrollIntoView({
+                        behavior: "smooth",
+                      });
+    
+                    // Render table of contents at top right
+                    let tocEl = window.parent.document.querySelector("#toc")
+                    let markdownContentEl = window.parent.document.querySelector("#summary-inner")
+                    window.parent.htmlTableOfContents(tocEl, markdownContentEl);
+    
+                    // Allow copy from textarea to practice areas
+                    let guideCopyToPractice = parent.document.querySelector("#js-visible-if-contents");
+                    guideCopyToPractice.classList.remove("hide");
+                })
 
             });
-            $queriedInfoButton = $contain.find(".fa-info");
-            if ($queriedInfoButton.length) {
-                $summary.insertAfter($queriedInfoButton);
-            } else {
-                $contain.prepend($summary);
-            }
+            // For future intern () [] feature
+            // $queriedInfoButton = $noteBtns.find(".fa-info");
+            // if ($queriedInfoButton.length) {
+            //     $summary.insertAfter($queriedInfoButton);
+            // } else {
+            //     $noteBtns.prepend($summary);
+            // }
+
+            $noteBtns.prepend($summary);
         } // createSummaryIconAndContents
 
-        if (gotos && gotos.length) {
-            $meta.data("gotos", gotos);
-            var count = gotos.length;
-            var $gotosBtn = $(`<span class="fas fa-globe gotos-click"> ${count}</span>`);
-
-            $gotosBtn.on("click", (event) => {
-                for (var i = 0; i < gotos.length; i++) {
-                    var url = gotos[i];
-                    var randomNum = Math.floor((Math.random() * 1000) + 1);
-                    if (url.length && url[0] === ".") {
-                        var path = $meta.attr("data-path");
-                        url = path + url;
-                    }
-                    window.open(url, "target_blank_" + randomNum);
-                } // for
-            });
-
-            $contain.append($gotosBtn);
-        } // gotos
     } // hasMeta
 
-    $liDom.append($contain);
+    $liDom.append($noteBtns);
 
     return $liDom;
 } // objToHtml
@@ -451,7 +355,7 @@ $(() => {
     // Open up accordions initially
     $(".accordion").each((i, li) => {
         var $this = $(li);
-        $this.children(".contain, ul").toggle("active");
+        $this.children(".note-item-buttons, ul").toggle("active");
     });
 
     // Accordion onclicks
@@ -460,7 +364,7 @@ $(() => {
 
         // Expanding/collapsing
         $li = $name.closest("li.accordion");
-        $li.children(".contain, ul").toggle("active");
+        $li.children(".note-item-buttons, ul").toggle("active");
         $name.toggleClass("minus");
 
         // Open command
@@ -542,9 +446,9 @@ function toOpenUp_Exec($row) {
 
     toOpenUp.forEach((li) => {
         var $li = $(li),
-            isCollapsed = $li.children(".contain").css("display") === "none";
+            isCollapsed = $li.children(".note-item-buttons").css("display") === "none";
         if (isCollapsed) {
-            $li.children(".contain, ul",).toggle("active");
+            $li.children(".note-item-buttons, ul",).toggle("active");
         }
         // debugger;
     }); // 1st li is outermost

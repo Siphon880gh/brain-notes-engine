@@ -38,6 +38,9 @@
     <link href="assets/css/multistates.css?v=<?php echo time(); ?>" rel="stylesheet">
     <link href="assets/css/thermos.css?v=<?php echo time(); ?>" rel="stylesheet">
 
+    <script>
+        window.dirSnippets = "<?php echo $DIR_SNIPPETS;?>";
+    </script>
 
     <?php
     // TODO:
@@ -170,24 +173,18 @@
 
 
         if (stripos($lastFiveChars, ".json") !== false) { // Btw, .no.json files had already been stripped away
-          $lookup_metas[$path] = @json_decode(file_get_contents($path), true);
-          //var_dump( $lookup_metas[$path]);
-          //die();
+          // $lookup_metas[$path] = @json_decode(file_get_contents($path), true);
+          $lookup_metas[$path] = "";
         }
 
-        // var_dump($lookup_metas);
-        // die();
         if (stripos($lastFiveChars, ".md") !== false) { // Btw, .no.md files had already been stripped away
-          // var_dump($lookup_metas);
-          // die();
+
           if(!isset($lookup_metas[$path]["summary"]))
             $lookup_metas[$path]["summary"] = array();
-          $file_contents = "";
-          $file_contents = @file_get_contents($path);
-          array_push($lookup_metas[$path]["summary"], $file_contents);
-          // var_dump($lookup_metas);
-          // die();
-          // $lookup_metas[$path]["summary"] .= file_get_contents($path . "+meta.txt");
+          // $file_contents = "";
+          // $file_contents = @file_get_contents($path);
+          // array_push($lookup_metas[$path]["summary"], $file_contents);
+          array_push($lookup_metas[$path]["summary"], 0); // Removed. Kept here for now in case do want to decide to cache the file contents
         }
 
         // die();

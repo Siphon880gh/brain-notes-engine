@@ -9,12 +9,13 @@
 // for merge conflicts)
 
 $DIR_SNIPPETS = "curriculum/"; // default
+$FILEPATH_SNIPPETS = "curriculum/"; // default
 
 $host = $_SERVER['HTTP_HOST'];
 
 if (strpos($host, 'localhost') !== false) {
     // When viewing app in localhots, render MD notes from Obsidian Vault
-    $DIR_SNIPPETS = "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/curriculum/"; 
+    $DIR_SNIPPETS = "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/curriculum/";
 
 } elseif (strpos($host, 'wengindustry.com') !== false) {
     // Is fine but kept here for scalability
