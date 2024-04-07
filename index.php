@@ -59,6 +59,11 @@
         text-decoration: none;
         background: 0 !important;
     }
+    /* Bring back listing style */
+    ul, ul > li, ol, ol > li, li {
+        padding-left: revert !important;
+        list-style: unset !important;
+    }
     </style>
     <script>
         window.dirSnippets = "<?php include 'env/dir-snippets.php'; ?>";
