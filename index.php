@@ -82,16 +82,21 @@
 
     <div class="site-header" style="margin: 10px 5px;">
         <h1 class="title"><?php include 'env/title.php'; ?></h1>
-        <div style="width:100%; margin: 20px auto; padding: 0 10px;">
+        <div class="container" style="margin: 0 auto; margin-top:20px; padding: 0 10px;">
             <div class="w-full flex flex-row justify-between" style="">
                 <div><span id="count-notes"><span style="color:green; font-weight:bolder;">Loading the notes!</span></span></div>
                 <div>By <a href="javascript:void(0)" data-toggle="modal" data-target="#promoModal">Weng Fei Fung</a></div>
-                <div><a target="_blank" href="<?php include('env/url-update-log.php'); ?>">Change Log</a></div>
+                <div>
+                    <a target="_blank" href="<?php include('env/url-update-log.php'); ?>">
+                        <div>Updates</div>
+                        <div style="margin-top:-3px">(git log)</div>
+                    </a>
+                </div>
             </div>
         </div>
 
 
-        <div style="margin:20px auto">
+        <div style="margin:0 auto; margin-bottom:20px;">
             <?php include 'env/description-must.php'; ?>
         </div>
 

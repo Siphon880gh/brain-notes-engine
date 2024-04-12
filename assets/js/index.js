@@ -263,6 +263,9 @@ function triggeredHideAlternateUF(event) {
     //console.log({isOutsideA, isOutsideB})
     if(isOutsideA && isOutsideB) {
         $(".description-must").css("padding", 0).height(0);
+        setTimeout(()=>{ 
+            $(".description-must").addClass("hidden"); 
+        }, 100);
         document.body.removeEventListener("click", triggeredHideAlternateUF);
     }
 }
