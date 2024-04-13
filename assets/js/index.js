@@ -104,9 +104,12 @@ function runtimeOnMessageReadyExplorer() {
                         jumpTo = window.location.hash;
                     }
                     var $curriculumExplorer = $("#explore-curriculum iframe").contents();
-                    var $target = $curriculumExplorer.find(`.name[data-folder-name]:contains('${topic}')`); // files have data-folder-name
+                    // var $target = $curriculumExplorer.find(`.name[data-folder-name]:contains('${topic}')`); // files have data-folder-name
+                    var $target = $curriculumExplorer.find(`.name.is-file:contains('${topic}')`); // files have data-folder-name
+                    
                     if($target.length) {
                         $target.parent().find(".fa-book-reader").click()
+                        debugger;
                         // debugger;
                         // Go to specific section of the tutorial, if applicable
                         if(jumpTo) {
@@ -128,7 +131,12 @@ function runtimeOnMessageReadyExplorer() {
                             if(!success) {
                                 setTimeout(()=>{
                                     var success = attemptOpenTutorial();
-                                    alert("The tutorial you are looking for is not found. Please reach out to your friend who shared it:\n" + topic)
+                                    if(!success) {
+                                        setTimeout(()=>{
+                                            var success = attemptOpenTutorial();
+                                            alert("The tutorial you are looking for is not found. Please reach out to your friend who shared it.\n" + topic)
+                                        }, 300) // if not successful, repeat 3rd time
+                                    }
                                 }, 300) // if not successful, repeat 2nd time
                             }
                         }, 300)
