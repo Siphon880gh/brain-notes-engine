@@ -252,8 +252,12 @@ function objToHtml(type, item) {
                     parent.document.querySelector(".side-by-side-possible.hidden")?.classList?.remove("hidden");
 
                     // Show notes in textarea
+                    var hasParent = Boolean(parent.document.querySelector("#summary-inner"))
+                    
+                    
                     let summaryInnerEl = parent.document.querySelector("#summary-inner");
-                    summaryInnerEl.classList.remove("hide");
+                    if(hasParent)
+                        summaryInnerEl.classList.remove("hide");
 
                     var md = window.markdownit({
                         html: true,
@@ -285,12 +289,14 @@ function objToHtml(type, item) {
                     })(summary);
 
                     var summaryHTML = md.render(summary);
-                    parent.document.querySelector("#summary-title").textContent = title;
-                    parent.document.querySelector("#summary-collapser").classList.remove("d-none");
-                    parent.document.querySelector("#summary-collapser").classList.add("stated");
-                    parent.document.querySelector("#summary-sharer").classList.remove("d-none");
-                    parent.document.querySelector("#side-a .deemp-fieldset").classList.remove("d-none");
-                    // parent.document.querySelector("#dashboard").classList.add("active");
+                    if(hasParent) {
+                        parent.document.querySelector("#summary-title").textContent = title;
+                        parent.document.querySelector("#summary-collapser").classList.remove("d-none");
+                        parent.document.querySelector("#summary-collapser").classList.add("stated");
+                        parent.document.querySelector("#summary-sharer").classList.remove("d-none");
+                        parent.document.querySelector("#side-a .deemp-fieldset").classList.remove("d-none");
+                        // parent.document.querySelector("#dashboard").classList.add("active");
+                    }
 
                     // When copied HTML from W3School to Obsidian, it's a special space character. 
                     // This special space character will get rid of // from https:// in src
@@ -298,70 +304,82 @@ function objToHtml(type, item) {
 
                     summaryHTML = summaryHTML.replaceAll(/\xA0/g, " ");
                     console.log(summaryHTML)
-                    summaryInnerEl.innerHTML = summaryHTML;
-                    setTimeout(() => {
-                        // target blank for links
-                        summaryInnerEl.querySelectorAll("a").forEach(a => {
-                            if (a.href.includes("wengindustry.com") || a.href.includes("localhost") || a.innerText.includes("🔗"))
-                                return true;
 
-                            a.setAttribute("target", "_blank");
+                    if(!hasParent) {
+                        var newTab = window.open("about:blank");
+                        newTab.document.write(summaryHTML);
+                        newTab.document.close();
+                    }
 
-                            // Youtube Embeds
-                            (function () {
-                                // Exit quickly if this is the wrong type of URL
-                                if (this.protocol !== 'http:' && this.protocol !== 'https:') {
-                                    return;
-                                }
+                    if(hasParent) {
 
-                                // Find the ID of the YouTube video
-                                var id, matches;
-                                if (this.hostname === 'youtube.com' || this.hostname === 'www.youtube.com') {
-                                    // For URLs like https://www.youtube.com/watch?v=xLrLlu6KDss
-                                    // debugger;
-                                    matches = this.search.match(/[?&]v=([^&]*)/);
-                                    id = matches && matches[1];
-                                } else if (this.hostname === 'youtu.be') {
-                                    // For URLs like https://youtu.be/xLrLlu6KDss
-                                    id = this.pathname.substr(1);
-                                }
-                                console.log({ hostname: this.hostname })
+                        summaryInnerEl.innerHTML = summaryHTML;
+                        setTimeout(() => {
+                            // target blank for links
+                            summaryInnerEl.querySelectorAll("a").forEach(a => {
+                                if (a.href.includes("wengindustry.com") || a.href.includes("localhost") || a.innerText.includes("🔗"))
+                                    return true;
+    
+                                a.setAttribute("target", "_blank");
+    
+                                // Youtube Embeds
+                                (function () {
+                                    // Exit quickly if this is the wrong type of URL
+                                    if (this.protocol !== 'http:' && this.protocol !== 'https:') {
+                                        return;
+                                    }
+    
+                                    // Find the ID of the YouTube video
+                                    var id, matches;
+                                    if (this.hostname === 'youtube.com' || this.hostname === 'www.youtube.com') {
+                                        // For URLs like https://www.youtube.com/watch?v=xLrLlu6KDss
+                                        // debugger;
+                                        matches = this.search.match(/[?&]v=([^&]*)/);
+                                        id = matches && matches[1];
+                                    } else if (this.hostname === 'youtu.be') {
+                                        // For URLs like https://youtu.be/xLrLlu6KDss
+                                        id = this.pathname.substr(1);
+                                    }
+                                    console.log({ hostname: this.hostname })
+    
+                                    // Check that the ID only has alphanumeric characters, to make sure that
+                                    // we don't introduce any XSS vulnerabilities.
+                                    var validatedID;
+                                    if (id && id.match(/^[a-zA-Z0-9\_]*$/)) {
+                                        validatedID = id;
+                                    }
+    
+                                    // Add the embedded YouTube video, and remove the link.
+                                    if (validatedID) {
+                                        $(this)
+                                            .before('<div class="responsive-iframe-container"><iframe src="https://www.youtube.com/embed/' + validatedID + '" frameborder="0" allowfullscreen></iframe></div>')
+                                            .remove();
+                                    }
+    
+                                }).call(a);
+    
+                            }) // for all a in the tutorial
+                        }, 250);
 
-                                // Check that the ID only has alphanumeric characters, to make sure that
-                                // we don't introduce any XSS vulnerabilities.
-                                var validatedID;
-                                if (id && id.match(/^[a-zA-Z0-9\_]*$/)) {
-                                    validatedID = id;
-                                }
+                        // Scroll up
+                        // Jump up to content
+                        // window.parent.document.getElementById("summary-title").scrollIntoView();
+                        window.parent.document.getElementById("explore-curriculum").scrollIntoView({
+                            behavior: "smooth",
+                        });
+    
+                        // Render table of contents at top right
+                        let tocEl = window.parent.document.querySelector("#toc")
+                        let markdownContentEl = window.parent.document.querySelector("#summary-inner")
+                        window.parent.htmlTableOfContents(tocEl, markdownContentEl);
+    
+                        // Allow copy from textarea to practice areas
+                        let guideCopyToPractice = parent.document.querySelector("#js-visible-if-contents");
+                        guideCopyToPractice.classList.remove("hide");
+                    
+                    } // if has parent
 
-                                // Add the embedded YouTube video, and remove the link.
-                                if (validatedID) {
-                                    $(this)
-                                        .before('<div class="responsive-iframe-container"><iframe src="https://www.youtube.com/embed/' + validatedID + '" frameborder="0" allowfullscreen></iframe></div>')
-                                        .remove();
-                                }
-
-                            }).call(a);
-
-                        }) // for all a in the tutorial
-                    }, 250);
-
-                    // Scroll up
-                    // Jump up to content
-                    // window.parent.document.getElementById("summary-title").scrollIntoView();
-                    window.parent.document.getElementById("explore-curriculum").scrollIntoView({
-                        behavior: "smooth",
-                    });
-
-                    // Render table of contents at top right
-                    let tocEl = window.parent.document.querySelector("#toc")
-                    let markdownContentEl = window.parent.document.querySelector("#summary-inner")
-                    window.parent.htmlTableOfContents(tocEl, markdownContentEl);
-
-                    // Allow copy from textarea to practice areas
-                    let guideCopyToPractice = parent.document.querySelector("#js-visible-if-contents");
-                    guideCopyToPractice.classList.remove("hide");
-                })
+                }) // fetch md
 
             });
             // For future intern () [] feature
@@ -444,7 +462,8 @@ $(() => {
         }
     });
 
-    window.parent.document.querySelector("#count-notes").innerText = `${window.countNotes - 2} Notes!`;
+    if(window?.parent?.document?.querySelector("#count-notes"))
+        window.parent.document.querySelector("#count-notes").innerText = `${window.countNotes - 2} Notes!`;
 
     setTimeout(() => {
         //close tooltip if clicked outside
@@ -689,7 +708,8 @@ function clearSearcher() {
 
 $(() => {
     // Secondary: Can send topic to friends
-    window.parent.runtimeOnMessageReadyExplorer();
+    if(window?.parent?.runtimeOnMessageReadyExplorer)
+        window.parent.runtimeOnMessageReadyExplorer();
 
     $('#copyButton').click(function () {
         var copyText = document.getElementById("shareSnippet");
