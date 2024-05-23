@@ -1,1 +1,1 @@
-https://github.com/Siphon880gh/bizbrain/commits/main/
+https://gitlab.com/Siphon880gl/bizbrain/commits/main

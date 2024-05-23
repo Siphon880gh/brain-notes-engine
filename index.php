@@ -64,6 +64,21 @@
         padding-left: revert !important;
         list-style: unset !important;
     }
+    /* Turn off device preferring dark mode from having separate styles */
+    @media (prefers-color-scheme:dark) {
+        body {
+            background-color: unset;
+            color: unset;
+        }
+    }
+    @media (prefers-color-scheme:dark) {
+
+        .hover-tufte-underline:hover,
+        .tufte-underline,
+        a:link {
+            text-shadow: unset;
+        }
+    }
     </style>
     <script>
         window.dirSnippets = "<?php include 'env/dir-snippets.php'; ?>";

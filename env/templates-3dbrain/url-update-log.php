@@ -1,1 +1,1 @@
-https://github.com/Siphon880gh/3dbrain/commits/main/
+https://gitlab.com/Siphon880gl/3dbrain/commits/main

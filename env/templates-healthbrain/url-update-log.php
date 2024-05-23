@@ -1,1 +1,1 @@
-https://github.com/Siphon880gh/healthbrain/commits/main/
+https://gitlab.com/Siphon880gl/healthbrain/commits/main
