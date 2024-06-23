@@ -71,7 +71,6 @@ $(()=>{
         // Reset the bottom expand/collapse shortcut button
         document?.querySelector("#shortcut-summary-collapser")?.classList.toggle("fa-minus");
         document?.querySelector("#shortcut-summary-collapser")?.classList.toggle("fa-plus");
-debugger
         if(event.target.className.includes("stated")) {
             event.target.classList.remove("stated");
             document.querySelector("#side-a .deemp-fieldset").classList.add("d-none");
@@ -79,7 +78,7 @@ debugger
             event.target.classList.add("stated");
             document.querySelector("#side-a .deemp-fieldset").classList.remove("d-none");
         }
-    
+
     });
 
 

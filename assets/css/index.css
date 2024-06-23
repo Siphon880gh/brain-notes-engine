@@ -147,7 +147,7 @@ h3 {
 
 /* line 133, scss/index.scss */
 #summary-title {
-  background-color: rgba(0, 180, 0, 0.33);
+  background-color: rgba(0, 180, 0, 0.73);
 }
 
 /* line 137, scss/index.scss */
@@ -232,19 +232,24 @@ h3 {
   font-weight: 400;
   background-color: gray;
   border: 2px solid black;
+  margin-left: 10px;
+  border-radius: 5px;
+  font-style: normal;
+  /* To override italic from Tufte when inside heading tag */
+  padding: 5px;
 }
 
-/* line 218, scss/index.scss */
+/* line 222, scss/index.scss */
 #summary-collapser.stated {
   transform: rotate(90deg);
 }
 
-/* line 222, scss/index.scss */
+/* line 226, scss/index.scss */
 #dashboard:not(.active) {
   display: none;
 }
 
-/* line 226, scss/index.scss */
+/* line 230, scss/index.scss */
 #dashboard {
   position: fixed;
   bottom: 0;
@@ -258,47 +263,47 @@ h3 {
   opacity: 0.5;
 }
 
-/* line 239, scss/index.scss */
+/* line 243, scss/index.scss */
 #dashboard:hover {
   opacity: 1;
 }
 
-/* line 243, scss/index.scss */
+/* line 247, scss/index.scss */
 #dashboard i {
   font-size: 20px;
 }
 
-/* line 247, scss/index.scss */
+/* line 251, scss/index.scss */
 i#shortcut-summary-collapser {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.5);
   transition: all 200ms ease-in;
 }
 
-/* line 253, scss/index.scss */
+/* line 257, scss/index.scss */
 i#shortcut-summary-collapser:hover {
   color: black;
 }
 
 @media screen and (max-width: 768px) {
-  /* line 258, scss/index.scss */
+  /* line 262, scss/index.scss */
   #dashboard {
     padding: 5px;
     padding-right: 20px;
   }
 
-  /* line 264, scss/index.scss */
+  /* line 268, scss/index.scss */
   #dashboard i {
     font-size: 28px;
   }
 }
-/* line 269, scss/index.scss */
+/* line 273, scss/index.scss */
 body {
   padding-bottom: 20px;
 }
 
 /* Table of contents at top right */
-/* line 275, scss/index.scss */
+/* line 279, scss/index.scss */
 #toc-toggler {
   cursor: pointer;
   position: fixed;
@@ -311,7 +316,7 @@ body {
 }
 
 /* Jump to explorer at bottom right */
-/* line 288, scss/index.scss */
+/* line 292, scss/index.scss */
 #jump-curriculum {
   cursor: pointer;
   position: fixed;
@@ -323,12 +328,12 @@ body {
   z-index: 500;
 }
 
-/* line 303, scss/index.scss */
+/* line 307, scss/index.scss */
 #toc-toggler:not(.filled) {
   display: none;
 }
 
-/* line 307, scss/index.scss */
+/* line 311, scss/index.scss */
 #toc {
   display: none;
   position: fixed;
@@ -345,22 +350,22 @@ body {
   z-index: 500;
 }
 
-/* line 323, scss/index.scss */
+/* line 327, scss/index.scss */
 #toc:empty {
   display: none !important;
 }
 
-/* line 327, scss/index.scss */
+/* line 331, scss/index.scss */
 #toc-toggler:hover #toc {
   display: block;
 }
 
-/* line 331, scss/index.scss */
+/* line 335, scss/index.scss */
 #mobile-tap.active + #toc {
   display: block;
 }
 
-/* line 335, scss/index.scss */
+/* line 339, scss/index.scss */
 #toc .h1,
 #toc .h2,
 #toc .h3,
@@ -374,57 +379,57 @@ body {
   font-size: 1.2rem;
 }
 
-/* line 348, scss/index.scss */
+/* line 352, scss/index.scss */
 #toc .h2 {
   margin-left: 2ch;
 }
 
-/* line 352, scss/index.scss */
+/* line 356, scss/index.scss */
 #toc .h2::before {
   content: "•\00a0";
 }
 
-/* line 356, scss/index.scss */
+/* line 360, scss/index.scss */
 #toc .h3 {
   margin-left: 4ch;
 }
 
-/* line 360, scss/index.scss */
+/* line 364, scss/index.scss */
 #toc .h3::before {
   content: "—";
 }
 
-/* line 364, scss/index.scss */
+/* line 368, scss/index.scss */
 #toc .h4 {
   margin-left: 6ch;
 }
 
-/* line 368, scss/index.scss */
+/* line 372, scss/index.scss */
 #toc .h4::before {
   content: "➣";
 }
 
-/* line 372, scss/index.scss */
+/* line 376, scss/index.scss */
 #toc .h5 {
   margin-left: 8ch;
 }
 
-/* line 376, scss/index.scss */
+/* line 380, scss/index.scss */
 #toc .h5::before {
   content: "➨";
 }
 
-/* line 380, scss/index.scss */
+/* line 384, scss/index.scss */
 #toc .h6 {
   margin-left: 10ch;
 }
 
-/* line 384, scss/index.scss */
+/* line 388, scss/index.scss */
 #toc .h6::before {
   content: "◦\00a0";
 }
 
-/* line 388, scss/index.scss */
+/* line 392, scss/index.scss */
 .description-must {
   margin: 10px auto;
   background-color: rgba(125, 125, 125, 0.4);
@@ -440,23 +445,23 @@ body {
 }
 
 /* UI UX: Left vertical green bar to collapse lesson */
-/* line 404, scss/index.scss */
+/* line 408, scss/index.scss */
 #side-a > .deemp-fieldset {
   position: relative;
 }
 
-/* line 408, scss/index.scss */
+/* line 412, scss/index.scss */
 #side-a > .deemp-fieldset > .left-bar {
   position: absolute;
   height: calc(100% + 50px + 10px);
   width: 15px;
   left: -15px;
-  top: -51px;
-  background-color: rgba(0, 180, 0, 0.33);
+  top: -55px;
+  background-color: rgba(0, 180, 0, 0.73);
   cursor: pointer;
 }
 
-/* line 418, scss/index.scss */
+/* line 422, scss/index.scss */
 .my-badge {
   margin-bottom: 6px;
 }

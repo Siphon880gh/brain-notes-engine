@@ -131,7 +131,7 @@ h3 {
 }
 
 #summary-title {
-    background-color: rgba(0, 180, 0, 0.33);;
+    background-color: rgba(0, 180, 0, 0.73);;
 }
 
 #summary-inner textarea {
@@ -213,6 +213,10 @@ h3 {
     font-weight: 400;
     background-color: gray;
     border: 2px solid black;
+    margin-left: 10px;
+    border-radius:5px;
+    font-style: normal; /* To override italic from Tufte when inside heading tag */
+    padding: 5px;
 }
 
 #summary-collapser.stated {
@@ -410,8 +414,8 @@ body {
     height: calc(100% + 50px + 10px);
     width: 15px;
     left: -15px;
-    top: -51px;
-    background-color: rgba(0, 180, 0, 0.33);
+    top: -55px;
+    background-color: rgba(0, 180, 0, 0.73);
     cursor: pointer;
 }
 

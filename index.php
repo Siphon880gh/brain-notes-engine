@@ -244,7 +244,7 @@
                         <div style="position: sticky; top: 0; left: 0; z-index: 100;">
                             <h3 style="display:inline; cursor:pointer;">
                             <span id="summary-title" onclick="document.querySelector('#summary-collapser').click();"></span>
-                            <span id="summary-collapser" class="d-none">></span>
+                            <span id="summary-collapser" class="d-none">»</span>
                             </h3>
                             <a id="summary-sharer" class="d-none" href="javascript:void(0)" style="float:right; margin-right:15px;" onclick='shareTutorial()'>
                                 <span class="fas fa-share-alt"></span>
