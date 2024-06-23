@@ -457,7 +457,7 @@ $(() => {
         const folderName = $(el).text().trim();
         if (typeof icons !== "undefined" && icons) {
             if (icons[folderName]) {
-                $(el).attr("icon", icons[folderName]);
+                el.innerHTML = '<span class="custom-icon">' + icons[folderName] + "</span>" + el.innerHTML;
             }
         }
     });

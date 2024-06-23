@@ -196,7 +196,6 @@ li:hover {
 
 /* line 201, scss/explorer.scss */
 #target > ul > li > .name.is-folder[icon]::before {
-  content: attr(icon) !important;
   filter: sepia(1) hue-rotate(180deg);
   display: inline-block;
   min-width: 15px;
@@ -272,4 +271,8 @@ li:hover {
   #searcher-2 + button {
     width: 15%;
   }
+}
+/* line 269, scss/explorer.scss */
+.custom-icon + .fa-folder {
+  display: none;
 }
