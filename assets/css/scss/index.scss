@@ -207,9 +207,12 @@ h3 {
 
 #summary-collapser {
     cursor: pointer;
-    display: inline-block;
     /* transform rotate wouldn't work on inline */
-    color: gray;
+    display: inline-block;
+    color: black;
+    font-weight: 400;
+    background-color: gray;
+    border: 2px solid black;
 }
 
 #summary-collapser.stated {

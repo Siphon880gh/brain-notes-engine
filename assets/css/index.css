@@ -226,22 +226,25 @@ h3 {
 /* line 208, scss/index.scss */
 #summary-collapser {
   cursor: pointer;
-  display: inline-block;
   /* transform rotate wouldn't work on inline */
-  color: gray;
+  display: inline-block;
+  color: black;
+  font-weight: 400;
+  background-color: gray;
+  border: 2px solid black;
 }
 
-/* line 215, scss/index.scss */
+/* line 218, scss/index.scss */
 #summary-collapser.stated {
   transform: rotate(90deg);
 }
 
-/* line 219, scss/index.scss */
+/* line 222, scss/index.scss */
 #dashboard:not(.active) {
   display: none;
 }
 
-/* line 223, scss/index.scss */
+/* line 226, scss/index.scss */
 #dashboard {
   position: fixed;
   bottom: 0;
@@ -255,47 +258,47 @@ h3 {
   opacity: 0.5;
 }
 
-/* line 236, scss/index.scss */
+/* line 239, scss/index.scss */
 #dashboard:hover {
   opacity: 1;
 }
 
-/* line 240, scss/index.scss */
+/* line 243, scss/index.scss */
 #dashboard i {
   font-size: 20px;
 }
 
-/* line 244, scss/index.scss */
+/* line 247, scss/index.scss */
 i#shortcut-summary-collapser {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.5);
   transition: all 200ms ease-in;
 }
 
-/* line 250, scss/index.scss */
+/* line 253, scss/index.scss */
 i#shortcut-summary-collapser:hover {
   color: black;
 }
 
 @media screen and (max-width: 768px) {
-  /* line 255, scss/index.scss */
+  /* line 258, scss/index.scss */
   #dashboard {
     padding: 5px;
     padding-right: 20px;
   }
 
-  /* line 261, scss/index.scss */
+  /* line 264, scss/index.scss */
   #dashboard i {
     font-size: 28px;
   }
 }
-/* line 266, scss/index.scss */
+/* line 269, scss/index.scss */
 body {
   padding-bottom: 20px;
 }
 
 /* Table of contents at top right */
-/* line 272, scss/index.scss */
+/* line 275, scss/index.scss */
 #toc-toggler {
   cursor: pointer;
   position: fixed;
@@ -308,7 +311,7 @@ body {
 }
 
 /* Jump to explorer at bottom right */
-/* line 285, scss/index.scss */
+/* line 288, scss/index.scss */
 #jump-curriculum {
   cursor: pointer;
   position: fixed;
@@ -320,12 +323,12 @@ body {
   z-index: 500;
 }
 
-/* line 300, scss/index.scss */
+/* line 303, scss/index.scss */
 #toc-toggler:not(.filled) {
   display: none;
 }
 
-/* line 304, scss/index.scss */
+/* line 307, scss/index.scss */
 #toc {
   display: none;
   position: fixed;
@@ -342,22 +345,22 @@ body {
   z-index: 500;
 }
 
-/* line 320, scss/index.scss */
+/* line 323, scss/index.scss */
 #toc:empty {
   display: none !important;
 }
 
-/* line 324, scss/index.scss */
+/* line 327, scss/index.scss */
 #toc-toggler:hover #toc {
   display: block;
 }
 
-/* line 328, scss/index.scss */
+/* line 331, scss/index.scss */
 #mobile-tap.active + #toc {
   display: block;
 }
 
-/* line 332, scss/index.scss */
+/* line 335, scss/index.scss */
 #toc .h1,
 #toc .h2,
 #toc .h3,
@@ -371,57 +374,57 @@ body {
   font-size: 1.2rem;
 }
 
-/* line 345, scss/index.scss */
+/* line 348, scss/index.scss */
 #toc .h2 {
   margin-left: 2ch;
 }
 
-/* line 349, scss/index.scss */
+/* line 352, scss/index.scss */
 #toc .h2::before {
   content: "•\00a0";
 }
 
-/* line 353, scss/index.scss */
+/* line 356, scss/index.scss */
 #toc .h3 {
   margin-left: 4ch;
 }
 
-/* line 357, scss/index.scss */
+/* line 360, scss/index.scss */
 #toc .h3::before {
   content: "—";
 }
 
-/* line 361, scss/index.scss */
+/* line 364, scss/index.scss */
 #toc .h4 {
   margin-left: 6ch;
 }
 
-/* line 365, scss/index.scss */
+/* line 368, scss/index.scss */
 #toc .h4::before {
   content: "➣";
 }
 
-/* line 369, scss/index.scss */
+/* line 372, scss/index.scss */
 #toc .h5 {
   margin-left: 8ch;
 }
 
-/* line 373, scss/index.scss */
+/* line 376, scss/index.scss */
 #toc .h5::before {
   content: "➨";
 }
 
-/* line 377, scss/index.scss */
+/* line 380, scss/index.scss */
 #toc .h6 {
   margin-left: 10ch;
 }
 
-/* line 381, scss/index.scss */
+/* line 384, scss/index.scss */
 #toc .h6::before {
   content: "◦\00a0";
 }
 
-/* line 385, scss/index.scss */
+/* line 388, scss/index.scss */
 .description-must {
   margin: 10px auto;
   background-color: rgba(125, 125, 125, 0.4);
@@ -437,12 +440,12 @@ body {
 }
 
 /* UI UX: Left vertical green bar to collapse lesson */
-/* line 401, scss/index.scss */
+/* line 404, scss/index.scss */
 #side-a > .deemp-fieldset {
   position: relative;
 }
 
-/* line 405, scss/index.scss */
+/* line 408, scss/index.scss */
 #side-a > .deemp-fieldset > .left-bar {
   position: absolute;
   height: calc(100% + 50px + 10px);
@@ -453,7 +456,7 @@ body {
   cursor: pointer;
 }
 
-/* line 415, scss/index.scss */
+/* line 418, scss/index.scss */
 .my-badge {
   margin-bottom: 6px;
 }
