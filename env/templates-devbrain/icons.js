@@ -4,7 +4,7 @@ var icons = {
     "AWS Cloud": "☁️",
     "Databases - MySQL, NoSQL, and More!": "🗃",
     "Data Structures, Algorithms, Architechtures, Systems Design": "Ω",
-    "DevOps": "⚙️",
+    "Enterprise - DevOps, Server Admin, SaaS Scaling, Payment Systems": "🌌",
     "iOS": "📱",
     "Version Control - git, github, gitlab": "♽",
     "Plug-in Development": "🔌",
