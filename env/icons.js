@@ -1,13 +1,13 @@
 var icons = {
-  "AI Developer": "🤖",
-  "AI Engineer": "🤖",
+  // "iOS": "📱",
+  "Web Development": "🌐",
+  "AI - Prompt Engineer, Developer, and AI Engineer": "🤖",
   "AWS Cloud": "☁️",
-  "Databases - MySQL, NoSQL, and More!": "🗃",
+  "Cross-Platform - React Native": "⚛",
+  "CompSci - DS, Algos, Systems, Logic": "💻",
+  "Databases - MySQL, NoSQL, and More!": "🗄️",
   "Data Structures, Algorithms, Architechtures, Systems Design": "Ω",
   "Enterprise - DevOps, Server Admin, SaaS Scaling, Payment Systems": "🌌",
-  "iOS": "📱",
-  "Version Control - git, github, gitlab": "♽",
-  "Plug-in Development": "🔌",
-  "Web Development": "🌐",
-  "Web Development - Rapid Development": "🌐"
+  "Extensions and Plug-ins Development": "🔌",
+  "Version Control - git, github, gitlab": "♽"
 }
