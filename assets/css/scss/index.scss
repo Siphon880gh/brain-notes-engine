@@ -131,7 +131,8 @@ h3 {
 }
 
 #summary-title {
-    background-color: rgba(0, 180, 0, 0.73);;
+    background-color: rgba(0, 180, 0, 0.73);
+    ;
 }
 
 #summary-inner textarea {
@@ -214,8 +215,9 @@ h3 {
     background-color: gray;
     border: 2px solid black;
     margin-left: 10px;
-    border-radius:5px;
-    font-style: normal; /* To override italic from Tufte when inside heading tag */
+    border-radius: 5px;
+    font-style: normal;
+    /* To override italic from Tufte when inside heading tag */
     padding: 5px;
 }
 
@@ -427,4 +429,15 @@ body {
     top: -55px;
     background-color: rgba(0, 180, 0, 0.73);
     cursor: pointer;
+}
+
+#explorer-iframe {
+    padding: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 5px;
+    text-align: left;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 580px;
 }

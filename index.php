@@ -42,19 +42,17 @@
         <h1 class="title"><?php include 'env/title.php'; ?></h1>
         <div class="container" style="margin: 0 auto; margin-top:20px; padding: 0 10px;">
             <div class="w-full flex flex-row justify-between" style="">
-                <div><span id="count-notes"><span style="color:green; font-weight:bolder;">Loading the notes!</span></span></div>
-                <div>By <a href="javascript:void(0)" data-toggle="modal" data-target="#promoModal">Weng Fei Fung</a></div>
+                <div><a id="count-notes" href="#explore-curriculum"><span style="color:green; font-weight:bolder;">Loading the notes!</span></a></div>
+                <div>By <a href="javascript:void(0)" data-toggle="modal" data-target="#promoModal">Weng (Weng Fei Fung)</a></div>
+                <div><i class='fa fa-link'></i> <a href="javascript:void(0)" onclick="$('.description-must').toggleClass('hidden')">More brains</a></div>
                 <div>
-                    <a target="_blank" href="<?php include('env/url-update-log.php'); ?>">
-                        <div>Updates</div>
-                        <div style="margin-top:-3px">(git log)</div>
-                    </a>
+                    <a target="_blank" target="_blank" href="<?php include('env/url-update-log.php'); ?>">Change Log</a>
                 </div>
             </div>
         </div>
 
 
-        <div style="margin:0 auto; margin-bottom:20px;">
+        <div style="margin:20px auto;">
             <?php include 'env/description-must.php'; ?>
         </div>
 
@@ -144,17 +142,17 @@
                 <h2 class="text-center"><span class="fa fa-book-reader"></span> Notes</h2>
             </div> -->
             <div id="explore-curriculum" class="card-footer">
-                <div class="card-header">
-                    <h2><span class="fa-off fa-microscope-off fas fa-book-reader"></span> Open a lesson</h2>
+                <div class="card-header p-0">
+                    <h2 class="p0 m-0 text-center"><span class="fa-off fa-microscope-off fas fa-book-reader"></span> Open a lesson</h2>
 
-                    <details>
+                    <!-- <details>
                         <summary>More info...</summary>
 
                         <div class="bg-gray-200 p-3">
-                            <?php include 'env/description.php'; ?>
+                            <?php /* include 'env/description.php'; */ ?>
                         </div>
 
-                    </details>
+                    </details> -->
                 </div>
 
                 <div id="js-visible-if-contents" class="hide">
@@ -203,7 +201,7 @@
 
                     <div id="side-b" class="card-body side-by-side-possible">
                         <iframe class="d-none"
-                            style="padding:5px; border-radius:5px; display:inline-block; margin-top:5px; text-align:left; margin-bottom:10px; width:100%; height:580px;"
+                            id="explorer-iframe"
                             src="explorer.php"
                             onload="
                                 event.target.classList.remove('d-none');
