@@ -778,9 +778,13 @@ $(() => {
 
 
 $(()=>{
-    setTimeout(()=>{
-        // var scrollHeight=window.parent.document.querySelector("#explorer-iframe").contentDocument.body.scrollHeight;
-        var scrollHeight=document.body.scrollHeight;
-        window.parent.document.querySelector("#explorer-iframe").style.height=(scrollHeight+10)+"px";
-    }, 500)
+    function expandIframeInParent() {
+        setTimeout(()=>{
+            var scrollHeight=document.body.scrollHeight;
+            window.parent.document.querySelector("#explorer-iframe").style.height=(scrollHeight+10)+"px";
+        }, 500);
+    }
+
+    expandIframeInParent();
+    $(".is-folder").click(expandIframeInParent);
 })
