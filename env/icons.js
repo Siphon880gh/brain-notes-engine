@@ -3,7 +3,7 @@ var icons = {
   "Web Development": "🌐",
   "AI - Prompt Engineer, Developer, and AI Engineer": "🤖",
   "AWS Cloud": "☁️",
-  "Cross-Platform - React Native": "⚛",
+  "Cross-Platform - React Native": "⚛️",
   "CompSci - DS, Algos, Systems, Logic": "💻",
   "Databases - MySQL, NoSQL, and More!": "🗄️",
   "Data Structures, Algorithms, Architechtures, Systems Design": "Ω",

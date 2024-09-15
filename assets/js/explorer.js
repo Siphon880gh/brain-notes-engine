@@ -303,7 +303,14 @@ function objToHtml(type, item) {
                     // So lets convert back to typical space
 
                     summaryHTML = summaryHTML.replaceAll(/\xA0/g, " ");
-                    console.log(summaryHTML)
+
+                    function replaceBracketsWithLinks(htmlString) {
+                        return htmlString.replace(/\[\[(.*?)\]\]/g, function(match, p1) {
+                          const encodedText = encodeURIComponent(p1); // To handle special characters in URLs
+                          return `<a href="https://wengindustries.com/app/devbrain/?open=${encodedText}">${p1}</a>`;
+                        });
+                    }
+                    summaryHTML = replaceBracketsWithLinks(summaryHTML);
 
                     if(!hasParent) {
                         var newTab = window.open("about:blank");
