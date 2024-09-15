@@ -133,6 +133,10 @@ li:hover {
   text-wrap: nowrap;
 }
 
+.note-item-buttons:empty {
+  display: none !important;
+}
+
 .note-item-buttons .fa {
   cursor: pointer;
 }

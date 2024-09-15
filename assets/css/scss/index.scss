@@ -226,7 +226,9 @@ h3 {
 }
 
 #summary-sharer {
-    background: none !important
+    background: none !important;
+    margin-right: 4px;
+    margin-top: -10px;
 }
 
 #dashboard:not(.active) {

@@ -242,14 +242,16 @@ h3 {
 /* line 228, scss/index.scss */
 #summary-sharer {
   background: none !important;
+  margin-right: 4px;
+  margin-top: -10px;
 }
 
-/* line 232, scss/index.scss */
+/* line 234, scss/index.scss */
 #dashboard:not(.active) {
   display: none;
 }
 
-/* line 236, scss/index.scss */
+/* line 238, scss/index.scss */
 #dashboard {
   position: fixed;
   bottom: 0;
@@ -263,47 +265,47 @@ h3 {
   opacity: 0.5;
 }
 
-/* line 249, scss/index.scss */
+/* line 251, scss/index.scss */
 #dashboard:hover {
   opacity: 1;
 }
 
-/* line 253, scss/index.scss */
+/* line 255, scss/index.scss */
 #dashboard i {
   font-size: 20px;
 }
 
-/* line 257, scss/index.scss */
+/* line 259, scss/index.scss */
 i#shortcut-summary-collapser {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.5);
   transition: all 200ms ease-in;
 }
 
-/* line 263, scss/index.scss */
+/* line 265, scss/index.scss */
 i#shortcut-summary-collapser:hover {
   color: black;
 }
 
 @media screen and (max-width: 768px) {
-  /* line 268, scss/index.scss */
+  /* line 270, scss/index.scss */
   #dashboard {
     padding: 5px;
     padding-right: 20px;
   }
 
-  /* line 274, scss/index.scss */
+  /* line 276, scss/index.scss */
   #dashboard i {
     font-size: 28px;
   }
 }
-/* line 279, scss/index.scss */
+/* line 281, scss/index.scss */
 body {
   padding-bottom: 20px;
 }
 
 /* Table of contents at top right */
-/* line 285, scss/index.scss */
+/* line 287, scss/index.scss */
 #toc-toggler {
   cursor: pointer;
   position: fixed;
@@ -316,7 +318,7 @@ body {
 }
 
 /* Jump to explorer at bottom right */
-/* line 298, scss/index.scss */
+/* line 300, scss/index.scss */
 #jump-curriculum {
   cursor: pointer;
   position: fixed;
@@ -331,12 +333,12 @@ body {
   padding-top: 2.6px;
 }
 
-/* line 316, scss/index.scss */
+/* line 318, scss/index.scss */
 #toc-toggler:not(.filled) {
   display: none;
 }
 
-/* line 320, scss/index.scss */
+/* line 322, scss/index.scss */
 #toc {
   display: none;
   position: fixed;
@@ -355,27 +357,27 @@ body {
 }
 
 @media screen and (min-width: 768px) {
-  /* line 338, scss/index.scss */
+  /* line 340, scss/index.scss */
   #toc {
     max-width: 40vw;
   }
 }
-/* line 343, scss/index.scss */
+/* line 345, scss/index.scss */
 #toc:empty {
   display: none !important;
 }
 
-/* line 347, scss/index.scss */
+/* line 349, scss/index.scss */
 #toc-toggler:hover #toc {
   display: block;
 }
 
-/* line 351, scss/index.scss */
+/* line 353, scss/index.scss */
 #mobile-tap.active + #toc {
   display: block;
 }
 
-/* line 355, scss/index.scss */
+/* line 357, scss/index.scss */
 #toc .h1,
 #toc .h2,
 #toc .h3,
@@ -389,57 +391,57 @@ body {
   font-size: 1.2rem;
 }
 
-/* line 368, scss/index.scss */
+/* line 370, scss/index.scss */
 #toc .h2 {
   margin-left: 2ch;
 }
 
-/* line 372, scss/index.scss */
+/* line 374, scss/index.scss */
 #toc .h2::before {
   content: "•\00a0";
 }
 
-/* line 376, scss/index.scss */
+/* line 378, scss/index.scss */
 #toc .h3 {
   margin-left: 4ch;
 }
 
-/* line 380, scss/index.scss */
+/* line 382, scss/index.scss */
 #toc .h3::before {
   content: "—";
 }
 
-/* line 384, scss/index.scss */
+/* line 386, scss/index.scss */
 #toc .h4 {
   margin-left: 6ch;
 }
 
-/* line 388, scss/index.scss */
+/* line 390, scss/index.scss */
 #toc .h4::before {
   content: "➣";
 }
 
-/* line 392, scss/index.scss */
+/* line 394, scss/index.scss */
 #toc .h5 {
   margin-left: 8ch;
 }
 
-/* line 396, scss/index.scss */
+/* line 398, scss/index.scss */
 #toc .h5::before {
   content: "➨";
 }
 
-/* line 400, scss/index.scss */
+/* line 402, scss/index.scss */
 #toc .h6 {
   margin-left: 10ch;
 }
 
-/* line 404, scss/index.scss */
+/* line 406, scss/index.scss */
 #toc .h6::before {
   content: "◦\00a0";
 }
 
-/* line 408, scss/index.scss */
+/* line 410, scss/index.scss */
 .description-must {
   margin: 10px auto;
   background-color: rgba(125, 125, 125, 0.4);
@@ -455,12 +457,12 @@ body {
 }
 
 /* UI UX: Left vertical green bar to collapse lesson */
-/* line 423, scss/index.scss */
+/* line 425, scss/index.scss */
 #side-a > .deemp-fieldset {
   position: relative;
 }
 
-/* line 427, scss/index.scss */
+/* line 429, scss/index.scss */
 #side-a > .deemp-fieldset > .left-bar {
   position: absolute;
   height: calc(100% + 50px + 10px);
@@ -472,7 +474,7 @@ body {
   background-position: 0 0;
 }
 
-/* line 439, scss/index.scss */
+/* line 441, scss/index.scss */
 #explorer-iframe {
   padding: 5px;
   border-radius: 5px;
