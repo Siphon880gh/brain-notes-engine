@@ -145,11 +145,6 @@ h3 {
   resize: vertical;
 }
 
-/* line 133, scss/index.scss */
-#summary-title {
-  background-color: rgba(0, 180, 0, 0.73);
-}
-
 /* line 138, scss/index.scss */
 #summary-inner textarea {
   border-color: white;
@@ -465,13 +460,14 @@ body {
   position: absolute;
   height: calc(100% + 50px + 10px);
   width: 15px;
-  left: -15px;
+  left: -20px;
   top: -55px;
-  background-color: rgba(0, 180, 0, 0.73);
   cursor: pointer;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent calc(10vh - 1px), rgba(128, 128, 128, 0.5) calc(10vh - 1px), rgba(128, 128, 128, 0.5) calc(10vh));
+  background-position: 0 0;
 }
 
-/* line 434, scss/index.scss */
+/* line 436, scss/index.scss */
 #explorer-iframe {
   padding: 5px;
   border-radius: 5px;
