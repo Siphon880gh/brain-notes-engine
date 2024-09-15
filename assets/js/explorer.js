@@ -311,7 +311,7 @@ function objToHtml(type, item) {
                             }
                       
                             const content = contentLines.join('\n');
-                            const detailsHtml = `<details>\n<summary>${summaryText}</summary>\n${content}\n</details><br/>`;
+                            const detailsHtml = `<details>\n<summary>${summaryText}</summary>\n<div class="border ml-3 p-1">${content}</div>\n</details><br/>`;
                             outputLines.push(detailsHtml);
                           } else {
                             outputLines.push(line);

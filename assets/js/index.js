@@ -107,8 +107,7 @@ function runtimeOnMessageReadyExplorer() {
                     var $target = $curriculumExplorer.find(`.name.is-file:contains('${topic}')`); // files have data-folder-name
                     
                     if($target.length) {
-                        $target.parent().find(".fa-book-reader").click()
-                        debugger;
+                        $target.parent().find(".fa-book-reader").click();
                         // debugger;
                         // Go to specific section of the tutorial, if applicable
                         if(jumpTo) {
