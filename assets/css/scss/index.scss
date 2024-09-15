@@ -322,6 +322,13 @@ body {
     max-height: calc(100vh - 65px);
     overflow-y: scroll;
     z-index: 500;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media screen AND (min-width: 768px) {
+    #toc {
+        max-width: 40vw;
+    }
 }
 
 #toc:empty {

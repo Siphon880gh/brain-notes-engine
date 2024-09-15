@@ -348,24 +348,31 @@ body {
   max-height: calc(100vh - 65px);
   overflow-y: scroll;
   z-index: 500;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* line 327, scss/index.scss */
+@media screen and (min-width: 768px) {
+  /* line 329, scss/index.scss */
+  #toc {
+    max-width: 40vw;
+  }
+}
+/* line 334, scss/index.scss */
 #toc:empty {
   display: none !important;
 }
 
-/* line 331, scss/index.scss */
+/* line 338, scss/index.scss */
 #toc-toggler:hover #toc {
   display: block;
 }
 
-/* line 335, scss/index.scss */
+/* line 342, scss/index.scss */
 #mobile-tap.active + #toc {
   display: block;
 }
 
-/* line 339, scss/index.scss */
+/* line 346, scss/index.scss */
 #toc .h1,
 #toc .h2,
 #toc .h3,
@@ -379,57 +386,57 @@ body {
   font-size: 1.2rem;
 }
 
-/* line 352, scss/index.scss */
+/* line 359, scss/index.scss */
 #toc .h2 {
   margin-left: 2ch;
 }
 
-/* line 356, scss/index.scss */
+/* line 363, scss/index.scss */
 #toc .h2::before {
   content: "•\00a0";
 }
 
-/* line 360, scss/index.scss */
+/* line 367, scss/index.scss */
 #toc .h3 {
   margin-left: 4ch;
 }
 
-/* line 364, scss/index.scss */
+/* line 371, scss/index.scss */
 #toc .h3::before {
   content: "—";
 }
 
-/* line 368, scss/index.scss */
+/* line 375, scss/index.scss */
 #toc .h4 {
   margin-left: 6ch;
 }
 
-/* line 372, scss/index.scss */
+/* line 379, scss/index.scss */
 #toc .h4::before {
   content: "➣";
 }
 
-/* line 376, scss/index.scss */
+/* line 383, scss/index.scss */
 #toc .h5 {
   margin-left: 8ch;
 }
 
-/* line 380, scss/index.scss */
+/* line 387, scss/index.scss */
 #toc .h5::before {
   content: "➨";
 }
 
-/* line 384, scss/index.scss */
+/* line 391, scss/index.scss */
 #toc .h6 {
   margin-left: 10ch;
 }
 
-/* line 388, scss/index.scss */
+/* line 395, scss/index.scss */
 #toc .h6::before {
   content: "◦\00a0";
 }
 
-/* line 392, scss/index.scss */
+/* line 399, scss/index.scss */
 .description-must {
   margin: 10px auto;
   background-color: rgba(125, 125, 125, 0.4);
@@ -445,12 +452,12 @@ body {
 }
 
 /* UI UX: Left vertical green bar to collapse lesson */
-/* line 408, scss/index.scss */
+/* line 415, scss/index.scss */
 #side-a > .deemp-fieldset {
   position: relative;
 }
 
-/* line 412, scss/index.scss */
+/* line 419, scss/index.scss */
 #side-a > .deemp-fieldset > .left-bar {
   position: absolute;
   height: calc(100% + 50px + 10px);
@@ -461,7 +468,7 @@ body {
   cursor: pointer;
 }
 
-/* line 422, scss/index.scss */
+/* line 429, scss/index.scss */
 .my-badge {
   margin-bottom: 6px;
 }
