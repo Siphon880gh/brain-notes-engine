@@ -29,6 +29,7 @@
     <!-- Autoexpand, Markdown (dependencies)-->
     <script src="assets/js/vendors/autoExpand/autoExpand.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script> -->
+    <script src="assets/js/vendors/MarkdownItLatex.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/markdown-it@12.0.4/dist/markdown-it.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it-emoji/1.4.0/markdown-it-emoji.min.js"></script>
     <script src="https://unpkg.com/markdown-it-anchor@8.6.5/dist/markdownItAnchor.umd.js"></script>

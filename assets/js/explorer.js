@@ -267,7 +267,8 @@ function objToHtml(type, item) {
                     var md = window.markdownit({
                         html: true,
                         linkify: true
-                    }).use(window.markdownItAnchor, {
+                    }).use(window.MarkdownItLatex)
+                    .use(window.markdownItAnchor, {
                         level: [1, 2, 3, 4, 5, 6], // Apply to all heading levels
                         slugify: function (s) {
                             return s.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '');

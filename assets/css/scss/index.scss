@@ -448,3 +448,8 @@ body {
     width: 100%;
     height: 580px;
 }
+
+/* Get rid of markdown it with latext's ruler lines */
+.stretchy svg {
+    display:none !important;
+}
