@@ -212,7 +212,7 @@ h3 {
     display: inline-block;
     color: black;
     font-weight: 400;
-    background-color: gray;
+    background-color: rgba(80,80,80,0.25);
     border: 2px solid black;
     margin-left: 10px;
     border-radius: 5px;
@@ -223,6 +223,10 @@ h3 {
 
 #summary-collapser.stated {
     transform: rotate(90deg);
+}
+
+#summary-sharer {
+    background: none !important
 }
 
 #dashboard:not(.active) {
@@ -414,7 +418,6 @@ body {
     text-align: center;
     transition: height 5s ease;
 }
-
 
 /* UI UX: Left vertical green bar to collapse lesson */
 #side-a>.deemp-fieldset {
