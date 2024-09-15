@@ -6,7 +6,7 @@
     "scripts": {
         "watch": "concurrently 'compass watch ./' 'livereload .'",
         "old-build-devbrain": "TEMPLATE_DIR=templates-devbrain && cp \"./env/$TEMPLATE_DIR/description.php\" \"./env/description.php\" && cp \"./env/$TEMPLATE_DIR/dir-snippets.php\" \"./env/dir-snippets.php\" && cp \"./env/$TEMPLATE_DIR/title.php\" \"./env/title.php\" && cp \"./env/$TEMPLATE_DIR/title-long.php\" \"./env/title-long.php\" && cp \"./env/$TEMPLATE_DIR/icons.js\" \"./env/icons.js\";",
-        "pull": "git stash; git pull origin main;",
+        "pull": "git stash; git fetch origin; git reset --hard origin/main;",
         "build-devbrain": "cp -r ./env/templates-devbrain/* ./env",
         "build-3dbrain": "cp -r ./env/templates-3dbrain/* ./env",
         "build-bizbrain": "cp -r ./env/templates-bizbrain/* ./env",
