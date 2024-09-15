@@ -288,6 +288,43 @@ function objToHtml(type, item) {
                         return text.replace(/(.+)(\n)(?!\n)/g, "$1  \n");
                     })(summary);
 
+                    function convertNotesToDetails(inputText) {
+                        const lines = inputText.split('\n');
+                        const outputLines = [];
+                        let i = 0;
+                      
+                        while (i < lines.length) {
+                          const line = lines[i];
+                          const noteMatch = line.match(/^>\s*\[!note\]\s*(.*)$/i);
+                      
+                          if (noteMatch) {
+                            // Start of a note block
+                            const summaryText = noteMatch[1].trim();
+                            const contentLines = [];
+                      
+                            i++;
+                            // Collect the content lines that start with '>'
+                            while (i < lines.length && lines[i].startsWith('>')) {
+                              const contentLine = lines[i].replace(/^>\s*/, ''); // Remove '>' and possible spaces
+                              contentLines.push(contentLine);
+                              i++;
+                            }
+                      
+                            const content = contentLines.join('\n');
+                            const detailsHtml = `<details>\n<summary>${summaryText}</summary>\n${content}\n</details><br/>`;
+                            outputLines.push(detailsHtml);
+                          } else {
+                            outputLines.push(line);
+                            i++;
+                          }
+                        }
+                      
+                        return outputLines.join('\n');
+                      }  // convertNotesToDetails
+                      
+                      summary = convertNotesToDetails(summary);
+                      
+
                     var summaryHTML = md.render(summary);
                     if(hasParent) {
                         parent.document.querySelector("#summary-title").textContent = title;

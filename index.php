@@ -22,64 +22,7 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" integrity="sha512-wnea99uKIC3TJF7v4eKk4Y+lMz2Mklv18+r4na2Gn1abDRPPOeef95xTzdwGD9e6zXJBteMIhZ1+68QC5byJZw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" rel="stylesheet">
-    <style>
-      body {
-        width: unset;
-        margin-left: unset;
-        margin-right: unset;
-        padding-left: unset;
-        max-width: unset;
-      }
-      a {
-        text-shadow: none !important;
-      }
-
-    @media (prefers-color-scheme:dark) {
-        body {
-            background-color: unset;
-            color: unset;
-        }
-    }
-    @media (prefers-color-scheme:dark) {
-
-        .hover-tufte-underline:hover,
-        .tufte-underline,
-        a:link {
-            text-shadow: unset;
-        }
-    }
-    @media (max-width: 760px) {
-        body {
-            padding-left: 0 !important;
-            padding-right: 0 !important;
-        }
-    }
-    /* Remove the underline on links that have fa icon or image. Tufte uses 1px background as underline */
-    a:has(> img), a:has(> .fa), a:has(> .fas) { 
-        text-decoration: none;
-        background: 0 !important;
-    }
-    /* Bring back listing style */
-    ul, ul > li, ol, ol > li, li {
-        padding-left: revert !important;
-        list-style: unset !important;
-    }
-    /* Turn off device preferring dark mode from having separate styles */
-    @media (prefers-color-scheme:dark) {
-        body {
-            background-color: unset;
-            color: unset;
-        }
-    }
-    @media (prefers-color-scheme:dark) {
-
-        .hover-tufte-underline:hover,
-        .tufte-underline,
-        a:link {
-            text-shadow: unset;
-        }
-    }
-    </style>
+    <?php include("./partials/tufte-override.php"); ?>
     <script>
         window.dirSnippets = "<?php include 'env/dir-snippets.php'; ?>";
     </script>

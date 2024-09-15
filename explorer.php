@@ -212,33 +212,7 @@
     <script src="assets/js/multistates.js"></script>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" rel="stylesheet">
-    <style>
-      body {
-        width: unset;
-        margin-left: unset;
-        margin-right: unset;
-        padding-left: unset;
-        max-width: unset;
-      }
-      a {
-        text-shadow: none !important;
-      }
-
-    @media (prefers-color-scheme:dark) {
-        body {
-            background-color: unset;
-            color: unset;
-        }
-    }
-    @media (prefers-color-scheme:dark) {
-
-        .hover-tufte-underline:hover,
-        .tufte-underline,
-        a:link {
-            text-shadow: unset;
-        }
-    }
-    </style>
+    <?php include("./partials/tufte-override.php"); ?>
 </head>
     <body style="padding-right:5px">
         <div class="container">
