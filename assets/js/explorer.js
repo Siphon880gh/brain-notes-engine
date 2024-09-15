@@ -780,7 +780,7 @@ $(() => {
 $(()=>{
     function expandIframeInParent() {
         setTimeout(()=>{
-            var scrollHeight=document.body.scrollHeight;
+            var scrollHeight=document.body.clientHeight;
             window.parent.document.querySelector("#explorer-iframe").style.height=(scrollHeight+10)+"px";
         }, 500);
     }
