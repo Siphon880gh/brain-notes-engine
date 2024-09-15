@@ -123,22 +123,27 @@ li:hover {
 }
 
 /* line 132, scss/explorer.scss */
+.name {
+  text-wrap: nowrap;
+}
+
+/* line 136, scss/explorer.scss */
 .note-item-buttons .fa {
   cursor: pointer;
 }
 
-/* line 136, scss/explorer.scss */
+/* line 140, scss/explorer.scss */
 .fa-book-reader {
   opacity: 0.5;
   font-size: 80%;
 }
 
-/* line 141, scss/explorer.scss */
+/* line 145, scss/explorer.scss */
 .fa-book-reader::after {
   content: " Read";
 }
 
-/* line 145, scss/explorer.scss */
+/* line 149, scss/explorer.scss */
 .responsive-iframe-container {
   position: relative;
   padding-top: 56.25%;
@@ -146,7 +151,7 @@ li:hover {
   height: 0;
 }
 
-/* line 152, scss/explorer.scss */
+/* line 156, scss/explorer.scss */
 .responsive-iframe-container iframe {
   position: absolute;
   top: 0;
@@ -156,12 +161,12 @@ li:hover {
 }
 
 /* Tooltip for .json file's description property  */
-/* line 162, scss/explorer.scss */
+/* line 166, scss/explorer.scss */
 .tooltip {
   opacity: 1 !important;
 }
 
-/* line 166, scss/explorer.scss */
+/* line 170, scss/explorer.scss */
 .tooltip-inner {
   font-size: 12px;
   background: lightgreen;
@@ -171,20 +176,20 @@ li:hover {
   max-height: 80% !important;
   overflow: scroll;
 }
-/* line 175, scss/explorer.scss */
+/* line 179, scss/explorer.scss */
 .tooltip-inner img {
   width: 100%;
 }
 
 /* Explore Curriculum is in a footer */
-/* line 183, scss/explorer.scss */
+/* line 187, scss/explorer.scss */
 .card-footer {
   padding: 0;
 }
 
 /* REFACTORED IN from ./assets-explorer/css/... */
 /* Buttons fit */
-/* line 190, scss/explorer.scss */
+/* line 194, scss/explorer.scss */
 .fa-info,
 .fa-book-reader:not(.summary-header),
 .gotos-click,
@@ -193,14 +198,14 @@ li:hover {
   margin-left: 1ch;
 }
 
-/* line 198, scss/explorer.scss */
+/* line 202, scss/explorer.scss */
 .fa-info:hover,
 .fa-book-reader:not(.summary-header):hover,
 .gotos-click:hover {
   color: darkgreen;
 }
 
-/* line 206, scss/explorer.scss */
+/* line 210, scss/explorer.scss */
 #target > ul > li > .name.is-folder[icon]::before {
   filter: sepia(1) hue-rotate(180deg);
   display: inline-block;
@@ -208,35 +213,35 @@ li:hover {
 }
 
 /* The default folder icon is actually nested */
-/* line 214, scss/explorer.scss */
+/* line 218, scss/explorer.scss */
 #target > ul > li > .name.is-folder[icon] > .fa-folder::before {
   content: "" !important;
 }
 
-/* line 217, scss/explorer.scss */
+/* line 221, scss/explorer.scss */
 #target > ul > li > .name.is-folder:not([icon]) > .fa-folder::before {
   min-width: 15px;
   display: inline-block;
 }
 
-/* line 222, scss/explorer.scss */
+/* line 226, scss/explorer.scss */
 #searcher {
   width: 180px;
 }
 
-/* line 226, scss/explorer.scss */
+/* line 230, scss/explorer.scss */
 #searcher-2 {
   width: 180px;
 }
 
 @media screen and (min-width: 550px) {
-  /* line 232, scss/explorer.scss */
+  /* line 236, scss/explorer.scss */
   #searcher-btn::after,
   #searcher-2-btn::after {
     content: " Search";
   }
 
-  /* line 237, scss/explorer.scss */
+  /* line 241, scss/explorer.scss */
   #searcher-container,
   #searcher-container-2 {
     width: 370px;
@@ -244,41 +249,41 @@ li:hover {
   }
 }
 @media screen and (max-width: 549px) {
-  /* line 246, scss/explorer.scss */
+  /* line 250, scss/explorer.scss */
   #searcher-containers {
     width: 100%;
   }
 
-  /* line 250, scss/explorer.scss */
+  /* line 254, scss/explorer.scss */
   #searcher-container,
   #searcher-container-2 {
     width: 100% !important;
   }
 
-  /* line 255, scss/explorer.scss */
+  /* line 259, scss/explorer.scss */
   #searcher-containers label {
     display: block !important;
     text-align: center !important;
     width: 100%;
   }
 
-  /* line 261, scss/explorer.scss */
+  /* line 265, scss/explorer.scss */
   #searcher {
     width: 80%;
   }
 
-  /* line 265, scss/explorer.scss */
+  /* line 269, scss/explorer.scss */
   #searcher-2 {
     width: 80%;
   }
 
-  /* line 269, scss/explorer.scss */
+  /* line 273, scss/explorer.scss */
   #searcher + button,
   #searcher-2 + button {
     width: 15%;
   }
 }
-/* line 274, scss/explorer.scss */
+/* line 278, scss/explorer.scss */
 .custom-icon + .fa-folder {
   display: none;
 }

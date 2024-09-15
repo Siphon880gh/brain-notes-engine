@@ -4,6 +4,7 @@ body {
     margin-left: unset;
     margin-right: unset;
     padding-left: unset;
+    padding-right: unset;
     max-width: unset;
 }
 a {

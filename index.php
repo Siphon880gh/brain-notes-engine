@@ -38,7 +38,7 @@
         <div onclick="document.querySelector('#side-b').scrollIntoView()">📗 More Topics</div>
     </div>
 
-    <div class="site-header" style="margin: 10px 5px;">
+    <div class="site-header my-2.5 mx-auto">
         <h1 class="title"><?php include 'env/title.php'; ?></h1>
         <div class="container" style="margin: 0 auto; margin-top:20px; padding: 0 10px;">
             <div class="w-full flex flex-row justify-between" style="">
