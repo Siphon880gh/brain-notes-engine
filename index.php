@@ -35,7 +35,7 @@
     </div>
 
     <div id="jump-curriculum">
-        <div onclick="document.querySelector('#side-b').scrollIntoView()">📗 Topics</div>
+        <div onclick="document.querySelector('#side-b').scrollIntoView()">📗 More Topics</div>
     </div>
 
     <div class="site-header" style="margin: 10px 5px;">
