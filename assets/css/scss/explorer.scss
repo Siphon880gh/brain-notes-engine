@@ -114,6 +114,11 @@
   padding: 5px;
 }
 
+@media screen AND (max-width: 768px) {
+  ol ol, ol ul, ul ol, ul ul {
+    padding-inline-start: 5px !important;
+  }  
+}  
 
 li {
   color: blue;
