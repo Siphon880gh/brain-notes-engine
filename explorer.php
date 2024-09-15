@@ -238,14 +238,18 @@
           <div id="searcher-containers" style="float:right;">
 
             <div id="searcher-container" style="float:right; margin-top:5px;">
-                  <!-- <label for="searcher">Text content:</label>
+                  <?php
+                  /*
+                  <label for="searcher">Text content:</label>
                   <input id="searcher" onkeyup="checkSearcherSubmit(event, $('#searcher-btn'))" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                  <button id="searcher-btn" class="override-ios-button-style" onclick="doSearcher();" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span></button> -->
+                  <button id="searcher-btn" class="override-ios-button-style" onclick="doSearcher();" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span></button>
+                  */
+                  ?>
                   <span class="mobile-flush-top">
-                    <button onclick="$('#searcher-container-2').removeClass('hidden');" style="cursor: pointer; border:0;"><span class="fa fa-search" style="cursor: pointer;"> Search</button>
-                    <!-- <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;"><span class="fa fa-eraser" style="cursor: pointer;"> Clear</button> -->
-                    <button onclick="toggleAllExpand();" style="cursor: pointer; border:0;"><span class="fa fa-eye" style="cursor: pointer;"> Toggle All</button>
-                    <button onclick="window.print();" style="cursor: pointer; border:0;"><span class="fa fa-print" style="cursor: pointer;"> Print</button>
+                    <button onclick="$('#searcher-container-2').removeClass('hidden');" style="cursor: pointer; border:0;"><span class="fa fa-search"> Search</button>
+                    <?php /* <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;"><span class="fa fa-eraser" style="cursor: pointer;"> Clear</button> */ ?>
+                    <button id="toggle-all-responsive" onclick="toggleAllExpand();"><span class="fa fa-eye cursor-pointer"> Toggle All</button>
+                    <button onclick="window.print();"><span class="fa fa-print" style="cursor: pointer;"> Print</button>
                   </span>
             </div>
 

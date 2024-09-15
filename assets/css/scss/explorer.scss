@@ -231,19 +231,29 @@ li:hover {
   width: 180px;
 }
 
+button {
+  cursor: pointer;
+  border: 0;
+}
+
 @media screen AND (min-width: 550px) {
 
   #searcher-btn::after,
   #searcher-2-btn::after {
     content: " Search";
   }
-
+  
   #searcher-container,
   #searcher-container-2 {
     width: 370px;
     text-align: right;
   }
-
+  
+}
+@media screen AND (max-width: 768px) {
+  #toggle-all-responsive {
+    display: none;
+  }
 }
 
 @media screen AND (max-width: 549px) {

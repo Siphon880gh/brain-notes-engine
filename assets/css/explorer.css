@@ -234,56 +234,68 @@ li:hover {
   width: 180px;
 }
 
+/* line 234, scss/explorer.scss */
+button {
+  cursor: pointer;
+  border: 0;
+}
+
 @media screen and (min-width: 550px) {
-  /* line 236, scss/explorer.scss */
+  /* line 241, scss/explorer.scss */
   #searcher-btn::after,
   #searcher-2-btn::after {
     content: " Search";
   }
 
-  /* line 241, scss/explorer.scss */
+  /* line 246, scss/explorer.scss */
   #searcher-container,
   #searcher-container-2 {
     width: 370px;
     text-align: right;
   }
 }
+@media screen and (max-width: 768px) {
+  /* line 254, scss/explorer.scss */
+  #toggle-all-responsive {
+    display: none;
+  }
+}
 @media screen and (max-width: 549px) {
-  /* line 250, scss/explorer.scss */
+  /* line 260, scss/explorer.scss */
   #searcher-containers {
     width: 100%;
   }
 
-  /* line 254, scss/explorer.scss */
+  /* line 264, scss/explorer.scss */
   #searcher-container,
   #searcher-container-2 {
     width: 100% !important;
   }
 
-  /* line 259, scss/explorer.scss */
+  /* line 269, scss/explorer.scss */
   #searcher-containers label {
     display: block !important;
     text-align: center !important;
     width: 100%;
   }
 
-  /* line 265, scss/explorer.scss */
+  /* line 275, scss/explorer.scss */
   #searcher {
     width: 80%;
   }
 
-  /* line 269, scss/explorer.scss */
+  /* line 279, scss/explorer.scss */
   #searcher-2 {
     width: 80%;
   }
 
-  /* line 273, scss/explorer.scss */
+  /* line 283, scss/explorer.scss */
   #searcher + button,
   #searcher-2 + button {
     width: 15%;
   }
 }
-/* line 278, scss/explorer.scss */
+/* line 288, scss/explorer.scss */
 .custom-icon + .fa-folder {
   display: none;
 }
