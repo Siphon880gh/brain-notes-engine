@@ -28,6 +28,11 @@ a {
 dl, ol, p, ul {
     font-size: unset;
 }
+.hover-tufte-underline:hover, .tufte-underline, a:link {
+    text-shadow: none !important;
+    border: 0 !important;
+    text-decoration: none !important;
+}
 body {
     font-size: 1.2rem;
 }
