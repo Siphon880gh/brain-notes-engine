@@ -100,55 +100,55 @@
   cursor: pointer;
 }
 
-/* line 113, scss/explorer.scss */
-.accordion.meta {
-  padding: 5px;
-}
-
 @media screen and (max-width: 768px) {
   /* line 118, scss/explorer.scss */
   ol ol, ol ul, ul ol, ul ul {
     padding-inline-start: 5px !important;
   }
 }
-/* line 123, scss/explorer.scss */
+/* line 122, scss/explorer.scss */
+dt:not(:first-child), li:not(:first-child) {
+  margin-top: 0 !important;
+}
+
+/* line 125, scss/explorer.scss */
 li {
   color: blue;
 }
 
-/* line 127, scss/explorer.scss */
+/* line 129, scss/explorer.scss */
 li:hover {
   color: darkblue;
   cursor: pointer;
 }
 
-/* line 132, scss/explorer.scss */
+/* line 134, scss/explorer.scss */
 .name {
   text-wrap: nowrap;
 }
 
-/* line 136, scss/explorer.scss */
+/* line 138, scss/explorer.scss */
 .note-item-buttons:empty {
   display: none !important;
 }
 
-/* line 140, scss/explorer.scss */
+/* line 142, scss/explorer.scss */
 .note-item-buttons .fa {
   cursor: pointer;
 }
 
-/* line 144, scss/explorer.scss */
+/* line 146, scss/explorer.scss */
 .fa-book-reader {
   opacity: 0.5;
   font-size: 80%;
 }
 
-/* line 149, scss/explorer.scss */
+/* line 151, scss/explorer.scss */
 .fa-book-reader::after {
   content: " Read";
 }
 
-/* line 153, scss/explorer.scss */
+/* line 155, scss/explorer.scss */
 .responsive-iframe-container {
   position: relative;
   padding-top: 56.25%;
@@ -156,7 +156,7 @@ li:hover {
   height: 0;
 }
 
-/* line 160, scss/explorer.scss */
+/* line 162, scss/explorer.scss */
 .responsive-iframe-container iframe {
   position: absolute;
   top: 0;
@@ -166,12 +166,12 @@ li:hover {
 }
 
 /* Tooltip for .json file's description property  */
-/* line 170, scss/explorer.scss */
+/* line 172, scss/explorer.scss */
 .tooltip {
   opacity: 1 !important;
 }
 
-/* line 174, scss/explorer.scss */
+/* line 176, scss/explorer.scss */
 .tooltip-inner {
   font-size: 12px;
   background: lightgreen;
@@ -181,20 +181,20 @@ li:hover {
   max-height: 80% !important;
   overflow: scroll;
 }
-/* line 183, scss/explorer.scss */
+/* line 185, scss/explorer.scss */
 .tooltip-inner img {
   width: 100%;
 }
 
 /* Explore Curriculum is in a footer */
-/* line 191, scss/explorer.scss */
+/* line 193, scss/explorer.scss */
 .card-footer {
   padding: 0;
 }
 
 /* REFACTORED IN from ./assets-explorer/css/... */
 /* Buttons fit */
-/* line 198, scss/explorer.scss */
+/* line 200, scss/explorer.scss */
 .fa-info,
 .fa-book-reader:not(.summary-header),
 .gotos-click,
@@ -203,7 +203,7 @@ li:hover {
   margin-left: 1ch;
 }
 
-/* line 206, scss/explorer.scss */
+/* line 208, scss/explorer.scss */
 .fa-info:hover,
 .fa-book-reader:not(.summary-header):hover,
 .gotos-click:hover {
@@ -211,6 +211,11 @@ li:hover {
 }
 
 /* line 214, scss/explorer.scss */
+#target {
+  font-size: 1.1rem;
+}
+
+/* line 218, scss/explorer.scss */
 #target > ul > li > .name.is-folder[icon]::before {
   filter: sepia(1) hue-rotate(180deg);
   display: inline-block;
@@ -218,41 +223,41 @@ li:hover {
 }
 
 /* The default folder icon is actually nested */
-/* line 222, scss/explorer.scss */
+/* line 226, scss/explorer.scss */
 #target > ul > li > .name.is-folder[icon] > .fa-folder::before {
   content: "" !important;
 }
 
-/* line 225, scss/explorer.scss */
+/* line 229, scss/explorer.scss */
 #target > ul > li > .name.is-folder:not([icon]) > .fa-folder::before {
   min-width: 15px;
   display: inline-block;
 }
 
-/* line 230, scss/explorer.scss */
+/* line 234, scss/explorer.scss */
 #searcher {
   width: 180px;
 }
 
-/* line 234, scss/explorer.scss */
+/* line 238, scss/explorer.scss */
 #searcher-2 {
   width: 180px;
 }
 
-/* line 238, scss/explorer.scss */
+/* line 242, scss/explorer.scss */
 button {
   cursor: pointer;
   border: 0;
 }
 
 @media screen and (min-width: 550px) {
-  /* line 245, scss/explorer.scss */
+  /* line 249, scss/explorer.scss */
   #searcher-btn::after,
   #searcher-2-btn::after {
     content: " Search";
   }
 
-  /* line 250, scss/explorer.scss */
+  /* line 254, scss/explorer.scss */
   #searcher-container,
   #searcher-container-2 {
     width: 370px;
@@ -260,47 +265,47 @@ button {
   }
 }
 @media screen and (max-width: 768px) {
-  /* line 258, scss/explorer.scss */
+  /* line 262, scss/explorer.scss */
   #toggle-all-responsive {
     display: none;
   }
 }
 @media screen and (max-width: 549px) {
-  /* line 264, scss/explorer.scss */
+  /* line 268, scss/explorer.scss */
   #searcher-containers {
     width: 100%;
   }
 
-  /* line 268, scss/explorer.scss */
+  /* line 272, scss/explorer.scss */
   #searcher-container,
   #searcher-container-2 {
     width: 100% !important;
   }
 
-  /* line 273, scss/explorer.scss */
+  /* line 277, scss/explorer.scss */
   #searcher-containers label {
     display: block !important;
     text-align: center !important;
     width: 100%;
   }
 
-  /* line 279, scss/explorer.scss */
+  /* line 283, scss/explorer.scss */
   #searcher {
     width: 80%;
   }
 
-  /* line 283, scss/explorer.scss */
+  /* line 287, scss/explorer.scss */
   #searcher-2 {
     width: 80%;
   }
 
-  /* line 287, scss/explorer.scss */
+  /* line 291, scss/explorer.scss */
   #searcher + button,
   #searcher-2 + button {
     width: 15%;
   }
 }
-/* line 292, scss/explorer.scss */
+/* line 296, scss/explorer.scss */
 .custom-icon + .fa-folder {
   display: none;
 }

@@ -111,15 +111,17 @@
 }
 
 .accordion.meta {
-  padding: 5px;
+  // padding: 5px;
 }
 
 @media screen AND (max-width: 768px) {
   ol ol, ol ul, ul ol, ul ul {
     padding-inline-start: 5px !important;
   }  
-}  
-
+}
+dt:not(:first-child), li:not(:first-child) {
+  margin-top: 0 !important;
+}
 li {
   color: blue;
 }
@@ -209,7 +211,9 @@ li:hover {
   color: darkgreen;
 }
 
-
+#target {
+  font-size:1.1rem;
+}
 
 #target>ul>li>.name.is-folder[icon]::before {
   // content: attr(icon) !important;

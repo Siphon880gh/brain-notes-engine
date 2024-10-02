@@ -91,14 +91,20 @@ h3 {
   text-align: center;
 }
 
-/* line 84, scss/index.scss */
+/* line 83, scss/index.scss */
+.site-header .title {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* line 88, scss/index.scss */
 #new,
 #old {
   float: left;
   width: 50%;
 }
 
-/* line 90, scss/index.scss */
+/* line 94, scss/index.scss */
 #new .contents,
 #old .contents {
   border: 1px solid darkgray;
@@ -106,51 +112,51 @@ h3 {
   white-space: break-spaces;
 }
 
-/* line 97, scss/index.scss */
+/* line 101, scss/index.scss */
 #new textarea:blur {
   border-style: none !important;
   border-color: Transparent !important;
   overflow: auto !important;
 }
 
-/* line 106, scss/index.scss */
+/* line 110, scss/index.scss */
 #diff {
   padding: 2px 5px;
   border: 1px solid gray;
   border-radius: 5px;
 }
 
-/* line 112, scss/index.scss */
+/* line 116, scss/index.scss */
 #diff:empty {
   border: none;
 }
 
-/* line 116, scss/index.scss */
+/* line 120, scss/index.scss */
 #diff:not(:empty)::after {
   content: "%";
 }
 
-/* line 120, scss/index.scss */
+/* line 124, scss/index.scss */
 #old[data-class-level="1"] .highlight {
   background-color: orange !important;
 }
 
-/* line 124, scss/index.scss */
+/* line 128, scss/index.scss */
 .card {
   margin: 30px auto 30px auto;
 }
 
-/* line 129, scss/index.scss */
+/* line 133, scss/index.scss */
 #explore-curriculum iframe {
   resize: vertical;
 }
 
-/* line 138, scss/index.scss */
+/* line 142, scss/index.scss */
 #summary-inner textarea {
   border-color: white;
 }
 
-/* line 142, scss/index.scss */
+/* line 146, scss/index.scss */
 #summary-inner pre {
   white-space: break-spaces;
   color: white;
@@ -158,13 +164,13 @@ h3 {
   margin: 10px;
 }
 
-/* line 149, scss/index.scss */
+/* line 153, scss/index.scss */
 #summary-inner img {
   max-width: 100%;
 }
 
 /* Fieldset layout */
-/* line 154, scss/index.scss */
+/* line 158, scss/index.scss */
 #explore-curriculum fieldset {
   display: block;
   margin-inline-start: 2px;
@@ -179,7 +185,7 @@ h3 {
   border-color: threedface;
   border-image: initial;
 }
-/* line 168, scss/index.scss */
+/* line 172, scss/index.scss */
 #explore-curriculum fieldset legend {
   display: inline-block !important;
   padding-inline-start: 4px;
@@ -196,7 +202,7 @@ h3 {
 
 /* Toggle side by side curriculum explorer along notes view */
 /* Superceded by collapser which is next to the summary title */
-/* line 190, scss/index.scss */
+/* line 194, scss/index.scss */
 .sides:has(.side-by-side) {
   display: flex;
   flex-direction: row;
@@ -205,20 +211,25 @@ h3 {
   align-items: stretch;
 }
 
-/* line 198, scss/index.scss */
+/* line 202, scss/index.scss */
 .side-by-side {
   min-width: 50%;
   max-width: 50%;
 }
 
-/* line 203, scss/index.scss */
+/* line 206, scss/index.scss */
+.side-by-side-possible {
+  padding: 0 !important;
+}
+
+/* line 210, scss/index.scss */
 #js-visible-if-contents {
   padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
 }
 
-/* line 209, scss/index.scss */
+/* line 216, scss/index.scss */
 #summary-collapser {
   cursor: pointer;
   /* transform rotate wouldn't work on inline */
@@ -234,24 +245,24 @@ h3 {
   padding: 5px;
 }
 
-/* line 224, scss/index.scss */
+/* line 231, scss/index.scss */
 #summary-collapser.stated {
   transform: rotate(90deg);
 }
 
-/* line 228, scss/index.scss */
+/* line 235, scss/index.scss */
 #summary-sharer {
   background: none !important;
   margin-right: 4px;
   margin-top: -10px;
 }
 
-/* line 234, scss/index.scss */
+/* line 241, scss/index.scss */
 #dashboard:not(.active) {
   display: none;
 }
 
-/* line 238, scss/index.scss */
+/* line 245, scss/index.scss */
 #dashboard {
   position: fixed;
   bottom: 0;
@@ -265,47 +276,47 @@ h3 {
   opacity: 0.5;
 }
 
-/* line 251, scss/index.scss */
+/* line 258, scss/index.scss */
 #dashboard:hover {
   opacity: 1;
 }
 
-/* line 255, scss/index.scss */
+/* line 262, scss/index.scss */
 #dashboard i {
   font-size: 20px;
 }
 
-/* line 259, scss/index.scss */
+/* line 266, scss/index.scss */
 i#shortcut-summary-collapser {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.5);
   transition: all 200ms ease-in;
 }
 
-/* line 265, scss/index.scss */
+/* line 272, scss/index.scss */
 i#shortcut-summary-collapser:hover {
   color: black;
 }
 
 @media screen and (max-width: 768px) {
-  /* line 270, scss/index.scss */
+  /* line 277, scss/index.scss */
   #dashboard {
     padding: 5px;
     padding-right: 20px;
   }
 
-  /* line 276, scss/index.scss */
+  /* line 283, scss/index.scss */
   #dashboard i {
     font-size: 28px;
   }
 }
-/* line 281, scss/index.scss */
+/* line 288, scss/index.scss */
 body {
   padding-bottom: 20px;
 }
 
 /* Table of contents at top right */
-/* line 287, scss/index.scss */
+/* line 294, scss/index.scss */
 #toc-toggler {
   cursor: pointer;
   position: fixed;
@@ -318,7 +329,7 @@ body {
 }
 
 /* Jump to explorer at bottom right */
-/* line 300, scss/index.scss */
+/* line 307, scss/index.scss */
 #jump-curriculum {
   cursor: pointer;
   position: fixed;
@@ -333,12 +344,12 @@ body {
   padding-top: 2.6px;
 }
 
-/* line 318, scss/index.scss */
+/* line 325, scss/index.scss */
 #toc-toggler:not(.filled) {
   display: none;
 }
 
-/* line 322, scss/index.scss */
+/* line 329, scss/index.scss */
 #toc {
   display: none;
   position: fixed;
@@ -357,27 +368,27 @@ body {
 }
 
 @media screen and (min-width: 768px) {
-  /* line 340, scss/index.scss */
+  /* line 347, scss/index.scss */
   #toc {
     max-width: 40vw;
   }
 }
-/* line 345, scss/index.scss */
+/* line 352, scss/index.scss */
 #toc:empty {
   display: none !important;
 }
 
-/* line 349, scss/index.scss */
+/* line 356, scss/index.scss */
 #toc-toggler:hover #toc {
   display: block;
 }
 
-/* line 353, scss/index.scss */
+/* line 360, scss/index.scss */
 #mobile-tap.active + #toc {
   display: block;
 }
 
-/* line 357, scss/index.scss */
+/* line 364, scss/index.scss */
 #toc .h1,
 #toc .h2,
 #toc .h3,
@@ -391,78 +402,118 @@ body {
   font-size: 1.2rem;
 }
 
-/* line 370, scss/index.scss */
+/* line 377, scss/index.scss */
 #toc .h2 {
   margin-left: 2ch;
 }
 
-/* line 374, scss/index.scss */
+/* line 381, scss/index.scss */
 #toc .h2::before {
   content: "•\00a0";
 }
 
-/* line 378, scss/index.scss */
+/* line 385, scss/index.scss */
 #toc .h3 {
   margin-left: 4ch;
 }
 
-/* line 382, scss/index.scss */
+/* line 389, scss/index.scss */
 #toc .h3::before {
   content: "—";
 }
 
-/* line 386, scss/index.scss */
+/* line 393, scss/index.scss */
 #toc .h4 {
   margin-left: 6ch;
 }
 
-/* line 390, scss/index.scss */
+/* line 397, scss/index.scss */
 #toc .h4::before {
   content: "➣";
 }
 
-/* line 394, scss/index.scss */
+/* line 401, scss/index.scss */
 #toc .h5 {
   margin-left: 8ch;
 }
 
-/* line 398, scss/index.scss */
+/* line 405, scss/index.scss */
 #toc .h5::before {
   content: "➨";
 }
 
-/* line 402, scss/index.scss */
+/* line 409, scss/index.scss */
 #toc .h6 {
   margin-left: 10ch;
 }
 
-/* line 406, scss/index.scss */
+/* line 413, scss/index.scss */
 #toc .h6::before {
   content: "◦\00a0";
 }
 
-/* line 410, scss/index.scss */
+/* line 431, scss/index.scss */
 .description-must {
-  margin: 10px auto;
+  position: relative;
+  overflow: visible;
+  margin: 20px auto;
+}
+
+/* line 437, scss/index.scss */
+.more-notes {
+  /* margin: 10px auto; */
+  list-style-type: none;
+  /* Removes bullet points */
   background-color: rgba(125, 125, 125, 0.4);
   color: black;
   opacity: 0.7;
-  display: inline-block;
+  display: flex;
   padding: 5px;
   border-radius: 5px;
   font-weight: 250;
   overflow-y: hidden;
   text-align: center;
   transition: height 5s ease;
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: nowrap;
 }
 
+/* line 454, scss/index.scss */
+.more-notes .mn-header {
+  transform: rotate(-270deg);
+  padding-top: 20px;
+  line-height: 1.25rem;
+}
+
+/* line 459, scss/index.scss */
+.more-notes .mn-links {
+  width: 100%;
+  max-width: 600px;
+  text-align: left;
+  padding: 5px;
+  text-align: center;
+}
+
+/* line 466, scss/index.scss */
+.more-notes .mn-links li {
+  display: inline;
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  /* line 471, scss/index.scss */
+  .hide\:lt867 {
+    display: none;
+  }
+}
 /* UI UX: Left vertical green bar to collapse lesson */
-/* line 425, scss/index.scss */
+/* line 476, scss/index.scss */
 #side-a > .deemp-fieldset {
   position: relative;
 }
 
-/* line 429, scss/index.scss */
+/* line 480, scss/index.scss */
 #side-a > .deemp-fieldset > .left-bar {
   position: absolute;
   height: calc(100% + 50px + 10px);
@@ -474,7 +525,7 @@ body {
   background-position: 0 0;
 }
 
-/* line 441, scss/index.scss */
+/* line 492, scss/index.scss */
 #explorer-iframe {
   padding: 5px;
   border-radius: 5px;
@@ -487,7 +538,7 @@ body {
 }
 
 /* Get rid of markdown it with latext's ruler lines */
-/* line 453, scss/index.scss */
+/* line 504, scss/index.scss */
 .stretchy svg {
   display: none !important;
 }

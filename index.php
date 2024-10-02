@@ -38,27 +38,44 @@
         <div onclick="document.querySelector('#side-b').scrollIntoView()">📗 More Topics</div>
     </div>
 
-    <div class="site-header my-2.5 mx-auto">
+    <div class="site-header mx-auto">
         <h1 class="title"><?php include 'env/title.php'; ?></h1>
-        <div class="container" style="margin: 0 auto; margin-top:20px; padding: 0 10px;">
-            <div class="w-full flex flex-row justify-between" style="">
-                <div><a id="count-notes" href="#explore-curriculum"><span style="color:green; font-weight:bolder;">Loading the notes!</span></a></div>
+
+        <div class="w-full flex flex-row flex-wrap justify-around gap-2">
+            <?php include 'env/description-must.php'; ?>
+        </div>
+        
+        <div class="w-full flex flex-row flex-wrap justify-around gap-2">
+            <div class="hide:lt867"></div>
+            <div>
+                <!-- <div><a id="count-notes" href="#explore-curriculum">1457 Notes!</a></div> -->
+                <div><span id="count-notes" href="#explore-curriculum">1457 Notes!</span></div>
+                <a target="_blank" href="https://github.com/Siphon880gh/devbrain/commits/main/">See what's changed</a>
+                <!-- <div><i class="fa fa-link"></i> <a href="javascript:void(0)" onclick="$('.description-must').toggleClass('hidden')">More brains</a></div> -->
                 <div>By <a href="javascript:void(0)" data-toggle="modal" data-target="#promoModal">Weng (Weng Fei Fung)</a></div>
-                <div><i class='fa fa-link'></i> <a href="javascript:void(0)" onclick="$('.description-must').toggleClass('hidden')">More brains</a></div>
-                <div>
-                    <a target="_blank" target="_blank" href="<?php include('env/url-update-log.php'); ?>">Change Log</a>
+            </div>
+            <div class="more-notes">
+                <div class="mn-header" class="font-bold text-center">More<br/>Notes</div>
+                <div class="mn-links">
+                    <li>
+                        <a target="_blank" href="../devbrain">💻 Software development / programming / coding</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="../bizbrain">💼 Business - Tech startup</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="../3dbrain">🎮 3d video game development and video editing</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="../3dbrain">⚕️ Health</a>
+                    </li>
                 </div>
             </div>
         </div>
 
+    </div> <!-- .site-header end -->
 
-        <div style="margin:20px auto;">
-            <?php include 'env/description-must.php'; ?>
-        </div>
-
-    </div>
-
-    <div class="container" style="margin-top:4ch;">
+    <div class="container">
         <div id="retype-container" class="card card-default hide">
             <div class="card-header">
                 <h2 class="text-center"><i class="fa fa-keyboard"></i> Learn by Retyping</h2>

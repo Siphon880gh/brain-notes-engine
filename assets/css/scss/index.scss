@@ -80,6 +80,10 @@ h3 {
 .site-header {
     text-align: center;
 }
+.site-header .title {
+    text-align: center;
+    margin-top: 2rem;
+}
 
 #new,
 #old {
@@ -198,6 +202,9 @@ h3 {
 .side-by-side {
     min-width: 50%;
     max-width: 50%;
+}
+.side-by-side-possible {
+    padding: 0 !important;
 }
 
 #js-visible-if-contents {
@@ -407,20 +414,64 @@ body {
     content: "◦\00a0";
 }
 
+// .description-must {
+//     margin: 10px auto;
+//     background-color: rgba(125, 125, 125, 0.4);
+//     color: black;
+//     opacity: 0.7;
+//     display: inline-block;
+//     padding: 5px;
+//     border-radius: 5px;
+//     font-weight: 250;
+//     overflow-y: hidden;
+//     text-align: center;
+//     transition: height 5s ease;
+// }
+
 .description-must {
-    margin: 10px auto;
+    position:relative;
+    overflow:visible;
+    margin:20px auto;
+}
+
+.more-notes {
+    /* margin: 10px auto; */
+    list-style-type: none; /* Removes bullet points */
     background-color: rgba(125, 125, 125, 0.4);
     color: black;
     opacity: 0.7;
-    display: inline-block;
+    display: flex;
     padding: 5px;
     border-radius: 5px;
     font-weight: 250;
     overflow-y: hidden;
     text-align: center;
     transition: height 5s ease;
+    display:flex;
+    flex-direction:row-reverse;
+    flex-wrap: nowrap;
 }
-
+.more-notes .mn-header {
+    transform: rotate(-270deg);
+    padding-top: 20px;
+    line-height: 1.25rem;
+}
+.more-notes .mn-links {
+    width: 100%;
+    max-width: 600px;
+    text-align: left;
+    padding: 5px;
+    text-align: center;
+}
+.more-notes .mn-links li {
+    display: inline;
+    margin-right: 10px;
+}
+@media screen AND (max-width: 768px) {
+    .hide\:lt867 {
+        display: none;
+    }
+}
 /* UI UX: Left vertical green bar to collapse lesson */
 #side-a>.deemp-fieldset {
     position: relative;

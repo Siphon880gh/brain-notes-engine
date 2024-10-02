@@ -301,12 +301,11 @@
           </div>
 
           <div id="printer-title"></div>
-          <br style="clear:both;"/><br/>
+          <div style="clear:both;"></div>
 
           <main id="target">
           </main>
 
-          <br/>
           <div id="search-results" class="deemp-fieldset" style="display:none;">
             <legend style="font-size:15.75px;"><span class="fa fa-search"></span> Search Results</legend>
             <div class="contents"></div>

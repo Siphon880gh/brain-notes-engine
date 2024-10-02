@@ -1,7 +1,9 @@
 var icons = {
   // "iOS": "📱",
   "Web Development": "🌐",
-  "AI - Prompt Engineer, Developer, and AI Engineer": "🤖",
+  "AI Prompt Engineer": "🪄",
+  "AI API Developer": "🪄",
+  "AI Engineer": "🪄",
   "AWS Cloud": "☁️",
   "Cross-Platform - React Native": "⚛️",
   "CompSci - DS, Algos, Systems, Logic": "💻",
@@ -9,7 +11,10 @@ var icons = {
   "Data Structures, Algorithms, Architechtures, Systems Design": "Ω",
   "Enterprise - DevOps, Server Admin, SaaS Scaling, Payment Systems": "🌌",
   "Extensions, Plug-ins, and Software Suite Development": "🔌",
-  "Version Control - git, github, gitlab": "♽"
+  "Version Control - git, github, gitlab": "<i class='fab fa-github'></i>",
+  "Data Science - Big Data": "<i class='fas fa-chart-area'></i>",
+  "Data Science - Business": "<i class='fas fa-chart-area'></i>",
+  "Data Science - General": "<i class='fas fa-chart-area'></i>",
+  "Data Science - Jupyter Notebook": "<i class='fas fa-chart-area'></i>",
+  "Data Science - Python": "<i class='fas fa-chart-area'></i>"
 }
-
-

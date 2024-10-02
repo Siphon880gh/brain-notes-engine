@@ -263,15 +263,15 @@ function htmlTableOfContents(tocEl, markdownContentEl) {
     
 // }
 
-function triggeredHideAlternateUF(event) {
-    var isOutsideA = !event.target.matches(".description-must")
-    var isOutsideB = !event.target.closest(".description-must")
-    //console.log({isOutsideA, isOutsideB})
-    if(isOutsideA && isOutsideB) {
-        setTimeout(()=>{ 
-            $(".description-must").addClass("hidden"); 
-        }, 100);
-        document.body.removeEventListener("click", triggeredHideAlternateUF);
-    }
-}
-document.body.addEventListener("click", triggeredHideAlternateUF);
+// function triggeredHideAlternateUF(event) {
+//     var isOutsideA = !event.target.matches(".description-must")
+//     var isOutsideB = !event.target.closest(".description-must")
+//     //console.log({isOutsideA, isOutsideB})
+//     if(isOutsideA && isOutsideB) {
+//         setTimeout(()=>{ 
+//             $(".description-must").addClass("hidden"); 
+//         }, 100);
+//         document.body.removeEventListener("click", triggeredHideAlternateUF);
+//     }
+// }
+// document.body.addEventListener("click", triggeredHideAlternateUF);

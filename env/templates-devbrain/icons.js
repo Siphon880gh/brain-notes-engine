@@ -1,7 +1,9 @@
 var icons = {
   // "iOS": "📱",
   "Web Development": "🌐",
-  "AI - Prompt Engineer, Developer, and AI Engineer": "🤖",
+  "AI Prompt Engineer": "🤖",
+  "AI API Developer": "🤖",
+  "AI Engineer": "🤖",
   "AWS Cloud": "☁️",
   "Cross-Platform - React Native": "⚛️",
   "CompSci - DS, Algos, Systems, Logic": "💻",
@@ -11,5 +13,3 @@ var icons = {
   "Extensions, Plug-ins, and Software Suite Development": "🔌",
   "Version Control - git, github, gitlab": "♽"
 }
-
-
