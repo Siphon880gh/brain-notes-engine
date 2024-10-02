@@ -280,3 +280,12 @@ function htmlTableOfContents(tocEl, markdownContentEl) {
 //     }
 // }
 // document.body.addEventListener("click", triggeredHideAlternateUF);
+
+$(()=>{
+    // Hide brain link that is the current brain
+    document.querySelectorAll("[data-hide-if-url-contains]").forEach(el=>{
+        const willMatchUrlContains = el.getAttribute("data-hide-if-url-contains")
+        const matched = window.location.href.indexOf(willMatchUrlContains)!==-1;
+        if(matched) el.classList.add("hidden")
+    })
+})

@@ -58,16 +58,16 @@
                 <div class="mn-header" class="font-bold text-center">More<br/>Notes</div>
                 <div class="mn-links">
                     <li>
-                        <a target="_blank" href="../devbrain">💻 Software development / programming / coding</a>
+                        <a target="_blank" data-hide-if-url-contains="/devbrain/" href="../devbrain">💻 Software development / programming / coding</a>
                     </li>
                     <li>
-                        <a target="_blank" href="../bizbrain">💼 Business - Tech startup</a>
+                        <a target="_blank" data-hide-if-url-contains="/bizbrain/" href="../bizbrain">💼 Business - Tech startup</a>
                     </li>
                     <li>
-                        <a target="_blank" href="../3dbrain">🎮 3d video game development and video editing</a>
+                        <a target="_blank" data-hide-if-url-contains="/3dbrain/" href="../3dbrain">🎮 3d video game development and video editing</a>
                     </li>
                     <li>
-                        <a target="_blank" href="../3dbrain">⚕️ Health</a>
+                        <a target="_blank" data-hide-if-url-contains="/3dbrain/" href="../3dbrain">⚕️ Health</a>
                     </li>
                 </div>
             </div>
