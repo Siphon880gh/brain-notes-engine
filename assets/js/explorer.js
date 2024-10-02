@@ -374,7 +374,7 @@ function objToHtml(type, item) {
                     function replaceBracketsWithLinks(htmlString) {
                         return htmlString.replace(/\[\[(.*?)\]\]/g, function(match, p1) {
                           const encodedText = encodeURIComponent(p1); // To handle special characters in URLs
-                          return `<a href="${window.openURL}${encodedText}">${p1}</a>`;
+                          return `<a target="_blank" href="${window.openURL}${encodedText}">${p1}</a>`;
                         });
                     }
                     summaryHTML = replaceBracketsWithLinks(summaryHTML);
