@@ -134,10 +134,17 @@ h3 {
     resize: vertical;
 }
 
-// #summary-title {
-//     background-color: rgba(0, 180, 0, 0.73);
-//     ;
-// }
+#summary-title-wrapper {
+    font-size: 1.3625em !important;
+    font-weight: bold;
+}
+#summary-title {
+    background-color: white;
+    opacity: 1;
+    margin: 0;
+    padding-left:5px;
+    padding-right:5px;
+}
 
 #summary-inner textarea {
     border-color: white;
@@ -234,8 +241,9 @@ h3 {
 
 #summary-sharer {
     background: none !important;
-    margin-right: 4px;
-    margin-top: -10px;
+    // margin-right: 4px;
+    // margin-top: -10px;
+    margin-top: 5px;
 }
 
 #dashboard:not(.active) {
@@ -267,6 +275,8 @@ i#shortcut-summary-collapser {
     cursor: pointer;
     color: rgba(0, 0, 0, 0.5);
     transition: all 200ms ease-in;
+    min-width: 30px;
+    text-align: center;
 }
 
 i#shortcut-summary-collapser:hover {
@@ -467,6 +477,9 @@ body {
     display: inline;
     margin-right: 10px;
 }
+.more-notes .mn-links li a {
+    background: none !important; /* Tufte remove underline on link */
+}
 @media screen AND (max-width: 768px) {
     .hide\:lt867 {
         display: none;
@@ -475,6 +488,12 @@ body {
 /* UI UX: Left vertical green bar to collapse lesson */
 #side-a>.deemp-fieldset {
     position: relative;
+}
+
+#side-a {
+    border: 1px solid gray;
+    // border-top: 0;
+    padding:2px;
 }
 
 #side-a>.deemp-fieldset>.left-bar {
@@ -503,4 +522,41 @@ body {
 /* Get rid of markdown it with latext's ruler lines */
 .stretchy svg {
     display:none !important;
+}
+
+
+.deemp-fieldset h1 {
+    font-size: 1.3625em !important; /* Starting point */
+}
+
+.deemp-fieldset h2 {
+    font-size: 1.17em !important; /* Proportionally smaller than h1 */
+}
+
+.deemp-fieldset h3 {
+    font-size: 1em !important; /* Proportionally smaller */
+}
+
+.deemp-fieldset h4 {
+    font-size: 0.85em !important; /* Slightly smaller */
+}
+
+.deemp-fieldset h5 {
+    font-size: 0.75em !important; /* Gradually smaller */
+}
+
+.deemp-fieldset h6 {
+    font-size: 0.65em !important;
+}
+
+.deemp-fieldset h7 {
+    font-size: 0.58em !important;
+}
+
+.deemp-fieldset h8 {
+    font-size: 0.52em !important;
+}
+
+.deemp-fieldset h9 {
+    font-size: 0.46em !important;
 }

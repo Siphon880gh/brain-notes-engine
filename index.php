@@ -159,8 +159,11 @@
                 <h2 class="text-center"><span class="fa fa-book-reader"></span> Notes</h2>
             </div> -->
             <div id="explore-curriculum" class="card-footer">
-                <div class="card-header p-0">
-                    <h2 class="p0 m-0 text-center"><span class="fa-off fa-microscope-off fas fa-book-reader"></span> Open a lesson</h2>
+                <div class="card-header p-2">
+                    <h2 class="p0 m-0 text-center inline"><span class="fa-off fa-microscope-off fas fa-book-reader"></span> Open a lesson</h2>
+                    <a id="summary-sharer" class="d-none" href="javascript:void(0)" style="float:right; margin-right:15px;" onclick='shareTutorial()'>
+                        <span class="fas fa-share-alt"></span>
+                    </a>
 
                     <!-- <details>
                         <summary>More info...</summary>
@@ -197,16 +200,15 @@
                             $("#shareSnippet").val(window.location.hostname + window.location.pathname + `${trailingHash}`)
                         }
                     </script>
-                    <div id="side-a" class="card-body side-by-side-possible hidden"
-                        style="border: 1px solid darkgray; padding-left:5px; padding-right:5px;">
+                    <div id="side-a" class="card-body side-by-side-possible hidden">
                         <div style="position: sticky; top: 0; left: 0; z-index: 100;">
-                            <h3 style="display:inline; cursor:pointer;">
+                            <h1 id="summary-title-wrapper" style="display:inline; cursor:pointer;">
                             <span id="summary-title" onclick="document.querySelector('#summary-collapser').click();"></span>
                             <span id="summary-collapser" class="d-none">»</span>
-                            </h3>
-                            <a id="summary-sharer" class="d-none" href="javascript:void(0)" style="float:right; margin-right:15px;" onclick='shareTutorial()'>
+                            </h1>
+                            <!-- <a id="summary-sharer" class="d-none" href="javascript:void(0)" style="float:right; margin-right:15px;" onclick='shareTutorial()'>
                                 <span class="fas fa-share-alt"></span>
-                            </a>
+                            </a> -->
                         </div>
                         <div class="deemp-fieldset" style="height: 100%; margin-top: 20px; padding-left: 5px; padding-right: 5px;">
                             <!-- <textarea id="summary-inner" style="height: 100%; resize: none; width:100%;"></textarea> -->

@@ -151,12 +151,27 @@ h3 {
   resize: vertical;
 }
 
-/* line 142, scss/index.scss */
+/* line 137, scss/index.scss */
+#summary-title-wrapper {
+  font-size: 1.3625em !important;
+  font-weight: bold;
+}
+
+/* line 141, scss/index.scss */
+#summary-title {
+  background-color: white;
+  opacity: 1;
+  margin: 0;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* line 149, scss/index.scss */
 #summary-inner textarea {
   border-color: white;
 }
 
-/* line 146, scss/index.scss */
+/* line 153, scss/index.scss */
 #summary-inner pre {
   white-space: break-spaces;
   color: white;
@@ -164,13 +179,13 @@ h3 {
   margin: 10px;
 }
 
-/* line 153, scss/index.scss */
+/* line 160, scss/index.scss */
 #summary-inner img {
   max-width: 100%;
 }
 
 /* Fieldset layout */
-/* line 158, scss/index.scss */
+/* line 165, scss/index.scss */
 #explore-curriculum fieldset {
   display: block;
   margin-inline-start: 2px;
@@ -185,7 +200,7 @@ h3 {
   border-color: threedface;
   border-image: initial;
 }
-/* line 172, scss/index.scss */
+/* line 179, scss/index.scss */
 #explore-curriculum fieldset legend {
   display: inline-block !important;
   padding-inline-start: 4px;
@@ -202,7 +217,7 @@ h3 {
 
 /* Toggle side by side curriculum explorer along notes view */
 /* Superceded by collapser which is next to the summary title */
-/* line 194, scss/index.scss */
+/* line 201, scss/index.scss */
 .sides:has(.side-by-side) {
   display: flex;
   flex-direction: row;
@@ -211,25 +226,25 @@ h3 {
   align-items: stretch;
 }
 
-/* line 202, scss/index.scss */
+/* line 209, scss/index.scss */
 .side-by-side {
   min-width: 50%;
   max-width: 50%;
 }
 
-/* line 206, scss/index.scss */
+/* line 213, scss/index.scss */
 .side-by-side-possible {
   padding: 0 !important;
 }
 
-/* line 210, scss/index.scss */
+/* line 217, scss/index.scss */
 #js-visible-if-contents {
   padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
 }
 
-/* line 216, scss/index.scss */
+/* line 223, scss/index.scss */
 #summary-collapser {
   cursor: pointer;
   /* transform rotate wouldn't work on inline */
@@ -245,24 +260,23 @@ h3 {
   padding: 5px;
 }
 
-/* line 231, scss/index.scss */
+/* line 238, scss/index.scss */
 #summary-collapser.stated {
   transform: rotate(90deg);
 }
 
-/* line 235, scss/index.scss */
+/* line 242, scss/index.scss */
 #summary-sharer {
   background: none !important;
-  margin-right: 4px;
-  margin-top: -10px;
+  margin-top: 5px;
 }
 
-/* line 241, scss/index.scss */
+/* line 249, scss/index.scss */
 #dashboard:not(.active) {
   display: none;
 }
 
-/* line 245, scss/index.scss */
+/* line 253, scss/index.scss */
 #dashboard {
   position: fixed;
   bottom: 0;
@@ -276,47 +290,49 @@ h3 {
   opacity: 0.5;
 }
 
-/* line 258, scss/index.scss */
+/* line 266, scss/index.scss */
 #dashboard:hover {
   opacity: 1;
 }
 
-/* line 262, scss/index.scss */
+/* line 270, scss/index.scss */
 #dashboard i {
   font-size: 20px;
 }
 
-/* line 266, scss/index.scss */
+/* line 274, scss/index.scss */
 i#shortcut-summary-collapser {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.5);
   transition: all 200ms ease-in;
+  min-width: 30px;
+  text-align: center;
 }
 
-/* line 272, scss/index.scss */
+/* line 282, scss/index.scss */
 i#shortcut-summary-collapser:hover {
   color: black;
 }
 
 @media screen and (max-width: 768px) {
-  /* line 277, scss/index.scss */
+  /* line 287, scss/index.scss */
   #dashboard {
     padding: 5px;
     padding-right: 20px;
   }
 
-  /* line 283, scss/index.scss */
+  /* line 293, scss/index.scss */
   #dashboard i {
     font-size: 28px;
   }
 }
-/* line 288, scss/index.scss */
+/* line 298, scss/index.scss */
 body {
   padding-bottom: 20px;
 }
 
 /* Table of contents at top right */
-/* line 294, scss/index.scss */
+/* line 304, scss/index.scss */
 #toc-toggler {
   cursor: pointer;
   position: fixed;
@@ -329,7 +345,7 @@ body {
 }
 
 /* Jump to explorer at bottom right */
-/* line 307, scss/index.scss */
+/* line 317, scss/index.scss */
 #jump-curriculum {
   cursor: pointer;
   position: fixed;
@@ -344,12 +360,12 @@ body {
   padding-top: 2.6px;
 }
 
-/* line 325, scss/index.scss */
+/* line 335, scss/index.scss */
 #toc-toggler:not(.filled) {
   display: none;
 }
 
-/* line 329, scss/index.scss */
+/* line 339, scss/index.scss */
 #toc {
   display: none;
   position: fixed;
@@ -368,27 +384,27 @@ body {
 }
 
 @media screen and (min-width: 768px) {
-  /* line 347, scss/index.scss */
+  /* line 357, scss/index.scss */
   #toc {
     max-width: 40vw;
   }
 }
-/* line 352, scss/index.scss */
+/* line 362, scss/index.scss */
 #toc:empty {
   display: none !important;
 }
 
-/* line 356, scss/index.scss */
+/* line 366, scss/index.scss */
 #toc-toggler:hover #toc {
   display: block;
 }
 
-/* line 360, scss/index.scss */
+/* line 370, scss/index.scss */
 #mobile-tap.active + #toc {
   display: block;
 }
 
-/* line 364, scss/index.scss */
+/* line 374, scss/index.scss */
 #toc .h1,
 #toc .h2,
 #toc .h3,
@@ -402,64 +418,64 @@ body {
   font-size: 1.2rem;
 }
 
-/* line 377, scss/index.scss */
+/* line 387, scss/index.scss */
 #toc .h2 {
   margin-left: 2ch;
 }
 
-/* line 381, scss/index.scss */
+/* line 391, scss/index.scss */
 #toc .h2::before {
   content: "•\00a0";
 }
 
-/* line 385, scss/index.scss */
+/* line 395, scss/index.scss */
 #toc .h3 {
   margin-left: 4ch;
 }
 
-/* line 389, scss/index.scss */
+/* line 399, scss/index.scss */
 #toc .h3::before {
   content: "—";
 }
 
-/* line 393, scss/index.scss */
+/* line 403, scss/index.scss */
 #toc .h4 {
   margin-left: 6ch;
 }
 
-/* line 397, scss/index.scss */
+/* line 407, scss/index.scss */
 #toc .h4::before {
   content: "➣";
 }
 
-/* line 401, scss/index.scss */
+/* line 411, scss/index.scss */
 #toc .h5 {
   margin-left: 8ch;
 }
 
-/* line 405, scss/index.scss */
+/* line 415, scss/index.scss */
 #toc .h5::before {
   content: "➨";
 }
 
-/* line 409, scss/index.scss */
+/* line 419, scss/index.scss */
 #toc .h6 {
   margin-left: 10ch;
 }
 
-/* line 413, scss/index.scss */
+/* line 423, scss/index.scss */
 #toc .h6::before {
   content: "◦\00a0";
 }
 
-/* line 431, scss/index.scss */
+/* line 441, scss/index.scss */
 .description-must {
   position: relative;
   overflow: visible;
   margin: 20px auto;
 }
 
-/* line 437, scss/index.scss */
+/* line 447, scss/index.scss */
 .more-notes {
   /* margin: 10px auto; */
   list-style-type: none;
@@ -479,14 +495,14 @@ body {
   flex-wrap: nowrap;
 }
 
-/* line 454, scss/index.scss */
+/* line 464, scss/index.scss */
 .more-notes .mn-header {
   transform: rotate(-270deg);
   padding-top: 20px;
   line-height: 1.25rem;
 }
 
-/* line 459, scss/index.scss */
+/* line 469, scss/index.scss */
 .more-notes .mn-links {
   width: 100%;
   max-width: 600px;
@@ -495,25 +511,37 @@ body {
   text-align: center;
 }
 
-/* line 466, scss/index.scss */
+/* line 476, scss/index.scss */
 .more-notes .mn-links li {
   display: inline;
   margin-right: 10px;
 }
 
+/* line 480, scss/index.scss */
+.more-notes .mn-links li a {
+  background: none !important;
+  /* Tufte remove underline on link */
+}
+
 @media screen and (max-width: 768px) {
-  /* line 471, scss/index.scss */
+  /* line 484, scss/index.scss */
   .hide\:lt867 {
     display: none;
   }
 }
 /* UI UX: Left vertical green bar to collapse lesson */
-/* line 476, scss/index.scss */
+/* line 489, scss/index.scss */
 #side-a > .deemp-fieldset {
   position: relative;
 }
 
-/* line 480, scss/index.scss */
+/* line 493, scss/index.scss */
+#side-a {
+  border: 1px solid gray;
+  padding: 2px;
+}
+
+/* line 499, scss/index.scss */
 #side-a > .deemp-fieldset > .left-bar {
   position: absolute;
   height: calc(100% + 50px + 10px);
@@ -525,7 +553,7 @@ body {
   background-position: 0 0;
 }
 
-/* line 492, scss/index.scss */
+/* line 511, scss/index.scss */
 #explorer-iframe {
   padding: 5px;
   border-radius: 5px;
@@ -538,7 +566,57 @@ body {
 }
 
 /* Get rid of markdown it with latext's ruler lines */
-/* line 504, scss/index.scss */
+/* line 523, scss/index.scss */
 .stretchy svg {
   display: none !important;
+}
+
+/* line 528, scss/index.scss */
+.deemp-fieldset h1 {
+  font-size: 1.3625em !important;
+  /* Starting point */
+}
+
+/* line 532, scss/index.scss */
+.deemp-fieldset h2 {
+  font-size: 1.17em !important;
+  /* Proportionally smaller than h1 */
+}
+
+/* line 536, scss/index.scss */
+.deemp-fieldset h3 {
+  font-size: 1em !important;
+  /* Proportionally smaller */
+}
+
+/* line 540, scss/index.scss */
+.deemp-fieldset h4 {
+  font-size: 0.85em !important;
+  /* Slightly smaller */
+}
+
+/* line 544, scss/index.scss */
+.deemp-fieldset h5 {
+  font-size: 0.75em !important;
+  /* Gradually smaller */
+}
+
+/* line 548, scss/index.scss */
+.deemp-fieldset h6 {
+  font-size: 0.65em !important;
+}
+
+/* line 552, scss/index.scss */
+.deemp-fieldset h7 {
+  font-size: 0.58em !important;
+}
+
+/* line 556, scss/index.scss */
+.deemp-fieldset h8 {
+  font-size: 0.52em !important;
+}
+
+/* line 560, scss/index.scss */
+.deemp-fieldset h9 {
+  font-size: 0.46em !important;
 }
