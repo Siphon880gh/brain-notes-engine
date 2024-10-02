@@ -560,3 +560,18 @@ body {
 .deemp-fieldset h9 {
     font-size: 0.46em !important;
 }
+ul, ol {
+    padding-left: initial !important;  /* Restores the default indentation */
+    margin-left: initial !important;      /* Removes any extra margin if needed */
+}
+ul {
+    list-style: initial !important; /* Restores bullet points for ul and numbers for ol */
+}
+ol {
+    list-style: auto !important; /* Restores bullet points for ul and numbers for ol */
+}
+
+
+li {
+    margin-left: 20px !important; /* Optional: Adjust for additional indentation if needed */
+}
