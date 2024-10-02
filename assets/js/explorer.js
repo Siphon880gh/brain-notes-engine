@@ -374,7 +374,7 @@ function objToHtml(type, item) {
                     function replaceBracketsWithLinks(htmlString) {
                         return htmlString.replace(/\[\[(.*?)\]\]/g, function(match, p1) {
                           const encodedText = encodeURIComponent(p1); // To handle special characters in URLs
-                          return `<a href="https://wengindustries.com/app/devbrain/?open=${encodedText}">${p1}</a>`;
+                          return `<a href="${window.openURL}${encodedText}">${p1}</a>`;
                         });
                     }
                     summaryHTML = replaceBracketsWithLinks(summaryHTML);
@@ -391,7 +391,7 @@ function objToHtml(type, item) {
                         setTimeout(() => {
                             // target blank for links
                             summaryInnerEl.querySelectorAll("a").forEach(a => {
-                                if (a.href.includes("wengindustry.com") || a.href.includes("localhost") || a.innerText.includes("🔗"))
+                                if (a.href.includes(window.openURL) || a.href.includes("localhost") || a.innerText.includes("🔗"))
                                     return true;
     
                                 a.setAttribute("target", "_blank");
@@ -476,6 +476,18 @@ function objToHtml(type, item) {
 
 
 $(() => {
+
+
+    // Update See what's changed
+    fetch("env/urls.json")
+    .then(response=>response.json())
+    .then(resource=>{
+        const {commitsURL, openURL} = resource
+        window.commitsURL=commitsURL;
+        window.openURL=openURL;
+    })
+
+
     var $ul = $("<ul>");
     $ul.addClass("ul-root")
     //console.log({folders})
@@ -846,10 +858,10 @@ $(()=>{
         });
     } // sortSuchThatFoldersFirst
 
-    const expandIframeInParent_X1 = ()=>{
-        expandIframeInParent();
-        $('.is-folder').off('click', expandIframeInParent_X1);
-    }
+    // const expandIframeInParent_X1 = ()=>{
+    //     expandIframeInParent();
+    //     $('.is-folder').off('click', expandIframeInParent_X1);
+    // }
 
     // Sort so folders before files
     const sortSuchThatFoldersFirst_X1 = ()=>{
@@ -857,7 +869,8 @@ $(()=>{
         $('.is-folder').off('click', sortSuchThatFoldersFirst_X1);
     }
 
-    $(".is-folder").click(expandIframeInParent_X1);
+    // $(".is-folder").click(expandIframeInParent_X1);
+    $(".is-folder").click(expandIframeInParent);
     $('.is-folder').on('click', sortSuchThatFoldersFirst_X1);
 
     // $('#target ul').each(function() {

@@ -50,7 +50,7 @@
             <div>
                 <!-- <div><a id="count-notes" href="#explore-curriculum">1457 Notes!</a></div> -->
                 <div><span id="count-notes" href="#explore-curriculum">1457 Notes!</span></div>
-                <a target="_blank" href="https://github.com/Siphon880gh/devbrain/commits/main/">See what's changed</a>
+                <a target="_blank" id="whats-changed" href="">See what's changed</a>
                 <!-- <div><i class="fa fa-link"></i> <a href="javascript:void(0)" onclick="$('.description-must').toggleClass('hidden')">More brains</a></div> -->
                 <div>By <a href="javascript:void(0)" data-toggle="modal" data-target="#promoModal">Weng (Weng Fei Fung)</a></div>
             </div>

@@ -1,1 +1,0 @@
-https://gitlab.com/Siphon880gl/bizbrain/commits/main

@@ -288,4 +288,14 @@ $(()=>{
         const matched = window.location.href.indexOf(willMatchUrlContains)!==-1;
         if(matched) el.classList.add("hidden")
     })
+
+    // Update See what's changed
+    fetch("env/urls.json")
+    .then(response=>response.json())
+    .then(resource=>{
+        const {commitsURL,openURL} = resource;
+        // window.commitsURL = commitsURL;
+        // window.openURL = openURL;
+        document.querySelector("#whats-changed").setAttribute("href", commitsURL);
+    })
 })
