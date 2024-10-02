@@ -35,7 +35,7 @@
     </div>
 
     <div id="jump-curriculum">
-        <div onclick="document.querySelector('#side-b').scrollIntoView()">📗 More Topics</div>
+        <div onclick="document.querySelector('#side-b').scrollIntoView()">📗 Jump to Topics</div>
     </div>
 
     <div class="site-header mx-auto">

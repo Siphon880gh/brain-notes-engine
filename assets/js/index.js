@@ -227,9 +227,14 @@ function htmlTableOfContents(tocEl, markdownContentEl) {
 
         var div = document.createElement("div");
         div.classList.add(heading.tagName.toLowerCase());
-        link.addEventListener("click", (event) => {
-            document.querySelector('#mobile-tap').classList.remove('active')
+
+        div.addEventListener("click", ()=>{
+            document.querySelector('#mobile-tap').classList.remove('active');
         })
+        link.addEventListener("click", ()=>{
+            document.querySelector('#mobile-tap').classList.remove('active');
+        })
+
         div.appendChild(link);
         tocEl.appendChild(div);
 

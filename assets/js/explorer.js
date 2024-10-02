@@ -805,14 +805,60 @@ $(() => {
 
 $(()=>{
     function expandIframeInParent() {
-        setTimeout(()=>{
-            var scrollHeight=document.body.clientHeight;
+        // setTimeout(()=>{
+            let parentWindow = window.parent; 
+            let originalScrollPos = parentWindow.scrollY + window.parent;
+            // debugger
+            originalScrollPos = window.scrollY
+
+            console.log({originalScrollPos})
+
+            var scrollHeight=document.body.clientHeight+50;
             window.parent.document.querySelector("#explorer-iframe").style.height=(scrollHeight+10)+"px";
-        }, 500);
+
+            parentWindow.scrollTo({top:originalScrollPos})
+
+            console.log({parentWindow})
+        // }, 500);
+    } // expandIframeInParent
+
+    function sortSuchThatFoldersFirst() {
+        $('#target ul').each(function() {
+            var $ul = $(this);
+        
+            // Skip the root 'ul' with the class 'ul-root'
+            if (!$ul.hasClass('ul-root')) {
+                var $li = $ul.children('li');
+        
+                // Separate the 'li' elements into folders and files
+                var $folders = $li.filter(function() {
+                    return $(this).children('span.name').hasClass('is-folder');
+                });
+        
+                var $files = $li.filter(function() {
+                    return $(this).children('span.name').hasClass('is-file');
+                });
+        
+                // Append folders and files back to the 'ul' to reorder them
+                // This moves the existing elements without removing them, preserving event handlers
+                $ul.append($folders).append($files);
+            }
+        });
+    } // sortSuchThatFoldersFirst
+
+    const expandIframeInParent_X1 = ()=>{
+        expandIframeInParent();
+        $('.is-folder').off('click', expandIframeInParent_X1);
     }
 
-    expandIframeInParent();
-    $(".is-folder").click(expandIframeInParent);
+    // Sort so folders before files
+    const sortSuchThatFoldersFirst_X1 = ()=>{
+        sortSuchThatFoldersFirst();
+        $('.is-folder').off('click', sortSuchThatFoldersFirst_X1);
+    }
+
+    $(".is-folder").click(expandIframeInParent_X1);
+    $('.is-folder').on('click', sortSuchThatFoldersFirst_X1);
 
     // $('#target ul').each(function() {
     //     // Check if this 'ul' is not the root level
@@ -835,27 +881,10 @@ $(()=>{
     //     }
     // });
 
-    $('#target ul').each(function() {
-        var $ul = $(this);
-    
-        // Skip the root 'ul' with the class 'ul-root'
-        if (!$ul.hasClass('ul-root')) {
-            var $li = $ul.children('li');
-    
-            // Separate the 'li' elements into folders and files
-            var $folders = $li.filter(function() {
-                return $(this).children('span.name').hasClass('is-folder');
-            });
-    
-            var $files = $li.filter(function() {
-                return $(this).children('span.name').hasClass('is-file');
-            });
-    
-            // Append folders and files back to the 'ul' to reorder them
-            // This moves the existing elements without removing them, preserving event handlers
-            $ul.append($folders).append($files);
-        }
-    });
-    
+    // setTimeout(()=>{
+
+        
+    // }, 2000)
+
     
 })
