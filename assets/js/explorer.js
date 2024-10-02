@@ -82,14 +82,19 @@ if (window?.sortspecs) {
     }
 
     // Get the ordered folders from the sort spec
-
     const sortCriteria = parseSortSpec(sortCriteriaMd);
     console.log({ sortCriteria }); // Logs the ordered folder names criteria
 
     // Sort the folders array based on the order defined in sortCriteria
+    let hadSortSpec = false;
     folders = folders.sort((a, b) => {
         const indexA = sortCriteria.indexOf(a.path_tp);
         const indexB = sortCriteria.indexOf(b.path_tp);
+        
+        if (!hadSortSpec && (indexA !== -1 || indexB !== -1)) {
+            hadSortSpec = true;
+        }
+
         if (indexA !== -1 && indexB !== -1) {
             return indexA - indexB; // both in ordered list, sort by their order
         } else if (indexA !== -1) {
@@ -100,6 +105,25 @@ if (window?.sortspecs) {
             return a.path_tp.localeCompare(b.path_tp); // neither in ordered list, sort alphabetically
         }
     });
+
+
+    // Sort so that folders come first
+    // if(!hadSortSpec) {
+    //     folders = folders.sort((a, b) => {
+    //         // Check if "fa-folder" is a substring of the path_tp
+    //         const hasFaFolderA = !a.path_tp.includes('.') && a.path_tp.includes('/');
+    //         const hasFaFolderB = !b.path_tp.includes('.') && b.path_tp.includes('/');
+        
+    //         // Prioritize those with "fa-folder"
+    //         if (hasFaFolderA && !hasFaFolderB) {
+    //             return -1; // a has "fa-folder", so it comes first
+    //         } else if (!hasFaFolderA && hasFaFolderB) {
+    //             return 1; // b has "fa-folder", so it comes first
+    //         } else {
+    //             return -1;
+    //         }
+    //     })
+    // }
 
     // console.log("Retrieved sortspec.md from Obsidian and rearranged folders:\n" + folders.map(f=>f.path_tp))
 
@@ -453,6 +477,7 @@ function objToHtml(type, item) {
 
 $(() => {
     var $ul = $("<ul>");
+    $ul.addClass("ul-root")
     //console.log({folders})
 
     for (var i = 0; i < folders.length; i++) {
@@ -788,4 +813,49 @@ $(()=>{
 
     expandIframeInParent();
     $(".is-folder").click(expandIframeInParent);
+
+    // $('#target ul').each(function() {
+    //     // Check if this 'ul' is not the root level
+    //     // if ($(this).parentsUntil('#target', 'ul').length >= 1) {
+    //     if (!$(this).hasClass("ul-root")) {
+    //         var $ul = $(this);
+    //         var $li = $ul.children('li');
+    
+    //         // Separate the 'li' elements into folders and files
+    //         var $folders = $li.filter(function() {
+    //             return $(this).children('span.name').hasClass('is-folder');
+    //         });
+    
+    //         var $files = $li.filter(function() {
+    //             return $(this).children('span.name').hasClass('is-file');
+    //         });
+    
+    //         // Clear the current 'ul' and append folders first, then files
+    //         $ul.empty().append($folders).append($files);
+    //     }
+    // });
+
+    $('#target ul').each(function() {
+        var $ul = $(this);
+    
+        // Skip the root 'ul' with the class 'ul-root'
+        if (!$ul.hasClass('ul-root')) {
+            var $li = $ul.children('li');
+    
+            // Separate the 'li' elements into folders and files
+            var $folders = $li.filter(function() {
+                return $(this).children('span.name').hasClass('is-folder');
+            });
+    
+            var $files = $li.filter(function() {
+                return $(this).children('span.name').hasClass('is-file');
+            });
+    
+            // Append folders and files back to the 'ul' to reorder them
+            // This moves the existing elements without removing them, preserving event handlers
+            $ul.append($folders).append($files);
+        }
+    });
+    
+    
 })
