@@ -54,7 +54,7 @@
                 <!-- <div><i class="fa fa-link"></i> <a href="javascript:void(0)" onclick="$('.description-must').toggleClass('hidden')">More brains</a></div> -->
                 <div>By <a href="javascript:void(0)" data-toggle="modal" data-target="#promoModal">Weng (Weng Fei Fung)</a></div>
             </div>
-            <div class="more-notes">
+            <div class="more-notes invisible"> <!-- Prevent Visual Reflow -->
                 <div class="mn-header" class="font-bold text-center">More<br/>Notes</div>
                 <div class="mn-links">
                     <li>
@@ -66,7 +66,7 @@
                     <li>
                         <a target="_blank" data-hide-if-url-contains="/3dbrain/" href="../3dbrain">🎮 3d video game development and video editing</a>
                     </li>
-                    <li>
+                    <li style="flex-basis:100px">
                         <a target="_blank" data-hide-if-url-contains="/3dbrain/" href="../3dbrain">⚕️ Health</a>
                     </li>
                 </div>

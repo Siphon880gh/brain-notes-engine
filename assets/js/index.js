@@ -287,7 +287,8 @@ $(()=>{
         const willMatchUrlContains = el.getAttribute("data-hide-if-url-contains")
         const matched = window.location.href.indexOf(willMatchUrlContains)!==-1;
         if(matched) el.classList.add("hidden")
-    })
+    });
+    document.querySelector(".more-notes").classList.remove("invisible");
 
     // Update See what's changed
     fetch("env/urls.json")

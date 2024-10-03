@@ -458,11 +458,11 @@ body {
     text-align: center;
     transition: height 5s ease;
     display:flex;
-    flex-direction:row-reverse;
+    flex-direction:row;
     flex-wrap: nowrap;
 }
 .more-notes .mn-header {
-    transform: rotate(-270deg);
+    transform: rotate(270deg);
     padding-top: 20px;
     line-height: 1.25rem;
 }
@@ -472,10 +472,12 @@ body {
     text-align: left;
     padding: 5px;
     text-align: center;
+    display:flex;
 }
 .more-notes .mn-links li {
     display: inline;
     margin-right: 10px;
+    text-align: center;
 }
 .more-notes .mn-links li a {
     background: none !important; /* Tufte remove underline on link */
