@@ -210,12 +210,22 @@ button {
   background-color: orange;
 }
 
+#explorer-btns .info-flex-child:nth-child(1) {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: fit-content;
+  gap: 5px;
+}
 @media screen AND (max-width: 944px) {
+  #explorer-btns {
+    justify-content: center;
+  }
+  #explorer-btns .info-flex-child:nth-child(1) {
+    flex-direction: column;
+  }
   /* Most mobiles can't print. And toggling all opening will be horrible on mobile */
   #explorer-btns .info-flex-child:nth-child(2) {
     display: none;
-  }
-  #search-container {
-    display: block;
   }
 }

@@ -219,15 +219,29 @@ button {
   background-color: orange;
 }
 
+/* line 213, scss/explorer.scss */
+#explorer-btns .info-flex-child:nth-child(1) {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: fit-content;
+  gap: 5px;
+}
+
 @media screen and (max-width: 944px) {
-  /* Most mobiles can't print. And toggling all opening will be horrible on mobile */
-  /* line 215, scss/explorer.scss */
-  #explorer-btns .info-flex-child:nth-child(2) {
-    display: none;
+  /* line 221, scss/explorer.scss */
+  #explorer-btns {
+    justify-content: center;
   }
 
-  /* line 218, scss/explorer.scss */
-  #search-container {
-    display: block;
+  /* line 224, scss/explorer.scss */
+  #explorer-btns .info-flex-child:nth-child(1) {
+    flex-direction: column;
+  }
+
+  /* Most mobiles can't print. And toggling all opening will be horrible on mobile */
+  /* line 228, scss/explorer.scss */
+  #explorer-btns .info-flex-child:nth-child(2) {
+    display: none;
   }
 }

@@ -319,13 +319,16 @@ body {
     position: fixed;
     bottom: 0;
     right: 0;
-    padding-left: 10px;
-    padding-right: 10px;
     background-color: white;
     z-index: 500;
     width: 100%;
     text-align: right;
-    padding-top: 2.6px;
+}
+
+@media screen and (max-width:768px) {
+    #jump-curriculum {
+        padding: 10px 10px 10px 10px;
+    }
 }
 
 // iOS is glitch about :empty, so using different approach below

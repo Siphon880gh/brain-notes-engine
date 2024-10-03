@@ -351,21 +351,24 @@ body {
   position: fixed;
   bottom: 0;
   right: 0;
-  padding-left: 10px;
-  padding-right: 10px;
   background-color: white;
   z-index: 500;
   width: 100%;
   text-align: right;
-  padding-top: 2.6px;
 }
 
-/* line 335, scss/index.scss */
+@media screen and (max-width: 768px) {
+  /* line 329, scss/index.scss */
+  #jump-curriculum {
+    padding: 10px 10px 10px 10px;
+  }
+}
+/* line 338, scss/index.scss */
 #toc-toggler:not(.filled) {
   display: none;
 }
 
-/* line 339, scss/index.scss */
+/* line 342, scss/index.scss */
 #toc {
   display: none;
   position: fixed;
@@ -384,27 +387,27 @@ body {
 }
 
 @media screen and (min-width: 768px) {
-  /* line 357, scss/index.scss */
+  /* line 360, scss/index.scss */
   #toc {
     max-width: 40vw;
   }
 }
-/* line 362, scss/index.scss */
+/* line 365, scss/index.scss */
 #toc:empty {
   display: none !important;
 }
 
-/* line 366, scss/index.scss */
+/* line 369, scss/index.scss */
 #toc-toggler:hover #toc {
   display: block;
 }
 
-/* line 370, scss/index.scss */
+/* line 373, scss/index.scss */
 #mobile-tap.active + #toc {
   display: block;
 }
 
-/* line 374, scss/index.scss */
+/* line 377, scss/index.scss */
 #toc .h1,
 #toc .h2,
 #toc .h3,
@@ -418,64 +421,64 @@ body {
   font-size: 1.2rem;
 }
 
-/* line 387, scss/index.scss */
+/* line 390, scss/index.scss */
 #toc .h2 {
   margin-left: 2ch;
 }
 
-/* line 391, scss/index.scss */
+/* line 394, scss/index.scss */
 #toc .h2::before {
   content: "•\00a0";
 }
 
-/* line 395, scss/index.scss */
+/* line 398, scss/index.scss */
 #toc .h3 {
   margin-left: 4ch;
 }
 
-/* line 399, scss/index.scss */
+/* line 402, scss/index.scss */
 #toc .h3::before {
   content: "—";
 }
 
-/* line 403, scss/index.scss */
+/* line 406, scss/index.scss */
 #toc .h4 {
   margin-left: 6ch;
 }
 
-/* line 407, scss/index.scss */
+/* line 410, scss/index.scss */
 #toc .h4::before {
   content: "➣";
 }
 
-/* line 411, scss/index.scss */
+/* line 414, scss/index.scss */
 #toc .h5 {
   margin-left: 8ch;
 }
 
-/* line 415, scss/index.scss */
+/* line 418, scss/index.scss */
 #toc .h5::before {
   content: "➨";
 }
 
-/* line 419, scss/index.scss */
+/* line 422, scss/index.scss */
 #toc .h6 {
   margin-left: 10ch;
 }
 
-/* line 423, scss/index.scss */
+/* line 426, scss/index.scss */
 #toc .h6::before {
   content: "◦\00a0";
 }
 
-/* line 441, scss/index.scss */
+/* line 444, scss/index.scss */
 .description-must {
   position: relative;
   overflow: visible;
   margin: 20px auto;
 }
 
-/* line 447, scss/index.scss */
+/* line 450, scss/index.scss */
 .more-notes {
   /* margin: 10px auto; */
   list-style-type: none;
@@ -495,14 +498,14 @@ body {
   flex-wrap: nowrap;
 }
 
-/* line 464, scss/index.scss */
+/* line 467, scss/index.scss */
 .more-notes .mn-header {
   transform: rotate(270deg);
   padding-top: 20px;
   line-height: 1.25rem;
 }
 
-/* line 469, scss/index.scss */
+/* line 472, scss/index.scss */
 .more-notes .mn-links {
   width: 100%;
   max-width: 600px;
@@ -512,38 +515,38 @@ body {
   display: flex;
 }
 
-/* line 477, scss/index.scss */
+/* line 480, scss/index.scss */
 .more-notes .mn-links li {
   display: inline;
   margin-right: 10px;
   text-align: center;
 }
 
-/* line 482, scss/index.scss */
+/* line 485, scss/index.scss */
 .more-notes .mn-links li a {
   background: none !important;
   /* Tufte remove underline on link */
 }
 
 @media screen and (max-width: 768px) {
-  /* line 486, scss/index.scss */
+  /* line 489, scss/index.scss */
   .hide\:lt867 {
     display: none;
   }
 }
 /* UI UX: Left vertical green bar to collapse lesson */
-/* line 491, scss/index.scss */
+/* line 494, scss/index.scss */
 #side-a > .deemp-fieldset {
   position: relative;
 }
 
-/* line 495, scss/index.scss */
+/* line 498, scss/index.scss */
 #side-a {
   border: 1px solid gray;
   padding: 2px;
 }
 
-/* line 501, scss/index.scss */
+/* line 504, scss/index.scss */
 #side-a > .deemp-fieldset > .left-bar {
   position: absolute;
   height: calc(100% + 50px + 10px);
@@ -555,7 +558,7 @@ body {
   background-position: 0 0;
 }
 
-/* line 513, scss/index.scss */
+/* line 516, scss/index.scss */
 #explorer-iframe {
   padding: 5px;
   border-radius: 5px;
@@ -568,62 +571,62 @@ body {
 }
 
 /* Get rid of markdown it with latext's ruler lines */
-/* line 525, scss/index.scss */
+/* line 528, scss/index.scss */
 .stretchy svg {
   display: none !important;
 }
 
-/* line 530, scss/index.scss */
+/* line 533, scss/index.scss */
 .deemp-fieldset h1 {
   font-size: 1.3625em !important;
   /* Starting point */
 }
 
-/* line 534, scss/index.scss */
+/* line 537, scss/index.scss */
 .deemp-fieldset h2 {
   font-size: 1.17em !important;
   /* Proportionally smaller than h1 */
 }
 
-/* line 538, scss/index.scss */
+/* line 541, scss/index.scss */
 .deemp-fieldset h3 {
   font-size: 1em !important;
   /* Proportionally smaller */
 }
 
-/* line 542, scss/index.scss */
+/* line 545, scss/index.scss */
 .deemp-fieldset h4 {
   font-size: 0.85em !important;
   /* Slightly smaller */
 }
 
-/* line 546, scss/index.scss */
+/* line 549, scss/index.scss */
 .deemp-fieldset h5 {
   font-size: 0.75em !important;
   /* Gradually smaller */
 }
 
-/* line 550, scss/index.scss */
+/* line 553, scss/index.scss */
 .deemp-fieldset h6 {
   font-size: 0.65em !important;
 }
 
-/* line 554, scss/index.scss */
+/* line 557, scss/index.scss */
 .deemp-fieldset h7 {
   font-size: 0.58em !important;
 }
 
-/* line 558, scss/index.scss */
+/* line 561, scss/index.scss */
 .deemp-fieldset h8 {
   font-size: 0.52em !important;
 }
 
-/* line 562, scss/index.scss */
+/* line 565, scss/index.scss */
 .deemp-fieldset h9 {
   font-size: 0.46em !important;
 }
 
-/* line 565, scss/index.scss */
+/* line 568, scss/index.scss */
 ul, ol {
   padding-left: initial !important;
   /* Restores the default indentation */
@@ -631,19 +634,19 @@ ul, ol {
   /* Removes any extra margin if needed */
 }
 
-/* line 569, scss/index.scss */
+/* line 572, scss/index.scss */
 ul {
   list-style: initial !important;
   /* Restores bullet points for ul and numbers for ol */
 }
 
-/* line 572, scss/index.scss */
+/* line 575, scss/index.scss */
 ol {
   list-style: auto !important;
   /* Restores bullet points for ul and numbers for ol */
 }
 
-/* line 577, scss/index.scss */
+/* line 580, scss/index.scss */
 li {
   margin-left: 20px !important;
   /* Optional: Adjust for additional indentation if needed */

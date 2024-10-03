@@ -245,17 +245,19 @@
                     <input id="searcher" onkeyup="checkIfEmptiedSearch(event, $('#searcher-btn'))" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                   </div>
 
-                  <button id="searcher-2-btn" class="override-ios-button-style" 
-                    onclick="searchAllTitles($('#searcher').val(), ()=>{ 
-                      $('#shareSnippet').val((window.location.hostname + window.location.pathname).replaceAll('explorer.php', '') + `?search-titles=${encodeURI($('#searcher-2').val())}`);
-                      document.getElementById('share-search-title-wrapper').classList.remove('hidden')
-                    }); " 
-                    style="cursor: pointer;"
-                  ><i class="fa fa-search" style="cursor: pointer;"></i> Titles</button>
+                  <div id="search-container-btns">
+                    <button id="searcher-2-btn" class="override-ios-button-style" 
+                      onclick="searchAllTitles($('#searcher').val(), ()=>{ 
+                        $('#shareSnippet').val((window.location.hostname + window.location.pathname).replaceAll('explorer.php', '') + `?search-titles=${encodeURI($('#searcher-2').val())}`);
+                        document.getElementById('share-search-title-wrapper').classList.remove('hidden')
+                      }); " 
+                      style="cursor: pointer;"
+                    ><i class="fa fa-search" style="cursor: pointer;"></i> Titles</button>
 
-                  <button id="searcher-btn" class="override-ios-button-style" onclick="searchAllContents($('#searcher').val());" style="cursor: pointer;"><i class="fa fa-search" style="cursor: pointer;"></i> Contents</button>
-                  
-                  <button onclick="if(confirm('Clear Search?')) clearSearcher($('#searcher'));" style="cursor: pointer; border:0;"><i class="fa fa-eraser" style="cursor: pointer;"></i> Clear</button>
+                    <button id="searcher-btn" class="override-ios-button-style" onclick="searchAllContents($('#searcher').val());" style="cursor: pointer;"><i class="fa fa-search" style="cursor: pointer;"></i> Contents</button>
+                    
+                    <button onclick="if(confirm('Clear Search?')) clearSearcher($('#searcher'));" style="cursor: pointer; border:0;"><i class="fa fa-eraser" style="cursor: pointer;"></i> Clear</button>
+                  </div>
               </div>
                   
                   
