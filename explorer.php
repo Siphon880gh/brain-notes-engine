@@ -216,7 +216,7 @@
     <?php include("./partials/tufte-override.php"); ?>
 </head>
     <body style="padding-right:5px">
-        <div class="container">
+        <div class="container-off">
         
           <?php
 
@@ -235,38 +235,37 @@
 
           ?>
 
-          <div style="width:1px; height:10px; clear:both;"></div>
-          <div id="searcher-containers" style="float:right;">
+          <!-- <div style="width:1px; height:10px; clear:both;"></div> -->
+          <!-- <div id="searcher-containers" style="float:right;"> -->
 
-            <div id="searcher-container" style="float:right; margin-top:5px;">
-                  <?php
-                  /*
-                  <label for="searcher">Text content:</label>
-                  <input id="searcher" onkeyup="checkSearcherSubmit(event, $('#searcher-btn'))" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                  <button id="searcher-btn" class="override-ios-button-style" onclick="doSearcher();" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span></button>
-                  */
-                  ?>
-                  <span class="mobile-flush-top">
-                    <button onclick="$('#searcher-container-2').removeClass('hidden');" style="cursor: pointer; border:0;"><span class="fa fa-search"> Search</button>
-                    <?php /* <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;"><span class="fa fa-eraser" style="cursor: pointer;"> Clear</button> */ ?>
-                    <button id="toggle-all-responsive" onclick="toggleAllExpand();"><span class="fa fa-eye cursor-pointer"> Toggle All</button>
-                    <button onclick="window.print();"><span class="fa fa-print" style="cursor: pointer;"> Print</button>
-                  </span>
-            </div>
+            <div id="explorer-btns">
+              <div class="info-flex-child">
+                  <div id="search-container">
+                    <label for="searcher">Search:</label>
+                    <input id="searcher" onkeyup="checkIfEmptiedSearch(event, $('#searcher-btn'))" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                  </div>
 
-            
-            <div id="searcher-container-2" class="hidden" style="float:right; margin-top:5px;">
-                  <label for="searcher-2">Topic Title:</label>
-                  <input id="searcher-2" onkeyup="checkSearcherSubmit(event, $('#searcher-2-btn'))"class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                   <button id="searcher-2-btn" class="override-ios-button-style" 
-                    onclick="doSearcher2($('#searcher-2').val(), ()=>{ 
+                    onclick="searchAllTitles($('#searcher').val(), ()=>{ 
                       $('#shareSnippet').val((window.location.hostname + window.location.pathname).replaceAll('explorer.php', '') + `?search-titles=${encodeURI($('#searcher-2').val())}`);
                       document.getElementById('share-search-title-wrapper').classList.remove('hidden')
                     }); " 
                     style="cursor: pointer;"
-                  ><span class="fa fa-search" style="cursor: pointer;"></span></button>
+                  ><i class="fa fa-search" style="cursor: pointer;"></i> Titles</button>
+
+                  <button id="searcher-btn" class="override-ios-button-style" onclick="searchAllContents($('#searcher').val());" style="cursor: pointer;"><i class="fa fa-search" style="cursor: pointer;"></i> Contents</button>
+                  
+                  <button onclick="if(confirm('Clear Search?')) clearSearcher($('#searcher'));" style="cursor: pointer; border:0;"><i class="fa fa-eraser" style="cursor: pointer;"></i> Clear</button>
+              </div>
+                  
+                  
+              <div class="info-flex-child">
+                  <button id="toggle-all-responsive" onclick="toggleAllExpand();"><span class="fa fa-eye cursor-pointer"> Toggle</button>
+                  <button onclick="window.print();"><span class="fa fa-print" style="cursor: pointer;"> Print</button>
+             </div>
             </div>
-            <div style="clear:both;"></div>
+            
+            <!-- <div style="clear:both;"></div> -->
             <div id="share-search-title-wrapper" class="hidden" 
               style="margin-top:10px; text-align:right; position:fixed; right:10px; bottom:0; padding:0; background-color:white;">
               <a href="javascript:void()" onclick='$("#shareModal").modal("show");'>

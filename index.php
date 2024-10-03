@@ -35,7 +35,7 @@
     </div>
 
     <div id="jump-curriculum">
-        <div onclick="document.querySelector('#side-b').scrollIntoView()">📗 Jump to Topics</div>
+        <div onclick="document.querySelector('#side-b').scrollIntoView(); document.querySelector('#side-b').querySelector('iframe').contentWindow.scrollTo({top:0});">📗 Jump to Topics</div>
     </div>
 
     <div class="site-header mx-auto">
@@ -61,13 +61,13 @@
                         <a target="_blank" data-hide-if-url-contains="/devbrain/" href="../devbrain">💻 Software development / programming / coding</a>
                     </li>
                     <li>
-                        <a target="_blank" data-hide-if-url-contains="/bizbrain/" href="../bizbrain">💼 Business - Tech startup</a>
+                        <a target="_blank" data-hide-if-url-contains="/bizbrain/" href="../bizbrain">💼 Business: Tech Startups</a>
                     </li>
                     <li>
                         <a target="_blank" data-hide-if-url-contains="/3dbrain/" href="../3dbrain">🎮 3d video game development and video editing</a>
                     </li>
                     <li style="flex-basis:105px">
-                        <a target="_blank" data-hide-if-url-contains="/3dbrain/" href="../3dbrain">⚕️ Health</a>
+                        <a target="_blank" data-hide-if-url-contains="/3dbrain/" href="../healthbrain">⚕️ Health</a>
                     </li>
                 </div>
             </div>

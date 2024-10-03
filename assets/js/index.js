@@ -189,7 +189,7 @@ function runtimeOnMessageReadyExplorer() {
                             if (doesTreeExist) {
                                 clearInterval(checkIframeLoading);
                                 setTimeout(() => {
-                                    $topicField = $curriculumExplorer.find("#searcher-2"),
+                                    $topicField = $curriculumExplorer.find("#searcher"),
                                         $topicBtn = $curriculumExplorer.find("#searcher-2-btn");;
                                     $topicField.val(qtopic);
                                     $topicBtn.click();

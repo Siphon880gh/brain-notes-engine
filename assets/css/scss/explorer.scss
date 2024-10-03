@@ -26,17 +26,6 @@
 
 /** COMPONENTS **/
 
-/* Searcher */
-#searcher,
-#searcher-btn {
-  border-color: lightblue;
-}
-
-#searcher-2,
-#searcher-2-btn {
-  border-color: #FFCCCB;
-  /* light red */
-}
 
 #table-search-results {
 
@@ -55,51 +44,6 @@
   }
 }
 
-@media print {
-  #searcher-containers {
-    display: none;
-  }
-
-  #printer-title::after {
-    content: "Curriculum";
-    font-size: 2rem;
-  }
-}
-
-@media SCREEN and (max-width: 768px) {
-
-  #searcher-containers,
-  .container {
-    padding: 0;
-  }
-
-  #searcher-containers {
-    margin-top: 20px;
-  }
-
-  .mobile-flush-top {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-  }
-}
-
-@media SCREEN and (min-width: 768px) {
-  // #searcher-2-btn::after {
-  //   content: " (with autocomplete)";
-  // }
-}
-
-// #searcher-btn,
-// #searcher-2-btn {
-//   margin-left: -5px;
-// }
-
-#searcher,
-#searcher-2 {
-  margin-left: 10px;
-}
-
 #share-search-title-wrapper a:hover {
   text-decoration: none;
 }
@@ -115,13 +59,20 @@
 }
 
 @media screen AND (max-width: 768px) {
-  ol ol, ol ul, ul ol, ul ul {
+
+  ol ol,
+  ol ul,
+  ul ol,
+  ul ul {
     padding-inline-start: 5px !important;
-  }  
+  }
 }
-dt:not(:first-child), li:not(:first-child) {
+
+dt:not(:first-child),
+li:not(:first-child) {
   margin-top: 0 !important;
 }
+
 li {
   color: blue;
 }
@@ -212,7 +163,7 @@ li:hover {
 }
 
 #target {
-  font-size:1.1rem;
+  font-size: 1.1rem;
 }
 
 #target>ul>li>.name.is-folder[icon]::before {
@@ -223,20 +174,13 @@ li:hover {
 }
 
 /* The default folder icon is actually nested */
-#target>ul>li>.name.is-folder[icon] > .fa-folder::before {
+#target>ul>li>.name.is-folder[icon]>.fa-folder::before {
   content: "" !important;
 }
-#target>ul>li>.name.is-folder:not([icon]) > .fa-folder::before {
+
+#target>ul>li>.name.is-folder:not([icon])>.fa-folder::before {
   min-width: 15px;
   display: inline-block;
-}
-
-#searcher {
-  width: 180px;
-}
-
-#searcher-2 {
-  width: 180px;
 }
 
 button {
@@ -244,55 +188,34 @@ button {
   border: 0;
 }
 
-@media screen AND (min-width: 550px) {
-
-  #searcher-btn::after,
-  #searcher-2-btn::after {
-    content: " Search";
-  }
-  
-  #searcher-container,
-  #searcher-container-2 {
-    width: 370px;
-    text-align: right;
-  }
-  
-}
-@media screen AND (max-width: 768px) {
-  #toggle-all-responsive {
-    display: none;
-  }
-}
-
-@media screen AND (max-width: 549px) {
-  #searcher-containers {
-    width: 100%;
-  }
-
-  #searcher-container,
-  #searcher-container-2 {
-    width: 100% !important;
-  }
-
-  #searcher-containers label {
-    display: block !important;
-    text-align: center !important;
-    width: 100%;
-  }
-
-  #searcher {
-    width: 80%;
-  }
-
-  #searcher-2 {
-    width: 80%;
-  }
-
-  #searcher+button,
-  #searcher-2+button {
-    width: 15%;
-  }
-}
 .custom-icon+.fa-folder {
   display: none;
+}
+
+#explorer-btns {
+  border-bottom: 1px dashed lightgray;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#explorer-btns button {
+  margin-top: 5px;
+}
+
+.highlight {
+  background-color: orange;
+}
+
+@media screen AND (max-width: 944px) {
+  /* Most mobiles can't print. And toggling all opening will be horrible on mobile */
+  #explorer-btns .info-flex-child:nth-child(2) {
+    display: none;
+  }
+  #search-container {
+    display: block;
+  }
 }

@@ -90,7 +90,7 @@ if (window?.sortspecs) {
     folders = folders.sort((a, b) => {
         const indexA = sortCriteria.indexOf(a.path_tp);
         const indexB = sortCriteria.indexOf(b.path_tp);
-        
+
         if (!hadSortSpec && (indexA !== -1 || indexB !== -1)) {
             hadSortSpec = true;
         }
@@ -113,7 +113,7 @@ if (window?.sortspecs) {
     //         // Check if "fa-folder" is a substring of the path_tp
     //         const hasFaFolderA = !a.path_tp.includes('.') && a.path_tp.includes('/');
     //         const hasFaFolderB = !b.path_tp.includes('.') && b.path_tp.includes('/');
-        
+
     //         // Prioritize those with "fa-folder"
     //         if (hasFaFolderA && !hasFaFolderB) {
     //             return -1; // a has "fa-folder", so it comes first
@@ -237,7 +237,7 @@ function objToHtml(type, item) {
     }
 
     // Hide README
-    if (item.current==="README.md") {
+    if (item.current === "README.md") {
         $liDom.hide();
     }
 
@@ -282,30 +282,30 @@ function objToHtml(type, item) {
 
                     // Show notes in textarea
                     var hasParent = Boolean(parent.document.querySelector("#summary-inner"))
-                    
-                    
+
+
                     let summaryInnerEl = parent.document.querySelector("#summary-inner");
-                    if(hasParent)
+                    if (hasParent)
                         summaryInnerEl.classList.remove("hide");
 
                     var md = window.markdownit({
                         html: true,
                         linkify: true
                     }).use(window.MarkdownItLatex)
-                    .use(window.markdownItAnchor, {
-                        level: [1, 2, 3, 4, 5, 6], // Apply to all heading levels
-                        slugify: function (s) {
-                            return s.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '');
-                        },
-                        permalink: true,
-                        permalinkHref: (slug, state) => {
-                            let s = slug;
-                            s = "javascript:window.parent.shareTutorialSection('?open=" + encodeURI(title) + "#" + s + "');"; // ?open=Data%20Lake.md#Section1
-                            return s;
-                        },
-                        permalinkSymbol: '🔗' // Set to true if you want a permalink symbol
-                        // Other options as needed
-                    });
+                        .use(window.markdownItAnchor, {
+                            level: [1, 2, 3, 4, 5, 6], // Apply to all heading levels
+                            slugify: function (s) {
+                                return s.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '');
+                            },
+                            permalink: true,
+                            permalinkHref: (slug, state) => {
+                                let s = slug;
+                                s = "javascript:window.parent.shareTutorialSection('?open=" + encodeURI(title) + "#" + s + "');"; // ?open=Data%20Lake.md#Section1
+                                return s;
+                            },
+                            permalinkSymbol: '🔗' // Set to true if you want a permalink symbol
+                            // Other options as needed
+                        });
 
                     // md.renderer.rules.newline = (tokens, idx) => {
                     //     return '\n';
@@ -322,41 +322,41 @@ function objToHtml(type, item) {
                         const lines = inputText.split('\n');
                         const outputLines = [];
                         let i = 0;
-                      
+
                         while (i < lines.length) {
-                          const line = lines[i];
-                          const noteMatch = line.match(/^>\s*\[!note\]\s*(.*)$/i);
-                      
-                          if (noteMatch) {
-                            // Start of a note block
-                            const summaryText = noteMatch[1].trim();
-                            const contentLines = [];
-                      
-                            i++;
-                            // Collect the content lines that start with '>'
-                            while (i < lines.length && lines[i].startsWith('>')) {
-                              const contentLine = lines[i].replace(/^>\s*/, ''); // Remove '>' and possible spaces
-                              contentLines.push(contentLine);
-                              i++;
+                            const line = lines[i];
+                            const noteMatch = line.match(/^>\s*\[!note\]\s*(.*)$/i);
+
+                            if (noteMatch) {
+                                // Start of a note block
+                                const summaryText = noteMatch[1].trim();
+                                const contentLines = [];
+
+                                i++;
+                                // Collect the content lines that start with '>'
+                                while (i < lines.length && lines[i].startsWith('>')) {
+                                    const contentLine = lines[i].replace(/^>\s*/, ''); // Remove '>' and possible spaces
+                                    contentLines.push(contentLine);
+                                    i++;
+                                }
+
+                                const content = contentLines.join('\n');
+                                const detailsHtml = `<details>\n<summary>${summaryText}</summary>\n<div class="border ml-3 p-1">${content}</div>\n</details><br/>`;
+                                outputLines.push(detailsHtml);
+                            } else {
+                                outputLines.push(line);
+                                i++;
                             }
-                      
-                            const content = contentLines.join('\n');
-                            const detailsHtml = `<details>\n<summary>${summaryText}</summary>\n<div class="border ml-3 p-1">${content}</div>\n</details><br/>`;
-                            outputLines.push(detailsHtml);
-                          } else {
-                            outputLines.push(line);
-                            i++;
-                          }
                         }
-                      
+
                         return outputLines.join('\n');
-                      }  // convertNotesToDetails
-                      
-                      summary = convertNotesToDetails(summary);
-                      
+                    }  // convertNotesToDetails
+
+                    summary = convertNotesToDetails(summary);
+
 
                     var summaryHTML = md.render(summary);
-                    if(hasParent) {
+                    if (hasParent) {
                         parent.document.querySelector("#summary-title").textContent = title;
                         parent.document.querySelector("#summary-collapser").classList.remove("d-none");
                         parent.document.querySelector("#summary-collapser").classList.add("stated");
@@ -372,20 +372,20 @@ function objToHtml(type, item) {
                     summaryHTML = summaryHTML.replaceAll(/\xA0/g, " ");
 
                     function replaceBracketsWithLinks(htmlString) {
-                        return htmlString.replace(/\[\[(.*?)\]\]/g, function(match, p1) {
-                          const encodedText = encodeURIComponent(p1); // To handle special characters in URLs
-                          return `<a target="_blank" href="${window.openURL}${encodedText}">${p1}</a>`;
+                        return htmlString.replace(/\[\[(.*?)\]\]/g, function (match, p1) {
+                            const encodedText = encodeURIComponent(p1); // To handle special characters in URLs
+                            return `<a target="_blank" href="${window.openURL}${encodedText}">${p1}</a>`;
                         });
                     }
                     summaryHTML = replaceBracketsWithLinks(summaryHTML);
 
-                    if(!hasParent) {
+                    if (!hasParent) {
                         var newTab = window.open("about:blank");
                         newTab.document.write(summaryHTML);
                         newTab.document.close();
                     }
 
-                    if(hasParent) {
+                    if (hasParent) {
 
                         summaryInnerEl.innerHTML = summaryHTML;
                         setTimeout(() => {
@@ -393,16 +393,16 @@ function objToHtml(type, item) {
                             summaryInnerEl.querySelectorAll("a").forEach(a => {
                                 if (a.href.includes(window.openURL) || a.href.includes("localhost") || a.innerText.includes("🔗"))
                                     return true;
-    
+
                                 a.setAttribute("target", "_blank");
-    
+
                                 // Youtube Embeds
                                 (function () {
                                     // Exit quickly if this is the wrong type of URL
                                     if (this.protocol !== 'http:' && this.protocol !== 'https:') {
                                         return;
                                     }
-    
+
                                     // Find the ID of the YouTube video
                                     var id, matches;
                                     if (this.hostname === 'youtube.com' || this.hostname === 'www.youtube.com') {
@@ -415,23 +415,23 @@ function objToHtml(type, item) {
                                         id = this.pathname.substr(1);
                                     }
                                     console.log({ hostname: this.hostname })
-    
+
                                     // Check that the ID only has alphanumeric characters, to make sure that
                                     // we don't introduce any XSS vulnerabilities.
                                     var validatedID;
                                     if (id && id.match(/^[a-zA-Z0-9\_]*$/)) {
                                         validatedID = id;
                                     }
-    
+
                                     // Add the embedded YouTube video, and remove the link.
                                     if (validatedID) {
                                         $(this)
                                             .before('<div class="responsive-iframe-container"><iframe src="https://www.youtube.com/embed/' + validatedID + '" frameborder="0" allowfullscreen></iframe></div>')
                                             .remove();
                                     }
-    
+
                                 }).call(a);
-    
+
                             }) // for all a in the tutorial
                         }, 250);
 
@@ -441,16 +441,16 @@ function objToHtml(type, item) {
                         window.parent.document.getElementById("explore-curriculum").scrollIntoView({
                             behavior: "smooth",
                         });
-    
+
                         // Render table of contents at top right
                         let tocEl = window.parent.document.querySelector("#toc")
                         let markdownContentEl = window.parent.document.querySelector("#summary-inner")
                         window.parent.htmlTableOfContents(tocEl, markdownContentEl);
-    
+
                         // Allow copy from textarea to practice areas
                         let guideCopyToPractice = parent.document.querySelector("#js-visible-if-contents");
                         guideCopyToPractice.classList.remove("hide");
-                    
+
                     } // if has parent
 
                 }) // fetch md
@@ -480,12 +480,12 @@ $(() => {
 
     // Update See what's changed
     fetch("env/urls.json")
-    .then(response=>response.json())
-    .then(resource=>{
-        const {commitsURL, openURL} = resource
-        window.commitsURL=commitsURL;
-        window.openURL=openURL;
-    })
+        .then(response => response.json())
+        .then(resource => {
+            const { commitsURL, openURL } = resource
+            window.commitsURL = commitsURL;
+            window.openURL = openURL;
+        })
 
 
     var $ul = $("<ul>");
@@ -549,7 +549,7 @@ $(() => {
         }
     });
 
-    if(window?.parent?.document?.querySelector("#count-notes"))
+    if (window?.parent?.document?.querySelector("#count-notes"))
         window.parent.document.querySelector("#count-notes").innerText = `${window.countNotes - 2} Notes!`;
 
     setTimeout(() => {
@@ -585,7 +585,7 @@ $(() => {
 
     const folderFlattenedNames = recurseAllFolderObjects(folders)
 
-    $("#searcher-2").autocomplete({
+    $("#searcher").autocomplete({
         source: folderFlattenedNames
     });
 })
@@ -596,6 +596,7 @@ var toOpenUp = [];
 
 function toOpenUp_Exec($row) {
     // console.log($row);
+    console.log("RAAAAANN")
 
     toOpenUp = [];
     toOpenUp.unshift($row);
@@ -605,26 +606,38 @@ function toOpenUp_Exec($row) {
         $row = $row.parent().closest("li");
         toOpenUp.unshift($row);
     }
-
+    // var ran = false;
     toOpenUp.forEach((li) => {
+        // if(ran) return;
+
         var $li = $(li),
-            isCollapsed = $li.children(".note-item-buttons").css("display") === "none";
+            isCollapsed = $li.children("ul").css("display") === "none";
         if (isCollapsed) {
-            $li.children(".note-item-buttons, ul",).toggle("active");
+            // $li.children("ul",).toggle("active");
+            $li.children("ul",).css("display", "block");
         }
         // debugger;
+
+        // if(!ran) { ran = true }
     }); // 1st li is outermost
 }
 
 function toOpenUp_Highlight($row) {
-    $row.css("border", "1px solid black");
-    $row.css("border-radius", "3px");
-    // $row.css("padding", "1px");
-    $row.on("hover", () => {
-        $row.css("border", "none");
-        $row.css("border-radius", "none");
-        // $row.css("padding", "0");
-        $row.off("hover");
+    // $row.css("border", "1px solid black");
+    // $row.css("border-radius", "3px");
+    // $row.on("hover", () => {
+    //     $row.css("border", "none");
+    //     $row.css("border-radius", "none");
+    //     $row.off("hover");
+    // });
+    $row.addClass("highlight");
+    // $row.on("hover", () => {
+    //     $row.removeClass("highlight");
+    //     $row.off("hover");
+    // });
+    $row.on("click", () => {
+        $row.removeClass("highlight");
+        $row.off("click");
     });
 }
 
@@ -636,18 +649,23 @@ function scrollToText(partial, callback = false) {
     var $foundRow = $(`li:contains(${partial})`);
     if ($foundRow.length === 0)
         alert("The search returned blank:\n" + partial)
+    
     $foundRow.each((i, row) => {
         var $row = $(row)
         toOpenUp_Exec($row);
-        toOpenUp_Highlight($row);
-        if (i === $row.length - 1)
-            $finalJumpTo = $row[0];
+        // debugger
+        if($row?.children(0)?.[0]?.textContent?.includes(partial)) {
+            toOpenUp_Highlight($row);
+            // setTimeout(()=>{
+            //     $row[0].scrollIntoView();
+            // }, 500)
+            $finalJumpTo = $row;
+        }
     });
-
 
     setTimeout(() => {
         if ($finalJumpTo)
-            $finalJumpTo.scrollIntoView();
+            $finalJumpTo[0].scrollIntoView();
         setTimeout(() => {
             if (callback)
                 callback();
@@ -656,13 +674,14 @@ function scrollToText(partial, callback = false) {
 
 } // scrollToText
 
-function scrollToNonoverridden(partial) {
+function scrollToFolderName(partial) {
     partial = partial.toLowerCase();
     if (partial.length === 0) return;
 
     if (partial[0] === '+') partial = partial.substr(1);
-    var $foundRow = $(".name[data-folder-name]").filter((i, el) =>
-        $(el).attr("data-folder-name").toLowerCase().indexOf(partial) >= 0
+    var $foundRow = $(".name.is-folder").filter((i, el) => {
+        return el.parentElement.dataset["path"].toLowerCase().indexOf(partial) >= 0
+    }
     );
     $foundRow = $foundRow.map((i, el) => $(el).closest("li"));
 
@@ -672,7 +691,7 @@ function scrollToNonoverridden(partial) {
         toOpenUp_Highlight($row);
         $row[0].scrollIntoView();
     });
-} // scrollToNonoverridden
+} // scrollToFolderName
 
 
 /** EXPLORER BUTTONS **/
@@ -691,34 +710,42 @@ function toggleAllExpand() {
 
 // If user erases content in input, dynamically erase any present search results
 // If user presses enter on input, then click the search
-function checkSearcherSubmit(event, $btn) {
+function checkIfEmptiedSearch(event, $btn) {
     $searcher = $("#searcher");
-    if ($searcher.val().length === 0)
+    if ($searcher.val().length === 0) {
         toggleSearchResults(false);
-
-    if (event.keyCode === 13) {
-        $(".ui-autocomplete").hide();
-        event.preventDefault();
-        $btn.click();
+        // $(".ui-autocomplete").hide();
     }
+
+    // if (event.keyCode === 13) {
+    //     $(".ui-autocomplete").hide();
+    //     event.preventDefault();
+    //     $btn.click();
+    // }
 } // checkSearcherSubmit
 
-function doSearcher() {
-    $searcher = $("#searcher");
-    query = $searcher.val();
+function searchAllContents(query) {
+    if (query.length === 0) {
+        alert("Error: Nothing typed!");
+        return false;
+    }
+    const originalQuery = query;
     query = escapeRegExp(query);
     if (query.length === 0) return;
 
     $div = $("#search-results .contents");
-    $.post("search.php", { search: query })
-        .done(greps => {
+    fetch("search.php?search=" + query)
+        .then(response => response.text())
+        .then(greps => {
             try {
-
                 greps = JSON.parse(greps); // grep results array
             } catch (err) {
+                if(greps.length===0) {
+                    alert("No results found for: " + originalQuery);
+                    return;
+                }
                 console.error(err);
                 console.log({ greps });
-                debugger;
             }
             greps = greps["res"];
             console.log(greps);
@@ -738,30 +765,41 @@ function doSearcher() {
             // Match and render
             greps.forEach(res => {
                 // x/y/z/filepath: surrounding_text
+                // Eg. [ 0: "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/AI Engineer/Models - Text Generation/Llama 2.md:Testing the llama2.ai 70 billion parameter model"
 
-                // Reset placeholders
-                var afterFirstDoubleColon = "", beforeFirstDoubleColon = "", folder = ""; file = "", context = "";
+                // Find the index of the first colon to split the string
+                const firstColonIndex = res.indexOf(":");
 
-                afterFirstDoubleColon = res.match(/:(.*)/im);
-                afterFirstDoubleColon = afterFirstDoubleColon[1];
-                afterFirstDoubleColon = afterFirstDoubleColon.trim();
-                context = afterFirstDoubleColon;
+                // Extract the full file path
+                const fullPath = res.substring(0, firstColonIndex);
 
-                beforeFirstDoubleColon = res.match(/(.*?):/im);
-                beforeFirstDoubleColon = beforeFirstDoubleColon[1];
-                beforeFirstDoubleColon = beforeFirstDoubleColon.trim();
+                // Extract the matching text (trim to remove any leading/trailing whitespace)
+                const matchText = res.substring(firstColonIndex + 1).trim();
 
-                i = beforeFirstDoubleColon.lastIndexOf("/")
-                file = beforeFirstDoubleColon.substr(i + 1);
+                // Split the path into parts using '/' as the separator
+                const pathParts = fullPath.split('/').filter(Boolean); // filter(Boolean) removes empty elements
 
-                folder = beforeFirstDoubleColon.split("/").slice(-2, -1);
+                // Get the filename (last element of the pathParts array)
+                const filename = pathParts[pathParts.length - 1];
+
+                // Get the folder name (second last element of the pathParts array)
+                const folderName = pathParts[pathParts.length - 2];
+
+                // Now you can use filename, folderName, and matchText as needed
+                console.log(`Filename: ${filename}`);
+                console.log(`Folder Name: ${folderName}`);
+                console.log(`Match Text: ${matchText}`);
 
                 $tbody.append(`
             <tr>
-              <td><a onclick="scrollToNonoverridden('${folder}')" href="javascript:void(0);">${folder}</a></td>
-              <td>${file}</td>
-              <td class="context"><pre>${context}</pre></td>
-            </tr>`);
+              <td><a onclick="scrollToFolderName('${folderName}')" href="javascript:void(0);">${folderName}</a></td>
+              <td><a onclick="openFilenameFromSearch('${filename}')" href="javascript:void(0)">${filename}</a></td>
+              <td class="context"><pre>${matchText}</pre></td>
+              </tr>`);
+                //   <td><a onclick="var url = new URL(window.location.href); url.search = '?open=${filename}'; window.open(url.toString());">${filename}</a></td>
+                // <td><a onclick="var url = new URL(window.location.href); url.searchParams.set('open', ${filename})'; window.open(url.toString());">${filename}</a></td>
+                //   <td><a onclick="window.parent.location.search = '?open=${filename}'">${filename}</a></td>
+
             }); // foreach
             $("#table-search-results pre").highlight($("#searcher").val());
             toggleSearchResults(true);
@@ -769,15 +807,15 @@ function doSearcher() {
             // Scroll to bottom where search results are
             window.scrollTo(0, document.body.scrollHeight);
         });
-} // doSearcher
+} // searchAllContents
 
-function doSearcher2(searchText, callback) {
+function searchAllTitles(searchText, callback) {
     if (searchText.length === 0) {
         alert("Error: Nothing typed!");
         return false;
     }
     scrollToText(searchText, callback);
-}
+} // searchAllTitles
 
 function toggleSearchResults(display) {
     $div = $("#search-results");
@@ -787,15 +825,15 @@ function toggleSearchResults(display) {
         $div.fadeOut(500);
 }
 
-function clearSearcher() {
-    $searcher = $("#searcher");
+function clearSearcher($searcher) {
     $searcher.val("");
     toggleSearchResults(false);
+    $(".highlight").removeClass("highlight");
 }
 
 $(() => {
     // Secondary: Can send topic to friends
-    if(window?.parent?.runtimeOnMessageReadyExplorer)
+    if (window?.parent?.runtimeOnMessageReadyExplorer)
         window.parent.runtimeOnMessageReadyExplorer();
 
     $('#copyButton').click(function () {
@@ -815,42 +853,42 @@ $(() => {
 })
 
 
-$(()=>{
+$(() => {
     function expandIframeInParent() {
         // setTimeout(()=>{
-            let parentWindow = window.parent; 
-            let originalScrollPos = parentWindow.scrollY + window.parent;
-            // debugger
-            originalScrollPos = window.scrollY
+        let parentWindow = window.parent;
+        let originalScrollPos = parentWindow.scrollY + window.parent;
+        // debugger
+        originalScrollPos = window.scrollY
 
-            console.log({originalScrollPos})
+        console.log({ originalScrollPos })
 
-            var scrollHeight=document.body.clientHeight+50;
-            window.parent.document.querySelector("#explorer-iframe").style.height=(scrollHeight+10)+"px";
+        var scrollHeight = document.body.clientHeight + 50;
+        window.parent.document.querySelector("#explorer-iframe").style.height = (scrollHeight + 10) + "px";
 
-            parentWindow.scrollTo({top:originalScrollPos})
+        parentWindow.scrollTo({ top: originalScrollPos })
 
-            console.log({parentWindow})
+        console.log({ parentWindow })
         // }, 500);
     } // expandIframeInParent
 
     function sortSuchThatFoldersFirst() {
-        $('#target ul').each(function() {
+        $('#target ul').each(function () {
             var $ul = $(this);
-        
+
             // Skip the root 'ul' with the class 'ul-root'
             if (!$ul.hasClass('ul-root')) {
                 var $li = $ul.children('li');
-        
+
                 // Separate the 'li' elements into folders and files
-                var $folders = $li.filter(function() {
+                var $folders = $li.filter(function () {
                     return $(this).children('span.name').hasClass('is-folder');
                 });
-        
-                var $files = $li.filter(function() {
+
+                var $files = $li.filter(function () {
                     return $(this).children('span.name').hasClass('is-file');
                 });
-        
+
                 // Append folders and files back to the 'ul' to reorder them
                 // This moves the existing elements without removing them, preserving event handlers
                 $ul.append($folders).append($files);
@@ -864,7 +902,7 @@ $(()=>{
     // }
 
     // Sort so folders before files
-    const sortSuchThatFoldersFirst_X1 = ()=>{
+    const sortSuchThatFoldersFirst_X1 = () => {
         sortSuchThatFoldersFirst();
         $('.is-folder').off('click', sortSuchThatFoldersFirst_X1);
     }
@@ -879,16 +917,16 @@ $(()=>{
     //     if (!$(this).hasClass("ul-root")) {
     //         var $ul = $(this);
     //         var $li = $ul.children('li');
-    
+
     //         // Separate the 'li' elements into folders and files
     //         var $folders = $li.filter(function() {
     //             return $(this).children('span.name').hasClass('is-folder');
     //         });
-    
+
     //         var $files = $li.filter(function() {
     //             return $(this).children('span.name').hasClass('is-file');
     //         });
-    
+
     //         // Clear the current 'ul' and append folders first, then files
     //         $ul.empty().append($folders).append($files);
     //     }
@@ -896,8 +934,15 @@ $(()=>{
 
     // setTimeout(()=>{
 
-        
+
     // }, 2000)
 
-    
+
 })
+
+function openFilenameFromSearch(filename) {
+    var url = new URL(window.location.href); 
+    url.searchParams.set('open', filename); 
+    url = url.toString().replace("explorer.php", "index.php");
+    window.open(url);
+} // openFilenameFromSearch
