@@ -501,8 +501,6 @@ body {
 /* line 467, scss/index.scss */
 .more-notes .mn-header {
   transform: rotate(270deg);
-  padding-top: 20px;
-  line-height: 1.25rem;
 }
 
 /* line 472, scss/index.scss */
@@ -510,43 +508,42 @@ body {
   width: 100%;
   max-width: 600px;
   text-align: left;
-  padding: 5px;
   text-align: center;
   display: flex;
+  align-items: center;
 }
 
 /* line 480, scss/index.scss */
 .more-notes .mn-links li {
   display: inline;
-  margin-right: 10px;
   text-align: center;
 }
 
-/* line 485, scss/index.scss */
+/* line 484, scss/index.scss */
 .more-notes .mn-links li a {
   background: none !important;
   /* Tufte remove underline on link */
 }
 
 @media screen and (max-width: 768px) {
-  /* line 489, scss/index.scss */
+  /* line 488, scss/index.scss */
   .hide\:lt867 {
     display: none;
   }
 }
 /* UI UX: Left vertical green bar to collapse lesson */
-/* line 494, scss/index.scss */
+/* line 493, scss/index.scss */
 #side-a > .deemp-fieldset {
   position: relative;
 }
 
-/* line 498, scss/index.scss */
+/* line 497, scss/index.scss */
 #side-a {
   border: 1px solid gray;
   padding: 2px;
 }
 
-/* line 504, scss/index.scss */
+/* line 503, scss/index.scss */
 #side-a > .deemp-fieldset > .left-bar {
   position: absolute;
   height: calc(100% + 50px + 10px);
@@ -558,7 +555,7 @@ body {
   background-position: 0 0;
 }
 
-/* line 516, scss/index.scss */
+/* line 515, scss/index.scss */
 #explorer-iframe {
   padding: 5px;
   border-radius: 5px;
@@ -571,62 +568,62 @@ body {
 }
 
 /* Get rid of markdown it with latext's ruler lines */
-/* line 528, scss/index.scss */
+/* line 527, scss/index.scss */
 .stretchy svg {
   display: none !important;
 }
 
-/* line 533, scss/index.scss */
+/* line 532, scss/index.scss */
 .deemp-fieldset h1 {
   font-size: 1.3625em !important;
   /* Starting point */
 }
 
-/* line 537, scss/index.scss */
+/* line 536, scss/index.scss */
 .deemp-fieldset h2 {
   font-size: 1.17em !important;
   /* Proportionally smaller than h1 */
 }
 
-/* line 541, scss/index.scss */
+/* line 540, scss/index.scss */
 .deemp-fieldset h3 {
   font-size: 1em !important;
   /* Proportionally smaller */
 }
 
-/* line 545, scss/index.scss */
+/* line 544, scss/index.scss */
 .deemp-fieldset h4 {
   font-size: 0.85em !important;
   /* Slightly smaller */
 }
 
-/* line 549, scss/index.scss */
+/* line 548, scss/index.scss */
 .deemp-fieldset h5 {
   font-size: 0.75em !important;
   /* Gradually smaller */
 }
 
-/* line 553, scss/index.scss */
+/* line 552, scss/index.scss */
 .deemp-fieldset h6 {
   font-size: 0.65em !important;
 }
 
-/* line 557, scss/index.scss */
+/* line 556, scss/index.scss */
 .deemp-fieldset h7 {
   font-size: 0.58em !important;
 }
 
-/* line 561, scss/index.scss */
+/* line 560, scss/index.scss */
 .deemp-fieldset h8 {
   font-size: 0.52em !important;
 }
 
-/* line 565, scss/index.scss */
+/* line 564, scss/index.scss */
 .deemp-fieldset h9 {
   font-size: 0.46em !important;
 }
 
-/* line 568, scss/index.scss */
+/* line 567, scss/index.scss */
 ul, ol {
   padding-left: initial !important;
   /* Restores the default indentation */
@@ -634,19 +631,19 @@ ul, ol {
   /* Removes any extra margin if needed */
 }
 
-/* line 572, scss/index.scss */
+/* line 571, scss/index.scss */
 ul {
   list-style: initial !important;
   /* Restores bullet points for ul and numbers for ol */
 }
 
-/* line 575, scss/index.scss */
+/* line 574, scss/index.scss */
 ol {
   list-style: auto !important;
   /* Restores bullet points for ul and numbers for ol */
 }
 
-/* line 580, scss/index.scss */
+/* line 579, scss/index.scss */
 li {
   margin-left: 20px !important;
   /* Optional: Adjust for additional indentation if needed */

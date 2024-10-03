@@ -237,9 +237,6 @@ function htmlTableOfContents(tocEl, markdownContentEl) {
 
         div.appendChild(link);
         tocEl.appendChild(div);
-
-        // console.log({heading});
-        // debuggingHeadings+=heading.outerHTML;
     });
 
     if(headings.length) {
@@ -250,38 +247,7 @@ function htmlTableOfContents(tocEl, markdownContentEl) {
     // console.log(debuggingHeadings)
 } // htmlTableOfContents
 
-// Visiting from https://wengindustry.com.*devbrain ?? Then rebrand
-// if(window.location.href.includes("devbrain")) {
 
-//     $("title").text("Developer Brain")
-//     $("h1.title").text("Developer Brain")
-    
-//     $(".site-header summary small").html(`<span>Read more...</span>
-
-    
-//     `)
-    
-//     $(".site-header details .container .card").html(`
-
-    
-//     `)
-    
-// }
-
-// function triggeredHideAlternateUF(event) {
-//     var isOutsideA = !event.target.matches(".description-must")
-//     var isOutsideB = !event.target.closest(".description-must")
-//     //console.log({isOutsideA, isOutsideB})
-//     if(isOutsideA && isOutsideB) {
-//         setTimeout(()=>{ 
-//             $(".description-must").addClass("hidden"); 
-//         }, 100);
-//         document.body.removeEventListener("click", triggeredHideAlternateUF);
-//     }
-// }
-// document.body.addEventListener("click", triggeredHideAlternateUF);
-
-$(()=>{
     // Hide brain link that is the current brain
     document.querySelectorAll("[data-hide-if-url-contains]").forEach(el=>{
         const willMatchUrlContains = el.getAttribute("data-hide-if-url-contains")
@@ -291,7 +257,7 @@ $(()=>{
     document.querySelector(".more-notes").classList.remove("invisible");
 
     // Update See what's changed
-    fetch("env/urls.json")
+    fetch("https://wengindustries.com/app/devbrain/env/urls.json")
     .then(response=>response.json())
     .then(resource=>{
         const {commitsURL,openURL} = resource;
@@ -299,4 +265,3 @@ $(()=>{
         // window.openURL = openURL;
         document.querySelector("#whats-changed").setAttribute("href", commitsURL);
     })
-})

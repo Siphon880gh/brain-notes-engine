@@ -17,7 +17,7 @@
     <script src="assets/js/vendors/autoExpand/autoExpand.js"></script>
 
     <!-- CSS Assets -->
-    <link href="assets/css/index.css" rel="stylesheet">
+    <link href="assets/css/index.css?v=1003418" rel="stylesheet">
     <link href="assets/css/game.css" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" integrity="sha512-wnea99uKIC3TJF7v4eKk4Y+lMz2Mklv18+r4na2Gn1abDRPPOeef95xTzdwGD9e6zXJBteMIhZ1+68QC5byJZw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -54,8 +54,9 @@
                 <!-- <div><i class="fa fa-link"></i> <a href="javascript:void(0)" onclick="$('.description-must').toggleClass('hidden')">More brains</a></div> -->
                 <div>By <a href="javascript:void(0)" data-toggle="modal" data-target="#promoModal">Weng (Weng Fei Fung)</a></div>
             </div>
-            <div class="more-notes invisible"> <!-- Prevent Visual Reflow -->
-                <div class="mn-header" class="font-bold text-center">More<br/>Notes</div>
+             <!-- Prevent Visual Reflow -->
+            <div class="more-notes invisible">
+                <div class="mn-header" class="font-bold text-center"><br/>More<br/>Notes</div>
                 <div class="mn-links">
                     <li>
                         <a target="_blank" data-hide-if-url-contains="/devbrain/" href="../devbrain">💻 Software development / programming / coding</a>
@@ -67,7 +68,7 @@
                         <a target="_blank" data-hide-if-url-contains="/3dbrain/" href="../3dbrain">🎮 3d video game development and video editing</a>
                     </li>
                     <li style="flex-basis:105px">
-                        <a target="_blank" data-hide-if-url-contains="/3dbrain/" href="../healthbrain">⚕️ Health</a>
+                        <a target="_blank" data-hide-if-url-contains="/3dbrain/" href="../healthbrain">⚕️ Health Notes</a>
                     </li>
                 </div>
             </div>
@@ -480,7 +481,7 @@
 
     <!-- JS Assets -->
     <script src="assets/js/diff.js"></script>
-    <script src="assets/js/index.js"></script>
+    <script src="assets/js/index.js?v=1003423"></script>
     <script src="assets/js/game.js"></script>
 
 
