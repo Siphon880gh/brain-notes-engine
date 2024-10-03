@@ -225,6 +225,13 @@ function htmlTableOfContents(tocEl, markdownContentEl) {
         link.textContent = link.textContent.replaceAll("🔗","").trim()
         link.classList.add("toc-link");
 
+        link.addEventListener("click", ()=>{
+            // Make up for the document title covering the heading you jumped to.
+            setTimeout(()=>{
+                window.scrollTo({top:window.scrollY-60})
+            }, 100);
+        })
+
         var div = document.createElement("div");
         div.classList.add(heading.tagName.toLowerCase());
 
