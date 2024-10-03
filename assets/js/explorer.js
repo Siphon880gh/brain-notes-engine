@@ -908,8 +908,11 @@ $(() => {
     }
 
     // $(".is-folder").click(expandIframeInParent_X1);
-    $(".is-folder").click(expandIframeInParent);
     $('.is-folder').on('click', sortSuchThatFoldersFirst_X1);
+
+    if(window.innerWidth>768) {
+        $(".is-folder").click(expandIframeInParent);
+    }
 
     // $('#target ul').each(function() {
     //     // Check if this 'ul' is not the root level

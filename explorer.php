@@ -35,9 +35,9 @@
     <script src="https://unpkg.com/markdown-it-anchor@8.6.5/dist/markdownItAnchor.umd.js"></script>
 
         
-    <link href="assets/css/explorer.css?v=<?php echo time(); ?>" rel="stylesheet">
-    <link href="assets/css/multistates.css?v=<?php echo time(); ?>" rel="stylesheet">
-    <link href="assets/css/thermos.css?v=<?php echo time(); ?>" rel="stylesheet">
+    <link href="assets/css/explorer.css?v=1003434" rel="stylesheet">
+    <link href="assets/css/multistates.css?v=1003434" rel="stylesheet">
+    <link href="assets/css/thermos.css?v=1003434" rel="stylesheet">
 
     <script>
         window.dirSnippets = "<?php echo $DIR_SNIPPETS;?>";
@@ -209,7 +209,7 @@
 
     <script src="env/icons.js"></script>
     <script src="assets/js/common.js"></script>
-    <script src="assets/js/explorer.js"></script>
+    <script src="assets/js/explorer.js?v=1003433"></script>
     <script src="assets/js/multistates.js"></script>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" rel="stylesheet">
