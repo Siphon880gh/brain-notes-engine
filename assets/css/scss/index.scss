@@ -366,9 +366,10 @@ body {
     display: none !important;
 }
 
-#toc-toggler:hover #toc {
-    display: block;
-}
+// Removed because: Hovering would break TOC links from closing the TOC after being clicked
+// #toc-toggler:hover #toc {
+//     display: block;
+// }
 
 #mobile-tap.active+#toc {
     display: block;

@@ -223,17 +223,19 @@ function htmlTableOfContents(tocEl, markdownContentEl) {
         link.setAttribute("href", "#" + ref);
         link.textContent = heading.textContent;
         link.textContent = link.textContent.replaceAll("🔗","").trim()
-        // alert(link.textContent.replaceAll("🔗","").trim());
+        link.classList.add("toc-link");
 
         var div = document.createElement("div");
         div.classList.add(heading.tagName.toLowerCase());
 
-        div.addEventListener("click", ()=>{
-            document.querySelector('#mobile-tap').classList.remove('active');
-        })
-        link.addEventListener("click", ()=>{
-            document.querySelector('#mobile-tap').classList.remove('active');
-        })
+        // div.addEventListener("click", ()=>{
+        //     $('#mobile-tap').click()
+        //     document.querySelector('#mobile-tap').classList.remove('active');
+        // })
+        // link.addEventListener("click", ()=>{
+        //     document.querySelector('#mobile-tap').classList.remove('active');
+        // })
+        // link.setAttribute("onclick", "document.querySelector('#mobile-tap').click();")
 
         div.appendChild(link);
         tocEl.appendChild(div);
@@ -257,7 +259,7 @@ function htmlTableOfContents(tocEl, markdownContentEl) {
     document.querySelector(".more-notes").classList.remove("invisible");
 
     // Update See what's changed
-    fetch("https://wengindustries.com/app/devbrain/env/urls.json")
+    fetch("env/urls.json")
     .then(response=>response.json())
     .then(resource=>{
         const {commitsURL,openURL} = resource;
