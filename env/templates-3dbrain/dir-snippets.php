@@ -14,8 +14,10 @@ $host = $_SERVER['HTTP_HOST'];
 
 if (strpos($host, 'localhost') !== false) {
     // When viewing app in localhots, render MD notes from Obsidian Vault
-    $DIR_SNIPPETS = "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev-3d/"; 
+    $DIR_SNIPPETS = "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/3d/"; 
 
+} elseif (strpos($host, 'wengindustries.com') !== false) {
+    // Is fine but kept here for scalability
 } elseif (strpos($host, 'wengindustry.com') !== false) {
     // Is fine but kept here for scalability
 } else {
