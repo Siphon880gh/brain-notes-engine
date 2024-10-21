@@ -86,7 +86,13 @@ I am authoring the `curriculum/` separately inside an Obsidian MD vault. I can m
 ```
 
 ### Server pipelines
-My apache server has a script I can trigger from my local machine. I created a npm script called `deploy` to streamline the server pipeline and it works by staging and committing most recent files changes, pushing to Github repository, then opening a PHP file with the secret token to have the remote server perform a git fetch and git reset. There is no pulling or merging because I'm not editing from the server and want to prevent the pipeline from being broken when there's a chance of merge conflicts that require manual interaction from the user.
+My remote server has a script I can trigger from my local machine. I created a npm script called `deploy` that I can run locally.
+
+When ran locally on Obsidian terminal or another local terminal, it pushes the curriculum changes to Github or Gitlab repository.
+
+Then it'll open the secret PHP script on the remote server in your web-browser. For security, the remote script is authenticated with a passcode from the `deploy` script. The PHP script shows debug information on the web browser.
+
+At the remote script, running as the user that had created the SSH key pair and shared the public key with Github or Gitlab, it pulls in and merges the changes forcefully to the remote server's curriculum. It's important that the same user that created the SSH key is the same one that pulled and merged (so root or non-root, and if non-root, which user). If you're getting hit with permission denied errors from Github/Gitlab when the remote server is pulling, for debugging purposes, the PHP script outputs the user, and then you can check that user's home directory's .ssh folder's public key's file contents against the Github/Gitlab's shared public key's contents.
 
 In order for the server pipeline to work, I made sure there is good file permissions at SSH that allows the script uploaded by my FTP’s user’s group to have group write permissions to the folder the script write files to. If the script or the folder doesn’t have the same group ownership, I make sure they do by changing the group owners recursively on the folder with ``sudo chgrp -R GROUP FOLDER`.`` Finally, I made sure the owner group has write permission on the folder `sudo chmod -R g+w FOLDER`. In addition, since I occasionally connect remotely into SSH with root access, I add root to that group in case I might edit files on the fly during a SSH session (like vim, nano, emacs): `usermod -a -G GROUP root`
 
