@@ -643,3 +643,9 @@ li {
   margin-left: 20px !important;
   /* Optional: Adjust for additional indentation if needed */
 }
+
+/* Prevents duplicate Latex */
+/* line 585, scss/index.scss */
+.katex-html {
+  display: none;
+}

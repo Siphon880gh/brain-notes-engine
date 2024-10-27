@@ -580,3 +580,8 @@ ol {
 li {
     margin-left: 20px !important; /* Optional: Adjust for additional indentation if needed */
 }
+
+/* Prevents duplicate Latex */
+.katex-html {
+    display:none;
+}
