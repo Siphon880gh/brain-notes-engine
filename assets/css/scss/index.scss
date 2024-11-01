@@ -158,7 +158,18 @@ h3 {
 }
 
 #summary-inner img {
-    max-width: 100%;
+    max-width: calc(100% - 40px);
+}
+
+#summary-inner img.state-1 {
+    width: 75%;
+}
+#summary-inner img.state-2 {
+    width: 50%;
+}
+#summary-inner img.centered {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Fieldset layout */
@@ -354,6 +365,9 @@ body {
     overflow-y: scroll;
     z-index: 500;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 @media screen AND (min-width: 768px) {
@@ -401,7 +415,7 @@ body {
 }
 
 #toc .h3::before {
-    content: "—";
+    content: "—\00a0";
 }
 
 #toc .h4 {
@@ -409,7 +423,7 @@ body {
 }
 
 #toc .h4::before {
-    content: "➣";
+    content: "➣\00a0";
 }
 
 #toc .h5 {
@@ -417,7 +431,7 @@ body {
 }
 
 #toc .h5::before {
-    content: "➨";
+    content: "➨\00a0";
 }
 
 #toc .h6 {
@@ -427,20 +441,6 @@ body {
 #toc .h6::before {
     content: "◦\00a0";
 }
-
-// .description-must {
-//     margin: 10px auto;
-//     background-color: rgba(125, 125, 125, 0.4);
-//     color: black;
-//     opacity: 0.7;
-//     display: inline-block;
-//     padding: 5px;
-//     border-radius: 5px;
-//     font-weight: 250;
-//     overflow-y: hidden;
-//     text-align: center;
-//     transition: height 5s ease;
-// }
 
 .description-must {
     position:relative;
@@ -612,5 +612,5 @@ li {
 .scroll-marker.active {
     transform: rotate(0) translateX(-100%) translateY(0);
     transform-origin: left bottom;
-    opacity: 0.75;
+    opacity: 0.66;
 }

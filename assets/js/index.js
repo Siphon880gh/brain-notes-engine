@@ -51,7 +51,6 @@ function animateExploreCurriculum() {
         .animate({ "color": "black" }, 2000)
 }
 
-
 // Autoresize notes textarea
 document.querySelector("#summary-inner")?.addEventListener("input", (event) => {
     autoExpand(event.target);

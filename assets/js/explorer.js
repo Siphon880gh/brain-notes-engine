@@ -297,12 +297,6 @@ function openNote(title, url="") {
         }
         summaryHTML = replaceBracketsWithLinks(summaryHTML);
 
-        if (!hasParent) {
-            var newTab = window.open("about:blank");
-            newTab.document.write(summaryHTML);
-            newTab.document.close();
-        }
-
         if (hasParent) {
 
             summaryInnerEl.innerHTML = summaryHTML;
@@ -371,8 +365,65 @@ function openNote(title, url="") {
 
         } // if has parent
 
+        if (!hasParent) {
+            var newTab = window.open("about:blank");
+            newTab.document.write(summaryHTML);
+            newTab.document.close();
+        }
+        
+        window.parent.document
+            .querySelector("#summary-inner")
+            .querySelectorAll('img').forEach(img => {
+                // Create a wrapper div with the specified classes
+                const wrapperDiv = document.createElement('div');
+                wrapperDiv.className = 'img-wrapper flex flex-row flex-start';
+                
+                // Insert the image inside the wrapper div
+                img.parentNode.insertBefore(wrapperDiv, img);
+                wrapperDiv.appendChild(img);
+                
+                // Create the sibling div with icons
+                const iconDiv = document.createElement('div');
+                iconDiv.className = 'flex flex-col gap-6 p-2';
+                
+                // Add the icons
+                const icon1 = document.createElement('i');
+                icon1.className = 'fas fa-columns clickable';
+                icon1.onclick=(event)=>{
+                    const imgWrapper = event.target.closest(".img-wrapper")
+                    const img = imgWrapper.querySelector("img");
+                    function removeAllStates() {
+                        img.classList.remove("state-1");
+                        img.classList.remove("state-2");
+                        img.classList.remove("state-3");
+                    }
+                    if(img.className.includes("state-1")) {
+                        removeAllStates();
+                        img.classList.add("state-2");
+                    } else if(img.className.includes("state-2")) {
+                        removeAllStates();
+                    } else {
+                        img.classList.add("state-1");
+                    }
+                } // icon1
+                
+                const icon2 = document.createElement('i');
+                icon2.className = 'fas fa-align-center clickable';
+                icon2.onclick=(event)=>{
+                    const imgWrapper = event.target.closest(".img-wrapper")
+                    const img = imgWrapper.querySelector("img");
+                    img.classList.toggle("centered");
+                } // icon2
+
+                iconDiv.appendChild(icon1);
+                iconDiv.appendChild(icon2);
+                
+                // Append the icon div as a sibling to the image's wrapper div
+                wrapperDiv.append(iconDiv);
+        });
+
         // Add progress markers on the left
-        const notePanel = window.parent.document.querySelector(".deemp-fieldset");
+        const notePanel = window.parent.document.querySelector("#summary-inner");
         const parentWindow = window.parent;
         parentWindow.removeScrollProgressMarkers(notePanel);
         parentWindow.hydrateAnimationOnProgressMarkers(notePanel);

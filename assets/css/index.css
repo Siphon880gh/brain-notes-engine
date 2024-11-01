@@ -181,11 +181,27 @@ h3 {
 
 /* line 160, scss/index.scss */
 #summary-inner img {
-  max-width: 100%;
+  max-width: calc(100% - 40px);
+}
+
+/* line 164, scss/index.scss */
+#summary-inner img.state-1 {
+  width: 75%;
+}
+
+/* line 167, scss/index.scss */
+#summary-inner img.state-2 {
+  width: 50%;
+}
+
+/* line 170, scss/index.scss */
+#summary-inner img.centered {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Fieldset layout */
-/* line 165, scss/index.scss */
+/* line 176, scss/index.scss */
 #explore-curriculum fieldset {
   display: block;
   margin-inline-start: 2px;
@@ -200,7 +216,7 @@ h3 {
   border-color: threedface;
   border-image: initial;
 }
-/* line 179, scss/index.scss */
+/* line 190, scss/index.scss */
 #explore-curriculum fieldset legend {
   display: inline-block !important;
   padding-inline-start: 4px;
@@ -217,7 +233,7 @@ h3 {
 
 /* Toggle side by side curriculum explorer along notes view */
 /* Superceded by collapser which is next to the summary title */
-/* line 201, scss/index.scss */
+/* line 212, scss/index.scss */
 .sides:has(.side-by-side) {
   display: flex;
   flex-direction: row;
@@ -226,25 +242,25 @@ h3 {
   align-items: stretch;
 }
 
-/* line 209, scss/index.scss */
+/* line 220, scss/index.scss */
 .side-by-side {
   min-width: 50%;
   max-width: 50%;
 }
 
-/* line 213, scss/index.scss */
+/* line 224, scss/index.scss */
 .side-by-side-possible {
   padding: 0 !important;
 }
 
-/* line 217, scss/index.scss */
+/* line 228, scss/index.scss */
 #js-visible-if-contents {
   padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
 }
 
-/* line 223, scss/index.scss */
+/* line 234, scss/index.scss */
 #summary-collapser {
   cursor: pointer;
   /* transform rotate wouldn't work on inline */
@@ -260,23 +276,23 @@ h3 {
   padding: 5px;
 }
 
-/* line 238, scss/index.scss */
+/* line 249, scss/index.scss */
 #summary-collapser.stated {
   transform: rotate(90deg);
 }
 
-/* line 242, scss/index.scss */
+/* line 253, scss/index.scss */
 #summary-sharer {
   background: none !important;
   margin-top: 5px;
 }
 
-/* line 249, scss/index.scss */
+/* line 260, scss/index.scss */
 #dashboard:not(.active) {
   display: none;
 }
 
-/* line 253, scss/index.scss */
+/* line 264, scss/index.scss */
 #dashboard {
   position: fixed;
   bottom: 0;
@@ -290,17 +306,17 @@ h3 {
   opacity: 0.5;
 }
 
-/* line 266, scss/index.scss */
+/* line 277, scss/index.scss */
 #dashboard:hover {
   opacity: 1;
 }
 
-/* line 270, scss/index.scss */
+/* line 281, scss/index.scss */
 #dashboard i {
   font-size: 20px;
 }
 
-/* line 274, scss/index.scss */
+/* line 285, scss/index.scss */
 i#shortcut-summary-collapser {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.5);
@@ -309,30 +325,30 @@ i#shortcut-summary-collapser {
   text-align: center;
 }
 
-/* line 282, scss/index.scss */
+/* line 293, scss/index.scss */
 i#shortcut-summary-collapser:hover {
   color: black;
 }
 
 @media screen and (max-width: 768px) {
-  /* line 287, scss/index.scss */
+  /* line 298, scss/index.scss */
   #dashboard {
     padding: 5px;
     padding-right: 20px;
   }
 
-  /* line 293, scss/index.scss */
+  /* line 304, scss/index.scss */
   #dashboard i {
     font-size: 28px;
   }
 }
-/* line 298, scss/index.scss */
+/* line 309, scss/index.scss */
 body {
   padding-bottom: 20px;
 }
 
 /* Table of contents at top right */
-/* line 304, scss/index.scss */
+/* line 315, scss/index.scss */
 #toc-toggler {
   cursor: pointer;
   position: fixed;
@@ -345,7 +361,7 @@ body {
 }
 
 /* Jump to explorer at bottom right */
-/* line 317, scss/index.scss */
+/* line 328, scss/index.scss */
 #jump-curriculum {
   cursor: pointer;
   position: fixed;
@@ -358,17 +374,17 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-  /* line 329, scss/index.scss */
+  /* line 340, scss/index.scss */
   #jump-curriculum {
     padding: 10px 10px 10px 10px;
   }
 }
-/* line 338, scss/index.scss */
+/* line 349, scss/index.scss */
 #toc-toggler:not(.filled) {
   display: none;
 }
 
-/* line 342, scss/index.scss */
+/* line 353, scss/index.scss */
 #toc {
   display: none;
   position: fixed;
@@ -384,25 +400,27 @@ body {
   overflow-y: scroll;
   z-index: 500;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 @media screen and (min-width: 768px) {
-  /* line 360, scss/index.scss */
+  /* line 374, scss/index.scss */
   #toc {
     max-width: 40vw;
   }
 }
-/* line 365, scss/index.scss */
+/* line 379, scss/index.scss */
 #toc:empty {
   display: none !important;
 }
 
-/* line 374, scss/index.scss */
+/* line 388, scss/index.scss */
 #mobile-tap.active + #toc {
   display: block;
 }
 
-/* line 378, scss/index.scss */
+/* line 392, scss/index.scss */
 #toc .h1,
 #toc .h2,
 #toc .h3,
@@ -416,52 +434,52 @@ body {
   font-size: 1.2rem;
 }
 
-/* line 391, scss/index.scss */
+/* line 405, scss/index.scss */
 #toc .h2 {
   margin-left: 2ch;
 }
 
-/* line 395, scss/index.scss */
+/* line 409, scss/index.scss */
 #toc .h2::before {
   content: "•\00a0";
 }
 
-/* line 399, scss/index.scss */
+/* line 413, scss/index.scss */
 #toc .h3 {
   margin-left: 4ch;
 }
 
-/* line 403, scss/index.scss */
+/* line 417, scss/index.scss */
 #toc .h3::before {
-  content: "—";
+  content: "—\00a0";
 }
 
-/* line 407, scss/index.scss */
+/* line 421, scss/index.scss */
 #toc .h4 {
   margin-left: 6ch;
 }
 
-/* line 411, scss/index.scss */
+/* line 425, scss/index.scss */
 #toc .h4::before {
-  content: "➣";
+  content: "➣\00a0";
 }
 
-/* line 415, scss/index.scss */
+/* line 429, scss/index.scss */
 #toc .h5 {
   margin-left: 8ch;
 }
 
-/* line 419, scss/index.scss */
+/* line 433, scss/index.scss */
 #toc .h5::before {
-  content: "➨";
+  content: "➨\00a0";
 }
 
-/* line 423, scss/index.scss */
+/* line 437, scss/index.scss */
 #toc .h6 {
   margin-left: 10ch;
 }
 
-/* line 427, scss/index.scss */
+/* line 441, scss/index.scss */
 #toc .h6::before {
   content: "◦\00a0";
 }
@@ -673,5 +691,5 @@ li {
 .scroll-marker.active {
   transform: rotate(0) translateX(-100%) translateY(0);
   transform-origin: left bottom;
-  opacity: 0.75;
+  opacity: 0.66;
 }
