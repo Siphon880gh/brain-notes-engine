@@ -162,6 +162,7 @@
             <div id="explore-curriculum" class="card-footer">
                 <div class="card-header p-2">
                     <h2 class="p0 m-0 text-center inline"><span class="fa-off fa-microscope-off fas fa-book-reader"></span> Open a lesson</h2>
+                    <button onclick="getRandomNoteByUser()" class="ml-8"><h6>🔀 Random Note</h6></button>
                     <a id="summary-sharer" class="d-none" href="javascript:void(0)" style="float:right; margin-right:15px;" onclick='shareTutorial()'>
                         <span class="fas fa-share-alt"></span>
                     </a>

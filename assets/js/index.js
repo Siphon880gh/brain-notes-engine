@@ -98,20 +98,18 @@ function runtimeOnMessageReadyExplorer() {
 
             const paramVal = window.location.search.replaceAll("%20", " ").replace(/\.md$/, "").replace(/^\?open\=/, "").replace(/#(.*)/, "");
             // $curriculumExplorer = $("#explore-curriculum iframe").contents();
-            curriculumExplorerWindow = $("#explore-curriculum iframe")[0].contentWindow
-            curriculumExplorerWindow.searchAllTitles({searchText: paramVal, jumpTo: false});
+            eplorerWindow = $("#explore-curriculum iframe")[0].contentWindow
+            eplorerWindow.searchAllTitles({searchText: paramVal, jumpTo: false});
             // debugger;
 
                 var topic = "";
                 function attemptOpenTutorial() {
                     var topic = (new URLSearchParams(window.location.search).get("open")); // ?open=topicName
-                    var jumpTo = "";
-                    if(window.location.hash) { // ?open=topicName#jumpToSection
-                        jumpTo = window.location.hash;
+                    var jumpToNoteHeading = "";
+                    if(window.location.hash) { // ?open=topicName#jumpToNoteHeadingSection
+                        jumpToNoteHeading = window.location.hash;
                     }
                     var $explorerList = $("#explore-curriculum iframe").contents();
-                    var explorerWindow = $("#explore-curriculum iframe")[0].contentWindow;
-                    // var $explorer = $explorerList.find(`.name[data-folder-name]:contains('${topic}')`); // files have data-folder-name
                     var $explorerFileLis = $explorerList.find(`.name.is-file:contains('${topic}')`)?.eq(0); // files have data-folder-name
                     
                     if($explorerFileLis.length) {
@@ -125,10 +123,10 @@ function runtimeOnMessageReadyExplorer() {
                         explorerWindow.openNote(title, url);
                         // debugger;
                         // Go to specific section of the tutorial, if applicable
-                        if(jumpTo) {
+                        if(jumpToNoteHeading) {
                             setTimeout(()=>{
-                                console.log({jumpTo})
-                                document.querySelector(jumpTo).scrollIntoView();
+                                console.log({jumpToNoteHeading})
+                                document.querySelector(jumpToNoteHeading).scrollIntoView();
                             }, 250)
                         }
                         return true;
@@ -289,3 +287,9 @@ function htmlTableOfContents(tocEl, markdownContentEl) {
         // window.openURL = openURL;
         document.querySelector("#whats-changed").setAttribute("href", commitsURL);
     })
+
+
+function getRandomNoteByUser() {
+    eplorerWindow = $("#explore-curriculum iframe")[0].contentWindow;
+    eplorerWindow.getRandomNoteByUser()
+}

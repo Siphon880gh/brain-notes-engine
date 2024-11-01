@@ -975,3 +975,51 @@ function openFromSearchedContentsResults(filename) {
     url = url.toString().replace("explorer.php", "index.php").replace(/\+/g, '%20');;
     window.open(url);
 } // openFromSearchedContentsResults
+
+const randomNoteSystem = {
+    flattened: [],
+
+    _flatten: function(data) {
+        for (const item of data) {
+            this.flattened.push(item); // Add the current item to flattened
+            if (item.next && item.next.length) {
+                this._flatten(item.next); // Recursively add nested items
+            }
+        }
+    },
+
+    _filterInMD: function() {
+        this.flattened = this.flattened.filter(obj=>obj.current.substr(-3).toLowerCase()===".md")
+    },
+
+    init: function(data) {
+        this.flattened = []; // Reset flattened array
+        this._flatten(data); // Populate flattened array with all items
+        this._filterInMD(); // Filter out folders
+        return this; // Return this for chaining
+    },
+
+    get: function() {
+        // Check if flattened array is populated
+        if (this.flattened.length === 0) {
+            console.warn("No items found. Ensure init(data) is called with a valid dataset.");
+            return null;
+        }
+        // Return a random item from the flattened array
+        return this.flattened[Math.floor(Math.random() * this.flattened.length)];
+    }
+};
+
+// Usage:
+const aRandomNoteSystem = randomNoteSystem.init(folders);
+function getRandomNoteLogical() {
+    const {current, path_tp} = aRandomNoteSystem.get();
+    return {title:current, url:path_tp}
+}
+// console.log("Random Object:", getRandomNote());
+
+function getRandomNoteByUser() {
+    const randomNote = getRandomNoteLogical()
+    openNote(randomNote.title, randomNote.url)
+    searchAllTitles({searchText: randomNote.title, jumpTo: false});
+}
