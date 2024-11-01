@@ -96,7 +96,7 @@ function runtimeOnMessageReadyExplorer() {
     setTimeout(()=>{
         if (window.location.search.includes("open=")) {
 
-            const paramVal = window.location.search.replaceAll("%20", " ").replace(/\.md$/, "").replace(/^\?open\=/, "");
+            const paramVal = window.location.search.replaceAll("%20", " ").replace(/\.md$/, "").replace(/^\?open\=/, "").replace(/#(.*)/, "");
             // $curriculumExplorer = $("#explore-curriculum iframe").contents();
             curriculumExplorerWindow = $("#explore-curriculum iframe")[0].contentWindow
             curriculumExplorerWindow.searchAllTitles({searchText: paramVal, jumpTo: false});

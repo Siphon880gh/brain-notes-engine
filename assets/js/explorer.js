@@ -605,7 +605,7 @@ var toOpenUp = [];
 
 function toOpenUp_Exec($row) {
     // console.log($row);
-    console.log("RAAAAANN")
+    // console.log("RAAAAANN")
 
     toOpenUp = [];
     toOpenUp.unshift($row);
