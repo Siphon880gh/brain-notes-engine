@@ -68,7 +68,7 @@
                         <a target="_blank" data-hide-if-url-contains="/3dbrain/" href="../3dbrain">🎮 3d video game development and video editing</a>
                     </li>
                     <li style="flex-basis:105px">
-                        <a target="_blank" data-hide-if-url-contains="/3dbrain/" href="../healthbrain">⚕️ Health Notes</a>
+                        <a target="_blank" data-hide-if-url-contains="/healthbrain/" href="../healthbrain">⚕️ Health Notes</a>
                     </li>
                 </div>
             </div>
