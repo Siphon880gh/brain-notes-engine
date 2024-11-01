@@ -783,7 +783,7 @@ function searchAllContents(query) {
                 $tbody.append(`
             <tr>
               <td><a onclick="scrollToFolderName('${folderName}')" href="javascript:void(0);">${folderName}</a></td>
-              <td><a onclick="openFilenameFromSearch('${filename}')" href="javascript:void(0)">${filename}</a></td>
+              <td><a onclick="openFromSearchedContentsResults('${filename}')" href="javascript:void(0)">${filename}</a></td>
               <td class="context"><pre>${matchText}</pre></td>
               </tr>`);
                 //   <td><a onclick="var url = new URL(window.location.href); url.search = '?open=${filename}'; window.open(url.toString());">${filename}</a></td>
@@ -969,9 +969,9 @@ $(() => {
 
 })
 
-function openFilenameFromSearch(filename) {
+function openFromSearchedContentsResults(filename) {
     var url = new URL(window.location.href); 
-    url.searchParams.set('open', filename); 
-    url = url.toString().replace("explorer.php", "index.php");
+    url.searchParams.set('open', filename);
+    url = url.toString().replace("explorer.php", "index.php").replace(/\+/g, '%20');;
     window.open(url);
-} // openFilenameFromSearch
+} // openFromSearchedContentsResults
