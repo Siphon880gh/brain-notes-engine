@@ -593,12 +593,24 @@ li {
     left: 0;
     /* top is js controlled */
     transform: translateX(-100%);
-
+    
     border-radius: 3px;
     padding: 5px;
     text-align: center;
-
+    
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     font-size: 12px;
+    
+    transition: all 0.2s ease;
+
+    transform: rotate(45deg) translateX(-30px) translateY(25px);
+    transform-origin: left bottom;
+    opacity: 0.25;
+}
+
+.scroll-marker.active {
+    transform: rotate(0) translateX(-100%) translateY(0);
+    transform-origin: left bottom;
+    opacity: 0.75;
 }

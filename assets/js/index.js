@@ -332,9 +332,9 @@ function hydrateAnimationScrollHandler(div) {
 
         // Check if marker falls within the top quarter of the viewport
         if (markerRect.top <= window.innerHeight/4) {
-            marker.style.opacity = '1';
+            marker.classList.add("active");
         } else {
-            marker.style.opacity = '0.5';
+            marker.classList.remove("active");
         }
     });
 } // hydrateAnimationScrollHandler
