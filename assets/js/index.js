@@ -97,8 +97,8 @@ function runtimeOnMessageReadyExplorer() {
 
             const paramVal = window.location.search.replaceAll("%20", " ").replace(/\.md$/, "").replace(/^\?open\=/, "").replace(/#(.*)/, "");
             // $curriculumExplorer = $("#explore-curriculum iframe").contents();
-            eplorerWindow = $("#explore-curriculum iframe")[0].contentWindow
-            eplorerWindow.searchAllTitles({searchText: paramVal, jumpTo: false});
+            explorerWindow = $("#explore-curriculum iframe")[0].contentWindow
+            explorerWindow.searchAllTitles({searchText: paramVal, jumpTo: false});
             // debugger;
 
                 var topic = "";

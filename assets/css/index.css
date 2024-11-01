@@ -268,31 +268,32 @@ h3 {
   color: black;
   font-weight: 400;
   background-color: lightgray;
-  border: 2px solid black;
   margin-left: 10px;
   border-radius: 5px;
   font-style: normal;
   /* To override italic from Tufte when inside heading tag */
   padding: 5px;
+  width: 30px;
+  text-align: center;
 }
 
-/* line 249, scss/index.scss */
+/* line 252, scss/index.scss */
 #summary-collapser.stated {
   transform: rotate(90deg);
 }
 
-/* line 253, scss/index.scss */
+/* line 256, scss/index.scss */
 #summary-sharer {
   background: none !important;
   margin-top: 5px;
 }
 
-/* line 260, scss/index.scss */
+/* line 263, scss/index.scss */
 #dashboard:not(.active) {
   display: none;
 }
 
-/* line 264, scss/index.scss */
+/* line 267, scss/index.scss */
 #dashboard {
   position: fixed;
   bottom: 0;
@@ -306,17 +307,17 @@ h3 {
   opacity: 0.5;
 }
 
-/* line 277, scss/index.scss */
+/* line 280, scss/index.scss */
 #dashboard:hover {
   opacity: 1;
 }
 
-/* line 281, scss/index.scss */
+/* line 284, scss/index.scss */
 #dashboard i {
   font-size: 20px;
 }
 
-/* line 285, scss/index.scss */
+/* line 288, scss/index.scss */
 i#shortcut-summary-collapser {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.5);
@@ -325,30 +326,30 @@ i#shortcut-summary-collapser {
   text-align: center;
 }
 
-/* line 293, scss/index.scss */
+/* line 296, scss/index.scss */
 i#shortcut-summary-collapser:hover {
   color: black;
 }
 
 @media screen and (max-width: 768px) {
-  /* line 298, scss/index.scss */
+  /* line 301, scss/index.scss */
   #dashboard {
     padding: 5px;
     padding-right: 20px;
   }
 
-  /* line 304, scss/index.scss */
+  /* line 307, scss/index.scss */
   #dashboard i {
     font-size: 28px;
   }
 }
-/* line 309, scss/index.scss */
+/* line 312, scss/index.scss */
 body {
   padding-bottom: 20px;
 }
 
 /* Table of contents at top right */
-/* line 315, scss/index.scss */
+/* line 318, scss/index.scss */
 #toc-toggler {
   cursor: pointer;
   position: fixed;
@@ -361,7 +362,7 @@ body {
 }
 
 /* Jump to explorer at bottom right */
-/* line 328, scss/index.scss */
+/* line 331, scss/index.scss */
 #jump-curriculum {
   cursor: pointer;
   position: fixed;
@@ -374,17 +375,17 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-  /* line 340, scss/index.scss */
+  /* line 343, scss/index.scss */
   #jump-curriculum {
     padding: 10px 10px 10px 10px;
   }
 }
-/* line 349, scss/index.scss */
+/* line 352, scss/index.scss */
 #toc-toggler:not(.filled) {
   display: none;
 }
 
-/* line 353, scss/index.scss */
+/* line 356, scss/index.scss */
 #toc {
   display: none;
   position: fixed;
@@ -405,22 +406,22 @@ body {
 }
 
 @media screen and (min-width: 768px) {
-  /* line 374, scss/index.scss */
+  /* line 377, scss/index.scss */
   #toc {
     max-width: 40vw;
   }
 }
-/* line 379, scss/index.scss */
+/* line 382, scss/index.scss */
 #toc:empty {
   display: none !important;
 }
 
-/* line 388, scss/index.scss */
+/* line 391, scss/index.scss */
 #mobile-tap.active + #toc {
   display: block;
 }
 
-/* line 392, scss/index.scss */
+/* line 395, scss/index.scss */
 #toc .h1,
 #toc .h2,
 #toc .h3,
@@ -434,64 +435,64 @@ body {
   font-size: 1.2rem;
 }
 
-/* line 405, scss/index.scss */
+/* line 408, scss/index.scss */
 #toc .h2 {
   margin-left: 2ch;
 }
 
-/* line 409, scss/index.scss */
+/* line 412, scss/index.scss */
 #toc .h2::before {
   content: "•\00a0";
 }
 
-/* line 413, scss/index.scss */
+/* line 416, scss/index.scss */
 #toc .h3 {
   margin-left: 4ch;
 }
 
-/* line 417, scss/index.scss */
+/* line 420, scss/index.scss */
 #toc .h3::before {
   content: "—\00a0";
 }
 
-/* line 421, scss/index.scss */
+/* line 424, scss/index.scss */
 #toc .h4 {
   margin-left: 6ch;
 }
 
-/* line 425, scss/index.scss */
+/* line 428, scss/index.scss */
 #toc .h4::before {
   content: "➣\00a0";
 }
 
-/* line 429, scss/index.scss */
+/* line 432, scss/index.scss */
 #toc .h5 {
   margin-left: 8ch;
 }
 
-/* line 433, scss/index.scss */
+/* line 436, scss/index.scss */
 #toc .h5::before {
   content: "➨\00a0";
 }
 
-/* line 437, scss/index.scss */
+/* line 440, scss/index.scss */
 #toc .h6 {
   margin-left: 10ch;
 }
 
-/* line 441, scss/index.scss */
+/* line 444, scss/index.scss */
 #toc .h6::before {
   content: "◦\00a0";
 }
 
-/* line 445, scss/index.scss */
+/* line 448, scss/index.scss */
 .description-must {
   position: relative;
   overflow: visible;
   margin: 20px auto;
 }
 
-/* line 451, scss/index.scss */
+/* line 454, scss/index.scss */
 .more-notes {
   /* margin: 10px auto; */
   list-style-type: none;
@@ -511,12 +512,12 @@ body {
   flex-wrap: nowrap;
 }
 
-/* line 468, scss/index.scss */
+/* line 471, scss/index.scss */
 .more-notes .mn-header {
   transform: rotate(270deg);
 }
 
-/* line 473, scss/index.scss */
+/* line 476, scss/index.scss */
 .more-notes .mn-links {
   width: 100%;
   max-width: 600px;
@@ -526,37 +527,37 @@ body {
   align-items: center;
 }
 
-/* line 481, scss/index.scss */
+/* line 484, scss/index.scss */
 .more-notes .mn-links li {
   display: inline;
   text-align: center;
 }
 
-/* line 485, scss/index.scss */
+/* line 488, scss/index.scss */
 .more-notes .mn-links li a {
   background: none !important;
   /* Tufte remove underline on link */
 }
 
 @media screen and (max-width: 768px) {
-  /* line 489, scss/index.scss */
+  /* line 492, scss/index.scss */
   .hide\:lt867 {
     display: none;
   }
 }
 /* UI UX: Left vertical green bar to collapse lesson */
-/* line 494, scss/index.scss */
+/* line 497, scss/index.scss */
 #side-a > .deemp-fieldset {
   position: relative;
 }
 
-/* line 498, scss/index.scss */
+/* line 501, scss/index.scss */
 #side-a {
   border: 1px solid gray;
   padding: 2px;
 }
 
-/* line 504, scss/index.scss */
+/* line 507, scss/index.scss */
 #side-a > .deemp-fieldset > .left-bar {
   position: absolute;
   height: calc(100% + 50px + 10px);
@@ -568,7 +569,7 @@ body {
   background-position: 0 0;
 }
 
-/* line 516, scss/index.scss */
+/* line 519, scss/index.scss */
 #explorer-iframe {
   padding: 5px;
   border-radius: 5px;
@@ -581,62 +582,62 @@ body {
 }
 
 /* Get rid of markdown it with latext's ruler lines */
-/* line 528, scss/index.scss */
+/* line 531, scss/index.scss */
 .stretchy svg {
   display: none !important;
 }
 
-/* line 533, scss/index.scss */
+/* line 536, scss/index.scss */
 .deemp-fieldset h1 {
   font-size: 1.3625em !important;
   /* Starting point */
 }
 
-/* line 537, scss/index.scss */
+/* line 540, scss/index.scss */
 .deemp-fieldset h2 {
   font-size: 1.17em !important;
   /* Proportionally smaller than h1 */
 }
 
-/* line 541, scss/index.scss */
+/* line 544, scss/index.scss */
 .deemp-fieldset h3 {
   font-size: 1em !important;
   /* Proportionally smaller */
 }
 
-/* line 545, scss/index.scss */
+/* line 548, scss/index.scss */
 .deemp-fieldset h4 {
   font-size: 0.85em !important;
   /* Slightly smaller */
 }
 
-/* line 549, scss/index.scss */
+/* line 552, scss/index.scss */
 .deemp-fieldset h5 {
   font-size: 0.75em !important;
   /* Gradually smaller */
 }
 
-/* line 553, scss/index.scss */
+/* line 556, scss/index.scss */
 .deemp-fieldset h6 {
   font-size: 0.65em !important;
 }
 
-/* line 557, scss/index.scss */
+/* line 560, scss/index.scss */
 .deemp-fieldset h7 {
   font-size: 0.58em !important;
 }
 
-/* line 561, scss/index.scss */
+/* line 564, scss/index.scss */
 .deemp-fieldset h8 {
   font-size: 0.52em !important;
 }
 
-/* line 565, scss/index.scss */
+/* line 568, scss/index.scss */
 .deemp-fieldset h9 {
   font-size: 0.46em !important;
 }
 
-/* line 568, scss/index.scss */
+/* line 571, scss/index.scss */
 ul, ol {
   padding-left: initial !important;
   /* Restores the default indentation */
@@ -644,32 +645,32 @@ ul, ol {
   /* Removes any extra margin if needed */
 }
 
-/* line 572, scss/index.scss */
+/* line 575, scss/index.scss */
 ul {
   list-style: initial !important;
   /* Restores bullet points for ul and numbers for ol */
 }
 
-/* line 575, scss/index.scss */
+/* line 578, scss/index.scss */
 ol {
   list-style: auto !important;
   /* Restores bullet points for ul and numbers for ol */
 }
 
-/* line 580, scss/index.scss */
+/* line 583, scss/index.scss */
 li {
   margin-left: 20px !important;
   /* Optional: Adjust for additional indentation if needed */
 }
 
 /* Prevents duplicate Latex */
-/* line 585, scss/index.scss */
+/* line 588, scss/index.scss */
 .katex-html {
   display: none;
 }
 
 /* Scroll markers on the left */
-/* line 591, scss/index.scss */
+/* line 594, scss/index.scss */
 .scroll-marker {
   position: absolute;
   left: 0;
@@ -687,7 +688,7 @@ li {
   opacity: 0.25;
 }
 
-/* line 612, scss/index.scss */
+/* line 615, scss/index.scss */
 .scroll-marker.active {
   transform: rotate(0) translateX(-100%) translateY(0);
   transform-origin: left bottom;

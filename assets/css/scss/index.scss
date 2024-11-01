@@ -238,12 +238,15 @@ h3 {
     color: black;
     font-weight: 400;
     background-color: lightgray;
-    border: 2px solid black;
+    // border: 2px solid black;
     margin-left: 10px;
     border-radius: 5px;
     font-style: normal;
     /* To override italic from Tufte when inside heading tag */
     padding: 5px;
+
+    width: 30px;
+    text-align: center;
 }
 
 #summary-collapser.stated {

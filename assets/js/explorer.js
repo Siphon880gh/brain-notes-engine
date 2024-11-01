@@ -186,6 +186,20 @@ function mergeByKey(array) {
 
 folders = mergeByKey(folders);
 
+function scrollWithOffset(element, offset = -70) {
+    // Scrolls to the element smoothly
+    element.scrollIntoView({ behavior: "smooth" });
+
+    // After a slight delay, apply the offset
+    // setTimeout(() => {
+    //     window.scrollBy({ top: offset, left: 0, behavior: "smooth" });
+    // }, 300); // Adjust the delay if needed
+    window.parent.addEventListener("scrollend", () => {
+        window.parent.scrollBy({ top: offset, left: 0, behavior: "smooth" });
+        console.log("scrollend");
+    }, { once: true });
+} // scrollWithOffset
+
 function openNote(title, url="") {
     // return;
     url = url.replaceAll("+", "___plus___"); // encodeURI doesn't encode +, so we do it manually, and decode it in php
@@ -383,8 +397,14 @@ function openNote(title, url="") {
                 wrapperDiv.appendChild(img);
                 
                 // Create the sibling div with icons
-                const iconDiv = document.createElement('div');
-                iconDiv.className = 'flex flex-col gap-6 p-2';
+                const iconContainer = document.createElement('div');
+                iconContainer.className = 'flex flex-col justify-start';
+
+                const iconGroupA = document.createElement('div');
+                iconGroupA.className = 'flex flex-col gap-6 p-2';
+                
+                const iconGroupB = document.createElement('div');
+                iconGroupB.className = 'flex flex-col gap-6 p-2';
                 
                 // Add the icons
                 const icon1 = document.createElement('i');
@@ -415,11 +435,23 @@ function openNote(title, url="") {
                     img.classList.toggle("centered");
                 } // icon2
 
-                iconDiv.appendChild(icon1);
-                iconDiv.appendChild(icon2);
+                iconGroupA.appendChild(icon1);
+                iconGroupA.appendChild(icon2);
+
+                const icon3 = document.createElement('i');
+                icon3.className = 'fas fa-level-down-alt clickable';
+                icon3.onclick=(event)=>{
+                    const imgWrapper = event.target.closest(".img-wrapper");
+                    const nextLine = (imgWrapper.parentElement.id==="summary-inner" ? imgWrapper.nextElementSibling : imgWrapper.parentElement.nextElementSibling);
+                    // nextLine.scrollIntoView({ behavior: "smooth", top:"-40px" });
+                    scrollWithOffset(nextLine);
+                } // icon3
+                iconGroupB.appendChild(icon3);
                 
                 // Append the icon div as a sibling to the image's wrapper div
-                wrapperDiv.append(iconDiv);
+                iconContainer.append(iconGroupA);
+                iconContainer.append(iconGroupB);
+                wrapperDiv.append(iconContainer);
         });
 
         // Add progress markers on the left

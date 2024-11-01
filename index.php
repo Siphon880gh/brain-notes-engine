@@ -205,8 +205,10 @@
                     <div id="side-a" class="card-body side-by-side-possible mb-4 hidden">
                         <div style="position: sticky; top: 0; left: 0; z-index: 100;">
                             <h1 id="summary-title-wrapper" style="display:inline; cursor:pointer;">
-                            <span id="summary-title" onclick="document.querySelector('#summary-collapser').click();"></span>
-                            <span id="summary-collapser" class="d-none">»</span>
+                            <div class="flex flex-row items-center align-center justify-start gap-4 my-2 bg-white">
+                                <span id="summary-collapser" class="d-none">»</span>
+                                <span id="summary-title" onclick="document.querySelector('#summary-collapser').click();"></span>
+                            </div>
                             </h1>
                             <!-- <a id="summary-sharer" class="d-none" href="javascript:void(0)" style="float:right; margin-right:15px;" onclick='shareTutorial()'>
                                 <span class="fas fa-share-alt"></span>
