@@ -395,7 +395,8 @@ function objToHtml(type, item) {
     // var uniqueId = lookupUniqueIds[item.path];
     // uniqueId = uniqueId.substr(1);
     // var $liDom = $(`<li class="accordion meta" data-uid="${uniqueId}" data-path="${item.path}"></li>`);
-    var $liDom = $(`<li class="accordion meta" data-path="${item.path}"></li>`);
+    // var $liDom = $(`<li class="accordion meta" data-path="${item.path}"></li>`);
+    var $liDom = $(`<li class="accordion meta"></li>`);
 
     var possFolderStr = (() => {
         if (item.next.length && !item.current.includes(".md"))
@@ -531,6 +532,7 @@ $(() => {
     // Accordion onclicks
     $(".name").on("click", (event) => {
         var $name = $(event.target);
+        var name = $name.text()
 
         // Expanding/collapsing
         $li = $name.closest("li.accordion");
@@ -538,7 +540,8 @@ $(() => {
         $name.toggleClass("minus");
 
         // Open command
-        path = $li.attr("data-path");
+        // path = $li.attr("data-path");
+        path = titleLookupsPath(folders, name);
         $("#open-command").val(`cd '${realpath}/${path}'`);
 
 
@@ -829,12 +832,25 @@ function clearSearcher($searcher) {
     $(".highlight").removeClass("highlight");
 }
 
-function titleLooksupPathTp(data, searchPhrase) {
+function titleLookupsPathTp(data, searchPhrase) {
     for (const item of data) {
         if (item.current && item.current.toLowerCase().includes(searchPhrase.toLowerCase())) {
         return item.path_tp;
         } else if (item.next && item.next.length) {
-        const result = titleLooksupPathTp(item.next, searchPhrase);
+        const result = titleLookupsPathTp(item.next, searchPhrase);
+        if (result) return result;
+        }
+    }
+    return null; // if not found
+}
+
+
+function titleLookupsPath(data, searchPhrase) {
+    for (const item of data) {
+        if (item.current && item.current.toLowerCase().includes(searchPhrase.toLowerCase())) {
+        return item.path;
+        } else if (item.next && item.next.length) {
+        const result = titleLookupsPath(item.next, searchPhrase);
         if (result) return result;
         }
     }

@@ -118,7 +118,7 @@ function runtimeOnMessageReadyExplorer() {
                         // $explorer.parent().find(".fa-book-reader").click();
                         var title = topic.replaceAll("%20", " ").replace(/\.md$/, "").replace(/^\?open\=/, "");
                         // const url = window.location.href;
-                        const url = explorerWindow.titleLooksupPathTp(explorerWindow.folders, title)
+                        const url = explorerWindow.titleLookupsPathTp(explorerWindow.folders, title)
                         // console.log({title,url})
                         //debugger
 
