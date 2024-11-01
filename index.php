@@ -202,7 +202,7 @@
                             $("#shareSnippet").val(window.location.hostname + window.location.pathname + `${trailingHash}`)
                         }
                     </script>
-                    <div id="side-a" class="card-body side-by-side-possible hidden">
+                    <div id="side-a" class="card-body side-by-side-possible mb-4 hidden">
                         <div style="position: sticky; top: 0; left: 0; z-index: 100;">
                             <h1 id="summary-title-wrapper" style="display:inline; cursor:pointer;">
                             <span id="summary-title" onclick="document.querySelector('#summary-collapser').click();"></span>
@@ -220,7 +220,7 @@
                         </div>
                     </div>
 
-                    <div id="side-b" class="card-body side-by-side-possible">
+                    <div id="side-b" class="card-body side-by-side-possible mb-4">
                         <iframe class="d-none"
                             id="explorer-iframe"
                             src="explorer.php"
