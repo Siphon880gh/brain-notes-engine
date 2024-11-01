@@ -186,6 +186,194 @@ function mergeByKey(array) {
 
 folders = mergeByKey(folders);
 
+function openNote(title, url="") {
+    // return;
+    url = url.replaceAll("+", "___plus___"); // encodeURI doesn't encode +, so we do it manually, and decode it in php
+    url = url.replaceAll("&", "___and___");
+    var newUrl = window.dirSnippets + url;
+    newUrl = encodeURI(newUrl);
+    console.log({ dirSnippetsFilePath: newUrl });
+
+    fetch("local-open.php?filepath=" + newUrl).then(response => response.text()).then((summary) => {
+
+        parent.document.querySelector(".side-by-side-possible.hidden")?.classList?.remove("hidden");
+
+        // Show notes in textarea
+        var hasParent = Boolean(parent.document.querySelector("#summary-inner"))
+
+
+        let summaryInnerEl = parent.document.querySelector("#summary-inner");
+        if (hasParent)
+            summaryInnerEl.classList.remove("hide");
+
+        var md = window.markdownit({
+            html: true,
+            linkify: true
+        }).use(window.MarkdownItLatex)
+            .use(window.markdownItAnchor, {
+                level: [1, 2, 3, 4, 5, 6], // Apply to all heading levels
+                slugify: function (s) {
+                    return s.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '');
+                },
+                permalink: true,
+                permalinkHref: (slug, state) => {
+                    let s = slug;
+                    s = "javascript:window.parent.shareTutorialSection('?open=" + encodeURI(title) + "#" + s + "');"; // ?open=Data%20Lake.md#Section1
+                    return s;
+                },
+                permalinkSymbol: '🔗' // Set to true if you want a permalink symbol
+                // Other options as needed
+            });
+
+        // md.renderer.rules.newline = (tokens, idx) => {
+        //     return '\n';
+        // };
+
+        // Fixes: I have separate lines in md format. How come they're run-on's when rendered with markdown?
+        // Principle: Markdown's Line Break Rules: In Markdown, simply pressing "Enter" once at the end of a line does not create a new paragraph or line break in the rendered output. Instead, lines directly below each other without an empty line between them are treated as part of the same paragraph and are joined together.
+        // Solution: Add two spaces at the end of each line to force a line break, unless the adjacent line is a blank line.
+        summary = (function doubleNewLine(text) {
+            return text.replace(/(.+)(\n)(?!\n)/g, "$1  \n");
+        })(summary);
+
+        function convertNotesToDetails(inputText) {
+            const lines = inputText.split('\n');
+            const outputLines = [];
+            let i = 0;
+
+            while (i < lines.length) {
+                const line = lines[i];
+                const noteMatch = line.match(/^>\s*\[!note\]\s*(.*)$/i);
+
+                if (noteMatch) {
+                    // Start of a note block
+                    const summaryText = noteMatch[1].trim();
+                    const contentLines = [];
+
+                    i++;
+                    // Collect the content lines that start with '>'
+                    while (i < lines.length && lines[i].startsWith('>')) {
+                        const contentLine = lines[i].replace(/^>\s*/, ''); // Remove '>' and possible spaces
+                        contentLines.push(contentLine);
+                        i++;
+                    }
+
+                    const content = contentLines.join('\n');
+                    const detailsHtml = `<details>\n<summary>${summaryText}</summary>\n<div class="border ml-3 p-1">${content}</div>\n</details><br/>`;
+                    outputLines.push(detailsHtml);
+                } else {
+                    outputLines.push(line);
+                    i++;
+                }
+            }
+
+            return outputLines.join('\n');
+        }  // convertNotesToDetails
+
+        summary = convertNotesToDetails(summary);
+
+
+        var summaryHTML = md.render(summary);
+        if (hasParent) {
+            parent.document.querySelector("#summary-title").textContent = title;
+            parent.document.querySelector("#summary-collapser").classList.remove("d-none");
+            parent.document.querySelector("#summary-collapser").classList.add("stated");
+            parent.document.querySelector("#summary-sharer").classList.remove("d-none");
+            parent.document.querySelector("#side-a .deemp-fieldset").classList.remove("d-none");
+            // parent.document.querySelector("#dashboard").classList.add("active");
+        }
+
+        // When copied HTML from W3School to Obsidian, it's a special space character. 
+        // This special space character will get rid of // from https:// in src
+        // So lets convert back to typical space
+
+        summaryHTML = summaryHTML.replaceAll(/\xA0/g, " ");
+
+        function replaceBracketsWithLinks(htmlString) {
+            return htmlString.replace(/\[\[(.*?)\]\]/g, function (match, p1) {
+                const encodedText = encodeURIComponent(p1); // To handle special characters in URLs
+                return `<a target="_blank" href="${window.openURL}${encodedText}">${p1}</a>`;
+            });
+        }
+        summaryHTML = replaceBracketsWithLinks(summaryHTML);
+
+        if (!hasParent) {
+            var newTab = window.open("about:blank");
+            newTab.document.write(summaryHTML);
+            newTab.document.close();
+        }
+
+        if (hasParent) {
+
+            summaryInnerEl.innerHTML = summaryHTML;
+            setTimeout(() => {
+                // target blank for links
+                summaryInnerEl.querySelectorAll("a").forEach(a => {
+                    if (a.href.includes(window.openURL) || a.href.includes("localhost") || a.innerText.includes("🔗"))
+                        return true;
+
+                    a.setAttribute("target", "_blank");
+
+                    // Youtube Embeds
+                    (function () {
+                        // Exit quickly if this is the wrong type of URL
+                        if (this.protocol !== 'http:' && this.protocol !== 'https:') {
+                            return;
+                        }
+
+                        // Find the ID of the YouTube video
+                        var id, matches;
+                        if (this.hostname === 'youtube.com' || this.hostname === 'www.youtube.com') {
+                            // For URLs like https://www.youtube.com/watch?v=xLrLlu6KDss
+                            // debugger;
+                            matches = this.search.match(/[?&]v=([^&]*)/);
+                            id = matches && matches[1];
+                        } else if (this.hostname === 'youtu.be') {
+                            // For URLs like https://youtu.be/xLrLlu6KDss
+                            id = this.pathname.substr(1);
+                        }
+                        console.log({ hostname: this.hostname })
+
+                        // Check that the ID only has alphanumeric characters, to make sure that
+                        // we don't introduce any XSS vulnerabilities.
+                        var validatedID;
+                        if (id && id.match(/^[a-zA-Z0-9\_]*$/)) {
+                            validatedID = id;
+                        }
+
+                        // Add the embedded YouTube video, and remove the link.
+                        if (validatedID) {
+                            $(this)
+                                .before('<div class="responsive-iframe-container"><iframe src="https://www.youtube.com/embed/' + validatedID + '" frameborder="0" allowfullscreen></iframe></div>')
+                                .remove();
+                        }
+
+                    }).call(a);
+
+                }) // for all a in the tutorial
+            }, 250);
+
+            // Scroll up
+            // Jump up to content
+            // window.parent.document.getElementById("summary-title").scrollIntoView();
+            window.parent.document.getElementById("explore-curriculum").scrollIntoView({
+                behavior: "smooth",
+            });
+
+            // Render table of contents at top right
+            let tocEl = window.parent.document.querySelector("#toc")
+            let markdownContentEl = window.parent.document.querySelector("#summary-inner")
+            window.parent.htmlTableOfContents(tocEl, markdownContentEl);
+
+            // Allow copy from textarea to practice areas
+            let guideCopyToPractice = parent.document.querySelector("#js-visible-if-contents");
+            guideCopyToPractice.classList.remove("hide");
+
+        } // if has parent
+
+    }) // fetch md
+}; // openNote
+
 // console.log(folders);
 /**
  * @function objToHtml
@@ -267,195 +455,16 @@ function objToHtml(type, item) {
 
             var $summary = $(`<span class="fas fa-book-reader"></span>`);
 
-            $summary.on("click", (event) => {
-                const title = event.target.closest("li").querySelector(".name").textContent;
-
-                url = url.replaceAll("+", "___plus___"); // encodeURI doesn't encode +, so we do it manually, and decode it in php
-                url = url.replaceAll("&", "___and___");
-                var newUrl = window.dirSnippets + url;
-                newUrl = encodeURI(newUrl);
-                console.log({ dirSnippetsFilePath: newUrl });
-
-                fetch("local-open.php?filepath=" + newUrl).then(response => response.text()).then((summary) => {
-
-                    parent.document.querySelector(".side-by-side-possible.hidden")?.classList?.remove("hidden");
-
-                    // Show notes in textarea
-                    var hasParent = Boolean(parent.document.querySelector("#summary-inner"))
+            $summary.on("click", (event)=>{
+                const row = event.target.closest("li");
+                if(row.className.includes("highlight")) { row.classList.remove("highlight"); } 
+                let title = row.querySelector(".name").textContent;
+                title = title.replace(/\.md$/, "");
+                console.log({title,url})
+                openNote(title, url);
 
 
-                    let summaryInnerEl = parent.document.querySelector("#summary-inner");
-                    if (hasParent)
-                        summaryInnerEl.classList.remove("hide");
-
-                    var md = window.markdownit({
-                        html: true,
-                        linkify: true
-                    }).use(window.MarkdownItLatex)
-                        .use(window.markdownItAnchor, {
-                            level: [1, 2, 3, 4, 5, 6], // Apply to all heading levels
-                            slugify: function (s) {
-                                return s.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '');
-                            },
-                            permalink: true,
-                            permalinkHref: (slug, state) => {
-                                let s = slug;
-                                s = "javascript:window.parent.shareTutorialSection('?open=" + encodeURI(title) + "#" + s + "');"; // ?open=Data%20Lake.md#Section1
-                                return s;
-                            },
-                            permalinkSymbol: '🔗' // Set to true if you want a permalink symbol
-                            // Other options as needed
-                        });
-
-                    // md.renderer.rules.newline = (tokens, idx) => {
-                    //     return '\n';
-                    // };
-
-                    // Fixes: I have separate lines in md format. How come they're run-on's when rendered with markdown?
-                    // Principle: Markdown's Line Break Rules: In Markdown, simply pressing "Enter" once at the end of a line does not create a new paragraph or line break in the rendered output. Instead, lines directly below each other without an empty line between them are treated as part of the same paragraph and are joined together.
-                    // Solution: Add two spaces at the end of each line to force a line break, unless the adjacent line is a blank line.
-                    summary = (function doubleNewLine(text) {
-                        return text.replace(/(.+)(\n)(?!\n)/g, "$1  \n");
-                    })(summary);
-
-                    function convertNotesToDetails(inputText) {
-                        const lines = inputText.split('\n');
-                        const outputLines = [];
-                        let i = 0;
-
-                        while (i < lines.length) {
-                            const line = lines[i];
-                            const noteMatch = line.match(/^>\s*\[!note\]\s*(.*)$/i);
-
-                            if (noteMatch) {
-                                // Start of a note block
-                                const summaryText = noteMatch[1].trim();
-                                const contentLines = [];
-
-                                i++;
-                                // Collect the content lines that start with '>'
-                                while (i < lines.length && lines[i].startsWith('>')) {
-                                    const contentLine = lines[i].replace(/^>\s*/, ''); // Remove '>' and possible spaces
-                                    contentLines.push(contentLine);
-                                    i++;
-                                }
-
-                                const content = contentLines.join('\n');
-                                const detailsHtml = `<details>\n<summary>${summaryText}</summary>\n<div class="border ml-3 p-1">${content}</div>\n</details><br/>`;
-                                outputLines.push(detailsHtml);
-                            } else {
-                                outputLines.push(line);
-                                i++;
-                            }
-                        }
-
-                        return outputLines.join('\n');
-                    }  // convertNotesToDetails
-
-                    summary = convertNotesToDetails(summary);
-
-
-                    var summaryHTML = md.render(summary);
-                    if (hasParent) {
-                        parent.document.querySelector("#summary-title").textContent = title;
-                        parent.document.querySelector("#summary-collapser").classList.remove("d-none");
-                        parent.document.querySelector("#summary-collapser").classList.add("stated");
-                        parent.document.querySelector("#summary-sharer").classList.remove("d-none");
-                        parent.document.querySelector("#side-a .deemp-fieldset").classList.remove("d-none");
-                        // parent.document.querySelector("#dashboard").classList.add("active");
-                    }
-
-                    // When copied HTML from W3School to Obsidian, it's a special space character. 
-                    // This special space character will get rid of // from https:// in src
-                    // So lets convert back to typical space
-
-                    summaryHTML = summaryHTML.replaceAll(/\xA0/g, " ");
-
-                    function replaceBracketsWithLinks(htmlString) {
-                        return htmlString.replace(/\[\[(.*?)\]\]/g, function (match, p1) {
-                            const encodedText = encodeURIComponent(p1); // To handle special characters in URLs
-                            return `<a target="_blank" href="${window.openURL}${encodedText}">${p1}</a>`;
-                        });
-                    }
-                    summaryHTML = replaceBracketsWithLinks(summaryHTML);
-
-                    if (!hasParent) {
-                        var newTab = window.open("about:blank");
-                        newTab.document.write(summaryHTML);
-                        newTab.document.close();
-                    }
-
-                    if (hasParent) {
-
-                        summaryInnerEl.innerHTML = summaryHTML;
-                        setTimeout(() => {
-                            // target blank for links
-                            summaryInnerEl.querySelectorAll("a").forEach(a => {
-                                if (a.href.includes(window.openURL) || a.href.includes("localhost") || a.innerText.includes("🔗"))
-                                    return true;
-
-                                a.setAttribute("target", "_blank");
-
-                                // Youtube Embeds
-                                (function () {
-                                    // Exit quickly if this is the wrong type of URL
-                                    if (this.protocol !== 'http:' && this.protocol !== 'https:') {
-                                        return;
-                                    }
-
-                                    // Find the ID of the YouTube video
-                                    var id, matches;
-                                    if (this.hostname === 'youtube.com' || this.hostname === 'www.youtube.com') {
-                                        // For URLs like https://www.youtube.com/watch?v=xLrLlu6KDss
-                                        // debugger;
-                                        matches = this.search.match(/[?&]v=([^&]*)/);
-                                        id = matches && matches[1];
-                                    } else if (this.hostname === 'youtu.be') {
-                                        // For URLs like https://youtu.be/xLrLlu6KDss
-                                        id = this.pathname.substr(1);
-                                    }
-                                    console.log({ hostname: this.hostname })
-
-                                    // Check that the ID only has alphanumeric characters, to make sure that
-                                    // we don't introduce any XSS vulnerabilities.
-                                    var validatedID;
-                                    if (id && id.match(/^[a-zA-Z0-9\_]*$/)) {
-                                        validatedID = id;
-                                    }
-
-                                    // Add the embedded YouTube video, and remove the link.
-                                    if (validatedID) {
-                                        $(this)
-                                            .before('<div class="responsive-iframe-container"><iframe src="https://www.youtube.com/embed/' + validatedID + '" frameborder="0" allowfullscreen></iframe></div>')
-                                            .remove();
-                                    }
-
-                                }).call(a);
-
-                            }) // for all a in the tutorial
-                        }, 250);
-
-                        // Scroll up
-                        // Jump up to content
-                        // window.parent.document.getElementById("summary-title").scrollIntoView();
-                        window.parent.document.getElementById("explore-curriculum").scrollIntoView({
-                            behavior: "smooth",
-                        });
-
-                        // Render table of contents at top right
-                        let tocEl = window.parent.document.querySelector("#toc")
-                        let markdownContentEl = window.parent.document.querySelector("#summary-inner")
-                        window.parent.htmlTableOfContents(tocEl, markdownContentEl);
-
-                        // Allow copy from textarea to practice areas
-                        let guideCopyToPractice = parent.document.querySelector("#js-visible-if-contents");
-                        guideCopyToPractice.classList.remove("hide");
-
-                    } // if has parent
-
-                }) // fetch md
-
-            });
+            })
             // For future intern () [] feature
             // $queriedInfoButton = $noteBtns.find(".fa-info");
             // if ($queriedInfoButton.length) {
@@ -622,23 +631,8 @@ function toOpenUp_Exec($row) {
     }); // 1st li is outermost
 }
 
-function toOpenUp_Highlight($row) {
-    // $row.css("border", "1px solid black");
-    // $row.css("border-radius", "3px");
-    // $row.on("hover", () => {
-    //     $row.css("border", "none");
-    //     $row.css("border-radius", "none");
-    //     $row.off("hover");
-    // });
+function highlightRow($row) {
     $row.addClass("highlight");
-    // $row.on("hover", () => {
-    //     $row.removeClass("highlight");
-    //     $row.off("hover");
-    // });
-    $row.on("click", () => {
-        $row.removeClass("highlight");
-        $row.off("click");
-    });
 }
 
 
@@ -654,8 +648,8 @@ function scrollToText(partial, callback = false) {
         var $row = $(row)
         toOpenUp_Exec($row);
         // debugger
-        if($row?.children(0)?.[0]?.textContent?.includes(partial)) {
-            toOpenUp_Highlight($row);
+        if($row?.children(0)?.[0]?.textContent?.toLowerCase()?.includes(partial.toLowerCase())) {
+            highlightRow($row);
             // setTimeout(()=>{
             //     $row[0].scrollIntoView();
             // }, 500)
@@ -663,14 +657,7 @@ function scrollToText(partial, callback = false) {
         }
     });
 
-    setTimeout(() => {
-        if ($finalJumpTo)
-            $finalJumpTo[0].scrollIntoView();
-        setTimeout(() => {
-            if (callback)
-                callback();
-        }, 500)
-    }, 800);
+    return $finalJumpTo;
 
 } // scrollToText
 
@@ -688,7 +675,7 @@ function scrollToFolderName(partial) {
     $foundRow.each((i, row) => {
         var $row = $(row)
         toOpenUp_Exec($row);
-        toOpenUp_Highlight($row);
+        highlightRow($row);
         $row[0].scrollIntoView();
     });
 } // scrollToFolderName
@@ -809,12 +796,23 @@ function searchAllContents(query) {
         });
 } // searchAllContents
 
-function searchAllTitles(searchText, callback) {
+function searchAllTitles({searchText, jumpTo=false, callback}) {
     if (searchText.length === 0) {
         alert("Error: Nothing typed!");
         return false;
     }
-    scrollToText(searchText, callback);
+    const $finalJumpTo = scrollToText(searchText, callback);
+
+    if(jumpTo) {
+        setTimeout(() => {
+            if ($finalJumpTo)
+                $finalJumpTo[0].scrollIntoView();
+            setTimeout(() => {
+                if (callback)
+                    callback();
+            }, 500)
+        }, 800);
+    }
 } // searchAllTitles
 
 function toggleSearchResults(display) {
@@ -829,6 +827,18 @@ function clearSearcher($searcher) {
     $searcher.val("");
     toggleSearchResults(false);
     $(".highlight").removeClass("highlight");
+}
+
+function titleLooksupPathTp(data, searchPhrase) {
+    for (const item of data) {
+        if (item.current && item.current.toLowerCase().includes(searchPhrase.toLowerCase())) {
+        return item.path_tp;
+        } else if (item.next && item.next.length) {
+        const result = titleLooksupPathTp(item.next, searchPhrase);
+        if (result) return result;
+        }
+    }
+    return null; // if not found
 }
 
 $(() => {

@@ -247,9 +247,13 @@
 
                   <div id="search-container-btns">
                     <button id="searcher-2-btn" class="override-ios-button-style" 
-                      onclick="searchAllTitles($('#searcher').val(), ()=>{ 
-                        $('#shareSnippet').val((window.location.hostname + window.location.pathname).replaceAll('explorer.php', '') + `?search-titles=${encodeURI($('#searcher-2').val())}`);
-                        document.getElementById('share-search-title-wrapper').classList.remove('hidden')
+                      onclick="searchAllTitles({
+                        searchText: $('#searcher').val(), 
+                        jumpTo: true, 
+                        callback: ()=> { 
+                          $('#shareSnippet').val((window.location.hostname + window.location.pathname).replaceAll('explorer.php', '') + `?search-titles=${encodeURI($('#searcher-2').val())}`);
+                          document.getElementById('share-search-title-wrapper').classList.remove('hidden')
+                        }
                       }); " 
                       style="cursor: pointer;"
                     ><i class="fa fa-search" style="cursor: pointer;"></i> Titles</button>

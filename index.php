@@ -39,7 +39,7 @@
     </div>
 
     <div class="site-header mx-auto">
-        <h1 class="title"><?php include 'env/title.php'; ?></h1>
+        <h1 class="title" class="clickable" onclick='window.location.search="";'><?php include 'env/title.php'; ?></h1>
 
         <div class="w-full flex flex-row flex-wrap justify-around gap-2">
             <?php include 'env/description-must.php'; ?>

@@ -95,6 +95,13 @@ $(()=>{
 function runtimeOnMessageReadyExplorer() {
     setTimeout(()=>{
         if (window.location.search.includes("open=")) {
+
+            const paramVal = window.location.search.replaceAll("%20", " ").replace(/\.md$/, "").replace(/^\?open\=/, "");
+            // $curriculumExplorer = $("#explore-curriculum iframe").contents();
+            curriculumExplorerWindow = $("#explore-curriculum iframe")[0].contentWindow
+            curriculumExplorerWindow.searchAllTitles({searchText: paramVal, jumpTo: false});
+            // debugger;
+
                 var topic = "";
                 function attemptOpenTutorial() {
                     var topic = (new URLSearchParams(window.location.search).get("open")); // ?open=topicName
@@ -102,12 +109,20 @@ function runtimeOnMessageReadyExplorer() {
                     if(window.location.hash) { // ?open=topicName#jumpToSection
                         jumpTo = window.location.hash;
                     }
-                    var $curriculumExplorer = $("#explore-curriculum iframe").contents();
-                    // var $target = $curriculumExplorer.find(`.name[data-folder-name]:contains('${topic}')`); // files have data-folder-name
-                    var $target = $curriculumExplorer.find(`.name.is-file:contains('${topic}')`); // files have data-folder-name
+                    var $explorerList = $("#explore-curriculum iframe").contents();
+                    var explorerWindow = $("#explore-curriculum iframe")[0].contentWindow;
+                    // var $explorer = $explorerList.find(`.name[data-folder-name]:contains('${topic}')`); // files have data-folder-name
+                    var $explorerFileLis = $explorerList.find(`.name.is-file:contains('${topic}')`)?.eq(0); // files have data-folder-name
                     
-                    if($target.length) {
-                        $target.parent().find(".fa-book-reader").click();
+                    if($explorerFileLis.length) {
+                        // $explorer.parent().find(".fa-book-reader").click();
+                        var title = topic.replaceAll("%20", " ").replace(/\.md$/, "").replace(/^\?open\=/, "");
+                        // const url = window.location.href;
+                        const url = explorerWindow.titleLooksupPathTp(explorerWindow.folders, title)
+                        // console.log({title,url})
+                        //debugger
+
+                        explorerWindow.openNote(title, url);
                         // debugger;
                         // Go to specific section of the tutorial, if applicable
                         if(jumpTo) {
