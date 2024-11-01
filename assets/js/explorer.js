@@ -194,13 +194,13 @@ function openNote(title, url="") {
     newUrl = encodeURI(newUrl);
     console.log({ dirSnippetsFilePath: newUrl });
 
-    fetch("local-open.php?filepath=" + newUrl).then(response => response.text()).then((summary) => {
+    fetch("local-open.php?filepath=" + newUrl)
+    .then(response => response.text()).then((summary) => {
 
         parent.document.querySelector(".side-by-side-possible.hidden")?.classList?.remove("hidden");
 
         // Show notes in textarea
         var hasParent = Boolean(parent.document.querySelector("#summary-inner"))
-
 
         let summaryInnerEl = parent.document.querySelector("#summary-inner");
         if (hasParent)
@@ -210,20 +210,20 @@ function openNote(title, url="") {
             html: true,
             linkify: true
         }).use(window.MarkdownItLatex)
-            .use(window.markdownItAnchor, {
-                level: [1, 2, 3, 4, 5, 6], // Apply to all heading levels
-                slugify: function (s) {
-                    return s.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '');
-                },
-                permalink: true,
-                permalinkHref: (slug, state) => {
-                    let s = slug;
-                    s = "javascript:window.parent.shareTutorialSection('?open=" + encodeURI(title) + "#" + s + "');"; // ?open=Data%20Lake.md#Section1
-                    return s;
-                },
-                permalinkSymbol: '🔗' // Set to true if you want a permalink symbol
-                // Other options as needed
-            });
+        .use(window.markdownItAnchor, {
+            level: [1, 2, 3, 4, 5, 6], // Apply to all heading levels
+            slugify: function (s) {
+                return s.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '');
+            },
+            permalink: true,
+            permalinkHref: (slug, state) => {
+                let s = slug;
+                s = "javascript:window.parent.shareTutorialSection('?open=" + encodeURI(title) + "#" + s + "');"; // ?open=Data%20Lake.md#Section1
+                return s;
+            },
+            permalinkSymbol: '🔗' // Set to true if you want a permalink symbol
+            // Other options as needed
+        });
 
         // md.renderer.rules.newline = (tokens, idx) => {
         //     return '\n';
@@ -332,7 +332,7 @@ function openNote(title, url="") {
                             // For URLs like https://youtu.be/xLrLlu6KDss
                             id = this.pathname.substr(1);
                         }
-                        console.log({ hostname: this.hostname })
+                        // console.log({ hostname: this.hostname })
 
                         // Check that the ID only has alphanumeric characters, to make sure that
                         // we don't introduce any XSS vulnerabilities.
@@ -370,6 +370,13 @@ function openNote(title, url="") {
             guideCopyToPractice.classList.remove("hide");
 
         } // if has parent
+
+        // Add progress markers on the left
+        const notePanel = window.parent.document.querySelector(".deemp-fieldset");
+        const parentWindow = window.parent;
+        parentWindow.removeScrollProgressMarkers(notePanel);
+        parentWindow.hydrateAnimationOnProgressMarkers(notePanel);
+        parentWindow.addScrollProgressMarkers(notePanel);
 
     }) // fetch md
 }; // openNote

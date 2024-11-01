@@ -293,3 +293,59 @@ function getRandomNoteByUser() {
     eplorerWindow = $("#explore-curriculum iframe")[0].contentWindow;
     eplorerWindow.getRandomNoteByUser()
 }
+
+function addScrollProgressMarkers(div) {
+    const windowHeight = window.innerHeight;
+    const divHeight = div.scrollHeight;
+    let percentageMarkers = [];
+
+    // Determine how many markers to add based on div height vs. window height
+    if (divHeight > 3 * windowHeight) {
+        percentageMarkers = [10, 20, 30, 40, 50, 60, 70, 80, 90];
+    } else if (divHeight > 2 * windowHeight) {
+        percentageMarkers = [25, 50, 75];
+    } else if (divHeight > windowHeight) {
+        percentageMarkers = [33, 66];
+    }
+
+    // Create marker elements and position them
+    percentageMarkers.forEach(percentage => {
+        const marker = document.createElement('div');
+        marker.classList.add('scroll-marker');
+        marker.style.top = `${(percentage / 100) * divHeight}px`;
+        marker.textContent = `${percentage}%`;
+        
+        div.appendChild(marker);
+    });
+
+} // addScrollProgressMarkers
+
+function hydrateAnimationOnProgressMarkers(div) {
+    document.addEventListener('scroll', hydrateAnimationScrollHandler.bind(this, div));
+} // hydrateAnimationOnProgressMarkers
+
+function hydrateAnimationScrollHandler(div) {
+    // Update markers' opacity based on scroll position, with only those in top quarter visible
+    const divRect = div.getBoundingClientRect(); // Get div's position relative to viewport
+    document.querySelectorAll('.scroll-marker').forEach((marker,i) => {
+        const markerRect = marker.getBoundingClientRect(); // Marker position relative to viewport
+
+        // Check if marker falls within the top quarter of the viewport
+        if (markerRect.top <= window.innerHeight/4) {
+            marker.style.opacity = '1';
+        } else {
+            marker.style.opacity = '0.5';
+        }
+    });
+} // hydrateAnimationScrollHandler
+
+function removeScrollProgressMarkers(div) {
+    // Select all markers within the div
+    const markers = div.querySelectorAll('.scroll-marker');
+
+    // Remove each marker element
+    markers.forEach(marker => marker.remove());
+    
+    // Optionally, remove the scroll event listener if it's no longer needed
+    div.removeEventListener('scroll', hydrateAnimationScrollHandler);
+} // removeScrollProgressMarkers

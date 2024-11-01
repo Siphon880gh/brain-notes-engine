@@ -649,3 +649,18 @@ li {
 .katex-html {
   display: none;
 }
+
+/* Scroll markers on the left */
+/* line 591, scss/index.scss */
+.scroll-marker {
+  position: absolute;
+  left: 0;
+  /* top is js controlled */
+  transform: translateX(-100%);
+  border-radius: 3px;
+  padding: 5px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 12px;
+}
