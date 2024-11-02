@@ -103,7 +103,8 @@ li:hover {
 }
 
 .fa-book-reader::after {
-  content: " Read";
+  // content: " Read";
+  content: " Checked out";
 }
 
 .responsive-iframe-container {

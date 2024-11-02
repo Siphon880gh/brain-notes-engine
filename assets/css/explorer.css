@@ -103,10 +103,10 @@ li:hover {
 
 /* line 105, scss/explorer.scss */
 .fa-book-reader::after {
-  content: " Read";
+  content: " Checked out";
 }
 
-/* line 109, scss/explorer.scss */
+/* line 110, scss/explorer.scss */
 .responsive-iframe-container {
   position: relative;
   padding-top: 56.25%;
@@ -114,7 +114,7 @@ li:hover {
   height: 0;
 }
 
-/* line 116, scss/explorer.scss */
+/* line 117, scss/explorer.scss */
 .responsive-iframe-container iframe {
   position: absolute;
   top: 0;
@@ -124,12 +124,12 @@ li:hover {
 }
 
 /* Tooltip for .json file's description property  */
-/* line 126, scss/explorer.scss */
+/* line 127, scss/explorer.scss */
 .tooltip {
   opacity: 1 !important;
 }
 
-/* line 130, scss/explorer.scss */
+/* line 131, scss/explorer.scss */
 .tooltip-inner {
   font-size: 12px;
   background: lightgreen;
@@ -139,20 +139,20 @@ li:hover {
   max-height: 80% !important;
   overflow: scroll;
 }
-/* line 139, scss/explorer.scss */
+/* line 140, scss/explorer.scss */
 .tooltip-inner img {
   width: 100%;
 }
 
 /* Explore Curriculum is in a footer */
-/* line 147, scss/explorer.scss */
+/* line 148, scss/explorer.scss */
 .card-footer {
   padding: 0;
 }
 
 /* REFACTORED IN from ./assets-explorer/css/... */
 /* Buttons fit */
-/* line 154, scss/explorer.scss */
+/* line 155, scss/explorer.scss */
 .fa-info,
 .fa-book-reader:not(.summary-header),
 .gotos-click,
@@ -161,19 +161,19 @@ li:hover {
   margin-left: 1ch;
 }
 
-/* line 162, scss/explorer.scss */
+/* line 163, scss/explorer.scss */
 .fa-info:hover,
 .fa-book-reader:not(.summary-header):hover,
 .gotos-click:hover {
   color: darkgreen;
 }
 
-/* line 168, scss/explorer.scss */
+/* line 169, scss/explorer.scss */
 #target {
   font-size: 1.1rem;
 }
 
-/* line 172, scss/explorer.scss */
+/* line 173, scss/explorer.scss */
 #target > ul > li > .name.is-folder[icon]::before {
   filter: sepia(1) hue-rotate(180deg);
   display: inline-block;
@@ -181,29 +181,29 @@ li:hover {
 }
 
 /* The default folder icon is actually nested */
-/* line 180, scss/explorer.scss */
+/* line 181, scss/explorer.scss */
 #target > ul > li > .name.is-folder[icon] > .fa-folder::before {
   content: "" !important;
 }
 
-/* line 184, scss/explorer.scss */
+/* line 185, scss/explorer.scss */
 #target > ul > li > .name.is-folder:not([icon]) > .fa-folder::before {
   min-width: 15px;
   display: inline-block;
 }
 
-/* line 189, scss/explorer.scss */
+/* line 190, scss/explorer.scss */
 button {
   cursor: pointer;
   border: 0;
 }
 
-/* line 194, scss/explorer.scss */
+/* line 195, scss/explorer.scss */
 .custom-icon + .fa-folder {
   display: none;
 }
 
-/* line 198, scss/explorer.scss */
+/* line 199, scss/explorer.scss */
 #explorer-btns {
   border-bottom: 1px dashed lightgray;
   padding: 10px;
@@ -214,17 +214,17 @@ button {
   width: 100%;
 }
 
-/* line 208, scss/explorer.scss */
+/* line 209, scss/explorer.scss */
 #explorer-btns button {
   margin-top: 5px;
 }
 
-/* line 212, scss/explorer.scss */
+/* line 213, scss/explorer.scss */
 .highlight {
   background-color: orange;
 }
 
-/* line 216, scss/explorer.scss */
+/* line 217, scss/explorer.scss */
 #explorer-btns .info-flex-child:nth-child(1) {
   display: flex;
   flex-flow: row wrap;
@@ -234,18 +234,18 @@ button {
 }
 
 @media screen and (max-width: 944px) {
-  /* line 224, scss/explorer.scss */
+  /* line 225, scss/explorer.scss */
   #explorer-btns {
     justify-content: center;
   }
 
-  /* line 227, scss/explorer.scss */
+  /* line 228, scss/explorer.scss */
   #explorer-btns .info-flex-child:nth-child(1) {
     flex-direction: column;
   }
 
   /* Most mobiles can't print. And toggling all opening will be horrible on mobile */
-  /* line 231, scss/explorer.scss */
+  /* line 232, scss/explorer.scss */
   #explorer-btns .info-flex-child:nth-child(2) {
     display: none;
   }
