@@ -1,8 +1,8 @@
 @charset "UTF-8";
 /* General Styling */
 /* line 2, scss/index.scss */
-h3 {
-  font-size: 1.5rem;
+body {
+  padding-bottom: 20px;
 }
 
 /* Testing zoom levels on mobiles. Non-standard / Experimental */
@@ -45,66 +45,180 @@ h3 {
     font-size: .7rem;
   }
 }
+/* Typography Hierarchy */
+/* Typeface */
+/* line 43, scss/index.scss */
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Body Text */
+/* line 48, scss/index.scss */
+body {
+  font-weight: 400;
+  /* Regular */
+  font-size: 16px;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+}
+
+/* Headings */
+/* line 56, scss/index.scss */
+#explore-curriculum h1 {
+  font-weight: 300;
+  /* Light */
+  font-size: 48px;
+  text-transform: capitalize;
+  letter-spacing: 0;
+}
+
+/* line 63, scss/index.scss */
+#explore-curriculum h2 {
+  font-weight: 300;
+  /* Light */
+  font-size: 34px;
+  text-transform: capitalize;
+  letter-spacing: 0.25px;
+}
+
+/* line 70, scss/index.scss */
+#explore-curriculum h3 {
+  font-weight: 400;
+  /* Regular */
+  font-size: 24px;
+  text-transform: capitalize;
+  letter-spacing: 0;
+}
+
+/* line 77, scss/index.scss */
+#explore-curriculum h4 {
+  font-weight: 450;
+  font-size: 20px;
+  text-transform: capitalize;
+  letter-spacing: 0.15px;
+}
+
+/* line 84, scss/index.scss */
+#explore-curriculum h5 {
+  font-weight: 500;
+  font-size: 16px;
+  text-transform: capitalize;
+  letter-spacing: 0.15px;
+}
+
+/* line 91, scss/index.scss */
+#explore-curriculum h6 {
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: capitalize;
+  letter-spacing: 0.15px;
+}
+
+/* Subtitles */
+/* line 99, scss/index.scss */
+.subtitle1 {
+  font-weight: 400;
+  /* Regular */
+  font-size: 16px;
+  text-transform: capitalize;
+  letter-spacing: 0.15px;
+}
+
+/* line 106, scss/index.scss */
+.subtitle2 {
+  font-weight: 500;
+  /* Medium */
+  font-size: 14px;
+  text-transform: capitalize;
+  letter-spacing: 0.1px;
+}
+
+/* line 113, scss/index.scss */
+ul, ol {
+  padding-left: initial !important;
+  /* Restores the default indentation */
+  margin-left: initial !important;
+  /* Removes any extra margin if needed */
+}
+
+/* line 117, scss/index.scss */
+ul {
+  list-style: initial !important;
+  /* Restores bullet points for ul and numbers for ol */
+}
+
+/* line 120, scss/index.scss */
+ol {
+  list-style: auto !important;
+  /* Restores bullet points for ul and numbers for ol */
+}
+
+/* line 125, scss/index.scss */
+li {
+  margin-left: 20px !important;
+  /* Optional: Adjust for additional indentation if needed */
+}
+
 /* Styling classes */
-/* line 44, scss/index.scss */
+/* line 131, scss/index.scss */
 .clickable {
   color: gray;
   cursor: pointer;
 }
 
-/* line 49, scss/index.scss */
+/* line 136, scss/index.scss */
 .clickable:hover {
   color: black;
 }
 
-/* line 53, scss/index.scss */
+/* line 140, scss/index.scss */
 .fullwidth100 {
   width: 100% !important;
   height: 125px;
 }
 
-/* line 58, scss/index.scss */
+/* line 145, scss/index.scss */
 .hide,
 .hidden {
   display: none;
 }
 
-/* line 63, scss/index.scss */
+/* line 150, scss/index.scss */
 .highlight {
   background-color: orange;
 }
 
-/* line 67, scss/index.scss */
+/* line 154, scss/index.scss */
 .inline-block {
   display: inline-block;
 }
 
-/* line 71, scss/index.scss */
+/* line 158, scss/index.scss */
 .spacer {
   width: 100%;
   height: 5px;
 }
 
 /* General Layout */
-/* line 80, scss/index.scss */
+/* line 167, scss/index.scss */
 .site-header {
   text-align: center;
 }
 
-/* line 83, scss/index.scss */
+/* line 170, scss/index.scss */
 .site-header .title {
   text-align: center;
   margin-top: 2rem;
 }
 
-/* line 88, scss/index.scss */
+/* line 175, scss/index.scss */
 #new,
 #old {
   float: left;
   width: 50%;
 }
 
-/* line 94, scss/index.scss */
+/* line 181, scss/index.scss */
 #new .contents,
 #old .contents {
   border: 1px solid darkgray;
@@ -112,52 +226,52 @@ h3 {
   white-space: break-spaces;
 }
 
-/* line 101, scss/index.scss */
+/* line 188, scss/index.scss */
 #new textarea:blur {
   border-style: none !important;
   border-color: Transparent !important;
   overflow: auto !important;
 }
 
-/* line 110, scss/index.scss */
+/* line 197, scss/index.scss */
 #diff {
   padding: 2px 5px;
   border: 1px solid gray;
   border-radius: 5px;
 }
 
-/* line 116, scss/index.scss */
+/* line 203, scss/index.scss */
 #diff:empty {
   border: none;
 }
 
-/* line 120, scss/index.scss */
+/* line 207, scss/index.scss */
 #diff:not(:empty)::after {
   content: "%";
 }
 
-/* line 124, scss/index.scss */
+/* line 211, scss/index.scss */
 #old[data-class-level="1"] .highlight {
   background-color: orange !important;
 }
 
-/* line 128, scss/index.scss */
+/* line 215, scss/index.scss */
 .card {
   margin: 30px auto 30px auto;
 }
 
-/* line 133, scss/index.scss */
+/* line 220, scss/index.scss */
 #explore-curriculum iframe {
   resize: vertical;
 }
 
-/* line 137, scss/index.scss */
+/* line 224, scss/index.scss */
 #summary-title-wrapper {
   font-size: 1.3625em !important;
   font-weight: bold;
 }
 
-/* line 141, scss/index.scss */
+/* line 228, scss/index.scss */
 #summary-title {
   background-color: white;
   opacity: 1;
@@ -166,12 +280,12 @@ h3 {
   padding-right: 5px;
 }
 
-/* line 149, scss/index.scss */
+/* line 236, scss/index.scss */
 #summary-inner textarea {
   border-color: white;
 }
 
-/* line 153, scss/index.scss */
+/* line 240, scss/index.scss */
 #summary-inner pre {
   white-space: break-spaces;
   color: white;
@@ -179,29 +293,29 @@ h3 {
   margin: 10px;
 }
 
-/* line 160, scss/index.scss */
+/* line 247, scss/index.scss */
 #summary-inner img {
   max-width: calc(100% - 40px);
 }
 
-/* line 164, scss/index.scss */
+/* line 251, scss/index.scss */
 #summary-inner img.state-1 {
   width: 75%;
 }
 
-/* line 167, scss/index.scss */
+/* line 254, scss/index.scss */
 #summary-inner img.state-2 {
   width: 50%;
 }
 
-/* line 170, scss/index.scss */
+/* line 257, scss/index.scss */
 #summary-inner img.centered {
   margin-left: auto;
   margin-right: auto;
 }
 
 /* Fieldset layout */
-/* line 176, scss/index.scss */
+/* line 263, scss/index.scss */
 #explore-curriculum fieldset {
   display: block;
   margin-inline-start: 2px;
@@ -216,7 +330,7 @@ h3 {
   border-color: threedface;
   border-image: initial;
 }
-/* line 190, scss/index.scss */
+/* line 277, scss/index.scss */
 #explore-curriculum fieldset legend {
   display: inline-block !important;
   padding-inline-start: 4px;
@@ -233,7 +347,7 @@ h3 {
 
 /* Toggle side by side curriculum explorer along notes view */
 /* Superceded by collapser which is next to the summary title */
-/* line 212, scss/index.scss */
+/* line 299, scss/index.scss */
 .sides:has(.side-by-side) {
   display: flex;
   flex-direction: row;
@@ -242,25 +356,25 @@ h3 {
   align-items: stretch;
 }
 
-/* line 220, scss/index.scss */
+/* line 307, scss/index.scss */
 .side-by-side {
   min-width: 50%;
   max-width: 50%;
 }
 
-/* line 224, scss/index.scss */
+/* line 311, scss/index.scss */
 .side-by-side-possible {
   padding: 0 !important;
 }
 
-/* line 228, scss/index.scss */
+/* line 315, scss/index.scss */
 #js-visible-if-contents {
   padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
 }
 
-/* line 234, scss/index.scss */
+/* line 321, scss/index.scss */
 #summary-collapser {
   cursor: pointer;
   /* transform rotate wouldn't work on inline */
@@ -277,23 +391,23 @@ h3 {
   text-align: center;
 }
 
-/* line 252, scss/index.scss */
+/* line 339, scss/index.scss */
 #summary-collapser.stated {
   transform: rotate(90deg);
 }
 
-/* line 256, scss/index.scss */
+/* line 343, scss/index.scss */
 #summary-sharer {
   background: none !important;
   margin-top: 5px;
 }
 
-/* line 263, scss/index.scss */
+/* line 350, scss/index.scss */
 #dashboard:not(.active) {
   display: none;
 }
 
-/* line 267, scss/index.scss */
+/* line 354, scss/index.scss */
 #dashboard {
   position: fixed;
   bottom: 0;
@@ -307,17 +421,17 @@ h3 {
   opacity: 0.5;
 }
 
-/* line 280, scss/index.scss */
+/* line 367, scss/index.scss */
 #dashboard:hover {
   opacity: 1;
 }
 
-/* line 284, scss/index.scss */
+/* line 371, scss/index.scss */
 #dashboard i {
   font-size: 20px;
 }
 
-/* line 288, scss/index.scss */
+/* line 375, scss/index.scss */
 i#shortcut-summary-collapser {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.5);
@@ -326,30 +440,25 @@ i#shortcut-summary-collapser {
   text-align: center;
 }
 
-/* line 296, scss/index.scss */
+/* line 383, scss/index.scss */
 i#shortcut-summary-collapser:hover {
   color: black;
 }
 
 @media screen and (max-width: 768px) {
-  /* line 301, scss/index.scss */
+  /* line 388, scss/index.scss */
   #dashboard {
     padding: 5px;
     padding-right: 20px;
   }
 
-  /* line 307, scss/index.scss */
+  /* line 394, scss/index.scss */
   #dashboard i {
     font-size: 28px;
   }
 }
-/* line 312, scss/index.scss */
-body {
-  padding-bottom: 20px;
-}
-
 /* Table of contents at top right */
-/* line 318, scss/index.scss */
+/* line 401, scss/index.scss */
 #toc-toggler {
   cursor: pointer;
   position: fixed;
@@ -362,7 +471,7 @@ body {
 }
 
 /* Jump to explorer at bottom right */
-/* line 331, scss/index.scss */
+/* line 414, scss/index.scss */
 #jump-curriculum {
   cursor: pointer;
   position: fixed;
@@ -375,17 +484,17 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-  /* line 343, scss/index.scss */
+  /* line 426, scss/index.scss */
   #jump-curriculum {
     padding: 10px 10px 10px 10px;
   }
 }
-/* line 352, scss/index.scss */
+/* line 435, scss/index.scss */
 #toc-toggler:not(.filled) {
   display: none;
 }
 
-/* line 356, scss/index.scss */
+/* line 439, scss/index.scss */
 #toc {
   display: none;
   position: fixed;
@@ -406,22 +515,22 @@ body {
 }
 
 @media screen and (min-width: 768px) {
-  /* line 377, scss/index.scss */
+  /* line 460, scss/index.scss */
   #toc {
     max-width: 40vw;
   }
 }
-/* line 382, scss/index.scss */
+/* line 465, scss/index.scss */
 #toc:empty {
   display: none !important;
 }
 
-/* line 391, scss/index.scss */
+/* line 474, scss/index.scss */
 #mobile-tap.active + #toc {
   display: block;
 }
 
-/* line 395, scss/index.scss */
+/* line 478, scss/index.scss */
 #toc .h1,
 #toc .h2,
 #toc .h3,
@@ -435,64 +544,64 @@ body {
   font-size: 1.2rem;
 }
 
-/* line 408, scss/index.scss */
+/* line 491, scss/index.scss */
 #toc .h2 {
   margin-left: 2ch;
 }
 
-/* line 412, scss/index.scss */
+/* line 495, scss/index.scss */
 #toc .h2::before {
   content: "•\00a0";
 }
 
-/* line 416, scss/index.scss */
+/* line 499, scss/index.scss */
 #toc .h3 {
   margin-left: 4ch;
 }
 
-/* line 420, scss/index.scss */
+/* line 503, scss/index.scss */
 #toc .h3::before {
   content: "—\00a0";
 }
 
-/* line 424, scss/index.scss */
+/* line 507, scss/index.scss */
 #toc .h4 {
   margin-left: 6ch;
 }
 
-/* line 428, scss/index.scss */
+/* line 511, scss/index.scss */
 #toc .h4::before {
   content: "➣\00a0";
 }
 
-/* line 432, scss/index.scss */
+/* line 515, scss/index.scss */
 #toc .h5 {
   margin-left: 8ch;
 }
 
-/* line 436, scss/index.scss */
+/* line 519, scss/index.scss */
 #toc .h5::before {
   content: "➨\00a0";
 }
 
-/* line 440, scss/index.scss */
+/* line 523, scss/index.scss */
 #toc .h6 {
   margin-left: 10ch;
 }
 
-/* line 444, scss/index.scss */
+/* line 527, scss/index.scss */
 #toc .h6::before {
   content: "◦\00a0";
 }
 
-/* line 448, scss/index.scss */
+/* line 531, scss/index.scss */
 .description-must {
   position: relative;
   overflow: visible;
   margin: 20px auto;
 }
 
-/* line 454, scss/index.scss */
+/* line 537, scss/index.scss */
 .more-notes {
   /* margin: 10px auto; */
   list-style-type: none;
@@ -512,12 +621,12 @@ body {
   flex-wrap: nowrap;
 }
 
-/* line 471, scss/index.scss */
+/* line 554, scss/index.scss */
 .more-notes .mn-header {
   transform: rotate(270deg);
 }
 
-/* line 476, scss/index.scss */
+/* line 559, scss/index.scss */
 .more-notes .mn-links {
   width: 100%;
   max-width: 600px;
@@ -527,37 +636,37 @@ body {
   align-items: center;
 }
 
-/* line 484, scss/index.scss */
+/* line 567, scss/index.scss */
 .more-notes .mn-links li {
   display: inline;
   text-align: center;
 }
 
-/* line 488, scss/index.scss */
+/* line 571, scss/index.scss */
 .more-notes .mn-links li a {
   background: none !important;
   /* Tufte remove underline on link */
 }
 
 @media screen and (max-width: 768px) {
-  /* line 492, scss/index.scss */
+  /* line 575, scss/index.scss */
   .hide\:lt867 {
     display: none;
   }
 }
 /* UI UX: Left vertical green bar to collapse lesson */
-/* line 497, scss/index.scss */
+/* line 580, scss/index.scss */
 #side-a > .deemp-fieldset {
   position: relative;
 }
 
-/* line 501, scss/index.scss */
+/* line 584, scss/index.scss */
 #side-a {
   border: 1px solid gray;
   padding: 2px;
 }
 
-/* line 507, scss/index.scss */
+/* line 590, scss/index.scss */
 #side-a > .deemp-fieldset > .left-bar {
   position: absolute;
   height: calc(100% + 50px + 10px);
@@ -569,7 +678,7 @@ body {
   background-position: 0 0;
 }
 
-/* line 519, scss/index.scss */
+/* line 602, scss/index.scss */
 #explorer-iframe {
   padding: 5px;
   border-radius: 5px;
@@ -582,95 +691,19 @@ body {
 }
 
 /* Get rid of markdown it with latext's ruler lines */
-/* line 531, scss/index.scss */
+/* line 614, scss/index.scss */
 .stretchy svg {
   display: none !important;
 }
 
-/* line 536, scss/index.scss */
-.deemp-fieldset h1 {
-  font-size: 1.3625em !important;
-  /* Starting point */
-}
-
-/* line 540, scss/index.scss */
-.deemp-fieldset h2 {
-  font-size: 1.17em !important;
-  /* Proportionally smaller than h1 */
-}
-
-/* line 544, scss/index.scss */
-.deemp-fieldset h3 {
-  font-size: 1em !important;
-  /* Proportionally smaller */
-}
-
-/* line 548, scss/index.scss */
-.deemp-fieldset h4 {
-  font-size: 0.85em !important;
-  /* Slightly smaller */
-}
-
-/* line 552, scss/index.scss */
-.deemp-fieldset h5 {
-  font-size: 0.75em !important;
-  /* Gradually smaller */
-}
-
-/* line 556, scss/index.scss */
-.deemp-fieldset h6 {
-  font-size: 0.65em !important;
-}
-
-/* line 560, scss/index.scss */
-.deemp-fieldset h7 {
-  font-size: 0.58em !important;
-}
-
-/* line 564, scss/index.scss */
-.deemp-fieldset h8 {
-  font-size: 0.52em !important;
-}
-
-/* line 568, scss/index.scss */
-.deemp-fieldset h9 {
-  font-size: 0.46em !important;
-}
-
-/* line 571, scss/index.scss */
-ul, ol {
-  padding-left: initial !important;
-  /* Restores the default indentation */
-  margin-left: initial !important;
-  /* Removes any extra margin if needed */
-}
-
-/* line 575, scss/index.scss */
-ul {
-  list-style: initial !important;
-  /* Restores bullet points for ul and numbers for ol */
-}
-
-/* line 578, scss/index.scss */
-ol {
-  list-style: auto !important;
-  /* Restores bullet points for ul and numbers for ol */
-}
-
-/* line 583, scss/index.scss */
-li {
-  margin-left: 20px !important;
-  /* Optional: Adjust for additional indentation if needed */
-}
-
 /* Prevents duplicate Latex */
-/* line 588, scss/index.scss */
+/* line 619, scss/index.scss */
 .katex-html {
   display: none;
 }
 
 /* Scroll markers on the left */
-/* line 594, scss/index.scss */
+/* line 625, scss/index.scss */
 .scroll-marker {
   position: absolute;
   left: 0;
@@ -688,7 +721,7 @@ li {
   opacity: 0.50;
 }
 
-/* line 615, scss/index.scss */
+/* line 646, scss/index.scss */
 .scroll-marker.past {
   transform: rotate(45deg) translateX(-30px) translateY(25px);
   transform-origin: left bottom;
@@ -696,7 +729,7 @@ li {
 }
 
 @media screen and (max-width: 768px) {
-  /* line 622, scss/index.scss */
+  /* line 653, scss/index.scss */
   .scroll-marker {
     transform: rotate(0) translateX(-100%) translateY(25px);
     font-size: 50%;
@@ -705,7 +738,7 @@ li {
     padding-right: 2px;
   }
 
-  /* line 631, scss/index.scss */
+  /* line 662, scss/index.scss */
   .scroll-marker.past {
     transform: rotate(45deg) translateX(-6px) translateY(25px);
   }

@@ -160,12 +160,14 @@
                 <h2 class="text-center"><span class="fa fa-book-reader"></span> Notes</h2>
             </div> -->
             <div id="explore-curriculum" class="card-footer">
-                <div class="card-header p-2">
+                <div class="card-header p-2 flex flex-wrap justify-between items-center align-center">
                     <h2 class="p0 m-0 text-center inline"><span class="fa-off fa-microscope-off fas fa-book-reader"></span> Open a lesson</h2>
-                    <button onclick="getRandomNoteByUser()" class="ml-8"><h6>🔀 Random Note</h6></button>
-                    <a id="summary-sharer" class="d-none" href="javascript:void(0)" style="float:right; margin-right:15px;" onclick='shareTutorial()'>
-                        <span class="fas fa-share-alt"></span>
-                    </a>
+                    <div class="flex flex-row flex-nowrap gap-4 justify-between items-center align-center">
+                        <button onclick="getRandomNoteByUser()"><h4>🔀 Random Note</h4></button>
+                        <a id="summary-sharer" class="d-none" href="javascript:void(0)" style="float:right; margin-right:15px;" onclick='shareTutorial()'>
+                            <span class="fas fa-share-alt"></span>
+                        </a>
+                    </div>
 
                     <!-- <details>
                         <summary>More info...</summary>
@@ -217,12 +219,12 @@
                     </script>
                     <div id="side-a" class="card-body side-by-side-possible mb-4 hidden">
                         <div style="position: sticky; top: 0; left: 0; z-index: 100;">
-                            <h1 id="summary-title-wrapper" style="display:inline; cursor:pointer;">
+                            <h2 id="summary-title-wrapper" style="display:inline; cursor:pointer;">
                             <div class="flex flex-row items-center align-center justify-start gap-4 my-2 bg-white">
                                 <span id="summary-collapser" class="d-none">»</span>
                                 <span id="summary-title" onclick="document.querySelector('#summary-collapser').click();"></span>
                             </div>
-                            </h1>
+                            </h2>
                             <!-- <a id="summary-sharer" class="d-none" href="javascript:void(0)" style="float:right; margin-right:15px;" onclick='shareTutorial()'>
                                 <span class="fas fa-share-alt"></span>
                             </a> -->

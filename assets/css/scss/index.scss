@@ -1,6 +1,6 @@
 /* General Styling */
-h3 {
-    font-size: 1.5rem;
+body {
+    padding-bottom: 20px;
 }
 
 /* Testing zoom levels on mobiles. Non-standard / Experimental */
@@ -38,6 +38,93 @@ h3 {
     }
 }
 
+/* Typography Hierarchy */
+/* Typeface */
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Body Text */
+body {
+    font-weight: 400; /* Regular */
+    font-size: 16px;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+}
+
+/* Headings */
+#explore-curriculum h1 {
+    font-weight: 300; /* Light */
+    font-size: 48px;
+    text-transform: capitalize;
+    letter-spacing: 0;
+}
+
+#explore-curriculum h2 {
+    font-weight: 300; /* Light */
+    font-size: 34px;
+    text-transform: capitalize;
+    letter-spacing: 0.25px;
+}
+
+#explore-curriculum h3 {
+    font-weight: 400; /* Regular */
+    font-size: 24px;
+    text-transform: capitalize;
+    letter-spacing: 0;
+}
+
+#explore-curriculum h4 {
+    font-weight: 450;
+    font-size: 20px;
+    text-transform: capitalize;
+    letter-spacing: 0.15px;
+}
+
+#explore-curriculum h5 {
+    font-weight: 500;
+    font-size: 16px;
+    text-transform: capitalize;
+    letter-spacing: 0.15px;
+}
+
+#explore-curriculum h6 {
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: capitalize;
+    letter-spacing: 0.15px;
+}
+
+/* Subtitles */
+.subtitle1 {
+    font-weight: 400; /* Regular */
+    font-size: 16px;
+    text-transform: capitalize;
+    letter-spacing: 0.15px;
+}
+
+.subtitle2 {
+    font-weight: 500; /* Medium */
+    font-size: 14px;
+    text-transform: capitalize;
+    letter-spacing: 0.1px;
+}
+
+ul, ol {
+    padding-left: initial !important;  /* Restores the default indentation */
+    margin-left: initial !important;      /* Removes any extra margin if needed */
+}
+ul {
+    list-style: initial !important; /* Restores bullet points for ul and numbers for ol */
+}
+ol {
+    list-style: auto !important; /* Restores bullet points for ul and numbers for ol */
+}
+
+
+li {
+    margin-left: 20px !important; /* Optional: Adjust for additional indentation if needed */
+}
 
 /* Styling classes */
 
@@ -309,10 +396,6 @@ i#shortcut-summary-collapser:hover {
     }
 }
 
-body {
-    padding-bottom: 20px;
-}
-
 /* Table of contents at top right */
 
 #toc-toggler {
@@ -530,58 +613,6 @@ body {
 /* Get rid of markdown it with latext's ruler lines */
 .stretchy svg {
     display:none !important;
-}
-
-
-.deemp-fieldset h1 {
-    font-size: 1.3625em !important; /* Starting point */
-}
-
-.deemp-fieldset h2 {
-    font-size: 1.17em !important; /* Proportionally smaller than h1 */
-}
-
-.deemp-fieldset h3 {
-    font-size: 1em !important; /* Proportionally smaller */
-}
-
-.deemp-fieldset h4 {
-    font-size: 0.85em !important; /* Slightly smaller */
-}
-
-.deemp-fieldset h5 {
-    font-size: 0.75em !important; /* Gradually smaller */
-}
-
-.deemp-fieldset h6 {
-    font-size: 0.65em !important;
-}
-
-.deemp-fieldset h7 {
-    font-size: 0.58em !important;
-}
-
-.deemp-fieldset h8 {
-    font-size: 0.52em !important;
-}
-
-.deemp-fieldset h9 {
-    font-size: 0.46em !important;
-}
-ul, ol {
-    padding-left: initial !important;  /* Restores the default indentation */
-    margin-left: initial !important;      /* Removes any extra margin if needed */
-}
-ul {
-    list-style: initial !important; /* Restores bullet points for ul and numbers for ol */
-}
-ol {
-    list-style: auto !important; /* Restores bullet points for ul and numbers for ol */
-}
-
-
-li {
-    margin-left: 20px !important; /* Optional: Adjust for additional indentation if needed */
 }
 
 /* Prevents duplicate Latex */
