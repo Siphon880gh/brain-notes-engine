@@ -1,0 +1,1 @@
+<meta name="description" content="Collection of notes on Health, Fitness, Wellness, Longevity. The goal is to record a wealth of knowledge that can be applied for healthy and productive lives.">

@@ -1,0 +1,1 @@
+<meta name="description" content="Collection of SaaS tech entrepreneur notes. The goal is to record what I learn as I start tech businesses, read business books, meet with entrepreneurs, etc. I want to leverage what I know from software development into my own startups.">

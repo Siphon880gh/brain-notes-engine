@@ -1,148 +1,178 @@
-// alert("index.js loaded");
+var app = {
+    init: async function() {
 
-function notes1() {
-    alert("- RTF supported: You may copy and paste from Word Document or Text Edit and most formatting like bolding, font size, and lists will be copied over.\n- Shortcut keys: You may use shortcut keys for bold or italicized.");
-}
+        const resource = await fetch("./cachedResData.json").then(response=>response.json());
 
+        window.folders = resource.dirs;
+        window.sortSpec = resource.sort_spec;
+        
+        // initFolderDoms();
+        
+        this.setupCountNotes();
+        this.setupTooltipInteraction();
+        this.setupRefreshPage();
+        
+        this.setupMoreNotebooks();
+        this.setupExploreInteractions();
+        this.setupExpandAllFolders._init()
+        this.setupJumpToTopics._init();
+        this.setupExpandNote();
+        this.setupCanReceiveSharedNote();
+        this.setupRandomNote._init();
 
-window.formatters = [
-    (text) => {
-        // console.log("1");
-        return text.replace(/\s/g, ''); // space, tab, newline
-    },
-    (text) => {
-        // console.log("2");
-        return text; // removing comments
-    }
-]
-
-function confirmEraseText() {
-    if (confirm('Start all over retyping?')) {
-        $('#new .contents').val('');
-        $('.highlight').removeClass('highlight');
-        $("#new .contents").trigger("keyup"); // Call the delegator for evalDifference to clear accuracy text 
-    }
-}
+    }, // init
 
 
-function placeCaretAtEnd(el) {
-    el.focus();
-    if (typeof window.getSelection != "undefined" &&
-        typeof document.createRange != "undefined") {
-        var range = document.createRange();
-        range.selectNodeContents(el);
-        range.collapse(false);
-        var sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
-    } else if (typeof document.body.createTextRange != "undefined") {
-        var textRange = document.body.createTextRange();
-        textRange.moveToElementText(el);
-        textRange.collapse(false);
-        textRange.select();
-    }
-} // placeCaretAtEnd
 
-
-function animateExploreCurriculum() {
-    $("#explore-curriculum .card-header")
-        .animate({ "color": "red" }, 1000)
-        .delay(500)
-        .animate({ "color": "black" }, 2000)
-}
-
-// Autoresize notes textarea
-document.querySelector("#summary-inner")?.addEventListener("input", (event) => {
-    autoExpand(event.target);
-});
-
-window.autoExpandNow = () => {
-    if(document.querySelector("#summary-inner")?.length)
-        autoExpand(document.querySelector("#summary-inner"));
-}
-autoExpandNow();
-// End: Autoresize notes textarea
-
-
-$(()=>{
-    // UX: Can collapse summary reading to more easily reach the topics navigator
-    document.querySelector("#summary-collapser")?.addEventListener("click", (event) => {
-        // Reset the bottom expand/collapse shortcut button
-        document?.querySelector("#shortcut-summary-collapser")?.classList.toggle("fa-minus");
-        document?.querySelector("#shortcut-summary-collapser")?.classList.toggle("fa-plus");
-        if(event.target.className.includes("stated")) {
-            event.target.classList.remove("stated");
-            document.querySelector("#side-a .deemp-fieldset").classList.add("d-none");
-        } else {
-            event.target.classList.add("stated");
-            document.querySelector("#side-a .deemp-fieldset").classList.remove("d-none");
+    setupCountNotes: function() {
+        if (document?.getElementById("count-notes")) {
+            const countNotes = document.querySelectorAll(".name.is-file").length;
+            document.getElementById("count-notes").innerText = `${countNotes - 2} Notes!`;
         }
+    }, // setupCountNotes
 
-    });
+    setupTooltipInteraction: function() {
+        // Close tooltip if clicked outside
+        setTimeout(() => {
+            $('body').on('click', function (e) {
+                //debugger;
+                var $el = $(e.target);
+                if ($el?.data('toggle') !== 'tooltip' && $el.closest(".tooltip").length === 0) {
+                    $(".tooltip-inner").closest(".tooltip").prev().click();
+                }
+            });
 
+        }, 100)
+    }, // setupTooltipInteraction
 
-    // UX: Copy summary to practice area
-    document.querySelector("#gamify-now")?.addEventListener("click", (event) => {
-        $('#retype-container, #rearrange-container').removeClass('hide'); 
-        copyOver(); 
-        document.querySelector('#retype-container').scrollIntoView()
-    });
+    setupRefreshPage: function() {
+        // Clicking title refreshes page
+        document.getElementById("title").addEventListener("click", ()=>{
+            window.location.search="";
+        });
+    }, // setupRefreshPage
 
-}); // On index.html ready
+    setupMoreNotebooks: function() {
 
-// Secondary: Can send topic to friends
-function runtimeOnMessageReadyExplorer() {
-    setTimeout(()=>{
-        if (window.location.search.includes("open=")) {
+        // Hide brain link that is the current brain
+        document.querySelectorAll("[data-hide-if-url-contains]").forEach(el => {
+            const willMatchUrlContains = el.getAttribute("data-hide-if-url-contains")
+            const matched = window.location.href.indexOf(willMatchUrlContains) !== -1;
+            if (matched) el.classList.add("hidden")
+        });
+        document.querySelector(".more-notes").classList.remove("invisible");
+    }, // setupMoreNotebooks
 
-            const paramVal = window.location.search.replaceAll("%20", " ").replace(/\.md$/, "").replace(/^\?open\=/, "").replace(/#(.*)/, "");
-            // $curriculumExplorer = $("#explore-curriculum iframe").contents();
-            explorerWindow = $("#explore-curriculum iframe")[0].contentWindow
-            explorerWindow.searchAllTitles({searchText: paramVal, jumpTo: false});
-            // debugger;
+    setupExploreInteractions: function() {
 
-                var topic = "";
+        document.querySelectorAll(".name.is-folder").forEach(el=>{
+            el.addEventListener("click", (event)=>{
+                event.stopPropagation();
+                event.preventDefault();
+                const el = event.target;
+                const id = el.dataset["id"];
+
+                var ul = el.querySelector('ul'); 
+                if(ul) { 
+                    ul.style.display = ul.style.display === 'none' ? 'block' : 'none';
+                }
+            }); // click
+        });
+        document.querySelectorAll(".name.is-file").forEach(el=>{
+            el.addEventListener("click", (event)=>{
+                event.stopPropagation();
+                event.preventDefault();
+                const el = event.target;
+                const id = el.dataset["id"];
+
+                openNote(id)
+            }); // click
+        });
+    }, // setupExploreInteractions
+
+    setupExpandNote: function() {
+        // UX: Can collapse summary reading to more easily reach the topics navigator
+        document.getElementById("summary-collapser")?.addEventListener("click", (event) => {
+            // Reset the bottom expand/collapse shortcut button
+            if (event.target.className.includes("stated")) {
+                event.target.classList.remove("stated");
+                document.getElementById("summary-outer").classList.add("hidden");
+            } else {
+                event.target.classList.add("stated");
+                document.getElementById("summary-outer").classList.remove("hidden");
+            }
+
+        });
+    }, // setupExpandNote
+
+    setupCanReceiveSharedNote: function() {
+        setTimeout(() => {
+            if (window.location.search.includes("open=")) {
+                const paramVal = window.location.search
+                    .replaceAll("%20", " ")
+                    .replace(/\.md$/, "")
+                    .replace(/^\?open=/, "")
+                    .replace(/#(.*)/, "");
+    
+                searchAllTitles({ searchText: paramVal, jumpTo: false });
+    
+                let topic = "";
+    
                 function attemptOpenTutorial() {
-                    var topic = (new URLSearchParams(window.location.search).get("open")); // ?open=topicName
-                    var jumpToNoteHeading = "";
-                    if(window.location.hash) { // ?open=topicName#jumpToNoteHeadingSection
+                    topic = new URLSearchParams(window.location.search).get("open");
+                    let jumpToNoteHeading = "";
+    
+                    if (window.location.hash) {
                         jumpToNoteHeading = window.location.hash;
                     }
-                    var $explorerList = $("#explore-curriculum iframe").contents();
-                    var $explorerFileLis = $explorerList.find(`.name.is-file:contains('${topic}')`)?.eq(0); // files have data-folder-name
-                    
-                    if($explorerFileLis.length) {
-                        // $explorer.parent().find(".fa-book-reader").click();
-                        var title = topic.replaceAll("%20", " ").replace(/\.md$/, "").replace(/^\?open\=/, "");
-                        // const url = window.location.href;
-                        const url = explorerWindow.titleLookupsPathTp(explorerWindow.folders, title)
-                        // console.log({title,url})
-                        //debugger
-
-                        explorerWindow.openNote(title, url);
-                        // debugger;
-                        // Go to specific section of the tutorial, if applicable
-                        if(jumpToNoteHeading) {
-                            setTimeout(()=>{
-                                console.log({jumpToNoteHeading})
-                                document.querySelector(jumpToNoteHeading).scrollIntoView();
-                            }, 250)
+    
+                    const explorerList = document.querySelectorAll(".name.is-file");
+                    const topicLowerCase = topic.toLowerCase();
+                    const explorerFileLis = Array.from(explorerList)
+                        .find(element => element.textContent.toLowerCase().includes(topicLowerCase));
+    
+                    if (explorerFileLis) {
+                        const title = topic.replaceAll("%20", " ").replace(/\.md$/, "").replace(/^\?open=/, "");
+                        const folderMeta = (function titleLookupsFolderMeta(data, searchPhrase) {
+                            for (const item of data) {
+                                if (item.current && item.current.toLowerCase().includes(searchPhrase.toLowerCase())) {
+                                    return item;
+                                } else if (item.next && item.next.length) {
+                                    const result = titleLookupsFolderMeta(item.next, searchPhrase);
+                                    if (result) return result;
+                                }
+                            }
+                            return null; // if not found
+                        })(folders, title);
+                        if(folderMeta === null) return false;
+    
+                        const id = folderMeta.id;
+                        openNote(id);
+    
+                        if (jumpToNoteHeading) {
+                            setTimeout(() => {
+                                const noteHeadingElement = document.querySelector(jumpToNoteHeading);
+                                if (noteHeadingElement) {
+                                    noteHeadingElement.scrollIntoView();
+                                }
+                            }, 250);
                         }
                         return true;
                     } else {
                         return false;
                     }
                 }
-                setTimeout(()=>{
+    
+                setTimeout(() => {
                     var success = attemptOpenTutorial();
-                    if(!success) {
-                        setTimeout(()=>{
+                    if (!success) {
+                        setTimeout(() => {
                             var success = attemptOpenTutorial();
-                            if(!success) {
-                                setTimeout(()=>{
+                            if (!success) {
+                                setTimeout(() => {
                                     var success = attemptOpenTutorial();
-                                    if(!success) {
-                                        setTimeout(()=>{
+                                    if (!success) {
+                                        setTimeout(() => {
                                             var success = attemptOpenTutorial();
                                             alert("The tutorial you are looking for is not found. Please reach out to your friend who shared it.\n" + topic)
                                         }, 300) // if not successful, repeat 3rd time
@@ -152,241 +182,149 @@ function runtimeOnMessageReadyExplorer() {
                         }, 300)
                     } // if not successful, repeat 2nd time
                 }, 300)
-
-        } else if(window.location.search.includes("search-titles=")) {
-                
-                /**
-                 * Detect presetted topic search in URL
-                 * #topicName
-                 */
-
-                // Decided to phase out so that anchor jumping is possible with # in the URL
-                // var explorer = document.querySelector("iframe").contentWindow.document
-                // explorer.querySelector("#searcher-2").value = decodeURIComponent(window.location.hash.length?window.location.hash.substr(1):"")
-
-                // var button = explorer.querySelector("#searcher-2-btn");
-                // var event = new MouseEvent('click', {
-                //     bubbles: false,
-                //     cancelable: true
-                // });
-
-                // // Dispatch the event to the button
-                // button.dispatchEvent(event);
-
-                /**
-                 * Detect presetted topic search in URL
-                 * ?search-titles=topicName
-                 */
-                    var params = new URLSearchParams(window.location.search);
-                    var qtopic = params.get("search-titles");
-
-
-                    // remove ?search-titles=topicName, so when you click jump anchor link, the url doesn't become ?search-titles=topicName#subtopic
-                    (function pushStateWithoutSearch() {
-                        // Get the current URL
-                        const currentUrl = new URL(window.location);
-                    
-                        // Modify the URL to remove the search part (query parameters)
-                        currentUrl.search = '';
-                    
-                        // Use history.pushState to change the URL without reloading
-                        history.pushState({}, '', currentUrl);
-                    })();
-
-                    if (qtopic) {
-                        var checkIframeLoading = setInterval(() => {
-                            window.$curriculumExplorer = $("#explore-curriculum iframe").contents();
-                            var doesTreeExist = () => $curriculumExplorer.find(".accordion").length > 0;
-
-                            if (doesTreeExist) {
-                                clearInterval(checkIframeLoading);
-                                setTimeout(() => {
-                                    $topicField = $curriculumExplorer.find("#searcher"),
-                                        $topicBtn = $curriculumExplorer.find("#searcher-2-btn");;
-                                    $topicField.val(qtopic);
-                                    $topicBtn.click();
-                                }, 1200); // Just because part of a tree exist, doesn't mean the whole tree exists right away
-                            }
-                        }, 100);
-                }
-        } // if search-titles
-    }, 300)
-
-} // runtimeOnMessageReadyExplorer
-
-
-function htmlTableOfContents(tocEl, markdownContentEl) {
-    var headings = [].slice.call(markdownContentEl.querySelectorAll('h1, h2, h3, h4, h5, h6'));
-    tocEl.innerHTML = "";
-
-    // var debuggingHeadings = "";
-    // alert(headings.length)
-
-    headings.forEach(function(heading, i) {
-        // ref is either generic (toc-1) or the jump link of the subheading
-        var ref = "toc" + i;
-        if (heading.hasAttribute("id"))
-            ref = heading.getAttribute("id");
-        else
-            heading.setAttribute("id", ref);
-
-        // alert(ref)
-        var link = document.createElement("a");
-        link.setAttribute("href", "#" + ref);
-        link.textContent = heading.textContent;
-        link.textContent = link.textContent.replaceAll("🔗","").trim()
-        link.classList.add("toc-link");
-
-        link.addEventListener("click", ()=>{
-            // Make up for the document title covering the heading you jumped to.
-            setTimeout(()=>{
-                window.scrollTo({top:window.scrollY-60})
-            }, 100);
-        })
-
-        var div = document.createElement("div");
-        div.classList.add(heading.tagName.toLowerCase());
-
-        // div.addEventListener("click", ()=>{
-        //     $('#mobile-tap').click()
-        //     document.querySelector('#mobile-tap').classList.remove('active');
-        // })
-        // link.addEventListener("click", ()=>{
-        //     document.querySelector('#mobile-tap').classList.remove('active');
-        // })
-        // link.setAttribute("onclick", "document.querySelector('#mobile-tap').click();")
-
-        div.appendChild(link);
-        tocEl.appendChild(div);
-    });
-
-    if(headings.length) {
-        document.querySelector('#toc-toggler').classList.add('filled')
-    } else {
-        document.querySelector('#toc-toggler').classList.remove('filled')
-    }
-    // console.log(debuggingHeadings)
-} // htmlTableOfContents
-
-
-    // Hide brain link that is the current brain
-    document.querySelectorAll("[data-hide-if-url-contains]").forEach(el=>{
-        const willMatchUrlContains = el.getAttribute("data-hide-if-url-contains")
-        const matched = window.location.href.indexOf(willMatchUrlContains)!==-1;
-        if(matched) el.classList.add("hidden")
-    });
-    document.querySelector(".more-notes").classList.remove("invisible");
-
-    // Update See what's changed
-    fetch("env/urls.json")
-    .then(response=>response.json())
-    .then(resource=>{
-        const {commitsURL,openURL} = resource;
-        // window.commitsURL = commitsURL;
-        // window.openURL = openURL;
-        document.querySelector("#whats-changed").setAttribute("href", commitsURL);
-    })
-
-
-function getRandomNoteByUser() {
-    eplorerWindow = $("#explore-curriculum iframe")[0].contentWindow;
-    eplorerWindow.getRandomNoteByUser()
-}
-
-function addScrollProgressMarkers(div) {
-    const windowHeight = window.innerHeight;
-    const divHeight = div.scrollHeight;
-    let percentageMarkers = [];
-
-    // Determine how many markers to add based on div height vs. window height
-    if (divHeight > 3 * windowHeight) {
-        percentageMarkers = [10, 20, 30, 40, 50, 60, 70, 80, 90];
-    } else if (divHeight > 2 * windowHeight) {
-        percentageMarkers = [25, 50, 75];
-    } else if (divHeight > windowHeight) {
-        percentageMarkers = [33, 66];
-    }
-
-    // Create marker elements and position them
-    percentageMarkers.forEach(percentage => {
-        const marker = document.createElement('div');
-        marker.classList.add('scroll-marker');
-        marker.style.top = `${(percentage / 100) * divHeight}px`;
-        marker.textContent = `${percentage}%`;
-        
-        div.appendChild(marker);
-    });
-
-} // addScrollProgressMarkers
-
-function hydrateAnimationOnProgressMarkers(div) {
-    window.addEventListener('scroll', hydrateAnimationScrollHandler.bind(this, div));
-    window.addEventListener('resize', ()=>{
-
-        removeScrollProgressMarkers();
-        addScrollProgressMarkers(div);
-        hydrateAnimationScrollHandler(div);
-
-    });
-} // hydrateAnimationOnProgressMarkers
-
-function hydrateAnimationScrollHandler(div) {
-    // Update markers' opacity based on scroll position, with only those in top quarter visible
-    const divRect = div.getBoundingClientRect(); // Get div's position relative to viewport
-    document.querySelectorAll('.scroll-marker').forEach((marker,i) => {
-        const markerRect = marker.getBoundingClientRect(); // Marker position relative to viewport
-
-        // Check if marker falls within the top quarter of the viewport
-        if (markerRect.top <= window.innerHeight/4) {
-            marker.classList.add("past");
-        } else {
-            marker.classList.remove("past");
-        }
-    });
-} // hydrateAnimationScrollHandler
-
-function removeScrollProgressMarkers(div) {
-    // Select all markers within the div
-    const markers = document.querySelectorAll('.scroll-marker');
-
-    // Remove each marker element
-    markers.forEach(marker => marker.remove());
     
-    // Optionally, remove the scroll event listener if it's no longer needed
-    window.removeEventListener('scroll', hydrateAnimationScrollHandler);
-} // removeScrollProgressMarkers
+            } else if (window.location.search.includes("search-titles=")) {
+    
+                /**
+                 * Detect presetted topic search in URL
+                 */
+                var params = new URLSearchParams(window.location.search);
+                var qtopic = params.get("search-titles");
+    
+    
+                // remove ?search-titles=topicName, so when you click jump anchor link, the url doesn't become ?search-titles=topicName#subtopic
+                (function pushStateWithoutSearch() {
+                    // Get the current URL
+                    const currentUrl = new URL(window.location);
+    
+                    // Modify the URL to remove the search part (query parameters)
+                    currentUrl.search = '';
+    
+                    // Use history.pushState to change the URL without reloading
+                    history.pushState({}, '', currentUrl);
+                })();
+    
+                if (qtopic) {
+                    var checkIframeLoading = setInterval(() => {
+                        window.$curriculumExplorer = $("#explore-curriculum iframe").contents();
+                        var doesTreeExist = () => $curriculumExplorer.find(".accordion").length > 0;
+    
+                        if (doesTreeExist) {
+                            clearInterval(checkIframeLoading);
+                            setTimeout(() => {
+                                $topicField = $curriculumExplorer.find("#searcher"),
+                                    $topicBtn = $curriculumExplorer.find("#searcher-2-btn");;
+                                $topicField.val(qtopic);
+                                $topicBtn.click();
+                            }, 1200); // Just because part of a tree exist, doesn't mean the whole tree exists right away
+                        }
+                    }, 100);
+                }
+            } // if search-titles
+        }, 300)
+    
+    }, // setupCanReceiveSharedNote
+    
+    setupExpandAllFolders: {
+        _init: function() {
+            document.getElementById("expand-all-folders").addEventListener("click", ()=>{
+                this.expandAllFolders();
+            })
+        }, // init
 
-window.lastClickedNote = null;
-window.thresholdJumpedTopics = false; 
-function jumpToTopics() {
+        expandAllFolders: function() {
+            const $styleBlock = $("#style-toggle-all-expand");
+            const isOn = $styleBlock.text().trim().length > 0;
+            if (isOn) {
+                $styleBlock.text("");
+            } else {
+                $styleBlock.html("ul { display: block !important; }");
+            }
+        } // expandAllFolders
+    }, // setupExpandAllFolders
 
-    if(!window.thresholdJumpedTopics && window.lastClickedNote) {
-        window.lastClickedNote.closest("ul").scrollIntoView();
-        // document.querySelector('#side-b').scrollIntoView({ behavior: 'smooth' });
-        explorerWindow = $("#explore-curriculum iframe")[0].contentWindow;
-        explorerWindow.addEventListener("scrollend", () => {
-            explorerWindow.scrollBy({ top: -30, left: 0, behavior: "smooth" });
-        }, { once: true });
-        window.thresholdJumpedTopics = true;
-        setTimeout(()=>{
-            window.thresholdJumpedTopics = false;
-        }, 2000);
-        return;
+    setupJumpToTopics: {
+        /**
+         * Setup Jump to Topics
+         * First click Jump to Topics will show folder of all the notes that the opened note is from
+         * And if clicked within 2 seconds, jumps up to the top of the topics showing the search controls
+         */
+        lastClickedNote: null,
+        thresholdJumpedTopics: false,
+        _init: function() {
+            document.querySelector("#jump-curriculum").addEventListener("click", ()=>{
+                this.jumpToTopics();
+            });
+        },
+        jumpToTopics: function() {
+        
+            if (!this.thresholdJumpedTopics && this.lastClickedNote) {
+                this.lastClickedNote.closest("ul").scrollIntoView();
+                // document.querySelector('#side-b').scrollIntoView({ behavior: 'smooth' });
+                window.addEventListener("scrollend", () => {
+                    window.scrollBy({ top: -30, left: 0, behavior: "smooth" });
+                }, { once: true });
+                this.thresholdJumpedTopics = true;
+                setTimeout(() => {
+                    this.thresholdJumpedTopics = false;
+                }, 2000);
+                return;
+            }
+            // document.querySelector('#side-b').scrollIntoView({ behavior: 'smooth' });
+            // document.querySelector('#side-b').querySelector('iframe').contentWindow.scrollTo({ top: 0 });
+            document.querySelector('#side-b').scrollIntoView({ behavior: 'smooth' });
+            // window.scrollTo({ top: 0 });
+        }, // jumpToTopics
+
+    }, // setupJumpToTopics
+
+    setupRandomNote: {
+        _init: function() {
+            document.getElementById("get-random-note").addEventListener("click", ()=>{
+                this.openRandomNote();
+            });
+        },
+        openRandomNote: function() {
+            const randomIndex = Math.floor(Math.random() * window.folders.length);
+            const noteId = folders[randomIndex].id;
+            openNote(noteId);
+        }
+    }, // setupRandomNote
+
+} // app
+app.init();
+
+
+/** @ ACCORDION LOGIC */
+
+var toOpenUp = [];
+
+function toOpenUp_Exec(row) {
+
+    toOpenUp = [];
+    toOpenUp.unshift(row);
+
+    // closest looks on itself and ancestors
+    while (row.parentElement.closest("li")) {
+        row = row.parentElement.closest("li");
+        toOpenUp.unshift(row);
     }
-    else if(window.thresholdJumpedTopics && !window.lastClickedNote) {
-    //     explorerWindow = $("#explore-curriculum iframe")[0].contentWindow;
-    //     window.thresholdJumpedTopics = false;
-    //     document.querySelector('#side-b').scrollIntoView({ behavior: 'smooth' }); 
-    //     explorerWindow.addEventListener("scrollend", () => {
-    //         explorerWindow.scrollBy({ top: -70, left: 0, behavior: "smooth" });
-    //     }, { once: true });
-    } else {
-    //     explorerWindow = $("#explore-curriculum iframe")[0].contentWindow;
-    //     document.querySelector('#side-b').scrollIntoView({ behavior: 'smooth' });
-    //     explorerWindow.addEventListener("scrollend", () => {
-    //         explorerWindow.scrollBy({ top: -70, left: 0, behavior: "smooth" });
-    //     }, { once: true });
-    }
-    document.querySelector('#side-b').scrollIntoView({ behavior: 'smooth' });
-    document.querySelector('#side-b').querySelector('iframe').contentWindow.scrollTo({top:0});
+
+    // let ran = false;
+    toOpenUp.forEach((li) => {
+        if(!li.querySelector("ul")) return;
+
+        const isCollapsed = li.querySelector("ul").style.display === "none";
+        if (isCollapsed) {
+            li.querySelector("ul").style.display = "block";
+        }
+    }); // 1st li is outermost    
+} // toOpenUp_Exec
+
+
+/** @ JUMP/SCROLL TO **/
+
+/* When scrolling to a topic, the row also gets highlighted */
+function highlightRow(row) {
+    row.classList.add("highlight");
 }

@@ -1,0 +1,12 @@
+#topics-list .fa-info,
+#topics-list .gotos-click,
+#topics-list .thermo,
+#topics-list .multistates-wrapper {
+    margin-left: 1ch;
+}
+
+#topics-list .fa-info:hover,
+#topics-list .fa-book-reader:not(.summary-header):hover,
+.gotos-click:hover {
+    color: darkgreen;
+}

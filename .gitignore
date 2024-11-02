@@ -1,4 +1,9 @@
+# Same front-end that's polymorphic to different environments
+cachedResData.json
+cachedResPartial.php
+
 # Same front-end that's polymorphic to different note collections
+env/description-meta.php
 env/description-must.php
 env/description.php
 env/dir-snippets.php

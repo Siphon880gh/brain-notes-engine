@@ -22,5 +22,9 @@
             "extensions": "js",
             "quiet": false
         }
+    },
+    "dependencies": {
+        "dotenv": "^16.4.5",
+        "ejs": "^3.1.10"
     }
 }

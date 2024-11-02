@@ -1,0 +1,1 @@
+<meta name="description" content="Notes on 3D modeling Blender, cinematic creation with DaVinci, graphics with Photoshop, and video game design with Unreal Engine to communicate a vision into an impactful visual message and create engaging experience.">

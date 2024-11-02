@@ -1,3 +1,5 @@
+$subtractWide: 50px;
+
 /* General Styling */
 body {
     padding-bottom: 20px;
@@ -46,84 +48,9 @@ body {
 
 /* Body Text */
 body {
-    font-weight: 400; /* Regular */
+    font-weight: 400;
     font-size: 16px;
-    text-transform: capitalize;
     letter-spacing: 0.5px;
-}
-
-/* Headings */
-#explore-curriculum h1 {
-    font-weight: 300; /* Light */
-    font-size: 48px;
-    text-transform: capitalize;
-    letter-spacing: 0;
-}
-
-#explore-curriculum h2 {
-    font-weight: 300; /* Light */
-    font-size: 34px;
-    text-transform: capitalize;
-    letter-spacing: 0.25px;
-}
-
-#explore-curriculum h3 {
-    font-weight: 400; /* Regular */
-    font-size: 24px;
-    text-transform: capitalize;
-    letter-spacing: 0;
-}
-
-#explore-curriculum h4 {
-    font-weight: 450;
-    font-size: 20px;
-    text-transform: capitalize;
-    letter-spacing: 0.15px;
-}
-
-#explore-curriculum h5 {
-    font-weight: 500;
-    font-size: 16px;
-    text-transform: capitalize;
-    letter-spacing: 0.15px;
-}
-
-#explore-curriculum h6 {
-    font-weight: 600;
-    font-size: 14px;
-    text-transform: capitalize;
-    letter-spacing: 0.15px;
-}
-
-/* Subtitles */
-.subtitle1 {
-    font-weight: 400; /* Regular */
-    font-size: 16px;
-    text-transform: capitalize;
-    letter-spacing: 0.15px;
-}
-
-.subtitle2 {
-    font-weight: 500; /* Medium */
-    font-size: 14px;
-    text-transform: capitalize;
-    letter-spacing: 0.1px;
-}
-
-ul, ol {
-    padding-left: initial !important;  /* Restores the default indentation */
-    margin-left: initial !important;      /* Removes any extra margin if needed */
-}
-ul {
-    list-style: initial !important; /* Restores bullet points for ul and numbers for ol */
-}
-ol {
-    list-style: auto !important; /* Restores bullet points for ul and numbers for ol */
-}
-
-
-li {
-    margin-left: 20px !important; /* Optional: Adjust for additional indentation if needed */
 }
 
 /* Styling classes */
@@ -167,9 +94,11 @@ li {
 .site-header {
     text-align: center;
 }
-.site-header .title {
+
+#title {
     text-align: center;
     margin-top: 2rem;
+    color: black !important;
 }
 
 #new,
@@ -212,10 +141,9 @@ li {
     background-color: orange !important;
 }
 
-.card {
-    margin: 30px auto 30px auto;
-}
-
+// .card {
+//     margin: 30px auto 30px auto;
+// }
 
 #explore-curriculum iframe {
     resize: vertical;
@@ -225,12 +153,13 @@ li {
     font-size: 1.3625em !important;
     font-weight: bold;
 }
+
 #summary-title {
     background-color: white;
     opacity: 1;
     margin: 0;
-    padding-left:5px;
-    padding-right:5px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 #summary-inner textarea {
@@ -251,9 +180,11 @@ li {
 #summary-inner img.state-1 {
     width: 75%;
 }
+
 #summary-inner img.state-2 {
     width: 50%;
 }
+
 #summary-inner img.centered {
     margin-left: auto;
     margin-right: auto;
@@ -308,6 +239,7 @@ li {
     min-width: 50%;
     max-width: 50%;
 }
+
 .side-by-side-possible {
     padding: 0 !important;
 }
@@ -372,18 +304,6 @@ li {
     font-size: 20px;
 }
 
-i#shortcut-summary-collapser {
-    cursor: pointer;
-    color: rgba(0, 0, 0, 0.5);
-    transition: all 200ms ease-in;
-    min-width: 30px;
-    text-align: center;
-}
-
-i#shortcut-summary-collapser:hover {
-    color: rgba(0, 0, 0, 1);
-}
-
 @media screen AND (max-width:768px) {
     #dashboard {
         // padding: 20px 20px;
@@ -415,11 +335,15 @@ i#shortcut-summary-collapser:hover {
     cursor: pointer;
     position: fixed;
     bottom: 0;
-    right: 0;
+    right: 20px;
     background-color: white;
     z-index: 500;
     width: 100%;
     text-align: right;
+    height: 60px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
 }
 
 @media screen and (max-width:768px) {
@@ -529,17 +453,16 @@ i#shortcut-summary-collapser:hover {
 }
 
 .description-must {
-    position:relative;
-    overflow:visible;
-    margin:20px auto;
+    position: relative;
+    overflow: visible;
+    margin: 20px auto;
 }
 
 .more-notes {
     /* margin: 10px auto; */
-    list-style-type: none; /* Removes bullet points */
-    background-color: rgba(125, 125, 125, 0.4);
-    color: black;
-    opacity: 0.7;
+    list-style-type: none;
+    /* Removes bullet points */
+    background-color: #F5F5F5;
     display: flex;
     padding: 5px;
     border-radius: 5px;
@@ -547,15 +470,17 @@ i#shortcut-summary-collapser:hover {
     overflow-y: hidden;
     text-align: center;
     transition: height 5s ease;
-    display:flex;
-    flex-direction:row;
+    display: flex;
+    flex-direction: row;
     flex-wrap: nowrap;
 }
+
 .more-notes .mn-header {
     transform: rotate(270deg);
     // margin-top: 10px;
     // line-height: 1.25rem;
 }
+
 .more-notes .mn-links {
     width: 100%;
     max-width: 600px;
@@ -564,30 +489,29 @@ i#shortcut-summary-collapser:hover {
     display: flex;
     align-items: center;
 }
+
 .more-notes .mn-links li {
     display: inline;
     text-align: center;
 }
-.more-notes .mn-links li a {
-    background: none !important; /* Tufte remove underline on link */
-}
-@media screen AND (max-width: 768px) {
-    .hide\:lt867 {
-        display: none;
-    }
-}
+
+// .more-notes .mn-links li a {
+//     color: #0044CC;
+// }
+
 /* UI UX: Left vertical green bar to collapse lesson */
-#side-a>.deemp-fieldset {
+#summary-outer {
     position: relative;
 }
 
 #side-a {
     border: 1px solid gray;
     // border-top: 0;
-    padding:2px;
+    padding: 2px;
+    margin-left: 25px;
 }
 
-#side-a>.deemp-fieldset>.left-bar {
+#summary-left-bar {
     position: absolute;
     height: calc(100% + 50px + 10px);
     width: 15px;
@@ -599,25 +523,22 @@ i#shortcut-summary-collapser:hover {
     background-position: 0 0;
 }
 
-#explorer-iframe {
-    padding: 5px;
+#explorer {
     border-radius: 5px;
     display: inline-block;
-    margin-top: 5px;
     text-align: left;
-    margin-bottom: 10px;
     width: 100%;
     height: 580px;
 }
 
 /* Get rid of markdown it with latext's ruler lines */
 .stretchy svg {
-    display:none !important;
+    display: none !important;
 }
 
 /* Prevents duplicate Latex */
 .katex-html {
-    display:none;
+    display: none;
 }
 
 
@@ -627,15 +548,15 @@ i#shortcut-summary-collapser:hover {
     left: 0;
     /* top is js controlled */
     transform: translateX(-100%);
-    
+
     border-radius: 3px;
     padding: 5px;
     text-align: center;
-    
+
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     font-size: 12px;
-    
+
     transition: all 0.5s ease;
 
     transform: rotate(0) translateX(-100%) translateY(0);
@@ -662,4 +583,260 @@ i#shortcut-summary-collapser:hover {
     .scroll-marker.past {
         transform: rotate(45deg) translateX(-6px) translateY(25px);
     }
+}
+
+
+/** GENERAL LAYOUT **/
+/** Stop ios making buttons rounded **/
+.override-ios-button-style {
+    -webkit-appearance: none !important;
+    -webkit-border-radius: 0 !important;
+    border-radius: 0 !important;
+    // height: 2.5rem;
+    /* color: red; */
+}
+
+
+/** STYLING CLASSES **/
+
+.error {
+    color: red;
+    border: 1px solid red;
+    background-color: lightred;
+    padding: 10px 20px 10px 20px;
+    margin-top: 10px;
+    border-radius: 2px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.text-black {
+    color: black;
+}
+
+/** COMPONENTS **/
+
+
+#table-search-results {
+
+    th,
+    td {
+        padding: 5px;
+    }
+
+    td:nth-child(3) {
+        width: 100%;
+    }
+
+    pre {
+        white-space: pre-wrap;
+        width: 100%;
+    }
+}
+
+#share-search-title-wrapper a:hover {
+    text-decoration: none;
+}
+
+/* List Items */
+
+.accordion {
+    cursor: pointer;
+}
+
+.accordion.meta {
+    // padding: 5px;
+}
+
+@media screen AND (max-width: 768px) {
+
+    ol ol,
+    ol ul,
+    ul ol,
+    ul ul {
+        padding-inline-start: 5px !important;
+    }
+}
+
+dt:not(:first-child),
+li:not(:first-child) {
+    margin-top: 0 !important;
+}
+
+#explorer li {
+    color: blue;
+    margin-bottom: 0.5rem;
+}
+
+#explorer li:hover {
+    color: darkblue;
+    cursor: pointer;
+}
+
+#explorer ul {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.name {
+    text-wrap: nowrap;
+}
+
+.note-item-buttons:empty {
+    display: none !important;
+}
+
+.note-item-buttons .fa {
+    cursor: pointer;
+}
+
+#explorer .fa-book-reader {
+    opacity: 0.5;
+    font-size: 80%;
+}
+
+#explorer .fa-book-reader::after {
+    // content: " Read";
+    content: " Opened";
+}
+
+.responsive-iframe-container {
+    position: relative;
+    padding-top: 56.25%;
+    /* 16:9 Aspect Ratio */
+    height: 0;
+}
+
+.responsive-iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* Tooltip for .json file's description property  */
+.tooltip {
+    opacity: 1 !important;
+}
+
+.tooltip-inner {
+    font-size: 12px;
+    background: lightgreen;
+    border: 1px solid #737373;
+    text-align: left;
+    max-width: 80% !important;
+    max-height: 80% !important;
+    overflow: scroll;
+
+    img {
+        width: 100%;
+    }
+}
+
+
+/* Explore Curriculum */
+
+.card-footer {
+    padding: 0;
+}
+
+
+#topics-list .name.is-file {
+    text-decoration: none;
+}
+
+#topics-list>ul>li>.name.is-folder[icon]::before {
+    // content: attr(icon) !important;
+    filter: sepia(1) hue-rotate(180deg);
+    display: inline-block;
+    min-width: 15px;
+}
+
+/* The default folder icon is actually nested */
+#topics-list>ul>li>.name.is-folder[icon]>.fa-folder::before {
+    content: "" !important;
+}
+
+#topics-list>ul>li>.name.is-folder:not([icon])>.fa-folder::before {
+    min-width: 15px;
+    display: inline-block;
+}
+
+
+#topics-list .fa-book-reader {
+    margin-left: 1ch;
+}
+
+button {
+    cursor: pointer;
+    border: 0;
+}
+
+.custom-icon+.fa-folder {
+    display: none;
+}
+.custom-icon > svg {
+    display: inline;
+}
+
+#explorer-btns {
+    // border-bottom: 1px dashed lightgray;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#explorer-btns button {
+    margin-top: 5px;
+}
+
+.highlight {
+    background-color: #FFC966;
+}
+
+#explorer-btns .info-flex-child:nth-child(1) {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    width: fit-content;
+    gap: 5px;
+}
+
+@media screen AND (max-width: 944px) {
+    #explorer-btns {
+        justify-content: center;
+    }
+
+    #explorer-btns .info-flex-child:nth-child(1) {
+        flex-direction: column;
+    }
+
+    /* Most mobiles can't print. And toggling all opening will be horrible on mobile */
+    #explorer-btns .info-flex-child:nth-child(2) {
+        display: none;
+    }
+}
+
+#topics-list {
+    overflow-x: scroll;
+}
+
+#explore-header {
+    // width: calc(100vw - #{$subtractWide});
+    // margin-left: 25px;
+    width: calc(100vw - #{$subtractWide});
+    border-top: 1px dashed lightgray;
+}
+
+#side-a {
+    width: calc(100vw - #{$subtractWide});
+}
+#side-b {
+    width: calc(100vw - #{$subtractWide});
 }

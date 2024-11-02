@@ -1,1 +1,0 @@
-window.domainBasePath = "https://wengindustry.com/tools/devbrain"
