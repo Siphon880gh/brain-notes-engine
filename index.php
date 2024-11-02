@@ -35,7 +35,7 @@
     </div>
 
     <div id="jump-curriculum">
-        <div onclick="document.querySelector('#side-b').scrollIntoView(); document.querySelector('#side-b').querySelector('iframe').contentWindow.scrollTo({top:0});">📗 Jump to Topics</div>
+        <div onclick="document.querySelector('#side-b').scrollIntoView({ behavior: 'smooth' }); document.querySelector('#side-b').querySelector('iframe').contentWindow.scrollTo({top:0});">📗 Jump to Topics</div>
     </div>
 
     <div class="site-header mx-auto">
