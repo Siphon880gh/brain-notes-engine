@@ -442,8 +442,28 @@ function openNote(title, url="") {
                 icon3.className = 'fas fa-level-down-alt clickable';
                 icon3.onclick=(event)=>{
                     const imgWrapper = event.target.closest(".img-wrapper");
-                    const nextLine = (imgWrapper.parentElement.id==="summary-inner" ? imgWrapper.nextElementSibling : imgWrapper.parentElement.nextElementSibling);
+                    const nextLine = (imgWrapper.parentElement.id==="summary-inner" ? 
+                        imgWrapper.nextElementSibling : 
+                        (()=>{
+                            let currentElement = imgWrapper;
+
+                            // Traverse up until you find the #summary-inner parent
+                            while (currentElement && !currentElement?.nextElementSibling) {
+                                currentElement = currentElement.parentElement; // Move to the parent element
+                            }
+
+                            // After the loop, correctChild will hold the correct previous sibling
+                            console.log(currentElement);
+                            const nextElementSibling = currentElement?.nextElementSibling;
+
+                            if(nextElementSibling)
+                                return nextElementSibling;
+                            else
+                                return null;
+                        })(imgWrapper)
+                    );
                     // nextLine.scrollIntoView({ behavior: "smooth", top:"-40px" });
+                    // debugger;
                     scrollWithOffset(nextLine);
                 } // icon3
                 iconGroupB.appendChild(icon3);

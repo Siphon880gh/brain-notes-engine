@@ -191,15 +191,28 @@
                 <div class="sides">
 
                     <script>
+                        // function getIfPort() {
+                        //     const PORT = window.location.port + "";
+                        //     switch PORT:
+                        //         case "":
+                        //             return "";
+                        //         case "80":
+                        //             return "";
+                        //         case "443":
+                        //             return "";
+                        //         default:
+                        //             return ":" + PORT;
+                        // } // getIfPort
+
                         function shareTutorial() {
 
                             $("#shareModal").modal("show");
-                            $("#shareSnippet").val(window.location.hostname + window.location.pathname + `?open=${encodeURI($("#summary-title").text())}`)
+                            $("#shareSnippet").val(window.location.host + window.location.pathname + `?open=${encodeURI($("#summary-title").text())}`)
                         }
                         function shareTutorialSection(trailingHash) {
 
                             $("#shareModal").modal("show");
-                            $("#shareSnippet").val(window.location.hostname + window.location.pathname + `${trailingHash}`)
+                            $("#shareSnippet").val(window.location.host + window.location.pathname + `${trailingHash}`)
                         }
                     </script>
                     <div id="side-a" class="card-body side-by-side-possible mb-4 hidden">

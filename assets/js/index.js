@@ -338,9 +338,9 @@ function hydrateAnimationScrollHandler(div) {
 
         // Check if marker falls within the top quarter of the viewport
         if (markerRect.top <= window.innerHeight/4) {
-            marker.classList.add("active");
+            marker.classList.add("past");
         } else {
-            marker.classList.remove("active");
+            marker.classList.remove("past");
         }
     });
 } // hydrateAnimationScrollHandler

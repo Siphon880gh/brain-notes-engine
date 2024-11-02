@@ -682,17 +682,17 @@ li {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   font-size: 12px;
-  transition: all 0.2s ease;
+  transition: all 0.5s ease;
   transform: rotate(0) translateX(-100%) translateY(0);
   transform-origin: left bottom;
-  opacity: 0.25;
+  opacity: 0.50;
 }
 
 /* line 615, scss/index.scss */
-.scroll-marker.active {
+.scroll-marker.past {
   transform: rotate(45deg) translateX(-30px) translateY(25px);
   transform-origin: left bottom;
-  opacity: 0.66;
+  opacity: 0.20;
 }
 
 @media screen and (max-width: 768px) {
@@ -706,7 +706,7 @@ li {
   }
 
   /* line 631, scss/index.scss */
-  .scroll-marker.active {
+  .scroll-marker.past {
     transform: rotate(45deg) translateX(-6px) translateY(25px);
   }
 }
