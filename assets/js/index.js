@@ -355,3 +355,38 @@ function removeScrollProgressMarkers(div) {
     // Optionally, remove the scroll event listener if it's no longer needed
     window.removeEventListener('scroll', hydrateAnimationScrollHandler);
 } // removeScrollProgressMarkers
+
+window.lastClickedNote = null;
+window.thresholdJumpedTopics = false; 
+function jumpToTopics() {
+
+    if(!window.thresholdJumpedTopics && window.lastClickedNote) {
+        window.lastClickedNote.closest("ul").scrollIntoView();
+        // document.querySelector('#side-b').scrollIntoView({ behavior: 'smooth' });
+        explorerWindow = $("#explore-curriculum iframe")[0].contentWindow;
+        explorerWindow.addEventListener("scrollend", () => {
+            explorerWindow.scrollBy({ top: -30, left: 0, behavior: "smooth" });
+        }, { once: true });
+        window.thresholdJumpedTopics = true;
+        setTimeout(()=>{
+            window.thresholdJumpedTopics = false;
+        }, 2000);
+        return;
+    }
+    else if(window.thresholdJumpedTopics && !window.lastClickedNote) {
+    //     explorerWindow = $("#explore-curriculum iframe")[0].contentWindow;
+    //     window.thresholdJumpedTopics = false;
+    //     document.querySelector('#side-b').scrollIntoView({ behavior: 'smooth' }); 
+    //     explorerWindow.addEventListener("scrollend", () => {
+    //         explorerWindow.scrollBy({ top: -70, left: 0, behavior: "smooth" });
+    //     }, { once: true });
+    } else {
+    //     explorerWindow = $("#explore-curriculum iframe")[0].contentWindow;
+    //     document.querySelector('#side-b').scrollIntoView({ behavior: 'smooth' });
+    //     explorerWindow.addEventListener("scrollend", () => {
+    //         explorerWindow.scrollBy({ top: -70, left: 0, behavior: "smooth" });
+    //     }, { once: true });
+    }
+    document.querySelector('#side-b').scrollIntoView({ behavior: 'smooth' });
+    document.querySelector('#side-b').querySelector('iframe').contentWindow.scrollTo({top:0});
+}

@@ -453,7 +453,7 @@ function openNote(title, url="") {
                             }
 
                             // After the loop, correctChild will hold the correct previous sibling
-                            console.log(currentElement);
+                            // console.log(currentElement);
                             const nextElementSibling = currentElement?.nextElementSibling;
 
                             if(nextElementSibling)
@@ -525,8 +525,10 @@ function objToHtml(type, item) {
 
     $name.click((event) => {
         var $self = $(event.target);
-        if ($self.hasClass("is-file"))
+        if ($self.hasClass("is-file")) {
             $self.parent().find(".fa-book-reader").click();
+            window.parent.lastClickedNote = $self[0];
+        }
     })
     $liDom.append($name);
 
