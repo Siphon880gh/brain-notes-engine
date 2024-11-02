@@ -683,14 +683,30 @@ li {
   color: white;
   font-size: 12px;
   transition: all 0.2s ease;
-  transform: rotate(45deg) translateX(-30px) translateY(25px);
+  transform: rotate(0) translateX(-100%) translateY(0);
   transform-origin: left bottom;
   opacity: 0.25;
 }
 
 /* line 615, scss/index.scss */
 .scroll-marker.active {
-  transform: rotate(0) translateX(-100%) translateY(0);
+  transform: rotate(45deg) translateX(-30px) translateY(25px);
   transform-origin: left bottom;
   opacity: 0.66;
+}
+
+@media screen and (max-width: 768px) {
+  /* line 622, scss/index.scss */
+  .scroll-marker {
+    transform: rotate(0) translateX(-100%) translateY(25px);
+    font-size: 50%;
+    padding: 0;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
+  /* line 631, scss/index.scss */
+  .scroll-marker.active {
+    transform: rotate(45deg) translateX(-6px) translateY(25px);
+  }
 }

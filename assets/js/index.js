@@ -320,7 +320,14 @@ function addScrollProgressMarkers(div) {
 } // addScrollProgressMarkers
 
 function hydrateAnimationOnProgressMarkers(div) {
-    document.addEventListener('scroll', hydrateAnimationScrollHandler.bind(this, div));
+    window.addEventListener('scroll', hydrateAnimationScrollHandler.bind(this, div));
+    window.addEventListener('resize', ()=>{
+
+        removeScrollProgressMarkers();
+        addScrollProgressMarkers(div);
+        hydrateAnimationScrollHandler(div);
+
+    });
 } // hydrateAnimationOnProgressMarkers
 
 function hydrateAnimationScrollHandler(div) {
@@ -340,11 +347,11 @@ function hydrateAnimationScrollHandler(div) {
 
 function removeScrollProgressMarkers(div) {
     // Select all markers within the div
-    const markers = div.querySelectorAll('.scroll-marker');
+    const markers = document.querySelectorAll('.scroll-marker');
 
     // Remove each marker element
     markers.forEach(marker => marker.remove());
     
     // Optionally, remove the scroll event listener if it's no longer needed
-    div.removeEventListener('scroll', hydrateAnimationScrollHandler);
+    window.removeEventListener('scroll', hydrateAnimationScrollHandler);
 } // removeScrollProgressMarkers
