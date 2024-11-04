@@ -18,8 +18,6 @@ if (strpos($host, 'localhost') !== false) {
 
 } elseif (strpos($host, 'wengindustries.com') !== false) {
     // Is fine but kept here for scalability
-} elseif (strpos($host, 'wengindustry.com') !== false) {
-    // Is fine but kept here for scalability
 } else {
     // Is fine but kept here for scalability
 }
