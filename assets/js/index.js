@@ -212,8 +212,9 @@ var app = {
             });
         },
         openRandomNote: function() {
-            const randomIndex = Math.floor(Math.random() * window.folders.length);
-            const noteId = folders[randomIndex].id;
+            const notes = Array.from(document.querySelectorAll(".name.is-file"));
+            const i = Math.floor(Math.random() * notes.length);
+            const noteId = notes[i].dataset["id"];
             openNote(noteId);
         }
     }, // setupRandomNote

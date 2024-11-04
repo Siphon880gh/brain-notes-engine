@@ -107,7 +107,7 @@ function map_tp_to_decorated(relativePath) {
     } else {
       try {
         sort_spec = fs.readFileSync(decorated.path, 'utf-8');
-        console.log(sort_spec);
+        // console.log(sort_spec);
       } catch (err) {
         console.error(`Error reading file ${relativePath}:`, err);
       }

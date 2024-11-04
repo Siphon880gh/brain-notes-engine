@@ -319,7 +319,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it-emoji/1.4.0/markdown-it-emoji.min.js"></script>
     <script src="https://unpkg.com/markdown-it-anchor@8.6.5/dist/markdownItAnchor.umd.js"></script>
 
-    <script src="env/icons.js"></script>
     <script src="assets/js/modal.js"></script>
     <script src="assets/js/note-opener.js"></script>
     <script src="assets/js/index.js"></script>

@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const ejs = require('ejs');
+const icons = require('./env/icons.js');
 
 // Path to your output.json file
 const outputJsonPath = 'cachedResData.json';
@@ -71,7 +72,6 @@ function mergeByKey(array) {
 
   return output;
 }
-
 
 
 /**
@@ -155,15 +155,14 @@ function generateHtml(folders) {
     const itemPath = parentPath ? `${parentPath}/${item.current}` : item.current;
 
     // Escape single quotes in attributes
-    const escapedItemCurrent = item.current.replace(/'/g, "\\'").replace(/\.md$/, '').replace(/\.json$/, '');
-    // const escapedItemPath = itemPath.replace(/'/g, "\\'");
+    // const escapedItemCurrent = item.current.replace(/'/g, "\\'").replace(/\.md$/, '').replace(/\.json$/, '');
+    const escapedItemCurrent = item.current.replace(/\.md$/, '').replace(/\.json$/, '');
 
     // For files, store the path in a data attribute (if needed)
     // const dataPathAttr = isFolder ? '' : ` data-path="${escapedItemPath}"`;
     const dataIDAttr = ` data-id=${item.id}`;
 
     html += `<li class="accordion meta">`;
-    // html += `<span class="name ${itemClass}"${onclickAttr}${dataPathAttr}>`;
     if (isFolder) {
       html += `<span class="name ${itemClass}"${dataIDAttr}>`;
     } else if(!want_a_tag_for_seo)
@@ -172,7 +171,12 @@ function generateHtml(folders) {
       html += `<a class="name ${itemClass}"${dataIDAttr} href="${http_to_file_protocol+dir_snippets+itemPath}">`;
     }
     
+    // Insert custom icon if available. It will hide the fa book icon because of css selector `.custom-icon+.fa-folder {`
+    if (icons[escapedItemCurrent]) {
+      html += `<span class="custom-icon">${icons[escapedItemCurrent]}</span>`;
+    }
     html += iconClass ? `<span class="${iconClass}"></span>&nbsp;` : '';
+
     html += `${escapedItemCurrent}`;
     html += `</a>`;
 
@@ -215,6 +219,6 @@ fs.writeFile(outputPhpPath, phpContent, (err) => {
   if (err) {
     console.error(`Error writing to ${outputPhpPath}: `, err);
   } else {
-    console.log(`PHP partial successfully saved to ${outputPhpPath}`);
+    // console.log(`PHP partial successfully saved to ${outputPhpPath}`);
   }
 });

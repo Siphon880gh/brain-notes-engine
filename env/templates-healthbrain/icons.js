@@ -1,3 +1,5 @@
 var icons = {
-    "Placeholder": "🧩"
-  }
+  "Placeholder": "🧩"
+}
+
+module.exports = icons;

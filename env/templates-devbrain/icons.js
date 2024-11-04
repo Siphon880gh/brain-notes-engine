@@ -24,3 +24,5 @@ var icons = {
   "Data Science - Jupyter Notebook": "<i class='fas fa-chart-area'></i>",
   "Data Science - Python": "<i class='fas fa-chart-area'></i>"
 }
+
+module.exports = icons;
