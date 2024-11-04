@@ -20,9 +20,7 @@
 <head>
     <title><?php include 'env/title-long.php'; ?></title>
     <meta charset="utf-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <meta http-equiv="expires" content="0"> -->
     <?php include("env/description-meta.php"); ?>
 
     <!-- CSS Assets -->
@@ -30,9 +28,18 @@
     <link href="assets/css/modal.css" rel="stylesheet">
 
     <!-- <link href="assets/css/game.css" rel="stylesheet"> -->
-    
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" /> -->
+
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+    <!-- jQuery UI -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css" rel="stylesheet"/>
+
+    <!-- Designer: FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
     tailwind.config = {
@@ -55,8 +62,6 @@
     $commitsURL = $data['commitsURL'] ?? '';
     $openURL = $data['openURL'] ?? '';
 
-
-
     // Load the .env file as an array
     $env = parse_ini_file('.env');
 
@@ -74,17 +79,6 @@
         window.dirSnippets = '{$DIR_SNIPPETS}';
     </script>";
     ?>
-
-    <!-- <script>
-        window.dirSnippets = "<_php echo $DIR_SNIPPETS; _>";
-    </script> -->
-
-    <!-- <script>
-    <_php
-        echo 'var realpath = "' . dirname(realpath("explorer.php")) . '";';
-        echo 'alert(realpath);';
-    _>
-    </script> -->
 </head>
 
 <body>
@@ -232,7 +226,7 @@
                                     <?php include("./cachedResPartial.php"); ?>
                                 </main>
 
-                                <div id="search-results" class="deemp-fieldset" style="display:none;">
+                                <div id="search-results" style="display:none;">
                                 <h2>Search Results</h2>
                                 <div class="contents"></div>
                                 </div>
@@ -316,13 +310,9 @@
     </div>
     </div> <!-- #searcher-containers -->
 
-    <!-- Designer: FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
-
     <!-- <_php echo("./game-error.php"); _> -->
 
     <!-- <_php echo("./game-fogs.php"); _> -->
-
 
     <script src="assets/js/vendors/MarkdownItLatex.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/markdown-it@12.0.4/dist/markdown-it.min.js"></script>
@@ -331,10 +321,9 @@
 
     <script src="env/icons.js"></script>
     <script src="assets/js/modal.js"></script>
-    <script src="assets/js/searchers.js"></script>
     <script src="assets/js/note-opener.js"></script>
     <script src="assets/js/index.js"></script>
-    <!-- <script src="assets/js/folder-doms.js"></script> -->
+    <script src="assets/js/searchers.js"></script>
     <!-- <script src="assets/js/game.js"></script> -->
 
 </body>

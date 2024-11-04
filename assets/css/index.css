@@ -271,7 +271,8 @@ body {
   cursor: pointer;
   position: fixed;
   bottom: 0;
-  right: 20px;
+  right: 0;
+  padding-right: 20px;
   background-color: white;
   z-index: 500;
   width: 100%;
@@ -435,7 +436,7 @@ body {
   left: -20px;
   top: -55px;
   cursor: pointer;
-  background-image: repeating-linear-gradient(45deg, transparent, transparent calc(10vh - 1px), rgba(128, 128, 128, 0.5) calc(10vh - 1px), rgba(128, 128, 128, 0.5) calc(10vh));
+  background-image: repeating-linear-gradient(45deg, transparent, transparent calc(10vh - 1px), rgba(128, 128, 128, 0.25) calc(10vh - 1px), rgba(128, 128, 128, 0.25) calc(10vh));
   background-position: 0 0;
 }
 
@@ -521,14 +522,18 @@ body {
 }
 
 /** COMPONENTS **/
-#table-search-results th,
-#table-search-results td {
-  padding: 5px;
+#search-results {
+  padding-bottom: 60px;
 }
-#table-search-results td:nth-child(3) {
+#search-results th,
+#search-results td {
+  padding: 5px;
+  vertical-align: top;
+}
+#search-results td:nth-child(3) {
   width: 100%;
 }
-#table-search-results pre {
+#search-results pre {
   white-space: pre-wrap;
   width: 100%;
 }
@@ -537,7 +542,8 @@ body {
   cursor: pointer;
   position: fixed;
   bottom: 0;
-  right: 20px;
+  right: 0;
+  padding-right: 20px;
   background-color: white;
   z-index: 501;
   width: 100%;

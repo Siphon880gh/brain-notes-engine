@@ -7,6 +7,8 @@ var addonSearch = {
         window.searchAllTitles = addonSearch.setupSearchControls.searchAllTitles;
         window.openFolderFromSearchedContentsResults = addonSearch.setupSearchControls.__openFolderFromSearchedContentsResults;
         window.openNoteFromSearchedContentsResults = addonSearch.setupSearchControls.__openNoteFromSearchedContentsResults;
+
+        this.setupSearchAutocomplete();
     }, // init
     setupClearingByEmptyingSearchInput: function() {
         // If user erases all text at search input, erase any current search titles results (highlighted rows) and search content results (search results section)
@@ -37,15 +39,15 @@ var addonSearch = {
                 if(confirm('Clear Search?')) this.clearSearcher($('#searcher-input'));
             }); // searcher-clear
         }, // _init
-
+        
         __openFolderFromSearchedContentsResults: function(partial) {
             partial = partial.toLowerCase();
             if (partial.length === 0) return;
-        
+            
             let foundRows = Array.from(document.querySelectorAll(".name.is-folder")).filter(el => {
                 var index = el.textContent.toLowerCase().indexOf(partial);
                 return index>=0 && index<3;
-             });
+            });
             if (foundRows.length) {
                 var row = foundRows[0];
                 row.classList.add("highlight");
@@ -74,185 +76,182 @@ var addonSearch = {
             const originalQuery = query;
             query = escapeRegExp(query);
             if (query.length === 0) return;
-        
+            
             $div = $("#search-results .contents");
             fetch("search.php?search=" + query)
-                .then(response => response.text())
-                .then(greps => {
-                    try {
-                        greps = JSON.parse(greps); // grep results array
-                    } catch (err) {
-                        if (greps.length === 0) {
-                            alert("No results found for: " + originalQuery);
-                            return;
-                        }
-                        console.error(err);
-                        console.log({ greps });
+            .then(response => response.text())
+            .then(greps => {
+                try {
+                    greps = JSON.parse(greps); // grep results array
+                } catch (err) {
+                    if (greps.length === 0) {
+                        alert("No results found for: " + originalQuery);
+                        return;
                     }
-                    greps = greps["res"];
-                    console.log(greps);
-        
-                    // Reset
-                    $div.html(`<div><table id="table-search-results">
-                  <thead>
+                    console.error(err);
+                    console.log({ greps });
+                }
+                greps = greps["res"];
+                console.log(greps);
+                
+                // Reset
+                $div.html(`<div><table id="table-search-results">
+                    <thead>
                     <th>Concept (Folder)</th>
                     <th>File</th>
                     <th>Context</th>
-                  <thead>
-                  <tbody>
-                  </tbody>
-                </table></div>`)
+                    <thead>
+                    <tbody>
+                    </tbody>
+                    </table></div>`)
                     $tbody = $div.find("tbody");
-        
+                    
                     // Match and render
                     greps.forEach(res => {
                         // x/y/z/filepath: surrounding_text
                         // Eg. [ 0: "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/AI Engineer/Models - Text Generation/Llama 2.md:Testing the llama2.ai 70 billion parameter model"
-        
+                        
                         // Find the index of the first colon to split the string
                         const firstColonIndex = res.indexOf(":");
-        
+                        
                         // Extract the full file path
                         const fullPath = res.substring(0, firstColonIndex);
-        
+                        
                         // Extract the matching text (trim to remove any leading/trailing whitespace)
                         const matchText = res.substring(firstColonIndex + 1).trim();
-        
+                        
                         // Split the path into parts using '/' as the separator
                         const pathParts = fullPath.split('/').filter(Boolean); // filter(Boolean) removes empty elements
-        
+                        
                         // Get the filename (last element of the pathParts array)
                         const filename = pathParts[pathParts.length - 1];
-        
+                        
                         // Get the folder name (second last element of the pathParts array)
                         const folderName = pathParts[pathParts.length - 2];
-        
+                        
                         // Now you can use filename, folderName, and matchText as needed
                         console.log(`Filename: ${filename}`);
                         console.log(`Folder Name: ${folderName}`);
                         console.log(`Match Text: ${matchText}`);
-        
+                        
                         $tbody.append(`
-                    <tr>
-                      <td><a onclick="openFolderFromSearchedContentsResults('${folderName}')" href="javascript:void(0);">${folderName}</a></td>
-                      <td><a onclick="openNoteFromSearchedContentsResults('${filename}')" href="javascript:void(0)">${filename}</a></td>
-                      <td class="context"><pre>${matchText}</pre></td>
-                      </tr>`);
-                        //   <td><a onclick="var url = new URL(window.location.href); url.search = '?open=${filename}'; window.open(url.toString());">${filename}</a></td>
-                        // <td><a onclick="var url = new URL(window.location.href); url.searchParams.set('open', ${filename})'; window.open(url.toString());">${filename}</a></td>
-                        //   <td><a onclick="window.location.search = '?open=${filename}'">${filename}</a></td>
-        
-                    }); // foreach
-        
-                    // Highlight keyword across the in-text search results
-                    var value = document.getElementById("searcher-input").value;
-                    (function(keyword) {
-                        if (!keyword) return;
-                        const regex = new RegExp(`(${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-                        document.querySelectorAll('#table-search-results pre').forEach(pre => {
-                          pre.innerHTML = pre.innerHTML.replace(regex, '<span class="highlight">$1</span>');
-                        });
-                      })(value);
-                      
-        
-                      document.getElementById("search-results").style.display = "block";
-        
-                    // Scroll to bottom where search results are
-                    // window.scrollTo(0, document.body.scrollHeight);
-                    document.getElementById("search-results").scrollIntoView({behavior: "smooth"});
-                });
-        }, // searchAllContents
-        
-        searchAllTitles: function({ searchText, jumpTo = false, callback }) {
-            if (searchText.length === 0) {
-                alert("Error: Nothing typed!");
-                return false;
-            }
-            const finalJumpTo = scrollToRow(searchText, callback);
-        
-            if (jumpTo) {
-                setTimeout(() => {
-                    if (finalJumpTo)
-                        finalJumpTo.scrollIntoView();
-                    setTimeout(() => {
-                        if (callback)
-                            callback();
-                    }, 500)
-                }, 800);
-            }
-        }, // searchAllTitles
-        
-        clearSearcher: function($searcher) {
-            $searcher.val("");
-            document.getElementById("search-results").style.display = "none";
-            $(".highlight").removeClass("highlight");
-        }, // clearSearcher
-        
-    }, // setupSearchControls
-
-    setupCanReceiveSharedNote_Or_SharedSearch: function() {
-        setTimeout(() => {
-            if(window.location.search.length === 0) return;
-
-            function _openNoteFromUrl() {
-                const paramVal = window.location.search
-                .replaceAll("%20", " ")
-                .replace(/\.md$/, "")
-                .replace(/^\?open=/, "")
-                .replace(/#(.*)/, "");
-
-                searchAllTitles({ searchText: paramVal, jumpTo: false });
-
-                let topic = "";
-
-                function attemptOpenTutorial() {
-                    topic = new URLSearchParams(window.location.search).get("open");
-                    let jumpToNoteHeading = "";
-
-                    if (window.location.hash) {
-                        jumpToNoteHeading = window.location.hash;
-                    }
-
-                    const explorerList = document.querySelectorAll(".name.is-file");
-                    const topicLowerCase = topic.toLowerCase();
-                    const explorerFileLis = Array.from(explorerList)
-                        .find(element => element.textContent.toLowerCase().includes(topicLowerCase));
-
-                    if (explorerFileLis) {
-                        const title = topic.replaceAll("%20", " ").replace(/\.md$/, "").replace(/^\?open=/, "");
-                        const folderMeta = (function titleLookupsFolderMeta(data, searchPhrase) {
-                            for (const item of data) {
-                                if (item.current && item.current.toLowerCase().includes(searchPhrase.toLowerCase())) {
-                                    return item;
-                                } else if (item.next && item.next.length) {
-                                    const result = titleLookupsFolderMeta(item.next, searchPhrase);
-                                    if (result) return result;
-                                }
-                            }
-                            return null; // if not found
-                        })(folders, title);
-                        if(folderMeta === null) return false;
-
-                        const id = folderMeta.id;
-                        openNote(id);
-
-                        if (jumpToNoteHeading) {
-                            setTimeout(() => {
-                                const noteHeadingElement = document.querySelector(jumpToNoteHeading);
-                                if (noteHeadingElement) {
-                                    noteHeadingElement.scrollIntoView();
-                                }
-                            }, 250);
-                        }
-                        return true;
-                    } else {
+                            <tr>
+                            <td><a onclick="openFolderFromSearchedContentsResults('${folderName}')" href="javascript:void(0);">${folderName}</a></td>
+                            <td><a onclick="openNoteFromSearchedContentsResults('${filename}')" href="javascript:void(0)">${filename}</a></td>
+                            <td class="context"><pre>${matchText}</pre></td>
+                            </tr>`);
+                            //   <td><a onclick="var url = new URL(window.location.href); url.search = '?open=${filename}'; window.open(url.toString());">${filename}</a></td>
+                            // <td><a onclick="var url = new URL(window.location.href); url.searchParams.set('open', ${filename})'; window.open(url.toString());">${filename}</a></td>
+                            //   <td><a onclick="window.location.search = '?open=${filename}'">${filename}</a></td>
+                            
+                        }); // foreach
+                        
+                        // Highlight keyword across the in-text search results
+                        var value = document.getElementById("searcher-input").value;
+                        (function(keyword) {
+                            if (!keyword) return;
+                            const regex = new RegExp(`(${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+                            document.querySelectorAll('#table-search-results pre').forEach(pre => {
+                                pre.innerHTML = pre.innerHTML.replace(regex, '<span class="highlight">$1</span>');
+                            });
+                        })(value);
+                        
+                        
+                        document.getElementById("search-results").style.display = "block";
+                        
+                        // Scroll to bottom where search results are
+                        // window.scrollTo(0, document.body.scrollHeight);
+                        document.getElementById("search-results").scrollIntoView({behavior: "smooth"});
+                    });
+                }, // searchAllContents
+                
+                searchAllTitles: function({ searchText, jumpTo = false, callback }) {
+                    if (searchText.length === 0) {
+                        alert("Error: Nothing typed!");
                         return false;
                     }
-                }
-
+                    const finalJumpTo = scrollToRow(searchText, callback);
+                    
+                    if (jumpTo) {
+                        setTimeout(() => {
+                            if (finalJumpTo)
+                                finalJumpTo.scrollIntoView();
+                            setTimeout(() => {
+                                if (callback)
+                                    callback();
+                            }, 500)
+                        }, 800);
+                    }
+                }, // searchAllTitles
+                
+                clearSearcher: function($searcher) {
+                    $searcher.val("");
+                    document.getElementById("search-results").style.display = "none";
+                    $(".highlight").removeClass("highlight");
+                }, // clearSearcher
+                
+            }, // setupSearchControls
+            
+            setupCanReceiveSharedNote_Or_SharedSearch: function() {
                 setTimeout(() => {
-                    var success = attemptOpenTutorial();
-                    if (!success) {
+                    if(window.location.search.length === 0) return;
+                    
+                    function _openNoteFromUrl() {
+                        const paramVal = window.location.search
+                        .replaceAll("%20", " ")
+                        .replace(/\.md$/, "")
+                        .replace(/^\?open=/, "")
+                        .replace(/#(.*)/, "");
+                        
+                        searchAllTitles({ searchText: paramVal, jumpTo: false });
+                        
+                        let topic = "";
+                        
+                        function attemptOpenTutorial() {
+                            topic = new URLSearchParams(window.location.search).get("open");
+                            let jumpToNoteHeading = "";
+                            
+                            if (window.location.hash) {
+                                jumpToNoteHeading = window.location.hash;
+                            }
+                            
+                            const explorerList = document.querySelectorAll(".name.is-file");
+                            const topicLowerCase = topic.toLowerCase();
+                            const explorerFileLis = Array.from(explorerList)
+                            .find(element => element.textContent.toLowerCase().includes(topicLowerCase));
+                            
+                            if (explorerFileLis) {
+                                const title = topic.replaceAll("%20", " ").replace(/\.md$/, "").replace(/^\?open=/, "");
+                                const folderMeta = (function titleLookupsFolderMeta(data, searchPhrase) {
+                                    for (const item of data) {
+                                        if (item.current && item.current.toLowerCase().includes(searchPhrase.toLowerCase())) {
+                                            return item;
+                                        } else if (item.next && item.next.length) {
+                                            const result = titleLookupsFolderMeta(item.next, searchPhrase);
+                                            if (result) return result;
+                                        }
+                                    }
+                                    return null; // if not found
+                                })(folders, title);
+                                if(folderMeta === null) return false;
+                                
+                                const id = folderMeta.id;
+                                openNote(id);
+                                
+                                if (jumpToNoteHeading) {
+                                    setTimeout(() => {
+                                        const noteHeadingElement = document.querySelector(jumpToNoteHeading);
+                                        if (noteHeadingElement) {
+                                            noteHeadingElement.scrollIntoView();
+                                        }
+                                    }, 250);
+                                }
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                        
                         setTimeout(() => {
                             var success = attemptOpenTutorial();
                             if (!success) {
@@ -261,44 +260,59 @@ var addonSearch = {
                                     if (!success) {
                                         setTimeout(() => {
                                             var success = attemptOpenTutorial();
-                                            alert("The tutorial you are looking for is not found. Please reach out to your friend who shared it.\n" + topic)
-                                        }, 300) // if not successful, repeat 3rd time
+                                            if (!success) {
+                                                setTimeout(() => {
+                                                    var success = attemptOpenTutorial();
+                                                    alert("The tutorial you are looking for is not found. Please reach out to your friend who shared it.\n" + topic)
+                                                }, 300) // if not successful, repeat 3rd time
+                                            }
+                                        }, 300) // if not successful, repeat 2nd time
                                     }
-                                }, 300) // if not successful, repeat 2nd time
-                            }
+                                }, 300)
+                            } // if not successful, repeat 2nd time
                         }, 300)
-                    } // if not successful, repeat 2nd time
+                    } // _openNoteFromUrl
+                    
+                    function _openSearchFromUrl() {
+                        
+                        var params = new URLSearchParams(window.location.search);
+                        var qtopic = params.get("search-titles");
+                        var searchInput = document.getElementById("searcher-input");
+                        searchAllTitles({ searchText: qtopic, jumpTo: false });
+                        
+                    } // _openNoteFromUrl
+                    
+                    if (window.location.search.includes("open=")) {
+                        _openNoteFromUrl();
+                        
+                    } else if (window.location.search.includes("search-titles=")) {
+                        _openSearchFromUrl();
+                    } // if search-titles
+                    
+                    
+                    
                 }, 300)
-            } // _openNoteFromUrl
+                
+            }, // setupCanReceiveSharedNote
+            
+            setupSearchAutocomplete: function() {
+                (()=>{
+                    const noteEls = Array.from(document.querySelectorAll(".name.is-file"));
+                    const noteTitles = noteEls.map(element => element.textContent);
+                    
+                    $("#searcher-input").autocomplete({
+                        source: noteTitles
+                    });
+                 })();
+            }, // setupSearchAutocomplete
 
-            function _openSearchFromUrl() {
-
-                var params = new URLSearchParams(window.location.search);
-                var qtopic = params.get("search-titles");
-                var searchInput = document.getElementById("searcher-input");
-                searchAllTitles({ searchText: qtopic, jumpTo: false });
-               
-            } // _openNoteFromUrl
-
-            if (window.location.search.includes("open=")) {
-                _openNoteFromUrl();
-    
-            } else if (window.location.search.includes("search-titles=")) {
-                _openSearchFromUrl();
-            } // if search-titles
-
-
-
-        }, 300)
-    
-    } // setupCanReceiveSharedNote
-    
-}
-addonSearch.init();
-
-function scrollToRow(partial, callback = false) {
-    let finalJumpTo = null;
-    const foundFiles = document.querySelectorAll(".name.is-file");
+        } // addonSearch
+        
+        addonSearch.init();
+        
+        function scrollToRow(partial, callback = false) {
+            let finalJumpTo = null;
+            const foundFiles = document.querySelectorAll(".name.is-file");
 
     let found = false;
     foundFiles.forEach((file) => {
