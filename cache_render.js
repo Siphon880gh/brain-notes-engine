@@ -19,11 +19,11 @@ try {
 }
 
 // Extract the 'dirs' array
-const folders = outputData.dirs;
-const dir_snippets = outputData.dir_snippets;
-const http_to_file_protocol = outputData.http_to_file_protocol;
-const want_a_tag_for_seo = outputData.want_a_tag_for_seo==="1"?true:false;
-const sortSpec = outputData.sort_spec;
+const folders = outputData?.dirs;
+const dir_snippets = outputData?.dir_snippets;
+const http_to_file_protocol = outputData?.http_to_file_protocol;
+const want_a_tag_for_seo = outputData?.want_a_tag_for_seo==="1"?true:false;
+const sortSpec = outputData?.sort_spec;
 
 // Function to merge folders by common path and build the nested structure
 function mergeByCommonPath(data) {
@@ -72,33 +72,61 @@ function mergeByKey(array) {
   return output;
 }
 
+
+
+/**
+ * Function to sorts the items to ensure folders come before files.
+ *
+ * @param {Array} items - The array of items to sort.
+ * @param {number} level - The current depth level (0 for root).
+ */
+function sortByFoldersFirstAndObsidianSpecs({items, level = 0, sortSpec}) {
+  items.sort((a, b) => {
+    // Determine if items are folders or files
+    const isFolderA = a.next.length && !a.current.includes('.md');
+    const isFolderB = b.next.length && !b.current.includes('.md');
+
+    if (isFolderA && !isFolderB) {
+      return -1; // a is folder, b is file: a comes first
+    } else if (!isFolderA && isFolderB) {
+      return 1; // b is folder, a is file: b comes first
+    } else {
+      // Both are folders or both are files
+      // Apply custom sort criteria at root level
+      if (level === 0 && sortSpec && sortSpec.length > 0) {
+        const indexA = sortSpec.indexOf(a.current);
+        const indexB = sortSpec.indexOf(b.current);
+
+        if (indexA !== -1 && indexB !== -1) {
+          return indexA - indexB; // both in ordered list
+        } else if (indexA !== -1) {
+          return -1; // only a is in ordered list
+        } else if (indexB !== -1) {
+          return 1; // only b is in ordered list
+        } else {
+          return a.current.localeCompare(b.current); // neither in ordered list
+        }
+      } else {
+        // Not at root level or no sortSpec, sort alphabetically
+        return a.current.localeCompare(b.current);
+      }
+    }
+  });
+
+  // Recursively sort the next arrays
+  for (const item of items) {
+    if (item.next && item.next.length > 0) {
+      sortByFoldersFirstAndObsidianSpecs({items: item.next, level: level + 1, sortSpec});
+    }
+  }
+
+  return nestedFolders;
+} // sortByFoldersFirstAndObsidianSpecs
+
 // Merge folders to create a nested structure
 let nestedFolders = mergeByCommonPath(folders);
 nestedFolders = mergeByKey(nestedFolders);
-
-// console.log({nestedFolders});
-// If sortSpec is available, parse it and apply sorting to the root level of folders
-if (sortSpec) {
-  const sortCriteria = sortSpec;
-
-  if (sortCriteria.length > 0) {
-    // Apply custom sorting to root-level folders
-    nestedFolders.sort((a, b) => {
-      const indexA = sortCriteria.indexOf(a.current);
-      const indexB = sortCriteria.indexOf(b.current);
-
-      if (indexA !== -1 && indexB !== -1) {
-        return indexA - indexB; // both in ordered list, sort by their order
-      } else if (indexA !== -1) {
-        return -1; // only a is in ordered list, a comes first
-      } else if (indexB !== -1) {
-        return 1; // only b is in ordered list, b comes first
-      } else {
-        return a.current.localeCompare(b.current); // neither in ordered list, sort alphabetically
-      }
-    });
-  }
-} // sortSpec
+nestedFolders = sortByFoldersFirstAndObsidianSpecs({items: nestedFolders, sortSpec});
 
 // Function to generate HTML markup using EJS templates
 function generateHtml(folders) {
@@ -133,15 +161,6 @@ function generateHtml(folders) {
     // For files, store the path in a data attribute (if needed)
     // const dataPathAttr = isFolder ? '' : ` data-path="${escapedItemPath}"`;
     const dataIDAttr = ` data-id=${item.id}`;
-
-    // For folders, add onclick to toggle display of child ul
-    // let onclickAttr = '';
-    // if (isFolder) {
-    //   onclickAttr = ` onclick="var ul = this.parentElement.querySelector('ul'); if(ul){ ul.style.display = ul.style.display === 'none' ? 'block' : 'none'; }"`;
-    // } else {
-    //   // For files, add onclick to openNote function
-    //   onclickAttr = ` onclick="openNote('${escapedItemCurrent}', '${escapedItemPath}')"`;
-    // }
 
     html += `<li class="accordion meta">`;
     // html += `<span class="name ${itemClass}"${onclickAttr}${dataPathAttr}>`;

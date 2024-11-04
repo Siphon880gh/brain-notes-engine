@@ -53,7 +53,7 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* Styling classes */
+/* Styling classes (utility classes) */
 
 .clickable {
     color: gray;
@@ -71,7 +71,7 @@ body {
 
 .hide,
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .highlight {
@@ -100,50 +100,6 @@ body {
     margin-top: 2rem;
     color: black !important;
 }
-
-#new,
-#old {
-    float: left;
-    width: 50%;
-}
-
-#new .contents,
-#old .contents {
-    border: 1px solid darkgray;
-    margin: 5px;
-    white-space: break-spaces;
-}
-
-#new textarea:blur {
-    // outline: none !important;
-    // border: 1px solid red;
-    // box-shadow: 0 0 10px #719ECE;
-    border-style: none !important;
-    border-color: Transparent !important;
-    overflow: auto !important;
-}
-
-#diff {
-    padding: 2px 5px;
-    border: 1px solid gray;
-    border-radius: 5px;
-}
-
-#diff:empty {
-    border: none;
-}
-
-#diff:not(:empty)::after {
-    content: "%";
-}
-
-#old[data-class-level="1"] .highlight {
-    background-color: orange !important;
-}
-
-// .card {
-//     margin: 30px auto 30px auto;
-// }
 
 #explore-curriculum iframe {
     resize: vertical;
@@ -365,7 +321,7 @@ body {
     position: fixed;
     top: 20px;
     right: 0;
-    padding: 5px;
+    padding: 40px;
     background-color: white;
     line-height: 1.5rem;
     font-size: 1rem;
@@ -635,7 +591,22 @@ body {
     }
 }
 
-#share-search-title-wrapper a:hover {
+#share-search-title-wrapper {
+    cursor: pointer;
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+    background-color: white;
+    z-index: 501;
+    width: 100%;
+    text-align: right;
+    height: 60px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+#share-search-title-wrapper a {
     text-decoration: none;
 }
 
@@ -698,7 +669,7 @@ li:not(:first-child) {
 
 #explorer .fa-book-reader::after {
     // content: " Read";
-    content: " Opened";
+    content: "\00a0Opened";
 }
 
 .responsive-iframe-container {

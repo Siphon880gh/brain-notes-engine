@@ -9,27 +9,34 @@ var app = {
         // initFolderDoms();
         
         this.setupCountNotes();
+        this.setupPrint();
         this.setupTooltipInteraction();
         this.setupRefreshPage();
         
         this.setupMoreNotebooks();
         this.setupExploreInteractions();
+        this.setupModalOpens();
+
         this.setupExpandAllFolders._init()
+        window.lastClickedNote = null;
         this.setupJumpToTopics._init();
         this.setupExpandNote();
-        this.setupCanReceiveSharedNote();
         this.setupRandomNote._init();
 
     }, // init
-
-
-
+    
     setupCountNotes: function() {
         if (document?.getElementById("count-notes")) {
             const countNotes = document.querySelectorAll(".name.is-file").length;
             document.getElementById("count-notes").innerText = `${countNotes - 2} Notes!`;
         }
     }, // setupCountNotes
+
+    setupPrint: function() {
+        document.getElementById("print-btn").addEventListener("click", ()=>{
+            window.print();
+        })
+    }, // setupPrint
 
     setupTooltipInteraction: function() {
         // Close tooltip if clicked outside
@@ -84,11 +91,52 @@ var app = {
                 event.preventDefault();
                 const el = event.target;
                 const id = el.dataset["id"];
+                const row = el.tagName.toLowerCase()==="li"?el:el.closest("li");
+                
+                window.lastClickedNote = row;
 
-                openNote(id)
+                if(el.parentElement.className.includes("highlight")) {
+                    el.parentElement.classList.remove("highlight");
+                }
+
+                if(!document.getElementById("share-search-title-wrapper")?.className?.includes("hidden")) {
+                    document.getElementById("share-search-title-wrapper").classList.add("hidden")
+                }
+                
+                const btnGroup = row.querySelector(".note-item-buttons")
+                if(!btnGroup.querySelector(".fa-book-reader")) {
+                    btnGroup.append((()=>{
+                        var iTag = document.createElement("i");
+                        iTag.className = "fas fa-book-reader";
+                        return iTag;
+                    })())
+                }
+
+                if(!document.getElementById("share-search-title-wrapper")?.className?.includes("hidden")) {
+                    document.getElementById("share-search-title-wrapper").classList.add("hidden")
+                }
+
+                openNote(id);
             }); // click
         });
     }, // setupExploreInteractions
+
+    setupModalOpens: function() {
+        document.querySelectorAll("[data-target]").forEach(el=>{
+
+            el.addEventListener("click", (event)=>{
+                var el = event.target;
+                if(!el.matches("[data-target")) {
+                    el = el.closest("[data-target]");
+                }
+                var qs = el.getAttribute("data-target");
+                if(qs.length>1) {
+                    qs = qs.substr(1);
+                    document.getElementById(qs).modal("show");
+                }
+            });
+        })
+    }, // setupModalOpens
 
     setupExpandNote: function() {
         // UX: Can collapse summary reading to more easily reach the topics navigator
@@ -105,126 +153,6 @@ var app = {
         });
     }, // setupExpandNote
 
-    setupCanReceiveSharedNote: function() {
-        setTimeout(() => {
-            if (window.location.search.includes("open=")) {
-                const paramVal = window.location.search
-                    .replaceAll("%20", " ")
-                    .replace(/\.md$/, "")
-                    .replace(/^\?open=/, "")
-                    .replace(/#(.*)/, "");
-    
-                searchAllTitles({ searchText: paramVal, jumpTo: false });
-    
-                let topic = "";
-    
-                function attemptOpenTutorial() {
-                    topic = new URLSearchParams(window.location.search).get("open");
-                    let jumpToNoteHeading = "";
-    
-                    if (window.location.hash) {
-                        jumpToNoteHeading = window.location.hash;
-                    }
-    
-                    const explorerList = document.querySelectorAll(".name.is-file");
-                    const topicLowerCase = topic.toLowerCase();
-                    const explorerFileLis = Array.from(explorerList)
-                        .find(element => element.textContent.toLowerCase().includes(topicLowerCase));
-    
-                    if (explorerFileLis) {
-                        const title = topic.replaceAll("%20", " ").replace(/\.md$/, "").replace(/^\?open=/, "");
-                        const folderMeta = (function titleLookupsFolderMeta(data, searchPhrase) {
-                            for (const item of data) {
-                                if (item.current && item.current.toLowerCase().includes(searchPhrase.toLowerCase())) {
-                                    return item;
-                                } else if (item.next && item.next.length) {
-                                    const result = titleLookupsFolderMeta(item.next, searchPhrase);
-                                    if (result) return result;
-                                }
-                            }
-                            return null; // if not found
-                        })(folders, title);
-                        if(folderMeta === null) return false;
-    
-                        const id = folderMeta.id;
-                        openNote(id);
-    
-                        if (jumpToNoteHeading) {
-                            setTimeout(() => {
-                                const noteHeadingElement = document.querySelector(jumpToNoteHeading);
-                                if (noteHeadingElement) {
-                                    noteHeadingElement.scrollIntoView();
-                                }
-                            }, 250);
-                        }
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-    
-                setTimeout(() => {
-                    var success = attemptOpenTutorial();
-                    if (!success) {
-                        setTimeout(() => {
-                            var success = attemptOpenTutorial();
-                            if (!success) {
-                                setTimeout(() => {
-                                    var success = attemptOpenTutorial();
-                                    if (!success) {
-                                        setTimeout(() => {
-                                            var success = attemptOpenTutorial();
-                                            alert("The tutorial you are looking for is not found. Please reach out to your friend who shared it.\n" + topic)
-                                        }, 300) // if not successful, repeat 3rd time
-                                    }
-                                }, 300) // if not successful, repeat 2nd time
-                            }
-                        }, 300)
-                    } // if not successful, repeat 2nd time
-                }, 300)
-    
-            } else if (window.location.search.includes("search-titles=")) {
-    
-                /**
-                 * Detect presetted topic search in URL
-                 */
-                var params = new URLSearchParams(window.location.search);
-                var qtopic = params.get("search-titles");
-    
-    
-                // remove ?search-titles=topicName, so when you click jump anchor link, the url doesn't become ?search-titles=topicName#subtopic
-                (function pushStateWithoutSearch() {
-                    // Get the current URL
-                    const currentUrl = new URL(window.location);
-    
-                    // Modify the URL to remove the search part (query parameters)
-                    currentUrl.search = '';
-    
-                    // Use history.pushState to change the URL without reloading
-                    history.pushState({}, '', currentUrl);
-                })();
-    
-                if (qtopic) {
-                    var checkIframeLoading = setInterval(() => {
-                        window.$curriculumExplorer = $("#explore-curriculum iframe").contents();
-                        var doesTreeExist = () => $curriculumExplorer.find(".accordion").length > 0;
-    
-                        if (doesTreeExist) {
-                            clearInterval(checkIframeLoading);
-                            setTimeout(() => {
-                                $topicField = $curriculumExplorer.find("#searcher"),
-                                    $topicBtn = $curriculumExplorer.find("#searcher-2-btn");;
-                                $topicField.val(qtopic);
-                                $topicBtn.click();
-                            }, 1200); // Just because part of a tree exist, doesn't mean the whole tree exists right away
-                        }
-                    }, 100);
-                }
-            } // if search-titles
-        }, 300)
-    
-    }, // setupCanReceiveSharedNote
-    
     setupExpandAllFolders: {
         _init: function() {
             document.getElementById("expand-all-folders").addEventListener("click", ()=>{
@@ -249,7 +177,6 @@ var app = {
          * First click Jump to Topics will show folder of all the notes that the opened note is from
          * And if clicked within 2 seconds, jumps up to the top of the topics showing the search controls
          */
-        lastClickedNote: null,
         thresholdJumpedTopics: false,
         _init: function() {
             document.querySelector("#jump-curriculum").addEventListener("click", ()=>{
@@ -258,8 +185,8 @@ var app = {
         },
         jumpToTopics: function() {
         
-            if (!this.thresholdJumpedTopics && this.lastClickedNote) {
-                this.lastClickedNote.closest("ul").scrollIntoView();
+            if (!this.thresholdJumpedTopics && window.lastClickedNote) {
+                window.lastClickedNote.closest("ul").scrollIntoView();
                 // document.querySelector('#side-b').scrollIntoView({ behavior: 'smooth' });
                 window.addEventListener("scrollend", () => {
                     window.scrollBy({ top: -30, left: 0, behavior: "smooth" });
@@ -294,37 +221,3 @@ var app = {
 } // app
 app.init();
 
-
-/** @ ACCORDION LOGIC */
-
-var toOpenUp = [];
-
-function toOpenUp_Exec(row) {
-
-    toOpenUp = [];
-    toOpenUp.unshift(row);
-
-    // closest looks on itself and ancestors
-    while (row.parentElement.closest("li")) {
-        row = row.parentElement.closest("li");
-        toOpenUp.unshift(row);
-    }
-
-    // let ran = false;
-    toOpenUp.forEach((li) => {
-        if(!li.querySelector("ul")) return;
-
-        const isCollapsed = li.querySelector("ul").style.display === "none";
-        if (isCollapsed) {
-            li.querySelector("ul").style.display = "block";
-        }
-    }); // 1st li is outermost    
-} // toOpenUp_Exec
-
-
-/** @ JUMP/SCROLL TO **/
-
-/* When scrolling to a topic, the row also gets highlighted */
-function highlightRow(row) {
-    row.classList.add("highlight");
-}

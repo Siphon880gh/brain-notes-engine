@@ -33,7 +33,7 @@ Note that the curriculum at this repo is empty but the deployed app still render
     "desc": "HTML or text description here",
     "summary": ["<b>This is <u>text</u>.</b> It is in the json file as an array of strings that will be will separated as <br> lines when rendered. ",
                 "And you can jump to a text containing title ",
-                "<a href=\"javascript:void(0)\" onclick=\"scrollToText('I overridden')\">I overridden</a>"
+                "<a href=\"javascript:void(0)\" onclick=\"scrollToRow('I overridden')\">I overridden</a>"
                ],
     "footerFile": "./test.txt",
     "gotos": [
@@ -48,7 +48,7 @@ Note that the curriculum at this repo is empty but the deployed app still render
 
 You can jump to different concepts from a summary.
 ```
-"<a href=\"javascript:void(0)\" onclick=\"scrollToText('I overridden')\">I overridden</a>"
+"<a href=\"javascript:void(0)\" onclick=\"scrollToRow('I overridden')\">I overridden</a>"
 ```
 
 Or you can actually link like this `[[Other note name]]` - if authoring, you should use like Obsidian which can autocomplete as you're typing into the double brackets.

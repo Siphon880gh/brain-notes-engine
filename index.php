@@ -42,6 +42,8 @@
     }
     </script>
 
+    <!-- <_php echo("./game-init.php"); _> -->
+
     <?php
     // Load the JSON file
     $json = file_get_contents("env/urls.json");
@@ -141,7 +143,7 @@
 
 
         <!-- Wouldn't allow table of contents to z-index on top if you hadn't unset position away from relative -->
-        <div class="card card-primary" style="position:unset;">
+        <div class="card card-primary my-8" style="position:unset;">
             <div id="explore-curriculum" class="card-footer">
                 <div id="explore-header" class="card-header p-2 flex flex-wrap justify-between items-center align-center">
                     <h2 class="p-0 m-0 text-center inline"><span class="fas fa-book-reader"></span> Open a lesson</h2>
@@ -159,7 +161,7 @@
 
                     <div id="side-a" class="card-body side-by-side-possible mb-4 hidden">
                         <div style="position: sticky; top: 0; left: 0; z-index: 1;">
-                            <h2 id="summary-title-wrapper" style="display:inline; cursor:pointer;">
+                            <h2 id="summary-title-wrapper" class="inline cursor-pointer">
                             <div class="flex flex-row items-center align-center justify-start gap-4 my-2 bg-white">
                                 <span id="summary-collapser">»</span>
                                 <span id="summary-title" onclick="document.querySelector('#summary-collapser').click();"></span>
@@ -197,39 +199,34 @@
                                 <div id="explorer-btns">
                                     <div class="info-flex-child">
                                         <div id="search-container">
-                                        <label for="searcher">Search:</label>
-                                        <input id="searcher" onkeyup="checkIfEmptiedSearch(event, $('#searcher-btn'))" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                                            <label for="searcher-input">Search:</label>
+                                            <input id="searcher-input" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                                         </div>
 
                                         <div id="search-container-btns">
-                                        <button id="searcher-2-btn" class="override-ios-button-style" 
-                                            onclick="searchAllTitles({
-                                            searchText: document.getElementById('searcher').value, 
-                                            jumpTo: true, 
-                                            callback: ()=> { 
-                                                document.getElementById('shareSnippet').value = (window.location.hostname + window.location.pathname).replaceAll('explorer.php', '') + `?search-titles=${encodeURI($('#searcher-2').val())}`;
-                                                document.getElementById('share-search-title-wrapper').classList.remove('hidden')
-                                            }
-                                            }); " 
-                                            style="cursor: pointer;"
-                                        ><i class="fa fa-search" style="cursor: pointer;"></i> Titles</button>
+                                            <button id="searcher-btn-titles" class="override-ios-button-style cursor-pointer">
+                                                <i class="fa fa-search"></i> Titles
+                                            </button>
 
-                                        <button id="searcher-btn" class="override-ios-button-style" onclick="searchAllContents($('#searcher').val());" style="cursor: pointer;"><i class="fa fa-search" style="cursor: pointer;"></i> Contents</button>
-                                        
-                                        <button onclick="if(confirm('Clear Search?')) clearSearcher($('#searcher'));" style="cursor: pointer; border:0;"><i class="fa fa-eraser" style="cursor: pointer;"></i> Clear</button>
+                                            <button id="searcher-btn-contents" class="override-ios-button-style cursor-pointer">
+                                                <i class="fa fa-search"></i> Contents
+                                            </button>
+                                            
+                                            <button id="searcher-clear" class="border-0 cursor-pointer">
+                                                <i class="fa fa-eraser"></i> Clear
+                                            </button>
                                         </div>
                                     </div>
                                         
                                         
                                     <div class="info-flex-child">
                                         <button id="expand-all-folders"><span class="fa fa-eye cursor-pointer"> Toggle</button>
-                                        <button onclick="window.print();"><span class="fa fa-print" style="cursor: pointer;"> Print</button>
+                                        <button id="print-btn" class="cursor-pointer"><span class="fa fa-print"> Print</button>
                                     </div>
                                 </div>
-                                
 
                                 <div id="printer-title"></div>
-                                <div style="clear:both;"></div>
+                                <div class="clear-both"></div>
 
                                 <main id="topics-list">
                                     <?php include("./cachedResPartial.php"); ?>
@@ -265,7 +262,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header" style="border-bottom:none;">
-            <h3 class="modal-title" id="promoModalLabel">Who is Weng</h3>
+            <h3 class="modal-title mt-0" id="promoModalLabel">Who is Weng</h3>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -273,8 +270,8 @@
         <div class="modal-body py-0">
             <?php include 'env/whoami.php'; ?>
         </div>
-        <div class="modal-footer" style="border-top:none">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Return</button>
+        <div class="modal-footer flex justify-end" style="border-top:none">
+            <button type="button" class="btn btn-secondary float-right p-2" data-dismiss="modal">Return</button>
         </div>
         </div>
     </div>
@@ -291,7 +288,7 @@
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h4 class="modal-title" id="shareModalLabel">Share this link</h4>
+            <h4 id="shareModalLabel" class="modal-title mt-0">Share this link</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -311,12 +308,11 @@
     </div>
 
     <!-- Share the search -->
-    <div id="share-search-title-wrapper" class="hidden" 
-        style="margin-top:10px; text-align:right; position:fixed; right:10px; bottom:0; padding:0; background-color:white;">
-        <a href="javascript:void()" onclick='$("#shareModal").modal("show");'>
-        <i>Share the search:</i>
-        <span class="fas fa-share-alt"></span>
-        </a>
+    <div id="share-search-title-wrapper" class="hidden">
+        <span id="share-search-titles" class="hoverable cursor-pointer" data-toggle="modal" data-target="#shareModal">
+            <i>Share the search:&nbsp;</i>
+            <span class="fas fa-share-alt"></span>
+        </span>
     </div>
     </div> <!-- #searcher-containers -->
 

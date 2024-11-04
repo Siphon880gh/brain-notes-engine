@@ -7,7 +7,6 @@ const HTTP_TO_FILE_PROTOCOL = (process?.env?.HTTP_TO_FILE_PROTOCOL) ? (process?.
 const WANT_A_TAG_FOR_SEO = (process?.env?.WANT_A_TAG_FOR_SEO==="1") ? "1" : "0";
 
 let warningSearchWillFail_Arr = [];
-// let lookup_metas = {};
 let sort_spec = "";
 
 let cachedDataFilename = "cachedResData.json"
@@ -115,7 +114,6 @@ function map_tp_to_decorated(relativePath) {
     }
   } else if ( Boolean(lastChars.match(/\.md$/)?.[0]) || Boolean(lastChars.match(/\.json$/)?.[0]) ) {
 
-    // lookup_metas[String(id)] = { "pathTP": relativePath };
   } // sortspec // md or json
 
   // console.log(decorated)
