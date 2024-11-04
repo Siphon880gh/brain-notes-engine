@@ -107,7 +107,7 @@ function map_tp_to_decorated(relativePath) {
     } else {
       try {
         sort_spec = fs.readFileSync(decorated.path, 'utf-8');
-        // console.log(sort_spec);
+        console.log("\n\n>> Obsidian sortspec.md custom sorting detected and parsed:\n", sort_spec);
       } catch (err) {
         console.error(`Error reading file ${relativePath}:`, err);
       }
@@ -116,7 +116,8 @@ function map_tp_to_decorated(relativePath) {
 
   } // sortspec // md or json
 
-  // console.log(decorated)
+  console.log("\n\n>> Directories and md files cached as renderable data successfully:\n");
+  console.log(decorated)
 
   return decorated;
 }
@@ -139,6 +140,6 @@ fs.writeFile(cachedDataFilename, JSON.stringify(outputData, null, 2), (err) => {
   if (err) {
     console.error(`Error writing to ${cachedDataFilename}:`, err);
   } else {
-    console.log(`Data successfully saved to ${cachedDataFilename}`);
+    console.log(`\n\n>>Renderable data successfully saved to:\n${cachedDataFilename}`);
   }
 });

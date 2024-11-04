@@ -124,6 +124,8 @@ function sortByFoldersFirstAndObsidianSpecs({items, level = 0, sortSpec}) {
 } // sortByFoldersFirstAndObsidianSpecs
 
 // Merge folders to create a nested structure
+
+console.log("\n\n>> Data merging by common path, merging by path, then sorting by folders first and by Obsidian sortspec:\nProcessed successfully.");
 let nestedFolders = mergeByCommonPath(folders);
 nestedFolders = mergeByKey(nestedFolders);
 nestedFolders = sortByFoldersFirstAndObsidianSpecs({items: nestedFolders, sortSpec});
@@ -217,8 +219,8 @@ ${htmlContent}
 // Save the PHP partial
 fs.writeFile(outputPhpPath, phpContent, (err) => {
   if (err) {
-    console.error(`Error writing to ${outputPhpPath}: `, err);
+    console.error(`ERROR: Problems writing to ${outputPhpPath}: `, err);
   } else {
-    // console.log(`PHP partial successfully saved to ${outputPhpPath}`);
+    console.log(`\n\n>> PHP partial successfully saved to:\n${outputPhpPath}`);
   }
 });
