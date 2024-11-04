@@ -107,19 +107,23 @@
             </div>
              <!-- Prevent Visual Reflow -->
             <div class="more-notes invisible">
-                <div class="mn-header flex flex-col justify-center text-center font-medium">More Notes</div>
+                <div class="mn-header flex flex-col justify-center text-center font-medium">More<br/>Notebooks</div>
                 <ul class="mn-links flex flex-row justify-between p-0">
-                    <li>
-                        <a class="text-blue-800" target="_blank" data-hide-if-url-contains="/devbrain/" href="../devbrain">💻 Software development / programming / coding</a>
+
+                    <li data-hide-if-url-contains="/devbrain/">
+                        <a class="text-blue-800" target="_blank" href="../devbrain">💻 Software development / programming / coding</a>
                     </li>
-                    <li>
-                        <a class="text-blue-800" target="_blank" data-hide-if-url-contains="/bizbrain/" href="../bizbrain">💼 Business &<br/>Tech Startups</a>
+
+                    <li data-hide-if-url-contains="/bizbrain/">
+                        <a class="text-blue-800" target="_blank" href="../bizbrain">💼 Business &<br/>Tech Startups</a>
                     </li>
-                    <li>
-                        <a class="text-blue-800" target="_blank" data-hide-if-url-contains="/3dbrain/" href="../3dbrain">🎮 3d Modeling, Videogame Design,<br/>Video and Photo Editing</a>
+
+                    <li data-hide-if-url-contains="/3dbrain/">
+                        <a class="text-blue-800" target="_blank" href="../3dbrain">🎮 3d Modeling, Videogame Design,<br/>Video and Photo Editing</a>
                     </li>
-                    <li>
-                        <a class="text-blue-800" target="_blank" data-hide-if-url-contains="/healthbrain/" href="../healthbrain">⚕️ Health<br/>Notes</a>
+
+                    <li data-hide-if-url-contains="/healthbrain/">
+                        <a class="text-blue-800" target="_blank" href="../healthbrain">⚕️ Health<br/>Notes</a>
                     </li>
                 </ul>
             </div>

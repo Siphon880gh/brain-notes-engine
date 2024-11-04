@@ -416,6 +416,9 @@ body {
 .more-notes .mn-links li {
   display: inline;
   text-align: center;
+  flex: 1;
+  flex-grow: 1;
+  min-width: 33%;
 }
 
 /* UI UX: Left vertical green bar to collapse lesson */
