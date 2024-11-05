@@ -127,17 +127,35 @@ body {
   max-width: calc(100% - 40px);
 }
 
-#summary-inner img.state-1 {
+#summary-inner .img-wrapper img.state-1 {
   width: 75%;
 }
 
-#summary-inner img.state-2 {
+#summary-inner .img-wrapper img.state-2 {
   width: 50%;
 }
 
-#summary-inner img.centered {
+#summary-inner .img-wrapper .centered {
   margin-left: auto;
   margin-right: auto;
+}
+
+#summary-inner .img-wrapper img {
+  height: max-content;
+}
+
+#summary-inner .img-wrapper .responsive-iframe-container.state-1 iframe {
+  width: 75vh;
+  height: 75vh;
+}
+
+#summary-inner .img-wrapper .responsive-iframe-container.state-2 iframe {
+  width: 50vh;
+  height: 50vh;
+}
+
+#summary-inner .img-wrapper .img-btns {
+  z-index: 200;
 }
 
 /* Fieldset layout */
@@ -622,12 +640,23 @@ li:not(:first-child) {
   height: 0;
 }
 
+.img-wrapper > .responsive-iframe-container {
+  padding-top: initial;
+  height: 100%;
+}
+
 .responsive-iframe-container iframe {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.img-wrapper > .responsive-iframe-container iframe {
+  position: initial;
+  top: unset;
+  left: unset;
 }
 
 /* Tooltip for .json file's description property  */

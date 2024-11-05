@@ -124,7 +124,7 @@ function enhanceWithImageButtons(img) {
 
     // Create the sibling div with icons
     const iconContainer = document.createElement('div');
-    iconContainer.className = 'flex flex-col justify-start';
+    iconContainer.className = 'flex flex-col justify-start img-btns';
 
     const iconGroupA = document.createElement('div');
     iconGroupA.className = 'flex flex-col gap-6 p-2';
@@ -137,7 +137,8 @@ function enhanceWithImageButtons(img) {
     icon1.className = 'fas fa-columns clickable';
     icon1.onclick = (event) => {
         const imgWrapper = event.target.closest(".img-wrapper")
-        const img = imgWrapper.querySelector("img");
+        // const img = imgWrapper.querySelector("img");
+        const img = imgWrapper.children[0];
         function removeAllStates() {
             img.classList.remove("state-1");
             img.classList.remove("state-2");
@@ -157,7 +158,8 @@ function enhanceWithImageButtons(img) {
     icon2.className = 'fas fa-align-center clickable';
     icon2.onclick = (event) => {
         const imgWrapper = event.target.closest(".img-wrapper")
-        const img = imgWrapper.querySelector("img");
+        // const img = imgWrapper.querySelector("img");
+        const img = imgWrapper.children[0];
         img.classList.toggle("centered");
     } // icon2
 
@@ -328,25 +330,22 @@ function openNote(id) {
 
                     a.setAttribute("target", "_blank");
 
-                    // Youtube Embeds
-                    (function () {
-                        // Exit quickly if this is the wrong type of URL
-                        if (this.protocol !== 'http:' && this.protocol !== 'https:') {
-                            return;
-                        }
 
+                    // Exit quickly if this is the wrong type of URL
+                    if (a.protocol !== 'http:' && a.protocol !== 'https:') {
+                        // Good
+                    } else if(a.hostname.includes('youtube.com') || a.hostname.includes('youtu.be') ) {
                         // Find the ID of the YouTube video
                         var id, matches;
-                        if (this.hostname === 'youtube.com' || this.hostname === 'www.youtube.com') {
+                        if (a.hostname.includes('youtube.com')) {
                             // For URLs like https://www.youtube.com/watch?v=xLrLlu6KDss
                             // debugger;
-                            matches = this.search.match(/[?&]v=([^&]*)/);
+                            matches = a.search.match(/[?&]v=([^&]*)/);
                             id = matches && matches[1];
-                        } else if (this.hostname === 'youtu.be') {
+                        } else if (a.hostname.includes('youtu.be')) {
                             // For URLs like https://youtu.be/xLrLlu6KDss
-                            id = this.pathname.substr(1);
+                            id = a.pathname.substr(1);
                         }
-                        // console.log({ hostname: this.hostname })
 
                         // Check that the ID only has alphanumeric characters, to make sure that
                         // we don't introduce any XSS vulnerabilities.
@@ -355,14 +354,18 @@ function openNote(id) {
                             validatedID = id;
                         }
 
+                        // debugger;
+
                         // Add the embedded YouTube video, and remove the link.
                         if (validatedID) {
-                            $(this)
-                                .before('<div class="responsive-iframe-container"><iframe src="https://www.youtube.com/embed/' + validatedID + '" frameborder="0" allowfullscreen></iframe></div>')
-                                .remove();
+                            $(a).before('<div class="responsive-iframe-container"><iframe src="https://www.youtube.com/embed/' + validatedID + '" frameborder="0" allowfullscreen></iframe></div>');
+                            const $ytWrapper = $(a).prev('.responsive-iframe-container');
+                            enhanceWithImageButtons($ytWrapper[0]);
+                            $(a).remove();
                         }
 
-                    }).call(a);
+                    } // ^ youtube
+
 
                 }) // for all a in the tutorial
             }, 250);
