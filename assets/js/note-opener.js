@@ -106,6 +106,89 @@ function scrollWithOffset(element, offset = -70) {
 } // scrollWithOffset
 
 
+/**
+ * User had clicked to apply the settings to all in the note and future notes
+ */
+function applyAndSaveNewPersistentNoteConfigs(type) {
+    // Function to update localStorage based on element classes
+    function updateLocalStorageFromElement(storageKey, selector) {
+        var element = document.querySelector(selector);
+        if (element) {
+            var classes = element.classList;
+            var value = localStorage.getItem(storageKey) || '';
+
+            // Split the existing localStorage value into a Set to avoid duplicates
+            var settings = new Set(value.split(' '));
+
+            // Update settings based on the element's classes
+            ['centered', 'state-1', 'state-2'].forEach(function (cls) {
+                if (classes.contains(cls)) {
+                    settings.add(cls);  // Add the class if it's present on the element
+                } else {
+                    settings.delete(cls);  // Remove the class if it's not present
+                }
+            });
+
+            // Save the updated settings back to localStorage
+            localStorage.setItem(storageKey, Array.from(settings).join(' ').trim());
+        }
+    }
+
+    switch(type) {
+        case "img":
+            // Update 'wi__brain__img' based on '.img-wrapper > img'
+            updateLocalStorageFromElement('wi__brain__img', '.img-wrapper > img');
+            break;
+        case "yt":
+            // Update 'wi__brain__yt' based on '.img-wrapper > .responsive-iframe-container'
+            updateLocalStorageFromElement('wi__brain__yt', '.img-wrapper > .responsive-iframe-container');
+            break;
+    }
+} // applyAndSaveNewPersistentNoteConfigs
+
+
+/**
+ * New note is loaded. Check if any settings for img or youtube iframes have been saved to apply to all persistently
+ */
+function loadAnyPersistentNoteConfigs() {
+    // Function to process each key
+    function processKey(storageKey, selector) {
+        var value = localStorage.getItem(storageKey);
+        
+        // console.log({value});
+        // debugger;
+        
+        if (value) {
+            var classesToAdd = [];
+            if (value.includes('centered')) {
+                classesToAdd.push('centered');
+            }
+            if (value.includes('state-1')) {
+                classesToAdd.push('state-1');
+            }
+            if (value.includes('state-2')) {
+                classesToAdd.push('state-2');
+            }
+
+            var elements = document.querySelectorAll(selector);
+            elements.forEach(element=>{
+                if (element) {
+                    classesToAdd.forEach(function (cls) {
+                        element.classList.add(cls);
+                    });
+                }
+            });
+        }
+    }
+
+    // Process 'wi__brain__img'
+    processKey('wi__brain__img', '.img-wrapper > img');
+
+    // Process 'wi__brain__yt'
+    processKey('wi__brain__yt', '.img-wrapper > .responsive-iframe-container');
+
+
+} // loadAnyPersistentNoteConfigs
 
 /**
  * Used by openNote to add image buttons into the note
@@ -113,7 +196,7 @@ function scrollWithOffset(element, offset = -70) {
  * @function enhanceWithImageButtons
  * @param {String} id "1"
  */
-function enhanceWithImageButtons(img) {
+function enhanceWithImageButtons(img, type) {
     // Create a wrapper div with the specified classes
     const wrapperDiv = document.createElement('div');
     wrapperDiv.className = 'img-wrapper flex flex-row flex-start';
@@ -131,6 +214,9 @@ function enhanceWithImageButtons(img) {
 
     const iconGroupB = document.createElement('div');
     iconGroupB.className = 'flex flex-col gap-6 p-2';
+
+    const iconGroupC = document.createElement('div');
+    iconGroupC.className = 'flex flex-col gap-6 p-2';
 
     // Add the icons
     const icon1 = document.createElement('i');
@@ -196,13 +282,41 @@ function enhanceWithImageButtons(img) {
     } // icon3
     iconGroupB.appendChild(icon3);
 
+    const icon4 = document.createElement('i');
+    icon4.className = 'fas fa-reply-all clickable text-sm';
+    icon4.onclick = (event) => {
+        const notePanel = document.querySelector("#summary-inner");
+        var confirmed = confirm("Apply the same settings to all? Will carry over to future notes as well.");
+
+        const clickedType = event.target.getAttribute("data-type");
+        // debugger;
+        switch(clickedType) {
+            case "img":
+                applyAndSaveNewPersistentNoteConfigs("img");
+                break;
+                case "yt":
+                applyAndSaveNewPersistentNoteConfigs("yt");
+                break;
+        }
+
+    } // icon4
+    
+    switch(type) {
+        case "img":
+            icon4.setAttribute("data-type", "img");
+            break;
+        case "yt":
+            icon4.setAttribute("data-type", "yt");
+            break;
+    }
+    iconGroupC.appendChild(icon4);
+
     // Append the icon div as a sibling to the image's wrapper div
     iconContainer.append(iconGroupA);
     iconContainer.append(iconGroupB);
+    iconContainer.append(iconGroupC);
     wrapperDiv.append(iconContainer);
-}
-
-
+} // enhanceWithImageButtons
 
 /**
  * @function openNote
@@ -322,7 +436,7 @@ function openNote(id) {
 
             summaryInnerEl.innerHTML = summaryHTML;
 
-            setTimeout(() => {
+            // setTimeout(() => {
                 // target blank for links
                 summaryInnerEl.querySelectorAll("a").forEach(a => {
                     if (a.href.includes(window.openURL) || a.href.includes("localhost") || a.innerText.includes("🔗"))
@@ -334,7 +448,7 @@ function openNote(id) {
                     // Exit quickly if this is the wrong type of URL
                     if (a.protocol !== 'http:' && a.protocol !== 'https:') {
                         // Good
-                    } else if(a.hostname.includes('youtube.com') || a.hostname.includes('youtu.be') ) {
+                    } else if (a.hostname.includes('youtube.com') || a.hostname.includes('youtu.be')) {
                         // Find the ID of the YouTube video
                         var id, matches;
                         if (a.hostname.includes('youtube.com')) {
@@ -360,7 +474,7 @@ function openNote(id) {
                         if (validatedID) {
                             $(a).before('<div class="responsive-iframe-container"><iframe src="https://www.youtube.com/embed/' + validatedID + '" frameborder="0" allowfullscreen></iframe></div>');
                             const $ytWrapper = $(a).prev('.responsive-iframe-container');
-                            enhanceWithImageButtons($ytWrapper[0]);
+                            enhanceWithImageButtons($ytWrapper[0], "yt");
                             $(a).remove();
                         }
 
@@ -368,7 +482,7 @@ function openNote(id) {
 
 
                 }) // for all a in the tutorial
-            }, 250);
+            // }, 250);
 
             // Scroll up
             // Jump up to content
@@ -381,7 +495,7 @@ function openNote(id) {
             window.document
                 .querySelector("#summary-inner")
                 .querySelectorAll('img').forEach(img => {
-                    enhanceWithImageButtons(img);
+                    enhanceWithImageButtons(img, "img");
                 });
 
             // Render table of contents at top right
@@ -402,9 +516,11 @@ function openNote(id) {
                 summaryCollapser.click();
             }
 
+            // Load any persistent settings for images and Youtube embeds
+            loadAnyPersistentNoteConfigs();
+            
         }) // fetch md
 }; // openNote
-
 
 function addScrollProgressMarkers(div) {
     const windowHeight = window.innerHeight;
