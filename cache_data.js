@@ -3,8 +3,15 @@ const path = require('path');
 
 require('dotenv').config(); // Load environment variables from .env file
 const DIR_SNIPPETS = process.env.DIR_SNIPPETS;
-const HTTP_TO_FILE_PROTOCOL = (process?.env?.HTTP_TO_FILE_PROTOCOL) ? (process?.env?.HTTP_TO_FILE_PROTOCOL) : "";
-const WANT_A_TAG_FOR_SEO = (process?.env?.WANT_A_TAG_FOR_SEO==="1") ? "1" : "0";
+
+// Btw below avoids optional chaining in case of older NodeJS
+const HTTP_TO_FILE_PROTOCOL = (process && process.env && process.env.HTTP_TO_FILE_PROTOCOL) 
+    ? process.env.HTTP_TO_FILE_PROTOCOL 
+    : "";
+
+const WANT_A_TAG_FOR_SEO = (process && process.env && process.env.WANT_A_TAG_FOR_SEO === "1") 
+    ? "1" 
+    : "0";
 
 let warningSearchWillFail_Arr = [];
 let sort_spec = "";
