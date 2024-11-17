@@ -20,11 +20,11 @@ try {
 }
 
 // Extract the 'dirs' array
-const folders = outputData?.dirs;
-const dir_snippets = outputData?.dir_snippets;
-const http_to_file_protocol = outputData?.http_to_file_protocol;
-const want_a_tag_for_seo = outputData?.want_a_tag_for_seo==="1"?true:false;
-const sortSpec = outputData?.sort_spec;
+const folders = (outputData && outputData.dirs) ? outputData.dirs : undefined;
+const dir_snippets = (outputData && outputData.dir_snippets) ? outputData.dir_snippets : undefined;
+const http_to_file_protocol = (outputData && outputData.http_to_file_protocol) ? outputData.http_to_file_protocol : undefined;
+const want_a_tag_for_seo = (outputData && outputData.want_a_tag_for_seo === "1") ? true : false;
+const sortSpec = (outputData && outputData.sort_spec) ? outputData.sort_spec : undefined;
 
 // Function to merge folders by common path and build the nested structure
 function mergeByCommonPath(data) {

@@ -119,7 +119,8 @@ function map_tp_to_decorated(relativePath) {
         console.error(`Error reading file ${relativePath}:`, err);
       }
     }
-  } else if ( Boolean(lastChars.match(/\.md$/)?.[0]) || Boolean(lastChars.match(/\.json$/)?.[0]) ) {
+  // } else if ( Boolean(lastChars.match(/\.md$/)?.[0]) || Boolean(lastChars.match(/\.json$/)?.[0]) ) {
+  } else if ( Boolean(lastChars.match(/\.md$/) && lastChars.match(/\.md$/)[0]) || Boolean(lastChars.match(/\.json$/) && lastChars.match(/\.json$/)[0]) ) {
 
   } // sortspec // md or json
 
