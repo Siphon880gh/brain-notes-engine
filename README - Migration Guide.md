@@ -19,12 +19,15 @@ In the folder containing 3dbrain/, bizbrain/, devbrain/, healthbrain/ should hav
   "license": "ISC"
 }
 ```
-^ Reminder: Purpose is that when you run `npm run pull-brains` at that level, all the brains will be updated by pulling from git and rendering the topics.
+^ Reminder: Purpose is that when you run `npm run pull-brains` at that level, all the brains will be updated by pulling from git and rendering the topics (remember the brain is the UI UX to display the curriculum files, not the curriculum files themselves). Hence when you're editing a brain (the ui ux), you make a commit, then push it up to Github.com, then finally you go into the folder containing all the brains to pull them in with `npm run pull-brains`.
 
 Curriculum:
-The curriculum path (because you're keeping curriculum in a separate git so people can contribute to your subject matter knowledge) should be adjusted at `.env` file.
+The curriculum path (because you're keeping curriculum in a separate git so people can contribute to your subject knowledge) should be adjusted at `.env` file of the brain.
+- You have a copy of the curriculum folder at both your local computer and the remote server.
+- For the local computer, you could have the curriculum folder inside a Obsidian Document Vaults folder. This is so you can push from computer when you make note changes.
+- For the remote server, it's recommended you have a curriculum/ relative folder in the brain, and that curriculum/ folder is gitignored. This is so that curriculum/server-update.php can run shell git commands to pull from Github.com/Gitlab.com
 
-Curriculum should contain server-update.php:
+The curriculum/ should contain server-update.php:
 ```
 <?php
 /* Curriculum repository of snippets, guides, and tutorials get pulled into this folder for the Brain Notes app (Like Notebook) */
@@ -90,12 +93,12 @@ echo "<b>View:</b> <a href='../'>View web notes</a><p></p>";
 ?>
 ```
 
-Curriculum should  contain package.json:
+Curriculum should contain package.json:
 ```
 {
   "name": "curriculum",
   "version": "1.0.0",
-  "description": "By Weng Fei Fung. Working on making my coding snippets and guides sharable and contributable between a separate repository here and my Gamified Knowledge app at https://github.com/Siphon880gh/gamified-knowledge. Cooking up.",
+  "description": "By Weng Fei Fung...",
   "main": "index.js",
   "scripts": {
     "commit": "git add -A; FILENAMES=$(git status --short | grep '^[^DR]' | awk '{for (i=2; i<=NF; i++) printf \"%s%s\", $i, (i==NF ? \"\\n\" : \" \")}' | while read -r file; do printf \"%s%s\\n\" \"\\x22\" \"$(basename \"$file\")\"; done | paste -sd ';' -); git commit -m \"$(echo $FILENAMES)\"",
@@ -112,4 +115,4 @@ Curriculum should  contain package.json:
   "license": "ISC"
 }
 ```
-^ Reminder: From your curriculum, you update it by running `npm run deploy`
+^ Reminder: From your computer's local curriculum root folder after you've made not changes, you update the online copy by running `npm run deploy`. This will make a commit whose commit message is based on the files that have been changed, push the commit up Github.com/Gitlab.com, then open the php page server-update.php on the remote server, which will perform the pull and reset at the remote server's curriculum copy.
