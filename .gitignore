@@ -26,3 +26,4 @@ node_modules/
 *.css.map
 out/
 *.env
+env/all/pcregrep.php
