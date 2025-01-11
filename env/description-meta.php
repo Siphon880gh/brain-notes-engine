@@ -1,1 +1,1 @@
-<meta name="description" content="Everything on coding - web development, mobile development, game development, data science, AI and related fields - in bite size guides, code snippets and references. All here in one place for programmers of all levels.">
+<meta name="description" content="Collection of notes on Health, Fitness, Wellness, Longevity. The goal is to record a wealth of knowledge that can be applied for healthy and productive lives.">

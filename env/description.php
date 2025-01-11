@@ -27,16 +27,13 @@
         target="_blank" title="Donate to this project using Buy Me A Coffee" alt="Paypal">
         <img class="my-badge" src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg"
             alt="Buy Me A Coffee donate button"></a>
+
 </div>
 <br>
 
 <p>
-    Everything on coding - web development, mobile development, game development, data science, AI and related fields -
-    in bite size guides, code snippets and references. All here in one place for programmers of all levels.
-</p>
-<p>
-    <a target="_blank" href="https://wengindustry.com">Weng</a> will keep adding to this knowledge brain because he
-    wants to know all the tech fields in order to find new opportunities as an entrepreneur.
+    Collection of notes on Health, Fitness, Wellness, Longevity. The goal is to record a wealth of knowledge that can be
+    applied for healthy and productive lives.
 </p>
 <!-- <p>Learn new programming languages by retyping them or rearranging lines of code with immediate
         visual feedback so you can learn through trial and error.  -->
