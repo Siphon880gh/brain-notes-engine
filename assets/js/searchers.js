@@ -195,6 +195,14 @@ var addonSearch = {
             setupCanReceiveSharedNote_Or_SharedSearch: function() {
                 setTimeout(() => {
                     if(window.location.search.length === 0) return;
+
+                    // Remove Facebook click ID parameter if it exists
+                    if (window.location.search.includes('fbclid=')) {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        urlParams.delete('fbclid');
+                        const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '') + window.location.hash;
+                        window.history.replaceState({}, '', newUrl);
+                    }
                     
                     function _openNoteFromUrl() {
                         const paramVal = window.location.search
