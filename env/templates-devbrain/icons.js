@@ -19,8 +19,8 @@ var icons = {
   "Enterprise - Business Analytics (BA) and Business Intelligence (BI)": "🌌",
   "Extensions, Plug-ins, and Software Suite Development": "🔌",
   "Version Control - git, github, gitlab": "<i class='fab fa-github'></i>",
-
-  "Data Science": "<i class='fas fa-chart-area'></i>"
+  "Data Science": "<i class='fas fa-chart-area'></i>",
+  "Python": "<i class='fab fa-python text-black'></i>"
 }
 
 module.exports = icons;
