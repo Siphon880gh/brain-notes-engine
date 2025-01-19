@@ -26,6 +26,21 @@ function shareTutorial() {
     document.getElementById("shareModal").modal("show");
 }
 
+function goToItem() {
+    const noteTitle = document.getElementById("summary-title").textContent;
+    const noteTitleElement = Array.from(document.querySelectorAll('.name.is-file')).find(el => 
+        el.textContent.trim() === noteTitle
+    );
+    const noteLiElement = noteTitleElement.closest("li");
+
+    noteLiElement.classList.add("highlight");
+    toOpenUp_Exec(noteLiElement); // Expand li up to root
+
+    setTimeout(() => {
+        noteLiElement.scrollIntoView({behavior: 'smooth'});
+    }, 150);
+} // goToItem
+
 function shareTutorialSection(trailingHash) {
     document.getElementById("shareSnippet").value = window.location.host + window.location.pathname + `${trailingHash}`
     document.getElementById("shareModal").modal("show");
@@ -416,6 +431,7 @@ function openNote(id) {
             document.getElementById("summary-collapser").classList.remove("hidden");
             document.getElementById("summary-collapser").classList.add("stated");
             document.getElementById("summary-sharer").classList.remove("hidden");
+            document.getElementById("scroll-to-item").classList.remove("hidden");
             document.getElementById("summary-outer").classList.remove("hidden");
             // parent.document.querySelector("#dashboard").classList.add("active");
 

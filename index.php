@@ -150,6 +150,9 @@
                         <span id="summary-sharer" class="text-sm clickable hidden" style="margin-top:-3px;" href="javascript:void(0)" onclick='shareTutorial()'>
                             <span class="fas fa-share-alt"></span>
                         </span>
+                        <span id="scroll-to-item" class="text-sm clickable hidden" style="margin-top:-3px;" href="javascript:void(0)" onclick='goToItem()'>
+                            <span class="fas fa-angle-down"></span>
+                        </span>
                     </div>
                 </div>
 
