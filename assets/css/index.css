@@ -308,22 +308,23 @@ td, th {
   position: fixed;
   bottom: 0;
   right: 0;
-  padding-right: 0 20px 0 20px;
+  /* padding-right: 0 20px 0 20px; */
+  padding: 4px;
   background-color: white;
   z-index: 500;
   /* width: 100%; */
   text-align: right;
-  height: 60px;
+  /* height: 60px; */
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
 }
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
   #jump-curriculum {
     padding: 10px 10px 10px 10px;
   }
-}
+} */
 #toc-toggler:not(.filled) {
   display: none;
 }
