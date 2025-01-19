@@ -255,6 +255,10 @@ td, th {
   margin-top: 5px;
 }
 
+summary {
+  cursor: pointer;
+}
+
 #dashboard:not(.active) {
   display: none;
 }

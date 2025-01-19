@@ -1,6 +1,3 @@
-
-
-
 /**
  * 
  * In the note: Share note modal has Copy button
