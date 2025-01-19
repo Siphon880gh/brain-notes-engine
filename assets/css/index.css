@@ -158,9 +158,9 @@ td, th {
   /* margin-right: auto; */
 }
 
-#summary-inner .img-wrapper img {
+/* #summary-inner .img-wrapper img {
   height: max-content;
-}
+} */
 
 #summary-inner .img-wrapper .responsive-iframe-container.state-1 iframe {
   width: 75vh;
