@@ -172,6 +172,12 @@ function generateHtml(folders) {
     else if(want_a_tag_for_seo) {
       html += `<a class="name ${itemClass}"${dataIDAttr} href="${http_to_file_protocol+dir_snippets+itemPath}">`;
     }
+
+    if(itemPath.includes('transition')) {
+      console.log({itemPath});
+      console.log({http_to_file_protocol});
+      console.log({dir_snippets});
+    }
     
     // Insert custom icon if available. It will hide the fa book icon because of css selector `.custom-icon+.fa-folder {`
     if (icons[escapedItemCurrent]) {
