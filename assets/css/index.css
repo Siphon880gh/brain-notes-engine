@@ -457,6 +457,18 @@ td, th {
   flex-grow: 1;
   min-width: 33%;
 }
+@media screen and (max-width: 768px) {
+  .more-notes .mn-links {
+    align-items: flex-start;
+  }
+  .more-notes .mn-links li {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 70px;
+    width: 25vw;
+  }
+}
 
 /* UI UX: Left vertical green bar to collapse lesson */
 #summary-outer {
