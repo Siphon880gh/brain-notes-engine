@@ -21,8 +21,8 @@ try {
 
 // Extract the 'dirs' array
 const folders = (outputData && outputData.dirs) ? outputData.dirs : undefined;
-const dir_snippets = (outputData && outputData.dir_snippets) ? outputData.dir_snippets : undefined;
-const http_to_file_protocol = (outputData && outputData.http_to_file_protocol) ? outputData.http_to_file_protocol : undefined;
+const dir_snippets = (outputData && outputData.dir_snippets) ? outputData.dir_snippets : "";
+const http_to_file_protocol = (outputData && outputData.http_to_file_protocol) ? outputData.http_to_file_protocol : "";
 const want_a_tag_for_seo = (outputData && outputData.want_a_tag_for_seo === "1") ? true : false;
 const sortSpec = (outputData && outputData.sort_spec) ? outputData.sort_spec : undefined;
 
@@ -171,12 +171,6 @@ function generateHtml(folders) {
       html += `<span class="name ${itemClass}"${dataIDAttr}>`;
     else if(want_a_tag_for_seo) {
       html += `<a class="name ${itemClass}"${dataIDAttr} href="${http_to_file_protocol+dir_snippets+itemPath}">`;
-    }
-
-    if(itemPath.includes('transition')) {
-      console.log({itemPath});
-      console.log({http_to_file_protocol});
-      console.log({dir_snippets});
     }
     
     // Insert custom icon if available. It will hide the fa book icon because of css selector `.custom-icon+.fa-folder {`
