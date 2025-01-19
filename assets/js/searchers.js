@@ -216,6 +216,7 @@ var addonSearch = {
                         let topic = "";
                         
                         function attemptOpenTutorial() {
+
                             topic = new URLSearchParams(window.location.search).get("open");
                             let jumpToNoteHeading = "";
                             
@@ -241,6 +242,7 @@ var addonSearch = {
                                     }
                                     return null; // if not found
                                 })(folders, title);
+
                                 if(folderMeta === null) return false;
                                 
                                 const id = folderMeta.id;
@@ -260,25 +262,18 @@ var addonSearch = {
                             }
                         }
                         
-                        setTimeout(() => {
-                            var success = attemptOpenTutorial();
-                            if (!success) {
-                                setTimeout(() => {
-                                    var success = attemptOpenTutorial();
-                                    if (!success) {
-                                        setTimeout(() => {
-                                            var success = attemptOpenTutorial();
-                                            if (!success) {
-                                                setTimeout(() => {
-                                                    var success = attemptOpenTutorial();
-                                                    alert("The tutorial you are looking for is not found. Please reach out to your friend who shared it.\n" + topic)
-                                                }, 300) // if not successful, repeat 3rd time
-                                            }
-                                        }, 300) // if not successful, repeat 2nd time
-                                    }
-                                }, 300)
-                            } // if not successful, repeat 2nd time
-                        }, 300)
+
+                        var pollOpenTutorial = setInterval(() => {
+                            if(document.readyState === "complete" && typeof folders !== "undefined") {
+                                var success = attemptOpenTutorial();
+                                if (!success) {
+                                    alert("The tutorial you are looking for is not found. Please reach out to your friend who shared it.\n" + topic)
+                                }
+                                clearInterval(pollOpenTutorial);
+                            }
+                        }, 50)
+                        
+                        
                     } // _openNoteFromUrl
                     
                     function _openSearchFromUrl() {
