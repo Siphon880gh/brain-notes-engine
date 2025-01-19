@@ -197,18 +197,20 @@ var app = {
                 }, 2000);
                 return;
             }
-            // document.querySelector('#side-b').scrollIntoView({ behavior: 'smooth' });
-            // document.querySelector('#side-b').querySelector('iframe').contentWindow.scrollTo({ top: 0 });
             document.querySelector('#side-b').scrollIntoView({ behavior: 'smooth' });
-            // window.scrollTo({ top: 0 });
         }, // jumpToTopics
 
     }, // setupJumpToTopics
 
     setupRandomNote: {
         _init: function() {
-            document.getElementById("get-random-note").addEventListener("click", ()=>{
+            const button = document.getElementById("get-random-note");
+            button.addEventListener("click", () => {
                 this.openRandomNote();
+                button.disabled = true; // Disable the button
+                setTimeout(() => {
+                    button.disabled = false; // Re-enable the button after 2 seconds
+                }, 2000); // 2000 milliseconds = 2 seconds
             });
         },
         openRandomNote: function() {
