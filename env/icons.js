@@ -15,6 +15,7 @@ var icons = {
   // "CompSci - DS, Algos, Systems, Logic": "Ω",
   "CompSci - DS, Algos, Systems, Logic": "<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none'><path d='M13.5 7L17 10.5' stroke='#000000' stroke-linecap='round'></path><path d='M7 13.5L10.5 17' stroke='#000000' stroke-linecap='round'></path><path d='M10.5 7L7 10.5' stroke='#000000' stroke-linecap='round'></path><path d='M17 13.5L13.5 17' stroke='#000000' stroke-linecap='round'></path><circle cx='12' cy='5.5' r='2' stroke='#000000'></circle><circle cx='12' cy='18.5' r='2' stroke='#000000'></circle><circle cx='5.5' cy='12' r='2' stroke='#000000'></circle><circle cx='18.5' cy='12' r='2' stroke='#000000'></circle><circle cx='5.5' cy='12' r='0.5' stroke='#000000'></circle><circle cx='12' cy='18.5' r='0.5' stroke='#000000'></circle></svg>",
   // "Enterprise - DevOps, Server Admin, SaaS Scaling, Payment Systems": "🌌",
+  "Enterprise - Software Development Standards": "🌌",
   "Enterprise - DevOps, Docker, Server Admin, SaaS Scaling, Payment Systems": "🌌",
   "Enterprise - Business Analytics (BA) and Business Intelligence (BI)": "🌌",
   "Extensions, Plug-ins, and Software Suite Development": "🔌",
