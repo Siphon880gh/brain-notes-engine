@@ -389,6 +389,21 @@ function openNote(id) {
                     return text.replace(/(.+)(\n)(?!\n)/g, "$1  \n");
                 })(summary);
             }
+            
+            // Obsidian glitch where pasted images are in the format of links
+            // Thus preventing MarkdownIt from rendering them as images
+            // ![[Pasted image 20250130224740.png]] => ![](Pasted image 20250130224740.png)
+            if(summary) {
+                summary = (function pastedImagesToImg(text) {
+                    // Convert Obsidian pasted image format to standard markdown image format
+                    text = text.replace(/!\[\[Pasted image ([^\]]+)\]\]/g, '![](Pasted image $1)');
+                    // Replace spaces with encoded spaces in image filenames
+                    text = text.replace(/!\[\]\(([^)]*)\)/g, (match, p1) => {
+                        return `![](${p1.replace(/ /g, '%20')})`;
+                    });
+                    return text;
+                })(summary);
+            }
 
             function convertNotesToDetails(inputText) {
                 const lines = inputText.split('\n');
