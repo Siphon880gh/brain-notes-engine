@@ -1,3 +1,5 @@
+// imported config.domainBaseUrl from index.php (which imported from 3dbrain.config.json)
+
 /**
  * 
  * In the note: Share note modal has Copy button
@@ -382,9 +384,11 @@ function openNote(id) {
             // Fixes: I have separate lines in md format. How come they're run-on's when rendered with markdown?
             // Principle: Markdown's Line Break Rules: In Markdown, simply pressing "Enter" once at the end of a line does not create a new paragraph or line break in the rendered output. Instead, lines directly below each other without an empty line between them are treated as part of the same paragraph and are joined together.
             // Solution: Add two spaces at the end of each line to force a line break, unless the adjacent line is a blank line.
-            summary = (function doubleNewLine(text) {
-                return text.replace(/(.+)(\n)(?!\n)/g, "$1  \n");
-            })(summary);
+            if(summary) {
+                summary = (function doubleNewLine(text) {
+                    return text.replace(/(.+)(\n)(?!\n)/g, "$1  \n");
+                })(summary);
+            }
 
             function convertNotesToDetails(inputText) {
                 const lines = inputText.split('\n');
@@ -423,6 +427,11 @@ function openNote(id) {
             summary = convertNotesToDetails(summary);
 
             var summaryHTML = md.render(summary);
+
+            // Img src domain with base url:
+            summaryHTML = summaryHTML.replace(/\<img src="(.+)"/g, function(match, p1) {
+                return '<img src="' + config.domainBaseUrl + p1 + '"';
+            });
 
             document.getElementById("summary-title").textContent = title;
             document.getElementById("summary-collapser").classList.remove("hidden");
