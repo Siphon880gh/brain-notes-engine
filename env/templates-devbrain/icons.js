@@ -22,7 +22,7 @@ var icons = {
   "Version Control - git, github, gitlab": "<i class='fab fa-github'></i>",
   "Data Science": "<i class='fas fa-chart-area'></i>",
   "Python": "<i class='fab fa-python text-black'></i>",
-  "Scraping": "<img src='./assets/icons/online_scraper.png' style='width:20px; height:20px;'>"
+  "Scraping": "<img src='./assets/icons/online_scraper.png' style='width:20px; height:20px; margin-left:-2px; transform:translateY(4px);'>"
 }
 
 module.exports = icons;
