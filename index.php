@@ -334,7 +334,7 @@
         if(typeof window?.config === "undefined") {
             window.config = {};
         }
-        window.config.domainBaseUrl = data.domainBaseUrl
+        window.config.imgHostedUrl = data.imgHostedUrl
     });
     </script>
     <script src="assets/js/modal.js"></script>

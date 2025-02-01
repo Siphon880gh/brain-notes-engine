@@ -1,4 +1,4 @@
-// imported config.domainBaseUrl from index.php (which imported from 3dbrain.config.json)
+// imported config.imgHostedUrl from index.php (which imported from 3dbrain.config.json)
 
 /**
  * 
@@ -254,17 +254,17 @@ function enhanceWithImageButtons(img, type) {
         }
     } // icon1
 
-    const icon2 = document.createElement('i');
-    icon2.className = 'fas fa-align-center clickable';
-    icon2.onclick = (event) => {
-        const imgWrapper = event.target.closest(".img-wrapper")
-        // const img = imgWrapper.querySelector("img");
-        const img = imgWrapper.children[0];
-        img.classList.toggle("centered");
-    } // icon2
+    // const icon2 = document.createElement('i');
+    // icon2.className = 'fas fa-align-center clickable';
+    // icon2.onclick = (event) => {
+    //     const imgWrapper = event.target.closest(".img-wrapper")
+    //     // const img = imgWrapper.querySelector("img");
+    //     const img = imgWrapper.children[0];
+    //     img.classList.toggle("centered");
+    // } // icon2
 
     iconGroupA.appendChild(icon1);
-    iconGroupA.appendChild(icon2);
+    // iconGroupA.appendChild(icon2);
 
     const icon3 = document.createElement('i');
     icon3.className = 'fas fa-level-down-alt clickable';
@@ -430,7 +430,7 @@ function openNote(id) {
 
             // Img src domain with base url:
             summaryHTML = summaryHTML.replace(/\<img src="(.+)"/g, function(match, p1) {
-                return '<img src="' + config.domainBaseUrl + p1 + '"';
+                return '<img src="' + config.imgHostedUrl + p1 + '"';
             });
 
             document.getElementById("summary-title").textContent = title;
