@@ -21,7 +21,8 @@ var icons = {
   "Extensions, Plug-ins, and Software Suite Development": "🔌",
   "Version Control - git, github, gitlab": "<i class='fab fa-github'></i>",
   "Data Science": "<i class='fas fa-chart-area'></i>",
-  "Python": "<i class='fab fa-python text-black'></i>"
+  "Python": "<i class='fab fa-python text-black'></i>",
+  "Scraping": "<img src='./assets/icons/online_scraper.png' style='width:20px; height:20px;'>"
 }
 
 module.exports = icons;
