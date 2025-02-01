@@ -1,0 +1,7 @@
+When: Changed computer where you have Obsidian notes that you want to sync to the Brain Notes engine by Weng Fei Fung.
+
+You should not be using imgur plugin as the image hosting solution in 1/2025 despite it conveniently creating an imgur url upon pasting images into your document, thus making it readily available to render images when your MD file is rendered online. The imgur is no longer a reliable solution as accounts get closed randomly per reports and my personal experience. Instead you should have setup a local Attachments folder in Obsidian where all pasted images goes as image files.
+
+Then everytime you update your git repo of MD notes, it should hook into calling a script that will upload your Attachment files to your SFTP server. Your SFTP server's folder will map to an online URL that your MD rendering engine online will prepend to all images (since images in Obsidian are not pathed in the MD file).
+
+Refer to the folder `presetup-images-local-to-sftp` for such script. You want to place the script at the folder containing the local "Document Vaults/". At each git push, have it automatically call this script. Of course, make sure to setup a `config.json` with appropriate pathing values and SFTP credentials.

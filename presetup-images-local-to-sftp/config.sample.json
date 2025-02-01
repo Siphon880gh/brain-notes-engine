@@ -1,0 +1,11 @@
+{
+    "host": "YOUR_SERVER_HOST_IP",
+    "port": 22,
+    "username": "YOUR_USERNAME",
+    "password": "YOUR_PASSWORD",
+    "skipExistingFiles": true,
+    "silentOutput": true,
+    "remoteFolder": "YOUR_SERVER_ABS_PATH",
+    "localFolder": "YOUR_LOCAL_ABS_PATH",
+    "logFilePath": "./uploaded.log"
+}

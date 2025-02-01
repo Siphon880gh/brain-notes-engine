@@ -1,0 +1,14 @@
+{
+  "name": "brain-notes--presetup-images-local-to-sftp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node script.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "ssh2-sftp-client": "^11.0.0"
+  }
+}
