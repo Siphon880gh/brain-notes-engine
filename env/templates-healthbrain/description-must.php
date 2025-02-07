@@ -3,7 +3,7 @@
 ?>
 <div class="description-must" style="position:relative; overflow:visible;">
     <div style="width:100%; text-align:center; line-height: 80%; font-size: 80%;">
-        <b onclick="alert('<?php echo $disclaimer;?>')">Disclaimer: Please note that the health information provided here is for educational purposes only...</b> 
+        <b onclick="alert('<?php echo $disclaimer;?>')">Disclaimer: Please note that the health information provided here is for educational purposes only.. By reading the information, you agree to this and the rest of the disclaimer (click to expand disclaimer).</b> 
     </div>
 
 </div>
