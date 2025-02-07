@@ -1,1 +1,1 @@
-<meta name="description" content="Notes on 3D modeling Blender, cinematic creation with DaVinci, graphics with Photoshop, and video game design with Unreal Engine to communicate a vision into an impactful visual message and create engaging experience.">
+<meta name="description" content="Collection of notes on Health, Fitness, Wellness, Longevity. The goal is to record a wealth of knowledge that can be applied for healthy and productive lives.">
