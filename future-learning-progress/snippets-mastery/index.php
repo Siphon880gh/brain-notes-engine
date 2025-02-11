@@ -503,8 +503,8 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300|Open+Sans+Condensed:300" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.9.0/css/all.min.css">
-        <script src="https:https://cdn.jsdelivr.net/npm/waypoints@4.0.0/lib/jquery.waypoints.min.js"></script>
-        <script src="https:https://cdn.bootcdn.net/ajax/libs/skrollr/0.6.30/skrollr.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/waypoints@4.0.0/lib/jquery.waypoints.min.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/skrollr/0.6.30/skrollr.min.js"></script>
         <script src="https://raw.githack.com/filamentgroup/jQuery-Pixel-Em-Converter/master/pxem.jQuery.js"></script>
         
         <!-- Rendering: Handlebars JS, LiveQuery, Sprintf JS -->
@@ -513,13 +513,13 @@
         <script src="https://raw.githack.com/azatoth/jquery-sprintf/master/jquery.sprintf.js"></script>
         
         <!-- Compatibility: Modernizr, jQuery Migrate (check browser) -->
-        <script src="https:https://cdn.jsdelivr.net/npm/npm-modernizr@2.8.3/modernizr.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/npm-modernizr@2.8.3/modernizr.min.js"></script>
         <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         
         <!-- Mobile: jQuery UI, jQuery UI Touch Punch -->
         <link href="https://code.jquery.com/ui/1.11.3/themes/ui-lightness/jquery-ui.css" rel="stylesheet"/>
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-        <script src="https:https://cdn.jsdelivr.net/npm/jquery-ui-touch-punch@0.2.3/jquery.ui.touch-punch.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-ui-touch-punch@0.2.3/jquery.ui.touch-punch.min.js"></script>
        
         <!-- Bootstrap JS -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

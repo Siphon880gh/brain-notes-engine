@@ -124,6 +124,35 @@ td, th {
   padding-right: 5px;
 }
 
+#summary-inner { 
+  margin: 0 auto; 
+  margin-bottom: 20px !important; 
+}
+
+@media (max-width: 575px) {
+  #summary-inner { width: 100%; }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  #summary-inner { width: 85%; max-width: 540px; }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  #summary-inner { width: 75%; max-width: 720px; }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  #summary-inner { width: 65%; max-width: 960px; }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+  #summary-inner { width: 50%; max-width: 1140px; }
+}
+
+@media (min-width: 1400px) {
+  #summary-inner { width: 33%; max-width: 1040px; }
+}
+
 #summary-inner textarea {
   border-color: white;
 }
