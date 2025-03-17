@@ -104,7 +104,7 @@
                 <!-- <div><a id="count-notes" href="#explore-curriculum">1457 Notes!</a></div> -->
                 <div><span id="count-notes" href="#explore-curriculum">Loading Notes</span></div>
                 <div class="mt-2">
-                    <a class="text-blue-800 no-underline" id="whats-changed" target="_blank" href="<?php echo $commitsURL; ?>" rel="nofollow">Change Log</a>
+                    <a class="text-blue-800 no-underline" id="whats-changed" target="_blank" href="<?php echo $commitsURL; ?>" rel="nofollow">Check What's New</a>
                 </div>
             </div>
              <!-- Prevent Visual Reflow -->
