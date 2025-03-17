@@ -93,6 +93,7 @@
 
     <div class="site-header mx-auto">
         <h1 id="title" class="clickable"><?php include 'env/title.php'; ?></h1>
+        <div class="text-blue-800 mt-2 mb-8 clickable" data-toggle="modal" data-target="#promoModal">By Weng (Weng Fei Fung)</div>
 
         <div class="w-full flex flex-row flex-wrap justify-around gap-2">
             <?php include 'env/description-must.php'; ?>
@@ -102,8 +103,9 @@
             <div>
                 <!-- <div><a id="count-notes" href="#explore-curriculum">1457 Notes!</a></div> -->
                 <div><span id="count-notes" href="#explore-curriculum">Loading Notes</span></div>
-                <a class="text-blue-800 no-underline" id="whats-changed" target="_blank" href="<?php echo $commitsURL; ?>" rel="nofollow">See what's changed</a>
-                <div class="text-blue-800 clickable" data-toggle="modal" data-target="#promoModal">By Weng (Weng Fei Fung)</div>
+                <div class="mt-2">
+                    <a class="text-blue-800 no-underline" id="whats-changed" target="_blank" href="<?php echo $commitsURL; ?>" rel="nofollow">Change Log</a>
+                </div>
             </div>
              <!-- Prevent Visual Reflow -->
             <div class="more-notes invisible">
