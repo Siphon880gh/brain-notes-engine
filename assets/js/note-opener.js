@@ -395,8 +395,12 @@ function openNote(id) {
             // ![[Pasted image 20250130224740.png]] => ![](Pasted image 20250130224740.png)
             if(summary) {
                 summary = (function pastedImagesToImg(text) {
-                    // Convert Obsidian pasted image format to standard markdown image format
-                    text = text.replace(/!\[\[Pasted image ([^\]]+)\]\]/g, '![](Pasted image $1)');
+                    // OLD: Convert Obsidian pasted image format to standard markdown image format
+                    // text = text.replace(/!\[\[Pasted image ([^\]]+)\]\]/g, '![](Pasted image $1)');
+
+                    // NEW: Go by file extension and not starting with http
+                    text = text.replace(/!\[\[(?!http)([^\/\]]+\.(png|bmp|jpg|jpeg|gif))\]\]/gi, '![]($1)');
+
                     // Replace spaces with encoded spaces in image filenames
                     text = text.replace(/!\[\]\(([^)]*)\)/g, (match, p1) => {
                         return `![](${p1.replace(/ /g, '%20')})`;
