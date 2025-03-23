@@ -431,9 +431,21 @@ function openNote(id) {
                             i++;
                         }
 
-                        const content = contentLines.join('\n');
-                        const detailsHtml = `<details>\n<summary>${summaryText}</summary>\n<div class="border ml-3 p-1">${content}</div>\n</details><br/>`;
+                        let content = contentLines.join('\n');
+                        var md = window.markdownit({
+                            html: true,
+                            linkify: true
+                        }).use(window.MarkdownItLatex)
+                            .use(window.markdownItAnchor);
+                        content = md.render(content);
+
+                        let detailsHtml = `\n<details>\n<summary>${summaryText}</summary>\n<div class="border ml-3 p-1">${content}<br/></div>\n</details>\n`;
+                        // detailsHtml = detailsHtml.replaceAll("\n", "<br/>");
+
                         outputLines.push(detailsHtml);
+                        outputLines.push("\n");
+                        // console.log("**************");
+                        console.log({detailsHtml});
                     } else {
                         outputLines.push(line);
                         i++;
