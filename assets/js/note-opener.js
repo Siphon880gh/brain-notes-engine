@@ -603,7 +603,7 @@ function openNote(id) {
             
                         // intercept text copying - passed in text return text out
                         onBeforeCodeCopied: function(text) {                
-                            text = "$$$ " + text;
+                            // text = "$$$ " + text;
                             return text;
                         }
                     };
