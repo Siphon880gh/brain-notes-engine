@@ -439,6 +439,9 @@ function openNote(id) {
                             .use(window.markdownItAnchor);
                         content = md.render(content);
 
+                        // Highlight code blocks
+                        content = hljs.highlight(content).value;
+
                         let detailsHtml = `\n<details>\n<summary>${summaryText}</summary>\n<div class="border ml-3 p-1">${content}<br/></div>\n</details>\n`;
                         // detailsHtml = detailsHtml.replaceAll("\n", "<br/>");
 
@@ -456,6 +459,7 @@ function openNote(id) {
             }  // convertNotesToDetails
 
             summary = convertNotesToDetails(summary);
+            
 
             var summaryHTML = md.render(summary);
 
@@ -571,6 +575,8 @@ function openNote(id) {
 
             // Load any persistent settings for images and Youtube embeds
             loadAnyPersistentNoteConfigs();
+
+            hljs.highlightAll();
             
         }) // fetch md
 }; // openNote

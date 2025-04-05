@@ -157,12 +157,12 @@ td, th {
   border-color: white;
 }
 
-#summary-inner pre {
+/* #summary-inner pre {
   white-space: break-spaces;
   color: white;
   background-color: #969696;
   margin: 10px;
-}
+} */
 
 #summary-inner img {
   max-width: calc(100% - 40px);
