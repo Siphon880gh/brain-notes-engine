@@ -581,7 +581,34 @@ function openNote(id) {
             loadAnyPersistentNoteConfigs();
 
             try {
-                hljs.highlightAll();
+                // hljs.highlightAll();
+
+                setTimeout(function () {
+                    var pres = document.querySelectorAll("pre>code");
+                    for (var i = 0; i < pres.length; i++) {
+                        hljs.highlightBlock(pres[i]);
+                    }
+                    var options = {
+                        contentSelector: ".container",
+                        // Delay in ms used for `setTimeout` before badging is applied
+                        // Use if you need to time highlighting and badge application
+                        // since the badges need to be applied afterwards.
+                        // 0 - direct execution (ie. you handle timing
+                        loadDelay:0,
+            
+                        // CSS class(es) used to render the copy icon.
+                        copyIconClass: "fa fa-copy",
+                        // CSS class(es) used to render the done icon.
+                        checkIconClass: "fa fa-check text-success",
+            
+                        // intercept text copying - passed in text return text out
+                        onBeforeCodeCopied: function(text) {                
+                            text = "$$$ " + text;
+                            return text;
+                        }
+                    };
+                    window.highlightJsBadge(options);
+                },10);
             } catch(e) {
                 console.log("Error highlighting code blocks", e);
             }

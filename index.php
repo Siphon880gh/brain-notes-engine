@@ -40,18 +40,19 @@
     <!-- Designer: FontAwesome -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.9.0/css/all.min.css">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-    tailwind.config = {
-        corePlugins: {
-            preflight: false
-        }
-    }
-    </script>
+    <!-- Designer: Tailwind CSS -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/components.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/utilities.min.css">
 
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Highlight.js -->
+    <!-- default.min.css, dark.min.css -->
+    <link rel="stylesheet" href="https://unpkg.com/highlightjs@9.16.2/styles/dark.css">
+    <script src="https://unpkg.com/highlightjs@9.16.2/highlight.pack.min.js"></script>
+
+    <!-- Highlight.js Badge -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs-badge@0.1.9/highlightjs/styles/dark.css">
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
 
     <!-- <_php echo("./game-init.php"); _> -->
 
