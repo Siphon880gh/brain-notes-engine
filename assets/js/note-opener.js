@@ -440,7 +440,11 @@ function openNote(id) {
                         content = md.render(content);
 
                         // Highlight code blocks
-                        content = hljs.highlight(content).value;
+                        try {
+                            content = hljs.highlight(content).value;
+                        } catch(e) {
+                            console.log("Error highlighting code blocks", e);
+                        }
 
                         let detailsHtml = `\n<details>\n<summary>${summaryText}</summary>\n<div class="border ml-3 p-1">${content}<br/></div>\n</details>\n`;
                         // detailsHtml = detailsHtml.replaceAll("\n", "<br/>");
@@ -576,7 +580,11 @@ function openNote(id) {
             // Load any persistent settings for images and Youtube embeds
             loadAnyPersistentNoteConfigs();
 
-            hljs.highlightAll();
+            try {
+                hljs.highlightAll();
+            } catch(e) {
+                console.log("Error highlighting code blocks", e);
+            }
             
         }) // fetch md
 }; // openNote
