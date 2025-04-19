@@ -164,8 +164,9 @@ td, th {
   margin: 10px;
 } */
 
-#summary-inner img {
+#summary-inner .img-wrapper img {
   max-width: calc(100% - 40px);
+  max-height: 80vh;
   height: auto;
   object-fit: contain;
 }
