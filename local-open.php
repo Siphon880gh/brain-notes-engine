@@ -1,12 +1,6 @@
 <?php
 $id = isset($_GET["id"]) ? intval($_GET["id"]) : null;
 
-// Check if 'id' is provided
-if ($id === null) {
-    echo "No id provided.";
-    exit;
-}
-
 // Load and decode the JSON file
 $jsonFile = 'cachedResData.json';
 $jsonData = json_decode(file_get_contents($jsonFile), true);
@@ -33,7 +27,10 @@ if ($result !== null) {
     // echo json_encode($result);
     $_GET['filepath'] = $result['path'];
 } else {
-    echo "No matching record found for id: " . $id;
+echo "title: ERROR
+html: |
+No matching record found for id: " . id;
+    die();
 }
 
 
