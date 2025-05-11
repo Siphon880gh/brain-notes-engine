@@ -28,26 +28,36 @@
         <img class="my-badge" src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg"
             alt="Buy Me A Coffee donate button"></a>
 
+
 </div>
 <br />
 
-<p>I've always dreamed of creating that million-dollar app idea. I've developed apps for clients and pursued personal
-    projects across various programming languages and tech ecosystems. I have a passion for 3D modeling, game
-    development, and AI, all while having a previous career in healthcare. My interests are wide-ranging, which I
-    believe might lead me to uncover a unique niche in the market. These are notes along my journey of entrepreneurship,
-    and hopefully they will inspire me with ideas later down the road. If you're developing a tech venture and want to
-    chat about it, please don't hesitate to <a href="https://wengindustry.com/me/contact" target="_blank">reach out</a>.
-</p>
-</p>
-<p>If you know how to use Github, you can contribute to notes at <a href="https://github.com/Siphon880gh/bizbrain"
-        target="_blank">Weng's Business Brain</a>.
+
+<h4>For Hire Part-Time / Full-Time / Contract</h4>
+<p>You can see my passion in programming from my notes. I wrote these notes sometimes as I learned but often because I
+    wanted to share my passion for programming with the world. As time went by I accrued hundreds of notes. See if we
+    are a match: <a href="https://www.wengindustry.com/me/contact" target="_blank">contact me</a> and checkout <a
+        target="_blank" href="https://www.wengindustry.com"> my projects</a></p>
+
+<h4>Consider Internship or Trial Period</h4>
+<p>
+    Do some areas look incomplete in my notes? I am passionate about this world. If you see an area I could grow that
+    your company has their feet in, we can discuss an intern position, trial position, a lowered rate, or a hiring
+    opportunity: <a href="https://www.wengindustry.com/me/contact" target="_blank">Contact me</a>.
 </p>
 
-
-<!-- <p>Advanced use: You can search for specific topics by their name or any string in the lesson
+<!-- V2 -->
+<!-- <p>Collection of programming and guides that I curated and wrote. Each folder is a concept. Each nested folder is a deeper concept. This tool shows those folders of information such as openable links and/or your own html code and/or document files and/or images, as well as your own summary that lets you jump to other concepts.
+                </p>
+                <p>All the lessons here are guides that get you started on the language and may have fundamentals or often used code. You can contribute to the knowledge at my <a
+                        href="https://github.com/Siphon880gh/devbrain" target="_blank">Developer Notes</a>.
+                </p>
+                <p>Advanced use: You can search for specific topics by their name or any string in the lesson
                     content with searchboxes below. You can search by topic in the URL query: <a
                         href="?search-titles=es6">?search-titles=e6</a> then bookmark.</p> -->
 
+
+<!-- V1 -->
 <!-- <p>Learn new programming languages by retyping them or rearranging lines of code with immediate
                         visual feedback so you can learn through trial and error.  -->
 <!-- Instead of picking a lesson, you can
