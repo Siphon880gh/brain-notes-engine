@@ -1,1 +1,1 @@
-<meta name="description" content="Everything on coding - web development, mobile development, game development, data science, AI and related fields - in bite size guides, code snippets and references. All here in one place for programmers of all levels.">
+<meta name="description" content="Collection of SaaS tech entrepreneur notes. The goal is to record what I learn as I start tech businesses, read business books, meet with entrepreneurs, etc. I want to leverage what I know from software development into my own startups.">

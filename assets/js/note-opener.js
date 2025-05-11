@@ -432,11 +432,11 @@ function openNote(id) {
                         }
 
                         let content = contentLines.join('\n');
-                        var md = window.markdownit({
-                            html: true,
-                            linkify: true
-                        }).use(window.MarkdownItLatex)
-                            .use(window.markdownItAnchor);
+                        // var md = window.markdownit({
+                        //     html: true,
+                        //     linkify: true
+                        // }).use(window.MarkdownItLatex)
+                        //     .use(window.markdownItAnchor);
                         content = md.render(content);
 
                         // Highlight code blocks
@@ -464,6 +464,14 @@ function openNote(id) {
 
             summary = convertNotesToDetails(summary);
             
+            // Add your text transformations here
+            if(summary) {
+                summary = (function yourTextTransformation(text) {
+                    // Replace $...$ with @...@ for LaTeX content, preserving surrounding whitespace
+                    text = text.replace(/(\s|^)\$([^$]+)\$(\s|$)/g, '$1`@$2@`$3');
+                    return text;
+                })(summary);
+            }
 
             var summaryHTML = md.render(summary);
 
