@@ -855,3 +855,9 @@ button {
 #side-b {
   width: calc(100vw - 50px);
 }
+
+@media screen and (max-width: 768px) {
+  .code-badge-language {
+    display: none;
+  }
+}
