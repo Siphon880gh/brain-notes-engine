@@ -393,6 +393,12 @@ summary {
   display: none !important;
 }
 
+@media screen and (min-width: 768px) {
+  #mobile-tap::after {
+    content: "\00a0TOC";
+  }
+}
+
 #mobile-tap.active + #toc {
   display: block;
 }

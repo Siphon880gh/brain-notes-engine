@@ -88,7 +88,7 @@
 
 <body>
     <div id="toc-toggler">
-        <div id="mobile-tap">📖 TOC</div>
+        <div id="mobile-tap">📖</div>
         <div id="toc"></div>
     </div>
     
