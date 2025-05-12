@@ -517,6 +517,14 @@ summary {
   margin-left: 25px;
 }
 
+@media screen and (max-width: 768px) {
+  #side-a {
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 0;
+  }
+}
+
 #summary-left-bar {
   position: absolute;
   height: calc(100% + 50px + 10px);
