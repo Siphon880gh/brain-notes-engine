@@ -185,10 +185,6 @@ td, th {
   justify-content: flex-start;
 }
 
-#summary-inner .img-wrapper .centered {
-  /* margin-left: auto; */
-  /* margin-right: auto; */
-}
 
 /* #summary-inner .img-wrapper img {
   height: max-content;
@@ -601,6 +597,7 @@ summary {
 /** Stop ios making buttons rounded **/
 .override-ios-button-style {
   -webkit-appearance: none !important;
+  appearance: none !important;
   -webkit-border-radius: 0 !important;
   border-radius: 0 !important;
   /* color: red; */
