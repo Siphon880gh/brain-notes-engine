@@ -51,18 +51,6 @@ body {
   letter-spacing: 0.5px;
 }
 
-/* Table cell alignment and borders */
-table {
-  border-collapse: collapse;
-}
-td, th {
-  vertical-align: top;
-  text-align: left;
-  padding: 4px;
-  border: 1px solid #ddd;
-}
-
-
 /* Styling classes (utility classes) */
 .clickable {
   color: gray;
@@ -103,7 +91,7 @@ td, th {
 
 #title {
   text-align: center;
-  margin: 2rem 0 0 0;
+  margin-top: 2rem;
   color: black !important;
 }
 
@@ -124,71 +112,37 @@ td, th {
   padding-right: 5px;
 }
 
-#summary-inner { 
-  margin: 0 auto; 
-  margin-bottom: 20px !important; 
-}
-
-@media (max-width: 575px) {
-  #summary-inner { width: 100%; }
-}
-
-@media (min-width: 576px) and (max-width: 767px) {
-  #summary-inner { width: 85%; max-width: 540px; }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  #summary-inner { width: 75%; max-width: 720px; }
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-  #summary-inner { width: 65%; max-width: 960px; }
-}
-
-@media (min-width: 1200px) and (max-width: 1399px) {
-  #summary-inner { width: 50%; max-width: 1140px; }
-}
-
-@media (min-width: 1400px) {
-  #summary-inner { width: 33%; max-width: 1040px; }
-}
-
 #summary-inner textarea {
   border-color: white;
 }
 
-/* #summary-inner pre {
+#summary-inner pre {
   white-space: break-spaces;
   color: white;
   background-color: #969696;
   margin: 10px;
-} */
+}
 
-#summary-inner .img-wrapper img {
+#summary-inner img {
   max-width: calc(100% - 40px);
-  max-height: 80vh;
-  height: auto;
-  object-fit: contain;
 }
 
 #summary-inner .img-wrapper img.state-1 {
-  max-width: 75%;
-}
-#summary-inner .img-wrapper:has(img.state-1) {
-  justify-content: center;
+  width: 75%;
 }
 
 #summary-inner .img-wrapper img.state-2 {
-  max-width: 50%;
-}
-#summary-inner .img-wrapper:has(img.state-2) {
-  justify-content: flex-start;
+  width: 50%;
 }
 
+#summary-inner .img-wrapper .centered {
+  margin-left: auto;
+  margin-right: auto;
+}
 
-/* #summary-inner .img-wrapper img {
+#summary-inner .img-wrapper img {
   height: max-content;
-} */
+}
 
 #summary-inner .img-wrapper .responsive-iframe-container.state-1 iframe {
   width: 75vh;
@@ -283,10 +237,6 @@ td, th {
   margin-top: 5px;
 }
 
-summary {
-  cursor: pointer;
-}
-
 #dashboard:not(.active) {
   display: none;
 }
@@ -340,23 +290,22 @@ summary {
   position: fixed;
   bottom: 0;
   right: 0;
-  /* padding-right: 0 20px 0 20px; */
-  padding: 4px;
+  padding-right: 20px;
   background-color: white;
   z-index: 500;
-  /* width: 100%; */
+  width: 100%;
   text-align: right;
-  /* height: 60px; */
+  height: 60px;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
 }
 
-/* @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
   #jump-curriculum {
     padding: 10px 10px 10px 10px;
   }
-} */
+}
 #toc-toggler:not(.filled) {
   display: none;
 }
@@ -389,12 +338,6 @@ summary {
   display: none !important;
 }
 
-@media screen and (min-width: 768px) {
-  #mobile-tap::after {
-    content: "\00a0TOC";
-  }
-}
-
 #mobile-tap.active + #toc {
   display: block;
 }
@@ -409,7 +352,7 @@ summary {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: clip;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 #toc .h2 {
@@ -495,18 +438,6 @@ summary {
   flex-grow: 1;
   min-width: 33%;
 }
-@media screen and (max-width: 768px) {
-  .more-notes .mn-links {
-    align-items: flex-start;
-  }
-  .more-notes .mn-links li {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    height: 70px;
-    width: 25vw;
-  }
-}
 
 /* UI UX: Left vertical green bar to collapse lesson */
 #summary-outer {
@@ -517,14 +448,6 @@ summary {
   border: 1px solid gray;
   padding: 2px;
   margin-left: 25px;
-}
-
-@media screen and (max-width: 768px) {
-  #side-a {
-    border-right: 0;
-    border-top: 0;
-    border-bottom: 0;
-  }
 }
 
 #summary-left-bar {
@@ -597,7 +520,6 @@ summary {
 /** Stop ios making buttons rounded **/
 .override-ios-button-style {
   -webkit-appearance: none !important;
-  appearance: none !important;
   -webkit-border-radius: 0 !important;
   border-radius: 0 !important;
   /* color: red; */
@@ -851,10 +773,4 @@ button {
 
 #side-b {
   width: calc(100vw - 50px);
-}
-
-@media screen and (max-width: 768px) {
-  .code-badge-language {
-    display: none;
-  }
 }

@@ -38,19 +38,3 @@
     <a target="_blank" href="https://wengindustry.com">Weng</a> will keep adding to this knowledge brain because he
     wants to know all the tech fields in order to find new opportunities as an entrepreneur.
 </p>
-<!-- <p>Learn new programming languages by retyping them or rearranging lines of code with immediate
-        visual feedback so you can learn through trial and error.  -->
-<!-- Instead of picking a lesson, you can
-        <a href="javascript:void();"
-            onclick="event.preventDefault(); $('#retype-container, #rearrange-container').removeClass('hide'); document.querySelector('#retype-container').scrollIntoView();">go
-        right to practicing.</a> -->
-<!-- </p>
-    <p>All the lessons here are guides that get you started on the language and may have fundamentals or
-        often used code. You can contribute to the knowledge at my <a
-            href="https://github.com/Siphon880gh/devbrain" target="_blank">Coding Snippets
-            and Guides</a>.
-    </p>
-    <p>Advanced use: You can search for specific topics by their name or any string in the lesson
-        content with searchboxes below. You can search by topic in the URL query: <a
-            href="?search-titles=es6">?search-titles=e6</a> then bookmark.
-    </p> -->
