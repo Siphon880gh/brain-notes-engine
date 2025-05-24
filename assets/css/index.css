@@ -2,6 +2,7 @@
 /* General Styling */
 body {
   padding-bottom: 20px;
+  margin: 0;
 }
 
 /* Testing zoom levels on mobiles. Non-standard / Experimental */

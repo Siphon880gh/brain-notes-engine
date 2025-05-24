@@ -87,7 +87,11 @@
 </head>
 
 <body>
-    <div id="toc-toggler">
+    <div class="bg-yellow-300 w-full py-2 text-center opacity-80 relative">
+        <button class="absolute right-0 top-0 -translate-y-1/2 bg-transparent" onclick="this.parentElement.remove();">×</button>
+        View Weng's work or hire him → <a target="_blank" href="https://wengindustries.com" class="text-blue-500 underline font-semibold">WengIndustries.com</a>
+    </div>
+    <div id="toc-toggler" class="mt-10">
         <div id="mobile-tap">📖</div>
         <div id="toc"></div>
     </div>
