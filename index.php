@@ -88,10 +88,10 @@
 
 <body>
     <div class="bg-yellow-300 w-full py-2 text-center opacity-80 relative" class="bg-yellow-300 w-full py-2 text-center opacity-80 relative" onmouseleave="setTimeout(()=> { this.style.height=0; this.style.padding=0; }, 2000);" style="transition: height 2s; overflow: clip;">
-        <button class="absolute right-2 top-0 -translate-y-1/2 bg-transparent text-2xl" onclick="this.parentElement.remove();">×</button>
+        <button class="absolute right-2 top-0 -translate-y-1/2 bg-transparent text-2xl opacity-60" onclick="this.parentElement.remove();">×</button>
         View Weng's work or hire him → <a target="_blank" href="https://wengindustries.com" class="text-blue-500 underline font-semibold">WengIndustries.com</a>
     </div>
-    <div id="toc-toggler" class="mt-10">
+    <div id="toc-toggler">
         <div id="mobile-tap">📖</div>
         <div id="toc"></div>
     </div>

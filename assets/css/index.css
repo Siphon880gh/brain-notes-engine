@@ -2,7 +2,6 @@
 /* General Styling */
 body {
   padding-bottom: 20px;
-  margin: 0;
 }
 
 /* Testing zoom levels on mobiles. Non-standard / Experimental */
@@ -277,7 +276,7 @@ body {
 #toc-toggler {
   cursor: pointer;
   position: fixed;
-  top: 0;
+  top: 10px;
   right: 10px;
   padding-left: 10px;
   padding-right: 10px;
@@ -354,6 +353,7 @@ body {
   white-space: nowrap;
   overflow: clip;
   font-size: 1.2rem;
+  margin-bottom: 5px;
 }
 
 #toc .h2 {
@@ -783,7 +783,8 @@ table {
   border: 1px solid #ccc;
 }
 
-th, td {
+th,
+td {
   border: 1px solid #ccc;
   padding: 8px 12px;
   text-align: left;
@@ -797,3 +798,27 @@ tr:nth-child(even) {
   background-color: #fafafa;
 }
 
+/* Heading sizes */
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+h4 {
+  font-size: 1rem;
+}
+
+h5 {
+  font-size: 0.875rem;
+}
+
+h6 {
+  font-size: 0.75rem;
+}
