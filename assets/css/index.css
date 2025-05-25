@@ -916,3 +916,18 @@ h6 {
 .image-modal .close-button:hover {
   background: rgba(0, 0, 0, 0.8);
 }
+
+#toc .toc-link {
+    text-decoration: none;
+    color: #666;
+    transition: color 0.2s ease;
+}
+
+#toc .toc-link:hover {
+    color: #000;
+}
+
+#toc .toc-link.active {
+    color: #000;
+    font-weight: bold;
+}

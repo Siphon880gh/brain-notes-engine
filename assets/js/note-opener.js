@@ -64,8 +64,8 @@ function setTableOfContents(tocEl, markdownContentEl) {
     var headings = [].slice.call(markdownContentEl.querySelectorAll('h1, h2, h3, h4, h5, h6'));
     tocEl.innerHTML = "";
 
-    // var debuggingHeadings = "";
-    // alert(headings.length)
+    // Create a map to store heading elements and their corresponding TOC links
+    const headingToLinkMap = new Map();
 
     headings.forEach(function (heading, i) {
         // ref is either generic (toc-1) or the jump link of the subheading
@@ -75,7 +75,6 @@ function setTableOfContents(tocEl, markdownContentEl) {
         else
             heading.setAttribute("id", ref);
 
-        // alert(ref)
         var link = document.createElement("a");
         link.setAttribute("href", "#" + ref);
         link.textContent = heading.textContent;
@@ -99,6 +98,9 @@ function setTableOfContents(tocEl, markdownContentEl) {
 
         div.appendChild(link);
         tocEl.appendChild(div);
+
+        // Store the mapping between heading and its TOC link
+        headingToLinkMap.set(heading, link);
     });
 
     if (headings.length) {
@@ -106,7 +108,28 @@ function setTableOfContents(tocEl, markdownContentEl) {
     } else {
         document.querySelector('#toc-toggler').classList.remove('filled')
     }
-    // console.log(debuggingHeadings)
+
+    // Set up Intersection Observer to track which headings are in view
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const heading = entry.target;
+            const link = headingToLinkMap.get(heading);
+            
+            if (entry.isIntersecting) {
+                // Remove active class from all links
+                tocEl.querySelectorAll('.toc-link').forEach(l => l.classList.remove('active'));
+                // Add active class to current link
+                link.classList.add('active');
+            }
+        });
+    }, {
+        // Adjust these values to control when a heading is considered "in view"
+        rootMargin: '-20% 0px -80% 0px',
+        threshold: 0
+    });
+
+    // Start observing all headings
+    headings.forEach(heading => observer.observe(heading));
 } // setTableOfContents
 
 /**
