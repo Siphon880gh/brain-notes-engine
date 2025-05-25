@@ -843,3 +843,25 @@ button {
 #side-b {
     width: calc(100vw - #{$subtractWide});
 }
+
+
+/* Table Styling */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ccc;
+  }
+  
+  th, td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f4f4f4;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #fafafa;
+  }  
