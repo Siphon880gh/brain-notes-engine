@@ -127,12 +127,8 @@ body {
   max-width: calc(100% - 40px);
 }
 
-#summary-inner .img-wrapper img.state-1 {
-  width: 75%;
-}
-
 #summary-inner .img-wrapper img.state-2 {
-  width: 50%;
+  transform: scale(0.5);
 }
 
 #summary-inner .img-wrapper .centered {
@@ -360,37 +356,37 @@ body {
   margin-bottom: 0;
 }
 #toc .h1.toc-group-end {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 #toc .h2 {
   margin-bottom: 0;
 }
 #toc .h2.toc-group-end {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 #toc .h3 {
   margin-bottom: 0;
 }
 #toc .h3.toc-group-end {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 #toc .h4 {
   margin-bottom: 0;
 }
 #toc .h4.toc-group-end {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 #toc .h5 {
   margin-bottom: 0;
 }
 #toc .h5.toc-group-end {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 #toc .h6 {
   margin-bottom: 0;
 }
 #toc .h6.toc-group-end {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 #toc .h2 {
@@ -486,6 +482,20 @@ body {
   border: 1px solid gray;
   padding: 2px;
   margin-left: 25px;
+}
+#side-a img {
+  max-width: 800px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+#side-a img:hover {
+  transform: scale(1.01);
 }
 
 #summary-left-bar {
@@ -858,4 +868,51 @@ h5 {
 
 h6 {
   font-size: 0.75rem;
+}
+
+/* Responsive images */
+.image-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  cursor: pointer;
+}
+.image-modal.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image-modal img {
+  max-width: 90%;
+  max-height: 90vh;
+  object-fit: contain;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+  cursor: default;
+}
+.image-modal .close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  z-index: 1001;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+.image-modal .close-button:hover {
+  background: rgba(0, 0, 0, 0.8);
 }

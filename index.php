@@ -354,6 +354,7 @@
     <script src="assets/js/searchers.js"></script>
     <!-- <script src="assets/js/game.js"></script> -->
 
+    <script src="./assets/js/image-modal.js"></script>
 </body>
 
 </html>

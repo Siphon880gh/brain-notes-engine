@@ -124,48 +124,6 @@ function scrollWithOffset(element, offset = -70) {
     }, { once: true });
 } // scrollWithOffset
 
-
-/**
- * User had clicked to apply the settings to all in the note and future notes
- */
-function applyAndSaveNewPersistentNoteConfigs(type) {
-    // Function to update localStorage based on element classes
-    function updateLocalStorageFromElement(storageKey, selector) {
-        var element = document.querySelector(selector);
-        if (element) {
-            var classes = element.classList;
-            var value = localStorage.getItem(storageKey) || '';
-
-            // Split the existing localStorage value into a Set to avoid duplicates
-            var settings = new Set(value.split(' '));
-
-            // Update settings based on the element's classes
-            ['centered', 'state-1', 'state-2'].forEach(function (cls) {
-                if (classes.contains(cls)) {
-                    settings.add(cls);  // Add the class if it's present on the element
-                } else {
-                    settings.delete(cls);  // Remove the class if it's not present
-                }
-            });
-
-            // Save the updated settings back to localStorage
-            localStorage.setItem(storageKey, Array.from(settings).join(' ').trim());
-        }
-    }
-
-    switch(type) {
-        case "img":
-            // Update 'wi__brain__img' based on '.img-wrapper > img'
-            updateLocalStorageFromElement('wi__brain__img', '.img-wrapper > img');
-            break;
-        case "yt":
-            // Update 'wi__brain__yt' based on '.img-wrapper > .responsive-iframe-container'
-            updateLocalStorageFromElement('wi__brain__yt', '.img-wrapper > .responsive-iframe-container');
-            break;
-    }
-} // applyAndSaveNewPersistentNoteConfigs
-
-
 /**
  * New note is loaded. Check if any settings for img or youtube iframes have been saved to apply to all persistently
  */
@@ -239,7 +197,7 @@ function enhanceWithImageButtons(img, type) {
 
     // Add the icons
     const icon1 = document.createElement('i');
-    icon1.className = 'fas fa-columns clickable';
+    icon1.className = 'fas fa-search-plus clickable';
     icon1.onclick = (event) => {
         const imgWrapper = event.target.closest(".img-wrapper")
         // const img = imgWrapper.querySelector("img");
@@ -300,35 +258,6 @@ function enhanceWithImageButtons(img, type) {
         scrollWithOffset(nextLine);
     } // icon3
     iconGroupB.appendChild(icon3);
-
-    const icon4 = document.createElement('i');
-    icon4.className = 'fas fa-reply-all clickable text-sm';
-    icon4.onclick = (event) => {
-        const notePanel = document.querySelector("#summary-inner");
-        var confirmed = confirm("Apply the same settings to all? Will carry over to future notes as well.");
-
-        const clickedType = event.target.getAttribute("data-type");
-        // debugger;
-        switch(clickedType) {
-            case "img":
-                applyAndSaveNewPersistentNoteConfigs("img");
-                break;
-                case "yt":
-                applyAndSaveNewPersistentNoteConfigs("yt");
-                break;
-        }
-
-    } // icon4
-    
-    switch(type) {
-        case "img":
-            icon4.setAttribute("data-type", "img");
-            break;
-        case "yt":
-            icon4.setAttribute("data-type", "yt");
-            break;
-    }
-    iconGroupC.appendChild(icon4);
 
     // Append the icon div as a sibling to the image's wrapper div
     iconContainer.append(iconGroupA);
@@ -592,6 +521,9 @@ function openNote(id) {
 
             // Load any persistent settings for images and Youtube embeds
             loadAnyPersistentNoteConfigs();
+
+            // Dispatch noteOpened event
+            document.dispatchEvent(new Event('noteOpened'));
 
             try {
                 // hljs.highlightAll();
