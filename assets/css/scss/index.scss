@@ -385,6 +385,20 @@ body {
     white-space: nowrap;
     overflow: clip;
     font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+#toc {
+    @for $i from 1 through 6 {
+      .h#{$i} {
+        margin-bottom: 0; // default
+  
+        // Add modifier class to support optional styling
+        &.toc-group-end {
+          margin-bottom: 15px;
+        }
+      }
+    }
 }
 
 #toc .h2 {

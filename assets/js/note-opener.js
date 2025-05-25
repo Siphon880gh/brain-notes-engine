@@ -92,6 +92,11 @@ function setTableOfContents(tocEl, markdownContentEl) {
         var div = document.createElement("div");
         div.classList.add(heading.tagName.toLowerCase());
 
+        // Add toc-group-end class if this is the last heading of its type before a different type
+        if (i < headings.length - 1 && heading.tagName !== headings[i + 1].tagName) {
+            div.classList.add("toc-group-end");
+        }
+
         div.appendChild(link);
         tocEl.appendChild(div);
     });

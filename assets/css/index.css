@@ -276,7 +276,7 @@ body {
 #toc-toggler {
   cursor: pointer;
   position: fixed;
-  top: 10px;
+  top: 0;
   right: 10px;
   padding-left: 10px;
   padding-right: 10px;
@@ -354,6 +354,43 @@ body {
   overflow: clip;
   font-size: 1.2rem;
   margin-bottom: 5px;
+}
+
+#toc .h1 {
+  margin-bottom: 0;
+}
+#toc .h1.toc-group-end {
+  margin-bottom: 10px;
+}
+#toc .h2 {
+  margin-bottom: 0;
+}
+#toc .h2.toc-group-end {
+  margin-bottom: 10px;
+}
+#toc .h3 {
+  margin-bottom: 0;
+}
+#toc .h3.toc-group-end {
+  margin-bottom: 10px;
+}
+#toc .h4 {
+  margin-bottom: 0;
+}
+#toc .h4.toc-group-end {
+  margin-bottom: 10px;
+}
+#toc .h5 {
+  margin-bottom: 0;
+}
+#toc .h5.toc-group-end {
+  margin-bottom: 10px;
+}
+#toc .h6 {
+  margin-bottom: 0;
+}
+#toc .h6.toc-group-end {
+  margin-bottom: 10px;
 }
 
 #toc .h2 {
