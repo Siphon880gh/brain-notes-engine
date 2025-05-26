@@ -11,13 +11,17 @@ function initializeImageModal() {
         modal = document.createElement('div');
         modal.className = 'image-modal';
         
+        const closeButtonWrapper = document.createElement('div');
+        closeButtonWrapper.className = 'close-button';
+
         const closeButton = document.createElement('div');
-        closeButton.className = 'close-button';
+        closeButton.style.transform = 'translateY(-2.5px)';
         closeButton.innerHTML = '×';
+        closeButtonWrapper.appendChild(closeButton);
         
         const modalImage = document.createElement('img');
         modal.appendChild(modalImage);
-        modal.appendChild(closeButton);
+        modal.appendChild(closeButtonWrapper);
         document.body.appendChild(modal);
 
         // Close modal when clicking the close button or outside the image
