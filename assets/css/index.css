@@ -104,6 +104,9 @@ body {
 #summary-title-wrapper {
   font-size: 1.3625em !important;
   font-weight: bold;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 #summary-title {
@@ -277,9 +280,7 @@ body {
 /* Table of contents at top right */
 #toc-toggler {
   cursor: pointer;
-  position: fixed;
-  top: 0;
-  right: 25px;
+  margin-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
   background-color: transparent;
@@ -315,9 +316,9 @@ body {
 #toc {
   display: none;
   position: fixed;
-  top: 20px;
+  top: 55px;
   right: 0;
-  padding: 40px;
+  padding: 20px;
   background-color: white;
   line-height: 1.5rem;
   font-size: 1rem;
@@ -490,7 +491,6 @@ body {
   margin-left: 25px;
 }
 #side-a img {
-  max-width: 800px;
   height: auto;
   display: block;
   margin: 1.5rem auto;
@@ -503,6 +503,16 @@ body {
   transform: scale(1.01);
 }
 
+@media screen and (max-width: 768px) {
+  #side-a {
+    border: 0 !important;
+  }
+}
+@media screen and (min-width: 768px) {
+  #side-a img {
+    max-width: 800px;
+  }
+}
 #summary-left-bar {
   position: absolute;
   height: calc(100% + 50px + 10px);
@@ -638,11 +648,15 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-  ol ol,
-  ol ul,
-  ul ol,
-  ul ul {
-    padding-inline-start: 5px !important;
+  #explorer ol ol,
+  #explorer ol ul,
+  #explorer ul ol,
+  #explorer ul ul {
+    padding-inline-start: 10px !important;
+  }
+
+  #explorer li {
+    padding: 5px 0;
   }
 }
 dt:not(:first-child),
@@ -824,6 +838,11 @@ button {
   width: calc(100vw - 50px);
 }
 
+@media screen and (max-width: 768px) {
+  #side-a {
+    width: calc(100vw - 25px);
+  }
+}
 #side-b {
   width: calc(100vw - 50px);
 }

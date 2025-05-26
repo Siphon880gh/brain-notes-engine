@@ -88,12 +88,8 @@
 
 <body>
     <div class="bg-yellow-300 w-full py-2 text-center opacity-80 relative" class="bg-yellow-300 w-full py-2 text-center opacity-80 relative" onmouseleave="setTimeout(()=> { this.style.height=0; this.style.padding=0; }, 2000);" style="transition: height 2s; overflow: clip;">
-        <button class="absolute right-7 top-0 -translate-y-1/2 bg-transparent text-2xl opacity-60" onclick="this.parentElement.remove();">×</button>
+        <button class="absolute right-4 top-0 -translate-y-1/2 bg-transparent text-2xl opacity-60" onclick="this.parentElement.remove();">×</button>
         View Weng's work or hire him → <a target="_blank" href="https://wengindustries.com" class="text-blue-500 underline font-semibold">WengIndustries.com</a>
-    </div>
-    <div id="toc-toggler">
-        <div id="mobile-tap">📖</div>
-        <div id="toc"></div>
     </div>
     
     <div id="jump-curriculum">
@@ -174,10 +170,15 @@
                     <div id="side-a" class="card-body side-by-side-possible mb-4 hidden">
                         <div style="position: sticky; top: 0; left: 0; z-index: 1;">
                             <h2 id="summary-title-wrapper" class="inline cursor-pointer">
-                            <div class="flex flex-row items-center align-center justify-start gap-4 my-2 bg-white">
-                                <span id="summary-collapser">»</span>
-                                <span id="summary-title" onclick="document.querySelector('#summary-collapser').click();"></span>
-                            </div>
+                                <div class="flex flex-row items-center align-center justify-start gap-4 my-2 bg-white">
+                                    <span id="summary-collapser">»</span>
+                                    <span id="summary-title" onclick="document.querySelector('#summary-collapser').click();"></span>
+                                </div>
+
+                                <div id="toc-toggler">
+                                    <div id="mobile-tap">📖</div>
+                                    <div id="toc"></div>
+                                </div>
                             </h2>
                         </div>
                         <div id="summary-outer" style="height: 100%; margin-top: 20px; padding-left: 5px; padding-right: 5px;">
