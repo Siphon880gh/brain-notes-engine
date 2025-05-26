@@ -153,7 +153,7 @@
                 <div id="explore-header" class="card-header p-2 flex flex-wrap justify-between items-center align-center">
                     <h2 class="p-0 m-0 text-center inline"><span class="fas fa-book-reader"></span> Open a lesson</h2>
                     <div class="flex flex-row flex-nowrap gap-4 justify-between items-center align-center">
-                        <button id="get-random-note" class="bg-transparent"><h3>🔀 Random Note</h3></button>
+                        <button id="get-random-note" class="bg-transparent"><h4>🔀 Random Note</h4></button>
                         <span id="summary-sharer" class="text-sm clickable hidden" style="margin-top:-3px;" href="javascript:void(0)" onclick='shareTutorial()'>
                             <span class="fas fa-share-alt"></span>
                         </span>

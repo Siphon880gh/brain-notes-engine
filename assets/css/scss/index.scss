@@ -7,6 +7,11 @@ body {
     padding-bottom: 20px;
 }
 
+
+.container {
+    margin: 0 auto;
+}
+
 /* Testing zoom levels on mobiles. Non-standard / Experimental */
 @media screen AND (max-width: 768px) {
     :root {
@@ -314,8 +319,8 @@ body {
 #jump-curriculum {
     cursor: pointer;
     position: fixed;
-    bottom: 0;
-    right: 0;
+    bottom: env(safe-area-inset-bottom);
+    right: env(safe-area-inset-right);
     padding-right: 20px;
     background-color: white;
     z-index: 500;
@@ -329,7 +334,9 @@ body {
 
 @media screen and (max-width:768px) {
     #jump-curriculum {
-        padding: 10px 10px 10px 10px;
+        width: unset;
+        padding: 5px;
+        height: fit-content;
     }
 }
 
@@ -844,9 +851,9 @@ button {
     padding: 10px;
     margin-bottom: 10px;
     display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    width: 100%;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    gap: 50px;
 }
 
 #explorer-btns button {
@@ -887,8 +894,30 @@ button {
 #explore-header {
     // width: calc(100vw - #{$subtractWide});
     // margin-left: 25px;
-    width: calc(100vw - #{$subtractWide});
+    // width: calc(100vw - #{$subtractWide});
     border-top: 1px dashed lightgray;
+}
+
+@media screen and (max-width: 768px) {
+    #explore-header {
+        width: unset;
+        padding: 10px 30px 0 30px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #explore-header {
+        justify-content: center;
+        flex-flow: column;
+    }
+}
+
+
+#get-random-note * {
+    font-weight: 200;
 }
 
 #side-a {
@@ -903,6 +932,12 @@ button {
 
 #side-b {
     width: calc(100vw - #{$subtractWide});
+}
+
+@media screen and (max-width: 768px) {
+    #side-b {
+        width: 100vw;
+    }
 }
 
 
