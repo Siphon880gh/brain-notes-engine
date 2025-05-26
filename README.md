@@ -14,10 +14,10 @@ Thousands of notes on various topics. This is the frontend that can easily switc
 You can contribute knowledge if you know github. The frontend will update with your notes when I approve.
 
 
-- Contribute Developer notes: [https://github.com/Siphon880gh/devbrain/](https://github.com/Siphon880gh/devbrain/)
-- Contribute 3d notes: [https://github.com/Siphon880gh/3dbrain/](https://github.com/Siphon880gh/3dbrain/)
-- Contribute Business notes: [https://github.com/Siphon880gh/bizbrain/](https://github.com/Siphon880gh/bizbrain/)
-- Contribute Health notes: [https://github.com/Siphon880gh/healthbrain/](https://github.com/Siphon880gh/healthbrain/)
+- Contribute Developer notes: https://github.com/Siphon880gh/devbrain/
+- Contribute 3d notes: https://gitlab.com/Siphon880gl/3dbrain
+- Contribute Business notes: https://gitlab.com/Siphon880gl/bizbrain
+- Contribute Health notes: https://gitlab.com/Siphon880gl/healthbrain
 
 ## Organizing the folders and files
 
@@ -56,6 +56,20 @@ Or you can actually link like this `[[Other note name]]` - if authoring, you sho
 ## Searching snippets
 
 You can search by topic title or contents. The search bars are to the top of the topics explorer. This tool uses pcregrep to search files.
+
+![](README-assets/search.png)
+
+## Templates
+
+To change the layout of your document, add the following YAML frontmatter at the top.
+
+Brain Collection Notes currently supports only one layout option: center. Will add more if people expressed interest.
+
+```
+---
+brain_layout: center
+---
+```
 
 ## Future Features (If requested)
 
