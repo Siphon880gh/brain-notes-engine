@@ -1,19 +1,25 @@
-# Brain: Note Collections
+# Notes Brain Engine
 
 By Weng Fei Fung. 
 
-Thousands of notes on various topics. This is the frontend that can easily switch between hosting developer notes, 3d notes or business notes. NPM scripts are used to switch between different repositories of notes. See this same brain deployed for different knowledge areas:
+A powerful engine for working with thousands of notes across various topics. It reads your folder of Markdown documents, displays them as an organized collection, and enables full-text search across your notes. It also includes a publishing pipeline that transforms your authored notes in Obsidian into a public-facing collection.
 
+Write effortlessly using Obsidian or your preferred Markdown editor—no coding required. With the image-handling pipeline enabled, new local images are automatically uploaded to your image hosting server, eliminating manual steps. The engine also rewrites image paths with a custom URL prefix, making your notes' images ready for web publishing.
+
+![](README-assets/app.png)
+
+The Notes Brain Engine has powered Weng's thousands of notes on coding, 3d animation, business, and health.
 - Developer notes: [http://wengindustry.com/tools/devbrain/](http://wengindustry.com/tools/devbrain/)
 - 3d notes: [http://wengindustry.com/tools/3dbrain/](http://wengindustry.com/tools/3dbrain/)
 - Business notes (Tech Startups): [http://wengindustry.com/tools/bizbrain/](http://wengindustry.com/tools/bizbrain/)
 - Health notes: [http://wengindustry.com/tools/healthbrain/](http://wengindustry.com/tools/healthbrain/)
 
+## Contribute to the Brain Notes Negine
+- Help make the engine even better. Please make sure to describe your pull requests.
+
 ## Contribute knowledge
 
-You can contribute knowledge if you know github. The frontend will update with your notes when I approve.
-
-
+You can contribute knowledge to Weng's notes at:
 - Contribute Developer notes: https://github.com/Siphon880gh/devbrain/
 - Contribute 3d notes: https://gitlab.com/Siphon880gl/3dbrain
 - Contribute Business notes: https://gitlab.com/Siphon880gl/bizbrain
