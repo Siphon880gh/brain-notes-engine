@@ -312,10 +312,15 @@ function openNote(id) {
             console.log('Initial summary (raw):', JSON.stringify(summary));
             console.log('Initial summary length:', summary?.length);
 
+            // Trim any leading/trailing whitespace before checking for frontmatter
+            if (summary) {
+                summary = summary.trim();
+            }
+
             // Extract frontmatter from the HTML content
-            const frontmatterMatch = summary?.match(/\n?---\n([\s\S]*?)\n---/);
+            const frontmatterMatch = summary?.match(/^---\n([\s\S]*?)\n---/);
             console.log('Frontmatter match:', frontmatterMatch);
-            console.log('Frontmatter regex test:', /\n?---\n([\s\S]*?)\n---/.test(summary));
+            console.log('Frontmatter regex test:', /^---\n([\s\S]*?)\n---/.test(summary));
             console.log('First 20 chars of summary:', summary?.substring(0, 20));
             
             const frontmatter = frontmatterMatch ? frontmatterMatch[1] : '';
@@ -335,7 +340,12 @@ function openNote(id) {
 
             // Remove frontmatter from content before processing
             if (frontmatterMatch) {
-                summary = summary.slice(frontmatterMatch[0].length);
+                // Count the number of lines in the frontmatter (including the --- markers)
+                const frontmatterLines = frontmatterMatch[0].split('\n').length;
+                // Split the content into lines
+                const contentLines = summary.split('\n');
+                // Remove the frontmatter lines from the start
+                summary = contentLines.slice(frontmatterLines).join('\n');
                 console.log('Summary after removing frontmatter:', summary);
             }
 
