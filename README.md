@@ -6,7 +6,7 @@ A powerful engine for working with thousands of notes across various topics. It 
 
 Write effortlessly using Obsidian or your preferred Markdown editor—no coding required. With the image-handling pipeline enabled, new local images are automatically uploaded to your image hosting server, eliminating manual steps. The engine also rewrites image paths with a custom URL prefix, making your notes' images ready for web publishing.
 
-![](README-assets/app.png)
+![](README-assets/app-devbrain.png)
 
 The Notes Brain Engine has powered Weng's thousands of notes on coding, 3d animation, business, and health.
 - Developer notes: [http://wengindustry.com/tools/devbrain/](http://wengindustry.com/tools/devbrain/)
