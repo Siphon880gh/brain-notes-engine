@@ -292,12 +292,14 @@ function enhanceWithImageButtons(img, type) {
 /**
  * @function openNote
  * @param {String} id "1"
+ * @param {String} yamlTextish "title: ...\nhtml: ..."
+ * 
  */
 function openNote(id) {
     fetch("local-open.php?id=" + id)
-        .then(response => response.text()).then((yamlText) => {
-            const titleMatch = yamlText.match(/^title:\s*(.*?)\n/);
-            const htmlMatch = yamlText.match(/^html:\s*\|([\s\S]*)/m);
+        .then(response => response.text()).then((yamlTextish) => {
+            const titleMatch = yamlTextish.match(/^title:\s*(.*?)\n/);
+            const htmlMatch = yamlTextish.match(/^html:\s*\|([\s\S]*)/m);
 
             // Extract the title
             let title = titleMatch ? titleMatch[1].replace(/^ {2}/gm, '') : null;
@@ -307,6 +309,35 @@ function openNote(id) {
 
             // Extract and clean up HTML content
             let summary = htmlMatch ? htmlMatch[1].replace(/^ {2}/gm, '') : null;
+            console.log('Initial summary (raw):', JSON.stringify(summary));
+            console.log('Initial summary length:', summary?.length);
+
+            // Extract frontmatter from the HTML content
+            const frontmatterMatch = summary?.match(/\n?---\n([\s\S]*?)\n---/);
+            console.log('Frontmatter match:', frontmatterMatch);
+            console.log('Frontmatter regex test:', /\n?---\n([\s\S]*?)\n---/.test(summary));
+            console.log('First 20 chars of summary:', summary?.substring(0, 20));
+            
+            const frontmatter = frontmatterMatch ? frontmatterMatch[1] : '';
+            console.log('Frontmatter content:', frontmatter);
+            
+            // Parse frontmatter properties
+            const frontmatterProps = {};
+            if (frontmatter) {
+                frontmatter.split('\n').forEach(line => {
+                    const [key, ...valueParts] = line.split(':');
+                    if (key && valueParts.length) {
+                        frontmatterProps[key.trim()] = valueParts.join(':').trim();
+                    }
+                });
+            }
+            console.log('Parsed frontmatter props:', frontmatterProps);
+
+            // Remove frontmatter from content before processing
+            if (frontmatterMatch) {
+                summary = summary.slice(frontmatterMatch[0].length);
+                console.log('Summary after removing frontmatter:', summary);
+            }
 
             parent.document.querySelector(".side-by-side-possible.hidden")?.classList?.remove("hidden");
 
@@ -317,7 +348,9 @@ function openNote(id) {
 
             var md = window.markdownit({
                 html: true,
-                linkify: true
+                linkify: {
+                    encode: true
+                }
             }).use(window.MarkdownItLatex)
                 .use(window.markdownItAnchor, {
                     level: [1, 2, 3, 4, 5, 6], // Apply to all heading levels
@@ -423,11 +456,19 @@ function openNote(id) {
             
             // Add your text transformations here
             if(summary) {
+                // Replace $...$ with @...@ for LaTeX content, preserving surrounding whitespace
                 summary = (function yourTextTransformation(text) {
-                    // Replace $...$ with @...@ for LaTeX content, preserving surrounding whitespace
                     text = text.replace(/(\s|^)\$([^$]+)\$(\s|$)/g, '$1`@$2@`$3');
                     return text;
                 })(summary);
+
+                // Center layout if requested in frontmatter yaml (brain_layout: center)
+                if(frontmatterProps?.brain_layout === "center") {
+                    summary = (function centerLayout(text) {
+                        text = "<center>" + text + "</center>";
+                        return text;
+                    })(summary);
+                }
             }
 
             var summaryHTML = md.render(summary);
@@ -581,6 +622,8 @@ function openNote(id) {
                 console.log("Error highlighting code blocks", e);
             }
             
+            // Make frontmatter properties accessible globally
+            window.currentNoteFrontmatter = frontmatterProps;
         }) // fetch md
 }; // openNote
 
