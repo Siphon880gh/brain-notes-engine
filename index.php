@@ -107,7 +107,7 @@
         <div class="w-full flex gap-4 md:gap-6 flex-col md:flex-row flex-wrap justify-around gap-2">
             <div>
                 <!-- <div><a id="count-notes" href="#explore-curriculum">1457 Notes!</a></div> -->
-                <div><span id="count-notes" href="#explore-curriculum">Loading Notes</span></div>
+                <div><span id="count-notes" href="#explore-curriculum"><i class="fas fa-spinner fa-spin"></i> Loading Notes</span></div>
                 <div class="mt-2">
                     <a class="text-blue-800 no-underline" id="whats-changed" target="_blank" href="<?php echo $commitsURL; ?>" rel="nofollow">Git newest notes</a>
                 </div>
