@@ -138,7 +138,7 @@
 
     </div> <!-- .site-header end -->
 
-    <div class="container">
+    <div class="container-off">
 
         <!-- <_php include("./game-retyper.php"); _> -->
 
