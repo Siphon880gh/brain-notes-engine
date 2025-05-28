@@ -113,6 +113,14 @@ body {
   justify-content: space-between;
 }
 
+#summary-title-wrapper:has(#mobile-tap.active) #summary-title-inner {
+  display: none;
+}
+
+#summary-title-wrapper:has(#mobile-tap.active) {
+  justify-content: flex-end !important;
+}
+
 #summary-title {
   background-color: white;
   opacity: 1;

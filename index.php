@@ -170,7 +170,7 @@
                     <div id="side-a" class="card-body side-by-side-possible mb-4 hidden">
                         <div style="position: sticky; top: 0; left: 0; transform: translateX(-25px); z-index: 1;">
                             <h2 id="summary-title-wrapper" class="inline cursor-pointer">
-                                <div class="flex flex-row items-center justify-start gap-4 my-2 bg-white shadow-md border-b border-gray-200 z-10 rounded-tr-lg rounded-br-lg p-1.5">
+                                <div id="summary-title-inner" class="flex flex-row items-center justify-start gap-4 my-2 bg-white shadow-md border-b border-gray-200 z-10 rounded-tr-lg rounded-br-lg p-1.5">
                                     <span id="summary-collapser">»</span>
                                     <span id="summary-title" onclick="document.querySelector('#summary-collapser').click();"></span>
                                 </div>
