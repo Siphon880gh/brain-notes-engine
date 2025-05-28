@@ -368,13 +368,14 @@ body {
     font-size: 1rem;
     max-width: 90vw;
     /* If long TOC clipped off on mobile */
-    max-height: calc(100vh - 65px);
+    max-height: calc(100vh - 180px);
     overflow-y: scroll;
     z-index: 500;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    // border-top-left-radius: 5px;
+    // border-bottom-left-radius: 5px;
+    border: 1px dashed black;
 }
 
 @media screen AND (min-width: 768px) {
