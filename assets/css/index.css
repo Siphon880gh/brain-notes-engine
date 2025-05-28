@@ -153,6 +153,11 @@ body {
   height: max-content;
 }
 
+@media screen and (max-width: 768px) {
+  #summary-inner .img-wrapper img {
+    height: auto;
+  }
+}
 #summary-inner .img-wrapper .responsive-iframe-container.state-1 iframe {
   width: 80vh;
   height: 80vh;
