@@ -117,19 +117,19 @@
                 <div class="mn-header flex flex-col justify-center text-center font-medium">More<br/>Notebooks</div>
                 <ul class="mn-links flex flex-row justify-between p-0">
 
-                    <li data-hide-if-url-contains="/devbrain/">
+                    <li data-hide-if-url-contains="/devbrain/, codernotes">
                         <a class="text-blue-800" target="_blank" href="https://codernotes.wengindustries.com">💻 Software development / programming / coding</a>
                     </li>
 
-                    <li data-hide-if-url-contains="/bizbrain/">
+                    <li data-hide-if-url-contains="/bizbrain/, biznotes">
                         <a class="text-blue-800" target="_blank" href="https://biznotes.wengindustries.com">💼 Business &<br/>Tech Startups</a>
                     </li>
 
-                    <li data-hide-if-url-contains="/3dbrain/">
+                    <li data-hide-if-url-contains="/3dbrain/, 3dnotes">
                         <a class="text-blue-800" target="_blank" href="https://3dnotes.wengindustries.com">🎮 3d Modeling, Videogame Design,<br/>Video and Photo Editing</a>
                     </li>
 
-                    <li data-hide-if-url-contains="/healthbrain/">
+                    <li data-hide-if-url-contains="/healthbrain/, healthnotes">
                         <a class="text-blue-800" target="_blank" href="https://healthnotes.wengindustries.com">⚕️ Health<br/>Notes</a>
                     </li>
                 </ul>

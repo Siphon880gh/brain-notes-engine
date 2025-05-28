@@ -64,7 +64,8 @@ var app = {
         // Hide brain link that is the current brain
         document.querySelectorAll("[data-hide-if-url-contains]").forEach(el => {
             const willMatchUrlContains = el.getAttribute("data-hide-if-url-contains")
-            const matched = window.location.href.indexOf(willMatchUrlContains) !== -1;
+            const possibleMatches = willMatchUrlContains.split(',').map(s => s.trim());
+            const matched = possibleMatches.some(match => window.location.href.indexOf(match) !== -1);
             if (matched) el.classList.add("hidden")
         });
         document.querySelector(".more-notes").classList.remove("invisible");
