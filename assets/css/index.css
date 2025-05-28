@@ -121,6 +121,11 @@ body {
   justify-content: flex-end !important;
 }
 
+#summary-title-inner:not(:has(#summary-collapser.stated)) {
+  opacity: 0.65;
+  filter: invert(1) grayscale(1);
+}
+
 #summary-title {
   background-color: white;
   opacity: 1;

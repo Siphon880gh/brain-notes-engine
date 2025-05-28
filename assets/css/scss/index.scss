@@ -123,6 +123,11 @@ body {
 #summary-title-wrapper:has(#mobile-tap.active) #summary-title-inner { display: none; }
 #summary-title-wrapper:has(#mobile-tap.active) { justify-content:flex-end !important }
 
+#summary-title-inner:not(:has(#summary-collapser.stated)) {
+    opacity: 0.75;
+    filter: invert(1) grayscale(1);
+}
+
 #summary-title {
     background-color: white;
     opacity: 1;
