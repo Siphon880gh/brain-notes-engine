@@ -499,6 +499,32 @@ body {
   min-width: 33%;
 }
 
+@media screen and (max-width: 768px) {
+  .more-notes:not(.mobile-active) {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 10px;
+  }
+
+  .more-notes:not(.mobile-active)::after {
+    content: "▼ Expand";
+    font-style: italic;
+    font-size: 0.7rem;
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+    opacity: 0.2;
+  }
+
+  .more-notes:not(.mobile-active) .mn-header {
+    transform: unset;
+  }
+
+  .more-notes:not(.mobile-active) .mn-links {
+    display: none !important;
+  }
+}
 /* UI UX: Left vertical green bar to collapse lesson */
 #summary-outer {
   position: relative;
