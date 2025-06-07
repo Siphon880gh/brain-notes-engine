@@ -27,14 +27,17 @@
         target="_blank" title="Donate to this project using Buy Me A Coffee" alt="Paypal">
         <img class="my-badge" src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg"
             alt="Buy Me A Coffee donate button"></a>
-</div>
-<br>
 
-<p>
-    Everything on coding - web development, mobile development, game development, data science, AI and related fields -
-    in bite size guides, code snippets and references. All here in one place for programmers of all levels.
+</div>
+<br />
+
+<p>Collection of SaaS tech entrepreneur notes. The goal is to record what I learn as I start tech businesses, read
+    business books, meet with entrepreneurs, etc. I want to leverage what I know from software development into my own
+    startups.
 </p>
-<p>
-    <a target="_blank" href="https://wengindustry.com">Weng</a> will keep adding to this knowledge brain because he
-    wants to know all the tech fields in order to find new opportunities as an entrepreneur.
+<p>You can contribute to this knowledge if familiar with github: <a href="https://github.com/Siphon880gh/bizbrain"
+        target="_blank">Business Brain</a>.
 </p>
+<p>Advanced use: You can search for specific topics by their name or any string in the lesson
+    content with searchboxes below. You can search by topic in the URL query: <a
+        href="?search-titles=es6">?search-titles=e6</a> then bookmark.</p>

@@ -1,1 +1,1 @@
-Developer Brain - Notes on Coding
+Tech Business Brain - Notes on Startups, SaaS, Entrepreneurship, Funding, etc
