@@ -159,5 +159,7 @@ You can have `brains/brain1`, `brains/brain2`, `brains/brain3` then at the folde
 Then whenever you need to update the brain code, make sure everything is pushed to your Github/Gitlab, and at your remote server or localhost `brains/`, run `npm run pull-brains`, which will run pull at every brain.
 
 ### Icon Attributions
+- API icon on DevBrain is designed by:
+<a href="https://www.vecteezy.com/vector-art/8328554-api-icon-style" class="text-underline font-size-sm" target="_blank">API Icon Style</a> by <a href="https://www.vecteezy.com/members/circlontech" class="text-underline font-size-sm">Circlon Tech</a> on <a href="https://www.vecteezy.com" class="text-underline font-size-sm">IconScout</a>
 - Web Scraper icon on DevBrain is designed by:
 <a href="https://iconscout.com/icons/online-scraper" class="text-underline font-size-sm" target="_blank">Online Scraper</a> by <a href="https://iconscout.com/contributors/Hopstarter" class="text-underline font-size-sm">Hopstarter</a> on <a href="https://iconscout.com" class="text-underline font-size-sm">IconScout</a>
