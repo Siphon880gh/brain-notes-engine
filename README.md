@@ -59,9 +59,18 @@ You can jump to different concepts from a summary.
 
 Or you can actually link like this `[[Other note name]]` - if authoring, you should use like Obsidian which can autocomplete as you're typing into the double brackets.
 
+## Rewrite your MD articles using AI.
+
+You can paste your entire note into ChatGPT and ask it to improve the writing for clarity and readability. If you're using Obsidian, be sure to mention that it should preserve markdown image links, like ![[Pasted image 20250607063721.png]], since ChatGPT will often remove or ignore these unless explicitly told not to.
+
+Prompt:
+```
+I’m pasting in a note that I need you to change into article form. Please rewrite it to improve clarity and flow, but preserve all markdown images exactly as they are.
+```
+
 ## Searching snippets
 
-You can search by topic title or contents. The search bars are to the top of the topics explorer. This tool uses pcregrep to search files.
+Users can search by topic title or contents. The search bars are to the top of the topics explorer. This tool uses pcregrep to search files.
 
 ![](README-assets/search.png)
 

@@ -1,7 +1,7 @@
 When: Changed remote hosting where your Obsidian notes will publish using the methodology established by the Brain Notes engine by Weng Fei Fung. Your local computer will push up to an online repo, also triggering a PHP backend on the remote server to pull and reset the changes into the online copy. Users can visit the frontend which renders the MD files as HTML.
 
 Search:
-Using `env/pcregrep.php.sample` as a template, create `pcregrep.php` with the correct pcregrep processs path. Find out the path by running `whereis pcregrep`. If process not found, you'll have to install it first (eg. Debian 12: `apt-get install pcregrep`)
+Using `env/all/pcregrep.php.sample` as a template, create a `pcregrep.php` into `env/all/pcregrep.php` with the correct pcregrep processs path depending on your server. Find out the path by running `whereis pcregrep` in the terminal. If process not found, you'll have to install it first (eg. Debian 12: `apt-get install pcregrep`)
 
 Brains:
 In the folder containing 3dbrain/, bizbrain/, devbrain/, healthbrain/ should have a package.json like this:
