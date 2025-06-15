@@ -148,7 +148,7 @@ function generateHtml(folders) {
     const iconClass = isFolder ? 'fas fa-folder' : '';
 
     // Skip certain files
-    const skipFiles = ['sortspec.md', 'README.md', 'package.json'];
+    const skipFiles = ['sortspec.md', 'README.md', 'package.json', 'package-lock.json'];
     if (skipFiles.includes(item.current)) {
       return '';
     }
