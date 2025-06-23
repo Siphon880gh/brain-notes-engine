@@ -93,7 +93,7 @@
     </div>
     
     <div id="bottom-bar">
-        <button id="jump-curriculum" class="bottom-btn">📗 Jump to Topics</button>
+        <button id="jump-curriculum" class="bottom-btn">📗 See topics</button>
         <button id="ai-assist-btn" class="bottom-btn ai-btn">
             <span class="fa fa-robot"></span>
             <span class="ai-text">Ask folder</span>
