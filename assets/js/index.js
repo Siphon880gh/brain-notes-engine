@@ -69,6 +69,22 @@ var app = {
             if (matched) el.classList.add("hidden")
         });
         document.querySelector(".more-notes").classList.remove("invisible");
+
+        // Handle clicks on the ::after pseudo-element area (mobile expand text)
+        $(document).on('click', '.more-notes:not(.mobile-active)', function(e) {
+            // Get the position of the click relative to the element
+            const rect = this.getBoundingClientRect();
+            const clickY = e.clientY - rect.top;
+            const elementHeight = $(this).outerHeight();
+            
+            // Check if click is in the bottom area where ::after pseudo-element appears
+            // The ::after element appears below the main content
+            if (clickY > elementHeight - 25) { // 25px is approximate area of ::after content
+                $(this).toggleClass('mobile-active');
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        });
     }, // setupMoreNotebooks
 
     setupExploreInteractions: function() {
@@ -295,7 +311,7 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
             }
             return str;
         }, '').trim(); // Add empty string as initial value
-        let userQuestion = prompt(`Ask the AI about these notes at ${folderName}?\n\nEg. What can I learn here?\nEg. How to get started?\n\nNote: This free version opens your notes directly in ChatGPT and is limited by the model’s input size. If you see an HTTP 431 error, the folder you’re sending is too large. Need a more powerful search that handles bigger note sets? Email weng@wengindustries.com for details on our paid plan. Thanks!`)
+        let userQuestion = prompt(`Ask the AI about these notes at ${folderName}?\n\nEg. What can I learn here?\nEg. How to get started?\n\nNote: This free version opens your notes directly in ChatGPT and is limited by the model’s input size. If you see an HTTP 431 error, the folder you’re sending is too large. Need something more powerful that handles bigger note sets? Email weng@wengindustries.com for details on our paid plan. Thanks!`)
         if (!userQuestion) return enums.OPEN_FOLDER;
         
         // Sanitize user input by removing special characters and limiting length

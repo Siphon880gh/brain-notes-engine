@@ -546,6 +546,7 @@ body {
         width: fit-content;
         margin: 0 auto;
         padding: 10px;
+        cursor: pointer;
     }
     .more-notes:not(.mobile-active)::after {
         content: "▼ Expand";
@@ -555,6 +556,7 @@ body {
         display: block;
         text-align: center;
         opacity: 0.2;
+        cursor: pointer;
     }
     .more-notes:not(.mobile-active) .mn-header {
         transform: unset;

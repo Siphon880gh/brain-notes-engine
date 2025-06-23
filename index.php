@@ -118,7 +118,7 @@
             </div>
              <!-- Prevent Visual Reflow -->
             <div class="more-notes invisible">
-                <div class="mn-header flex flex-col justify-center text-center font-medium" onclick="event.target.parentElement.classList.toggle('mobile-active')">More<br/>Notebooks</div>
+                <div class="mn-header flex flex-col justify-center text-center font-medium" onclick="this.parentElement.classList.toggle('mobile-active')">More<br/>Notebooks</div>
                 <ul class="mn-links flex flex-row justify-between p-0">
 
                     <li data-hide-if-url-contains="/devbrain/, codernotes">
