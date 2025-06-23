@@ -252,7 +252,10 @@ var addonSearch = {
                                     setTimeout(() => {
                                         const noteHeadingElement = document.querySelector(jumpToNoteHeading);
                                         if (noteHeadingElement) {
-                                            noteHeadingElement.scrollIntoView();
+                                            noteHeadingElement.scrollIntoView({behavior:"instant"});
+                                            window.addEventListener("scrollend", () => {
+                                                window.scrollBy({ top: -30, behavior: "smooth" });
+                                            }, { once: true });
                                         }
                                     }, 250);
                                 }

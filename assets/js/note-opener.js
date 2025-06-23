@@ -25,6 +25,12 @@ function shareTutorial() {
     document.getElementById("shareModal").modal("show");
 }
 
+function shareTutorialSection(trailingHash) {
+    document.getElementById("shareSnippet").value = window.location.host + encodeURI(window.location.pathname + `${trailingHash}`)
+    document.getElementById("shareModal").modal("show");
+}
+
+
 function goToItem() {
     const noteTitle = document.getElementById("summary-title").textContent;
     const noteTitleElement = Array.from(document.querySelectorAll('.name.is-file')).find(el => 
@@ -37,13 +43,11 @@ function goToItem() {
 
     setTimeout(() => {
         noteLiElement.scrollIntoView({behavior: 'smooth'});
+        setTimeout(() => {
+            window.scrollBy({top: 100, behavior: 'smooth'});
+        }, 500);
     }, 150);
 } // goToItem
-
-function shareTutorialSection(trailingHash) {
-    document.getElementById("shareSnippet").value = window.location.host + window.location.pathname + `${trailingHash}`
-    document.getElementById("shareModal").modal("show");
-}
 
 
 /**
@@ -365,13 +369,22 @@ function openNote(id) {
                 .use(window.markdownItAnchor, {
                     level: [1, 2, 3, 4, 5, 6], // Apply to all heading levels
                     slugify: function (s) {
-                        return s.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '');
+                        s = s.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '');
+
+                        if(s?.length) {
+                            if (!/[a-zA-Z]/.test(s[0])) {
+                                s = "at" + s;
+                            }
+                        }
+
+                        return s;
+
                     },
                     permalink: true,
                     permalinkHref: (slug, state) => {
                         let s = slug;
-                        s = "javascript:window.shareTutorialSection('?open=" + encodeURI(title) + "#" + encodeURI(s) + "');"; // ?open=Data%20Lake.md#Section1
-                        return s;
+                        href = "javascript:window.shareTutorialSection('?open=" + encodeURI(title) + "#" + s + "');"; // ?open=Data%20Lake.md#Section1
+                        return href;
                     },
                     permalinkSymbol: '🔗' // Set to true if you want a permalink symbol
                     // Other options as needed
@@ -626,7 +639,7 @@ function openNote(id) {
                             return text;
                         }
                     };
-                    window.highlightJsBadge(options);
+                    //window.highlightJsBadge(options);
                 },10);
             } catch(e) {
                 console.log("Error highlighting code blocks", e);
