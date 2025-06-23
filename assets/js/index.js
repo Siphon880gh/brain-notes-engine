@@ -281,7 +281,11 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
   
   function sendToOtherWorkhouses(el) {
     if(window.modeAskAI) {
+        // Toggle logic
         window.modeAskAI = false;
+        document.getElementById("ai-active").classList.remove("active");
+
+        // AI prompting logic
         const enums = {OPEN_FOLDER: 0, DONT_OPEN_FOLDER:1}
         const basePath = window.location.origin + window.location.pathname;
         let hierarchyText = htmlToIndentedList(el.outerHTML, "./")
