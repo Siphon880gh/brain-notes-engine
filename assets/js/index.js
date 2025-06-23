@@ -313,7 +313,7 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
             }
             return str;
         }, '').trim(); // Add empty string as initial value
-        let userQuestion = prompt(`Ask the AI about these notes at ${folderName}?\n\nEg. What can I learn here?\nEg. How to get started?\n\nPopup: You needs popups enabled to open properly.\nPaid Version: This free version opens your notes directly in ChatGPT and is limited by the model's input size. If you see an HTTP 431 error, the folder you’re sending is too large. Need something more powerful that handles bigger note sets? Email weng@wengindustries.com for details on our paid plan. Thanks!`)
+        let userQuestion = prompt(`Ask the AI about these notes at ${folderName}?\n\nEg. What can I learn here?\nEg. How to get started?\n\nPopup: You needs popups enabled to open properly.\nPaid Version: This free version opens your notes directly in ChatGPT and is limited by the model's input size. Need something more powerful that handles bigger note sets and can handle deeper queries? Email weng@wengindustries.com for details on our paid plan. Thanks!`)
         if (!userQuestion) return enums.OPEN_FOLDER;
         
         // Sanitize user input by removing special characters and limiting length
