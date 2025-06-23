@@ -1,4 +1,4 @@
-$subtractWide: 50px;
+$subtractWide: 60px;
 
 /* General Styling */
 body {
@@ -578,7 +578,7 @@ body {
 #side-a {
     border: 1px solid gray;
     padding: 2px;
-    margin-left: 25px;
+    margin-left: 35px;
 
     img {
         height: auto;
@@ -958,9 +958,6 @@ button {
 }
 
 #explore-header {
-    // width: calc(100vw - #{$subtractWide});
-    // margin-left: 25px;
-    // width: calc(100vw - #{$subtractWide});
     border-top: 1px dashed lightgray;
 }
 

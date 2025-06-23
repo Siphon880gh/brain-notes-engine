@@ -562,7 +562,7 @@ body {
 #side-a {
   border: 1px solid gray;
   padding: 2px;
-  margin-left: 25px;
+  margin-left: 35px;
 }
 #side-a img {
   height: auto;
@@ -927,7 +927,7 @@ button {
 }
 
 #side-a {
-  width: calc(100vw - 50px);
+  width: calc(100vw - 60px);
 }
 
 @media screen and (max-width: 768px) {
@@ -936,7 +936,7 @@ button {
   }
 }
 #side-b {
-  width: calc(100vw - 50px);
+  width: calc(100vw - 60px);
 }
 
 @media screen and (max-width: 768px) {
