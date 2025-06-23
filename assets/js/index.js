@@ -291,7 +291,7 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
             }
             return str;
         }, ''); // Add empty string as initial value
-        let userQuestion = prompt(`Ask the AI about these notes at ${folderName}?\nEg. What can I learn here?\nEg. How to get started\n\nNote: This free version opens your notes directly in ChatGPT and is limited by the model’s input size. If you see an HTTP 431 error, the folder you’re sending is too large. Need a more powerful search that handles bigger note sets? Email weng@wengindustries.com for details on our paid plan. Thanks!`)
+        let userQuestion = prompt(`Ask the AI about these notes at ${folderName}?\n\nEg. What can I learn here?\nEg. How to get started?\n\nNote: This free version opens your notes directly in ChatGPT and is limited by the model’s input size. If you see an HTTP 431 error, the folder you’re sending is too large. Need a more powerful search that handles bigger note sets? Email weng@wengindustries.com for details on our paid plan. Thanks!`)
         if (!userQuestion) return enums.OPEN_FOLDER;
         
         // Sanitize user input by removing special characters and limiting length
@@ -301,7 +301,7 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
             .slice(0, 250); // Limit lengt
             
         
-        let promptText = `Given this hierarchy of topics, answer user's question. If it cannot answer user's question, then tell the user that the knowledge isn't part of the notes and that they can reach out to Weng if they want specific notes for this at "weng@wengindustries.com". But then provide your knowledge. You may visit the relative URLs to get more information if needed. The basepath for thoes relative URLs is ${basePath}
+        let promptText = `Given this hierarchy of topics, answer user's question. If it cannot answer user's question, then tell the user that the knowledge isn't part of the notes and that they can reach out to Weng if they want specific notes for this at "weng@wengindustries.com". But then provide your knowledge. You may visit the relative URLs to get more information if needed. The basepath for those relative URLs is ${basePath}
     
     User's question:
     ${userQuestion.trim()}
@@ -310,8 +310,44 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
     """
     ${hierarchyText}
     """`;
-        window.open(`https://chatgpt.com/?m=${promptText}`)
+        
+        // Check if prompt is too large (over 4000 characters)
+        if (promptText.length > 4000) {
+            // Show modal with prompt for manual copy/paste
+            document.getElementById('largePromptText').value = promptText;
+            document.getElementById('largePromptModal').modal('show');
+            
+            // Setup copy button functionality
+            document.getElementById('copyLargePromptButton').onclick = function() {
+                const textarea = document.getElementById('largePromptText');
+                textarea.select();
+                textarea.setSelectionRange(0, 99999); // For mobile devices
+                document.execCommand('copy');
+                
+                // Visual feedback
+                const button = this;
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                button.classList.add('btn-success');
+                button.classList.remove('btn-primary');
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.classList.remove('btn-success');
+                    button.classList.add('btn-primary');
+                }, 2000);
+            };
+            
+            // Setup open ChatGPT button functionality
+            document.getElementById('openChatGPTButton').onclick = function() {
+                window.open('https://chatgpt.com/?m=I%20will%20paste%20the%20prompt.', '_blank');
+            };
+        } else {
+            window.open(`https://chatgpt.com/?m=${promptText}`);
+        }
         return enums.OPEN_FOLDER;
     } // modeAskAI
+
+    
 
   } // sendToOtherWorkhouses

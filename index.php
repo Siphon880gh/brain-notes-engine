@@ -235,6 +235,7 @@
                                     <div class="info-flex-child">
                                         <button id="expand-all-folders"><span class="fa fa-eye cursor-pointer"> Toggle</button>
                                         <button id="print-btn" class="cursor-pointer"><span class="fa fa-print"> Print</button>
+                                        <button id="ai-assist-btn" class="cursor-pointer"><span class="fa fa-robot"></span><span class="ai-text" style="display:none; margin-left:8px;">Click a folder to ask it questions</span></button>
                                     </div>
                                 </div>
 
@@ -320,6 +321,33 @@
         </div>
     </div>
 
+    <!-- Large Prompt Modal -->
+    <div class="modal" id="largePromptModal" style="display:none;">
+        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h4 id="largePromptModalLabel" class="modal-title mt-0">Folder Too Large, But No Worries!</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <p>The prompt is too large to connect directly to ChatGPT. Please copy the prompt below and paste it into your free ChatGPT (no signup needed):</p>
+            <textarea id="largePromptText" class="form-control mx-auto w-full" rows="10" readonly></textarea>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-primary mt-4 p-2 bg-blue-300" id="copyLargePromptButton">
+                    <i class="fas fa-copy"></i> 1. Copy Prompt
+                </button>
+                <button type="button" class="btn btn-success mt-4 p-2 ml-2 bg-blue-200" id="openChatGPTButton">
+                    <i class="fas fa-external-link-alt"></i> 2. Open ChatGPT
+                </button>
+                <button type="button" class="btn btn-secondary mt-4 p-2 ml-2" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
     <!-- Share the search -->
     <div id="share-search-title-wrapper" class="hidden">
         <span id="share-search-titles" class="hoverable cursor-pointer" data-toggle="modal" data-target="#shareModal">
@@ -356,6 +384,29 @@
     <!-- <script src="assets/js/game.js"></script> -->
 
     <script src="./assets/js/image-modal.js"></script>
+    
+    <script>
+    // AI Assistant functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const aiBtn = document.getElementById('ai-assist-btn');
+        const aiText = aiBtn.querySelector('.ai-text');
+        let isExpanded = false;
+        
+        aiBtn.addEventListener('click', function() {
+            if (!isExpanded) {
+                // Expand to show text and activate AI mode
+                aiText.style.display = 'inline';
+                window.modeAskAI = true;
+                isExpanded = true;
+            } else {
+                // Collapse and deactivate AI mode
+                aiText.style.display = 'none';
+                window.modeAskAI = false;
+                isExpanded = false;
+            }
+        });
+    });
+    </script>
 </body>
 
 </html>
