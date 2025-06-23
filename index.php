@@ -387,30 +387,6 @@
     <!-- <script src="assets/js/game.js"></script> -->
 
     <script src="./assets/js/image-modal.js"></script>
-    
-    <script>
-    // AI Assistant functionality
-    document.addEventListener('DOMContentLoaded', function() {
-        const aiBtn = document.getElementById('ai-assist-btn');
-        let isActive = false;
-        
-        aiBtn.addEventListener('click', function() {
-            if (!isActive) {
-                // Activate AI mode
-                window.modeAskAI = true;
-                aiBtn.style.background = '#dc2626'; // Red background when active
-                aiBtn.querySelector('.ai-text').innerHTML = 'AI Active<br><small>Click a folder. Ask it!</small>';
-                isActive = true;
-            } else {
-                // Deactivate AI mode
-                window.modeAskAI = false;
-                aiBtn.style.background = '#059669'; // Green background when inactive
-                aiBtn.querySelector('.ai-text').innerHTML = 'Ask folder';
-                isActive = false;
-            }
-        });
-    });
-    </script>
 </body>
 
 </html>

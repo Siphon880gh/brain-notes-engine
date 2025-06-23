@@ -245,6 +245,8 @@ var app = {
 } // app
 app.init();
 
+// #region TODO: BELOW NEED REFACTOR
+
 /**
  * 
  * @param {*} html 
@@ -299,7 +301,7 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
     if(window.modeAskAI) {
         // Toggle logic
         window.modeAskAI = false;
-        document.getElementById("ai-assist-btn").classList.remove("active");
+        document.getElementById('ai-assist-btn').click();
 
         // AI prompting logic
         const enums = {OPEN_FOLDER: 0, DONT_OPEN_FOLDER:1}
@@ -371,3 +373,28 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
     
 
   } // sendToOtherWorkhouses
+
+
+    // AI Assistant functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const aiBtn = document.getElementById('ai-assist-btn');
+        let isActive = false;
+        
+        aiBtn.addEventListener('click', function() {
+            if (!isActive) {
+                // Activate AI mode
+                window.modeAskAI = true;
+                aiBtn.classList.add("active"); // Red background when active
+                aiBtn.querySelector('.ai-text').innerHTML = 'AI Active<br><small>Click a folder. Ask it!</small>';
+                isActive = true;
+            } else {
+                // Deactivate AI mode
+                window.modeAskAI = false;
+                aiBtn.classList.remove("active"); // Green background when inactive
+                aiBtn.querySelector('.ai-text').innerHTML = 'Ask folder';
+                isActive = false;
+            }
+        });
+    });
+
+// #endregion
