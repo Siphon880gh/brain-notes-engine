@@ -92,10 +92,14 @@
         View Weng's work or hire him → <a target="_blank" href="https://wengindustries.com" class="text-blue-500 underline font-semibold">WengIndustries.com</a>
     </div>
     
-    <div id="jump-curriculum">
-        📗 Jump to Topics
+    <div id="bottom-bar">
+        <button id="jump-curriculum" class="bottom-btn">📗 Jump to Topics</button>
+        <button id="ai-assist-btn" class="bottom-btn ai-btn">
+            <span class="fa fa-robot"></span>
+            <span class="ai-text">Ask folder</span>
+        </button>
     </div>
-
+    
     <div class="site-header mx-auto">
         <h1 id="title" class="clickable"><?php include 'env/title.php'; ?></h1>
         <div class="text-blue-800 mt-2 mb-8 clickable" data-toggle="modal" data-target="#promoModal">By Weng (Weng Fei Fung)</div>
@@ -235,7 +239,6 @@
                                     <div class="info-flex-child">
                                         <button id="expand-all-folders"><span class="fa fa-eye cursor-pointer"> Toggle</button>
                                         <button id="print-btn" class="cursor-pointer"><span class="fa fa-print"> Print</button>
-                                        <button id="ai-assist-btn" class="cursor-pointer"><span class="fa fa-robot"></span><span class="ai-text" style="display:none; margin-left:8px;">Click a folder to ask it questions</span></button>
                                     </div>
                                 </div>
 
@@ -389,20 +392,21 @@
     // AI Assistant functionality
     document.addEventListener('DOMContentLoaded', function() {
         const aiBtn = document.getElementById('ai-assist-btn');
-        const aiText = aiBtn.querySelector('.ai-text');
-        let isExpanded = false;
+        let isActive = false;
         
         aiBtn.addEventListener('click', function() {
-            if (!isExpanded) {
-                // Expand to show text and activate AI mode
-                aiText.style.display = 'inline';
+            if (!isActive) {
+                // Activate AI mode
                 window.modeAskAI = true;
-                isExpanded = true;
+                aiBtn.style.background = '#dc2626'; // Red background when active
+                aiBtn.querySelector('.ai-text').innerHTML = 'AI Active<br><small>Click a folder. Ask it!</small>';
+                isActive = true;
             } else {
-                // Collapse and deactivate AI mode
-                aiText.style.display = 'none';
+                // Deactivate AI mode
                 window.modeAskAI = false;
-                isExpanded = false;
+                aiBtn.style.background = '#059669'; // Green background when inactive
+                aiBtn.querySelector('.ai-text').innerHTML = 'Ask folder';
+                isActive = false;
             }
         });
     });

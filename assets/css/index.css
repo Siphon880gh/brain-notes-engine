@@ -113,6 +113,12 @@ body {
   justify-content: space-between;
 }
 
+@media screen and (max-width: 720px) {
+  #summary-title {
+    max-height: 1.7rem !important;
+    overflow-y: scroll !important;
+  }
+}
 #summary-title-wrapper:has(#mobile-tap.active) #summary-title-inner {
   display: none;
 }
@@ -310,7 +316,7 @@ body {
 }
 
 /* Jump to explorer at bottom right */
-#jump-curriculum {
+#bottom-bar {
   cursor: pointer;
   position: fixed;
   bottom: env(safe-area-inset-bottom);
@@ -322,12 +328,20 @@ body {
   text-align: right;
   height: 60px;
   display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  width: 100%;
+}
+#bottom-bar > * {
+  opacity: .75;
+  transition: all 300ms ease;
+}
+#bottom-bar > *:hover {
+  opacity: 1;
 }
 
 @media screen and (max-width: 768px) {
-  #jump-curriculum {
+  #bottom-bar {
     width: unset;
     padding: 5px;
     height: fit-content;
@@ -1032,4 +1046,53 @@ h6 {
 /* Centering */
 center li {
   width: fit-content;
+}
+
+/* Bottom Bar Button Styling */
+.bottom-btn {
+  background: #4f46e5;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.bottom-btn:hover {
+  background: #3730a3;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+.bottom-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ai-btn {
+  background: #059669;
+}
+.ai-btn:hover {
+  background: #047857;
+}
+.ai-btn .ai-text {
+  margin-left: 8px;
+  display: inline;
+  line-height: 1.3;
+}
+.ai-btn .ai-text small {
+  font-size: 11px;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+@media screen and (max-width: 768px) {
+  .bottom-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+    margin: 0 4px;
+  }
 }

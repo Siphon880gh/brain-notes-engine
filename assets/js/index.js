@@ -285,12 +285,12 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
         const enums = {OPEN_FOLDER: 0, DONT_OPEN_FOLDER:1}
         const basePath = window.location.origin + window.location.pathname;
         let hierarchyText = htmlToIndentedList(el.outerHTML, "./")
-        const folderName = Array.from(el.childNodes).reduce((str, el) => {
+        let folderName = Array.from(el.childNodes).reduce((str, el) => {
             if(el.nodeType === Node.TEXT_NODE || el.tagName.toLowerCase() !== "ul") {
                 return str + (el.textContent || '');
             }
             return str;
-        }, ''); // Add empty string as initial value
+        }, '').trim(); // Add empty string as initial value
         let userQuestion = prompt(`Ask the AI about these notes at ${folderName}?\n\nEg. What can I learn here?\nEg. How to get started?\n\nNote: This free version opens your notes directly in ChatGPT and is limited by the model’s input size. If you see an HTTP 431 error, the folder you’re sending is too large. Need a more powerful search that handles bigger note sets? Email weng@wengindustries.com for details on our paid plan. Thanks!`)
         if (!userQuestion) return enums.OPEN_FOLDER;
         
