@@ -322,7 +322,7 @@ body {
   bottom: env(safe-area-inset-bottom);
   right: env(safe-area-inset-right);
   padding-right: 20px;
-  background-color: white;
+  background-color: transparent;
   z-index: 500;
   width: 100%;
   text-align: right;
@@ -348,6 +348,14 @@ body {
     height: fit-content;
   }
 }
+#ai-assist-btn {
+  background: #059669;
+}
+
+#ai-assist-btn.active {
+  background: #dc2626;
+}
+
 #toc-toggler:not(.filled) {
   display: none;
 }

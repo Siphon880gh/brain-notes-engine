@@ -283,7 +283,7 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
     if(window.modeAskAI) {
         // Toggle logic
         window.modeAskAI = false;
-        document.getElementById("ai-active").classList.remove("active");
+        document.getElementById("ai-assist-btn").classList.remove("active");
 
         // AI prompting logic
         const enums = {OPEN_FOLDER: 0, DONT_OPEN_FOLDER:1}

@@ -370,7 +370,7 @@ function openNote(id) {
                     permalink: true,
                     permalinkHref: (slug, state) => {
                         let s = slug;
-                        s = "javascript:window.shareTutorialSection('?open=" + encodeURI(title) + "#" + s + "');"; // ?open=Data%20Lake.md#Section1
+                        s = "javascript:window.shareTutorialSection('?open=" + encodeURI(title) + "#" + encodeURI(s) + "');"; // ?open=Data%20Lake.md#Section1
                         return s;
                     },
                     permalinkSymbol: '🔗' // Set to true if you want a permalink symbol
