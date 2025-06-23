@@ -75,6 +75,10 @@ var app = {
 
         document.querySelectorAll(".name.is-folder").forEach(el=>{
             el.addEventListener("click", (event)=>{
+                let interruptDefaultBehaavior = sendToOtherWorkhouses(event.target)
+                if(interruptDefaultBehaavior) {
+                    return;
+                }
                 event.stopPropagation();
                 event.preventDefault();
                 const el = event.target;
@@ -225,3 +229,89 @@ var app = {
 } // app
 app.init();
 
+/**
+ * 
+ * @param {*} html 
+ * @param {*} prefixCurriculumUrl Blank string by default. Otherwise we show links next to documents with the URL prefix here.
+ * @returns 
+ */
+function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=20) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+  
+    function traverseList(ulElement, indent = 0, currentDepth = 0) {
+      if (currentDepth >= maxDepth) {
+        return '';
+      }
+
+      const items = [];
+      const liElements = Array.from(ulElement.children).slice(0, maxItems);
+      
+      for (let li of liElements) {
+        const textEl = li.querySelector('.name');
+        if (textEl) {
+          let label = textEl.textContent.trim();
+  
+          if (prefixCurriculumUrl && textEl.tagName === 'A' && textEl.href) {
+            label += ` (${textEl.getAttribute('href')})`;
+          }
+  
+          items.push(`${'\t'.repeat(indent)}${label}`);
+        }
+  
+        const nestedUL = li.querySelector('ul');
+        if (nestedUL) {
+          const nestedItems = traverseList(nestedUL, indent + 1, currentDepth + 1);
+          if (nestedItems) {
+            items.push(nestedItems);
+          }
+        }
+      }
+
+      if (ulElement.children.length > maxItems) {
+        items.push(`${'\t'.repeat(indent)}... ${ulElement.children.length - maxItems} more items`);
+      }
+
+      return items.join('\n');
+    }
+  
+    const rootUL = doc.querySelector('ul');
+    return traverseList(rootUL);
+  }
+  
+  function sendToOtherWorkhouses(el) {
+    if(window.modeAskAI) {
+        window.modeAskAI = false;
+        const enums = {OPEN_FOLDER: 0, DONT_OPEN_FOLDER:1}
+        const basePath = window.location.origin + window.location.pathname;
+        let hierarchyText = htmlToIndentedList(el.outerHTML, "./")
+        const folderName = Array.from(el.childNodes).reduce((str, el) => {
+            if(el.nodeType === Node.TEXT_NODE || el.tagName.toLowerCase() !== "ul") {
+                return str + (el.textContent || '');
+            }
+            return str;
+        }, ''); // Add empty string as initial value
+        let userQuestion = prompt(`Ask the AI about these notes at ${folderName}?\nEg. What can I learn here?\nEg. How to get started\n\nNote: This free version opens your notes directly in ChatGPT and is limited by the model’s input size. If you see an HTTP 431 error, the folder you’re sending is too large. Need a more powerful search that handles bigger note sets? Email weng@wengindustries.com for details on our paid plan. Thanks!`)
+        if (!userQuestion) return enums.OPEN_FOLDER;
+        
+        // Sanitize user input by removing special characters and limiting length
+        userQuestion = userQuestion
+            .replace(/[^\w\s?.,]/g, '') // Remove special chars except basic punctuation
+            .trim()
+            .slice(0, 250); // Limit lengt
+            
+        
+        let promptText = `Given this hierarchy of topics, answer user's question. If it cannot answer user's question, then tell the user that the knowledge isn't part of the notes and that they can reach out to Weng if they want specific notes for this at "weng@wengindustries.com". But then provide your knowledge. You may visit the relative URLs to get more information if needed. The basepath for thoes relative URLs is ${basePath}
+    
+    User's question:
+    ${userQuestion.trim()}
+    
+    Hiearchy of topics:
+    """
+    ${hierarchyText}
+    """`;
+        window.open(`https://chatgpt.com/?m=${promptText}`)
+        return enums.OPEN_FOLDER;
+    } // modeAskAI
+
+  } // sendToOtherWorkhouses
