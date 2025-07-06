@@ -526,6 +526,9 @@ function openNote(id) {
 
             summaryInnerEl.innerHTML = summaryHTML;
 
+            // Apply hierarchical indentation based on heading levels
+            applyHierarchicalIndentationWithResets(summaryInnerEl);
+
             // setTimeout(() => {
                 // target blank for links
                 summaryInnerEl.querySelectorAll("a").forEach(a => {
@@ -712,4 +715,234 @@ function removeScrollProgressMarkers(div) {
     // Optionally, remove the scroll event listener if it's no longer needed
     window.removeEventListener('scroll', hydrateAnimationScrollHandler);
 } // removeScrollProgressMarkers
+
+/**
+ * Apply hierarchical indentation to content based on heading levels
+ * @param {HTMLElement} container - The container element with rendered markdown
+ */
+function applyHierarchicalIndentation(container) {
+    const elements = Array.from(container.children);
+    const headingLevels = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
+    
+    // Create a new container for the restructured content
+    const newContainer = document.createElement('div');
+    
+    let i = 0;
+    while (i < elements.length) {
+        const element = elements[i];
+        const tagName = element.tagName;
+        
+        if (headingLevels.includes(tagName)) {
+            const headingLevel = parseInt(tagName[1]);
+            const indentLevel = Math.max(0, headingLevel - 2);
+            
+            // Create a wrapper for this section
+            const sectionWrapper = document.createElement('div');
+            sectionWrapper.classList.add('heading-section');
+            sectionWrapper.classList.add(`indent-level-${indentLevel}`);
+            
+            // Add the heading to the wrapper
+            const headingClone = element.cloneNode(true);
+            sectionWrapper.appendChild(headingClone);
+            
+            // Collect content and process nested headings
+            let j = i + 1;
+            const sectionContent = [];
+            
+            while (j < elements.length) {
+                const nextElement = elements[j];
+                const nextTagName = nextElement.tagName;
+                
+                if (headingLevels.includes(nextTagName)) {
+                    const nextHeadingLevel = parseInt(nextTagName[1]);
+                    if (nextHeadingLevel <= headingLevel) {
+                        break; // Stop if we hit a heading of same or higher level
+                    }
+                }
+                
+                sectionContent.push(nextElement.cloneNode(true));
+                j++;
+            }
+            
+            // If there's content in this section, recursively process it
+            if (sectionContent.length > 0) {
+                const contentContainer = document.createElement('div');
+                sectionContent.forEach(el => contentContainer.appendChild(el));
+                
+                // Recursively apply indentation to nested content
+                applyHierarchicalIndentationRecursive(contentContainer, headingLevel);
+                
+                // Add the processed content to the section wrapper
+                Array.from(contentContainer.children).forEach(child => {
+                    sectionWrapper.appendChild(child);
+                });
+            }
+            
+            newContainer.appendChild(sectionWrapper);
+            i = j;
+        } else {
+            // Non-heading element at root level
+            newContainer.appendChild(element.cloneNode(true));
+            i++;
+        }
+    }
+    
+    // Replace the original content
+    container.innerHTML = '';
+    Array.from(newContainer.children).forEach(child => {
+        container.appendChild(child);
+    });
+} // applyHierarchicalIndentation
+
+/**
+ * Recursively apply hierarchical indentation to nested content
+ * @param {HTMLElement} container - The container element with content
+ * @param {number} parentLevel - The heading level of the parent section
+ */
+function applyHierarchicalIndentationRecursive(container, parentLevel) {
+    const elements = Array.from(container.children);
+    const headingLevels = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
+    
+    const processedElements = [];
+    
+    let i = 0;
+    while (i < elements.length) {
+        const element = elements[i];
+        const tagName = element.tagName;
+        
+        if (headingLevels.includes(tagName)) {
+            const headingLevel = parseInt(tagName[1]);
+            
+            // Only process headings that are deeper than the parent level
+            if (headingLevel > parentLevel) {
+                const indentLevel = Math.max(0, headingLevel - 2);
+                
+                // Create a wrapper for this nested section
+                const sectionWrapper = document.createElement('div');
+                sectionWrapper.classList.add('heading-section');
+                sectionWrapper.classList.add(`indent-level-${indentLevel}`);
+                
+                // Add the heading to the wrapper
+                const headingClone = element.cloneNode(true);
+                sectionWrapper.appendChild(headingClone);
+                
+                // Collect content for this nested section
+                let j = i + 1;
+                const sectionContent = [];
+                
+                while (j < elements.length) {
+                    const nextElement = elements[j];
+                    const nextTagName = nextElement.tagName;
+                    
+                    if (headingLevels.includes(nextTagName)) {
+                        const nextHeadingLevel = parseInt(nextTagName[1]);
+                        if (nextHeadingLevel <= headingLevel) {
+                            break; // Stop if we hit a heading of same or higher level
+                        }
+                    }
+                    
+                    sectionContent.push(nextElement.cloneNode(true));
+                    j++;
+                }
+                
+                // If there's content in this nested section, recursively process it
+                if (sectionContent.length > 0) {
+                    const contentContainer = document.createElement('div');
+                    sectionContent.forEach(el => contentContainer.appendChild(el));
+                    
+                    // Recursively apply indentation to even deeper nested content
+                    applyHierarchicalIndentationRecursive(contentContainer, headingLevel);
+                    
+                    // Add the processed content to the section wrapper
+                    Array.from(contentContainer.children).forEach(child => {
+                        sectionWrapper.appendChild(child);
+                    });
+                }
+                
+                processedElements.push(sectionWrapper);
+                i = j;
+            } else {
+                // Heading at same or higher level - shouldn't happen in this context
+                processedElements.push(element.cloneNode(true));
+                i++;
+            }
+        } else {
+            // Non-heading element
+            processedElements.push(element.cloneNode(true));
+            i++;
+        }
+    }
+    
+    // Replace the container content with processed elements
+    container.innerHTML = '';
+    processedElements.forEach(element => {
+        container.appendChild(element);
+    });
+} // applyHierarchicalIndentationRecursive
+
+/**
+ * Apply hierarchical indentation with support for reset markers (<<<)
+ * @param {HTMLElement} container - The container element with rendered markdown
+ */
+function applyHierarchicalIndentationWithResets(container) {
+    // First, find all elements that contain the reset marker
+    const allElements = Array.from(container.querySelectorAll('*'));
+    const resetMarkers = [];
+    
+    // Look for paragraphs or other elements that contain only "<<<" 
+    allElements.forEach((element, index) => {
+        if (element.textContent.trim() === '<<<') {
+            resetMarkers.push(element);
+        }
+    });
+    
+    // If no reset markers found, use the original function
+    if (resetMarkers.length === 0) {
+        applyHierarchicalIndentation(container);
+        return;
+    }
+    
+    // Split content into sections based on reset markers
+    const sections = [];
+    const containerChildren = Array.from(container.children);
+    let currentSection = [];
+    
+    containerChildren.forEach(child => {
+        if (resetMarkers.includes(child)) {
+            // This is a reset marker - finish current section and start new one
+            if (currentSection.length > 0) {
+                sections.push(currentSection);
+                currentSection = [];
+            }
+            // Don't include the reset marker in any section
+        } else {
+            currentSection.push(child);
+        }
+    });
+    
+    // Add the last section if it has content
+    if (currentSection.length > 0) {
+        sections.push(currentSection);
+    }
+    
+    // Clear the container
+    container.innerHTML = '';
+    
+    // Process each section independently
+    sections.forEach(sectionElements => {
+        // Create a temporary container for this section
+        const sectionContainer = document.createElement('div');
+        sectionElements.forEach(element => {
+            sectionContainer.appendChild(element.cloneNode(true));
+        });
+        
+        // Apply hierarchical indentation to this section
+        applyHierarchicalIndentation(sectionContainer);
+        
+        // Add the processed section back to the main container
+        Array.from(sectionContainer.children).forEach(child => {
+            container.appendChild(child);
+        });
+    });
+} // applyHierarchicalIndentationWithResets
 

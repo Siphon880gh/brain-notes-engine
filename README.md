@@ -68,6 +68,52 @@ Prompt:
 I’m pasting in a note that I need you to change into article form. Please rewrite it to improve clarity and flow, but preserve all markdown images exactly as they are.
 ```
 
+## Heading Indentations
+
+The Notes Brain Engine supports visual indentation of content based on heading levels. This creates a hierarchical structure where content under deeper headings (H3, H4, etc.) appears indented relative to content under shallower headings (H2).
+
+![](README-assets/app-heading-indentations.png)
+
+Here's a test snippet demonstrating heading indentations:
+
+```
+## H2
+
+hi Im at the outermost level
+hi Im at the outermost level
+
+### H3
+Im inner
+
+<<<
+
+Im back out to outermost because I've used indent reset marker (`<<<`)
+And next lines continued to have been reset
+And so on and so on
+
+#### H4
+Im the most inner because nowhere else is greater than H4
+
+### H3
+Back to inner region
+
+## H2
+Back out to outermost level
+```
+
+To reset all indentations from a line onwards, use the indent reset marker:
+
+```
+
+<<<
+
+```
+
+**Important formatting requirements:**
+- Empty line before and after the `<<<` marker must be there
+- No trailing spaces on any of those lines
+
+
 ## Searching snippets
 
 Users can search by topic title or contents. The search bars are to the top of the topics explorer. This tool uses pcregrep to search files.
