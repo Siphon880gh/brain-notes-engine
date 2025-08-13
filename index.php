@@ -113,7 +113,10 @@
                 <!-- <div><a id="count-notes" href="#explore-curriculum">1457 Notes!</a></div> -->
                 <div><span id="count-notes" href="#explore-curriculum"><i class="fas fa-spinner fa-spin"></i> Loading Notes</span></div>
                 <div class="mt-2">
-                    <a class="text-blue-800 no-underline" id="whats-changed" target="_blank" href="<?php echo $commitsURL; ?>" rel="nofollow">Git newest notes</a>
+                    <?php if(isset($commitsURL) && strlen($commitsURL)>0) { 
+                        echo "<a class='text-blue-800 no-underline' id='whats-changed' target='_blank' href='$commitsURL' rel='nofollow'>Git newest notes</a>";
+                    }
+                    ?>
                 </div>
             </div>
              <!-- Prevent Visual Reflow -->
