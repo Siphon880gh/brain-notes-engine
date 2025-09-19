@@ -377,6 +377,10 @@
         <div class="mindmap-header">
             <h3>Mindmap</h3>
             <div class="mindmap-controls">
+                <button id="mindmap-cycle-type" class="mindmap-control-btn" title="Cycle Type">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <div class="mindmap-divider"></div>
                 <button id="mindmap-zoom-out" class="mindmap-control-btn" title="Zoom Out">
                     <i class="fas fa-search-minus"></i>
                 </button>
@@ -405,6 +409,10 @@
         <div class="mindmap-fullscreen-header">
             <h3>Mindmap - Fullscreen</h3>
             <div class="mindmap-fullscreen-controls">
+                <button id="mindmap-fullscreen-cycle-type" class="mindmap-control-btn" title="Cycle Type">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <div class="mindmap-divider"></div>
                 <button id="mindmap-fullscreen-zoom-out" class="mindmap-control-btn" title="Zoom Out">
                     <i class="fas fa-search-minus"></i>
                 </button>

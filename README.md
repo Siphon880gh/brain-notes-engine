@@ -196,7 +196,7 @@ Use the `1x1.png` placeholder image in your markdown lists to trigger mindmap ge
 ### Mindmap Features
 
 - **Automatic Detection**: Green mindmap button appears when content is detected
-- **Multiple Layouts**: Spider/radial (default), tree top-down, tree left-right, spread (compact)
+- **Multiple Layouts**: Spider/radial (default), spread (compact), tree top-down, tree left-right
 - **Interactive Controls**: Zoom in/out, pan/drag, reset zoom, fullscreen mode
 - **Responsive Design**: Works on desktop and mobile devices
 - **Configuration**: Edit `mindmap-config.json` to change default layout
@@ -208,16 +208,16 @@ Configure the mindmap layout in `mindmap-config.json`:
 ```json
 {
   "mindmap": {
-    "type": "spread"  // "spider", "tree", "tree-down", "tree-right", "spread"
+    "type": "spread"  // "spider", "spread", "tree", "tree-down", "tree-right"
   }
 }
 ```
 
 **Layout Types:**
 - **spider**: Radial layout with central root (default)
+- **spread**: Compact layout where certain nodes are positioned laterally so other descendants can spread towards the middle
 - **tree/tree-down**: Hierarchical tree flowing top-down
 - **tree-right**: Hierarchical tree flowing left-right
-- **spread**: Compact layout where certain nodes are positioned laterally so other descendants can spread towards the middle
 
 ### Server pipelines
 My remote server has a script I can trigger from my local machine. I created a npm script called `deploy` that I can run locally.

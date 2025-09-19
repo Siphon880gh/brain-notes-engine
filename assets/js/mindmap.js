@@ -21,6 +21,10 @@ let dragStartY = 0;
 let translateX = 0;
 let translateY = 0;
 
+// Mindmap type cycling
+const mindmapTypes = ['spider', 'spread', 'tree-down', 'tree-right'];
+let currentTypeIndex = 0;
+
 // Initialize Mermaid
 mermaid.initialize({
     startOnLoad: false,
@@ -707,6 +711,7 @@ function setupMindmapEventListeners() {
     
     // Panel controls
     document.getElementById('mindmap-close').addEventListener('click', closeMindmapPanel);
+    document.getElementById('mindmap-cycle-type').addEventListener('click', cycleMindmapType);
     document.getElementById('mindmap-zoom-in').addEventListener('click', () => zoomIn());
     document.getElementById('mindmap-zoom-out').addEventListener('click', () => zoomOut());
     document.getElementById('mindmap-zoom-reset').addEventListener('click', () => resetZoom());
@@ -714,6 +719,7 @@ function setupMindmapEventListeners() {
     
     // Fullscreen controls
     document.getElementById('mindmap-fullscreen-close').addEventListener('click', closeFullScreenMindmap);
+    document.getElementById('mindmap-fullscreen-cycle-type').addEventListener('click', cycleMindmapType);
     document.getElementById('mindmap-fullscreen-zoom-in').addEventListener('click', () => {
         const container = document.querySelector('.mindmap-fullscreen-modal.visible');
         zoomIn(container);
@@ -761,6 +767,35 @@ function setMindmapConfig(config) {
     }
 }
 
+// Cycle through mindmap types
+function cycleMindmapType() {
+    currentTypeIndex = (currentTypeIndex + 1) % mindmapTypes.length;
+    const newType = mindmapTypes[currentTypeIndex];
+    
+    // Update the configuration
+    setMindmapConfig({ type: newType });
+    
+    // Update button tooltips to show current type
+    updateCycleButtonTooltips();
+    
+    console.log('Switched to mindmap type:', newType);
+}
+
+// Update cycle button tooltips to show current type
+function updateCycleButtonTooltips() {
+    const currentType = mindmapTypes[currentTypeIndex];
+    const cycleButtons = [
+        document.getElementById('mindmap-cycle-type'),
+        document.getElementById('mindmap-fullscreen-cycle-type')
+    ];
+    
+    cycleButtons.forEach(button => {
+        if (button) {
+            button.title = `Cycle Type (Current: ${currentType})`;
+        }
+    });
+}
+
 // 12. Configuration Loading
 async function loadMindmapConfig() {
     try {
@@ -768,10 +803,21 @@ async function loadMindmapConfig() {
         if (response.ok) {
             const config = await response.json();
             mindmapConfig = { ...mindmapConfig, ...config.mindmap };
+            
+            // Set the current type index based on loaded config
+            const configType = mindmapConfig.type || 'spider';
+            currentTypeIndex = mindmapTypes.indexOf(configType);
+            if (currentTypeIndex === -1) {
+                currentTypeIndex = 0; // Default to spider if type not found
+            }
         }
     } catch (error) {
         console.log('Using default mindmap configuration');
+        currentTypeIndex = 0; // Default to spider
     }
+    
+    // Update button tooltips after config is loaded
+    updateCycleButtonTooltips();
 }
 
 // 13. Public API Functions
