@@ -6,8 +6,9 @@ By Weng Fei Fung.
 
 • **DevBrain** is a knowledge management engine that transforms Markdown notes into an interactive, searchable web application
 • Built with PHP backend, JavaScript frontend, and Node.js build pipeline for handling thousands of notes efficiently  
-• Features full-text search, hierarchical organization, AI-assisted content generation, and multi-brain template system
+• Features full-text search, hierarchical organization, AI-assisted content generation, and interactive mindmap visualization
 • Supports enhanced Markdown (Obsidian-style links, collapsible sections, math equations) with automatic image hosting
+• Includes automatic mindmap generation from markdown lists using Mermaid.js with zoom, pan, and fullscreen controls
 • Powers multiple knowledge collections: developer notes, 3D modeling, business, and health topics
 • Includes publishing pipeline for transforming Obsidian vaults into public-facing knowledge bases
 
@@ -171,6 +172,45 @@ I am authoring the `curriculum/` separately inside an Obsidian MD vault. I can m
 ```
 `$E = mc^2$`
 `@(1/2[1-(1/2)^n])/(1-(1/2))=s_n@`
+```
+
+## Interactive Mindmap Generation
+
+DevBrain automatically detects and generates interactive mindmaps from markdown lists containing placeholder images. This feature uses Mermaid.js to create beautiful, interactive visualizations.
+
+### Creating Mindmaps
+
+Use the `1x1.png` placeholder image in your markdown lists to trigger mindmap generation:
+
+```markdown
+# Web Development ![Web Development](img/1x1.png)
+
+- Frontend Development ![Frontend](img/1x1.png)
+  - React Components ![React](img/1x1.png)
+  - CSS Styling ![CSS](img/1x1.png)
+- Backend Development ![Backend](img/1x1.png)
+  - API Design ![API](img/1x1.png)
+  - Database ![Database](img/1x1.png)
+```
+
+### Mindmap Features
+
+- **Automatic Detection**: Green mindmap button appears when content is detected
+- **Multiple Layouts**: Spider/radial (default), tree top-down, tree left-right
+- **Interactive Controls**: Zoom in/out, pan/drag, reset zoom, fullscreen mode
+- **Responsive Design**: Works on desktop and mobile devices
+- **Configuration**: Edit `mindmap-config.json` to change default layout
+
+### Layout Types
+
+Configure the mindmap layout in `mindmap-config.json`:
+
+```json
+{
+  "mindmap": {
+    "type": "spider"  // "spider", "tree", "tree-down", "tree-right"
+  }
+}
 ```
 
 ### Server pipelines

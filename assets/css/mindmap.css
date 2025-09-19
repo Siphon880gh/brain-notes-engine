@@ -1,0 +1,288 @@
+/* Mindmap Button */
+.mindmap-button {
+    position: fixed;
+    top: 20px;
+    right: 80px;
+    background: #48bb78;
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mindmap-button:hover {
+    background: #38a169;
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(72, 187, 120, 0.4);
+}
+
+/* Mindmap Panel */
+.mindmap-panel {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    width: 80vw;
+    max-width: 900px;
+    max-height: 80vh;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    transform: translateX(100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid #e1e5e9;
+}
+
+.mindmap-panel.visible {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.mindmap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e1e5e9;
+    background: #f8f9fa;
+    border-radius: 12px 12px 0 0;
+}
+
+.mindmap-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.mindmap-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mindmap-control-btn {
+    background: none;
+    border: 1px solid #ddd;
+    color: #666;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+}
+
+.mindmap-control-btn:hover {
+    background: #e9ecef;
+    color: #333;
+    border-color: #bbb;
+}
+
+.mindmap-divider {
+    width: 1px;
+    height: 20px;
+    background: #ddd;
+    margin: 0 8px;
+}
+
+.mindmap-close {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+}
+
+.mindmap-close:hover {
+    background: #e9ecef;
+    color: #333;
+}
+
+.mindmap-content {
+    padding: 1rem;
+    max-height: calc(80vh - 80px);
+    overflow: auto;
+}
+
+.mindmap-empty {
+    color: #666;
+    font-style: italic;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.mindmap-diagram {
+    width: 100%;
+    height: auto;
+    min-height: 400px;
+    transition: transform 0.3s ease;
+    transform-origin: center center;
+}
+
+.mindmap-diagram.zoomed {
+    cursor: grab;
+}
+
+.mindmap-diagram.zoomed:active {
+    cursor: grabbing;
+}
+
+/* Hide mindmap placeholder images */
+.img-wrapper:has(img[src*="1x1"]), .img-wrapper:has(img[src$="1x1.png"]) {
+    display: none !important;
+}
+
+/* Mindmap text styling */
+.mindmap-diagram svg text {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    text-anchor: middle !important;
+    dominant-baseline: central !important;
+}
+
+/* Mindmap node backgrounds */
+.mindmap-diagram svg .mindmap-node path,
+.mindmap-diagram svg g[class*="section-"] path {
+    fill: #e6f0ff !important;
+    stroke: #667eea !important;
+    stroke-width: 2px !important;
+}
+
+/* Fullscreen Modal */
+.mindmap-fullscreen-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.96);
+    z-index: 9999;
+    display: none;
+    flex-direction: column;
+}
+
+.mindmap-fullscreen-modal.visible {
+    display: flex;
+}
+
+.mindmap-fullscreen-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mindmap-fullscreen-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.mindmap-fullscreen-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mindmap-fullscreen-close {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+}
+
+.mindmap-fullscreen-close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.mindmap-fullscreen-content {
+    flex: 1;
+    padding: 2rem;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mindmap-fullscreen-content .mindmap-diagram {
+    width: 100%;
+    height: 100%;
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mindmap-button {
+        top: 15px;
+        right: 70px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+
+    .mindmap-panel {
+        top: 70px;
+        right: 15px;
+        left: 15px;
+        width: auto;
+        max-width: none;
+        max-height: 70vh;
+    }
+
+    .mindmap-controls {
+        gap: 4px;
+    }
+
+    .mindmap-control-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+    }
+
+    .mindmap-fullscreen-header {
+        padding: 0.8rem 1rem;
+    }
+
+    .mindmap-fullscreen-content {
+        padding: 1rem;
+    }
+}

@@ -26,6 +26,7 @@
     <!-- CSS Assets -->
     <link href="assets/css/index.css" rel="stylesheet">
     <link href="assets/css/modal.css" rel="stylesheet">
+    <link href="assets/css/mindmap.css" rel="stylesheet">
 
     <!-- <link href="assets/css/game.css" rel="stylesheet"> -->
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" /> -->
@@ -39,6 +40,9 @@
 
     <!-- Designer: FontAwesome -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.9.0/css/all.min.css">
+    
+    <!-- Mermaid.js for mindmap generation -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
 
     <!-- Designer: Tailwind CSS -->
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"> -->
@@ -363,6 +367,63 @@
     </div>
     </div> <!-- #searcher-containers -->
 
+    <!-- Mindmap Button (shows only when mindmap content detected) -->
+    <button id="mindmap-button" class="mindmap-button" title="Mindmap" style="display: none;">
+        <i class="fas fa-project-diagram"></i>
+    </button>
+
+    <!-- Mindmap Panel -->
+    <div id="mindmap-panel" class="mindmap-panel">
+        <div class="mindmap-header">
+            <h3>Mindmap</h3>
+            <div class="mindmap-controls">
+                <button id="mindmap-zoom-out" class="mindmap-control-btn" title="Zoom Out">
+                    <i class="fas fa-search-minus"></i>
+                </button>
+                <button id="mindmap-zoom-reset" class="mindmap-control-btn" title="Reset Zoom">
+                    <i class="fas fa-compress"></i>
+                </button>
+                <button id="mindmap-zoom-in" class="mindmap-control-btn" title="Zoom In">
+                    <i class="fas fa-search-plus"></i>
+                </button>
+                <div class="mindmap-divider"></div>
+                <button id="mindmap-fullscreen" class="mindmap-control-btn" title="Fullscreen">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+            <button id="mindmap-close" class="mindmap-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="mindmap-content" class="mindmap-content">
+            <div class="mindmap-empty">No mindmap available for this document.</div>
+        </div>
+    </div>
+
+    <!-- Fullscreen Modal -->
+    <div id="mindmap-fullscreen-modal" class="mindmap-fullscreen-modal">
+        <div class="mindmap-fullscreen-header">
+            <h3>Mindmap - Fullscreen</h3>
+            <div class="mindmap-fullscreen-controls">
+                <button id="mindmap-fullscreen-zoom-out" class="mindmap-control-btn" title="Zoom Out">
+                    <i class="fas fa-search-minus"></i>
+                </button>
+                <button id="mindmap-fullscreen-zoom-reset" class="mindmap-control-btn" title="Reset Zoom">
+                    <i class="fas fa-compress"></i>
+                </button>
+                <button id="mindmap-fullscreen-zoom-in" class="mindmap-control-btn" title="Zoom In">
+                    <i class="fas fa-search-plus"></i>
+                </button>
+            </div>
+            <button id="mindmap-fullscreen-close" class="mindmap-fullscreen-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="mindmap-fullscreen-content" class="mindmap-fullscreen-content">
+            <div class="mindmap-empty">No mindmap available for this document.</div>
+        </div>
+    </div>
+
     <!-- <_php echo("./game-error.php"); _> -->
 
     <!-- <_php echo("./game-fogs.php"); _> -->
@@ -385,6 +446,7 @@
     </script>
     <script src="assets/js/modal.js"></script>
     <script src="assets/js/note-opener.js"></script>
+    <script src="assets/js/mindmap.js"></script>
     <script src="assets/js/index.js"></script>
     <script src="assets/js/searchers.js"></script>
     <!-- <script src="assets/js/game.js"></script> -->

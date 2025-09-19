@@ -6,22 +6,23 @@
 
 ## Tech Stack
 
-- **Backend**: PHP (395 lines in `index.php`)
+- **Backend**: PHP (457 lines in `index.php`)
 - **Frontend**: HTML, CSS, JavaScript (jQuery, Tailwind CSS)
 - **Build System**: Node.js with custom caching pipeline
 - **Search**: PCRE (Perl Compatible Regular Expressions) via `pcregrep`
 - **Markdown Processing**: MarkdownIt with LaTeX support
+- **Mindmap Visualization**: Mermaid.js v10.6.1 for interactive diagrams
 - **Styling**: Tailwind CSS, FontAwesome icons, Highlight.js
 - **Deployment**: Multi-brain architecture with template system
 
 ## Core Architecture
 
 ### Main Components
-- **`index.php`** (395 lines): Main application entry point with HTML structure
+- **`index.php`** (457 lines): Main application entry point with HTML structure and mindmap UI
 - **`cache_data.js`** (154 lines): Scans curriculum directory, builds file tree
 - **`cache_render.js`** (227 lines): Generates PHP partials from cached data
 - **`search.php`** (22 lines): PCRE-based full-text search endpoint
-- **`assets/js/`** (8 files): Frontend logic including note opening, search, modals
+- **`assets/js/`** (9 files): Frontend logic including note opening, search, modals, mindmap generation
 
 ### Multi-Brain Template System
 Supports multiple knowledge collections through template system:
@@ -37,6 +38,7 @@ env/templates-{devbrain,3dbrain,bizbrain,healthbrain}/
 ## Key Features
 
 - **Enhanced Markdown**: Obsidian-style links `[[Topic]]`, collapsible sections, math equations
+- **Interactive Mindmaps**: Automatic generation from markdown lists with Mermaid.js visualization
 - **Full-Text Search**: Title and content search with real-time results
 - **AI Integration**: "Ask folder" feature for AI-assisted content generation
 - **Publishing Pipeline**: Automatic image hosting and path rewriting
@@ -46,15 +48,29 @@ env/templates-{devbrain,3dbrain,bizbrain,healthbrain}/
 
 ```
 devbrain/
-├── index.php                 # Main application (395 lines)
+├── index.php                 # Main application (457 lines)
 ├── cache_data.js            # File tree caching (154 lines)
 ├── cache_render.js          # HTML generation (227 lines)
 ├── search.php               # Search endpoint (22 lines)
-├── assets/js/               # Frontend logic (8 JS files)
+├── mindmap-config.json      # Mindmap layout configuration (6 lines)
+├── assets/
+│   ├── css/mindmap.css      # Mindmap styling (289 lines)
+│   └── js/mindmap.js        # Mindmap functionality (594 lines)
 ├── env/templates-*/         # Multi-brain configurations
 ├── curriculum/              # Markdown notes (separate repo)
 └── future-*/               # Planned features
 ```
+
+## Mindmap System
+
+**Interactive mindmap generation from markdown lists using Mermaid.js visualization.**
+
+- **Automatic Detection**: Scans for `1x1.png` placeholder images in markdown lists
+- **Multiple Layouts**: Spider/radial, tree top-down, tree left-right configurations
+- **Interactive Controls**: Zoom, pan, fullscreen with responsive design
+- **Configuration**: JSON-based layout type settings
+
+*See [context-mindmap.md](./context-mindmap.md) for detailed implementation.*
 
 ## Development Workflow
 
@@ -69,6 +85,7 @@ For comprehensive technical details, see:
 - **[context-architecture.md](./context-architecture.md)** - System architecture, caching pipeline, build process
 - **[context-features.md](./context-features.md)** - Enhanced markdown, search, AI integration, UI features
 - **[context-tech-stack.md](./context-tech-stack.md)** - Backend/frontend technologies, build system, integrations
+- **[context-mindmap.md](./context-mindmap.md)** - Mindmap system, detection, generation, and interactive controls
 
 ## Quick Reference
 

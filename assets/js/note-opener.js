@@ -615,6 +615,14 @@ function openNote(id) {
             // Dispatch noteOpened event
             document.dispatchEvent(new Event('noteOpened'));
 
+            // Initialize mindmap feature after content is loaded
+            if (typeof initializeMindmapFeature === 'function') {
+                initializeMindmapFeature();
+            }
+            if (typeof onMarkdownContentUpdated === 'function') {
+                onMarkdownContentUpdated();
+            }
+
             try {
                 // hljs.highlightAll();
 
