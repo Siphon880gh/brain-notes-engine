@@ -185,11 +185,6 @@
                                     <span id="summary-collapser">»</span>
                                     <span id="summary-title" onclick="document.querySelector('#summary-collapser').click();"></span>
                                 </div>
-
-                                <div id="toc-toggler">
-                                    <div id="mobile-tap">📖</div>
-                                    <div id="toc"></div>
-                                </div>
                             </h2>
                         </div>
                         <div id="summary-outer" style="height: 100%; margin-top: 20px; padding-left: 5px; padding-right: 5px;">
@@ -366,6 +361,13 @@
         </span>
     </div>
     </div> <!-- #searcher-containers -->
+
+    <!-- Table of Contents Button (shows only when TOC content detected) -->
+    <button id="toc-toggler" class="toc-button" title="Table of Contents" style="display: none;">
+        <i class="fas fa-list"></i>
+        <div id="mobile-tap" style="display: none;"></div>
+        <div id="toc"></div>
+    </button>
 
     <!-- Mindmap Button (shows only when mindmap content detected) -->
     <button id="mindmap-button" class="mindmap-button" title="Mindmap" style="display: none;">

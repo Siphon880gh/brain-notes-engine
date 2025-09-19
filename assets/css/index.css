@@ -371,13 +371,29 @@ body {
   }
 }
 /* Table of contents at top right */
-#toc-toggler {
+.toc-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 1.2rem;
   cursor: pointer;
-  margin-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background-color: transparent;
-  z-index: 500;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.toc-button:hover {
+  background: #2563eb;
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
 }
 
 /* Jump to explorer at bottom right */
@@ -421,26 +437,30 @@ body {
   background: #dc2626;
 }
 
-#toc-toggler:not(.filled) {
+.toc-button:not(.filled) {
   display: none;
 }
 
 #toc {
   display: none;
   position: fixed;
-  top: 55px;
-  right: 0;
+  top: 80px;
+  right: 20px;
   padding: 20px;
-  background-color: white;
-  line-height: 1.5rem;
+  background: white;
+  line-height: 2rem;
   font-size: 1rem;
   max-width: 90vw;
   /* If long TOC clipped off on mobile */
   max-height: calc(100vh - 180px);
-  overflow-y: scroll;
-  z-index: 500;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px dashed black;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 999;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border: 1px solid #e1e5e9;
+  border-radius: 12px;
+  text-align: left;
+  /* Removed CSS counter reset - using JavaScript numbering instead */
 }
 
 @media screen and (min-width: 768px) {
@@ -448,6 +468,55 @@ body {
     max-width: 40vw;
   }
 }
+/* TOC Item Styling - Numbering handled by JavaScript */
+#toc .h1 {
+  font-weight: bold;
+  margin-bottom: 8px;
+  padding: 4px 0;
+  padding-left: 0ch;
+  display: block;
+}
+#toc .h2 {
+  padding-left: 1ch;
+  margin-bottom: 6px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: 0.9rem;
+  display: block;
+}
+#toc .h3 {
+  padding-left: 2ch;
+  margin-bottom: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: 0.85rem;
+  display: block;
+}
+#toc .h4 {
+  padding-left: 3ch;
+  margin-bottom: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: 0.8rem;
+  display: block;
+}
+#toc .h5 {
+  padding-left: 4ch;
+  margin-bottom: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: 0.75rem;
+  display: block;
+}
+#toc .h6 {
+  padding-left: 5ch;
+  margin-bottom: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: 0.7rem;
+  display: block;
+}
+
 #toc:empty {
   display: none !important;
 }
@@ -507,45 +576,7 @@ body {
   margin-bottom: 15px;
 }
 
-#toc .h2 {
-  margin-left: 2ch;
-}
-
-#toc .h2::before {
-  content: "•\00a0";
-}
-
-#toc .h3 {
-  margin-left: 4ch;
-}
-
-#toc .h3::before {
-  content: "—\00a0";
-}
-
-#toc .h4 {
-  margin-left: 6ch;
-}
-
-#toc .h4::before {
-  content: "➣\00a0";
-}
-
-#toc .h5 {
-  margin-left: 8ch;
-}
-
-#toc .h5::before {
-  content: "➨\00a0";
-}
-
-#toc .h6 {
-  margin-left: 10ch;
-}
-
-#toc .h6::before {
-  content: "◦\00a0";
-}
+/* Removed conflicting CSS rules that were overriding TOC numbering with bullet points */
 
 .description-must {
   position: relative;

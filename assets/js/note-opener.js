@@ -57,19 +57,33 @@ function goToItem() {
 
 document.addEventListener("DOMContentLoaded", function () {
     document.body.addEventListener("click", (event) => {
-        if (!event.target.matches('#mobile-tap')) { document.querySelector('#mobile-tap').classList.remove('active'); }
+        if (!event.target.matches('#toc-toggler') && !event.target.closest('#toc-toggler')) { 
+            document.querySelector('#mobile-tap').classList.remove('active'); 
+        }
     })
-    document.getElementById("mobile-tap").addEventListener("click", (event) => {
-        event.target.classList.toggle('active');
+    document.getElementById("toc-toggler").addEventListener("click", (event) => {
+        event.preventDefault();
+        document.querySelector('#mobile-tap').classList.toggle('active');
     });
 });
 
 function setTableOfContents(tocEl, markdownContentEl) {
+    // Check if TOC has already been numbered to prevent duplicates
+    if (tocEl.classList.contains('toc-numbered')) {
+        return;
+    }
+    
     var headings = [].slice.call(markdownContentEl.querySelectorAll('h1, h2, h3, h4, h5, h6'));
     tocEl.innerHTML = "";
 
     // Create a map to store heading elements and their corresponding TOC links
     const headingToLinkMap = new Map();
+    
+    // Initialize counters for each heading level
+    const counters = { h1: 0, h2: 0, h3: 0, h4: 0, h5: 0, h6: 0 };
+    
+    // Add class to prevent duplicate numbering
+    tocEl.classList.add('toc-numbered');
 
     headings.forEach(function (heading, i) {
         // ref is either generic (toc-1) or the jump link of the subheading
@@ -81,11 +95,58 @@ function setTableOfContents(tocEl, markdownContentEl) {
 
         var link = document.createElement("a");
         link.setAttribute("href", "#" + ref);
-        link.textContent = heading.textContent;
-        link.textContent = link.textContent.replaceAll("🔗", "").trim()
+        
+        // Get heading level and tag name
+        const headingLevel = parseInt(heading.tagName[1]);
+        const tagName = heading.tagName.toLowerCase();
+        
+        // Reset all deeper level counters (levels below current heading)
+        for (let level = headingLevel + 1; level <= 6; level++) {
+            counters[`h${level}`] = 0;
+        }
+        
+        // Increment counter for this heading level
+        counters[tagName]++;
+        
+        // Build the numbering string with hierarchical format (only current level)
+        const formatType = ((headingLevel - 1) % 4) + 1; // Cycle through 1-4 every 4 levels
+        const levelCounter = counters[tagName];
+        
+        let numbering = "";
+        switch (formatType) {
+            case 1: // Roman numerals (I, II, III, ...)
+                numbering = toRomanNumeral(levelCounter);
+                break;
+            case 2: // Letters (A, B, C, ...)
+                numbering = toLetter(levelCounter);
+                break;
+            case 3: // Numbers (1, 2, 3, ...)
+                numbering = levelCounter.toString();
+                break;
+            case 4: // Lowercase Roman numerals (i, ii, iii, ...)
+                numbering = toRomanNumeral(levelCounter).toLowerCase();
+                break;
+        }
+        numbering += ". ";
+        
+        // Set the link text with numbering
+        const originalText = heading.textContent.replaceAll("🔗", "").trim();
+        link.textContent = numbering + originalText;
         link.classList.add("toc-link");
 
-        link.addEventListener("click", () => {
+        link.addEventListener("click", (event) => {
+            // Get the href from the link
+            const href = link.getAttribute('href');
+            
+            // Update the URL in the address bar
+            if (href && href.startsWith('#')) {
+                // Update the URL hash
+                window.location.hash = href;
+                
+                // Also update the browser history
+                history.pushState(null, null, href);
+            }
+            
             // Make up for the document title covering the heading you jumped to.
             setTimeout(() => {
                 window.scrollTo({ top: window.scrollY - 60 })
@@ -100,6 +161,10 @@ function setTableOfContents(tocEl, markdownContentEl) {
             div.classList.add("toc-group-end");
         }
 
+        // Ensure the div doesn't interfere with link clicks
+        // div.style.pointerEvents = "none";
+        // link.style.pointerEvents = "auto";
+
         div.appendChild(link);
         tocEl.appendChild(div);
 
@@ -109,8 +174,10 @@ function setTableOfContents(tocEl, markdownContentEl) {
 
     if (headings.length) {
         document.querySelector('#toc-toggler').classList.add('filled')
+        document.querySelector('#toc-toggler').style.display = 'flex'
     } else {
         document.querySelector('#toc-toggler').classList.remove('filled')
+        document.querySelector('#toc-toggler').style.display = 'none'
     }
 
     // Set up Intersection Observer to track which headings are in view
@@ -135,6 +202,32 @@ function setTableOfContents(tocEl, markdownContentEl) {
     // Start observing all headings
     headings.forEach(heading => observer.observe(heading));
 } // setTableOfContents
+
+// Helper function to convert numbers to Roman numerals
+function toRomanNumeral(num) {
+    const values = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+    const symbols = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
+    
+    let result = '';
+    for (let i = 0; i < values.length; i++) {
+        while (num >= values[i]) {
+            result += symbols[i];
+            num -= values[i];
+        }
+    }
+    return result;
+}
+
+// Helper function to convert numbers to letters (A, B, C, ...)
+function toLetter(num) {
+    let result = '';
+    while (num > 0) {
+        num--; // Convert to 0-based index
+        result = String.fromCharCode(65 + (num % 26)) + result;
+        num = Math.floor(num / 26);
+    }
+    return result;
+}
 
 /**
  * 
@@ -594,6 +687,8 @@ function openNote(id) {
             // Render table of contents at top right
             let tocEl = window.document.querySelector("#toc")
             let markdownContentEl = window.document.querySelector("#summary-inner")
+            // Reset TOC numbering class for new note
+            tocEl.classList.remove('toc-numbered');
             setTableOfContents(tocEl, markdownContentEl);
 
             // Add progress markers on the left
