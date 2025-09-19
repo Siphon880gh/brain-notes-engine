@@ -1,7 +1,16 @@
 // Mindmap Configuration
-let mindmapConfig = {
-    type: 'spider' // 'spider', 'tree', 'tree-down', 'tree-right'
-};
+let mindmapConfig = {};
+
+// Load mindmap config from JSON
+fetch('mindmap-config.json')
+    .then(response => response.json())
+    .then(data => {
+        mindmapConfig = data.mindmap || { type: 'spider' };
+    })
+    .catch(error => {
+        console.warn('Failed to load mindmap config:', error);
+        mindmapConfig = { type: 'spider' };
+    });
 
 // Mindmap State Variables
 let currentMindmapData = null;
@@ -23,6 +32,11 @@ mermaid.initialize({
         lineColor: '#667eea',
         secondaryColor: '#f8f9fa',
         tertiaryColor: '#e6f0ff'
+    },
+    mindmap: {
+        padding: 4,
+        nodeSpacing: 80,
+        levelSeparation: 100
     }
 });
 
@@ -66,9 +80,26 @@ function traverseList(ul) {
 }
 
 function treeToMermaid(node, indent = 1) {
-    // Escape special characters in labels for Mermaid
-    const escapedLabel = node.label.replace(/[()]/g, '');
-    let s = '  '.repeat(indent) + escapedLabel + '\n';
+    // Clean and escape special characters in labels for Mermaid
+    let cleanLabel = node.label
+        .replace(/[()[\]{}#]/g, '')
+        .replace(/"/g, '')
+        .replace(/'/g, '')
+        .replace(/&/g, 'and')
+        // Remove emojis and icons
+        .replace(/[\u{1F600}-\u{1F64F}]/gu, '') // Emoticons
+        .replace(/[\u{1F300}-\u{1F5FF}]/gu, '') // Misc Symbols and Pictographs
+        .replace(/[\u{1F680}-\u{1F6FF}]/gu, '') // Transport and Map
+        .replace(/[\u{1F1E0}-\u{1F1FF}]/gu, '') // Regional indicator symbols
+        .replace(/[\u{2600}-\u{26FF}]/gu, '') // Miscellaneous symbols
+        .replace(/[\u{2700}-\u{27BF}]/gu, '') // Dingbats
+        .replace(/[\u{1F900}-\u{1F9FF}]/gu, '') // Supplemental Symbols and Pictographs
+        .replace(/[\u{1FA70}-\u{1FAFF}]/gu, '') // Symbols and Pictographs Extended-A
+        .replace(/[^\x00-\x7F]/g, '') // Remove any remaining non-ASCII characters
+        .replace(/\s+/g, ' ')
+        .trim();
+    
+    let s = '  '.repeat(indent) + cleanLabel + '\n';
     
     for (const child of node.children) {
         s += treeToMermaid(child, indent + 1);
@@ -90,11 +121,23 @@ function getRootNodeText() {
                 .replace(/'/g, '')
                 .replace(/&/g, 'and')
                 .replace(/\s+/g, ' ')
+                // Remove emojis and icons
+                .replace(/[\u{1F600}-\u{1F64F}]/gu, '') // Emoticons
+                .replace(/[\u{1F300}-\u{1F5FF}]/gu, '') // Misc Symbols and Pictographs
+                .replace(/[\u{1F680}-\u{1F6FF}]/gu, '') // Transport and Map
+                .replace(/[\u{1F1E0}-\u{1F1FF}]/gu, '') // Regional indicator symbols
+                .replace(/[\u{2600}-\u{26FF}]/gu, '') // Miscellaneous symbols
+                .replace(/[\u{2700}-\u{27BF}]/gu, '') // Dingbats
+                .replace(/[\u{1F900}-\u{1F9FF}]/gu, '') // Supplemental Symbols and Pictographs
+                .replace(/[\u{1FA70}-\u{1FAFF}]/gu, '') // Symbols and Pictographs Extended-A
+                .replace(/[^\x00-\x7F]/g, '') // Remove any remaining non-ASCII characters
                 .trim();
             
             if (h1Text && h1Text.length > 0) {
-                if (h1Text.length > 30) {
-                    h1Text = h1Text.substring(0, 27) + '...';
+                // Limit root node text to 25 characters and add ellipsis if longer
+                const maxLength = 25;
+                if (h1Text.length > maxLength) {
+                    h1Text = h1Text.substring(0, maxLength) + '...';
                 }
                 return h1Text;
             }
@@ -186,6 +229,17 @@ function generateTreeMermaid(mindmapTree, direction = 'TD') {
     return mermaid;
 }
 
+function generateSpreadMermaid(mindmapTree) {
+    const rootText = getRootNodeText();
+    let mermaid = `mindmap\n  root)${rootText}(\n`;
+    
+    for (const node of mindmapTree) {
+        mermaid += treeToMermaid(node, 2);
+    }
+    
+    return mermaid;
+}
+
 // 4. Main Mindmap Generation Function
 function generateMindmapFromLists() {
     const contentEl = document.getElementById('summary-inner');
@@ -261,13 +315,68 @@ function generateMindmapFromLists() {
         return generateTreeMermaid(mindmapTree, 'TD');
     } else if (mindmapType === 'tree-right') {
         return generateTreeMermaid(mindmapTree, 'LR');
+    } else if (mindmapType === 'spread') {
+        // Update Mermaid config for spread layout (compact with vertical spacing)
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#667eea',
+                primaryTextColor: '#333',
+                primaryBorderColor: '#667eea',
+                lineColor: '#667eea',
+                secondaryColor: '#f8f9fa',
+                tertiaryColor: '#e6f0ff'
+            },
+            mindmap: {
+                padding: 4,
+                nodeSpacing: 80,
+                levelSeparation: 120
+            },
+            flowchart: {
+                nodeSpacing: 80,
+                rankSpacing: 120,
+                curve: 'basis'
+            }
+        });
+        return generateSpreadMermaid(mindmapTree);
     } else {
+        // Reset to original spider config (spacious)
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#667eea',
+                primaryTextColor: '#333',
+                primaryBorderColor: '#667eea',
+                lineColor: '#667eea',
+                secondaryColor: '#f8f9fa',
+                tertiaryColor: '#e6f0ff'
+            },
+            mindmap: {
+                padding: 8,
+                nodeSpacing: 120,
+                levelSeparation: 150
+            }
+        });
         return generateSpiderMermaid(mindmapTree);
     }
 }
 
-// 5. Color Styling Function
-function colorMindmapBranches(container) {
+// 5. Color Styling Functions
+/**
+ * Color each branch's text in a Mermaid mindmap SVG using CSS injection.
+ * Branch = any .section-N group (N >= 0). Root (.section-root / .section--1) is ignored.
+ */
+function colorMindmapBranches({
+    container = null,
+    colorFor = (n) => {
+        // Golden-angle palette for good separation with improved contrast
+        const hue = (n * 137.508) % 360;
+        const lightness = 34 + ((n * 9) % 12); // Vary lightness slightly
+        return `hsl(${hue} 72% ${lightness}%)`;
+    }
+} = {}) {
     const root = container ? document.querySelector(container) : document.getElementById(container);
     if (!root) {
         console.warn('colorMindmapBranches: container not found:', container);
@@ -290,11 +399,7 @@ function colorMindmapBranches(container) {
 
     const rules = [];
     sectionNums.forEach(n => {
-        // Golden-angle palette for good color separation
-        const hue = (n * 137.508) % 360;
-        const lightness = 34 + ((n * 9) % 12);
-        const color = `hsl(${hue} 72% ${lightness}%)`;
-        
+        const color = colorFor(n);
         rules.push(`#${CSS.escape(svg.id)} .section-${n} text { fill: ${color} !important; }`);
         rules.push(`#${CSS.escape(svg.id)} .section-${n} tspan { fill: ${color} !important; }`);
     });
@@ -310,6 +415,99 @@ function colorMindmapBranches(container) {
     svg.appendChild(styleTag);
 
     console.log('Branch colors applied to sections:', Array.from(sectionNums).sort((a,b)=>a-b));
+    return { sections: Array.from(sectionNums).sort((a,b)=>a-b) };
+}
+
+/**
+ * Apply basic styling to mindmap (placeholder for future enhancements)
+ */
+function applyMindmapTypography({
+    container = null
+} = {}) {
+    const root = container ? document.querySelector(container) : document.getElementById(container);
+    if (!root) {
+        console.warn('applyMindmapTypography: container not found:', container);
+        return;
+    }
+
+    const svg = root.querySelector('svg[id$="-svg"]');
+    if (!svg) {
+        console.warn('applyMindmapTypography: mindmap SVG not found in container');
+        return;
+    }
+
+    console.log('Basic mindmap styling applied');
+}
+
+/**
+ * Apply both color and typography styling to a mindmap
+ */
+function applyMindmapTextStyling(mindmapId) {
+    // Small delay to ensure DOM is ready
+    setTimeout(() => {
+        const mindmapContainer = document.getElementById(mindmapId);
+        if (!mindmapContainer) {
+            console.log('No mindmap container found with ID:', mindmapId);
+            return;
+        }
+        
+        console.log('Applying CSS-based mindmap styling to:', mindmapId);
+        
+        // Apply colors using golden-angle palette
+        colorMindmapBranches({
+            container: `#${mindmapId}`,
+            colorFor: (n) => {
+                const hue = (n * 137.508) % 360;
+                const lightness = 34 + ((n * 9) % 12);
+                return `hsl(${hue} 72% ${lightness}%)`;
+            }
+        });
+        
+        // Apply stroke-based hierarchy styling
+        applyMindmapTypography({
+            container: `#${mindmapId}`
+        });
+        
+        console.log('Mindmap styling complete for:', mindmapId);
+    }, 100);
+}
+
+/**
+ * Setup hover effects for mindmap nodes
+ */
+function setupNodeHoverEffects(mindmapId) {
+    const mindmapContainer = document.getElementById(mindmapId);
+    if (!mindmapContainer) return;
+    
+    const svg = mindmapContainer.querySelector('svg');
+    if (!svg) return;
+    
+    // Find all node groups
+    const nodeGroups = svg.querySelectorAll('g[class*="section-"], .mindmap-node');
+    
+    nodeGroups.forEach(nodeGroup => {
+        // Store original position for restoration
+        let originalNextSibling = null;
+        
+        // Add mouseenter event
+        nodeGroup.addEventListener('mouseenter', function() {
+            // Store the next sibling to restore position later
+            originalNextSibling = this.nextSibling;
+            // Move this element to the end of the SVG (brings it to front)
+            svg.appendChild(this);
+        });
+        
+        // Add mouseleave event
+        nodeGroup.addEventListener('mouseleave', function() {
+            // Restore original position if we have a reference
+            if (originalNextSibling && originalNextSibling.parentNode) {
+                svg.insertBefore(this, originalNextSibling);
+            } else if (originalNextSibling === null) {
+                // If it was the last element, insert it at the beginning
+                svg.insertBefore(this, svg.firstChild);
+            }
+        });
+    });
 }
 
 // 6. UI Management Functions
@@ -344,10 +542,11 @@ async function updateMindmapDisplay() {
         
         // Apply color styling for spider mindmaps
         if (mindmapConfig.type === 'spider') {
-            setTimeout(() => {
-                colorMindmapBranches(`#${mindmapId}`);
-            }, 100);
+            applyMindmapTextStyling(mindmapId);
         }
+        
+        // Setup hover effects for all mindmap types
+        setupNodeHoverEffects(mindmapId);
         
     } catch (error) {
         console.error('Error rendering mindmap:', error);

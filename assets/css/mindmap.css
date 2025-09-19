@@ -123,9 +123,10 @@
 }
 
 .mindmap-content {
-    padding: 1rem;
+    padding: 1.5rem;
     max-height: calc(80vh - 80px);
     overflow: auto;
+    background: #fafafa;
 }
 
 .mindmap-empty {
@@ -161,14 +162,76 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
     text-anchor: middle !important;
     dominant-baseline: central !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
 }
 
 /* Mindmap node backgrounds */
 .mindmap-diagram svg .mindmap-node path,
 .mindmap-diagram svg g[class*="section-"] path {
-    fill: #e6f0ff !important;
-    stroke: #667eea !important;
+    fill: #f8f9fa !important;
+    stroke: #e9ecef !important;
+    stroke-width: 1px !important;
+}
+
+/* Root node styling - rectangular with prominent border */
+.mindmap-diagram svg .section-root path,
+.mindmap-diagram svg .section--1 path {
+    rx: 0px !important;
+    ry: 0px !important;
+    fill: #ffffff !important;
+    stroke: #333333 !important;
     stroke-width: 2px !important;
+}
+
+/* Force root node to be rectangular instead of cloud */
+.mindmap-diagram svg .section-root .node-cloud,
+.mindmap-diagram svg .section--1 .node-cloud {
+    display: none !important;
+}
+
+.mindmap-diagram svg .section-root .node-bkg,
+.mindmap-diagram svg .section--1 .node-bkg {
+    display: block !important;
+}
+
+
+.mindmap-diagram svg .section-root text,
+.mindmap-diagram svg .section--1 text {
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    fill: #333333 !important;
+    text-anchor: middle !important;
+    dominant-baseline: central !important;
+    alignment-baseline: middle !important;
+}
+
+/* Hide paperclip icon in root node */
+.mindmap-diagram svg .section-root .icon,
+.mindmap-diagram svg .section--1 .icon,
+.mindmap-diagram svg .section-root use,
+.mindmap-diagram svg .section--1 use {
+    display: none !important;
+}
+
+/* Ensure root node is properly centered and balanced */
+.mindmap-diagram svg .section-root,
+.mindmap-diagram svg .section--1 {
+    transform-origin: center center !important;
+}
+
+
+/* Make all connecting lines lighter gray and thinner */
+.mindmap-diagram svg path[stroke],
+.mindmap-diagram svg line,
+.mindmap-diagram svg .edgePath path,
+.mindmap-diagram svg .edgePath marker,
+.mindmap-diagram svg .edge,
+.mindmap-diagram svg .flowchart-link,
+.mindmap-diagram svg .mindmap-link {
+    stroke: #cccccc !important;
+    stroke-width: 1px !important;
+    fill: none !important;
 }
 
 /* Fullscreen Modal */
@@ -285,4 +348,15 @@
     .mindmap-fullscreen-content {
         padding: 1rem;
     }
+}
+
+/* Mindmap spider edges */
+.edge-depth-0 {
+	filter: brightness(0.2) !important;
+}
+.edge-depth-1 {
+	filter: brightness(0.6) !important;
+}
+.edge-depth-2 {
+	filter: brightness(0.9) !important;
 }
