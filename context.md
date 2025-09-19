@@ -6,23 +6,24 @@
 
 ## Tech Stack
 
-- **Backend**: PHP (466 lines in `index.php`)
+- **Backend**: PHP (469 lines in `index.php`)
 - **Frontend**: HTML, CSS, JavaScript (jQuery, Tailwind CSS)
 - **Build System**: Node.js with custom caching pipeline
 - **Search**: PCRE (Perl Compatible Regular Expressions) via `pcregrep`
 - **Markdown Processing**: MarkdownIt with LaTeX support
 - **Mindmap Visualization**: Mermaid.js v10.6.1 for interactive diagrams
+- **Link Previews**: CORS proxy integration with content extraction (445 lines)
 - **Styling**: Tailwind CSS, FontAwesome icons, Highlight.js
 - **Deployment**: Multi-brain architecture with template system
 
 ## Core Architecture
 
 ### Main Components
-- **`index.php`** (466 lines): Main application entry point with HTML structure and mindmap UI
+- **`index.php`** (469 lines): Main application entry point with HTML structure and mindmap UI
 - **`cache_data.js`** (153 lines): Scans curriculum directory, builds file tree
 - **`cache_render.js`** (226 lines): Generates PHP partials from cached data
 - **`search.php`** (21 lines): PCRE-based full-text search endpoint
-- **`assets/js/`** (11 files): Frontend logic including note opening, search, modals, mindmap generation
+- **`assets/js/`** (12 files): Frontend logic including note opening, search, modals, mindmap generation, link popovers
 
 ### Multi-Brain Template System
 Supports multiple knowledge collections through template system:
@@ -39,6 +40,7 @@ env/templates-{devbrain,3dbrain,bizbrain,healthbrain}/
 
 - **Enhanced Markdown**: Obsidian-style links `[[Topic]]`, collapsible sections, math equations
 - **Interactive Mindmaps**: Automatic generation from markdown lists with Mermaid.js visualization
+- **Link Popover Previews**: Hover previews with selected excerpts from external links using `1x2.png` markers
 - **Full-Text Search**: Title and content search with real-time results
 - **AI Integration**: "Ask folder" feature for AI-assisted content generation
 - **Publishing Pipeline**: Automatic image hosting and path rewriting
@@ -48,14 +50,20 @@ env/templates-{devbrain,3dbrain,bizbrain,healthbrain}/
 
 ```
 devbrain/
-├── index.php                 # Main application (466 lines)
+├── index.php                 # Main application (469 lines)
 ├── cache_data.js            # File tree caching (153 lines)
 ├── cache_render.js          # HTML generation (226 lines)
 ├── search.php               # Search endpoint (21 lines)
 ├── mindmap-config.json      # Mindmap layout configuration (5 lines)
+├── 1x2.png                  # Link popover marker image
 ├── assets/
-│   ├── css/mindmap.css      # Mindmap styling (372 lines)
-│   └── js/mindmap.js        # Mindmap functionality (860 lines)
+│   ├── css/
+│   │   ├── mindmap.css      # Mindmap styling (372 lines)
+│   │   └── link-popover.css # Link popover styling (369 lines)
+│   └── js/
+│       ├── mindmap.js       # Mindmap functionality (860 lines)
+│       ├── link-popover.js  # Link popover system (445 lines)
+│       └── note-opener.js   # Note opening logic (1057 lines)
 ├── env/templates-*/         # Multi-brain configurations
 ├── curriculum/              # Markdown notes (separate repo)
 └── future-*/               # Planned features
@@ -72,6 +80,25 @@ devbrain/
 - **Configuration**: JSON-based layout type settings with runtime type cycling
 
 *See [context-mindmap.md](./context-mindmap.md) for detailed implementation.*
+
+## Link Popover Preview System
+
+**Automatic link preview system that displays selected excerpts from external links on hover.**
+
+- **Automatic Detection**: Scans for links followed by `1x2.png` marker images
+- **Smart Content Extraction**: Parses boundary words from image alt text (`startWord..endWord`) and includes them in the excerpt
+- **CORS Handling**: Uses proxy service to bypass CORS restrictions for external content
+- **Performance**: Caches results to avoid repeated requests
+- **Responsive Design**: Works on desktop and mobile devices with contextual positioning
+- **Error Handling**: Graceful fallbacks for failed requests with user-friendly error messages
+
+### Markdown Syntax
+```markdown
+[Example Website](https://example.com) ![title..content](../1x2.png)
+[MDN Docs](https://developer.mozilla.org) ![Resources...Developers](../1x2.png)
+```
+
+*See [context-link-preview.md](./context-link-preview.md) for detailed implementation.*
 
 ## Development Workflow
 

@@ -162,11 +162,6 @@
     cursor: grabbing;
 }
 
-/* Hide mindmap placeholder images */
-.img-wrapper:has(img[src*="1x1"]), .img-wrapper:has(img[src$="1x1.png"]) {
-    display: none !important;
-}
-
 /* Mindmap text styling */
 .mindmap-diagram svg text {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
@@ -369,4 +364,9 @@
 }
 .edge-depth-2 {
 	filter: brightness(0.9) !important;
+}
+
+/* Hide mindmap placeholder images */
+.img-wrapper:has(img[src*="1x1"]), .img-wrapper:has(img[src$="1x1.png"]) {
+    display: none !important;
 }

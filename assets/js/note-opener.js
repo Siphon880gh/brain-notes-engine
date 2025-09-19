@@ -622,6 +622,11 @@ function openNote(id) {
             // Apply hierarchical indentation based on heading levels
             applyHierarchicalIndentationWithResets(summaryInnerEl);
 
+            // Re-scan for link popover previews after content is loaded
+            if (window.linkPopoverPreview) {
+                window.linkPopoverPreview.rescan();
+            }
+
             // setTimeout(() => {
                 // target blank for links
                 summaryInnerEl.querySelectorAll("a").forEach(a => {

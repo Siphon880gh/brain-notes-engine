@@ -5,10 +5,11 @@ By Weng Fei Fung.
 ## Quick Summary
 
 • **DevBrain** is a knowledge management engine that transforms Markdown notes into an interactive, searchable web application
-• Built with PHP backend (466 lines), JavaScript frontend, and Node.js build pipeline for handling thousands of notes efficiently  
+• Built with PHP backend (469 lines), JavaScript frontend, and Node.js build pipeline for handling thousands of notes efficiently  
 • Features full-text search, hierarchical organization, AI-assisted content generation, and interactive mindmap visualization
 • Supports enhanced Markdown (Obsidian-style links, collapsible sections, math equations) with automatic image hosting
 • Includes automatic mindmap generation from markdown lists using Mermaid.js (860 lines) with zoom, pan, fullscreen controls, and dynamic type cycling
+• Features link popover previews with selected excerpts from external links using `1x2.png` markers (445 lines)
 • Powers multiple knowledge collections: developer notes, 3D modeling, business, and health topics
 • Includes publishing pipeline for transforming Obsidian vaults into public-facing knowledge bases
 
@@ -229,33 +230,43 @@ Configure the mindmap layout in `mindmap-config.json`:
 
 ## Link Preview with Selected Excerpt
 
-DevBrain supports popover link previews that display selected excerpts from linked content without navigating away from the current page.
+DevBrain supports automatic link popover previews that display selected excerpts from external links without navigating away from the current page. This feature uses `1x2.png` marker images to trigger preview functionality.
 
 ### Creating Link Previews
 
 Use the `1x2.png` placeholder image with ellipsis in the alt text to trigger link preview functionality:
 
 ```markdown
-# Topic with Link Preview ![a b...c d](img/1x2.png)
-
-- Subtopic with preview ![excerpt text...more content](img/1x2.png)
-  - Detail with preview ![selected...excerpt](img/1x2.png)
+[Example Website](https://example.com) ![title..content](../1x2.png)
+[MDN Docs](https://developer.mozilla.org) ![Resources...Developers](../1x2.png)
+[GitHub](https://github.com) ![About...Features](../1x2.png)
 ```
 
 ### Link Preview Features
 
-- **Popover Display**: Hover or click to show preview in popover iframe
-- **Selected Excerpt**: Alt text with ellipsis pattern (`a b...c d`) indicates excerpt range
-- **Responsive Design**: Works on desktop and mobile devices
-- **Contextual Positioning**: Popover positions relative to the link
-- **Content Integration**: Seamlessly integrates with existing tooltip system
+- **Automatic Detection**: Finds links followed by `1x2.png` images
+- **Smart Content Extraction**: Parses boundary words from image alt text and includes them in the excerpt
+- **CORS Handling**: Uses proxy service to bypass CORS restrictions for external content
+- **Performance**: Caches results to avoid repeated requests
+- **Responsive Design**: Works on desktop and mobile devices with contextual positioning
+- **Error Handling**: Graceful fallbacks for failed requests with user-friendly error messages
 
 ### Alt Text Format
 
 The alt text should follow the ellipsis pattern to indicate the excerpt:
-- **Format**: `start text...end text`
+- **Format**: `startWord..endWord` or `startWord...endWord`
 - **Purpose**: Shows the excerpt range that will be displayed in the preview
-- **Example**: `a b...c d` displays excerpt from "a b" to "c d"
+- **Example**: `JavaScript...Reference` displays excerpt from "JavaScript" to "Reference"
+
+### How It Works
+
+1. **Detection**: Scans for links followed by `1x2.png` marker images
+2. **Parsing**: Extracts boundary words from image alt text
+3. **Enhancement**: Adds hover listeners and enhanced styling to links
+4. **Content Fetching**: On hover, fetches target webpage via CORS proxy
+5. **Text Extraction**: Finds content including specified boundary words
+6. **Display**: Shows popover with extracted content
+7. **Caching**: Results are cached to avoid repeated requests
 
 ### Server pipelines
 My remote server has a script I can trigger from my local machine. I created a npm script called `deploy` that I can run locally.

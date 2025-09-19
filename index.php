@@ -27,6 +27,7 @@
     <link href="assets/css/index.css" rel="stylesheet">
     <link href="assets/css/modal.css" rel="stylesheet">
     <link href="assets/css/mindmap.css" rel="stylesheet">
+    <link href="assets/css/link-popover.css" rel="stylesheet">
 
     <!-- <link href="assets/css/game.css" rel="stylesheet"> -->
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" /> -->
@@ -459,6 +460,7 @@
     <script src="assets/js/mindmap.js"></script>
     <script src="assets/js/index.js"></script>
     <script src="assets/js/searchers.js"></script>
+    <script src="assets/js/link-popover.js"></script>
     <!-- <script src="assets/js/game.js"></script> -->
 
     <script src="./assets/js/image-modal.js"></script>
