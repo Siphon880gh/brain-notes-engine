@@ -5,14 +5,14 @@ By Weng Fei Fung.
 ## Quick Summary
 
 • **DevBrain** is a knowledge management engine that transforms Markdown notes into an interactive, searchable web application
-• Built with PHP backend (456 lines), JavaScript frontend, and Node.js build pipeline for handling thousands of notes efficiently  
+• Built with PHP backend (466 lines), JavaScript frontend, and Node.js build pipeline for handling thousands of notes efficiently  
 • Features full-text search, hierarchical organization, AI-assisted content generation, and interactive mindmap visualization
 • Supports enhanced Markdown (Obsidian-style links, collapsible sections, math equations) with automatic image hosting
-• Includes automatic mindmap generation from markdown lists using Mermaid.js (839 lines) with zoom, pan, fullscreen controls, and dynamic type cycling
+• Includes automatic mindmap generation from markdown lists using Mermaid.js (860 lines) with zoom, pan, fullscreen controls, and dynamic type cycling
 • Powers multiple knowledge collections: developer notes, 3D modeling, business, and health topics
 • Includes publishing pipeline for transforming Obsidian vaults into public-facing knowledge bases
 
-*For detailed technical documentation, see [context.md](./context.md)*
+*For detailed technical documentation, see [context.md](./context.md) and related context files*
 
 ---
 

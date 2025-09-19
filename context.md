@@ -6,7 +6,7 @@
 
 ## Tech Stack
 
-- **Backend**: PHP (456 lines in `index.php`)
+- **Backend**: PHP (466 lines in `index.php`)
 - **Frontend**: HTML, CSS, JavaScript (jQuery, Tailwind CSS)
 - **Build System**: Node.js with custom caching pipeline
 - **Search**: PCRE (Perl Compatible Regular Expressions) via `pcregrep`
@@ -18,7 +18,7 @@
 ## Core Architecture
 
 ### Main Components
-- **`index.php`** (456 lines): Main application entry point with HTML structure and mindmap UI
+- **`index.php`** (466 lines): Main application entry point with HTML structure and mindmap UI
 - **`cache_data.js`** (153 lines): Scans curriculum directory, builds file tree
 - **`cache_render.js`** (226 lines): Generates PHP partials from cached data
 - **`search.php`** (21 lines): PCRE-based full-text search endpoint
@@ -48,14 +48,14 @@ env/templates-{devbrain,3dbrain,bizbrain,healthbrain}/
 
 ```
 devbrain/
-├── index.php                 # Main application (456 lines)
+├── index.php                 # Main application (466 lines)
 ├── cache_data.js            # File tree caching (153 lines)
 ├── cache_render.js          # HTML generation (226 lines)
 ├── search.php               # Search endpoint (21 lines)
 ├── mindmap-config.json      # Mindmap layout configuration (5 lines)
 ├── assets/
-│   ├── css/mindmap.css      # Mindmap styling (362 lines)
-│   └── js/mindmap.js        # Mindmap functionality (792 lines)
+│   ├── css/mindmap.css      # Mindmap styling (372 lines)
+│   └── js/mindmap.js        # Mindmap functionality (860 lines)
 ├── env/templates-*/         # Multi-brain configurations
 ├── curriculum/              # Markdown notes (separate repo)
 └── future-*/               # Planned features
@@ -87,6 +87,7 @@ For comprehensive technical details, see:
 - **[context-features.md](./context-features.md)** - Enhanced markdown, search, AI integration, UI features
 - **[context-tech-stack.md](./context-tech-stack.md)** - Backend/frontend technologies, build system, integrations
 - **[context-mindmap.md](./context-mindmap.md)** - Mindmap system, detection, generation, and interactive controls
+- **[context-link-preview.md](./context-link-preview.md)** - Link preview system with popover excerpts
 
 ## Quick Reference
 

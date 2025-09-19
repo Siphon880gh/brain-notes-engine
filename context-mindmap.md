@@ -237,10 +237,10 @@ if (typeof onMarkdownContentUpdated === 'function') {
 ## File Dependencies
 
 ### Required Files
-- `assets/js/mindmap.js` (839 lines) - Core functionality including cycle type system
-- `assets/css/mindmap.css` (363 lines) - Styling
-- `mindmap-config.json` (6 lines) - Configuration
-- `index.php` (465 lines) - HTML structure and integration
+- `assets/js/mindmap.js` (860 lines) - Core functionality including cycle type system
+- `assets/css/mindmap.css` (372 lines) - Styling
+- `mindmap-config.json` (5 lines) - Configuration
+- `index.php` (466 lines) - HTML structure and integration
 
 ### External Dependencies
 - **Mermaid.js v10.6.1** - Diagram rendering
