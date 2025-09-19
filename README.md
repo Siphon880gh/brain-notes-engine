@@ -1,6 +1,19 @@
 # Notes Brain Engine
 
-By Weng Fei Fung. 
+By Weng Fei Fung.
+
+## Quick Summary
+
+• **DevBrain** is a knowledge management engine that transforms Markdown notes into an interactive, searchable web application
+• Built with PHP backend, JavaScript frontend, and Node.js build pipeline for handling thousands of notes efficiently  
+• Features full-text search, hierarchical organization, AI-assisted content generation, and multi-brain template system
+• Supports enhanced Markdown (Obsidian-style links, collapsible sections, math equations) with automatic image hosting
+• Powers multiple knowledge collections: developer notes, 3D modeling, business, and health topics
+• Includes publishing pipeline for transforming Obsidian vaults into public-facing knowledge bases
+
+*For detailed technical documentation, see [context.md](./context.md)*
+
+---
 
 A powerful engine for working with thousands of notes across various topics. It reads your folder of Markdown documents, displays them as an organized collection, and enables full-text search across your notes. It also includes a publishing pipeline that transforms your authored notes in Obsidian into a public-facing collection.
 

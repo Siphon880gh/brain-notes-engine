@@ -1,1 +1,1 @@
-3D Brain - Notes on 3D Modeling, Animation, Game Development, Video Editing, Photo Editing, Etc
+Developer Brain - Notes on Coding

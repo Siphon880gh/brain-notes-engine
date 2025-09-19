@@ -1,1 +1,1 @@
-<meta name="description" content="Notes on 3D modeling Blender, cinematic creation with DaVinci, graphics with Photoshop, and video game design with Unreal Engine to communicate a vision into an impactful visual message and create engaging experience.">
+<meta name="description" content="Everything on coding - web development, mobile development, game development, data science, AI and related fields - in bite size guides, code snippets and references. All here in one place for programmers of all levels.">
