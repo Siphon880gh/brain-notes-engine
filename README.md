@@ -180,7 +180,7 @@ DevBrain automatically detects and generates interactive mindmaps from markdown 
 
 ### Creating Mindmaps
 
-Use the `1x1.png` placeholder image in your markdown lists to trigger mindmap generation:
+Use the `1x1.png` placeholder image in your markdown lists to trigger mindmap generation. The alt text of the image becomes the node text in the mindmap:
 
 ```markdown
 # Web Development ![Web Development](img/1x1.png)
@@ -192,6 +192,13 @@ Use the `1x1.png` placeholder image in your markdown lists to trigger mindmap ge
   - API Design ![API](img/1x1.png)
   - Database ![Database](img/1x1.png)
 ```
+
+### Mindmap Node Hierarchy
+
+The mindmap hierarchy is based on the structure of your markdown:
+- **H1, H2, H3... headings** with `1x1.png` images become root nodes
+- **Nested list items** (`<li>`) with `1x1.png` images create child nodes
+- **Alt text** of the `1x1.png` image becomes the node label in the mindmap
 
 ### Mindmap Features
 
@@ -219,6 +226,36 @@ Configure the mindmap layout in `mindmap-config.json`:
 - **spread**: Compact layout where certain nodes are positioned laterally so other descendants can spread towards the middle
 - **tree/tree-down**: Hierarchical tree flowing top-down
 - **tree-right**: Hierarchical tree flowing left-right
+
+## Link Preview with Selected Excerpt
+
+DevBrain supports popover link previews that display selected excerpts from linked content without navigating away from the current page.
+
+### Creating Link Previews
+
+Use the `1x2.png` placeholder image with ellipsis in the alt text to trigger link preview functionality:
+
+```markdown
+# Topic with Link Preview ![a b...c d](img/1x2.png)
+
+- Subtopic with preview ![excerpt text...more content](img/1x2.png)
+  - Detail with preview ![selected...excerpt](img/1x2.png)
+```
+
+### Link Preview Features
+
+- **Popover Display**: Hover or click to show preview in popover iframe
+- **Selected Excerpt**: Alt text with ellipsis pattern (`a b...c d`) indicates excerpt range
+- **Responsive Design**: Works on desktop and mobile devices
+- **Contextual Positioning**: Popover positions relative to the link
+- **Content Integration**: Seamlessly integrates with existing tooltip system
+
+### Alt Text Format
+
+The alt text should follow the ellipsis pattern to indicate the excerpt:
+- **Format**: `start text...end text`
+- **Purpose**: Shows the excerpt range that will be displayed in the preview
+- **Example**: `a b...c d` displays excerpt from "a b" to "c d"
 
 ### Server pipelines
 My remote server has a script I can trigger from my local machine. I created a npm script called `deploy` that I can run locally.
