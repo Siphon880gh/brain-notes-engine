@@ -2,13 +2,13 @@
 
 ## Backend Technologies
 
-### PHP Backend (`index.php` - 395 lines)
+### PHP Backend (`index.php` - 456 lines)
 - **Server-Side Rendering**: Main application entry point
 - **Environment Management**: Dynamic configuration loading
 - **Error Handling**: Comprehensive error reporting and debugging
 - **Session Management**: User state and interaction tracking
 
-### Search Engine (`search.php` - 22 lines)
+### Search Engine (`search.php` - 21 lines)
 - **PCRE Integration**: Perl Compatible Regular Expressions via `pcregrep`
 - **File System Search**: Recursive directory scanning with exclusions
 - **JSON API**: RESTful search endpoint returning structured results

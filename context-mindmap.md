@@ -49,7 +49,7 @@ function traverseList(ul) {
 
 ### Mermaid Generation
 - **Location**: `assets/js/mindmap.js` (lines 85-150)
-- **Functions**: `generateSpiderMermaid()`, `generateTreeMermaid()`
+- **Functions**: `generateSpiderMermaid()`, `generateTreeMermaid()`, `generateSpreadMermaid()`
 - **Logic**: Converts parsed tree structure to Mermaid syntax
 
 ```javascript
@@ -68,7 +68,7 @@ function generateSpiderMermaid(mindmapTree) {
 ## Configuration System
 
 ### Configuration File
-- **Location**: `mindmap-config.json` (6 lines)
+- **Location**: `mindmap-config.json` (5 lines)
 - **Purpose**: Controls default mindmap layout type
 
 ```json
@@ -81,6 +81,7 @@ function generateSpiderMermaid(mindmapTree) {
 
 ### Layout Types
 - **spider**: Radial layout with central root (default)
+- **spread**: Compact layout where certain nodes are positioned laterally so other descendants can spread towards the middle
 - **tree**: Hierarchical tree flowing top-down
 - **tree-down**: Same as tree (explicit)
 - **tree-right**: Hierarchical tree flowing left-right
@@ -89,6 +90,13 @@ function generateSpiderMermaid(mindmapTree) {
 - **Function**: `setMindmapConfig(config)`
 - **Usage**: Change layout type programmatically
 - **Effect**: Regenerates mindmap if currently displayed
+
+### Spread Layout Configuration
+- **Location**: `assets/js/mindmap.js` (lines 318-342)
+- **Purpose**: Optimized compact layout for better space utilization
+- **Configuration**: Uses specialized Mermaid settings with reduced padding and spacing
+- **Node Positioning**: Certain nodes positioned laterally to allow descendants to spread towards center
+- **Spacing**: `nodeSpacing: 80`, `levelSeparation: 120` for compact display
 
 ## UI Components
 
@@ -153,7 +161,7 @@ if (typeof onMarkdownContentUpdated === 'function') {
 ## Styling System
 
 ### CSS Architecture
-- **File**: `assets/css/mindmap.css` (289 lines)
+- **File**: `assets/css/mindmap.css` (362 lines)
 - **Components**: Button, panel, fullscreen modal, responsive design
 - **Features**: Smooth animations, hover effects, mobile optimization
 
@@ -217,9 +225,9 @@ if (typeof onMarkdownContentUpdated === 'function') {
 ## File Dependencies
 
 ### Required Files
-- `assets/js/mindmap.js` (594 lines) - Core functionality
-- `assets/css/mindmap.css` (289 lines) - Styling
-- `mindmap-config.json` (6 lines) - Configuration
+- `assets/js/mindmap.js` (792 lines) - Core functionality
+- `assets/css/mindmap.css` (362 lines) - Styling
+- `mindmap-config.json` (5 lines) - Configuration
 - `index.php` - HTML structure and integration
 
 ### External Dependencies

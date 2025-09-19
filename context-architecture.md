@@ -22,14 +22,14 @@ Each template contains:
 
 ### Caching Pipeline Architecture
 
-1. **Data Collection** (`cache_data.js` - 154 lines)
+1. **Data Collection** (`cache_data.js` - 153 lines)
    - Scans curriculum directory recursively
    - Builds hierarchical file tree structure
    - Collects metadata and sorting specifications
    - Excludes git directories and node_modules
    - Outputs: `cachedResData.json`
 
-2. **HTML Generation** (`cache_render.js` - 227 lines)
+2. **HTML Generation** (`cache_render.js` - 226 lines)
    - Reads cached data from JSON
    - Merges folders by common path
    - Applies Obsidian sort specifications
@@ -47,37 +47,41 @@ npm run build-healthbrain # Same process for health notes
 
 ## Core Components
 
-### Main Application (`index.php` - 395 lines)
+### Main Application (`index.php` - 456 lines)
 - Entry point with HTML structure
 - Environment configuration loading
 - Modal system for notes and sharing
 - Integration with cached content
 - Multi-brain template switching
 
-### Search System (`search.php` - 22 lines)
+### Search System (`search.php` - 21 lines)
 - Uses `pcregrep` for full-text search across markdown files
 - Supports both title and content searching
 - Excludes binary files and git directories
 - Returns JSON results for AJAX consumption
 
-### Frontend Architecture (`assets/js/` - 8 files)
-- `index.js` (400+ lines): Main application logic, note opening, UI interactions
-- `searchers.js`: Search functionality and result display
-- `modal.js`: Modal system management
-- `note-opener.js`: Markdown rendering and note display
-- `image-modal.js`: Image viewing functionality
+### Frontend Architecture (`assets/js/` - 11 files)
+- `index.js` (399 lines): Main application logic, note opening, UI interactions
+- `searchers.js` (363 lines): Search functionality and result display
+- `modal.js` (27 lines): Modal system management
+- `note-opener.js` (956 lines): Markdown rendering and note display
+- `image-modal.js` (127 lines): Image viewing functionality
+- `mindmap.js` (792 lines): Interactive mindmap generation and controls
+- `game.js` (600 lines): Game mode functionality
+- `multistates.js` (230 lines): Multi-state UI components
+- `diff.js` (39 lines): Content comparison utilities
 
 ## File Structure
 
 ```
 devbrain/
-├── index.php                 # Main application (395 lines)
-├── cache_data.js            # File tree caching (154 lines)
-├── cache_render.js          # HTML generation (227 lines)
-├── search.php               # Search endpoint (22 lines)
+├── index.php                 # Main application (456 lines)
+├── cache_data.js            # File tree caching (153 lines)
+├── cache_render.js          # HTML generation (226 lines)
+├── search.php               # Search endpoint (21 lines)
 ├── assets/
-│   ├── css/                 # Styling (6 CSS files)
-│   └── js/                  # Frontend logic (8 JS files)
+│   ├── css/                 # Styling (8 CSS files)
+│   └── js/                  # Frontend logic (11 JS files)
 ├── env/                     # Configuration templates
 │   ├── templates-devbrain/  # Developer notes config
 │   ├── templates-3dbrain/   # 3D notes config

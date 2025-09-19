@@ -5,10 +5,10 @@ By Weng Fei Fung.
 ## Quick Summary
 
 • **DevBrain** is a knowledge management engine that transforms Markdown notes into an interactive, searchable web application
-• Built with PHP backend, JavaScript frontend, and Node.js build pipeline for handling thousands of notes efficiently  
+• Built with PHP backend (456 lines), JavaScript frontend, and Node.js build pipeline for handling thousands of notes efficiently  
 • Features full-text search, hierarchical organization, AI-assisted content generation, and interactive mindmap visualization
 • Supports enhanced Markdown (Obsidian-style links, collapsible sections, math equations) with automatic image hosting
-• Includes automatic mindmap generation from markdown lists using Mermaid.js with zoom, pan, and fullscreen controls
+• Includes automatic mindmap generation from markdown lists using Mermaid.js (792 lines) with zoom, pan, and fullscreen controls
 • Powers multiple knowledge collections: developer notes, 3D modeling, business, and health topics
 • Includes publishing pipeline for transforming Obsidian vaults into public-facing knowledge bases
 
@@ -196,7 +196,7 @@ Use the `1x1.png` placeholder image in your markdown lists to trigger mindmap ge
 ### Mindmap Features
 
 - **Automatic Detection**: Green mindmap button appears when content is detected
-- **Multiple Layouts**: Spider/radial (default), tree top-down, tree left-right
+- **Multiple Layouts**: Spider/radial (default), tree top-down, tree left-right, spread (compact)
 - **Interactive Controls**: Zoom in/out, pan/drag, reset zoom, fullscreen mode
 - **Responsive Design**: Works on desktop and mobile devices
 - **Configuration**: Edit `mindmap-config.json` to change default layout
@@ -208,10 +208,16 @@ Configure the mindmap layout in `mindmap-config.json`:
 ```json
 {
   "mindmap": {
-    "type": "spider"  // "spider", "tree", "tree-down", "tree-right"
+    "type": "spread"  // "spider", "tree", "tree-down", "tree-right", "spread"
   }
 }
 ```
+
+**Layout Types:**
+- **spider**: Radial layout with central root (default)
+- **tree/tree-down**: Hierarchical tree flowing top-down
+- **tree-right**: Hierarchical tree flowing left-right
+- **spread**: Compact layout where certain nodes are positioned laterally so other descendants can spread towards the middle
 
 ### Server pipelines
 My remote server has a script I can trigger from my local machine. I created a npm script called `deploy` that I can run locally.

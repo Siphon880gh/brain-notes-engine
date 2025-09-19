@@ -2,11 +2,11 @@
 
 ## Project Overview
 
-**DevBrain** is a powerful knowledge management and publishing engine that transforms Markdown notes into an interactive, searchable web application. It's designed to handle thousands of notes across various topics (coding, 3D modeling, business, health) with features like full-text search, hierarchical organization, and AI-assisted content generation.
+**DevBrain** is a powerful knowledge management and publishing engine that transforms Markdown notes into an interactive, searchable web application. It's designed to handle thousands of notes across various topics (coding, 3D modeling, business, health) with features like full-text search, hierarchical organization, AI-assisted content generation, and interactive mindmap visualization.
 
 ## Tech Stack
 
-- **Backend**: PHP (457 lines in `index.php`)
+- **Backend**: PHP (456 lines in `index.php`)
 - **Frontend**: HTML, CSS, JavaScript (jQuery, Tailwind CSS)
 - **Build System**: Node.js with custom caching pipeline
 - **Search**: PCRE (Perl Compatible Regular Expressions) via `pcregrep`
@@ -18,11 +18,11 @@
 ## Core Architecture
 
 ### Main Components
-- **`index.php`** (457 lines): Main application entry point with HTML structure and mindmap UI
-- **`cache_data.js`** (154 lines): Scans curriculum directory, builds file tree
-- **`cache_render.js`** (227 lines): Generates PHP partials from cached data
-- **`search.php`** (22 lines): PCRE-based full-text search endpoint
-- **`assets/js/`** (9 files): Frontend logic including note opening, search, modals, mindmap generation
+- **`index.php`** (456 lines): Main application entry point with HTML structure and mindmap UI
+- **`cache_data.js`** (153 lines): Scans curriculum directory, builds file tree
+- **`cache_render.js`** (226 lines): Generates PHP partials from cached data
+- **`search.php`** (21 lines): PCRE-based full-text search endpoint
+- **`assets/js/`** (11 files): Frontend logic including note opening, search, modals, mindmap generation
 
 ### Multi-Brain Template System
 Supports multiple knowledge collections through template system:
@@ -48,14 +48,14 @@ env/templates-{devbrain,3dbrain,bizbrain,healthbrain}/
 
 ```
 devbrain/
-├── index.php                 # Main application (457 lines)
-├── cache_data.js            # File tree caching (154 lines)
-├── cache_render.js          # HTML generation (227 lines)
-├── search.php               # Search endpoint (22 lines)
-├── mindmap-config.json      # Mindmap layout configuration (6 lines)
+├── index.php                 # Main application (456 lines)
+├── cache_data.js            # File tree caching (153 lines)
+├── cache_render.js          # HTML generation (226 lines)
+├── search.php               # Search endpoint (21 lines)
+├── mindmap-config.json      # Mindmap layout configuration (5 lines)
 ├── assets/
-│   ├── css/mindmap.css      # Mindmap styling (289 lines)
-│   └── js/mindmap.js        # Mindmap functionality (594 lines)
+│   ├── css/mindmap.css      # Mindmap styling (362 lines)
+│   └── js/mindmap.js        # Mindmap functionality (792 lines)
 ├── env/templates-*/         # Multi-brain configurations
 ├── curriculum/              # Markdown notes (separate repo)
 └── future-*/               # Planned features
@@ -66,7 +66,7 @@ devbrain/
 **Interactive mindmap generation from markdown lists using Mermaid.js visualization.**
 
 - **Automatic Detection**: Scans for `1x1.png` placeholder images in markdown lists
-- **Multiple Layouts**: Spider/radial, tree top-down, tree left-right configurations
+- **Multiple Layouts**: Spider/radial, tree top-down, tree left-right, spread (compact) configurations
 - **Interactive Controls**: Zoom, pan, fullscreen with responsive design
 - **Configuration**: JSON-based layout type settings
 
