@@ -552,6 +552,12 @@ async function updateMindmapDisplay() {
         // Setup hover effects for all mindmap types
         setupNodeHoverEffects(mindmapId);
         
+        // Enable dragging for the new mindmap
+        const mindmapDiagram = document.getElementById(mindmapId);
+        if (mindmapDiagram) {
+            enableDragging(mindmapDiagram);
+        }
+        
     } catch (error) {
         console.error('Error rendering mindmap:', error);
         mindmapContent.innerHTML = `
@@ -618,12 +624,14 @@ function applyZoom(container) {
         const transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoomLevel})`;
         mindmapDiagram.style.transform = transform;
         
+        // Always enable dragging for better user experience
+        enableDragging(mindmapDiagram);
+        
+        // Add zoomed class for styling when zoomed in
         if (currentZoomLevel > 1) {
             mindmapDiagram.classList.add('zoomed');
-            enableDragging(mindmapDiagram);
         } else {
             mindmapDiagram.classList.remove('zoomed');
-            disableDragging(mindmapDiagram);
         }
     }
 }
@@ -644,16 +652,21 @@ function disableDragging(element) {
 }
 
 function startDrag(e) {
-    if (currentZoomLevel > 1) {
-        isDragging = true;
-        dragStartX = e.clientX - translateX;
-        dragStartY = e.clientY - translateY;
-        e.preventDefault();
+    // Enable dragging at all zoom levels for better user experience
+    isDragging = true;
+    dragStartX = e.clientX - translateX;
+    dragStartY = e.clientY - translateY;
+    e.preventDefault();
+    
+    // Add visual feedback
+    const mindmapDiagram = e.target.closest('.mindmap-diagram');
+    if (mindmapDiagram) {
+        mindmapDiagram.style.cursor = 'grabbing';
     }
 }
 
 function drag(e) {
-    if (isDragging && currentZoomLevel > 1) {
+    if (isDragging) {
         translateX = e.clientX - dragStartX;
         translateY = e.clientY - dragStartY;
         applyZoom();
@@ -663,6 +676,12 @@ function drag(e) {
 
 function endDrag() {
     isDragging = false;
+    
+    // Restore cursor
+    const mindmapDiagram = document.querySelector('.mindmap-diagram');
+    if (mindmapDiagram) {
+        mindmapDiagram.style.cursor = '';
+    }
 }
 
 // 9. Fullscreen Functions
@@ -681,6 +700,9 @@ function openFullScreenMindmap() {
             clonedDiagram.style.transform = '';
             fullScreenContent.innerHTML = '';
             fullScreenContent.appendChild(clonedDiagram);
+            
+            // Enable dragging for the fullscreen mindmap
+            enableDragging(clonedDiagram);
             
             currentZoomLevel = 1;
             translateX = 0;

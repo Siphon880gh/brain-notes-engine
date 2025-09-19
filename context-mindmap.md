@@ -137,8 +137,10 @@ function generateSpiderMermaid(mindmapTree) {
 
 ### Drag & Pan
 - **Functions**: `startDrag()`, `drag()`, `endDrag()`
-- **Behavior**: Mouse-based dragging when zoomed
-- **Visual Feedback**: Cursor changes to grab/grabbing
+- **Behavior**: Mouse-based dragging at all zoom levels for better user experience
+- **Visual Feedback**: Cursor changes to grab/grabbing with smooth transitions
+- **Context Support**: Works in both mindmap panel and fullscreen modal
+- **User Experience**: Always enabled for intuitive navigation
 
 ### Fullscreen Mode
 - **Function**: `openFullScreenMindmap()`

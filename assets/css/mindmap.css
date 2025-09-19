@@ -142,6 +142,16 @@
     min-height: 400px;
     transition: transform 0.3s ease;
     transform-origin: center center;
+    cursor: grab;
+    user-select: none;
+}
+
+.mindmap-diagram:hover {
+    cursor: grab;
+}
+
+.mindmap-diagram:active {
+    cursor: grabbing;
 }
 
 .mindmap-diagram.zoomed {
