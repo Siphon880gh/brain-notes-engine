@@ -68,7 +68,8 @@ devbrain/
 - **Automatic Detection**: Scans for `1x1.png` placeholder images in markdown lists
 - **Multiple Layouts**: Spider/radial, tree top-down, tree left-right, spread (compact) configurations
 - **Interactive Controls**: Zoom, pan, fullscreen with responsive design
-- **Configuration**: JSON-based layout type settings
+- **Cycle Type Button**: Dynamic switching between layout types (spider → spread → tree-down → tree-right)
+- **Configuration**: JSON-based layout type settings with runtime type cycling
 
 *See [context-mindmap.md](./context-mindmap.md) for detailed implementation.*
 

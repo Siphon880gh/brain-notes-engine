@@ -109,13 +109,15 @@ function generateSpiderMermaid(mindmapTree) {
 ### Mindmap Panel
 - **Location**: `index.php` (lines 376-401)
 - **CSS**: `assets/css/mindmap.css` (lines 22-80)
-- **Features**: Slide-out panel with zoom controls and fullscreen option
+- **Features**: Slide-out panel with cycle type, zoom controls and fullscreen option
+- **Controls**: Cycle type button (left), zoom buttons, fullscreen button
 - **Responsive**: Adapts to mobile screens
 
 ### Fullscreen Modal
 - **Location**: `index.php` (lines 404-425)
 - **CSS**: `assets/css/mindmap.css` (lines 120-180)
 - **Features**: Immersive viewing with dedicated controls
+- **Controls**: Cycle type button (left), zoom buttons
 - **Behavior**: Clones current mindmap for fullscreen display
 
 ## Interactive Controls
@@ -125,6 +127,13 @@ function generateSpiderMermaid(mindmapTree) {
 - **Range**: 0.3x to 3x zoom levels
 - **Smooth Scaling**: CSS transitions for smooth animations
 - **Pan Support**: Drag functionality when zoomed > 1x
+
+### Cycle Type System
+- **Function**: `cycleMindmapType()`
+- **Types**: Cycles through spider → spread → tree-down → tree-right → spider
+- **UI**: Cycle button with sync icon in both panel and fullscreen modal
+- **Tooltips**: Dynamic tooltips showing current type (e.g., "Cycle Type (Current: spider)")
+- **Integration**: Works with existing configuration system and regenerates mindmap instantly
 
 ### Drag & Pan
 - **Functions**: `startDrag()`, `drag()`, `endDrag()`
@@ -156,7 +165,8 @@ if (typeof onMarkdownContentUpdated === 'function') {
 ### Event Management
 - **Location**: `assets/js/mindmap.js` (lines 450-500)
 - **Function**: `setupMindmapEventListeners()`
-- **Events**: Click handlers, keyboard shortcuts, outside clicks
+- **Events**: Click handlers for cycle type, zoom, fullscreen, keyboard shortcuts, outside clicks
+- **Cycle Button**: Event listeners for both panel and fullscreen cycle type buttons
 
 ## Styling System
 
@@ -225,10 +235,10 @@ if (typeof onMarkdownContentUpdated === 'function') {
 ## File Dependencies
 
 ### Required Files
-- `assets/js/mindmap.js` (792 lines) - Core functionality
-- `assets/css/mindmap.css` (362 lines) - Styling
-- `mindmap-config.json` (5 lines) - Configuration
-- `index.php` - HTML structure and integration
+- `assets/js/mindmap.js` (839 lines) - Core functionality including cycle type system
+- `assets/css/mindmap.css` (363 lines) - Styling
+- `mindmap-config.json` (6 lines) - Configuration
+- `index.php` (465 lines) - HTML structure and integration
 
 ### External Dependencies
 - **Mermaid.js v10.6.1** - Diagram rendering
