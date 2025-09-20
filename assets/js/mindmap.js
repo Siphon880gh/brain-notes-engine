@@ -23,6 +23,12 @@ let translateY = 0;
 
 // Mindmap type cycling
 const mindmapTypes = ['spider', 'spread', 'tree-down', 'tree-right'];
+const mindmapTypeNames = {
+    'spider': 'Spider',
+    'spread': 'Spread',
+    'tree-down': 'Tree Down', 
+    'tree-right': 'Tree Right'
+};
 let currentTypeIndex = 0;
 
 // D3.js will be loaded from CDN - no initialization needed here
@@ -465,15 +471,41 @@ function createInteractiveMindmap(containerId, treeData) {
     // Create force simulation based on mindmap type
     const simulation = createSimulation(nodes, links, width, height);
     
-    // Create links (edges)
+    // Create links (edges) with improved visual hierarchy
     const link = g.append('g')
         .attr('class', 'links')
         .selectAll('line')
         .data(links)
         .enter().append('line')
-        .attr('stroke', '#cccccc')
-        .attr('stroke-width', 2)
-        .attr('stroke-opacity', 0.8);
+        .attr('stroke', d => {
+            // Progressive link colors based on hierarchy depth
+            const sourceLevel = nodes.find(n => n.id === d.source.id)?.level || 0;
+            const targetLevel = nodes.find(n => n.id === d.target.id)?.level || 1;
+            const maxLevel = Math.max(sourceLevel, targetLevel);
+            
+            if (maxLevel === 1) return '#718096'; // Primary connections - darker
+            if (maxLevel === 2) return '#a0aec0'; // Secondary connections - medium
+            return '#cbd5e0'; // Tertiary and beyond - lighter
+        })
+        .attr('stroke-width', d => {
+            // Progressive line thickness based on hierarchy
+            const sourceLevel = nodes.find(n => n.id === d.source.id)?.level || 0;
+            const targetLevel = nodes.find(n => n.id === d.target.id)?.level || 1;
+            const maxLevel = Math.max(sourceLevel, targetLevel);
+            
+            if (maxLevel === 1) return 3; // Thicker for primary connections
+            if (maxLevel === 2) return 2; // Medium for secondary
+            return 1.5; // Thinner for tertiary
+        })
+        .attr('stroke-opacity', d => {
+            // Progressive opacity for visual depth
+            const sourceLevel = nodes.find(n => n.id === d.source.id)?.level || 0;
+            const targetLevel = nodes.find(n => n.id === d.target.id)?.level || 1;
+            const maxLevel = Math.max(sourceLevel, targetLevel);
+            
+            return Math.max(0.4, 1 - (maxLevel * 0.15));
+        })
+        .attr('stroke-linecap', 'round');
     
     // Create nodes
     const node = g.append('g')
@@ -487,25 +519,38 @@ function createInteractiveMindmap(containerId, treeData) {
             .on('drag', dragged)
             .on('end', dragended));
     
-    // Add rectangles to nodes (will be sized after text is added)
+    // Add enhanced rectangles to nodes with gradient and shadow effects
     node.append('rect')
         .attr('fill', d => getNodeColor(d.level, d.branchIndex))
-        .attr('stroke', '#fff')
-        .attr('stroke-width', 2)
-        .attr('rx', 5) // Rounded corners
-        .attr('ry', 5);
+        .attr('stroke', d => d.level === 0 ? '#1a202c' : '#ffffff')
+        .attr('stroke-width', d => d.level === 0 ? 3 : 2)
+        .attr('rx', d => d.level === 0 ? 8 : 12) // More rounded for better aesthetics
+        .attr('ry', d => d.level === 0 ? 8 : 12)
+        .attr('filter', 'drop-shadow(0px 2px 4px rgba(0,0,0,0.1))')
+        .style('opacity', 0.95);
     
-    // Add labels to nodes
+    // Add labels to nodes with improved typography
     const nodeText = node.append('text')
-        .text(d => d.label)
+        .text(d => {
+            // Truncate long labels for better readability
+            const maxLength = d.level === 0 ? 20 : 15;
+            return d.label.length > maxLength ? 
+                d.label.substring(0, maxLength) + '...' : d.label;
+        })
         .attr('dy', '0.35em')
         .attr('text-anchor', 'middle')
-        .attr('font-size', d => d.level === 0 ? '12px' : '10px')
-        .attr('font-weight', d => d.level === 0 ? 'bold' : 'bold')
-        .attr('fill', '#333')
-        .attr('pointer-events', 'none');
+        .attr('font-size', d => {
+            // Progressive font sizing based on level
+            const baseSizes = [16, 13, 11, 10];
+            return (baseSizes[d.level] || 9) + 'px';
+        })
+        .attr('font-weight', d => d.level === 0 ? '700' : d.level === 1 ? '600' : '500')
+        .attr('font-family', '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif')
+        .attr('fill', d => d.level === 0 ? '#ffffff' : '#2d3748')
+        .attr('pointer-events', 'none')
+        .style('text-shadow', d => d.level === 0 ? '0px 1px 2px rgba(0,0,0,0.3)' : 'none');
     
-    // Size rectangles based on text dimensions
+    // Size rectangles based on text dimensions with enhanced padding
     node.each(function(d) {
         const textElement = d3.select(this).select('text');
         const rectElement = d3.select(this).select('rect');
@@ -513,10 +558,14 @@ function createInteractiveMindmap(containerId, treeData) {
         // Get text bounding box
         const bbox = textElement.node().getBBox();
         
-        // Add padding around text
-        const padding = d.level === 0 ? 16 : 12;
-        const width = bbox.width + (padding * 2);
-        const height = bbox.height + (padding * 1.5);
+        // Progressive padding based on level and content
+        const basePadding = d.level === 0 ? 20 : d.level === 1 ? 16 : 12;
+        const extraPadding = Math.min(d.label.length * 0.5, 8); // Extra padding for longer text
+        const horizontalPadding = basePadding + extraPadding;
+        const verticalPadding = basePadding * 0.8;
+        
+        const width = Math.max(bbox.width + (horizontalPadding * 2), d.level === 0 ? 80 : 60);
+        const height = Math.max(bbox.height + (verticalPadding * 2), d.level === 0 ? 40 : 32);
         
         // Set rectangle dimensions and center it
         rectElement
@@ -526,33 +575,104 @@ function createInteractiveMindmap(containerId, treeData) {
             .attr('y', -height / 2);
     });
     
-    // Add hover effects
+    // Add enhanced hover effects with connected links highlighting
     node.on('mouseenter', function(event, d) {
-        const rect = d3.select(this).select('rect');
+        const currentNode = d3.select(this);
+        const rect = currentNode.select('rect');
+        const text = currentNode.select('text');
         const currentWidth = parseFloat(rect.attr('width'));
         const currentHeight = parseFloat(rect.attr('height'));
         
+        // Enhance the node appearance
         rect.transition().duration(200)
-            .attr('width', currentWidth * 1.1)
-            .attr('height', currentHeight * 1.1)
-            .attr('x', -(currentWidth * 1.1) / 2)
-            .attr('y', -(currentHeight * 1.1) / 2)
-            .attr('stroke-width', 3);
+            .attr('width', currentWidth * 1.08)
+            .attr('height', currentHeight * 1.08)
+            .attr('x', -(currentWidth * 1.08) / 2)
+            .attr('y', -(currentHeight * 1.08) / 2)
+            .attr('stroke-width', d.level === 0 ? 4 : 3)
+            .style('filter', 'drop-shadow(0px 4px 8px rgba(0,0,0,0.2))')
+            .style('opacity', 1);
+        
+        // Enhance text readability
+        text.transition().duration(200)
+            .attr('font-weight', d.level === 0 ? '800' : '700');
+        
+        // Highlight connected links
+        link.transition().duration(200)
+            .attr('stroke-opacity', linkData => {
+                const isConnected = (linkData.source.id === d.id || linkData.target.id === d.id);
+                return isConnected ? 0.9 : 0.2;
+            })
+            .attr('stroke-width', linkData => {
+                const isConnected = (linkData.source.id === d.id || linkData.target.id === d.id);
+                if (!isConnected) return parseFloat(d3.select(this).attr('stroke-width')) * 0.5;
+                
+                const sourceLevel = linkData.source.level || 0;
+                const targetLevel = linkData.target.level || 1;
+                const maxLevel = Math.max(sourceLevel, targetLevel);
+                
+                if (maxLevel === 1) return 4;
+                if (maxLevel === 2) return 3;
+                return 2.5;
+            });
+        
+        // Dim other nodes slightly
+        node.filter(nodeData => nodeData.id !== d.id)
+            .select('rect')
+            .transition().duration(200)
+            .style('opacity', 0.7);
     })
     .on('mouseleave', function(event, d) {
-        const rect = d3.select(this).select('rect');
-        const textElement = d3.select(this).select('text');
-        const bbox = textElement.node().getBBox();
-        const padding = d.level === 0 ? 16 : 12;
-        const width = bbox.width + (padding * 2);
-        const height = bbox.height + (padding * 1.5);
+        const currentNode = d3.select(this);
+        const rect = currentNode.select('rect');
+        const text = currentNode.select('text');
+        const textElement = text.node();
+        const bbox = textElement.getBBox();
+        
+        // Restore original node dimensions
+        const basePadding = d.level === 0 ? 20 : d.level === 1 ? 16 : 12;
+        const extraPadding = Math.min(d.label.length * 0.5, 8);
+        const horizontalPadding = basePadding + extraPadding;
+        const verticalPadding = basePadding * 0.8;
+        
+        const width = Math.max(bbox.width + (horizontalPadding * 2), d.level === 0 ? 80 : 60);
+        const height = Math.max(bbox.height + (verticalPadding * 2), d.level === 0 ? 40 : 32);
         
         rect.transition().duration(200)
             .attr('width', width)
             .attr('height', height)
             .attr('x', -width / 2)
             .attr('y', -height / 2)
-            .attr('stroke-width', 2);
+            .attr('stroke-width', d.level === 0 ? 3 : 2)
+            .style('filter', 'drop-shadow(0px 2px 4px rgba(0,0,0,0.1))')
+            .style('opacity', 0.95);
+        
+        // Restore text weight
+        text.transition().duration(200)
+            .attr('font-weight', d.level === 0 ? '700' : d.level === 1 ? '600' : '500');
+        
+        // Restore all links to normal
+        link.transition().duration(200)
+            .attr('stroke-opacity', linkData => {
+                const sourceLevel = linkData.source.level || 0;
+                const targetLevel = linkData.target.level || 1;
+                const maxLevel = Math.max(sourceLevel, targetLevel);
+                return Math.max(0.4, 1 - (maxLevel * 0.15));
+            })
+            .attr('stroke-width', linkData => {
+                const sourceLevel = linkData.source.level || 0;
+                const targetLevel = linkData.target.level || 1;
+                const maxLevel = Math.max(sourceLevel, targetLevel);
+                
+                if (maxLevel === 1) return 3;
+                if (maxLevel === 2) return 2;
+                return 1.5;
+            });
+        
+        // Restore all nodes to full opacity
+        node.select('rect')
+            .transition().duration(200)
+            .style('opacity', 0.95);
     });
     
     // Update positions on simulation tick
@@ -681,61 +801,102 @@ function createSimulation(nodes, links, width, height) {
     
     let simulation = d3.forceSimulation(nodes);
     
-    // Add link force
+    // Add link force with improved spacing
     simulation.force('link', d3.forceLink(links)
         .id(d => d.id)
         .distance(d => {
             const sourceLevel = nodes.find(n => n.id === d.source.id)?.level || 0;
             const targetLevel = nodes.find(n => n.id === d.target.id)?.level || 1;
-            return 120 + (targetLevel * 40); // Much longer links for better spacing
+            // Dynamic link distance based on level and content length
+            const baseDistance = 180 + (targetLevel * 60);
+            const contentFactor = Math.min(d.target.label?.length || 10, 20) * 2;
+            return baseDistance + contentFactor;
         })
-        .strength(0.6) // Reduced strength for more flexible positioning
+        .strength(0.7)
     );
     
-    // Configure forces based on mindmap type
+    // Configure forces based on mindmap type with improved parameters
     switch (mindmapType) {
         case 'spider':
-            // Radial layout with much better spacing
+            // Radial layout with optimal spacing and collision detection
             simulation
-                .force('charge', d3.forceManyBody().strength(-800)) // Much stronger repulsion
+                .force('charge', d3.forceManyBody().strength(-1200))
                 .force('center', d3.forceCenter(width / 2, height / 2))
-                .force('radial', d3.forceRadial(d => d.level * 150, width / 2, height / 2).strength(0.5)); // Larger radial distances
+                .force('radial', d3.forceRadial(d => {
+                    // Progressive radial distances with better distribution
+                    const baseRadius = d.level * 200;
+                    const angleSpread = Math.PI / Math.max(1, nodes.filter(n => n.level === d.level).length / 3);
+                    return baseRadius + (angleSpread * 20);
+                }, width / 2, height / 2).strength(0.6))
+                .force('collision', d3.forceCollide().radius(d => {
+                    // Dynamic collision radius based on text length
+                    const textLength = d.label?.length || 10;
+                    return Math.max(60, textLength * 3 + 20);
+                }).strength(0.8));
             break;
             
         case 'spread':
-            // Spread layout with better spacing
+            // Organic spread layout with better distribution
             simulation
-                .force('charge', d3.forceManyBody().strength(-600)) // Stronger repulsion
+                .force('charge', d3.forceManyBody().strength(d => {
+                    // Variable repulsion based on node level
+                    return d.level === 0 ? -1500 : -800 - (d.level * 100);
+                }))
                 .force('center', d3.forceCenter(width / 2, height / 2))
-                .force('x', d3.forceX(width / 2).strength(0.05))
-                .force('y', d3.forceY(height / 2).strength(0.05));
+                .force('x', d3.forceX(width / 2).strength(0.08))
+                .force('y', d3.forceY(height / 2).strength(0.08))
+                .force('collision', d3.forceCollide().radius(d => {
+                    const textLength = d.label?.length || 10;
+                    return Math.max(50, textLength * 2.5 + 15);
+                }).strength(0.9));
             break;
             
         case 'tree-down':
-            // Vertical tree layout with proper hierarchical spacing
+            // Hierarchical vertical tree with improved spacing
             simulation
-                .force('charge', d3.forceManyBody().strength(-400))
-                .force('center', d3.forceCenter(width / 2, 80))
-                .force('y', d3.forceY(d => 80 + d.level * 120).strength(0.9)) // Much more vertical spacing
-                .force('x', d3.forceX(width / 2).strength(0.05))
-                .force('collision', d3.forceCollide().radius(80)); // Prevent overlap
+                .force('charge', d3.forceManyBody().strength(-600))
+                .force('center', d3.forceCenter(width / 2, 100))
+                .force('y', d3.forceY(d => {
+                    // Progressive vertical spacing with level-based positioning
+                    return 100 + (d.level * 160) + (Math.random() - 0.5) * 20;
+                }).strength(0.95))
+                .force('x', d3.forceX(d => {
+                    // Slight horizontal variation within levels
+                    const levelNodes = nodes.filter(n => n.level === d.level);
+                    const nodeIndex = levelNodes.indexOf(d);
+                    const totalWidth = Math.min(width - 200, levelNodes.length * 180);
+                    const startX = (width - totalWidth) / 2;
+                    return startX + (nodeIndex * (totalWidth / Math.max(1, levelNodes.length - 1)));
+                }).strength(0.3))
+                .force('collision', d3.forceCollide().radius(70).strength(0.8));
             break;
             
         case 'tree-right':
-            // Horizontal tree layout with proper hierarchical spacing
+            // Hierarchical horizontal tree with improved spacing
             simulation
-                .force('charge', d3.forceManyBody().strength(-400))
-                .force('center', d3.forceCenter(80, height / 2))
-                .force('x', d3.forceX(d => 80 + d.level * 200).strength(0.9)) // Much more horizontal spacing
-                .force('y', d3.forceY(height / 2).strength(0.05))
-                .force('collision', d3.forceCollide().radius(80)); // Prevent overlap
+                .force('charge', d3.forceManyBody().strength(-600))
+                .force('center', d3.forceCenter(120, height / 2))
+                .force('x', d3.forceX(d => {
+                    // Progressive horizontal spacing
+                    return 120 + (d.level * 220) + (Math.random() - 0.5) * 20;
+                }).strength(0.95))
+                .force('y', d3.forceY(d => {
+                    // Vertical distribution within levels
+                    const levelNodes = nodes.filter(n => n.level === d.level);
+                    const nodeIndex = levelNodes.indexOf(d);
+                    const totalHeight = Math.min(height - 200, levelNodes.length * 120);
+                    const startY = (height - totalHeight) / 2;
+                    return startY + (nodeIndex * (totalHeight / Math.max(1, levelNodes.length - 1)));
+                }).strength(0.3))
+                .force('collision', d3.forceCollide().radius(60).strength(0.8));
             break;
             
         default:
-            // Default spider layout
+            // Enhanced default spider layout
             simulation
-                .force('charge', d3.forceManyBody().strength(-800))
-                .force('center', d3.forceCenter(width / 2, height / 2));
+                .force('charge', d3.forceManyBody().strength(-1000))
+                .force('center', d3.forceCenter(width / 2, height / 2))
+                .force('collision', d3.forceCollide().radius(50).strength(0.7));
     }
     
     return simulation;
@@ -743,13 +904,25 @@ function createSimulation(nodes, links, width, height) {
 
 function getNodeColor(level, branchIndex) {
     if (level === 0) {
-        return '#667eea'; // Root node color
+        // Root node with strong, professional color
+        return '#2d3748'; // Dark blue-gray
     }
     
-    // Use golden-angle palette like the original
-    const hue = (branchIndex * 137.508) % 360;
-    const lightness = 65 + ((branchIndex * 5) % 15); // Vary lightness slightly
-    return `hsl(${hue}, 60%, ${lightness}%)`;
+    // Enhanced color palette with better contrast and visual hierarchy
+    const colorPalettes = [
+        // Primary branches - vibrant but professional
+        ['#4299e1', '#48bb78', '#ed8936', '#9f7aea', '#38b2ac', '#f56565'],
+        // Secondary level - softer variants
+        ['#63b3ed', '#68d391', '#f6ad55', '#b794f6', '#4fd1c7', '#fc8181'],
+        // Tertiary level - even softer
+        ['#90cdf4', '#9ae6b4', '#fbd38d', '#d6bcfa', '#81e6d9', '#feb2b2']
+    ];
+    
+    const paletteIndex = Math.min(level - 1, colorPalettes.length - 1);
+    const palette = colorPalettes[paletteIndex];
+    const colorIndex = branchIndex % palette.length;
+    
+    return palette[colorIndex];
 }
 
 function toggleMindmapPanel() {
@@ -1312,7 +1485,7 @@ function setupMindmapEventListeners() {
     
     // Panel controls
     document.getElementById('mindmap-close').addEventListener('click', closeMindmapPanel);
-    document.getElementById('mindmap-cycle-type').addEventListener('click', cycleMindmapType);
+    document.getElementById('mindmap-cycle-type').addEventListener('click', (e) => cycleMindmapType(e.target));
     document.getElementById('mindmap-zoom-in').addEventListener('click', () => zoomIn());
     document.getElementById('mindmap-zoom-out').addEventListener('click', () => zoomOut());
     document.getElementById('mindmap-zoom-reset').addEventListener('click', () => resetZoom());
@@ -1324,7 +1497,7 @@ function setupMindmapEventListeners() {
     
     // Fullscreen controls
     document.getElementById('mindmap-fullscreen-close').addEventListener('click', closeFullScreenMindmap);
-    document.getElementById('mindmap-fullscreen-cycle-type').addEventListener('click', cycleMindmapType);
+    document.getElementById('mindmap-fullscreen-cycle-type').addEventListener('click', (e) => cycleMindmapType(e.target));
     document.getElementById('mindmap-fullscreen-zoom-in').addEventListener('click', () => {
         const container = document.querySelector('.mindmap-fullscreen-modal.visible');
         zoomIn(container);
@@ -1377,9 +1550,13 @@ function setMindmapConfig(config) {
 }
 
 // Cycle through mindmap types
-function cycleMindmapType() {
+function cycleMindmapType(clickedButton = null) {
     currentTypeIndex = (currentTypeIndex + 1) % mindmapTypes.length;
     const newType = mindmapTypes[currentTypeIndex];
+    const newTypeName = mindmapTypeNames[newType];
+    
+    // Show the tooltip with the new type name at the clicked button
+    showTypeTooltip(newTypeName, clickedButton);
     
     // Update the configuration
     setMindmapConfig({ type: newType });
@@ -1404,6 +1581,7 @@ function cycleMindmapType() {
 // Update cycle button tooltips to show current type
 function updateCycleButtonTooltips() {
     const currentType = mindmapTypes[currentTypeIndex];
+    const currentTypeName = mindmapTypeNames[currentType];
     const cycleButtons = [
         document.getElementById('mindmap-cycle-type'),
         document.getElementById('mindmap-fullscreen-cycle-type')
@@ -1411,9 +1589,54 @@ function updateCycleButtonTooltips() {
     
     cycleButtons.forEach(button => {
         if (button) {
-            button.title = `Cycle Type (Current: ${currentType})`;
+            button.title = `Cycle Type (Current: ${currentTypeName})`;
         }
     });
+}
+
+// Create and manage the mindmap type tooltip
+function createTypeTooltip(targetButton) {
+    // Remove existing tooltips
+    document.querySelectorAll('.mindmap-type-tooltip').forEach(tooltip => {
+        tooltip.remove();
+    });
+    
+    // Create new tooltip element
+    const tooltip = document.createElement('div');
+    tooltip.className = 'mindmap-type-tooltip';
+    targetButton.appendChild(tooltip);
+    
+    return tooltip;
+}
+
+function showTypeTooltip(typeName, clickedButton = null) {
+    // Find the clicked button or default to the first cycle button
+    let targetButton = clickedButton;
+    if (!targetButton) {
+        targetButton = document.getElementById('mindmap-cycle-type') || 
+                      document.getElementById('mindmap-fullscreen-cycle-type');
+    }
+    
+    if (!targetButton) return;
+    
+    const tooltip = createTypeTooltip(targetButton);
+    tooltip.textContent = typeName;
+    
+    // Show tooltip with animation
+    requestAnimationFrame(() => {
+        tooltip.classList.add('visible');
+    });
+    
+    // Hide tooltip after 1.2 seconds
+    setTimeout(() => {
+        tooltip.classList.remove('visible');
+        // Remove from DOM after animation completes
+        setTimeout(() => {
+            if (tooltip.parentNode) {
+                tooltip.remove();
+            }
+        }, 200);
+    }, 1200);
 }
 
 // 12. Configuration Loading
