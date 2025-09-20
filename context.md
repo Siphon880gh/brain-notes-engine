@@ -20,7 +20,7 @@
 - **Template System**: Multi-brain configuration support in `env/templates-*/`
 
 ### Frontend (JavaScript + CSS)
-- **`assets/js/mindmap.js`** (1420 lines): Interactive mindmap generation with Mermaid.js, zoom/pan controls, layout cycling
+- **`assets/js/mindmap.js`** (1681 lines): Interactive mindmap generation with Mermaid.js, zoom/pan controls, layout cycling
 - **`assets/js/link-popover.js`** (445 lines): Link preview system with CORS proxy and content extraction
 - **`assets/js/note-opener.js`** (1057 lines): Markdown rendering, note display, and content loading
 - **`assets/js/index.js`** (399 lines): Main UI logic, navigation, and interaction handling
@@ -70,12 +70,12 @@ devbrain/
 ├── config-mindmap.json      # Mindmap configuration (5 lines)
 ├── 1x2.png                  # Link popover marker image
 ├── assets/
-│   ├── css/                 # Styling (8 files, ~1500 total lines)
-│   │   ├── mindmap.css      # Mindmap styling (372 lines)
+│   ├── css/                 # Styling (9 files, ~2400+ total lines)
+│   │   ├── mindmap.css      # Mindmap styling (458 lines)
 │   │   ├── link-popover.css # Link popover styling (369 lines)
 │   │   └── index.css        # Main application styling
-│   └── js/                  # Frontend logic (11 files, ~5000+ total lines)
-│       ├── mindmap.js       # Mindmap system (1420 lines)
+│   └── js/                  # Frontend logic (11 files, ~5400+ total lines)
+│       ├── mindmap.js       # Mindmap system (1681 lines)
 │       ├── link-popover.js  # Link preview system (445 lines)
 │       ├── note-opener.js   # Note loading/rendering (1057 lines)
 │       ├── index.js         # Main UI logic (399 lines)
@@ -207,7 +207,8 @@ For comprehensive implementation details, see specialized context files:
 
 ### Key File Sizes for Reference:
 - `index.php`: 479 lines (medium - consider targeted search)
-- `assets/js/mindmap.js`: 1420 lines (large - use targeted search)
+- `assets/js/mindmap.js`: 1681 lines (large - use targeted search)
+- `assets/css/mindmap.css`: 458 lines (medium - consider targeted search)
 - `assets/js/link-popover.js`: 445 lines (medium-large - consider targeted search)
 - `assets/js/note-opener.js`: 1057 lines (large - use targeted search)
 - Configuration files: <50 lines each (small - read full files)

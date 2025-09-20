@@ -81,7 +81,7 @@ function generateSpiderMermaid(mindmapTree) {
 
 ### Layout Types
 - **spider**: Radial layout with central root (default)
-- **spread**: Compact layout where certain nodes are positioned laterally so other descendants can spread towards the middle
+- **spread**: Organic force-based layout with variable node repulsion based on hierarchy level, creating natural clustering and better space distribution
 - **tree**: Hierarchical tree flowing top-down
 - **tree-down**: Same as tree (explicit)
 - **tree-right**: Hierarchical tree flowing left-right
@@ -92,11 +92,12 @@ function generateSpiderMermaid(mindmapTree) {
 - **Effect**: Regenerates mindmap if currently displayed
 
 ### Spread Layout Configuration
-- **Location**: `assets/js/mindmap.js` (lines 318-342)
-- **Purpose**: Optimized compact layout for better space utilization
-- **Configuration**: Uses specialized Mermaid settings with reduced padding and spacing
-- **Node Positioning**: Certain nodes positioned laterally to allow descendants to spread towards center
-- **Spacing**: `nodeSpacing: 80`, `levelSeparation: 120` for compact display
+- **Location**: `assets/js/mindmap.js` (lines 838-852)
+- **Purpose**: Organic force-based layout with natural node distribution
+- **Algorithm**: Uses D3.js force simulation with variable repulsion strength
+- **Node Repulsion**: Root nodes have -1500 strength, child nodes have -800 to -900 based on hierarchy level
+- **Collision Detection**: Dynamic collision radius based on text length (minimum 50px + text-based padding)
+- **Centering Forces**: Gentle attraction to viewport center with 0.08 strength for natural clustering
 
 ## UI Components
 
@@ -173,7 +174,7 @@ if (typeof onMarkdownContentUpdated === 'function') {
 ## Styling System
 
 ### CSS Architecture
-- **File**: `assets/css/mindmap.css` (362 lines)
+- **File**: `assets/css/mindmap.css` (458 lines)
 - **Components**: Button, panel, fullscreen modal, responsive design
 - **Features**: Smooth animations, hover effects, mobile optimization
 
@@ -237,10 +238,10 @@ if (typeof onMarkdownContentUpdated === 'function') {
 ## File Dependencies
 
 ### Required Files (Line Counts for AI Reference)
-- `assets/js/mindmap.js` (1419 lines) - Core functionality including cycle type system [LARGE - use targeted search]
-- `assets/css/mindmap.css` (397 lines) - Styling [MEDIUM - consider targeted search]
+- `assets/js/mindmap.js` (1681 lines) - Core functionality including cycle type system [LARGE - use targeted search]
+- `assets/css/mindmap.css` (458 lines) - Styling [MEDIUM - consider targeted search]
 - `config-mindmap.json` (5 lines) - Configuration [SMALL - read full file]
-- `index.php` (478 lines) - HTML structure and integration [MEDIUM - consider targeted search]
+- `index.php` (479 lines) - HTML structure and integration [MEDIUM - consider targeted search]
 
 ### External Dependencies
 - **Mermaid.js v10.6.1** - Diagram rendering
