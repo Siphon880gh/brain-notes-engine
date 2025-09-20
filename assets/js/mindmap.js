@@ -2,7 +2,7 @@
 let mindmapConfig = {};
 
 // Load mindmap config from JSON
-fetch('mindmap-config.json')
+fetch('config-mindmap.json')
     .then(response => response.json())
     .then(data => {
         mindmapConfig = data.mindmap || { type: 'spider' };
@@ -25,24 +25,8 @@ let translateY = 0;
 const mindmapTypes = ['spider', 'spread', 'tree-down', 'tree-right'];
 let currentTypeIndex = 0;
 
-// Initialize Mermaid
-mermaid.initialize({
-    startOnLoad: false,
-    theme: 'base',
-    themeVariables: {
-        primaryColor: '#667eea',
-        primaryTextColor: '#333',
-        primaryBorderColor: '#667eea',
-        lineColor: '#667eea',
-        secondaryColor: '#f8f9fa',
-        tertiaryColor: '#e6f0ff'
-    },
-    mindmap: {
-        padding: 4,
-        nodeSpacing: 80,
-        levelSeparation: 100
-    }
-});
+// D3.js will be loaded from CDN - no initialization needed here
+// We'll create our own interactive mindmap implementation
 
 // 1. Mindmap Detection
 function detectMindmapContent() {
@@ -150,99 +134,7 @@ function getRootNodeText() {
     return 'Mindmap';
 }
 
-// 3. Mermaid Generation Functions
-function generateSpiderMermaid(mindmapTree) {
-    const rootText = getRootNodeText();
-    let mermaid = `mindmap\n  root)${rootText}(\n`;
-    
-    for (const node of mindmapTree) {
-        mermaid += treeToMermaid(node, 2);
-    }
-    
-    return mermaid;
-}
-
-function generateTreeMermaid(mindmapTree, direction = 'TD') {
-    let mermaid = `flowchart ${direction}\n`;
-    let nodeId = 0;
-    let connections = [];
-    let rootNodeId = null;
-    
-    function addNode(node, parentId = null) {
-        const currentId = `N${nodeId++}`;
-        let cleanLabel = node.label
-            .replace(/[()[\]{}#]/g, '')
-            .replace(/"/g, '')
-            .replace(/'/g, '')
-            .replace(/&/g, 'and')
-            .replace(/\s+/g, ' ')
-            .trim();
-        
-        if (!cleanLabel || cleanLabel.length === 0) {
-            cleanLabel = 'Node';
-        }
-        
-        if (cleanLabel.length > 30) {
-            cleanLabel = cleanLabel.substring(0, 27) + '...';
-        }
-        
-        if (parentId === null && rootNodeId === null) {
-            rootNodeId = currentId;
-        }
-        
-        mermaid += `    ${currentId}[${cleanLabel}]\n`;
-        
-        if (parentId !== null) {
-            connections.push(`    ${parentId} --> ${currentId}\n`);
-        }
-        
-        for (const child of node.children) {
-            addNode(child, currentId);
-        }
-        
-        return currentId;
-    }
-    
-    // Create a virtual root if multiple top-level nodes
-    if (mindmapTree.length > 1) {
-        const virtualRootId = `N${nodeId++}`;
-        rootNodeId = virtualRootId;
-        const rootText = getRootNodeText();
-        mermaid += `    ${virtualRootId}[${rootText}]\n`;
-        
-        for (const node of mindmapTree) {
-            addNode(node, virtualRootId);
-        }
-    } else if (mindmapTree.length === 1) {
-        addNode(mindmapTree[0]);
-    }
-    
-    // Add all connections
-    for (const connection of connections) {
-        mermaid += connection;
-    }
-    
-    // Add styling
-    mermaid += `\n    classDef default fill:#ffffff,stroke:#667eea,stroke-width:2px,color:#333333\n`;
-    mermaid += `    classDef rootStyle fill:#667eea,stroke:#4c63d2,stroke-width:3px,color:#ffffff\n`;
-    
-    if (rootNodeId) {
-        mermaid += `    class ${rootNodeId} rootStyle\n`;
-    }
-    
-    return mermaid;
-}
-
-function generateSpreadMermaid(mindmapTree) {
-    const rootText = getRootNodeText();
-    let mermaid = `mindmap\n  root)${rootText}(\n`;
-    
-    for (const node of mindmapTree) {
-        mermaid += treeToMermaid(node, 2);
-    }
-    
-    return mermaid;
-}
+// Old Mermaid generation functions removed - now using D3.js interactive implementation
 
 // 4. Main Mindmap Generation Function
 function generateMindmapFromLists() {
@@ -252,12 +144,12 @@ function generateMindmapFromLists() {
     }
     
     let mindmapTree = [];
+    let headingStack = []; // Stack to track heading hierarchy: [{level, node}, ...]
     
-    // Parse content sequentially to maintain order and handle headings + lists
+    // Parse content sequentially to maintain order
     const allElements = contentEl.querySelectorAll('h1, h2, h3, h4, h5, h6, ul');
-    let currentHeadingNode = null;
-    let headingLevel = 0;
-    let headingStack = [];
+    
+    console.log('Parsing elements for mindmap:', allElements.length);
     
     for (const element of allElements) {
         if (element.tagName.match(/^H[1-6]$/)) {
@@ -269,102 +161,76 @@ function generateMindmapFromLists() {
                 if (headingText) {
                     const headingNode = { label: headingText, children: [] };
                     
-                    // Clear stack of headings at same or deeper level
+                    console.log(`Found H${level} heading with mindmap signal: "${headingText}"`);
+                    
+                    // Pop headings from stack that are at same or deeper level
                     while (headingStack.length > 0 && headingStack[headingStack.length - 1].level >= level) {
                         headingStack.pop();
                     }
                     
+                    // Attach to parent heading or root
                     if (headingStack.length === 0) {
+                        // This is a top-level heading
                         mindmapTree.push(headingNode);
+                        console.log(`Added "${headingText}" as root node`);
                     } else {
-                        headingStack[headingStack.length - 1].node.children.push(headingNode);
+                        // Attach to the current parent heading
+                        const parentHeading = headingStack[headingStack.length - 1];
+                        parentHeading.node.children.push(headingNode);
+                        console.log(`Added "${headingText}" as child of "${parentHeading.node.label}"`);
                     }
                     
+                    // Push current heading to stack
                     headingStack.push({ level: level, node: headingNode });
-                    currentHeadingNode = headingNode;
-                    headingLevel = level;
                 }
             } else {
-                currentHeadingNode = null;
-                headingLevel = 0;
+                // Heading without mindmap signal - clear stack if this heading would interrupt hierarchy
+                const level = parseInt(element.tagName.charAt(1));
+                console.log(`Found H${level} heading WITHOUT mindmap signal - potentially clearing hierarchy`);
+                
+                // Clear stack of headings at same or deeper level to prevent lists from attaching to wrong parent
+                while (headingStack.length > 0 && headingStack[headingStack.length - 1].level >= level) {
+                    headingStack.pop();
+                    console.log(`Cleared heading from stack due to non-mindmap H${level}`);
+                }
             }
         } else if (element.tagName === 'UL') {
+            // Check if this UL contains mindmap images
             const hasImages = element.querySelectorAll('img[src*="1x1"], img[src$="1x1.png"]').length > 0;
             
             if (hasImages) {
-                const parentUl = element.closest('ul:not(:scope)');
+                // Make sure this isn't a nested UL that's already been processed
+                // Only process ULs that are not nested inside other mindmap ULs
+                const parentUl = element.parentElement.closest('ul');
                 const parentHasImages = parentUl ? parentUl.querySelectorAll('img[src*="1x1"], img[src$="1x1.png"]').length > 0 : false;
                 
                 if (!parentHasImages) {
                     const listNodes = traverseList(element);
+                    console.log(`Found ${listNodes.length} top-level list nodes`);
                     
-                    if (currentHeadingNode && headingLevel > 0) {
-                        currentHeadingNode.children.push(...listNodes);
+                    // Attach list nodes to the most recent heading or root
+                    if (headingStack.length > 0) {
+                        const currentHeading = headingStack[headingStack.length - 1];
+                        currentHeading.node.children.push(...listNodes);
+                        console.log(`Added ${listNodes.length} list items to "${currentHeading.node.label}"`);
                     } else {
+                        // No headings, add directly to root
                         mindmapTree.push(...listNodes);
+                        console.log(`Added ${listNodes.length} list items to root`);
                     }
                 }
             }
         }
     }
     
+    console.log('Final mindmap tree structure generated with', mindmapTree.length, 'top-level nodes');
+    
     if (mindmapTree.length === 0) {
         return null;
     }
     
-    // Generate based on configuration
-    const mindmapType = mindmapConfig.type || 'spider';
-    
-    if (mindmapType === 'tree' || mindmapType === 'tree-down') {
-        return generateTreeMermaid(mindmapTree, 'TD');
-    } else if (mindmapType === 'tree-right') {
-        return generateTreeMermaid(mindmapTree, 'LR');
-    } else if (mindmapType === 'spread') {
-        // Update Mermaid config for spread layout (compact with vertical spacing)
-        mermaid.initialize({
-            startOnLoad: false,
-            theme: 'base',
-            themeVariables: {
-                primaryColor: '#667eea',
-                primaryTextColor: '#333',
-                primaryBorderColor: '#667eea',
-                lineColor: '#667eea',
-                secondaryColor: '#f8f9fa',
-                tertiaryColor: '#e6f0ff'
-            },
-            mindmap: {
-                padding: 4,
-                nodeSpacing: 80,
-                levelSeparation: 120
-            },
-            flowchart: {
-                nodeSpacing: 80,
-                rankSpacing: 120,
-                curve: 'basis'
-            }
-        });
-        return generateSpreadMermaid(mindmapTree);
-    } else {
-        // Reset to original spider config (spacious)
-        mermaid.initialize({
-            startOnLoad: false,
-            theme: 'base',
-            themeVariables: {
-                primaryColor: '#667eea',
-                primaryTextColor: '#333',
-                primaryBorderColor: '#667eea',
-                lineColor: '#667eea',
-                secondaryColor: '#f8f9fa',
-                tertiaryColor: '#e6f0ff'
-            },
-            mindmap: {
-                padding: 8,
-                nodeSpacing: 120,
-                levelSeparation: 150
-            }
-        });
-        return generateSpiderMermaid(mindmapTree);
-    }
+    // Return the tree data structure directly for D3.js
+    return mindmapTree;
 }
 
 // 5. Color Styling Functions
@@ -539,24 +405,12 @@ async function updateMindmapDisplay() {
         const mindmapId = 'mindmap-' + Date.now();
         mindmapContent.innerHTML = `<div id="${mindmapId}" class="mindmap-diagram"></div>`;
         
-        console.log('Generated Mermaid syntax:', currentMindmapData);
+        console.log('Generating interactive D3.js mindmap with data:', currentMindmapData);
+        console.log('Data type:', typeof currentMindmapData);
+        console.log('Is array:', Array.isArray(currentMindmapData));
         
-        const { svg } = await mermaid.render(mindmapId + '-svg', currentMindmapData);
-        document.getElementById(mindmapId).innerHTML = svg;
-        
-        // Apply color styling for spider mindmaps
-        if (mindmapConfig.type === 'spider') {
-            applyMindmapTextStyling(mindmapId);
-        }
-        
-        // Setup hover effects for all mindmap types
-        setupNodeHoverEffects(mindmapId);
-        
-        // Enable dragging for the new mindmap
-        const mindmapDiagram = document.getElementById(mindmapId);
-        if (mindmapDiagram) {
-            enableDragging(mindmapDiagram);
-        }
+        // Create D3.js interactive mindmap
+        createInteractiveMindmap(mindmapId, currentMindmapData);
         
     } catch (error) {
         console.error('Error rendering mindmap:', error);
@@ -566,7 +420,7 @@ async function updateMindmapDisplay() {
                 <br><br>
                 <details>
                     <summary>Debug Info</summary>
-                    <pre>${currentMindmapData}</pre>
+                    <pre>${JSON.stringify(currentMindmapData, null, 2)}</pre>
                 </details>
             </div>
         `;
@@ -574,9 +428,328 @@ async function updateMindmapDisplay() {
 }
 
 function generateMindmap() {
-    const mindmapData = generateMindmapFromLists();
-    currentMindmapData = mindmapData;
+    const mindmapTree = generateMindmapFromLists();
+    currentMindmapData = mindmapTree;
     updateMindmapDisplay();
+}
+
+// D3.js Interactive Mindmap Implementation
+function createInteractiveMindmap(containerId, treeData) {
+    const container = document.getElementById(containerId);
+    if (!container || !treeData) return;
+    
+    // Clear any existing content
+    container.innerHTML = '';
+    
+    // Set up dimensions
+    const width = container.clientWidth || 800;
+    const height = container.clientHeight || 600;
+    
+    // Create SVG
+    const svg = d3.select(container)
+        .append('svg')
+        .attr('width', '100%')
+        .attr('height', '100%')
+        .attr('viewBox', `0 0 ${width} ${height}`)
+        .style('background', 'transparent');
+    
+    // Create container group for zoom/pan
+    const g = svg.append('g');
+    
+    // Convert tree data to D3.js format
+    const nodes = flattenTreeToNodes(treeData);
+    const links = generateLinksFromNodes(nodes);
+    
+    console.log('D3.js mindmap created with', nodes.length, 'nodes and', links.length, 'links');
+    
+    // Create force simulation based on mindmap type
+    const simulation = createSimulation(nodes, links, width, height);
+    
+    // Create links (edges)
+    const link = g.append('g')
+        .attr('class', 'links')
+        .selectAll('line')
+        .data(links)
+        .enter().append('line')
+        .attr('stroke', '#cccccc')
+        .attr('stroke-width', 2)
+        .attr('stroke-opacity', 0.8);
+    
+    // Create nodes
+    const node = g.append('g')
+        .attr('class', 'nodes')
+        .selectAll('g')
+        .data(nodes)
+        .enter().append('g')
+        .attr('class', 'node')
+        .call(d3.drag()
+            .on('start', dragstarted)
+            .on('drag', dragged)
+            .on('end', dragended));
+    
+    // Add rectangles to nodes (will be sized after text is added)
+    node.append('rect')
+        .attr('fill', d => getNodeColor(d.level, d.branchIndex))
+        .attr('stroke', '#fff')
+        .attr('stroke-width', 2)
+        .attr('rx', 5) // Rounded corners
+        .attr('ry', 5);
+    
+    // Add labels to nodes
+    const nodeText = node.append('text')
+        .text(d => d.label)
+        .attr('dy', '0.35em')
+        .attr('text-anchor', 'middle')
+        .attr('font-size', d => d.level === 0 ? '12px' : '10px')
+        .attr('font-weight', d => d.level === 0 ? 'bold' : 'bold')
+        .attr('fill', '#333')
+        .attr('pointer-events', 'none');
+    
+    // Size rectangles based on text dimensions
+    node.each(function(d) {
+        const textElement = d3.select(this).select('text');
+        const rectElement = d3.select(this).select('rect');
+        
+        // Get text bounding box
+        const bbox = textElement.node().getBBox();
+        
+        // Add padding around text
+        const padding = d.level === 0 ? 16 : 12;
+        const width = bbox.width + (padding * 2);
+        const height = bbox.height + (padding * 1.5);
+        
+        // Set rectangle dimensions and center it
+        rectElement
+            .attr('width', width)
+            .attr('height', height)
+            .attr('x', -width / 2)
+            .attr('y', -height / 2);
+    });
+    
+    // Add hover effects
+    node.on('mouseenter', function(event, d) {
+        const rect = d3.select(this).select('rect');
+        const currentWidth = parseFloat(rect.attr('width'));
+        const currentHeight = parseFloat(rect.attr('height'));
+        
+        rect.transition().duration(200)
+            .attr('width', currentWidth * 1.1)
+            .attr('height', currentHeight * 1.1)
+            .attr('x', -(currentWidth * 1.1) / 2)
+            .attr('y', -(currentHeight * 1.1) / 2)
+            .attr('stroke-width', 3);
+    })
+    .on('mouseleave', function(event, d) {
+        const rect = d3.select(this).select('rect');
+        const textElement = d3.select(this).select('text');
+        const bbox = textElement.node().getBBox();
+        const padding = d.level === 0 ? 16 : 12;
+        const width = bbox.width + (padding * 2);
+        const height = bbox.height + (padding * 1.5);
+        
+        rect.transition().duration(200)
+            .attr('width', width)
+            .attr('height', height)
+            .attr('x', -width / 2)
+            .attr('y', -height / 2)
+            .attr('stroke-width', 2);
+    });
+    
+    // Update positions on simulation tick
+    simulation.on('tick', () => {
+        link
+            .attr('x1', d => d.source.x)
+            .attr('y1', d => d.source.y)
+            .attr('x2', d => d.target.x)
+            .attr('y2', d => d.target.y);
+        
+        node
+            .attr('transform', d => `translate(${d.x},${d.y})`);
+    });
+    
+    // Add zoom and pan behavior
+    const zoom = d3.zoom()
+        .scaleExtent([0.3, 3])
+        .on('zoom', (event) => {
+            g.attr('transform', event.transform);
+        });
+    
+    svg.call(zoom);
+    
+    // Store references for external control
+    container.d3Data = {
+        svg: svg,
+        simulation: simulation,
+        nodes: nodes,
+        links: links,
+        zoom: zoom
+    };
+    
+    // Drag functions
+    function dragstarted(event, d) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+    }
+    
+    function dragged(event, d) {
+        d.fx = event.x;
+        d.fy = event.y;
+    }
+    
+    function dragended(event, d) {
+        if (!event.active) simulation.alphaTarget(0);
+        // Keep nodes fixed after dragging for user positioning
+        // Remove these lines if you want nodes to move freely after drag
+        // d.fx = null;
+        // d.fy = null;
+    }
+}
+
+// Helper functions for D3.js mindmap
+function flattenTreeToNodes(treeData) {
+    const nodes = [];
+    let nodeId = 0;
+    
+    // Add root node
+    const rootText = getRootNodeText();
+    nodes.push({
+        id: nodeId++,
+        label: rootText,
+        level: 0,
+        branchIndex: 0,
+        x: 0,
+        y: 0
+    });
+    
+    // Add tree nodes
+    function addNodes(nodeList, level, parentId, branchIndex) {
+        if (!Array.isArray(nodeList)) {
+            console.error('addNodes expects an array, got:', typeof nodeList, nodeList);
+            return;
+        }
+        
+        nodeList.forEach((node, index) => {
+            if (!node || typeof node.label !== 'string') {
+                console.warn('Skipping invalid node:', node);
+                return;
+            }
+            
+            const nodeData = {
+                id: nodeId++,
+                label: node.label,
+                level: level,
+                branchIndex: level === 1 ? index : branchIndex,
+                parentId: parentId,
+                x: Math.random() * 100, // Initial random position
+                y: Math.random() * 100
+            };
+            nodes.push(nodeData);
+            
+            if (node.children && Array.isArray(node.children) && node.children.length > 0) {
+                addNodes(node.children, level + 1, nodeData.id, nodeData.branchIndex);
+            }
+        });
+    }
+    
+    if (treeData && Array.isArray(treeData) && treeData.length > 0) {
+        addNodes(treeData, 1, 0, 0);
+    } else {
+        console.error('flattenTreeToNodes expects an array, got:', typeof treeData, treeData);
+    }
+    
+    return nodes;
+}
+
+function generateLinksFromNodes(nodes) {
+    const links = [];
+    
+    nodes.forEach(node => {
+        if (node.parentId !== undefined) {
+            links.push({
+                source: node.parentId,
+                target: node.id
+            });
+        }
+    });
+    
+    return links;
+}
+
+function createSimulation(nodes, links, width, height) {
+    const mindmapType = mindmapConfig.type || 'spider';
+    
+    let simulation = d3.forceSimulation(nodes);
+    
+    // Add link force
+    simulation.force('link', d3.forceLink(links)
+        .id(d => d.id)
+        .distance(d => {
+            const sourceLevel = nodes.find(n => n.id === d.source.id)?.level || 0;
+            const targetLevel = nodes.find(n => n.id === d.target.id)?.level || 1;
+            return 120 + (targetLevel * 40); // Much longer links for better spacing
+        })
+        .strength(0.6) // Reduced strength for more flexible positioning
+    );
+    
+    // Configure forces based on mindmap type
+    switch (mindmapType) {
+        case 'spider':
+            // Radial layout with much better spacing
+            simulation
+                .force('charge', d3.forceManyBody().strength(-800)) // Much stronger repulsion
+                .force('center', d3.forceCenter(width / 2, height / 2))
+                .force('radial', d3.forceRadial(d => d.level * 150, width / 2, height / 2).strength(0.5)); // Larger radial distances
+            break;
+            
+        case 'spread':
+            // Spread layout with better spacing
+            simulation
+                .force('charge', d3.forceManyBody().strength(-600)) // Stronger repulsion
+                .force('center', d3.forceCenter(width / 2, height / 2))
+                .force('x', d3.forceX(width / 2).strength(0.05))
+                .force('y', d3.forceY(height / 2).strength(0.05));
+            break;
+            
+        case 'tree-down':
+            // Vertical tree layout with proper hierarchical spacing
+            simulation
+                .force('charge', d3.forceManyBody().strength(-400))
+                .force('center', d3.forceCenter(width / 2, 80))
+                .force('y', d3.forceY(d => 80 + d.level * 120).strength(0.9)) // Much more vertical spacing
+                .force('x', d3.forceX(width / 2).strength(0.05))
+                .force('collision', d3.forceCollide().radius(80)); // Prevent overlap
+            break;
+            
+        case 'tree-right':
+            // Horizontal tree layout with proper hierarchical spacing
+            simulation
+                .force('charge', d3.forceManyBody().strength(-400))
+                .force('center', d3.forceCenter(80, height / 2))
+                .force('x', d3.forceX(d => 80 + d.level * 200).strength(0.9)) // Much more horizontal spacing
+                .force('y', d3.forceY(height / 2).strength(0.05))
+                .force('collision', d3.forceCollide().radius(80)); // Prevent overlap
+            break;
+            
+        default:
+            // Default spider layout
+            simulation
+                .force('charge', d3.forceManyBody().strength(-800))
+                .force('center', d3.forceCenter(width / 2, height / 2));
+    }
+    
+    return simulation;
+}
+
+function getNodeColor(level, branchIndex) {
+    if (level === 0) {
+        return '#667eea'; // Root node color
+    }
+    
+    // Use golden-angle palette like the original
+    const hue = (branchIndex * 137.508) % 360;
+    const lightness = 65 + ((branchIndex * 5) % 15); // Vary lightness slightly
+    return `hsl(${hue}, 60%, ${lightness}%)`;
 }
 
 function toggleMindmapPanel() {
@@ -597,42 +770,50 @@ function closeMindmapPanel() {
     mindmapPanel.classList.remove('visible');
 }
 
-// 7. Zoom and Pan Functions
+// 7. Zoom and Pan Functions for D3.js
 function zoomIn(container) {
-    currentZoomLevel = Math.min(currentZoomLevel * 1.2, 3);
-    applyZoom(container);
-}
-
-function zoomOut(container) {
-    currentZoomLevel = Math.max(currentZoomLevel / 1.2, 0.3);
-    applyZoom(container);
-}
-
-function resetZoom(container) {
-    currentZoomLevel = 1;
-    translateX = 0;
-    translateY = 0;
-    applyZoom(container);
-}
-
-function applyZoom(container) {
     const mindmapDiagram = container ? container.querySelector('.mindmap-diagram') : 
                           document.querySelector('.mindmap-panel.visible .mindmap-diagram') ||
                           document.querySelector('.mindmap-fullscreen-modal.visible .mindmap-diagram');
     
-    if (mindmapDiagram) {
-        const transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoomLevel})`;
-        mindmapDiagram.style.transform = transform;
+    if (mindmapDiagram && mindmapDiagram.d3Data) {
+        const zoom = mindmapDiagram.d3Data.zoom;
+        const svg = mindmapDiagram.d3Data.svg;
         
-        // Always enable dragging for better user experience
-        enableDragging(mindmapDiagram);
+        svg.transition().duration(300).call(
+            zoom.scaleBy, 1.2
+        );
+    }
+}
+
+function zoomOut(container) {
+    const mindmapDiagram = container ? container.querySelector('.mindmap-diagram') : 
+                          document.querySelector('.mindmap-panel.visible .mindmap-diagram') ||
+                          document.querySelector('.mindmap-fullscreen-modal.visible .mindmap-diagram');
+    
+    if (mindmapDiagram && mindmapDiagram.d3Data) {
+        const zoom = mindmapDiagram.d3Data.zoom;
+        const svg = mindmapDiagram.d3Data.svg;
         
-        // Add zoomed class for styling when zoomed in
-        if (currentZoomLevel > 1) {
-            mindmapDiagram.classList.add('zoomed');
-        } else {
-            mindmapDiagram.classList.remove('zoomed');
-        }
+        svg.transition().duration(300).call(
+            zoom.scaleBy, 0.8
+        );
+    }
+}
+
+function resetZoom(container) {
+    const mindmapDiagram = container ? container.querySelector('.mindmap-diagram') : 
+                          document.querySelector('.mindmap-panel.visible .mindmap-diagram') ||
+                          document.querySelector('.mindmap-fullscreen-modal.visible .mindmap-diagram');
+    
+    if (mindmapDiagram && mindmapDiagram.d3Data) {
+        const zoom = mindmapDiagram.d3Data.zoom;
+        const svg = mindmapDiagram.d3Data.svg;
+        
+        svg.transition().duration(500).call(
+            zoom.transform,
+            d3.zoomIdentity
+        );
     }
 }
 
@@ -642,6 +823,416 @@ function enableDragging(element) {
     element.addEventListener('mousemove', drag);
     element.addEventListener('mouseup', endDrag);
     element.addEventListener('mouseleave', endDrag);
+}
+
+// 8a. Individual Node Dragging Functions
+let draggedNode = null;
+let nodeStartX = 0;
+let nodeStartY = 0;
+let nodeInitialTransform = { x: 0, y: 0 };
+let nodeConnections = new Map(); // Store node-to-edge relationships
+
+function parseTransform(transformString) {
+    if (!transformString || transformString === 'none') {
+        return { x: 0, y: 0 };
+    }
+    
+    // Handle translate(x, y) format
+    const translateMatch = transformString.match(/translate\(([^,]+),?\s*([^)]*)\)/);
+    if (translateMatch) {
+        const x = parseFloat(translateMatch[1]) || 0;
+        const y = parseFloat(translateMatch[2]) || 0;
+        return { x, y };
+    }
+    
+    return { x: 0, y: 0 };
+}
+
+function getNodeCenter(node) {
+    // Get the bounding box of the node
+    const bbox = node.getBBox();
+    
+    // Get any existing transform
+    const transform = parseTransform(node.getAttribute('transform') || '');
+    
+    // Calculate center point
+    return {
+        x: bbox.x + bbox.width / 2 + transform.x,
+        y: bbox.y + bbox.height / 2 + transform.y
+    };
+}
+
+function findConnectedEdges(svgContainer, targetNode) {
+    const svg = svgContainer.querySelector('svg');
+    if (!svg) return [];
+    
+    const connectedEdges = [];
+    
+    // Find all possible edge elements - Mermaid uses different structures for different diagram types
+    const edgeSelectors = [
+        'path[stroke]',           // Generic paths with stroke (most common)
+        'line',                   // Direct lines
+        '.edgePath path',         // Flowchart edges
+        '.edge path',             // Generic edges
+        '.flowchart-link',        // Flowchart links
+        '.mindmap-link',          // Mindmap specific links
+        'g[class*="edge"] path',  // Edge groups containing paths
+        'g[class*="link"] path'   // Link groups containing paths
+    ];
+    
+    edgeSelectors.forEach(selector => {
+        try {
+            const edges = svg.querySelectorAll(selector);
+            edges.forEach(edge => {
+                // For mindmap diagrams, we need to check spatial proximity
+                // since Mermaid doesn't always provide clear node-edge relationships
+                if (isEdgeConnectedToNode(edge, targetNode)) {
+                    connectedEdges.push(edge);
+                }
+            });
+        } catch (e) {
+            // Skip invalid selectors
+        }
+    });
+    
+    return connectedEdges;
+}
+
+function isEdgeConnectedToNode(edge, node) {
+    // Get the path data or line coordinates
+    const pathData = edge.getAttribute('d');
+    const nodeCenter = getNodeCenter(node);
+    const tolerance = 50; // Pixels tolerance for connection detection
+    
+    if (pathData) {
+        // Parse path data to get start and end points
+        const pathPoints = parsePathData(pathData);
+        
+        // Check if any path point is near the node center
+        return pathPoints.some(point => {
+            const distance = Math.sqrt(
+                Math.pow(point.x - nodeCenter.x, 2) + 
+                Math.pow(point.y - nodeCenter.y, 2)
+            );
+            return distance <= tolerance;
+        });
+    }
+    
+    // For line elements
+    if (edge.tagName === 'line') {
+        const x1 = parseFloat(edge.getAttribute('x1') || 0);
+        const y1 = parseFloat(edge.getAttribute('y1') || 0);
+        const x2 = parseFloat(edge.getAttribute('x2') || 0);
+        const y2 = parseFloat(edge.getAttribute('y2') || 0);
+        
+        const startDistance = Math.sqrt(
+            Math.pow(x1 - nodeCenter.x, 2) + 
+            Math.pow(y1 - nodeCenter.y, 2)
+        );
+        const endDistance = Math.sqrt(
+            Math.pow(x2 - nodeCenter.x, 2) + 
+            Math.pow(y2 - nodeCenter.y, 2)
+        );
+        
+        return startDistance <= tolerance || endDistance <= tolerance;
+    }
+    
+    return false;
+}
+
+function parsePathData(pathData) {
+    const points = [];
+    
+    // Simple parser for common path commands (M, L, C, Q)
+    const commands = pathData.match(/[MLCQZ][^MLCQZ]*/gi);
+    
+    if (commands) {
+        commands.forEach(command => {
+            const type = command[0];
+            const coords = command.slice(1).trim().split(/[\s,]+/).map(parseFloat);
+            
+            switch (type.toUpperCase()) {
+                case 'M': // Move to
+                case 'L': // Line to
+                    if (coords.length >= 2) {
+                        points.push({ x: coords[0], y: coords[1] });
+                    }
+                    break;
+                case 'C': // Cubic bezier
+                    if (coords.length >= 6) {
+                        points.push({ x: coords[4], y: coords[5] }); // End point
+                    }
+                    break;
+                case 'Q': // Quadratic bezier
+                    if (coords.length >= 4) {
+                        points.push({ x: coords[2], y: coords[3] }); // End point
+                    }
+                    break;
+            }
+        });
+    }
+    
+    return points;
+}
+
+function updateEdgePosition(edge, node, deltaX, deltaY) {
+    const nodeCenter = getNodeCenter(node);
+    
+    if (edge.getAttribute('d')) {
+        // Handle path elements
+        const pathData = edge.getAttribute('d');
+        const originalPathData = edge.getAttribute('data-original-path') || pathData;
+        
+        // Store original path if not already stored
+        if (!edge.hasAttribute('data-original-path')) {
+            edge.setAttribute('data-original-path', pathData);
+        }
+        
+        // Update path by shifting points that are close to the node
+        const updatedPath = updatePathForNodeMovement(originalPathData, nodeCenter, deltaX, deltaY);
+        edge.setAttribute('d', updatedPath);
+        
+    } else if (edge.tagName === 'line') {
+        // Handle line elements
+        const x1 = parseFloat(edge.getAttribute('x1') || 0);
+        const y1 = parseFloat(edge.getAttribute('y1') || 0);
+        const x2 = parseFloat(edge.getAttribute('x2') || 0);
+        const y2 = parseFloat(edge.getAttribute('y2') || 0);
+        
+        // Store original coordinates if not already stored
+        if (!edge.hasAttribute('data-original-coords')) {
+            edge.setAttribute('data-original-coords', `${x1},${y1},${x2},${y2}`);
+        }
+        
+        // Check which end is closer to the node and update accordingly
+        const startDistance = Math.sqrt(Math.pow(x1 - nodeCenter.x, 2) + Math.pow(y1 - nodeCenter.y, 2));
+        const endDistance = Math.sqrt(Math.pow(x2 - nodeCenter.x, 2) + Math.pow(y2 - nodeCenter.y, 2));
+        
+        if (startDistance < endDistance) {
+            // Move the start point
+            edge.setAttribute('x1', x1 + deltaX);
+            edge.setAttribute('y1', y1 + deltaY);
+        } else {
+            // Move the end point
+            edge.setAttribute('x2', x2 + deltaX);
+            edge.setAttribute('y2', y2 + deltaY);
+        }
+    }
+}
+
+function updatePathForNodeMovement(pathData, nodeCenter, deltaX, deltaY) {
+    const tolerance = 50;
+    
+    // Parse and update path commands
+    const commands = pathData.match(/[MLCQZ][^MLCQZ]*/gi);
+    if (!commands) return pathData;
+    
+    let updatedPath = '';
+    
+    commands.forEach(command => {
+        const type = command[0];
+        const coords = command.slice(1).trim().split(/[\s,]+/).map(parseFloat);
+        let updatedCommand = type;
+        
+        switch (type.toUpperCase()) {
+            case 'M': // Move to
+            case 'L': // Line to
+                if (coords.length >= 2) {
+                    const distance = Math.sqrt(
+                        Math.pow(coords[0] - nodeCenter.x, 2) + 
+                        Math.pow(coords[1] - nodeCenter.y, 2)
+                    );
+                    if (distance <= tolerance) {
+                        coords[0] += deltaX;
+                        coords[1] += deltaY;
+                    }
+                    updatedCommand += coords.join(',');
+                }
+                break;
+            case 'C': // Cubic bezier
+                if (coords.length >= 6) {
+                    // Check and update end point
+                    const endDistance = Math.sqrt(
+                        Math.pow(coords[4] - nodeCenter.x, 2) + 
+                        Math.pow(coords[5] - nodeCenter.y, 2)
+                    );
+                    if (endDistance <= tolerance) {
+                        coords[4] += deltaX;
+                        coords[5] += deltaY;
+                        // Also adjust the second control point to maintain curve shape
+                        coords[2] += deltaX * 0.5;
+                        coords[3] += deltaY * 0.5;
+                    }
+                    updatedCommand += coords.join(',');
+                }
+                break;
+            case 'Q': // Quadratic bezier
+                if (coords.length >= 4) {
+                    // Check and update end point
+                    const endDistance = Math.sqrt(
+                        Math.pow(coords[2] - nodeCenter.x, 2) + 
+                        Math.pow(coords[3] - nodeCenter.y, 2)
+                    );
+                    if (endDistance <= tolerance) {
+                        coords[2] += deltaX;
+                        coords[3] += deltaY;
+                        // Also adjust the control point
+                        coords[0] += deltaX * 0.5;
+                        coords[1] += deltaY * 0.5;
+                    }
+                    updatedCommand += coords.join(',');
+                }
+                break;
+            default:
+                updatedCommand = command; // Keep original for unsupported commands
+        }
+        
+        updatedPath += updatedCommand;
+    });
+    
+    return updatedPath;
+}
+
+function updateConnectedEdges(svgContainer, node, deltaX, deltaY) {
+    // Use pre-computed edges if available, otherwise find them
+    const connectedEdges = node.connectedEdges || findConnectedEdges(svgContainer, node);
+    
+    connectedEdges.forEach(edge => {
+        updateEdgePosition(edge, node, deltaX, deltaY);
+    });
+}
+
+function makeNodesDraggable(svgContainer) {
+    const svg = svgContainer.querySelector('svg');
+    if (!svg) return;
+    
+    // Find all mindmap nodes - try multiple selectors for different Mermaid versions
+    const nodeSelectors = [
+        '.mindmap-node',           // Mindmap nodes
+        'g[class*="section-"]',    // Section-based nodes
+        '.node',                   // Generic nodes
+        'g:has(> rect)',          // Groups with rectangles (flowchart nodes)
+        'g:has(> circle)',        // Groups with circles (mindmap nodes)
+        'g:has(> polygon)'        // Groups with polygons
+    ];
+    
+    let nodes = [];
+    nodeSelectors.forEach(selector => {
+        try {
+            const found = svg.querySelectorAll(selector);
+            found.forEach(node => {
+                // Avoid duplicates and ensure it has text content
+                if (!nodes.includes(node) && node.querySelector('text, tspan')) {
+                    nodes.push(node);
+                }
+            });
+        } catch (e) {
+            // Skip invalid selectors
+        }
+    });
+    
+    console.log(`Found ${nodes.length} draggable nodes with edge connections`);
+    
+    nodes.forEach(node => {
+        // Skip if already made draggable
+        if (node.hasAttribute('data-draggable')) return;
+        
+        node.setAttribute('data-draggable', 'true');
+        node.style.cursor = 'grab';
+        
+        // Store original position for reset functionality
+        const currentTransform = node.getAttribute('transform') || '';
+        node.setAttribute('data-original-transform', currentTransform);
+        
+        // Pre-compute connected edges for efficiency
+        const connectedEdges = findConnectedEdges(svgContainer, node);
+        node.connectedEdges = connectedEdges; // Store as property for quick access
+        
+        // Add hover effect
+        node.addEventListener('mouseenter', function() {
+            this.style.opacity = '0.8';
+        });
+        
+        node.addEventListener('mouseleave', function() {
+            if (draggedNode !== this) {
+                this.style.opacity = '1';
+            }
+        });
+        
+        node.addEventListener('mousedown', function(e) {
+            // Only handle left mouse button
+            if (e.button !== 0) return;
+            
+            draggedNode = this;
+            nodeStartX = e.clientX;
+            nodeStartY = e.clientY;
+            
+            // Get current transform
+            const currentTransform = this.getAttribute('transform') || '';
+            nodeInitialTransform = parseTransform(currentTransform);
+            
+            this.style.cursor = 'grabbing';
+            this.style.opacity = '0.7';
+            
+            // Prevent container dragging and text selection
+            e.stopPropagation();
+            e.preventDefault();
+            
+            // Add temporary global listeners
+            document.addEventListener('mousemove', handleNodeDrag);
+            document.addEventListener('mouseup', handleNodeDragEnd);
+        });
+    });
+}
+
+function handleNodeDrag(e) {
+    if (!draggedNode) return;
+    
+    const deltaX = e.clientX - nodeStartX;
+    const deltaY = e.clientY - nodeStartY;
+    
+    const newX = nodeInitialTransform.x + deltaX;
+    const newY = nodeInitialTransform.y + deltaY;
+    
+    // Apply the new transform to the node
+    draggedNode.setAttribute('transform', `translate(${newX}, ${newY})`);
+    
+    // Update connected edges
+    const svgContainer = draggedNode.closest('.mindmap-diagram');
+    if (svgContainer) {
+        updateConnectedEdges(svgContainer, draggedNode, deltaX, deltaY);
+    }
+    
+    e.preventDefault();
+}
+
+function handleNodeDragEnd(e) {
+    if (draggedNode) {
+        draggedNode.style.cursor = 'grab';
+        draggedNode.style.opacity = '1';
+        draggedNode = null;
+    }
+    
+    // Remove global listeners
+    document.removeEventListener('mousemove', handleNodeDrag);
+    document.removeEventListener('mouseup', handleNodeDragEnd);
+}
+
+function resetNodePositions(svgContainer) {
+    if (svgContainer && svgContainer.d3Data) {
+        const { simulation, nodes } = svgContainer.d3Data;
+        
+        // Release all fixed positions
+        nodes.forEach(node => {
+            node.fx = null;
+            node.fy = null;
+        });
+        
+        // Restart the simulation to return to original layout
+        simulation.alpha(1).restart();
+        
+        console.log('D3.js mindmap positions reset - nodes will animate back to original layout');
+    }
 }
 
 function disableDragging(element) {
@@ -692,24 +1283,12 @@ function openFullScreenMindmap() {
     if (!currentMindmapData) {
         fullScreenContent.innerHTML = '<div class="mindmap-empty">No mindmap available for this document.</div>';
     } else {
-        const currentMindmapContent = document.getElementById('mindmap-content');
-        const mindmapDiagram = currentMindmapContent.querySelector('.mindmap-diagram');
+        // Create a new mindmap for fullscreen
+        const fullscreenId = 'mindmap-fullscreen-' + Date.now();
+        fullScreenContent.innerHTML = `<div id="${fullscreenId}" class="mindmap-diagram"></div>`;
         
-        if (mindmapDiagram) {
-            const clonedDiagram = mindmapDiagram.cloneNode(true);
-            clonedDiagram.style.transform = '';
-            fullScreenContent.innerHTML = '';
-            fullScreenContent.appendChild(clonedDiagram);
-            
-            // Enable dragging for the fullscreen mindmap
-            enableDragging(clonedDiagram);
-            
-            currentZoomLevel = 1;
-            translateX = 0;
-            translateY = 0;
-        } else {
-            fullScreenContent.innerHTML = '<div class="mindmap-empty">No mindmap available for this document.</div>';
-        }
+        // Create the interactive mindmap in fullscreen
+        createInteractiveMindmap(fullscreenId, currentMindmapData);
     }
     
     fullScreenModal.classList.add('visible');
@@ -737,6 +1316,10 @@ function setupMindmapEventListeners() {
     document.getElementById('mindmap-zoom-in').addEventListener('click', () => zoomIn());
     document.getElementById('mindmap-zoom-out').addEventListener('click', () => zoomOut());
     document.getElementById('mindmap-zoom-reset').addEventListener('click', () => resetZoom());
+    document.getElementById('mindmap-reset-positions').addEventListener('click', () => {
+        const container = document.querySelector('.mindmap-panel.visible .mindmap-diagram');
+        if (container) resetNodePositions(container);
+    });
     document.getElementById('mindmap-fullscreen').addEventListener('click', openFullScreenMindmap);
     
     // Fullscreen controls
@@ -753,6 +1336,10 @@ function setupMindmapEventListeners() {
     document.getElementById('mindmap-fullscreen-zoom-reset').addEventListener('click', () => {
         const container = document.querySelector('.mindmap-fullscreen-modal.visible');
         resetZoom(container);
+    });
+    document.getElementById('mindmap-fullscreen-reset-positions').addEventListener('click', () => {
+        const container = document.querySelector('.mindmap-fullscreen-modal.visible .mindmap-diagram');
+        if (container) resetNodePositions(container);
     });
     
     // Close panels when clicking outside
@@ -800,6 +1387,17 @@ function cycleMindmapType() {
     // Update button tooltips to show current type
     updateCycleButtonTooltips();
     
+    // Regenerate the mindmap with new layout
+    if (currentMindmapData) {
+        updateMindmapDisplay();
+        
+        // Also update fullscreen if it's open
+        const fullScreenModal = document.getElementById('mindmap-fullscreen-modal');
+        if (fullScreenModal.classList.contains('visible')) {
+            openFullScreenMindmap();
+        }
+    }
+    
     console.log('Switched to mindmap type:', newType);
 }
 
@@ -821,7 +1419,7 @@ function updateCycleButtonTooltips() {
 // 12. Configuration Loading
 async function loadMindmapConfig() {
     try {
-        const response = await fetch('mindmap-config.json');
+        const response = await fetch('config-mindmap.json');
         if (response.ok) {
             const config = await response.json();
             mindmapConfig = { ...mindmapConfig, ...config.mindmap };

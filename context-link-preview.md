@@ -22,12 +22,12 @@ The link popover preview system provides automatic hover previews that display s
 
 ## Implementation Details
 
-### File Structure
+### File Structure (Line Counts for AI Reference)
 ```
 assets/
-├── js/link-popover.js     # Main implementation (445 lines)
-├── css/link-popover.css   # Styling and animations (369 lines)
-└── 1x2.png               # Marker image file
+├── js/link-popover.js     # Main implementation (444 lines) [MEDIUM - consider targeted search]
+├── css/link-popover.css   # Styling and animations (368 lines) [MEDIUM - consider targeted search]
+└── 1x2.png               # Marker image file [BINARY]
 ```
 
 ### Core JavaScript Class

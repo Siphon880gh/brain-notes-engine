@@ -226,7 +226,33 @@
 }
 
 
-/* Make all connecting lines lighter gray and thinner */
+/* D3.js Interactive Mindmap Styles */
+.mindmap-diagram svg {
+    cursor: grab;
+}
+
+.mindmap-diagram svg:active {
+    cursor: grabbing;
+}
+
+.mindmap-diagram .node {
+    cursor: pointer;
+}
+
+.mindmap-diagram .node circle {
+    transition: all 0.2s ease;
+}
+
+.mindmap-diagram .node text {
+    user-select: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.mindmap-diagram .links line {
+    transition: stroke-width 0.2s ease;
+}
+
+/* Legacy Mermaid.js styles (kept for compatibility) */
 .mindmap-diagram svg path[stroke],
 .mindmap-diagram svg line,
 .mindmap-diagram svg .edgePath path,

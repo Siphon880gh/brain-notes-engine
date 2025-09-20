@@ -457,7 +457,9 @@ function openNote(id) {
                 html: true,
                 linkify: {
                     encode: true
-                }
+                },
+                breaks: false,
+                typographer: false
             }).use(window.MarkdownItLatex)
                 .use(window.markdownItAnchor, {
                     level: [1, 2, 3, 4, 5, 6], // Apply to all heading levels

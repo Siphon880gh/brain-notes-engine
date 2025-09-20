@@ -68,7 +68,7 @@ function generateSpiderMermaid(mindmapTree) {
 ## Configuration System
 
 ### Configuration File
-- **Location**: `mindmap-config.json` (5 lines)
+- **Location**: `config-mindmap.json` (5 lines)
 - **Purpose**: Controls default mindmap layout type
 
 ```json
@@ -236,17 +236,17 @@ if (typeof onMarkdownContentUpdated === 'function') {
 
 ## File Dependencies
 
-### Required Files
-- `assets/js/mindmap.js` (860 lines) - Core functionality including cycle type system
-- `assets/css/mindmap.css` (372 lines) - Styling
-- `mindmap-config.json` (5 lines) - Configuration
-- `index.php` (466 lines) - HTML structure and integration
+### Required Files (Line Counts for AI Reference)
+- `assets/js/mindmap.js` (1419 lines) - Core functionality including cycle type system [LARGE - use targeted search]
+- `assets/css/mindmap.css` (397 lines) - Styling [MEDIUM - consider targeted search]
+- `config-mindmap.json` (5 lines) - Configuration [SMALL - read full file]
+- `index.php` (478 lines) - HTML structure and integration [MEDIUM - consider targeted search]
 
 ### External Dependencies
 - **Mermaid.js v10.6.1** - Diagram rendering
 - **Font Awesome 6.4.0** - UI icons
 - **jQuery** - DOM manipulation (existing)
 
-### Integration Dependencies
-- `assets/js/note-opener.js` - Content loading integration
-- `assets/js/index.js` - Main application logic
+### Integration Dependencies (Line Counts for AI Reference)
+- `assets/js/note-opener.js` (1058 lines) - Content loading integration [LARGE - use targeted search]
+- `assets/js/index.js` (399 lines) - Main application logic [MEDIUM - consider targeted search]

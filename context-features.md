@@ -129,3 +129,16 @@ Each brain can have:
 - **Memory Management**: Efficient data structures for large file trees
 - **Network Optimization**: Minimized AJAX requests and data transfer
 - **Browser Compatibility**: Works across modern browsers with graceful degradation
+
+## AI Code Generation Guidelines
+
+### File Size Reference for Efficient Development
+- **SMALL files (<100 lines)**: Read entire file for full context
+- **MEDIUM files (100-500 lines)**: Consider targeted search for specific functions
+- **LARGE files (500+ lines)**: Use targeted search unless complete understanding needed
+
+### Key Implementation Patterns
+- **Feature Detection**: Check for placeholder images (`1x1.png`, `1x2.png`) before activation
+- **Event-Driven Architecture**: Features initialize on content load and update events
+- **Graceful Degradation**: All features work with or without external dependencies
+- **Modular Design**: Each feature system is self-contained with clear integration points

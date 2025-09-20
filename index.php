@@ -394,6 +394,10 @@
                     <i class="fas fa-search-plus"></i>
                 </button>
                 <div class="mindmap-divider"></div>
+                <button id="mindmap-reset-positions" class="mindmap-control-btn" title="Reset Node Positions">
+                    <i class="fas fa-undo"></i>
+                </button>
+                <div class="mindmap-divider"></div>
                 <button id="mindmap-fullscreen" class="mindmap-control-btn" title="Fullscreen">
                     <i class="fas fa-expand"></i>
                 </button>
@@ -425,6 +429,10 @@
                 <button id="mindmap-fullscreen-zoom-in" class="mindmap-control-btn" title="Zoom In">
                     <i class="fas fa-search-plus"></i>
                 </button>
+                <div class="mindmap-divider"></div>
+                <button id="mindmap-fullscreen-reset-positions" class="mindmap-control-btn" title="Reset Node Positions">
+                    <i class="fas fa-undo"></i>
+                </button>
             </div>
             <button id="mindmap-fullscreen-close" class="mindmap-fullscreen-close">
                 <i class="fas fa-times"></i>
@@ -443,10 +451,12 @@
     <script src="https://cdn.jsdelivr.net/npm/markdown-it@12.0.4/dist/markdown-it.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/markdown-it-emoji/1.4.0/markdown-it-emoji.min.js"></script>
     <script src="https://unpkg.com/markdown-it-anchor@8.6.5/dist/markdownItAnchor.umd.js"></script>
-
+    
+    <!-- D3.js for interactive mindmaps -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 
     <script>
-    fetch("./3dbrain.config.json")
+    fetch("./config.json")
     .then(response => response.json())
     .then(data => {
         if(typeof window?.config === "undefined") {

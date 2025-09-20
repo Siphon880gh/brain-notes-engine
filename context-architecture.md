@@ -22,19 +22,19 @@ Each template contains:
 
 ### Caching Pipeline Architecture
 
-1. **Data Collection** (`cache_data.js` - 153 lines)
+1. **Data Collection** (`cache_data.js` - 153 lines) [SMALL-MEDIUM - read full file]
    - Scans curriculum directory recursively
    - Builds hierarchical file tree structure
    - Collects metadata and sorting specifications
    - Excludes git directories and node_modules
    - Outputs: `cachedResData.json`
 
-2. **HTML Generation** (`cache_render.js` - 226 lines)
+2. **HTML Generation** (`cache_render.js` - 226 lines) [MEDIUM - consider targeted search]
    - Reads cached data from JSON
    - Merges folders by common path
    - Applies Obsidian sort specifications
    - Generates HTML using EJS templates
-   - Outputs: `cachedResPartial.php`
+   - Outputs: `cachedResPartial.php` (89 lines)
 
 ### Build Process Flow
 ```bash
@@ -47,41 +47,47 @@ npm run build-healthbrain # Same process for health notes
 
 ## Core Components
 
-### Main Application (`index.php` - 456 lines)
+### Main Application (`index.php` - 478 lines) [MEDIUM - consider targeted search]
 - Entry point with HTML structure
 - Environment configuration loading
 - Modal system for notes and sharing
 - Integration with cached content
 - Multi-brain template switching
 
-### Search System (`search.php` - 21 lines)
+### Search System (`search.php` - 21 lines) [SMALL - read full file]
 - Uses `pcregrep` for full-text search across markdown files
 - Supports both title and content searching
 - Excludes binary files and git directories
 - Returns JSON results for AJAX consumption
 
-### Frontend Architecture (`assets/js/` - 11 files)
-- `index.js` (399 lines): Main application logic, note opening, UI interactions
-- `searchers.js` (363 lines): Search functionality and result display
-- `modal.js` (27 lines): Modal system management
-- `note-opener.js` (1051 lines): Markdown rendering and note display
-- `image-modal.js` (127 lines): Image viewing functionality
-- `mindmap.js` (860 lines): Interactive mindmap generation and controls
-- `game.js` (600 lines): Game mode functionality
-- `multistates.js` (230 lines): Multi-state UI components
-- `diff.js` (39 lines): Content comparison utilities
+### Frontend Architecture (`assets/js/` - 10 files, 4706 total lines)
+- `index.js` (399 lines): Main application logic, note opening, UI interactions [MEDIUM - consider targeted search]
+- `searchers.js` (363 lines): Search functionality and result display [MEDIUM - consider targeted search]
+- `modal.js` (27 lines): Modal system management [SMALL - read full file]
+- `note-opener.js` (1058 lines): Markdown rendering and note display [LARGE - use targeted search]
+- `image-modal.js` (127 lines): Image viewing functionality [SMALL-MEDIUM - read full file]
+- `mindmap.js` (1419 lines): Interactive mindmap generation and controls [LARGE - use targeted search]
+- `game.js` (600 lines): Game mode functionality [LARGE - use targeted search]
+- `multistates.js` (230 lines): Multi-state UI components [MEDIUM - consider targeted search]
+- `diff.js` (39 lines): Content comparison utilities [SMALL - read full file]
+- `link-popover.js` (444 lines): Link preview system [MEDIUM - consider targeted search]
 
 ## File Structure
 
 ```
 devbrain/
-├── index.php                 # Main application (466 lines)
-├── cache_data.js            # File tree caching (153 lines)
-├── cache_render.js          # HTML generation (226 lines)
-├── search.php               # Search endpoint (21 lines)
+├── index.php                 # Main application (478 lines) [MEDIUM]
+├── cache_data.js            # File tree caching (153 lines) [SMALL-MEDIUM]
+├── cache_render.js          # HTML generation (226 lines) [MEDIUM]
+├── search.php               # Search endpoint (21 lines) [SMALL]
+├── cachedResPartial.php     # Generated HTML content (89 lines) [SMALL]
 ├── assets/
-│   ├── css/                 # Styling (8 CSS files)
-│   └── js/                  # Frontend logic (11 JS files)
+│   ├── css/                 # Styling (9 CSS files, 2326 total lines)
+│   │   ├── index.css        # Main styling (1205 lines) [LARGE]
+│   │   ├── mindmap.css      # Mindmap styling (397 lines) [MEDIUM]
+│   │   ├── link-popover.css # Link popover styling (368 lines) [MEDIUM]
+│   │   └── *.css           # Other styling files (356 total lines) [SMALL-MEDIUM]
+│   └── js/                  # Frontend logic (10 JS files, 4706 total lines)
 ├── env/                     # Configuration templates
 │   ├── templates-devbrain/  # Developer notes config
 │   ├── templates-3dbrain/   # 3D notes config

@@ -4,16 +4,26 @@ By Weng Fei Fung.
 
 ## Quick Summary
 
-• **DevBrain** is a knowledge management engine that transforms Markdown notes into an interactive, searchable web application
-• Built with PHP backend (469 lines), JavaScript frontend, and Node.js build pipeline for handling thousands of notes efficiently  
-• Features full-text search, hierarchical organization, AI-assisted content generation, and interactive mindmap visualization
-• Supports enhanced Markdown (Obsidian-style links, collapsible sections, math equations) with automatic image hosting
-• Includes automatic mindmap generation from markdown lists using Mermaid.js (860 lines) with zoom, pan, fullscreen controls, and dynamic type cycling
-• Features link popover previews with selected excerpts from external links using `1x2.png` markers (445 lines)
-• Powers multiple knowledge collections: developer notes, 3D modeling, business, and health topics
-• Includes publishing pipeline for transforming Obsidian vaults into public-facing knowledge bases
+• **DevBrain** is a knowledge management engine that transforms Markdown notes into an interactive, searchable web application with full-text search, hierarchical organization, and AI-assisted content generation
+• Built with PHP backend (479 lines), JavaScript frontend (1420+ lines for mindmap, 445 lines for link previews), and Node.js build pipeline optimized for handling thousands of notes efficiently
+• Features enhanced Markdown support (Obsidian-style links, collapsible sections, math equations), automatic mindmap generation from lists using Mermaid.js with interactive controls, and link popover previews with selected excerpts
+• Powers multiple knowledge collections (developer, 3D modeling, business, health) with template-based multi-brain architecture and automated publishing pipeline for transforming Obsidian vaults into public-facing knowledge bases
+• Includes automatic image hosting, path rewriting, and deployment scripts for seamless content management and publishing workflow
 
-*For detailed technical documentation, see [context.md](./context.md) and related context files*
+*For comprehensive technical documentation optimized for AI code generation, see [context.md](./context.md) and specialized context files below*
+
+## AI Context Documentation
+
+This project includes comprehensive context documentation designed specifically for AI code generation and assistance:
+
+- **[context.md](./context.md)** (222 lines) - **START HERE**: Complete high-level overview with tech stack, architecture, and code flow
+- **[context-architecture.md](./context-architecture.md)** (121 lines) - System architecture, caching pipeline, multi-brain template system
+- **[context-features.md](./context-features.md)** (132 lines) - Enhanced markdown, search, publishing pipeline, UI features, AI integration
+- **[context-tech-stack.md](./context-tech-stack.md)** (156 lines) - Backend/frontend technologies, build system, external integrations
+- **[context-mindmap.md](./context-mindmap.md)** (253 lines) - Interactive mindmap system with Mermaid.js implementation
+- **[context-link-preview.md](./context-link-preview.md)** (194 lines) - Link popover preview system with CORS handling
+
+**Total: ~1000 lines across 6 focused files, optimized for AI context windows with file size guidance for efficient code generation**
 
 ---
 
@@ -208,11 +218,11 @@ The mindmap hierarchy is based on the structure of your markdown:
 - **Interactive Controls**: Zoom in/out, pan/drag (always enabled), reset zoom, fullscreen mode
 - **Cycle Type Button**: Dynamic switching between layout types with sync icon
 - **Responsive Design**: Works on desktop and mobile devices
-- **Configuration**: Edit `mindmap-config.json` to change default layout
+- **Configuration**: Edit `config-mindmap.json` to change default layout
 
 ### Layout Types
 
-Configure the mindmap layout in `mindmap-config.json`:
+Configure the mindmap layout in `config-mindmap.json`:
 
 ```json
 {
@@ -241,6 +251,11 @@ Use the `1x2.png` placeholder image with ellipsis in the alt text to trigger lin
 [MDN Docs](https://developer.mozilla.org) ![Resources...Developers](../1x2.png)
 [GitHub](https://github.com) ![About...Features](../1x2.png)
 ```
+
+More examples of boundary words for excerpt selection in link previews are at:
+[README - Link Previews - Boundary Words Examples.md](README%20-%20Link%20Previews%20-%20Boundary%20Words%20Examples.md)
+
+
 
 ### Link Preview Features
 
