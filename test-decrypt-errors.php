@@ -29,6 +29,18 @@ $testCases = [
     'non_age_content' => [
         'description' => 'Test non-AGE encrypted content',
         'data' => ['content' => 'This is not AGE encrypted content', 'password' => 'test123']
+    ],
+    'content_with_invalid_chars' => [
+        'description' => 'Test AGE content with invalid characters',
+        'data' => ['content' => "YWdlLWVuY3J5cHRpb24ub3JnL3Yx\x00\x01\x02\n\n\nTest content with null bytes and extra newlines", 'password' => 'test123']
+    ],
+    'content_with_bom' => [
+        'description' => 'Test AGE content with BOM (Byte Order Mark)',
+        'data' => ['content' => "\xEF\xBB\xBFYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IHNjcnlwdCBNa2xvdFRuYnhzVGM0VGlzbGk1bU13IDE4", 'password' => 'test123']
+    ],
+    'empty_content' => [
+        'description' => 'Test empty content after cleaning',
+        'data' => ['content' => '   \n\n\t\t   ', 'password' => 'test123']
     ]
 ];
 
