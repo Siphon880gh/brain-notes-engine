@@ -8,11 +8,12 @@
 - **Error Handling**: Comprehensive error reporting and debugging
 - **Session Management**: User state and interaction tracking
 
-### Encryption Backend (`decrypt-simple.php`)
+### Encryption Backend (`decrypt-age.php` - 592 lines)
 - **AGE Decryption**: Handles AGE-encrypted content decryption
-- **Re-encryption**: Converts AGE to AES-256-CBC for client-side handling
+- **Re-encryption**: Converts AGE to AES-256-GCM for client-side handling
 - **Fallback Support**: Works with or without AGE binary installed
 - **Security**: Secure password handling and content processing
+- **CORS Support**: Handles cross-origin requests for web integration
 
 ### Search Engine (`search.php` - 21 lines)
 - **PCRE Integration**: Perl Compatible Regular Expressions via `pcregrep`
@@ -28,6 +29,7 @@
 - **Vanilla JS**: Custom application logic and utilities
 - **ES6+ Features**: Modern JavaScript with async/await patterns
 - **Web Crypto API**: Client-side encryption/decryption with AES-256-CBC and PBKDF2
+- **Encryption Manager**: AGE format detection and hybrid encryption workflow
 
 ### CSS Framework
 - **Tailwind CSS**: Utility-first styling framework
@@ -93,6 +95,7 @@
 - **Git Integration**: Repository URL management through `env/urls.json`
 - **AI Services**: ChatGPT integration for content assistance
 - **CORS Proxy**: `api.allorigins.win` for link preview content extraction
+- **AGE Encryption**: Command-line encryption tool for secure note storage
 - **Analytics**: Optional tracking and usage statistics
 
 ## Development Tools
@@ -119,6 +122,7 @@
 - **HTTP_TO_FILE_PROTOCOL**: File protocol for local development
 - **WANT_A_TAG_FOR_SEO**: SEO optimization toggle
 - **PCREGREP_PATH**: Custom pcregrep executable path
+- **AGE_PATH**: Custom AGE binary path configuration
 
 ### Template System
 - **Multi-Brain Support**: Separate configurations for different knowledge collections

@@ -91,11 +91,11 @@ echo json_encode(["res"=>$res, "cmd"=>$cmd, "stdout"=>$stdout]);
 - **Fallback Support**: Works with or without the `age` binary installed
 
 ### Encryption Architecture
-- **Backend Decryption**: `decrypt-simple.php` handles AGE decryption and re-encryption
+- **Backend Decryption**: `decrypt-age.php` (592 lines) handles AGE decryption and re-encryption with AES-256-GCM
 - **Client-Side Decryption**: JavaScript handles AES-256-CBC decryption with PBKDF2 key derivation
-- **Security Flow**: AGE → PHP backend → AES-256-CBC → JavaScript client → rendered content
+- **Security Flow**: AGE → PHP backend → AES-256-GCM → JavaScript client → rendered content
 - **Caching**: Decrypted content cached for session duration only
-- **File**: `assets/js/encryption.js` (346 lines) - Medium file, consider targeted search for specific functions
+- **File**: `assets/js/encryption.js` (381 lines) - Medium file, consider targeted search for specific functions
 
 ## Sharing & Collaboration
 

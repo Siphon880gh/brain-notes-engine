@@ -17,6 +17,7 @@
 ### Backend (PHP)
 - **`index.php`** (481 lines): Main application entry point with HTML structure, modal system, and template integration
 - **`search.php`** (21 lines): PCRE-based full-text search endpoint using `pcregrep`
+- **`decrypt-age.php`** (592 lines): AGE encryption/decryption handler with AES-256-GCM re-encryption for client-side compatibility
 - **Template System**: Multi-brain configuration support in `env/templates-*/`
 
 ### Frontend (JavaScript + CSS)
@@ -26,7 +27,7 @@
 - **`assets/js/index.js`** (399 lines): Main UI logic, navigation, and interaction handling
 - **`assets/js/searchers.js`** (363 lines): Search functionality and result display
 - **`assets/js/image-modal.js`** (128 lines): Image viewing modal functionality with click-to-expand
-- **`assets/js/encryption.js`** (encryption support): Note encryption/decryption functionality
+- **`assets/js/encryption.js`** (381 lines): AGE encryption/decryption functionality with client-side AES-256-CBC support
 - **CSS Framework**: Tailwind CSS, FontAwesome icons, custom styling (9 CSS files)
 
 ### Build System (Node.js)
@@ -39,6 +40,8 @@
 - **jQuery + jQuery UI**: DOM manipulation and UI components
 - **MarkdownIt**: Markdown parsing with LaTeX support
 - **Highlight.js**: Syntax highlighting for code blocks
+- **AGE Encryption**: Command-line encryption tool for secure note storage
+- **Web Crypto API**: Client-side AES-256-CBC encryption with PBKDF2 key derivation
 
 ## Architecture
 
@@ -66,11 +69,12 @@ env/templates-{devbrain,3dbrain,bizbrain,healthbrain}/
 ```
 devbrain/
 ├── index.php                 # Main app (481 lines)
-├── search.php               # Search endpoint (21 lines)  
+├── search.php               # Search endpoint (21 lines)
+├── decrypt-age.php          # AGE encryption handler (592 lines)
 ├── cache_data.js            # File tree builder (153 lines)
 ├── cache_render.js          # HTML generator (226 lines)
 ├── config-mindmap.json      # Mindmap configuration (5 lines)
-├── config.json              # Image hosting configuration (3 lines)
+├── config.json              # Image hosting & AGE configuration (12 lines)
 ├── 1x2.png                  # Link popover marker image
 ├── assets/
 │   ├── css/                 # Styling (9 files, ~2400+ total lines)
@@ -85,7 +89,7 @@ devbrain/
 │       ├── index.js         # Main UI logic (399 lines)
 │       ├── searchers.js     # Search functionality (363 lines)
 │       ├── image-modal.js   # Image modal functionality (128 lines)
-│       ├── encryption.js    # Encryption/decryption functionality
+│       ├── encryption.js    # AGE encryption/decryption functionality (381 lines)
 
 │       ├── game.js          # Game mode functionality (600 lines)
 │       └── modal.js         # Modal system management (27 lines)
@@ -127,6 +131,7 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 - **Mindmaps**: Detect `1x1.png` in lists → parse structure → generate Mermaid → render with controls
 - **Link Previews**: Detect `1x2.png` markers → parse boundary words → fetch via CORS proxy → display popover
 - **Search**: User input → PCRE query → highlight results → navigate to content
+- **Encryption**: Detect AGE blocks → prompt for password → decrypt via PHP backend → re-encrypt with AES → client-side decryption → render content
 
 ## Key Features Implementation
 
@@ -174,6 +179,16 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 - **Content Generation**: AI-assisted note creation and improvement while preserving markdown formatting
 - **Large Prompt Handling**: Manages prompts too large for direct API calls
 - **ChatGPT Integration**: Seamless connection to external AI services with fallback for large prompts
+
+### Encryption System
+- **AGE Format Support**: Detects and handles AGE-encrypted content in markdown files
+- **Password-Protected Notes**: Secure password entry modal with error handling
+- **Hybrid Encryption**: AGE → PHP backend → AES-256-GCM → JavaScript client → rendered content
+- **Seamless Integration**: Encrypted content renders exactly like regular notes after decryption
+- **Full Feature Support**: Decrypted content supports all DevBrain features (mindmaps, link previews, TOC, etc.)
+- **Fallback Support**: Works with or without the `age` binary installed
+- **Session Caching**: Decrypted content cached for session duration only
+- **Security**: Uses PBKDF2 key derivation and AES-256-CBC encryption for client-side handling
 
 ## Development Workflow
 
@@ -226,14 +241,15 @@ For comprehensive implementation details, see specialized context files:
 
 ### Key File Sizes for Reference:
 - `index.php`: 481 lines (medium - consider targeted search)
+- `decrypt-age.php`: 592 lines (large - use targeted search)
 - `assets/js/mindmap.js`: 1681 lines (large - use targeted search)
 - `assets/css/mindmap.css`: 458 lines (medium - consider targeted search)
 - `assets/js/link-popover.js`: 444 lines (medium - consider targeted search)
 - `assets/js/note-opener.js`: 1058 lines (large - use targeted search)
 - `assets/js/index.js`: 399 lines (medium - consider targeted search)
 - `assets/js/searchers.js`: 363 lines (medium - consider targeted search)
+- `assets/js/encryption.js`: 381 lines (medium - consider targeted search)
 - `assets/js/image-modal.js`: 128 lines (small-medium - read full file)
-- `assets/js/encryption.js`: encryption functionality (small - read full file)
 - `assets/js/game.js`: 600 lines (large - use targeted search)
 - Configuration files: <50 lines each (small - read full files)
 
@@ -242,7 +258,8 @@ This architecture enables efficient handling of thousands of notes while providi
 ## AI Context Optimization
 
 - **Total Documentation**: ~1170 lines across 6 focused files optimized for AI context windows
-- **Main Overview**: This file (context.md) provides complete high-level understanding (240 lines)
+- **Main Overview**: This file (context.md) provides complete high-level understanding (260 lines)
 - **Feature-Specific**: 5 specialized files for deep implementation details
 - **Efficient Loading**: Each context file under 260 lines for optimal token usage
 - **Code Generation Ready**: Includes file sizes, syntax examples, and implementation patterns
+- **Recent Updates**: Added comprehensive encryption system documentation (AGE + AES-256-CBC)

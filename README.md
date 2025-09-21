@@ -4,8 +4,8 @@ By Weng Fei Fung.
 
 ## Quick Summary
 
-• **DevBrain** is a knowledge management engine that transforms Markdown notes into an interactive, searchable web application with full-text search, hierarchical organization, AI-assisted content generation, click-to-expand image modals, and note encryption support
-• Built with PHP backend (502 lines total), JavaScript frontend (5600+ lines across 12 files including 1681-line mindmap system), and Node.js build pipeline optimized for handling thousands of notes efficiently
+• **DevBrain** is a knowledge management engine that transforms Markdown notes into an interactive, searchable web application with full-text search, hierarchical organization, AI-assisted content generation, click-to-expand image modals, and AGE encryption support with seamless password-protected note handling
+• Built with PHP backend (1094 lines total including 592-line AGE encryption handler), JavaScript frontend (5600+ lines across 12 files including 1681-line mindmap system and 381-line encryption client), and Node.js build pipeline optimized for handling thousands of notes efficiently
 • Features enhanced Markdown support (Obsidian-style links, collapsible sections, math equations), automatic mindmap generation from lists using Mermaid.js with interactive controls, link popover previews with custom text support, fullscreen image viewing, and encryption/decryption capabilities
 • Powers multiple knowledge collections (developer, 3D modeling, business, health) with template-based multi-brain architecture and automated publishing pipeline for transforming Obsidian vaults into public-facing knowledge bases
 • Includes automatic image hosting, path rewriting, deployment scripts, comprehensive modal system, and encryption support for seamless content management and enhanced user experience
@@ -16,7 +16,7 @@ By Weng Fei Fung.
 
 This project includes comprehensive context documentation designed specifically for AI code generation and assistance:
 
-- **[context.md](./context.md)** (240 lines) - **START HERE**: Complete high-level overview with tech stack, architecture, and code flow
+- **[context.md](./context.md)** (264 lines) - **START HERE**: Complete high-level overview with tech stack, architecture, and code flow including encryption system
 - **[context-architecture.md](./context-architecture.md)** (126 lines) - System architecture, caching pipeline, multi-brain template system
 - **[context-features.md](./context-features.md)** (157 lines) - Enhanced markdown, search, publishing pipeline, UI features, AI integration
 - **[context-tech-stack.md](./context-tech-stack.md)** (161 lines) - Backend/frontend technologies, build system, external integrations
