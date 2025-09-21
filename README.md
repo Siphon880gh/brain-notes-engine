@@ -4,11 +4,11 @@ By Weng Fei Fung.
 
 ## Quick Summary
 
-• **DevBrain** is a knowledge management engine that transforms Markdown notes into an interactive, searchable web application with full-text search, hierarchical organization, and AI-assisted content generation
-• Built with PHP backend (479 lines), JavaScript frontend (1681+ lines for mindmap, 445 lines for link previews), and Node.js build pipeline optimized for handling thousands of notes efficiently
-• Features enhanced Markdown support (Obsidian-style links, collapsible sections, math equations), automatic mindmap generation from lists using Mermaid.js with interactive controls, and link popover previews with selected excerpts
+• **DevBrain** is a knowledge management engine that transforms Markdown notes into an interactive, searchable web application with full-text search, hierarchical organization, AI-assisted content generation, click-to-expand image modals, and note encryption support
+• Built with PHP backend (502 lines total), JavaScript frontend (5600+ lines across 12 files including 1681-line mindmap system), and Node.js build pipeline optimized for handling thousands of notes efficiently
+• Features enhanced Markdown support (Obsidian-style links, collapsible sections, math equations), automatic mindmap generation from lists using Mermaid.js with interactive controls, link popover previews with custom text support, fullscreen image viewing, and encryption/decryption capabilities
 • Powers multiple knowledge collections (developer, 3D modeling, business, health) with template-based multi-brain architecture and automated publishing pipeline for transforming Obsidian vaults into public-facing knowledge bases
-• Includes automatic image hosting, path rewriting, and deployment scripts for seamless content management and publishing workflow
+• Includes automatic image hosting, path rewriting, deployment scripts, comprehensive modal system, and encryption support for seamless content management and enhanced user experience
 
 *For comprehensive technical documentation optimized for AI code generation, see [context.md](./context.md) and specialized context files below*
 
@@ -16,14 +16,14 @@ By Weng Fei Fung.
 
 This project includes comprehensive context documentation designed specifically for AI code generation and assistance:
 
-- **[context.md](./context.md)** (223 lines) - **START HERE**: Complete high-level overview with tech stack, architecture, and code flow
-- **[context-architecture.md](./context-architecture.md)** (121 lines) - System architecture, caching pipeline, multi-brain template system
-- **[context-features.md](./context-features.md)** (132 lines) - Enhanced markdown, search, publishing pipeline, UI features, AI integration
-- **[context-tech-stack.md](./context-tech-stack.md)** (156 lines) - Backend/frontend technologies, build system, external integrations
+- **[context.md](./context.md)** (240 lines) - **START HERE**: Complete high-level overview with tech stack, architecture, and code flow
+- **[context-architecture.md](./context-architecture.md)** (126 lines) - System architecture, caching pipeline, multi-brain template system
+- **[context-features.md](./context-features.md)** (157 lines) - Enhanced markdown, search, publishing pipeline, UI features, AI integration
+- **[context-tech-stack.md](./context-tech-stack.md)** (161 lines) - Backend/frontend technologies, build system, external integrations
 - **[context-mindmap.md](./context-mindmap.md)** (253 lines) - Interactive mindmap system with Mermaid.js implementation
-- **[context-link-preview.md](./context-link-preview.md)** (194 lines) - Link popover preview system with CORS handling
+- **[context-link-preview.md](./context-link-preview.md)** (234 lines) - Link popover preview system with CORS handling
 
-**Total: ~1000 lines across 6 focused files, optimized for AI context windows with file size guidance for efficient code generation**
+**Total: ~1170 lines across 6 focused files, optimized for AI context windows with file size guidance for efficient code generation**
 
 ---
 

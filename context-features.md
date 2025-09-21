@@ -57,9 +57,16 @@ echo json_encode(["res"=>$res, "cmd"=>$cmd, "stdout"=>$stdout]);
 
 ### Interactive Elements
 - **Modal System**: Overlay windows for notes, sharing, and AI assistance
+- **Image Modal**: Click-to-expand fullscreen image viewing with keyboard support
 - **Tooltip System**: Contextual help and information
 - **Responsive Design**: Mobile-friendly interface with Tailwind CSS
 - **Keyboard Shortcuts**: Efficient navigation and interaction
+
+### Image Enhancement Features
+- **Click-to-Expand**: All images in notes can be clicked to open in fullscreen modal
+- **Keyboard Navigation**: ESC key to close modals, smooth fade animations
+- **Dynamic Detection**: Automatically attaches modal functionality to new images when content loads
+- **Event Management**: Prevents modal triggers from interfering with other interactive elements like buttons
 
 ## AI Integration
 
@@ -73,6 +80,22 @@ echo json_encode(["res"=>$res, "cmd"=>$cmd, "stdout"=>$stdout]);
 - **Writing Improvement**: AI can rewrite notes for clarity and readability
 - **Content Enhancement**: Suggests improvements while preserving markdown formatting
 - **Image Preservation**: Maintains Obsidian-style image links during AI processing
+
+## Encryption Support
+
+### AGE Encryption Integration
+- **AGE Format Detection**: Automatically detects AGE-encrypted content in markdown files
+- **Password-Protected UI**: Clean, secure password entry modal with error handling
+- **Seamless Integration**: Encrypted content renders exactly like regular notes after decryption
+- **Full Feature Support**: Decrypted content supports all DevBrain features (mindmaps, link previews, TOC, etc.)
+- **Fallback Support**: Works with or without the `age` binary installed
+
+### Encryption Architecture
+- **Backend Decryption**: `decrypt-simple.php` handles AGE decryption and re-encryption
+- **Client-Side Decryption**: JavaScript handles AES-256-CBC decryption with PBKDF2 key derivation
+- **Security Flow**: AGE → PHP backend → AES-256-CBC → JavaScript client → rendered content
+- **Caching**: Decrypted content cached for session duration only
+- **File**: `assets/js/encryption.js` (346 lines) - Medium file, consider targeted search for specific functions
 
 ## Sharing & Collaboration
 
@@ -136,6 +159,12 @@ Each brain can have:
 - **SMALL files (<100 lines)**: Read entire file for full context
 - **MEDIUM files (100-500 lines)**: Consider targeted search for specific functions
 - **LARGE files (500+ lines)**: Use targeted search unless complete understanding needed
+
+### Updated File Sizes for Reference
+- **`assets/js/image-modal.js`** (128 lines): Image modal functionality [SMALL-MEDIUM - read full file]
+- **`assets/js/link-popover.js`** (444 lines): Link preview system [MEDIUM - consider targeted search]
+- **`assets/js/note-opener.js`** (1058 lines): Note rendering and content loading [LARGE - use targeted search]
+- **`assets/js/mindmap.js`** (1681 lines): Mindmap generation and controls [LARGE - use targeted search]
 
 ### Key Implementation Patterns
 - **Feature Detection**: Check for placeholder images (`1x1.png`, `1x2.png`) before activation

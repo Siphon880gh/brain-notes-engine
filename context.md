@@ -2,30 +2,32 @@
 
 ## Project Overview
 
-**DevBrain** is a powerful knowledge management and publishing engine that transforms Markdown notes into an interactive, searchable web application. It's designed to handle thousands of notes across various topics (coding, 3D modeling, business, health) with features like full-text search, hierarchical organization, AI-assisted content generation, interactive mindmap visualization, and link preview popovers.
+**DevBrain** is a powerful knowledge management and publishing engine that transforms Markdown notes into an interactive, searchable web application. It's designed to handle thousands of notes across various topics (coding, 3D modeling, business, health) with features like full-text search, hierarchical organization, AI-assisted content generation, interactive mindmap visualization, link preview popovers, and click-to-expand image modals.
 
 ## What the App Does
 
 - **Knowledge Management**: Transforms Obsidian/Markdown vaults into interactive web applications
 - **Multi-Brain Architecture**: Supports multiple knowledge collections (dev, 3D, business, health) with independent configurations
 - **Enhanced Markdown**: Processes Obsidian-style links `[[Topic]]`, collapsible sections, math equations, and heading indentation
-- **Interactive Features**: Auto-generated mindmaps from lists, link popover previews, full-text search, AI assistance
+- **Interactive Features**: Auto-generated mindmaps from lists, link popover previews, full-text search, AI assistance, image modals
 - **Publishing Pipeline**: Automated image hosting, path rewriting, and deployment for public-facing knowledge bases
 
 ## Tech Stack
 
 ### Backend (PHP)
-- **`index.php`** (479 lines): Main application entry point with HTML structure, modal system, and template integration
+- **`index.php`** (481 lines): Main application entry point with HTML structure, modal system, and template integration
 - **`search.php`** (21 lines): PCRE-based full-text search endpoint using `pcregrep`
 - **Template System**: Multi-brain configuration support in `env/templates-*/`
 
 ### Frontend (JavaScript + CSS)
 - **`assets/js/mindmap.js`** (1681 lines): Interactive mindmap generation with Mermaid.js, zoom/pan controls, layout cycling
-- **`assets/js/link-popover.js`** (445 lines): Link preview system with CORS proxy and content extraction
-- **`assets/js/note-opener.js`** (1057 lines): Markdown rendering, note display, and content loading
+- **`assets/js/link-popover.js`** (444 lines): Link preview system with CORS proxy and content extraction
+- **`assets/js/note-opener.js`** (1058 lines): Markdown rendering, note display, and content loading
 - **`assets/js/index.js`** (399 lines): Main UI logic, navigation, and interaction handling
 - **`assets/js/searchers.js`** (363 lines): Search functionality and result display
-- **CSS Framework**: Tailwind CSS, FontAwesome icons, custom styling (8 CSS files)
+- **`assets/js/image-modal.js`** (128 lines): Image viewing modal functionality with click-to-expand
+- **`assets/js/encryption.js`** (encryption support): Note encryption/decryption functionality
+- **CSS Framework**: Tailwind CSS, FontAwesome icons, custom styling (9 CSS files)
 
 ### Build System (Node.js)
 - **`cache_data.js`** (153 lines): Scans curriculum directory, builds hierarchical file tree
@@ -63,23 +65,30 @@ env/templates-{devbrain,3dbrain,bizbrain,healthbrain}/
 ### File Structure (Key Components)
 ```
 devbrain/
-├── index.php                 # Main app (479 lines)
+├── index.php                 # Main app (481 lines)
 ├── search.php               # Search endpoint (21 lines)  
 ├── cache_data.js            # File tree builder (153 lines)
 ├── cache_render.js          # HTML generator (226 lines)
 ├── config-mindmap.json      # Mindmap configuration (5 lines)
+├── config.json              # Image hosting configuration (3 lines)
 ├── 1x2.png                  # Link popover marker image
 ├── assets/
 │   ├── css/                 # Styling (9 files, ~2400+ total lines)
 │   │   ├── mindmap.css      # Mindmap styling (458 lines)
-│   │   ├── link-popover.css # Link popover styling (369 lines)
-│   │   └── index.css        # Main application styling
-│   └── js/                  # Frontend logic (11 files, ~5400+ total lines)
+│   │   ├── link-popover.css # Link popover styling (368 lines)
+│   │   ├── index.css        # Main application styling (1205 lines)
+│   │   └── encryption.css   # Encryption styling
+│   └── js/                  # Frontend logic (12 files, ~5600+ total lines)
 │       ├── mindmap.js       # Mindmap system (1681 lines)
-│       ├── link-popover.js  # Link preview system (445 lines)
-│       ├── note-opener.js   # Note loading/rendering (1057 lines)
+│       ├── link-popover.js  # Link preview system (444 lines)
+│       ├── note-opener.js   # Note loading/rendering (1058 lines)
 │       ├── index.js         # Main UI logic (399 lines)
-│       └── searchers.js     # Search functionality (363 lines)
+│       ├── searchers.js     # Search functionality (363 lines)
+│       ├── image-modal.js   # Image modal functionality (128 lines)
+│       ├── encryption.js    # Encryption/decryption functionality
+
+│       ├── game.js          # Game mode functionality (600 lines)
+│       └── modal.js         # Modal system management (27 lines)
 ├── env/                     # Multi-brain templates and configuration
 ├── curriculum/              # Markdown notes (separate repository)
 └── future-*/               # Planned features (game modes, progress tracking)
@@ -136,6 +145,7 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 
 ### Link Popover Preview System  
 - **Smart Content Extraction**: Parses boundary words from alt text (`startWord..endWord`)
+- **Custom Preview Text**: Uses `##` delimiter for instant custom previews
 - **CORS Handling**: Uses `api.allorigins.win` proxy for external content
 - **Caching**: Results cached to avoid repeated requests
 - **Responsive**: Desktop hover + mobile touch with contextual positioning
@@ -143,7 +153,15 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 **Markdown Syntax:**
 ```markdown
 [Example Site](https://example.com) ![title..content](../1x2.png)
+[API](https://example.com) ![API##Application Programming Interface](../1x2.png)
 ```
+
+### Image Modal System
+- **Click-to-Expand**: Images in notes open in fullscreen modal on click
+- **Keyboard Support**: ESC key to close, smooth animations
+- **Dynamic Detection**: Automatically attaches to new images when notes load
+- **Event Management**: Prevents conflicts with other interactive elements
+- **File**: `assets/js/image-modal.js` (128 lines) - Small-medium file, read full for complete understanding
 
 ### Enhanced Markdown Support
 - **Internal Links**: `[[Topic Title]]` for navigation between notes
@@ -155,6 +173,7 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 - **"Ask Folder" Feature**: AI can analyze entire folder contents for context-aware assistance
 - **Content Generation**: AI-assisted note creation and improvement while preserving markdown formatting
 - **Large Prompt Handling**: Manages prompts too large for direct API calls
+- **ChatGPT Integration**: Seamless connection to external AI services with fallback for large prompts
 
 ## Development Workflow
 
@@ -190,11 +209,11 @@ npm run build-healthbrain # Health notes variant
 
 For comprehensive implementation details, see specialized context files:
 
-- **[context-architecture.md](./context-architecture.md)** (121 lines) - System architecture, caching pipeline, build process, multi-brain template system
-- **[context-features.md](./context-features.md)** (132 lines) - Enhanced markdown, search capabilities, publishing pipeline, UI features, AI integration
-- **[context-tech-stack.md](./context-tech-stack.md)** (156 lines) - Backend/frontend technologies, build system, external integrations, security considerations
+- **[context-architecture.md](./context-architecture.md)** (126 lines) - System architecture, caching pipeline, build process, multi-brain template system
+- **[context-features.md](./context-features.md)** (157 lines) - Enhanced markdown, search capabilities, publishing pipeline, UI features, AI integration
+- **[context-tech-stack.md](./context-tech-stack.md)** (161 lines) - Backend/frontend technologies, build system, external integrations, security considerations
 - **[context-mindmap.md](./context-mindmap.md)** (253 lines) - Mindmap system implementation, detection, generation, interactive controls, configuration
-- **[context-link-preview.md](./context-link-preview.md)** (194 lines) - Link preview system with popover excerpts, CORS handling, content extraction
+- **[context-link-preview.md](./context-link-preview.md)** (234 lines) - Link preview system with popover excerpts, CORS handling, content extraction
 
 ## Quick Reference for AI Code Generation
 
@@ -206,19 +225,24 @@ For comprehensive implementation details, see specialized context files:
 - **Large files (500+ lines)**: Use targeted search unless full understanding needed
 
 ### Key File Sizes for Reference:
-- `index.php`: 479 lines (medium - consider targeted search)
+- `index.php`: 481 lines (medium - consider targeted search)
 - `assets/js/mindmap.js`: 1681 lines (large - use targeted search)
 - `assets/css/mindmap.css`: 458 lines (medium - consider targeted search)
-- `assets/js/link-popover.js`: 445 lines (medium-large - consider targeted search)
-- `assets/js/note-opener.js`: 1057 lines (large - use targeted search)
+- `assets/js/link-popover.js`: 444 lines (medium - consider targeted search)
+- `assets/js/note-opener.js`: 1058 lines (large - use targeted search)
+- `assets/js/index.js`: 399 lines (medium - consider targeted search)
+- `assets/js/searchers.js`: 363 lines (medium - consider targeted search)
+- `assets/js/image-modal.js`: 128 lines (small-medium - read full file)
+- `assets/js/encryption.js`: encryption functionality (small - read full file)
+- `assets/js/game.js`: 600 lines (large - use targeted search)
 - Configuration files: <50 lines each (small - read full files)
 
 This architecture enables efficient handling of thousands of notes while providing a rich, interactive experience for knowledge discovery, learning, and content management. The modular design supports easy feature extension and multiple knowledge domain deployments.
 
 ## AI Context Optimization
 
-- **Total Documentation**: ~1000 lines across 6 focused files optimized for AI context windows
-- **Main Overview**: This file (context.md) provides complete high-level understanding
+- **Total Documentation**: ~1170 lines across 6 focused files optimized for AI context windows
+- **Main Overview**: This file (context.md) provides complete high-level understanding (240 lines)
 - **Feature-Specific**: 5 specialized files for deep implementation details
 - **Efficient Loading**: Each context file under 260 lines for optimal token usage
 - **Code Generation Ready**: Includes file sizes, syntax examples, and implementation patterns

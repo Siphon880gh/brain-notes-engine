@@ -589,6 +589,22 @@ function openNote(id) {
                 }
             }
 
+            // Check for AGE encryption before rendering
+            console.log('🔍 Checking for AGE encryption...', {
+                hasEncryptionManager: !!window.encryptionManager,
+                summaryLength: summary?.length,
+                summaryPreview: summary?.substring(0, 100) + '...',
+                isAgeEncrypted: window.encryptionManager?.isAgeEncrypted(summary)
+            });
+            
+            if (window.encryptionManager && window.encryptionManager.isAgeEncrypted(summary)) {
+                console.log('🔒 AGE encryption detected! Handling encrypted content...');
+                handleEncryptedContent(summary, title, summaryInnerEl, frontmatterProps);
+                return; // Exit early for encrypted content
+            } else {
+                console.log('📄 No encryption detected, rendering normally...');
+            }
+
             var summaryHTML = md.render(summary);
 
             // Img src domain with base url:
@@ -1055,4 +1071,291 @@ function applyHierarchicalIndentationWithResets(container) {
         });
     });
 } // applyHierarchicalIndentationWithResets
+
+/**
+ * Handle encrypted content display and decryption
+ */
+function handleEncryptedContent(encryptedContent, title, summaryInnerEl, frontmatterProps) {
+    // Set title
+    document.getElementById("summary-title").textContent = title;
+    document.getElementById("summary-collapser").classList.remove("hidden");
+    document.getElementById("summary-collapser").classList.add("stated");
+    document.getElementById("summary-sharer").classList.remove("hidden");
+    document.getElementById("scroll-to-item").classList.remove("hidden");
+    document.getElementById("summary-outer").classList.remove("hidden");
+
+    // Show encrypted content indicator
+    const encryptedIndicator = `
+        <div class="encrypted-content-indicator">
+            <i class="fas fa-lock"></i>
+            <div>
+                <div class="font-semibold">This note contains encrypted content</div>
+                <div class="text-sm opacity-75">Enter the password to decrypt and view the content</div>
+            </div>
+            <button onclick="requestDecryption('${title.replace(/'/g, "\\'")}')">
+                <i class="fas fa-unlock"></i> Decrypt
+            </button>
+        </div>
+    `;
+
+    summaryInnerEl.innerHTML = encryptedIndicator;
+
+    // Scroll to content
+    window.document.getElementById("explore-curriculum").scrollIntoView({
+        behavior: "smooth",
+    });
+
+    // Store encrypted content for later decryption
+    summaryInnerEl.dataset.encryptedContent = encryptedContent;
+    summaryInnerEl.dataset.frontmatterProps = JSON.stringify(frontmatterProps || {});
+    
+    // Encrypted content stored for decryption
+}
+
+/**
+ * Request password and decrypt content
+ */
+function requestDecryption(title) {
+    const summaryInnerEl = window.document.querySelector("#summary-inner");
+    const encryptedContent = summaryInnerEl.dataset.encryptedContent;
+    const frontmatterProps = JSON.parse(summaryInnerEl.dataset.frontmatterProps || '{}');
+
+    if (!encryptedContent) {
+        console.error('❌ No encrypted content found');
+        return;
+    }
+
+    // Show password dialog
+    window.passwordDialog.show(async (password) => {
+        try {
+            // Show loading state
+            summaryInnerEl.innerHTML = `
+                <div class="decryption-loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <div>Decrypting content...</div>
+                </div>
+            `;
+
+            // Decrypt content
+            const decryptedContent = await window.encryptionManager.decrypt(encryptedContent, password);
+
+            // Process and render decrypted content
+            await renderDecryptedContent(decryptedContent, title, summaryInnerEl, frontmatterProps);
+
+            // Close password dialog
+            window.passwordDialog.hide();
+
+        } catch (error) {
+            console.error('Decryption failed:', error);
+            
+            // Extract debug info if available
+            let debugInfo = '';
+            if (error.debug_content_preview) {
+                debugInfo = `
+                    <div class="mt-2 p-2 bg-gray-100 rounded text-sm">
+                        <strong>Debug - Content Preview:</strong><br>
+                        <code>${error.debug_content_preview}</code>
+                    </div>
+                `;
+            }
+            
+            // Show error in content area
+            summaryInnerEl.innerHTML = `
+                <div class="decryption-error">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>Decryption Failed:</strong> ${error.message}
+                    ${debugInfo}
+                    <div class="mt-2">
+                        <button onclick="requestDecryption('${title.replace(/'/g, "\\'")}')">
+                            <i class="fas fa-redo"></i> Try Again
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            throw error; // Re-throw to show error in password dialog
+        }
+    });
+}
+
+/**
+ * Render decrypted content using the same pipeline as regular content
+ */
+async function renderDecryptedContent(decryptedContent, title, summaryInnerEl, frontmatterProps) {
+    // Initialize markdown renderer (same as in openNote)
+    var md = window.markdownit({
+        html: true,
+        linkify: {
+            encode: true
+        },
+        breaks: false,
+        typographer: false
+    }).use(window.MarkdownItLatex)
+        .use(window.markdownItAnchor, {
+            level: [1, 2, 3, 4, 5, 6],
+            slugify: function (s) {
+                s = s.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '');
+                if(s?.length) {
+                    if (!/[a-zA-Z]/.test(s[0])) {
+                        s = "at" + s;
+                    }
+                }
+                return s;
+            },
+            permalink: true,
+            permalinkHref: (slug, state) => {
+                let s = slug;
+                href = "javascript:window.shareTutorialSection('?open=" + encodeURI(title) + "#" + s + "');";
+                return href;
+            },
+            permalinkSymbol: '🔗'
+        });
+
+    // Apply same content processing as regular notes
+    let processedContent = decryptedContent;
+
+    // Apply line break fixes
+    processedContent = processedContent.replace(/(.+)(\n)(?!\n)/g, "$1  \n");
+
+    // Fix Obsidian image links
+    processedContent = processedContent.replace(/!\[\[(?!http)([^\/\]]+\.(png|bmp|jpg|jpeg|gif))\]\]/gi, '![]($1)');
+    processedContent = processedContent.replace(/!\[\]\(([^)]*)\)/g, (match, p1) => {
+        return `![](${p1.replace(/ /g, '%20')})`;
+    });
+
+    // Convert Obsidian notes to details
+    processedContent = convertNotesToDetails(processedContent);
+
+    // Apply center layout if requested
+    if(frontmatterProps?.brain_layout === "center") {
+        processedContent = "<center>" + processedContent + "</center>";
+    }
+
+    // Render markdown
+    var summaryHTML = md.render(processedContent);
+
+    // Fix image URLs
+    summaryHTML = summaryHTML.replace(/\<img src="(.+)"/g, function(match, p1) {
+        return '<img src="' + (window.config?.imgHostedUrl || '') + p1 + '"';
+    });
+
+    // Fix special characters
+    summaryHTML = summaryHTML.replaceAll(/\xA0/g, " ");
+
+    // Replace Obsidian links
+    summaryHTML = summaryHTML.replace(/\[\[(.*?)\]\]/g, function (match, p1) {
+        const encodedText = encodeURIComponent(p1);
+        return `<a target="_blank" href="${window.openURL}${encodedText}">${p1}</a>`;
+    });
+
+    // Add decrypted content wrapper
+    summaryHTML = `<div class="decrypted-content">${summaryHTML}</div>`;
+
+    // Set content
+    summaryInnerEl.innerHTML = summaryHTML;
+
+    // Apply hierarchical indentation
+    applyHierarchicalIndentationWithResets(summaryInnerEl);
+
+    // Re-scan for link popover previews
+    if (window.linkPopoverPreview) {
+        window.linkPopoverPreview.rescan();
+    }
+
+    // Start fade-out timer after 1 second
+    setTimeout(() => {
+        const decryptedContentEl = summaryInnerEl.querySelector('.decrypted-content');
+        if (decryptedContentEl) {
+            decryptedContentEl.classList.add('fade-out');
+        }
+    }, 1000);
+
+    // Handle links and embeds (same as regular notes)
+    summaryInnerEl.querySelectorAll("a").forEach(a => {
+        if (a.href.includes(window.openURL) || a.href.includes("localhost") || a.innerText.includes("🔗"))
+            return true;
+
+        a.setAttribute("target", "_blank");
+
+        // Handle YouTube embeds
+        if (a.protocol === 'http:' || a.protocol === 'https:') {
+            if (a.hostname.includes('youtube.com') || a.hostname.includes('youtu.be')) {
+                var id, matches;
+                if (a.hostname.includes('youtube.com')) {
+                    matches = a.search.match(/[?&]v=([^&]*)/);
+                    id = matches && matches[1];
+                } else if (a.hostname.includes('youtu.be')) {
+                    id = a.pathname.substr(1);
+                }
+
+                var validatedID;
+                if (id && id.match(/^[a-zA-Z0-9\_]*$/)) {
+                    validatedID = id;
+                }
+
+                if (validatedID) {
+                    $(a).before('<div class="responsive-iframe-container"><iframe src="https://www.youtube.com/embed/' + validatedID + '" frameborder="0" allowfullscreen></iframe></div>');
+                    const $ytWrapper = $(a).prev('.responsive-iframe-container');
+                    if (typeof enhanceWithImageButtons === 'function') {
+                        enhanceWithImageButtons($ytWrapper[0], "yt");
+                    }
+                    $(a).remove();
+                }
+            }
+        }
+    });
+
+    // Add image buttons
+    summaryInnerEl.querySelectorAll('img').forEach(img => {
+        if (typeof enhanceWithImageButtons === 'function') {
+            enhanceWithImageButtons(img, "img");
+        }
+    });
+
+    // Generate table of contents
+    let tocEl = window.document.querySelector("#toc");
+    let markdownContentEl = summaryInnerEl;
+    tocEl.classList.remove('toc-numbered');
+    if (typeof setTableOfContents === 'function') {
+        setTableOfContents(tocEl, markdownContentEl);
+    }
+
+    // Generate mindmap if available
+    if (typeof generateMindmapFromLists === 'function') {
+        generateMindmapFromLists();
+    }
+}
+
+// Helper function - extract from existing code if needed
+function convertNotesToDetails(inputText) {
+    const lines = inputText.split('\n');
+    const outputLines = [];
+    let i = 0;
+
+    while (i < lines.length) {
+        const line = lines[i];
+        const noteMatch = line.match(/^>\s*\[!note\]\s*(.*)$/i);
+
+        if (noteMatch) {
+            const summaryText = noteMatch[1].trim();
+            const contentLines = [];
+
+            i++;
+            while (i < lines.length && lines[i].startsWith('>')) {
+                const contentLine = lines[i].replace(/^>\s*/, '');
+                contentLines.push(contentLine);
+                i++;
+            }
+
+            let content = contentLines.join('\n');
+            const detailsHtml = `<details><summary>${summaryText}</summary>\n\n${content}\n\n</details>`;
+            outputLines.push(detailsHtml);
+        } else {
+            outputLines.push(line);
+            i++;
+        }
+    }
+
+    return outputLines.join('\n');
+}
 

@@ -2,11 +2,17 @@
 
 ## Backend Technologies
 
-### PHP Backend (`index.php` - 479 lines)
+### PHP Backend (`index.php` - 481 lines)
 - **Server-Side Rendering**: Main application entry point
 - **Environment Management**: Dynamic configuration loading
 - **Error Handling**: Comprehensive error reporting and debugging
 - **Session Management**: User state and interaction tracking
+
+### Encryption Backend (`decrypt-simple.php`)
+- **AGE Decryption**: Handles AGE-encrypted content decryption
+- **Re-encryption**: Converts AGE to AES-256-CBC for client-side handling
+- **Fallback Support**: Works with or without AGE binary installed
+- **Security**: Secure password handling and content processing
 
 ### Search Engine (`search.php` - 21 lines)
 - **PCRE Integration**: Perl Compatible Regular Expressions via `pcregrep`
@@ -21,12 +27,14 @@
 - **jQuery UI**: Interactive components and widgets
 - **Vanilla JS**: Custom application logic and utilities
 - **ES6+ Features**: Modern JavaScript with async/await patterns
+- **Web Crypto API**: Client-side encryption/decryption with AES-256-CBC and PBKDF2
 
 ### CSS Framework
 - **Tailwind CSS**: Utility-first styling framework
 - **FontAwesome**: Icon library for UI elements
 - **Highlight.js**: Syntax highlighting for code blocks
 - **Custom CSS**: Project-specific styling and animations
+- **Encryption CSS**: Password dialog and encryption UI styling
 
 ### Markdown Processing
 - **MarkdownIt**: Core markdown parsing and rendering
@@ -76,11 +84,15 @@
 - **FontAwesome**: `https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.9.0/css/all.min.css`
 - **Tailwind CSS**: `https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/components.min.css`
 - **Highlight.js**: `https://unpkg.com/highlightjs@9.16.2/highlight.pack.min.js`
+- **Mermaid.js**: `https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js`
+- **D3.js**: `https://d3js.org/d3.v7.min.js`
+- **MarkdownIt**: `https://cdn.jsdelivr.net/npm/markdown-it@12.0.4/dist/markdown-it.min.js`
 
 ### Third-Party Services
-- **Image Hosting**: Custom image server integration
-- **Git Integration**: Repository URL management
+- **Image Hosting**: Custom image server integration via `config.json`
+- **Git Integration**: Repository URL management through `env/urls.json`
 - **AI Services**: ChatGPT integration for content assistance
+- **CORS Proxy**: `api.allorigins.win` for link preview content extraction
 - **Analytics**: Optional tracking and usage statistics
 
 ## Development Tools
@@ -153,3 +165,5 @@
 - **File API**: Client-side file handling where supported
 - **CSS Grid/Flexbox**: Modern layout techniques with fallbacks
 - **Web APIs**: Optional features with graceful degradation
+- **MutationObserver**: For dynamic content detection (image modals, link previews)
+- **CSS `:has()` Selector**: Modern CSS feature for hiding placeholder images

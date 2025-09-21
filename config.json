@@ -1,3 +1,12 @@
 {
-    "imgHostedUrl": "https://wengindustries.com/hosted/obs-imgur/"
+    "imgHostedUrl": "https://wengindustries.com/hosted/obs-imgur/",
+    "age": {
+        "appendSystemPath": [
+            "/usr/local/bin",
+            "/opt/homebrew/bin",
+            "/usr/bin",
+            "/bin",
+            "/opt/homebrew/bin/age"
+        ]
+    }
 }

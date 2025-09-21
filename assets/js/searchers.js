@@ -9,6 +9,7 @@ var addonSearch = {
         window.openNoteFromSearchedContentsResults = addonSearch.setupSearchControls.__openNoteFromSearchedContentsResults;
 
         this.setupSearchAutocomplete();
+        this.addClearURLParamsFunction();
     }, // init
     setupClearingByEmptyingSearchInput: function() {
         // If user erases all text at search input, erase any current search titles results (highlighted rows) and search content results (search results section)
@@ -284,9 +285,18 @@ var addonSearch = {
                         var params = new URLSearchParams(window.location.search);
                         var qtopic = params.get("search-titles");
                         var searchInput = document.getElementById("searcher-input");
+                        
+                        console.log('🔍 Search URL params:', { qtopic, hasSearchInput: !!searchInput });
+                        
+                        // Set the search input value to show what was searched
+                        if (qtopic && searchInput) {
+                            searchInput.value = qtopic;
+                            console.log('📝 Set search input to:', qtopic);
+                        }
+                        
                         searchAllTitles({ searchText: qtopic, jumpTo: false });
                         
-                    } // _openNoteFromUrl
+                    } // _openSearchFromUrl
                     
                     if (window.location.search.includes("open=")) {
                         _openNoteFromUrl();
@@ -311,6 +321,31 @@ var addonSearch = {
                     });
                  })();
             }, // setupSearchAutocomplete
+
+            addClearURLParamsFunction: function() {
+                // Add a global function to clear URL parameters and reset search
+                window.clearSearchParams = function() {
+                    console.log('🧹 Clearing search parameters...');
+                    
+                    // Clear the search input
+                    const searchInput = document.getElementById("searcher-input");
+                    if (searchInput) {
+                        searchInput.value = '';
+                    }
+                    
+                    // Clear URL parameters
+                    const url = new URL(window.location);
+                    url.search = '';
+                    window.history.replaceState({}, '', url);
+                    
+                    // Clear search results
+                    document.getElementById("search-results").style.display = "none";
+                    
+                    console.log('✅ Search parameters cleared');
+                };
+                
+                console.log('🔧 Added clearSearchParams function to window');
+            } // addClearURLParamsFunction
 
         } // addonSearch
         
