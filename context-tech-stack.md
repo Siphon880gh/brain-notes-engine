@@ -2,18 +2,20 @@
 
 ## Backend Technologies
 
-### PHP Backend (`index.php` - 481 lines)
+### PHP Backend (`index.php` - 480 lines)
 - **Server-Side Rendering**: Main application entry point
 - **Environment Management**: Dynamic configuration loading
 - **Error Handling**: Comprehensive error reporting and debugging
 - **Session Management**: User state and interaction tracking
 
-### Encryption Backend (`decrypt-age.php` - 592 lines)
+### Encryption Backend (`decrypt-age.php` - 1411 lines)
 - **AGE Decryption**: Handles AGE-encrypted content decryption
-- **Re-encryption**: Converts AGE to AES-256-GCM for client-side handling
+- **Re-encryption**: Converts AGE to AES-256-CBC for client-side handling
 - **Fallback Support**: Works with or without AGE binary installed
 - **Security**: Secure password handling and content processing
 - **CORS Support**: Handles cross-origin requests for web integration
+- **Node.js Integration**: ES module support for age-encryption package (v0.2.4)
+- **Configuration Bypass**: Optional bypass of age binary to use Node.js as primary method
 
 ### Search Engine (`search.php` - 21 lines)
 - **PCRE Integration**: Perl Compatible Regular Expressions via `pcregrep`
@@ -104,6 +106,7 @@
 ```json
 {
   "dependencies": {
+    "age-encryption": "^0.2.4",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10"
   }
@@ -123,6 +126,8 @@
 - **WANT_A_TAG_FOR_SEO**: SEO optimization toggle
 - **PCREGREP_PATH**: Custom pcregrep executable path
 - **AGE_PATH**: Custom AGE binary path configuration
+- **NODEJS_PATH**: Custom Node.js executable path configuration
+- **BYPASS_AGE_BINARY**: Configuration flag to use Node.js as primary decryption method
 
 ### Template System
 - **Multi-Brain Support**: Separate configurations for different knowledge collections
@@ -171,3 +176,5 @@
 - **Web APIs**: Optional features with graceful degradation
 - **MutationObserver**: For dynamic content detection (image modals, link previews)
 - **CSS `:has()` Selector**: Modern CSS feature for hiding placeholder images
+- **Node.js ES Modules**: Dynamic import support for age-encryption package (Node.js v14+)
+- **Web Crypto API**: Client-side encryption/decryption with PBKDF2 and AES-256-CBC

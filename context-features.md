@@ -91,11 +91,11 @@ echo json_encode(["res"=>$res, "cmd"=>$cmd, "stdout"=>$stdout]);
 - **Fallback Support**: Works with or without the `age` binary installed
 
 ### Encryption Architecture
-- **Backend Decryption**: `decrypt-age.php` (592 lines) handles AGE decryption and re-encryption with AES-256-GCM
+- **Backend Decryption**: `decrypt-age.php` (1411 lines) handles AGE decryption and re-encryption with AES-256-CBC
 - **Client-Side Decryption**: JavaScript handles AES-256-CBC decryption with PBKDF2 key derivation
-- **Security Flow**: AGE → PHP backend → AES-256-GCM → JavaScript client → rendered content
+- **Security Flow**: AGE → PHP backend → AES-256-CBC → JavaScript client → rendered content
 - **Caching**: Decrypted content cached for session duration only
-- **File**: `assets/js/encryption.js` (381 lines) - Medium file, consider targeted search for specific functions
+- **File**: `assets/js/encryption.js` (399 lines) - Medium file, consider targeted search for specific functions
 
 ## Sharing & Collaboration
 
@@ -162,8 +162,8 @@ Each brain can have:
 
 ### Updated File Sizes for Reference
 - **`assets/js/image-modal.js`** (128 lines): Image modal functionality [SMALL-MEDIUM - read full file]
-- **`assets/js/link-popover.js`** (444 lines): Link preview system [MEDIUM - consider targeted search]
-- **`assets/js/note-opener.js`** (1058 lines): Note rendering and content loading [LARGE - use targeted search]
+- **`assets/js/link-popover.js`** (550 lines): Link preview system [LARGE - use targeted search]
+- **`assets/js/note-opener.js`** (1361 lines): Note rendering and content loading [LARGE - use targeted search]
 - **`assets/js/mindmap.js`** (1681 lines): Mindmap generation and controls [LARGE - use targeted search]
 
 ### Key Implementation Patterns

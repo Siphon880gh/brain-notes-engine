@@ -15,19 +15,21 @@
 ## Tech Stack
 
 ### Backend (PHP)
-- **`index.php`** (481 lines): Main application entry point with HTML structure, modal system, and template integration
+- **`index.php`** (480 lines): Main application entry point with HTML structure, modal system, and template integration
 - **`search.php`** (21 lines): PCRE-based full-text search endpoint using `pcregrep`
-- **`decrypt-age.php`** (783 lines): AGE encryption/decryption handler with Node.js fallback, robust TTY detection, and AES-256-CBC re-encryption for client-side compatibility
+- **`decrypt-age.php`** (1411 lines): AGE encryption/decryption handler with Node.js fallback, robust TTY detection, and AES-256-CBC re-encryption for client-side compatibility
+- **`decrypt-age-node.js`** (353 lines): Node.js AGE decryption script using `age-encryption` npm package with ES module support
+- **`find-nodejs-path.php`** (142 lines): Node.js path detection helper for configuration
 - **Template System**: Multi-brain configuration support in `env/templates-*/`
 
 ### Frontend (JavaScript + CSS)
 - **`assets/js/mindmap.js`** (1681 lines): Interactive mindmap generation with Mermaid.js, zoom/pan controls, layout cycling
-- **`assets/js/link-popover.js`** (444 lines): Link preview system with CORS proxy and content extraction
-- **`assets/js/note-opener.js`** (1058 lines): Markdown rendering, note display, and content loading
+- **`assets/js/link-popover.js`** (550 lines): Link preview system with CORS proxy and content extraction
+- **`assets/js/note-opener.js`** (1361 lines): Markdown rendering, note display, and content loading
 - **`assets/js/index.js`** (399 lines): Main UI logic, navigation, and interaction handling
 - **`assets/js/searchers.js`** (363 lines): Search functionality and result display
 - **`assets/js/image-modal.js`** (128 lines): Image viewing modal functionality with click-to-expand
-- **`assets/js/encryption.js`** (398 lines): AGE encryption/decryption functionality with client-side AES-256-CBC support and browser console logging
+- **`assets/js/encryption.js`** (399 lines): AGE encryption/decryption functionality with client-side AES-256-CBC support and browser console logging
 - **CSS Framework**: Tailwind CSS, FontAwesome icons, custom styling (9 CSS files)
 
 ### Build System (Node.js)
@@ -40,8 +42,9 @@
 - **jQuery + jQuery UI**: DOM manipulation and UI components
 - **MarkdownIt**: Markdown parsing with LaTeX support
 - **Highlight.js**: Syntax highlighting for code blocks
-- **AGE Encryption**: Command-line encryption tool with Node.js fallback using `age-encryption` npm package
+- **AGE Encryption**: Command-line encryption tool with Node.js fallback using `age-encryption` npm package (v0.2.4)
 - **Web Crypto API**: Client-side AES-256-CBC encryption with PBKDF2 key derivation
+- **Node.js ES Modules**: Dynamic import support for age-encryption package (Node.js v14+)
 
 ## Architecture
 
@@ -68,15 +71,15 @@ env/templates-{devbrain,3dbrain,bizbrain,healthbrain}/
 ### File Structure (Key Components)
 ```
 devbrain/
-├── index.php                 # Main app (481 lines)
+├── index.php                 # Main app (480 lines)
 ├── search.php               # Search endpoint (21 lines)
-├── decrypt-age.php          # AGE encryption handler with Node.js fallback (783 lines)
-├── decrypt-age-node.js      # Node.js AGE decryption script (ES module)
-├── find-nodejs-path.php     # Node.js path detection helper
+├── decrypt-age.php          # AGE encryption handler with Node.js fallback (1411 lines)
+├── decrypt-age-node.js      # Node.js AGE decryption script (353 lines, ES module)
+├── find-nodejs-path.php     # Node.js path detection helper (142 lines)
 ├── cache_data.js            # File tree builder (153 lines)
 ├── cache_render.js          # HTML generator (226 lines)
 ├── config-mindmap.json      # Mindmap configuration (5 lines)
-├── config.json              # Image hosting & Node.js configuration (21 lines)
+├── config.json              # Image hosting & Node.js configuration (22 lines)
 ├── 1x2.png                  # Link popover marker image
 ├── assets/
 │   ├── css/                 # Styling (9 files, ~2400+ total lines)
@@ -84,14 +87,14 @@ devbrain/
 │   │   ├── link-popover.css # Link popover styling (368 lines)
 │   │   ├── index.css        # Main application styling (1205 lines)
 │   │   └── encryption.css   # Encryption styling
-│   └── js/                  # Frontend logic (12 files, ~5600+ total lines)
+│   └── js/                  # Frontend logic (12 files, ~6000+ total lines)
 │       ├── mindmap.js       # Mindmap system (1681 lines)
-│       ├── link-popover.js  # Link preview system (444 lines)
-│       ├── note-opener.js   # Note loading/rendering (1058 lines)
+│       ├── link-popover.js  # Link preview system (550 lines)
+│       ├── note-opener.js   # Note loading/rendering (1361 lines)
 │       ├── index.js         # Main UI logic (399 lines)
 │       ├── searchers.js     # Search functionality (363 lines)
 │       ├── image-modal.js   # Image modal functionality (128 lines)
-│       ├── encryption.js    # AGE encryption/decryption functionality with console logging (398 lines)
+│       ├── encryption.js    # AGE encryption/decryption functionality with console logging (399 lines)
 
 │       ├── game.js          # Game mode functionality (600 lines)
 │       └── modal.js         # Modal system management (27 lines)
@@ -188,12 +191,14 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 - **Hybrid Encryption**: AGE → PHP backend → AES-256-CBC → JavaScript client → rendered content
 - **Seamless Integration**: Encrypted content renders exactly like regular notes after decryption
 - **Full Feature Support**: Decrypted content supports all DevBrain features (mindmaps, link previews, TOC, etc.)
-- **Robust Fallback Support**: Primary age binary with Node.js fallback using `age-encryption` npm package
+- **Robust Fallback Support**: Primary age binary with Node.js fallback using `age-encryption` npm package (v0.2.4)
 - **TTY Issue Resolution**: Handles nginx/PHP-FPM environments where age binary requires TTY
 - **Automatic Detection**: Smart Node.js path detection using `which node` and configurable system paths
 - **Console Logging**: Browser console shows which decryption method was used (age binary vs Node.js fallback)
 - **Session Caching**: Decrypted content cached for session duration only
 - **Security**: Uses PBKDF2 key derivation and AES-256-CBC encryption for client-side handling
+- **ES Module Support**: Node.js v14+ dynamic import support for age-encryption package
+- **Configuration Bypass**: Optional bypass of age binary to use Node.js as primary method
 
 ## Development Workflow
 
@@ -246,15 +251,17 @@ For comprehensive implementation details, see specialized context files:
 - **Large files (500+ lines)**: Use targeted search unless full understanding needed
 
 ### Key File Sizes for Reference:
-- `index.php`: 481 lines (medium - consider targeted search)
-- `decrypt-age.php`: 783 lines (large - use targeted search)
+- `index.php`: 480 lines (medium - consider targeted search)
+- `decrypt-age.php`: 1411 lines (large - use targeted search)
+- `decrypt-age-node.js`: 353 lines (medium - consider targeted search)
+- `find-nodejs-path.php`: 142 lines (small-medium - read full file)
 - `assets/js/mindmap.js`: 1681 lines (large - use targeted search)
 - `assets/css/mindmap.css`: 458 lines (medium - consider targeted search)
-- `assets/js/link-popover.js`: 444 lines (medium - consider targeted search)
-- `assets/js/note-opener.js`: 1058 lines (large - use targeted search)
+- `assets/js/link-popover.js`: 550 lines (large - use targeted search)
+- `assets/js/note-opener.js`: 1361 lines (large - use targeted search)
 - `assets/js/index.js`: 399 lines (medium - consider targeted search)
 - `assets/js/searchers.js`: 363 lines (medium - consider targeted search)
-- `assets/js/encryption.js`: 398 lines (medium - consider targeted search)
+- `assets/js/encryption.js`: 399 lines (medium - consider targeted search)
 - `assets/js/image-modal.js`: 128 lines (small-medium - read full file)
 - `assets/js/game.js`: 600 lines (large - use targeted search)
 - Configuration files: <50 lines each (small - read full files)
@@ -268,4 +275,4 @@ This architecture enables efficient handling of thousands of notes while providi
 - **Feature-Specific**: 6 specialized files for deep implementation details
 - **Efficient Loading**: Each context file under 260 lines for optimal token usage
 - **Code Generation Ready**: Includes file sizes, syntax examples, and implementation patterns
-- **Recent Updates**: Added comprehensive encryption system documentation with Node.js fallback, TTY resolution, and browser console logging
+- **Recent Updates**: Enhanced encryption system with robust Node.js fallback, ES module support, configuration bypass options, and comprehensive console logging for debugging

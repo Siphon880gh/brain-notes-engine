@@ -5,8 +5,8 @@ By Weng Fei Fung.
 ## Quick Summary
 
 • **DevBrain** is a knowledge management engine that transforms Markdown notes into an interactive, searchable web application with full-text search, hierarchical organization, AI-assisted content generation, click-to-expand image modals, and robust AGE encryption support with Node.js fallback for seamless password-protected note handling
-• Built with PHP backend (1275+ lines total including 783-line AGE encryption handler with Node.js fallback), JavaScript frontend (5600+ lines across 12 files including 1681-line mindmap system and 398-line encryption client with console logging), and Node.js build pipeline optimized for handling thousands of notes efficiently
-• Features enhanced Markdown support (Obsidian-style links, collapsible sections, math equations), automatic mindmap generation from lists using Mermaid.js with interactive controls, link popover previews with custom text support, fullscreen image viewing, and encryption/decryption capabilities
+• Built with PHP backend (1900+ lines total including 1411-line AGE encryption handler with Node.js fallback), JavaScript frontend (6000+ lines across 12 files including 1681-line mindmap system and 399-line encryption client with console logging), and Node.js build pipeline optimized for handling thousands of notes efficiently
+• Features enhanced Markdown support (Obsidian-style links, collapsible sections, math equations), automatic mindmap generation from lists using Mermaid.js with interactive controls, link popover previews with custom text support, fullscreen image viewing, and robust encryption/decryption capabilities with Node.js ES module support
 • Powers multiple knowledge collections (developer, 3D modeling, business, health) with template-based multi-brain architecture and automated publishing pipeline for transforming Obsidian vaults into public-facing knowledge bases
 • Includes automatic image hosting, path rewriting, deployment scripts, comprehensive modal system, and encryption support for seamless content management and enhanced user experience
 
@@ -16,15 +16,15 @@ By Weng Fei Fung.
 
 This project includes comprehensive context documentation designed specifically for AI code generation and assistance:
 
-- **[context.md](./context.md)** (271 lines) - **START HERE**: Complete high-level overview with tech stack, architecture, and code flow including encryption system
+- **[context.md](./context.md)** (278 lines) - **START HERE**: Complete high-level overview with tech stack, architecture, and code flow including enhanced encryption system
 - **[context-architecture.md](./context-architecture.md)** (126 lines) - System architecture, caching pipeline, multi-brain template system
-- **[context-encryption.md](./context-encryption.md)** (180 lines) - AGE encryption system with Node.js fallback, TTY resolution, console logging, and security features
+- **[context-encryption.md](./context-encryption.md)** (181 lines) - Enhanced AGE encryption system with Node.js fallback, ES module support, TTY resolution, console logging, and security features
 - **[context-features.md](./context-features.md)** (157 lines) - Enhanced markdown, search, publishing pipeline, UI features, AI integration
 - **[context-tech-stack.md](./context-tech-stack.md)** (161 lines) - Backend/frontend technologies, build system, external integrations
 - **[context-mindmap.md](./context-mindmap.md)** (253 lines) - Interactive mindmap system with Mermaid.js implementation
 - **[context-link-preview.md](./context-link-preview.md)** (234 lines) - Link popover preview system with CORS handling
 
-**Total: ~1170 lines across 6 focused files, optimized for AI context windows with file size guidance for efficient code generation**
+**Total: ~1180 lines across 6 focused files, optimized for AI context windows with file size guidance for efficient code generation**
 
 ---
 

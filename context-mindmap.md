@@ -241,7 +241,7 @@ if (typeof onMarkdownContentUpdated === 'function') {
 - `assets/js/mindmap.js` (1681 lines) - Core functionality including cycle type system [LARGE - use targeted search]
 - `assets/css/mindmap.css` (458 lines) - Styling [MEDIUM - consider targeted search]
 - `config-mindmap.json` (5 lines) - Configuration [SMALL - read full file]
-- `index.php` (479 lines) - HTML structure and integration [MEDIUM - consider targeted search]
+- `index.php` (480 lines) - HTML structure and integration [MEDIUM - consider targeted search]
 
 ### External Dependencies
 - **Mermaid.js v10.6.1** - Diagram rendering
@@ -249,5 +249,5 @@ if (typeof onMarkdownContentUpdated === 'function') {
 - **jQuery** - DOM manipulation (existing)
 
 ### Integration Dependencies (Line Counts for AI Reference)
-- `assets/js/note-opener.js` (1058 lines) - Content loading integration [LARGE - use targeted search]
+- `assets/js/note-opener.js` (1361 lines) - Content loading integration [LARGE - use targeted search]
 - `assets/js/index.js` (399 lines) - Main application logic [MEDIUM - consider targeted search]

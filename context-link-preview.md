@@ -12,7 +12,7 @@ The link popover preview system provides automatic hover previews that display s
   - `startWord..endWord` or `startWord...endWord` format for external content extraction
   - `linkText##previewText` format for custom preview text
 - **Location**: Integrated with existing tooltip and modal systems
-- **File**: `assets/js/link-popover.js` (470+ lines)
+- **File**: `assets/js/link-popover.js` (550 lines)
 
 ### Link Preview Features
 - **Popover Display**: Hover or click to show preview in popover with extracted or custom content
@@ -28,7 +28,7 @@ The link popover preview system provides automatic hover previews that display s
 ### File Structure (Line Counts for AI Reference)
 ```
 assets/
-├── js/link-popover.js     # Main implementation (444 lines) [MEDIUM - consider targeted search]
+├── js/link-popover.js     # Main implementation (550 lines) [LARGE - use targeted search]
 ├── css/link-popover.css   # Styling and animations (368 lines) [MEDIUM - consider targeted search]
 └── 1x2.png               # Marker image file [BINARY]
 ```
