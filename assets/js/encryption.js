@@ -75,12 +75,14 @@ class EncryptionManager {
                 const methodEmoji = {
                     'age_binary': '🔧',
                     'nodejs_fallback': '⚠️',
-                    'nodejs_primary': '🔧'
+                    'nodejs_primary': '🔧',
+                    'nodejs_bypass': '⚡'
                 };
                 const methodName = {
                     'age_binary': 'Age Binary',
                     'nodejs_fallback': 'Node.js (Fallback)',
-                    'nodejs_primary': 'Node.js (Primary)'
+                    'nodejs_primary': 'Node.js (Primary)',
+                    'nodejs_bypass': 'Node.js (Bypass)'
                 };
                 const emoji = methodEmoji[result.decryption_method] || '🔧';
                 const name = methodName[result.decryption_method] || result.decryption_method;

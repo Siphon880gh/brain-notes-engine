@@ -9,6 +9,12 @@
  * 4. Returning encrypted content that can be decrypted client-side
  */
 
+// Show all errors in development
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
+ 
 // Only set headers if running in web context
 if (php_sapi_name() !== 'cli') {
     header('Content-Type: application/json');
@@ -120,6 +126,17 @@ function isAgeEncrypted($content) {
 function decryptAge($ageContent, $password) {
     // Load config for AGE binary paths
     $config = loadConfig();
+    
+    // Check if AGE binary should be bypassed
+    if (isset($config['age']['bypassAgeBinary']) && $config['age']['bypassAgeBinary'] === true) {
+        error_log("🔧 AGE Decryption: Bypassing AGE binary, using Node.js directly (config.bypassAgeBinary = true)");
+        try {
+            $result = decryptAgeWithNodeJS($ageContent, $password);
+            return ['content' => $result, 'method' => 'nodejs_bypass'];
+        } catch (Exception $nodeError) {
+            throw new Exception('Node.js bypass failed: ' . $nodeError->getMessage());
+        }
+    }
     
     // Check if age binary is available using configured paths
     $ageAvailable = false;
@@ -701,18 +718,88 @@ function encryptForJavaScript($content, $password) {
 
 // Main processing (only in web mode)
 if (php_sapi_name() !== 'cli') {
+    // Start output buffering to prevent any accidental output
+    ob_start();
+    
     // Suppress any HTML error output
     ini_set('display_errors', 0);
     error_reporting(E_ALL);
     
+    // Debug mode - add ?debug=1 to URL to get detailed error info
+    $debugMode = isset($_GET['debug']) && $_GET['debug'] == '1';
+    
     // Set error handler to return JSON
-    set_error_handler(function($severity, $message, $file, $line) {
-        http_response_code(500);
-        echo json_encode([
+    set_error_handler(function($severity, $message, $file, $line) use ($debugMode) {
+        // Log the error for debugging
+        error_log("PHP Error in decrypt-age.php: $message in $file on line $line (severity: $severity)");
+        
+        // Clear any previous output
+        if (ob_get_level()) {
+            ob_clean();
+        }
+        
+        $errorResponse = [
             'error' => 'PHP Error: ' . $message . ' in ' . $file . ' on line ' . $line,
-            'severity' => $severity
-        ]);
+            'severity' => $severity,
+            'debug_info' => [
+                'file' => $file,
+                'line' => $line,
+                'severity' => $severity,
+                'timestamp' => date('Y-m-d H:i:s')
+            ]
+        ];
+        
+        if ($debugMode) {
+            $errorResponse['debug_mode'] = true;
+            $errorResponse['request_info'] = [
+                'method' => $_SERVER['REQUEST_METHOD'],
+                'uri' => $_SERVER['REQUEST_URI'],
+                'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'Unknown',
+                'content_type' => $_SERVER['CONTENT_TYPE'] ?? 'Unknown'
+            ];
+        }
+        
+        http_response_code(500);
+        echo json_encode($errorResponse);
         exit;
+    });
+    
+    // Set shutdown handler for fatal errors
+    register_shutdown_function(function() use ($debugMode) {
+        $error = error_get_last();
+        if ($error !== null && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR])) {
+            // Log the fatal error for debugging
+            error_log("Fatal PHP Error in decrypt-age.php: {$error['message']} in {$error['file']} on line {$error['line']} (type: {$error['type']})");
+            
+            // Clear any previous output
+            if (ob_get_level()) {
+                ob_clean();
+            }
+            
+            $errorResponse = [
+                'error' => 'Fatal PHP Error: ' . $error['message'] . ' in ' . $error['file'] . ' on line ' . $error['line'],
+                'type' => 'Fatal Error',
+                'debug_info' => [
+                    'file' => $error['file'],
+                    'line' => $error['line'],
+                    'type' => $error['type'],
+                    'timestamp' => date('Y-m-d H:i:s')
+                ]
+            ];
+            
+            if ($debugMode) {
+                $errorResponse['debug_mode'] = true;
+                $errorResponse['request_info'] = [
+                    'method' => $_SERVER['REQUEST_METHOD'],
+                    'uri' => $_SERVER['REQUEST_URI'],
+                    'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'Unknown',
+                    'content_type' => $_SERVER['CONTENT_TYPE'] ?? 'Unknown'
+                ];
+            }
+            
+            http_response_code(500);
+            echo json_encode($errorResponse);
+        }
     });
     
     try {
@@ -772,11 +859,43 @@ if (php_sapi_name() !== 'cli') {
         ]);
     } catch (Error $e) {
         // Catch PHP 7+ errors
+        // Clear any previous output
+        if (ob_get_level()) {
+            ob_clean();
+        }
+        
         http_response_code(500);
         echo json_encode([
             'error' => 'PHP Error: ' . $e->getMessage() . ' in ' . $e->getFile() . ' on line ' . $e->getLine(),
             'type' => 'PHP Error'
         ]);
+    } catch (Throwable $e) {
+        // Catch any other throwable (PHP 7+)
+        // Clear any previous output
+        if (ob_get_level()) {
+            ob_clean();
+        }
+        
+        http_response_code(500);
+        echo json_encode([
+            'error' => 'Unexpected Error: ' . $e->getMessage() . ' in ' . $e->getFile() . ' on line ' . $e->getLine(),
+            'type' => 'Throwable'
+        ]);
+    }
+    
+    // Final safety net - ensure we always output valid JSON
+    // This will catch any remaining issues
+    if (!headers_sent()) {
+        $output = ob_get_contents();
+        if ($output && !json_decode($output)) {
+            // If output is not valid JSON, clear it and send error
+            ob_clean();
+            http_response_code(500);
+            echo json_encode([
+                'error' => 'Invalid response format detected',
+                'type' => 'Response Error'
+            ]);
+        }
     }
 }
 ?>
