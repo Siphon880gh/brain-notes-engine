@@ -156,20 +156,44 @@ function decryptAge($ageContent, $password) {
     if ($ageAvailable) {
         try {
             $result = decryptAgeWithBinary($ageContent, $password, $ageBinaryPath);
-            return $result;
+            // Log successful age binary usage
+            error_log("🔧 AGE Decryption: Using age binary at " . $ageBinaryPath);
+            return ['content' => $result, 'method' => 'age_binary'];
         } catch (Exception $e) {
             // Add debug info to exception
             $debugInfo['age_binary_error'] = $e->getMessage();
-            throw new Exception('AGE binary decryption failed: ' . $e->getMessage() . '. Debug: ' . json_encode($debugInfo));
+            error_log("⚠️ AGE Decryption: Age binary failed, falling back to Node.js. Error: " . $e->getMessage());
+            
+            // Try Node.js fallback if binary fails
+            try {
+                $result = decryptAgeWithNodeJS($ageContent, $password);
+                $debugInfo['fallback_method'] = 'nodejs_success';
+                error_log("✅ AGE Decryption: Node.js fallback successful");
+                return ['content' => $result, 'method' => 'nodejs_fallback'];
+            } catch (Exception $nodeError) {
+                $debugInfo['nodejs_error'] = $nodeError->getMessage();
+                error_log("❌ AGE Decryption: Both age binary and Node.js failed");
+                throw new Exception('AGE binary decryption failed: ' . $e->getMessage() . '. Node.js fallback also failed: ' . $nodeError->getMessage() . '. Debug: ' . json_encode($debugInfo));
+            }
         }
     } else {
-        // AGE binary not available - provide installation instructions
-        throw new Exception('AGE binary not found. Please install AGE encryption tool: ' . 
-            'Ubuntu/Debian: sudo apt install age | ' .
-            'macOS: brew install age | ' .
-            'Windows: Download from https://github.com/FiloSottile/age/releases | ' .
-            'Or visit: https://age-encryption.org/ for installation instructions. ' .
-            'Debug: ' . json_encode($debugInfo));
+        // AGE binary not available - try Node.js fallback
+        error_log("🔧 AGE Decryption: Age binary not found, using Node.js fallback");
+        try {
+            $result = decryptAgeWithNodeJS($ageContent, $password);
+            $debugInfo['fallback_method'] = 'nodejs_success';
+            error_log("✅ AGE Decryption: Node.js fallback successful");
+            return ['content' => $result, 'method' => 'nodejs_primary'];
+        } catch (Exception $nodeError) {
+            $debugInfo['nodejs_error'] = $nodeError->getMessage();
+            error_log("❌ AGE Decryption: Node.js fallback failed");
+            throw new Exception('AGE binary not found and Node.js fallback failed: ' . $nodeError->getMessage() . '. Please install AGE encryption tool: ' . 
+                'Ubuntu/Debian: sudo apt install age | ' .
+                'macOS: brew install age | ' .
+                'Windows: Download from https://github.com/FiloSottile/age/releases | ' .
+                'Or visit: https://age-encryption.org/ for installation instructions. ' .
+                'Debug: ' . json_encode($debugInfo));
+        }
     }
 }
 
@@ -240,6 +264,19 @@ function decryptAgeWithBinary($ageContent, $password, $ageBinaryPath = 'age') {
             $success = true;
         }
         
+        // Check if the output looks like an error message (expect script output)
+        if ($success && file_exists($outputFile)) {
+            $outputContent = file_get_contents($outputFile);
+            // Only treat as error if it contains expect script artifacts AND looks like error output
+            if ((strpos($outputContent, 'while executing') !== false || 
+                strpos($outputContent, 'spawn') !== false ||
+                strpos($outputContent, 'expect') !== false) &&
+                (strpos($outputContent, 'file "/') !== false || 
+                 strpos($outputContent, 'line') !== false)) {
+                $success = false; // This is expect script error output, not decrypted content
+            }
+        }
+        
         // Method 2: If printf method failed, try with echo
         if (!$success) {
             $command = "export {$pathEnv} && echo " . escapeshellarg($password) . " | " . escapeshellarg($ageBinaryPath) . " -d " . escapeshellarg($ageFile) . " > " . escapeshellarg($outputFile) . " 2>&1";
@@ -247,6 +284,18 @@ function decryptAgeWithBinary($ageContent, $password, $ageBinaryPath = 'age') {
             
             if ($returnVar === 0 && file_exists($outputFile) && filesize($outputFile) > 0) {
                 $success = true;
+            }
+            
+            // Check if the output looks like an error message (expect script output)
+            if ($success && file_exists($outputFile)) {
+                $outputContent = file_get_contents($outputFile);
+                if ((strpos($outputContent, 'while executing') !== false || 
+                    strpos($outputContent, 'spawn') !== false ||
+                    strpos($outputContent, 'expect') !== false) &&
+                    (strpos($outputContent, 'file "/') !== false || 
+                     strpos($outputContent, 'line') !== false)) {
+                    $success = false; // This is expect script error output, not decrypted content
+                }
             }
         }
         
@@ -272,10 +321,22 @@ expect eof
                 $success = true;
             }
             
+            // Check if the output looks like an error message (expect script output)
+            if ($success && file_exists($outputFile)) {
+                $outputContent = file_get_contents($outputFile);
+                if ((strpos($outputContent, 'while executing') !== false || 
+                    strpos($outputContent, 'spawn') !== false ||
+                    strpos($outputContent, 'expect') !== false) &&
+                    (strpos($outputContent, 'file "/') !== false || 
+                     strpos($outputContent, 'line') !== false)) {
+                    $success = false; // This is expect script error output, not decrypted content
+                }
+            }
+            
             if (file_exists($expectFile)) unlink($expectFile);
         }
         
-        if (!file_exists($outputFile) || filesize($outputFile) == 0) {
+        if (!$success) {
             $debugOutput = implode("\n", $output);
             $fileContent = file_exists($ageFile) ? file_get_contents($ageFile) : 'File not found';
             throw new Exception('Age binary decryption failed - check password. Command: ' . $command . ' | Return code: ' . $returnVar . ' | Output: ' . $debugOutput . ' | File content preview: ' . substr($fileContent, 0, 100));
@@ -401,6 +462,126 @@ expect eof
         if (file_exists($ageFile)) unlink($ageFile);
         if (file_exists($outputFile)) unlink($outputFile);
         
+        throw $e;
+    }
+}
+
+/**
+ * Decrypt AGE content using Node.js script
+ */
+function decryptAgeWithNodeJS($ageContent, $password) {
+    $scriptPath = __DIR__ . '/decrypt-age-node.js';
+    
+    // Check if the Node.js script exists
+    if (!file_exists($scriptPath)) {
+        throw new Exception('Node.js decryption script not found at: ' . $scriptPath);
+    }
+    
+    // Load config for Node.js paths
+    $config = loadConfig();
+    
+    // Check if Node.js is available using configured paths
+    $nodeAvailable = false;
+    $nodePath = null;
+    
+    // First try system which command
+    $whichResult = shell_exec('which node 2>/dev/null');
+    if (!empty($whichResult)) {
+        $nodeAvailable = true;
+        $nodePath = trim($whichResult);
+    } else {
+        // Try configured system paths as fallback
+        if (isset($config['nodejs']['appendSystemPath'])) {
+            foreach ($config['nodejs']['appendSystemPath'] as $path) {
+                $testPath = $path . '/node';
+                if (file_exists($testPath)) {
+                    $nodeAvailable = true;
+                    $nodePath = $testPath;
+                    break;
+                }
+            }
+        }
+    }
+    
+    if (!$nodeAvailable) {
+        $errorMsg = 'Node.js not found. ';
+        $errorMsg .= 'Please install Node.js or update the nodejs.appendSystemPath in config.json. ';
+        $errorMsg .= 'For nvm users, try: nvm use node && nvm which node';
+        throw new Exception($errorMsg);
+    }
+    
+    // Log Node.js usage
+    error_log("🔧 AGE Decryption: Using Node.js at " . $nodePath);
+    
+    // Check if age-encryption package is installed
+    $packageJsonPath = __DIR__ . '/package.json';
+    $nodeModulesPath = __DIR__ . '/node_modules/age-encryption';
+    
+    if (!file_exists($packageJsonPath)) {
+        throw new Exception('package.json not found. Please run npm install to install dependencies.');
+    }
+    
+    if (!file_exists($nodeModulesPath)) {
+        throw new Exception('age-encryption package not found. Please run: npm install age-encryption');
+    }
+    
+    // Prepare the input data
+    $inputData = json_encode([
+        'content' => $ageContent,
+        'password' => $password
+    ]);
+    
+    // Create a temporary file for input to avoid shell escaping issues
+    $tempInputFile = tempnam(sys_get_temp_dir(), 'age_input_');
+    file_put_contents($tempInputFile, $inputData);
+    
+    try {
+        // Set up PATH environment for Node.js compatibility
+        $currentPath = getenv('PATH') ?: '/usr/bin:/bin';
+        $pathEnv = '';
+        if (isset($config['nodejs']['appendSystemPath'])) {
+            $pathEnv = 'PATH=' . implode(':', $config['nodejs']['appendSystemPath']) . ':' . $currentPath;
+        } else {
+            $pathEnv = "PATH={$currentPath}";
+        }
+        
+        // Run the Node.js script
+        $command = "export {$pathEnv} && " . escapeshellarg($nodePath) . ' ' . escapeshellarg($scriptPath) . ' < ' . escapeshellarg($tempInputFile) . ' 2>&1';
+        $output = [];
+        $returnVar = 0;
+        
+        exec($command, $output, $returnVar);
+        
+        // Clean up temp file
+        unlink($tempInputFile);
+        
+        if ($returnVar !== 0) {
+            $errorOutput = implode("\n", $output);
+            
+            // Check for common error patterns and provide helpful messages
+            if (strpos($errorOutput, 'Cannot find module') !== false) {
+                throw new Exception('Node.js module not found. Please run: npm install age-encryption');
+            } elseif (strpos($errorOutput, 'age-encryption') !== false) {
+                throw new Exception('age-encryption package error. Please run: npm install age-encryption');
+            } else {
+                throw new Exception('Node.js decryption failed with return code ' . $returnVar . ': ' . $errorOutput);
+            }
+        }
+        
+        $decryptedContent = implode("\n", $output);
+        
+        // Check if we got meaningful content
+        if (empty(trim($decryptedContent))) {
+            throw new Exception('Node.js decryption returned empty content');
+        }
+        
+        return trim($decryptedContent);
+        
+    } catch (Exception $e) {
+        // Clean up temp file on error
+        if (file_exists($tempInputFile)) {
+            unlink($tempInputFile);
+        }
         throw $e;
     }
 }
@@ -543,7 +724,16 @@ if (php_sapi_name() !== 'cli') {
         
         
         // Decrypt the AGE content using the standard decryption process
-        $decryptedContent = decryptAge($ageContent, $password);
+        $decryptResult = decryptAge($ageContent, $password);
+        
+        // Handle both old format (string) and new format (array with method info)
+        if (is_array($decryptResult)) {
+            $decryptedContent = $decryptResult['content'];
+            $decryptionMethod = $decryptResult['method'];
+        } else {
+            $decryptedContent = $decryptResult;
+            $decryptionMethod = 'age_binary'; // Default for backward compatibility
+        }
         
         if ($decryptedContent === false || $decryptedContent === null || strlen($decryptedContent) === 0) {
             // Show first two lines of content for debugging
@@ -561,11 +751,12 @@ if (php_sapi_name() !== 'cli') {
         // Re-encrypt for JavaScript
         $jsEncrypted = encryptForJavaScript($decryptedContent, $password);
         
-        // Return success response
+        // Return success response with decryption method info
         echo json_encode([
             'success' => true,
             'encrypted_content' => $jsEncrypted,
-            'algorithm' => 'AES-256-CBC'
+            'algorithm' => 'AES-256-CBC',
+            'decryption_method' => $decryptionMethod
         ]);
         
     } catch (Exception $e) {

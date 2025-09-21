@@ -70,6 +70,23 @@ class EncryptionManager {
                 throw error;
             }
 
+            // Log which decryption method was used
+            if (result.decryption_method) {
+                const methodEmoji = {
+                    'age_binary': '🔧',
+                    'nodejs_fallback': '⚠️',
+                    'nodejs_primary': '🔧'
+                };
+                const methodName = {
+                    'age_binary': 'Age Binary',
+                    'nodejs_fallback': 'Node.js (Fallback)',
+                    'nodejs_primary': 'Node.js (Primary)'
+                };
+                const emoji = methodEmoji[result.decryption_method] || '🔧';
+                const name = methodName[result.decryption_method] || result.decryption_method;
+                console.log(`${emoji} AGE Decryption: Using ${name}`);
+            }
+
             return result;
         } catch (error) {
             console.error('❌ Backend decryption error:', error);

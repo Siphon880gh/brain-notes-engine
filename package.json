@@ -1,7 +1,7 @@
 {
     "name": "notebook-brain",
     "version": "1.0.0",
-    "description": "",
+    "description": "By Weng Fei Fung.",
     "main": "index.js",
     "scripts": {
         "watch": "livereload .",
@@ -23,6 +23,7 @@
         }
     },
     "dependencies": {
+        "age-encryption": "^0.2.4",
         "dotenv": "^16.4.5",
         "ejs": "^3.1.10"
     }

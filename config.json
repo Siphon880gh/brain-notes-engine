@@ -8,5 +8,14 @@
             "/bin",
             "/opt/homebrew/bin/age"
         ]
+    },
+    "nodejs": {
+        "appendSystemPath": [
+            "/Users/wengffung/.nvm/versions/node/v22.7.0/bin",
+            "/usr/local/bin",
+            "/opt/homebrew/bin",
+            "/usr/bin",
+            "/bin"
+        ]
     }
 }
