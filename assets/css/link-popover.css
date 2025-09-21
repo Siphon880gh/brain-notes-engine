@@ -24,6 +24,26 @@ img[alt*="1x2"] {
     text-decoration: none;
 }
 
+/* Custom preview link styling (for ## pattern links) */
+.link-with-preview.no-link {
+    color: #6f42c1;
+    border-bottom: 2px dashed #6f42c1;
+    cursor: help;
+    font-weight: 500;
+    background: rgba(111, 66, 193, 0.05);
+    padding: 1px 4px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+
+.link-with-preview.no-link:hover {
+    border-bottom-color: #5a32a3;
+    color: #5a32a3;
+    background: rgba(111, 66, 193, 0.1);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(111, 66, 193, 0.2);
+}
+
 /* Popover container */
 .link-popover {
     position: absolute;
@@ -251,6 +271,19 @@ img[alt*="1x2"] {
         border-color: #9b2c2c;
         color: #fed7d7;
     }
+    
+    .link-with-preview.no-link {
+        color: #b794f6;
+        border-bottom-color: #b794f6;
+        background: rgba(183, 148, 246, 0.1);
+    }
+    
+    .link-with-preview.no-link:hover {
+        color: #d6bcfa;
+        border-bottom-color: #d6bcfa;
+        background: rgba(183, 148, 246, 0.15);
+        box-shadow: 0 2px 4px rgba(183, 148, 246, 0.3);
+    }
 }
 
 /* High contrast mode support */
@@ -276,6 +309,19 @@ img[alt*="1x2"] {
     .popover-footer {
         border-top: 2px solid #000;
     }
+    
+    .link-with-preview.no-link {
+        background: #ffff00;
+        color: #000;
+        border-bottom: 3px solid #000;
+        font-weight: bold;
+    }
+    
+    .link-with-preview.no-link:hover {
+        background: #ffff80;
+        color: #000;
+        border-bottom-color: #000;
+    }
 }
 
 /* Reduced motion support */
@@ -297,6 +343,16 @@ img[alt*="1x2"] {
     .popover-link {
         transition: none;
     }
+    
+    .link-with-preview.no-link {
+        transition: none;
+        transform: none;
+    }
+    
+    .link-with-preview.no-link:hover {
+        transform: none;
+        box-shadow: none;
+    }
 }
 
 /* Print styles - hide popovers */
@@ -315,6 +371,12 @@ img[alt*="1x2"] {
     outline: 2px solid #007bff;
     outline-offset: 2px;
     border-bottom-color: #007bff;
+}
+
+.link-with-preview.no-link:focus {
+    outline: 2px solid #6f42c1;
+    outline-offset: 2px;
+    border-bottom-color: #6f42c1;
 }
 
 .popover-close:focus {

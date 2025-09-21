@@ -240,16 +240,26 @@ Configure the mindmap layout in `config-mindmap.json`:
 
 ## Link Preview with Selected Excerpt
 
-DevBrain supports automatic link popover previews that display selected excerpts from external links without navigating away from the current page. This feature uses `1x2.png` marker images to trigger preview functionality.
+DevBrain supports automatic link popover previews that display selected excerpts from external links or custom preview text without navigating away from the current page. This feature uses `1x2.png` marker images to trigger preview functionality.
 
 ### Creating Link Previews
 
-Use the `1x2.png` placeholder image with ellipsis in the alt text to trigger link preview functionality:
+#### External Content Extraction
+Use the `1x2.png` placeholder image with ellipsis in the alt text to extract content from external links:
 
 ```markdown
 [Example Website](https://example.com) ![title..content](../1x2.png)
 [MDN Docs](https://developer.mozilla.org) ![Resources...Developers](../1x2.png)
 [GitHub](https://github.com) ![About...Features](../1x2.png)
+```
+
+#### Custom Preview Text
+Use the `##` delimiter in the alt text to define custom preview text:
+
+```markdown
+[API](https://example.com) ![API##Application Programming Interface - a set of protocols and tools](../1x2.png)
+[CSS](https://example.com) ![CSS##Cascading Style Sheets - used to style web pages](../1x2.png)
+[ML](https://example.com) ![Machine Learning##AI subset that enables computers to learn from data](../1x2.png)
 ```
 
 More examples of boundary words for excerpt selection in link previews are at:
@@ -261,27 +271,41 @@ More examples of boundary words for excerpt selection in link previews are at:
 
 - **Automatic Detection**: Finds links followed by `1x2.png` images
 - **Smart Content Extraction**: Parses boundary words from image alt text and includes them in the excerpt
+- **Custom Preview Text**: Define preview text directly using `##` delimiter (no external fetching)
 - **CORS Handling**: Uses proxy service to bypass CORS restrictions for external content
-- **Performance**: Caches results to avoid repeated requests
+- **Performance**: Caches results to avoid repeated requests for external content
 - **Responsive Design**: Works on desktop and mobile devices with contextual positioning
 - **Error Handling**: Graceful fallbacks for failed requests with user-friendly error messages
 
-### Alt Text Format
+### Alt Text Formats
 
+#### For External Content Extraction
 The alt text should follow the ellipsis pattern to indicate the excerpt:
 - **Format**: `startWord..endWord` or `startWord...endWord`
 - **Purpose**: Shows the excerpt range that will be displayed in the preview
 - **Example**: `JavaScript...Reference` displays excerpt from "JavaScript" to "Reference"
 
+#### For Custom Preview Text
+The alt text should follow the `##` delimiter pattern:
+- **Format**: `linkText##previewText`
+- **Purpose**: Left side becomes the link text, right side becomes the preview
+- **Example**: `API##Application Programming Interface` shows "API" as link with custom preview
+- **Behavior**: Link goes nowhere (href="#") and shows instant preview
+
 ### How It Works
 
+#### External Content Extraction
 1. **Detection**: Scans for links followed by `1x2.png` marker images
-2. **Parsing**: Extracts boundary words from image alt text
-3. **Enhancement**: Adds hover listeners and enhanced styling to links
-4. **Content Fetching**: On hover, fetches target webpage via CORS proxy
-5. **Text Extraction**: Finds content including specified boundary words
-6. **Display**: Shows popover with extracted content
-7. **Caching**: Results are cached to avoid repeated requests
+2. **Parsing**: Extracts boundary words from image alt text using `..` or `...` pattern
+3. **Fetching**: Retrieves content from the linked URL via CORS proxy
+4. **Extraction**: Finds text between the specified boundary words
+5. **Display**: Shows the extracted content in a popover on hover
+
+#### Custom Preview Text
+1. **Detection**: Scans for links followed by `1x2.png` marker images
+2. **Parsing**: Extracts link text and preview text from alt text using `##` pattern
+3. **Link Modification**: Replaces link text and sets href to "#"
+4. **Display**: Shows custom preview text instantly in popover on hover
 
 ### Server pipelines
 My remote server has a script I can trigger from my local machine. I created a npm script called `deploy` that I can run locally.

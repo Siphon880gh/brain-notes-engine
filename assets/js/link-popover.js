@@ -45,15 +45,29 @@ class LinkPopoverPreview {
         allLinks.forEach(link => {
             const markerImage = this.findMarkerImage(link);
             if (markerImage) {
-                const boundaryWords = this.parseBoundaryWords(markerImage.alt);
-                if (boundaryWords) {
-                    links.push({
-                        link: link,
-                        markerImage: markerImage,
-                        url: link.href,
-                        startWord: boundaryWords.start,
-                        endWord: boundaryWords.end
-                    });
+                const parsedData = this.parseBoundaryWords(markerImage.alt);
+                if (parsedData) {
+                    if (parsedData.type === 'custom') {
+                        // Custom preview with ## pattern
+                        links.push({
+                            link: link,
+                            markerImage: markerImage,
+                            url: '#', // Links to nowhere for custom previews
+                            type: 'custom',
+                            linkText: parsedData.linkText,
+                            previewText: parsedData.previewText
+                        });
+                    } else if (parsedData.type === 'boundary') {
+                        // Original boundary word functionality
+                        links.push({
+                            link: link,
+                            markerImage: markerImage,
+                            url: link.href,
+                            type: 'boundary',
+                            startWord: parsedData.start,
+                            endWord: parsedData.end
+                        });
+                    }
                 }
             }
         });
@@ -86,18 +100,31 @@ class LinkPopoverPreview {
     }
 
     /**
-     * Parse boundary words from image alt text
-     * Supports patterns: "startWord..endWord" or "startWord...endWord"
+     * Parse boundary words or custom preview from image alt text
+     * Supports patterns: 
+     * - "startWord..endWord" or "startWord...endWord" (for fetching content)
+     * - "linkText##previewText" (for custom preview text)
      */
     parseBoundaryWords(altText) {
         if (!altText) return null;
         
-        // Match pattern: word..word or word...word
-        const match = altText.match(/^(.+?)\.{2,3}(.+)$/);
-        if (match) {
+        // Check for custom preview pattern: linkText##previewText
+        const customPreviewMatch = altText.match(/^(.+?)##(.+)$/);
+        if (customPreviewMatch) {
             return {
-                start: match[1].trim(),
-                end: match[2].trim()
+                type: 'custom',
+                linkText: customPreviewMatch[1].trim(),
+                previewText: customPreviewMatch[2].trim()
+            };
+        }
+        
+        // Match pattern: word..word or word...word (original functionality)
+        const boundaryMatch = altText.match(/^(.+?)\.{2,3}(.+)$/);
+        if (boundaryMatch) {
+            return {
+                type: 'boundary',
+                start: boundaryMatch[1].trim(),
+                end: boundaryMatch[2].trim()
             };
         }
         
@@ -108,7 +135,7 @@ class LinkPopoverPreview {
      * Enhance a single link with popover functionality
      */
     enhanceLink(linkData) {
-        const { link, markerImage, url, startWord, endWord } = linkData;
+        const { link, markerImage, type } = linkData;
         
         // Add enhanced styling
         link.classList.add('link-with-preview');
@@ -116,10 +143,32 @@ class LinkPopoverPreview {
         // Hide the marker image
         markerImage.style.display = 'none';
         
-        // Add hover event listeners
-        link.addEventListener('mouseenter', (e) => {
-            this.handleMouseEnter(e, url, startWord, endWord);
-        });
+        // For custom preview, update the link text and make it go nowhere
+        if (type === 'custom') {
+            const { linkText, previewText } = linkData;
+            link.textContent = linkText;
+            link.href = '#';
+            link.classList.add('no-link');
+            
+            // Add hover event listeners for custom preview
+            link.addEventListener('mouseenter', (e) => {
+                this.handleCustomMouseEnter(e, linkText, previewText);
+            });
+            
+            // Prevent default click behavior for custom links
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                return false;
+            });
+        } else {
+            // Original boundary word functionality
+            const { url, startWord, endWord } = linkData;
+            
+            // Add hover event listeners
+            link.addEventListener('mouseenter', (e) => {
+                this.handleMouseEnter(e, url, startWord, endWord);
+            });
+        }
         
         link.addEventListener('mouseleave', (e) => {
             this.handleMouseLeave(e);
@@ -139,6 +188,22 @@ class LinkPopoverPreview {
         // Set delay before showing popover
         this.hoverTimeout = setTimeout(() => {
             this.showPopover(event.target, url, startWord, endWord);
+        }, 300);
+    }
+
+    /**
+     * Handle mouse enter on custom preview link
+     */
+    handleCustomMouseEnter(event, linkText, previewText) {
+        // Clear any existing timeouts
+        if (this.hideTimeout) {
+            clearTimeout(this.hideTimeout);
+            this.hideTimeout = null;
+        }
+        
+        // Set delay before showing popover
+        this.hoverTimeout = setTimeout(() => {
+            this.showCustomPopover(event.target, linkText, previewText);
         }, 300);
     }
 
@@ -184,6 +249,32 @@ class LinkPopoverPreview {
         } catch (error) {
             this.showError(popover, error.message);
         }
+    }
+
+    /**
+     * Show popover with custom preview text
+     */
+    showCustomPopover(linkElement, linkText, previewText) {
+        // Hide any existing popover
+        this.hidePopover();
+        
+        // Create popover element
+        const popover = this.createPopoverElement();
+        document.body.appendChild(popover);
+        
+        // Position popover
+        this.positionPopover(popover, linkElement);
+        
+        this.activePopover = popover;
+        
+        // Show custom content immediately (no fetching needed)
+        const content = {
+            title: linkText,
+            excerpt: previewText,
+            url: '#' // Custom links don't go anywhere
+        };
+        
+        this.showCustomContent(popover, content);
     }
 
     /**
@@ -293,6 +384,21 @@ class LinkPopoverPreview {
                     <i class="fas fa-external-link-alt"></i>
                     View full content
                 </a>
+            </div>
+        `;
+    }
+
+    /**
+     * Show custom content in popover (no external link)
+     */
+    showCustomContent(popover, content) {
+        const title = popover.querySelector('.popover-title');
+        const body = popover.querySelector('.popover-body');
+        
+        title.textContent = content.title || 'Custom Preview';
+        body.innerHTML = `
+            <div class="popover-text">
+                ${content.excerpt}
             </div>
         `;
     }

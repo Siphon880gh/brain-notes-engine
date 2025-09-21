@@ -7,16 +7,19 @@ The link popover preview system provides automatic hover previews that display s
 ## Core Components
 
 ### Detection System
-- **Trigger**: Uses `1x2.png` placeholder image with ellipsis pattern in alt text
-- **Pattern**: Alt text follows `startWord..endWord` or `startWord...endWord` format to indicate excerpt range
+- **Trigger**: Uses `1x2.png` placeholder image with specific patterns in alt text
+- **Patterns**: 
+  - `startWord..endWord` or `startWord...endWord` format for external content extraction
+  - `linkText##previewText` format for custom preview text
 - **Location**: Integrated with existing tooltip and modal systems
-- **File**: `assets/js/link-popover.js` (445 lines)
+- **File**: `assets/js/link-popover.js` (470+ lines)
 
 ### Link Preview Features
-- **Popover Display**: Hover or click to show preview in popover with extracted content
-- **Selected Excerpt**: Alt text with ellipsis pattern indicates excerpt range
+- **Popover Display**: Hover or click to show preview in popover with extracted or custom content
+- **Selected Excerpt**: Alt text with ellipsis pattern indicates excerpt range for external content
+- **Custom Preview**: Alt text with `##` delimiter allows defining custom preview text
 - **Responsive Design**: Works on desktop and mobile devices with contextual positioning
-- **CORS Handling**: Uses proxy service (`api.allorigins.win`) to bypass CORS restrictions
+- **CORS Handling**: Uses proxy service (`api.allorigins.win`) to bypass CORS restrictions for external content
 - **Performance**: Caches results to avoid repeated requests
 - **Error Handling**: Graceful fallbacks for failed requests with user-friendly error messages
 
@@ -46,29 +49,43 @@ class LinkPopoverPreview {
 ### Key Methods
 - **`enhanceLinks()`**: Main function to scan and enhance links with popover previews
 - **`findLinksWithMarkers()`**: Detects links followed by `1x2.png` images
-- **`parseBoundaryWords()`**: Extracts start/end words from image alt text
-- **`fetchContent()`**: Retrieves content via CORS proxy with error handling
+- **`parseBoundaryWords()`**: Extracts boundary words or custom preview data from image alt text
+- **`fetchContent()`**: Retrieves content via CORS proxy with error handling (for external links)
 - **`extractContentBetweenWords()`**: Finds and extracts content between boundary words
+- **`showCustomPopover()`**: Shows popover with custom preview text (no external fetching)
 - **`rescan()`**: Re-scans for new links after dynamic content updates
 
 ## Markdown Syntax
 
-### Basic Structure
+### Basic Structure for External Content
 ```markdown
 [Link Text](https://example.com) ![startWord..endWord](../1x2.png)
 ```
 
+### Basic Structure for Custom Preview
+```markdown
+[Any Text](https://example.com) ![linkText##previewText](../1x2.png)
+```
+
 ### Syntax Rules
 - **Link**: Standard markdown link format `[text](url)`
-- **Marker Image**: Immediately after the link, add `![boundaryWords](../1x2.png)`
-- **Boundary Words**: Use `startWord..endWord` or `startWord...endWord` format
+- **Marker Image**: Immediately after the link, add image with specific alt pattern
+- **External Content**: Use `startWord..endWord` or `startWord...endWord` format for boundary words
+- **Custom Preview**: Use `linkText##previewText` format for custom preview text
 - **Image File**: Must be named `1x2.png` or contain `1x2` in the filename
 
-### Examples
+### Examples - External Content Extraction
 ```markdown
 [MDN JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) ![JavaScript...Reference](../1x2.png)
 [GitHub](https://github.com) ![About...Features](../1x2.png)
 [Stack Overflow](https://stackoverflow.com) ![Questions...Answers](../1x2.png)
+```
+
+### Examples - Custom Preview Text
+```markdown
+[Any Link](https://example.com) ![API##Application Programming Interface - a set of protocols and tools](../1x2.png)
+[Term](https://example.com) ![CSS##Cascading Style Sheets - used to style web pages](../1x2.png)
+[Concept](https://example.com) ![Machine Learning##AI subset that enables computers to learn from data](../1x2.png)
 ```
 
 ## Integration Points
@@ -169,6 +186,30 @@ this.proxyUrl = 'https://api.allorigins.win/get?url=';
 - **Error Handling**: Network failures and invalid content
 - **Mobile Compatibility**: Touch interactions and responsive design
 - **Performance**: Caching and memory management
+
+## Custom Preview Feature
+
+### Overview
+The custom preview feature allows you to define any preview text directly in the image alt tag using the `##` delimiter, without fetching external content.
+
+### How It Works
+1. **Pattern Detection**: Alt text with `##` is recognized as custom preview
+2. **Link Transformation**: Original link text is replaced with the left side of `##`
+3. **Link Behavior**: Link href is set to `#` and click is prevented
+4. **Popover Content**: Right side of `##` is shown as preview text
+5. **Styling**: Custom preview links get purple color and help cursor
+
+### Benefits
+- **No Network Requests**: Instant preview without external fetching
+- **Custom Definitions**: Perfect for glossaries, abbreviations, and explanations
+- **Offline Ready**: Works without internet connection
+- **Performance**: Zero latency for preview display
+
+### Use Cases
+- **Glossary Terms**: Define technical terms inline
+- **Abbreviations**: Expand acronyms and abbreviations  
+- **Quick Explanations**: Provide context without leaving the page
+- **Educational Content**: Add definitions and explanations
 
 ## Future Enhancements
 
