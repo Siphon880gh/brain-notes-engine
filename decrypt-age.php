@@ -350,7 +350,7 @@ expect eof
             $cleanLine = preg_replace('/\x1b\[[0-9;]*[FK]/', '', $cleanLine); // Remove escape sequences
             $cleanLine = preg_replace('/\[F\[K/', '', $cleanLine); // Remove literal [F[K sequences
             $cleanLine = preg_replace('/\[[FK]\[K/', '', $cleanLine); // Remove [F[K and [K[K patterns
-            $cleanLine = preg_replace('/\\u001b\[[FK]/', '', $cleanLine); // Remove Unicode escape sequences
+            $cleanLine = preg_replace('/\x1b\[[FK]/', '', $cleanLine); // Remove Unicode escape sequences
             
             // Remove other control characters but preserve newlines
             $cleanLine = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $cleanLine);

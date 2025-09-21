@@ -46,15 +46,15 @@ class EncryptionManager {
         try {
             // Starting backend decryption...
 
-            // Encode content and password for URL
-            const encodedContent = encodeURIComponent(ageContent);
-            const encodedPassword = encodeURIComponent(password);
-            
-            const response = await fetch(`decrypt-age.php?content=${encodedContent}&password=${encodedPassword}`, {
-                method: 'GET',
+            const response = await fetch('decrypt-age.php', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                }
+                },
+                body: JSON.stringify({
+                    content: ageContent,
+                    password: password
+                })
             });
 
             const result = await response.json();
