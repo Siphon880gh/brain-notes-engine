@@ -221,7 +221,8 @@
                                     <div class="info-flex-child">
                                         <div id="search-container">
                                             <label for="searcher-input">Search:</label>
-                                            <input id="searcher-input" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                                            <!-- autocomplete="new-password" prevents Chrome from autofilling usernames/passwords -->
+                                            <input name="search_query" id="searcher-input" inputmode="search" class="toolbar-off" type="search" role="searchbox"  aria-autocomplete="list" placeholder="" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly');">
                                         </div>
 
                                         <div id="search-container-btns">
