@@ -525,6 +525,14 @@ function openNote(id) {
                 })(summary);
             }
 
+            // Convert strikethrough syntax ~~text~~ to <del>text</del>
+            if(summary) {
+                summary = (function convertStrikethrough(text) {
+                    // Match ~~text~~ but not inside code blocks
+                    return text.replace(/~~([^~]+)~~/g, '<del>$1</del>');
+                })(summary);
+            }
+
             function convertNotesToDetails(inputText) {
                 const lines = inputText.split('\n');
                 const outputLines = [];
@@ -1321,6 +1329,9 @@ async function renderDecryptedContent(decryptedContent, title, summaryInnerEl, f
 
     // Convert Obsidian highlight syntax ==text== to <mark>text</mark>
     processedContent = processedContent.replace(/==([^=]+)==/g, '<mark>$1</mark>');
+
+    // Convert strikethrough syntax ~~text~~ to <del>text</del>
+    processedContent = processedContent.replace(/~~([^~]+)~~/g, '<del>$1</del>');
 
     // Convert Obsidian notes to details
     processedContent = convertNotesToDetails(processedContent);

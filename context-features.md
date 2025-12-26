@@ -10,6 +10,7 @@
 - **Math Equations**: KaTeX/LaTeX support with `$E = mc^2$` syntax
 - **Heading Indentation**: Visual hierarchy with `<<<` reset markers for content organization
 - **Highlight Syntax**: `==text==` renders as `<mark>text</mark>` with yellow background (#fff3a3)
+- **Strikethrough Syntax**: `~~text~~` renders as `<del>text</del>` with line-through styling
 
 ### Markdown Processing Pipeline
 ```javascript
