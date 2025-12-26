@@ -88,7 +88,7 @@ class PrivateAuthManager {
                             <button type="button" id="privateAuthLogoutBtn" class="btn btn-danger bg-red-500 text-white px-4 py-2 rounded" style="display: none;">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary px-4 py-2 rounded" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
