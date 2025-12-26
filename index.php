@@ -29,6 +29,7 @@
     <link href="assets/css/mindmap.css" rel="stylesheet">
     <link href="assets/css/link-popover.css" rel="stylesheet">
     <link href="assets/css/encryption.css" rel="stylesheet">
+    <link href="assets/css/private-auth.css" rel="stylesheet">
 
     <!-- <link href="assets/css/game.css" rel="stylesheet"> -->
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" /> -->
@@ -469,6 +470,7 @@
     </script>
     <script src="assets/js/modal.js"></script>
     <script src="assets/js/encryption.js"></script>
+    <script src="assets/js/private-auth.js"></script>
     <script src="assets/js/note-opener.js"></script>
     <script src="assets/js/mindmap.js"></script>
     <script src="assets/js/index.js"></script>

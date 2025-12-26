@@ -1,0 +1,312 @@
+/* Private Notes Authentication Styling */
+
+/* Key Button - Top Right */
+.private-auth-button {
+    position: fixed;
+    top: 20px;
+    right: 80px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.private-auth-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(245, 158, 11, 0.5);
+}
+
+.private-auth-button.authenticated {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.private-auth-button.authenticated:hover {
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.5);
+}
+
+/* Animation for key icon */
+.private-auth-button .fa-key {
+    transition: transform 0.3s ease;
+}
+
+.private-auth-button:hover .fa-key {
+    transform: rotate(-15deg);
+}
+
+/* Private Auth Modal Styling */
+#privateAuthModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#privateAuthModal.show {
+    opacity: 1;
+}
+
+#privateAuthModal .modal-dialog {
+    max-width: 450px;
+    width: 90%;
+    margin: 0;
+}
+
+#privateAuthModal .modal-content {
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    background: white;
+    overflow: hidden;
+    transform: translateY(-30px) scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#privateAuthModal.show .modal-content {
+    transform: translateY(0) scale(1);
+}
+
+#privateAuthModal .modal-header {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom: none;
+    padding: 1.25rem 1.5rem;
+}
+
+#privateAuthModal .modal-header .close {
+    color: white;
+    opacity: 0.8;
+    text-shadow: none;
+    font-size: 1.5rem;
+}
+
+#privateAuthModal .modal-header .close:hover {
+    opacity: 1;
+}
+
+#privateAuthModal .modal-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#privateAuthModal .modal-body {
+    padding: 1.5rem;
+    background: #fefbf3;
+}
+
+#privateAuthModal #privateAuthStatus {
+    padding: 0.75rem;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    text-align: center;
+    font-weight: 500;
+}
+
+#privateAuthModal .form-group label {
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+#privateAuthModal #privateAuthPassword {
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+}
+
+#privateAuthModal #privateAuthPassword:focus {
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+    outline: none;
+}
+
+#privateAuthModal #privateAuthError {
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem;
+    background: #fef2f2;
+    border-radius: 4px;
+    border-left: 3px solid #dc2626;
+}
+
+#privateAuthModal .modal-footer {
+    background: #faf5eb;
+    border-top: 1px solid #e5e7eb;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding: 1rem 1.5rem;
+}
+
+#privateAuthModal #privateAuthLoginBtn {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    border: none;
+    font-weight: 500;
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+#privateAuthModal #privateAuthLoginBtn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+#privateAuthModal #privateAuthLogoutBtn {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    border: none;
+    font-weight: 500;
+}
+
+#privateAuthModal #privateAuthLogoutBtn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+#privateAuthModal .btn-secondary {
+    background: #6b7280;
+    border: none;
+    color: white;
+}
+
+#privateAuthModal .btn-secondary:hover {
+    background: #4b5563;
+}
+
+/* Success message styling */
+.private-auth-success {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    border-radius: 8px;
+    color: #065f46;
+    font-weight: 500;
+}
+
+.private-auth-success .fa-check-circle {
+    font-size: 1.5rem;
+    color: #10b981;
+}
+
+/* Private content blocked indicator */
+.private-content-blocked {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 2px solid #f59e0b;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.private-content-blocked .icon-wrapper {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.private-content-blocked .icon-wrapper .fas {
+    font-size: 2.5rem;
+    color: white;
+}
+
+.private-content-blocked h3 {
+    color: #92400e;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.private-content-blocked p {
+    color: #a16207;
+    margin-bottom: 1.5rem;
+}
+
+.private-content-blocked button {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.private-content-blocked button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .private-auth-button {
+        top: 15px;
+        right: 70px;
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    #privateAuthModal .modal-dialog {
+        margin: 1rem;
+        max-width: none;
+    }
+    
+    #privateAuthModal .modal-body {
+        padding: 1.25rem;
+    }
+    
+    #privateAuthModal .modal-footer {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    #privateAuthModal .modal-footer .btn {
+        width: 100%;
+    }
+}
+
+/* Focus styles for accessibility */
+#privateAuthModal *:focus {
+    outline: 2px solid #f59e0b;
+    outline-offset: 2px;
+}
+
+.private-auth-button:focus {
+    outline: 3px solid #f59e0b;
+    outline-offset: 3px;
+}
+

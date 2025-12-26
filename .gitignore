@@ -26,4 +26,5 @@ node_modules/
 *.css.map
 out/
 *.env
+.env-password.php
 env/all/pcregrep.php

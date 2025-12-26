@@ -406,6 +406,13 @@ function openNote(id) {
 
             // Extract and clean up HTML content
             let summary = htmlMatch ? htmlMatch[1].replace(/^ {2}/gm, '') : null;
+            
+            // Check if this is a blocked private file
+            if (summary && summary.trim() === '__PRIVATE_BLOCKED__') {
+                handlePrivateBlockedContent(title);
+                return;
+            }
+            
             console.log('Initial summary (raw):', JSON.stringify(summary));
             console.log('Initial summary length:', summary?.length);
 
@@ -1497,5 +1504,90 @@ function convertNotesToDetails(inputText) {
     }
 
     return outputLines.join('\n');
+}
+
+/**
+ * Handle blocked private content - shows login prompt
+ */
+function handlePrivateBlockedContent(title) {
+    parent.document.querySelector(".side-by-side-possible.hidden")?.classList?.remove("hidden");
+
+    let summaryInnerEl = parent.document.querySelector("#summary-inner");
+    summaryInnerEl.classList.remove("hidden");
+
+    document.getElementById("summary-title").textContent = title;
+    document.getElementById("summary-collapser").classList.remove("hidden");
+    document.getElementById("summary-collapser").classList.add("stated");
+    document.getElementById("summary-sharer").classList.add("hidden"); // Hide share for private content
+    document.getElementById("scroll-to-item").classList.remove("hidden");
+    document.getElementById("summary-outer").classList.remove("hidden");
+
+    // Show blocked content UI
+    const blockedHTML = `
+        <div class="private-content-blocked">
+            <div class="icon-wrapper">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h3>Private Note</h3>
+            <p>This note is protected and requires authentication to view.</p>
+            <button onclick="openPrivateAuthAndRetry('${title.replace(/'/g, "\\'")}')">
+                <i class="fas fa-key"></i> Login to View
+            </button>
+        </div>
+    `;
+
+    summaryInnerEl.innerHTML = blockedHTML;
+
+    // Scroll to content
+    window.document.getElementById("explore-curriculum").scrollIntoView({
+        behavior: "smooth",
+    });
+
+    // Hide TOC for blocked content
+    document.querySelector('#toc-toggler').style.display = 'none';
+    
+    // Hide mindmap button for blocked content
+    const mindmapButton = document.querySelector('#mindmap-button');
+    if (mindmapButton) {
+        mindmapButton.style.display = 'none';
+    }
+}
+
+/**
+ * Open the private auth modal and retry opening the note after successful auth
+ */
+function openPrivateAuthAndRetry(title) {
+    if (window.privateAuthManager) {
+        window.privateAuthManager.showModal();
+        
+        // Listen for successful authentication
+        const authHandler = (event) => {
+            if (event.detail.authenticated) {
+                // Find the note by title and re-open it
+                const noteElement = Array.from(document.querySelectorAll('.name.is-file')).find(el => 
+                    el.textContent.trim() === title || el.textContent.trim() === title + '.md'
+                );
+                
+                if (noteElement) {
+                    // Get the id from the parent li element's data attribute or onclick
+                    const liElement = noteElement.closest('li');
+                    if (liElement) {
+                        const onclickAttr = noteElement.getAttribute('onclick') || liElement.getAttribute('onclick');
+                        if (onclickAttr) {
+                            const idMatch = onclickAttr.match(/openNote\((\d+)\)/);
+                            if (idMatch) {
+                                openNote(parseInt(idMatch[1]));
+                            }
+                        }
+                    }
+                }
+                
+                // Remove listener after handling
+                document.removeEventListener('privateAuthChanged', authHandler);
+            }
+        };
+        
+        document.addEventListener('privateAuthChanged', authHandler);
+    }
 }
 

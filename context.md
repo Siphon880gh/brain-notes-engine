@@ -27,12 +27,13 @@
 ### Frontend (JavaScript + CSS)
 - **`assets/js/mindmap.js`** (~1681 lines): Interactive mindmap generation with Mermaid.js, zoom/pan controls, layout cycling
 - **`assets/js/link-popover.js`** (~550 lines): Link preview system with CORS proxy and content extraction
-- **`assets/js/note-opener.js`** (~1464 lines): Markdown rendering, note display, content loading, and code block enhancement
+- **`assets/js/note-opener.js`** (~1550 lines): Markdown rendering, note display, content loading, code block enhancement, and private note handling
 - **`assets/js/index.js`** (~399 lines): Main UI logic, navigation, and interaction handling
 - **`assets/js/searchers.js`** (~398 lines): Search functionality and result display
 - **`assets/js/image-modal.js`** (~127 lines): Image viewing modal functionality with click-to-expand
 - **`assets/js/encryption.js`** (~399 lines): AGE encryption/decryption functionality with client-side AES-256-CBC
-- **CSS Framework**: Tailwind CSS, FontAwesome icons, custom styling (9 CSS files, ~2700 lines total)
+- **`assets/js/private-auth.js`** (~250 lines): Private notes authentication modal and session management
+- **CSS Framework**: Tailwind CSS, FontAwesome icons, custom styling (10 CSS files, ~3000 lines total)
 
 ### Build System (Node.js)
 - **`cache_data.js`** (~153 lines): Scans curriculum directory, builds hierarchical file tree
@@ -73,30 +74,34 @@ env/templates-{devbrain,3dbrain,bizbrain,healthbrain}/
 ### File Structure (Key Components)
 ```
 devbrain/
-├── index.php                 # Main app (~480 lines)
+├── index.php                 # Main app (~485 lines)
 ├── search.php               # Search endpoint (~21 lines)
 ├── decrypt-age.php          # AGE encryption handler (~1411 lines)
 ├── decrypt-age-node.js      # Node.js AGE decryption (~352 lines)
 ├── find-nodejs-path.php     # Node.js path detection (~141 lines)
+├── check-private-auth.php   # Private notes authentication (~80 lines)
+├── .env-password.php        # Password for private notes
 ├── cache_data.js            # File tree builder (~153 lines)
 ├── cache_render.js          # HTML generator (~226 lines)
 ├── config-mindmap.json      # Mindmap configuration (~5 lines)
 ├── config.json              # Image hosting & Node.js configuration (~21 lines)
 ├── 1x2.png                  # Link popover marker image
 ├── assets/
-│   ├── css/                 # Styling (9 files, ~2800 lines total)
+│   ├── css/                 # Styling (10 files, ~3000 lines total)
 │   │   ├── mindmap.css      # Mindmap styling (~458 lines)
 │   │   ├── link-popover.css # Link popover styling (~430 lines)
 │   │   ├── index.css        # Main styling + code blocks (~1294 lines)
-│   │   └── encryption.css   # Encryption styling (~290 lines)
-│   └── js/                  # Frontend logic (10 files, ~5900 lines total)
+│   │   ├── encryption.css   # Encryption styling (~290 lines)
+│   │   └── private-auth.css # Private notes auth styling (~200 lines)
+│   └── js/                  # Frontend logic (11 files, ~6200 lines total)
 │       ├── mindmap.js       # Mindmap system (~1681 lines)
 │       ├── link-popover.js  # Link preview system (~550 lines)
-│       ├── note-opener.js   # Note loading/rendering + code blocks (~1464 lines)
+│       ├── note-opener.js   # Note loading/rendering + code blocks (~1550 lines)
 │       ├── index.js         # Main UI logic (~399 lines)
 │       ├── searchers.js     # Search functionality (~398 lines)
 │       ├── image-modal.js   # Image modal functionality (~127 lines)
 │       ├── encryption.js    # AGE encryption/decryption (~399 lines)
+│       ├── private-auth.js  # Private notes authentication (~250 lines)
 │       ├── game.js          # Game mode functionality (~600 lines)
 │       └── modal.js         # Modal system management (~27 lines)
 ├── env/                     # Multi-brain templates and configuration
@@ -200,6 +205,12 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 - **Hybrid Encryption**: AGE → PHP backend → AES-256-CBC → JavaScript client → rendered content
 - **Robust Fallback**: Primary age binary with Node.js fallback using `age-encryption` npm package
 - **Console Logging**: Browser console shows which decryption method was used
+
+### Private Notes System
+- **Filename-Based Protection**: Files ending with "PRIVATE.md" or "(PRIVATE).md" require authentication (case insensitive)
+- **Session-Based Auth**: Password verified against `.env-password.php`, stored in PHP session
+- **Key Icon UI**: Top-right key button (🔑) for login/logout, turns green when authenticated
+- **Blocked Content**: Unauthenticated users see a login prompt instead of private note content
 
 ## Development Workflow
 

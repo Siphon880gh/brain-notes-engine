@@ -126,6 +126,36 @@ echo json_encode(["res"=>$res, "cmd"=>$cmd, "stdout"=>$stdout]);
 - **Security Flow**: AGE → PHP backend → AES-256-CBC → JavaScript client → rendered content
 - **Caching**: Decrypted content cached for session duration only
 
+## Private Notes System
+
+### Overview
+Files ending with "PRIVATE.md" (case insensitive) require authentication to view. A key icon in the top right allows users to log in with a password stored in `.env-password.php`.
+
+### Naming Convention
+- Files must end with `PRIVATE.md` or `(PRIVATE).md`
+- Examples: `My Secret Note PRIVATE.md`, `Credentials (PRIVATE).md`, `API Keys private.md`
+- Case insensitive matching (PRIVATE, Private, private all work)
+
+### Authentication Flow
+1. User clicks on a private note in the file tree
+2. If not authenticated, a blocked content message is shown with a "Login to View" button
+3. User clicks the key icon (🔑) in top right or the login button
+4. Password is verified against `.env-password.php`
+5. PHP session stores authentication state
+6. User can now view all private notes until session expires
+
+### Key Components
+- **`.env-password.php`**: Contains `$password = "go"` (configurable password)
+- **`check-private-auth.php`**: Handles login/logout/check actions via JSON API
+- **`assets/js/private-auth.js`** (~250 lines): PrivateAuthManager class for modal and auth state
+- **`assets/css/private-auth.css`** (~200 lines): Styling for key button, modal, and blocked content
+- **`local-open.php`**: Modified to check `PRIVATE.md` filenames and session authentication
+
+### UI Elements
+- **Key Icon**: Fixed position top-right button (🔑), turns green when authenticated
+- **Login Modal**: Password input with login/logout buttons
+- **Blocked Content**: Yellow-bordered message prompting login when accessing private notes
+
 ## Sharing & Collaboration
 
 ### URL Generation

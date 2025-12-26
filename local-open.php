@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $id = isset($_GET["id"]) ? intval($_GET["id"]) : null;
 
 // Load and decode the JSON file
@@ -31,6 +33,34 @@ echo "title: ERROR
 html: |
 No matching record found for id: " . id;
     die();
+}
+
+/**
+ * Check if a file is a PRIVATE file (ends with PRIVATE.md or (PRIVATE).md)
+ */
+function isPrivateFile($filename) {
+    return preg_match('/\(?PRIVATE\)?\.md$/i', $filename);
+}
+
+/**
+ * Check if user is authenticated for private files
+ */
+function isPrivateAuthenticated() {
+    return isset($_SESSION['private_auth']) && $_SESSION['private_auth'] === true;
+}
+
+// Check if this is a PRIVATE file
+$filename = $result["current"] ?? '';
+if (isPrivateFile($filename)) {
+    // Check if user is authenticated
+    if (!isPrivateAuthenticated()) {
+        // Return blocked content response
+        $title = $filename;
+        echo "title: $title
+html: |
+__PRIVATE_BLOCKED__";
+        die();
+    }
 }
 
 

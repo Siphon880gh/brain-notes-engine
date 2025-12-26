@@ -62,34 +62,38 @@ npm run build-healthbrain # Same process for health notes
 - Excludes binary files and git directories
 - Returns JSON results for AJAX consumption
 
-### Frontend Architecture (`assets/js/` - 10 files, ~5800 total lines)
+### Frontend Architecture (`assets/js/` - 11 files, ~6200 total lines)
 - `index.js` (~399 lines): Main application logic, note opening, UI interactions [MEDIUM]
 - `searchers.js` (~398 lines): Search functionality and result display [MEDIUM]
 - `modal.js` (~27 lines): Modal system management [SMALL]
-- `note-opener.js` (~1464 lines): Markdown rendering, note display, code blocks [LARGE]
+- `note-opener.js` (~1550 lines): Markdown rendering, note display, code blocks, private note handling [LARGE]
 - `image-modal.js` (~127 lines): Image viewing functionality [SMALL-MEDIUM]
 - `mindmap.js` (~1681 lines): Interactive mindmap generation and controls [LARGE]
 - `game.js` (~600 lines): Game mode functionality [LARGE]
 - `multistates.js` (~230 lines): Multi-state UI components [MEDIUM]
 - `diff.js` (~39 lines): Content comparison utilities [SMALL]
 - `link-popover.js` (~550 lines): Link preview system [LARGE]
+- `private-auth.js` (~250 lines): Private notes authentication and session management [MEDIUM]
 
 ## File Structure
 
 ```
 devbrain/
-├── index.php                 # Main application (~480 lines) [MEDIUM]
+├── index.php                 # Main application (~485 lines) [MEDIUM]
 ├── cache_data.js            # File tree caching (~153 lines) [SMALL-MEDIUM]
 ├── cache_render.js          # HTML generation (~226 lines) [MEDIUM]
 ├── search.php               # Search endpoint (~21 lines) [SMALL]
+├── check-private-auth.php   # Private notes auth endpoint (~80 lines) [SMALL]
+├── .env-password.php        # Password for private notes (gitignored)
 ├── cachedResPartial.php     # Generated HTML content
 ├── assets/
-│   ├── css/                 # Styling (9 CSS files, ~2800 total lines)
+│   ├── css/                 # Styling (10 CSS files, ~3000 total lines)
 │   │   ├── index.css        # Main styling + code blocks (~1294 lines) [LARGE]
 │   │   ├── mindmap.css      # Mindmap styling (~458 lines) [MEDIUM]
 │   │   ├── link-popover.css # Link popover styling (~430 lines) [MEDIUM]
+│   │   ├── private-auth.css # Private notes auth styling (~200 lines) [MEDIUM]
 │   │   └── *.css           # Other styling files
-│   └── js/                  # Frontend logic (10 JS files, ~5800 total lines)
+│   └── js/                  # Frontend logic (11 JS files, ~6200 total lines)
 ├── env/                     # Configuration templates
 │   ├── templates-devbrain/  # Developer notes config
 │   ├── templates-3dbrain/   # 3D notes config
