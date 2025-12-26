@@ -670,26 +670,37 @@ function openNote(id) {
                         var id, matches;
                         if (a.hostname.includes('youtube.com')) {
                             // For URLs like https://www.youtube.com/watch?v=xLrLlu6KDss
-                            // debugger;
                             matches = a.search.match(/[?&]v=([^&]*)/);
                             id = matches && matches[1];
+                            
+                            // Handle YouTube Shorts URLs like https://www.youtube.com/shorts/xLrLlu6KDss
+                            if (!id && a.pathname.includes('/shorts/')) {
+                                matches = a.pathname.match(/\/shorts\/([^/?]+)/);
+                                id = matches && matches[1];
+                            }
+                            
+                            // Handle YouTube Live URLs like https://www.youtube.com/live/xLrLlu6KDss
+                            if (!id && a.pathname.includes('/live/')) {
+                                matches = a.pathname.match(/\/live\/([^/?]+)/);
+                                id = matches && matches[1];
+                            }
                         } else if (a.hostname.includes('youtu.be')) {
-                            // For URLs like https://youtu.be/xLrLlu6KDss
-                            id = a.pathname.substr(1);
+                            // For URLs like https://youtu.be/xLrLlu6KDss or https://youtu.be/xLrLlu6KDss?si=xxx
+                            // Extract just the video ID, ignoring query parameters
+                            id = a.pathname.substr(1).split('?')[0];
                         }
 
-                        // Check that the ID only has alphanumeric characters, to make sure that
-                        // we don't introduce any XSS vulnerabilities.
+                        // Check that the ID only has valid YouTube ID characters (alphanumeric, hyphen, underscore)
+                        // to prevent XSS vulnerabilities.
                         var validatedID;
-                        if (id && id.match(/^[a-zA-Z0-9\_]*$/)) {
+                        if (id && id.match(/^[a-zA-Z0-9_-]+$/)) {
                             validatedID = id;
                         }
 
-                        // debugger;
-
                         // Add the embedded YouTube video, and remove the link.
+                        // Use youtube-nocookie.com for privacy-enhanced mode and add referrerpolicy to fix Error 153
                         if (validatedID) {
-                            $(a).before('<div class="responsive-iframe-container"><iframe src="https://www.youtube.com/embed/' + validatedID + '" frameborder="0" allowfullscreen></iframe></div>');
+                            $(a).before('<div class="responsive-iframe-container"><iframe src="https://www.youtube-nocookie.com/embed/' + validatedID + '" frameborder="0" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>');
                             const $ytWrapper = $(a).prev('.responsive-iframe-container');
                             enhanceWithImageButtons($ytWrapper[0], "yt");
                             $(a).remove();
@@ -1387,17 +1398,32 @@ async function renderDecryptedContent(decryptedContent, title, summaryInnerEl, f
                 if (a.hostname.includes('youtube.com')) {
                     matches = a.search.match(/[?&]v=([^&]*)/);
                     id = matches && matches[1];
+                    
+                    // Handle YouTube Shorts URLs like https://www.youtube.com/shorts/xLrLlu6KDss
+                    if (!id && a.pathname.includes('/shorts/')) {
+                        matches = a.pathname.match(/\/shorts\/([^/?]+)/);
+                        id = matches && matches[1];
+                    }
+                    
+                    // Handle YouTube Live URLs like https://www.youtube.com/live/xLrLlu6KDss
+                    if (!id && a.pathname.includes('/live/')) {
+                        matches = a.pathname.match(/\/live\/([^/?]+)/);
+                        id = matches && matches[1];
+                    }
                 } else if (a.hostname.includes('youtu.be')) {
-                    id = a.pathname.substr(1);
+                    // For URLs like https://youtu.be/xLrLlu6KDss or https://youtu.be/xLrLlu6KDss?si=xxx
+                    id = a.pathname.substr(1).split('?')[0];
                 }
 
+                // Check that the ID only has valid YouTube ID characters (alphanumeric, hyphen, underscore)
                 var validatedID;
-                if (id && id.match(/^[a-zA-Z0-9\_]*$/)) {
+                if (id && id.match(/^[a-zA-Z0-9_-]+$/)) {
                     validatedID = id;
                 }
 
+                // Use youtube-nocookie.com for privacy-enhanced mode and add referrerpolicy to fix Error 153
                 if (validatedID) {
-                    $(a).before('<div class="responsive-iframe-container"><iframe src="https://www.youtube.com/embed/' + validatedID + '" frameborder="0" allowfullscreen></iframe></div>');
+                    $(a).before('<div class="responsive-iframe-container"><iframe src="https://www.youtube-nocookie.com/embed/' + validatedID + '" frameborder="0" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>');
                     const $ytWrapper = $(a).prev('.responsive-iframe-container');
                     if (typeof enhanceWithImageButtons === 'function') {
                         enhanceWithImageButtons($ytWrapper[0], "yt");

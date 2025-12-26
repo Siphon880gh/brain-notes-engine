@@ -186,6 +186,7 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 - **Math Equations**: KaTeX support with `$E = mc^2$` syntax
 - **Heading Indentation**: Visual hierarchy with `<<<` reset markers
 - **Highlight Syntax**: `==text==` renders as highlighted text (yellow background)
+- **YouTube Embeds**: Auto-converts YouTube links (standard, shorts, live, youtu.be) to embedded players with privacy-enhanced mode
 
 ### AI Integration
 - **"Ask Folder" Feature**: AI can analyze entire folder contents for context-aware assistance

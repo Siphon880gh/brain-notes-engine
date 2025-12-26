@@ -20,6 +20,22 @@
 // 4. Render with syntax highlighting
 ```
 
+### YouTube Embeds
+YouTube links are automatically converted to embedded video players with privacy-enhanced mode.
+
+**Supported URL formats:**
+- Standard: `https://www.youtube.com/watch?v=VIDEO_ID`
+- Short URLs: `https://youtu.be/VIDEO_ID` (with or without `?si=` tracking params)
+- Shorts: `https://www.youtube.com/shorts/VIDEO_ID`
+- Live: `https://www.youtube.com/live/VIDEO_ID`
+
+**Implementation details:**
+- Uses `youtube-nocookie.com` for privacy-enhanced embedding
+- Includes `referrerpolicy="strict-origin-when-cross-origin"` to prevent Error 153
+- Video IDs are validated (alphanumeric, hyphens, underscores) to prevent XSS
+- Responsive iframe container maintains 16:9 aspect ratio
+- Location: `note-opener.js` in link processing sections (two locations for regular and encrypted notes)
+
 ## Search Capabilities
 
 ### Search Types
