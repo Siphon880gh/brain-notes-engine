@@ -71,9 +71,20 @@ echo json_encode(["res"=>$res, "cmd"=>$cmd, "stdout"=>$stdout]);
 
 ### Navigation
 - **Hierarchical File Tree**: Expandable folder structure with custom icons
-- **Random Note**: Quick access to random content for discovery
+- **Random Note**: Quick access to random content for discovery, with option to prioritize notes containing images
 - **Jump to Topics**: Direct navigation to specific sections
 - **Print Support**: Print-friendly note rendering
+
+### Random Note Prioritization
+- **Chevron Dropdown**: Down-arrow icon next to Random Note button reveals options
+- **Prioritize Pictures Option**: Checkbox (checked by default) to prioritize notes containing images
+- **Fallback Behavior**: If no imaged notes available, falls back to all notes
+- **Auto-Expand Folders**: When random note opens, expands parent folders so note is visible when user navigates to topics
+- **No Auto-Scroll**: Keeps user at the opened note content at top; use "See topics" button to jump to folder tree
+- **Jump to Topics Integration**: Sets `lastClickedNote` for "See topics" button functionality
+- **Build Integration**: `cache_data_imaged.js` generates `cachedResDataImaged.json` with notes containing images
+- **Path Matching**: Uses `path_tp` to match imaged notes with correct DOM IDs from main cache
+- **Image Detection**: Scans for markdown image syntax `![alt](path)` and HTML `<img>` tags, excluding placeholder images (1x1.png, 1x2.png)
 
 ### Interactive Elements
 - **Modal System**: Overlay windows for notes, sharing, and AI assistance

@@ -639,7 +639,6 @@ function openNote(id) {
             document.getElementById("summary-collapser").classList.remove("hidden");
             document.getElementById("summary-collapser").classList.add("stated");
             document.getElementById("summary-sharer").classList.remove("hidden");
-            document.getElementById("scroll-to-item").classList.remove("hidden");
             document.getElementById("summary-outer").classList.remove("hidden");
             // parent.document.querySelector("#dashboard").classList.add("active");
 
@@ -1192,7 +1191,6 @@ function handleEncryptedContent(encryptedContent, title, summaryInnerEl, frontma
     document.getElementById("summary-collapser").classList.remove("hidden");
     document.getElementById("summary-collapser").classList.add("stated");
     document.getElementById("summary-sharer").classList.remove("hidden");
-    document.getElementById("scroll-to-item").classList.remove("hidden");
     document.getElementById("summary-outer").classList.remove("hidden");
 
     // Show encrypted content indicator
@@ -1519,7 +1517,6 @@ function handlePrivateBlockedContent(title) {
     document.getElementById("summary-collapser").classList.remove("hidden");
     document.getElementById("summary-collapser").classList.add("stated");
     document.getElementById("summary-sharer").classList.add("hidden"); // Hide share for private content
-    document.getElementById("scroll-to-item").classList.remove("hidden");
     document.getElementById("summary-outer").classList.remove("hidden");
 
     // Show blocked content UI

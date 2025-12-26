@@ -6,10 +6,10 @@
     "scripts": {
         "watch": "livereload .",
         "pull": "git stash; git fetch origin; git reset --hard origin/main; cd curriculum; git stash; git fetch origin; git reset --hard origin/main;",
-        "build-devbrain": "cp -r ./env/templates-devbrain/* ./env && node cache_data.js && node cache_render.js",
-        "build-3dbrain": "cp -r ./env/templates-3dbrain/* ./env && node cache_data.js && node cache_render.js",
-        "build-bizbrain": "cp -r ./env/templates-bizbrain/* ./env && node cache_data.js && node cache_render.js",
-        "build-healthbrain": "cp -r ./env/templates-healthbrain/* ./env && node cache_data.js && node cache_render.js"
+        "build-devbrain": "cp -r ./env/templates-devbrain/* ./env && node cache_data.js && node cache_data_imaged.js && node cache_render.js",
+        "build-3dbrain": "cp -r ./env/templates-3dbrain/* ./env && node cache_data.js && node cache_data_imaged.js && node cache_render.js",
+        "build-bizbrain": "cp -r ./env/templates-bizbrain/* ./env && node cache_data.js && node cache_data_imaged.js && node cache_render.js",
+        "build-healthbrain": "cp -r ./env/templates-healthbrain/* ./env && node cache_data.js && node cache_data_imaged.js && node cache_render.js"
     },
     "author": "",
     "license": "ISC",

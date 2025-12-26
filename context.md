@@ -37,6 +37,7 @@
 
 ### Build System (Node.js)
 - **`cache_data.js`** (~153 lines): Scans curriculum directory, builds hierarchical file tree
+- **`cache_data_imaged.js`** (~175 lines): Scans curriculum directory, builds file tree of notes containing images only (for Random Note prioritization)
 - **`cache_render.js`** (~226 lines): Generates PHP partials from cached data using EJS templates
 - **Package Scripts**: Build commands for different brain variants (devbrain, 3dbrain, etc.)
 
@@ -82,6 +83,7 @@ devbrain/
 ├── check-private-auth.php   # Private notes authentication (~80 lines)
 ├── .env-password.php        # Password for private notes
 ├── cache_data.js            # File tree builder (~153 lines)
+├── cache_data_imaged.js     # Imaged notes file tree builder (~175 lines)
 ├── cache_render.js          # HTML generator (~226 lines)
 ├── config-mindmap.json      # Mindmap configuration (~5 lines)
 ├── config.json              # Image hosting & Node.js configuration (~21 lines)
@@ -121,6 +123,9 @@ devbrain/
 ```javascript
 // cache_data.js - File tree generation
 scanDirectory(curriculumPath) → buildFileTree() → cachedResData.json
+
+// cache_data_imaged.js - Imaged notes file tree generation
+scanDirectory(curriculumPath) → filterNotesWithImages() → cachedResDataImaged.json
 
 // cache_render.js - HTML generation  
 loadCachedData() → processTemplates() → cachedResPartial.php

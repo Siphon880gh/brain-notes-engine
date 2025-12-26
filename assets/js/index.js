@@ -6,6 +6,15 @@ var app = {
         window.folders = resource.dirs;
         window.sortSpec = resource.sort_spec;
         
+        // Load imaged notes data for random note prioritization
+        try {
+            const imagedResource = await fetch("./cachedResDataImaged.json").then(response=>response.json());
+            window.foldersImaged = imagedResource.dirs;
+        } catch (e) {
+            console.warn("cachedResDataImaged.json not found, random note will use all notes");
+            window.foldersImaged = [];
+        }
+        
         // initFolderDoms();
         
         this.setupCountNotes();
@@ -226,6 +235,9 @@ var app = {
     setupRandomNote: {
         _init: function() {
             const button = document.getElementById("get-random-note");
+            const chevron = document.getElementById("random-note-chevron");
+            const dropdown = document.getElementById("random-note-dropdown");
+            
             button.addEventListener("click", () => {
                 this.openRandomNote();
                 button.disabled = true; // Disable the button
@@ -233,12 +245,75 @@ var app = {
                     button.disabled = false; // Re-enable the button after 2 seconds
                 }, 2000); // 2000 milliseconds = 2 seconds
             });
+            
+            // Toggle dropdown on chevron click
+            chevron.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const isVisible = dropdown.style.display !== "none";
+                dropdown.style.display = isVisible ? "none" : "block";
+                chevron.classList.toggle("active", !isVisible);
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener("click", (e) => {
+                if (!e.target.closest("#random-note-wrapper")) {
+                    dropdown.style.display = "none";
+                    chevron.classList.remove("active");
+                }
+            });
         },
         openRandomNote: function() {
+            const prioritizeImages = document.getElementById("prioritize-images")?.checked ?? true;
+            let noteElement = null;
+            
+            // If prioritize images is enabled and we have imaged notes
+            if (prioritizeImages && window.foldersImaged && window.foldersImaged.length > 0) {
+                // Filter to only .md files (not directories)
+                const imagedNotes = window.foldersImaged.filter(item => item.current.endsWith('.md'));
+                
+                if (imagedNotes.length > 0) {
+                    const i = Math.floor(Math.random() * imagedNotes.length);
+                    const selectedNote = imagedNotes[i];
+                    
+                    // Find the correct ID by matching path_tp in the main folders array
+                    const matchingFolder = window.folders.find(f => f.path_tp === selectedNote.path_tp);
+                    if (matchingFolder) {
+                        noteElement = document.querySelector(`.name.is-file[data-id="${matchingFolder.id}"]`);
+                        if (noteElement) {
+                            this.expandToNote(noteElement);
+                            openNote(matchingFolder.id);
+                            return;
+                        }
+                    }
+                }
+            }
+            
+            // Fallback: use all notes from DOM
             const notes = Array.from(document.querySelectorAll(".name.is-file"));
             const i = Math.floor(Math.random() * notes.length);
-            const noteId = notes[i].dataset["id"];
+            noteElement = notes[i];
+            const noteId = noteElement.dataset["id"];
+            this.expandToNote(noteElement);
             openNote(noteId);
+        },
+        expandToNote: function(noteElement) {
+            // Expand all parent folders to make the note visible when user navigates to topics
+            if (!noteElement) return;
+            
+            let parent = noteElement.closest('ul');
+            while (parent) {
+                // Show this ul
+                parent.style.display = 'block';
+                // Move up to next parent ul
+                parent = parent.parentElement?.closest('ul');
+            }
+            
+            // Store reference for "Jump to Topics" functionality
+            const row = noteElement.tagName.toLowerCase() === "li" ? noteElement : noteElement.closest("li");
+            window.lastClickedNote = row;
+            
+            // Note: We don't auto-scroll here to keep user at the opened note content at top
+            // User can use "See topics" button to jump to the note in the folder tree
         }
     }, // setupRandomNote
 

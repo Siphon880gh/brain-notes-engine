@@ -167,12 +167,20 @@
                 <div id="explore-header" class="card-header p-2 flex flex-wrap justify-between items-center align-center">
                     <h2 class="p-0 m-0 text-center inline"><span class="fas fa-book-reader"></span> Open a lesson</h2>
                     <div class="flex flex-row flex-nowrap gap-4 justify-between items-center align-center">
-                        <button id="get-random-note" class="bg-transparent"><h4>🔀 Random Note</h4></button>
+                        <div id="random-note-wrapper" class="random-note-wrapper">
+                                        <button id="get-random-note" class="bg-transparent"><h4>🔀 Random Note</h4></button>
+                                        <button id="random-note-chevron" class="random-note-chevron" title="Options">
+                                            <i class="fas fa-chevron-down"></i>
+                                        </button>
+                                        <div id="random-note-dropdown" class="random-note-dropdown" style="display: none;">
+                                            <label class="random-note-option">
+                                                <input type="checkbox" id="prioritize-images" checked>
+                                                <span>Prioritize notes with pictures</span>
+                                            </label>
+                                        </div>
+                                    </div>
                         <span id="summary-sharer" class="text-sm clickable hidden" style="margin-top:-3px;" href="javascript:void(0)" onclick='shareTutorial()'>
                             <span class="fas fa-share-alt"></span>
-                        </span>
-                        <span id="scroll-to-item" class="text-sm clickable hidden" style="margin-top:-3px;" href="javascript:void(0)" onclick='goToItem()'>
-                            <span class="fas fa-angle-down"></span>
                         </span>
                     </div>
                 </div>
