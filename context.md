@@ -27,7 +27,7 @@
 ### Frontend (JavaScript + CSS)
 - **`assets/js/mindmap.js`** (~1681 lines): Interactive mindmap generation with Mermaid.js, zoom/pan controls, layout cycling
 - **`assets/js/link-popover.js`** (~550 lines): Link preview system with CORS proxy and content extraction
-- **`assets/js/note-opener.js`** (~1453 lines): Markdown rendering, note display, content loading, and code block enhancement
+- **`assets/js/note-opener.js`** (~1464 lines): Markdown rendering, note display, content loading, and code block enhancement
 - **`assets/js/index.js`** (~399 lines): Main UI logic, navigation, and interaction handling
 - **`assets/js/searchers.js`** (~398 lines): Search functionality and result display
 - **`assets/js/image-modal.js`** (~127 lines): Image viewing modal functionality with click-to-expand
@@ -92,7 +92,7 @@ devbrain/
 │   └── js/                  # Frontend logic (10 files, ~5900 lines total)
 │       ├── mindmap.js       # Mindmap system (~1681 lines)
 │       ├── link-popover.js  # Link preview system (~550 lines)
-│       ├── note-opener.js   # Note loading/rendering + code blocks (~1453 lines)
+│       ├── note-opener.js   # Note loading/rendering + code blocks (~1464 lines)
 │       ├── index.js         # Main UI logic (~399 lines)
 │       ├── searchers.js     # Search functionality (~398 lines)
 │       ├── image-modal.js   # Image modal functionality (~127 lines)
@@ -185,6 +185,7 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 - **Collapsible Sections**: `> [!note] HEADING` syntax
 - **Math Equations**: KaTeX support with `$E = mc^2$` syntax
 - **Heading Indentation**: Visual hierarchy with `<<<` reset markers
+- **Highlight Syntax**: `==text==` renders as highlighted text (yellow background)
 
 ### AI Integration
 - **"Ask Folder" Feature**: AI can analyze entire folder contents for context-aware assistance
@@ -248,7 +249,7 @@ For comprehensive implementation details, see specialized context files:
 - `find-nodejs-path.php`: ~141 lines (small-medium - read full file)
 - `assets/js/mindmap.js`: ~1681 lines (large - use targeted search)
 - `assets/js/link-popover.js`: ~550 lines (large - use targeted search)
-- `assets/js/note-opener.js`: ~1453 lines (large - use targeted search)
+- `assets/js/note-opener.js`: ~1464 lines (large - use targeted search)
 - `assets/js/index.js`: ~399 lines (medium - consider targeted search)
 - `assets/js/searchers.js`: ~398 lines (medium - consider targeted search)
 - `assets/js/encryption.js`: ~399 lines (medium - consider targeted search)

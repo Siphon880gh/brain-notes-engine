@@ -517,6 +517,14 @@ function openNote(id) {
                 })(summary);
             }
 
+            // Convert Obsidian highlight syntax ==text== to <mark>text</mark>
+            if(summary) {
+                summary = (function convertHighlights(text) {
+                    // Match ==text== but not inside code blocks
+                    return text.replace(/==([^=]+)==/g, '<mark>$1</mark>');
+                })(summary);
+            }
+
             function convertNotesToDetails(inputText) {
                 const lines = inputText.split('\n');
                 const outputLines = [];
@@ -1299,6 +1307,9 @@ async function renderDecryptedContent(decryptedContent, title, summaryInnerEl, f
     processedContent = processedContent.replace(/!\[\]\(([^)]*)\)/g, (match, p1) => {
         return `![](${p1.replace(/ /g, '%20')})`;
     });
+
+    // Convert Obsidian highlight syntax ==text== to <mark>text</mark>
+    processedContent = processedContent.replace(/==([^=]+)==/g, '<mark>$1</mark>');
 
     // Convert Obsidian notes to details
     processedContent = convertNotesToDetails(processedContent);

@@ -144,6 +144,14 @@ body {
   border-color: white;
 }
 
+/* Obsidian-style highlight ==text== */
+#summary-inner mark {
+  background-color: #fff3a3;
+  color: inherit;
+  padding: 0.1em 0.2em;
+  border-radius: 3px;
+}
+
 /* Code Block Wrapper - contains line numbers and code */
 .code-block-wrapper {
   display: flex;

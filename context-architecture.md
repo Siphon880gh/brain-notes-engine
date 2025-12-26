@@ -66,7 +66,7 @@ npm run build-healthbrain # Same process for health notes
 - `index.js` (~399 lines): Main application logic, note opening, UI interactions [MEDIUM]
 - `searchers.js` (~398 lines): Search functionality and result display [MEDIUM]
 - `modal.js` (~27 lines): Modal system management [SMALL]
-- `note-opener.js` (~1453 lines): Markdown rendering, note display, code blocks [LARGE]
+- `note-opener.js` (~1464 lines): Markdown rendering, note display, code blocks [LARGE]
 - `image-modal.js` (~127 lines): Image viewing functionality [SMALL-MEDIUM]
 - `mindmap.js` (~1681 lines): Interactive mindmap generation and controls [LARGE]
 - `game.js` (~600 lines): Game mode functionality [LARGE]

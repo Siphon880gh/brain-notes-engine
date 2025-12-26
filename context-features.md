@@ -9,6 +9,7 @@
 - **Collapsible Sections**: `> [!note] HEADING` syntax creates expandable content blocks
 - **Math Equations**: KaTeX/LaTeX support with `$E = mc^2$` syntax
 - **Heading Indentation**: Visual hierarchy with `<<<` reset markers for content organization
+- **Highlight Syntax**: `==text==` renders as `<mark>text</mark>` with yellow background (#fff3a3)
 
 ### Markdown Processing Pipeline
 ```javascript
@@ -172,7 +173,7 @@ Each brain can have:
 ### Key File Sizes for Features
 - **`assets/js/image-modal.js`** (~127 lines): Image modal functionality [SMALL-MEDIUM]
 - **`assets/js/link-popover.js`** (~550 lines): Link preview system [LARGE]
-- **`assets/js/note-opener.js`** (~1453 lines): Note rendering, content loading, code blocks [LARGE]
+- **`assets/js/note-opener.js`** (~1464 lines): Note rendering, content loading, code blocks [LARGE]
 - **`assets/js/mindmap.js`** (~1681 lines): Mindmap generation and controls [LARGE]
 - **`assets/js/encryption.js`** (~399 lines): Encryption management [MEDIUM]
 - **`assets/css/index.css`** (~1294 lines): Main styling including code blocks [LARGE]
