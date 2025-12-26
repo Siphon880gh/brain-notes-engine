@@ -630,8 +630,12 @@ function openNote(id) {
 
             var summaryHTML = md.render(summary);
 
-            // Img src domain with base url:
+            // Img src domain with base url (only for images without a domain):
             summaryHTML = summaryHTML.replace(/\<img src="(.+)"/g, function(match, p1) {
+                // Skip images that already have a protocol (full URLs)
+                if (p1.startsWith('http://') || p1.startsWith('https://')) {
+                    return match;
+                }
                 return '<img src="' + config.imgHostedUrl + p1 + '"';
             });
 
@@ -1349,8 +1353,12 @@ async function renderDecryptedContent(decryptedContent, title, summaryInnerEl, f
     // Render markdown
     var summaryHTML = md.render(processedContent);
 
-    // Fix image URLs
+    // Fix image URLs (only for images without a domain)
     summaryHTML = summaryHTML.replace(/\<img src="(.+)"/g, function(match, p1) {
+        // Skip images that already have a protocol (full URLs)
+        if (p1.startsWith('http://') || p1.startsWith('https://')) {
+            return match;
+        }
         return '<img src="' + (window.config?.imgHostedUrl || '') + p1 + '"';
     });
 

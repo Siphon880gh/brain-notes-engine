@@ -58,7 +58,7 @@ echo json_encode(["res"=>$res, "cmd"=>$cmd, "stdout"=>$stdout]);
 
 ### Image Handling
 - **Automatic Upload**: New local images uploaded to hosted image server
-- **Path Rewriting**: Converts local image paths to hosted URLs
+- **Path Rewriting**: Converts local image paths to hosted URLs (only for images without a domain; full URLs like `https://example.com/image.png` are preserved as-is)
 - **Thumbnail Generation**: Creates optimized thumbnails for faster loading
 - **SEO Optimization**: Optional `<a>` tags for better search engine indexing
 
