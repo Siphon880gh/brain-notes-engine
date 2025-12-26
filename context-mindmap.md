@@ -1,5 +1,7 @@
 # DevBrain - Mindmap System Context
 
+> **Note for AI Tools:** Line references in this file are intentionally approximate (e.g., "near the top," "around lines 100–150"). Exact line numbers are fragile and shift with edits. Use these as navigation hints, then search or read the actual file for precision.
+
 ## Overview
 
 The mindmap system automatically detects specially formatted markdown lists and generates interactive visualizations using Mermaid.js. It provides multiple layout options, zoom controls, and fullscreen viewing capabilities.
@@ -7,7 +9,7 @@ The mindmap system automatically detects specially formatted markdown lists and 
 ## Core Components
 
 ### Detection System
-- **Location**: `assets/js/mindmap.js` (lines 25-35)
+- **Location**: `assets/js/mindmap.js` (near the top, roughly first 5% of file)
 - **Function**: `detectMindmapContent()`
 - **Logic**: Scans `#summary-inner` for images with `1x1.png` in src attribute
 
@@ -22,7 +24,7 @@ function detectMindmapContent() {
 ```
 
 ### List Parsing
-- **Location**: `assets/js/mindmap.js` (lines 37-65)
+- **Location**: `assets/js/mindmap.js` (near the top, roughly 5-10% into file)
 - **Function**: `traverseList()`
 - **Logic**: Recursively parses nested lists, extracting alt text from 1x1.png images
 
@@ -48,7 +50,7 @@ function traverseList(ul) {
 ```
 
 ### Mermaid Generation
-- **Location**: `assets/js/mindmap.js` (lines 85-150)
+- **Location**: `assets/js/mindmap.js` (roughly 10-20% into file)
 - **Functions**: `generateSpiderMermaid()`, `generateTreeMermaid()`, `generateSpreadMermaid()`
 - **Logic**: Converts parsed tree structure to Mermaid syntax
 
@@ -68,7 +70,7 @@ function generateSpiderMermaid(mindmapTree) {
 ## Configuration System
 
 ### Configuration File
-- **Location**: `config-mindmap.json` (5 lines)
+- **Location**: `config-mindmap.json` (~5 lines)
 - **Purpose**: Controls default mindmap layout type
 
 ```json
@@ -81,7 +83,7 @@ function generateSpiderMermaid(mindmapTree) {
 
 ### Layout Types
 - **spider**: Radial layout with central root (default)
-- **spread**: Organic force-based layout with variable node repulsion based on hierarchy level, creating natural clustering and better space distribution
+- **spread**: Organic force-based layout with variable node repulsion based on hierarchy level
 - **tree**: Hierarchical tree flowing top-down
 - **tree-down**: Same as tree (explicit)
 - **tree-right**: Hierarchical tree flowing left-right
@@ -92,31 +94,31 @@ function generateSpiderMermaid(mindmapTree) {
 - **Effect**: Regenerates mindmap if currently displayed
 
 ### Spread Layout Configuration
-- **Location**: `assets/js/mindmap.js` (lines 838-852)
+- **Location**: `assets/js/mindmap.js` (roughly 50% into file)
 - **Purpose**: Organic force-based layout with natural node distribution
 - **Algorithm**: Uses D3.js force simulation with variable repulsion strength
-- **Node Repulsion**: Root nodes have -1500 strength, child nodes have -800 to -900 based on hierarchy level
-- **Collision Detection**: Dynamic collision radius based on text length (minimum 50px + text-based padding)
-- **Centering Forces**: Gentle attraction to viewport center with 0.08 strength for natural clustering
+- **Node Repulsion**: Root nodes have -1500 strength, child nodes have -800 to -900 based on hierarchy
+- **Collision Detection**: Dynamic collision radius based on text length
+- **Centering Forces**: Gentle attraction to viewport center with 0.08 strength
 
 ## UI Components
 
 ### Mindmap Button
-- **Location**: `index.php` (lines 371-373)
-- **CSS**: `assets/css/mindmap.css` (lines 1-20)
+- **Location**: `index.php` (roughly 75% into file)
+- **CSS**: `assets/css/mindmap.css` (near the top)
 - **Behavior**: Appears only when mindmap content detected
 - **Position**: Fixed top-right, green circular button
 
 ### Mindmap Panel
-- **Location**: `index.php` (lines 376-401)
-- **CSS**: `assets/css/mindmap.css` (lines 22-80)
+- **Location**: `index.php` (roughly 75-80% into file)
+- **CSS**: `assets/css/mindmap.css` (roughly 5-20% into file)
 - **Features**: Slide-out panel with cycle type, zoom controls and fullscreen option
 - **Controls**: Cycle type button (left), zoom buttons, fullscreen button
 - **Responsive**: Adapts to mobile screens
 
 ### Fullscreen Modal
-- **Location**: `index.php` (lines 404-425)
-- **CSS**: `assets/css/mindmap.css` (lines 120-180)
+- **Location**: `index.php` (roughly 80-85% into file)
+- **CSS**: `assets/css/mindmap.css` (roughly 25-40% into file)
 - **Features**: Immersive viewing with dedicated controls
 - **Controls**: Cycle type button (left), zoom buttons
 - **Behavior**: Clones current mindmap for fullscreen display
@@ -133,15 +135,13 @@ function generateSpiderMermaid(mindmapTree) {
 - **Function**: `cycleMindmapType()`
 - **Types**: Cycles through spider → spread → tree-down → tree-right → spider
 - **UI**: Cycle button with sync icon in both panel and fullscreen modal
-- **Tooltips**: Dynamic tooltips showing current type (e.g., "Cycle Type (Current: spider)")
-- **Integration**: Works with existing configuration system and regenerates mindmap instantly
+- **Tooltips**: Dynamic tooltips showing current type
 
 ### Drag & Pan
 - **Functions**: `startDrag()`, `drag()`, `endDrag()`
-- **Behavior**: Mouse-based dragging at all zoom levels for better user experience
+- **Behavior**: Mouse-based dragging at all zoom levels
 - **Visual Feedback**: Cursor changes to grab/grabbing with smooth transitions
 - **Context Support**: Works in both mindmap panel and fullscreen modal
-- **User Experience**: Always enabled for intuitive navigation
 
 ### Fullscreen Mode
 - **Function**: `openFullScreenMindmap()`
@@ -151,7 +151,7 @@ function generateSpiderMermaid(mindmapTree) {
 ## Integration Points
 
 ### Note Loading Integration
-- **Location**: `assets/js/note-opener.js` (lines 618-624)
+- **Location**: `assets/js/note-opener.js` (roughly 45% into file)
 - **Trigger**: After markdown content is rendered
 - **Functions**: `initializeMindmapFeature()`, `onMarkdownContentUpdated()`
 
@@ -166,15 +166,14 @@ if (typeof onMarkdownContentUpdated === 'function') {
 ```
 
 ### Event Management
-- **Location**: `assets/js/mindmap.js` (lines 450-500)
+- **Location**: `assets/js/mindmap.js` (roughly 30% into file)
 - **Function**: `setupMindmapEventListeners()`
-- **Events**: Click handlers for cycle type, zoom, fullscreen, keyboard shortcuts, outside clicks
-- **Cycle Button**: Event listeners for both panel and fullscreen cycle type buttons
+- **Events**: Click handlers for cycle type, zoom, fullscreen, keyboard shortcuts
 
 ## Styling System
 
 ### CSS Architecture
-- **File**: `assets/css/mindmap.css` (458 lines)
+- **File**: `assets/css/mindmap.css` (~458 lines)
 - **Components**: Button, panel, fullscreen modal, responsive design
 - **Features**: Smooth animations, hover effects, mobile optimization
 
@@ -238,16 +237,17 @@ if (typeof onMarkdownContentUpdated === 'function') {
 ## File Dependencies
 
 ### Required Files (Line Counts for AI Reference)
-- `assets/js/mindmap.js` (1681 lines) - Core functionality including cycle type system [LARGE - use targeted search]
-- `assets/css/mindmap.css` (458 lines) - Styling [MEDIUM - consider targeted search]
-- `config-mindmap.json` (5 lines) - Configuration [SMALL - read full file]
-- `index.php` (480 lines) - HTML structure and integration [MEDIUM - consider targeted search]
+- `assets/js/mindmap.js` (~1681 lines) - Core functionality [LARGE - use targeted search]
+- `assets/css/mindmap.css` (~458 lines) - Styling [MEDIUM - consider targeted search]
+- `config-mindmap.json` (~5 lines) - Configuration [SMALL - read full file]
+- `index.php` (~480 lines) - HTML structure and integration [MEDIUM - consider targeted search]
 
 ### External Dependencies
 - **Mermaid.js v10.6.1** - Diagram rendering
+- **D3.js v7** - Force-based layout for spread type
 - **Font Awesome 6.4.0** - UI icons
 - **jQuery** - DOM manipulation (existing)
 
 ### Integration Dependencies (Line Counts for AI Reference)
-- `assets/js/note-opener.js` (1361 lines) - Content loading integration [LARGE - use targeted search]
-- `assets/js/index.js` (399 lines) - Main application logic [MEDIUM - consider targeted search]
+- `assets/js/note-opener.js` (~1361 lines) - Content loading integration [LARGE]
+- `assets/js/index.js` (~399 lines) - Main application logic [MEDIUM]

@@ -1,5 +1,7 @@
 # DevBrain - Link Popover Preview System Context
 
+> **Note for AI Tools:** Line references in this file are intentionally approximate (e.g., "near the top," "around lines 100–150"). Exact line numbers are fragile and shift with edits. Use these as navigation hints, then search or read the actual file for precision.
+
 ## Overview
 
 The link popover preview system provides automatic hover previews that display selected excerpts from external links without navigating away from the current page. This feature enhances user experience by allowing quick content previews with smart content extraction based on boundary words.
@@ -12,28 +14,29 @@ The link popover preview system provides automatic hover previews that display s
   - `startWord..endWord` or `startWord...endWord` format for external content extraction
   - `linkText##previewText` format for custom preview text
 - **Location**: Integrated with existing tooltip and modal systems
-- **File**: `assets/js/link-popover.js` (550 lines)
+- **File**: `assets/js/link-popover.js` (~550 lines)
 
 ### Link Preview Features
 - **Popover Display**: Hover or click to show preview in popover with extracted or custom content
 - **Selected Excerpt**: Alt text with ellipsis pattern indicates excerpt range for external content
 - **Custom Preview**: Alt text with `##` delimiter allows defining custom preview text
 - **Responsive Design**: Works on desktop and mobile devices with contextual positioning
-- **CORS Handling**: Uses proxy service (`api.allorigins.win`) to bypass CORS restrictions for external content
+- **CORS Handling**: Uses proxy service (`api.allorigins.win`) to bypass CORS restrictions
 - **Performance**: Caches results to avoid repeated requests
-- **Error Handling**: Graceful fallbacks for failed requests with user-friendly error messages
+- **Error Handling**: Graceful fallbacks for failed requests
 
 ## Implementation Details
 
 ### File Structure (Line Counts for AI Reference)
 ```
 assets/
-├── js/link-popover.js     # Main implementation (550 lines) [LARGE - use targeted search]
-├── css/link-popover.css   # Styling and animations (368 lines) [MEDIUM - consider targeted search]
+├── js/link-popover.js     # Main implementation (~550 lines) [LARGE]
+├── css/link-popover.css   # Styling and animations (~430 lines) [MEDIUM]
 └── 1x2.png               # Marker image file [BINARY]
 ```
 
 ### Core JavaScript Class
+Near the top of `link-popover.js`:
 ```javascript
 class LinkPopoverPreview {
     constructor() {
@@ -50,7 +53,7 @@ class LinkPopoverPreview {
 - **`enhanceLinks()`**: Main function to scan and enhance links with popover previews
 - **`findLinksWithMarkers()`**: Detects links followed by `1x2.png` images
 - **`parseBoundaryWords()`**: Extracts boundary words or custom preview data from image alt text
-- **`fetchContent()`**: Retrieves content via CORS proxy with error handling (for external links)
+- **`fetchContent()`**: Retrieves content via CORS proxy with error handling
 - **`extractContentBetweenWords()`**: Finds and extracts content between boundary words
 - **`showCustomPopover()`**: Shows popover with custom preview text (no external fetching)
 - **`rescan()`**: Re-scans for new links after dynamic content updates
@@ -70,22 +73,20 @@ class LinkPopoverPreview {
 ### Syntax Rules
 - **Link**: Standard markdown link format `[text](url)`
 - **Marker Image**: Immediately after the link, add image with specific alt pattern
-- **External Content**: Use `startWord..endWord` or `startWord...endWord` format for boundary words
-- **Custom Preview**: Use `linkText##previewText` format for custom preview text
+- **External Content**: Use `startWord..endWord` or `startWord...endWord` format
+- **Custom Preview**: Use `linkText##previewText` format for instant preview text
 - **Image File**: Must be named `1x2.png` or contain `1x2` in the filename
 
 ### Examples - External Content Extraction
 ```markdown
 [MDN JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) ![JavaScript...Reference](../1x2.png)
 [GitHub](https://github.com) ![About...Features](../1x2.png)
-[Stack Overflow](https://stackoverflow.com) ![Questions...Answers](../1x2.png)
 ```
 
 ### Examples - Custom Preview Text
 ```markdown
-[Any Link](https://example.com) ![API##Application Programming Interface - a set of protocols and tools](../1x2.png)
+[Any Link](https://example.com) ![API##Application Programming Interface - a set of protocols](../1x2.png)
 [Term](https://example.com) ![CSS##Cascading Style Sheets - used to style web pages](../1x2.png)
-[Concept](https://example.com) ![Machine Learning##AI subset that enables computers to learn from data](../1x2.png)
 ```
 
 ## Integration Points
@@ -139,7 +140,7 @@ window.linkPopoverPreview.rescan();
 
 ## Configuration Options
 
-### Customizable Settings
+Near the middle of the file, configurable settings:
 ```javascript
 // Hover delays (in milliseconds)
 this.hoverTimeout = setTimeout(() => {
@@ -158,34 +159,6 @@ if (excerpt.length > 500) {
 // Proxy service URL
 this.proxyUrl = 'https://api.allorigins.win/get?url=';
 ```
-
-## Browser Support
-
-- **Chrome 60+**: Full support with all features
-- **Firefox 55+**: Full support with all features  
-- **Safari 12+**: Full support with all features
-- **Edge 79+**: Full support with all features
-
-## Security Considerations
-
-- **CORS Proxy**: Uses public proxy service for external content
-- **No Sensitive Data**: No sensitive information transmitted
-- **Client-Side Only**: All processing happens in browser
-- **Content Sanitization**: HTML content parsed and text extracted safely
-
-## Testing and Validation
-
-### Test Files
-- **`test-link-popover.md`**: Sample markdown for testing
-- **`test-popover.html`**: Standalone test page
-- **`LINK_POPOVER_TESTING.md`**: Comprehensive testing guide
-
-### Test Cases
-- **Basic Functionality**: Link detection and popover display
-- **Boundary Word Extraction**: Various alt text patterns
-- **Error Handling**: Network failures and invalid content
-- **Mobile Compatibility**: Touch interactions and responsive design
-- **Performance**: Caching and memory management
 
 ## Custom Preview Feature
 
@@ -211,25 +184,28 @@ The custom preview feature allows you to define any preview text directly in the
 - **Quick Explanations**: Provide context without leaving the page
 - **Educational Content**: Add definitions and explanations
 
-## Future Enhancements
+## Browser Support
 
-### Potential Improvements
-- **Custom Proxy**: Self-hosted proxy service for better control
-- **Content Filtering**: Advanced content extraction and filtering
-- **Analytics**: Usage tracking and performance metrics
-- **Accessibility**: Enhanced screen reader support
-- **Offline Support**: Cached content for offline viewing
+- **Chrome 60+**: Full support with all features
+- **Firefox 55+**: Full support with all features  
+- **Safari 12+**: Full support with all features
+- **Edge 79+**: Full support with all features
+
+## Security Considerations
+
+- **CORS Proxy**: Uses public proxy service for external content
+- **No Sensitive Data**: No sensitive information transmitted
+- **Client-Side Only**: All processing happens in browser
+- **Content Sanitization**: HTML content parsed and text extracted safely
 
 ## Dependencies
 
 ### Required Files
 - **Font Awesome 5.9.0+**: For loading and error icons
 - **Modern Browser**: ES6+ support required
-- **Internet Connection**: For CORS proxy requests
+- **Internet Connection**: For CORS proxy requests (external content only)
 
 ### Integration Dependencies
 - **jQuery**: For DOM manipulation (already included)
 - **Existing Modal System**: Compatible with current modal infrastructure
 - **CSS Framework**: Works with existing Tailwind CSS setup
-
-This link popover system provides a seamless way to preview external content without leaving the current page, enhancing the overall user experience of the DevBrain knowledge management system.

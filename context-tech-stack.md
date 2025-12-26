@@ -1,27 +1,26 @@
 # DevBrain - Technical Stack & Implementation
 
+> **Note for AI Tools:** Line references in this file are intentionally approximate (e.g., "near the top," "around lines 100–150"). Exact line numbers are fragile and shift with edits. Use these as navigation hints, then search or read the actual file for precision.
+
 ## Backend Technologies
 
-### PHP Backend (`index.php` - 480 lines)
+### PHP Backend (`index.php` - ~480 lines)
 - **Server-Side Rendering**: Main application entry point
 - **Environment Management**: Dynamic configuration loading
 - **Error Handling**: Comprehensive error reporting and debugging
 - **Session Management**: User state and interaction tracking
 
-### Encryption Backend (`decrypt-age.php` - 1411 lines)
+### Encryption Backend (`decrypt-age.php` - ~1411 lines)
 - **AGE Decryption**: Handles AGE-encrypted content decryption
 - **Re-encryption**: Converts AGE to AES-256-CBC for client-side handling
 - **Fallback Support**: Works with or without AGE binary installed
-- **Security**: Secure password handling and content processing
-- **CORS Support**: Handles cross-origin requests for web integration
 - **Node.js Integration**: ES module support for age-encryption package (v0.2.4)
 - **Configuration Bypass**: Optional bypass of age binary to use Node.js as primary method
 
-### Search Engine (`search.php` - 21 lines)
+### Search Engine (`search.php` - ~21 lines)
 - **PCRE Integration**: Perl Compatible Regular Expressions via `pcregrep`
 - **File System Search**: Recursive directory scanning with exclusions
 - **JSON API**: RESTful search endpoint returning structured results
-- **Performance Optimization**: Efficient regex patterns and file filtering
 
 ## Frontend Technologies
 
@@ -37,8 +36,7 @@
 - **Tailwind CSS**: Utility-first styling framework
 - **FontAwesome**: Icon library for UI elements
 - **Highlight.js**: Syntax highlighting for code blocks
-- **Custom CSS**: Project-specific styling and animations
-- **Encryption CSS**: Password dialog and encryption UI styling
+- **Custom CSS**: Project-specific styling and animations (~2700 lines total)
 
 ### Markdown Processing
 - **MarkdownIt**: Core markdown parsing and rendering
@@ -98,7 +96,6 @@
 - **AI Services**: ChatGPT integration for content assistance
 - **CORS Proxy**: `api.allorigins.win` for link preview content extraction
 - **AGE Encryption**: Command-line encryption tool for secure note storage
-- **Analytics**: Optional tracking and usage statistics
 
 ## Development Tools
 
@@ -173,7 +170,6 @@
 - **PCRE Support**: Server-side validation of search capabilities
 - **File API**: Client-side file handling where supported
 - **CSS Grid/Flexbox**: Modern layout techniques with fallbacks
-- **Web APIs**: Optional features with graceful degradation
 - **MutationObserver**: For dynamic content detection (image modals, link previews)
 - **CSS `:has()` Selector**: Modern CSS feature for hiding placeholder images
 - **Node.js ES Modules**: Dynamic import support for age-encryption package (Node.js v14+)

@@ -1,5 +1,7 @@
 # DevBrain Encryption System Context
 
+> **Note for AI Tools:** Line references in this file are intentionally approximate (e.g., "near the top," "around lines 100–150"). Exact line numbers are fragile and shift with edits. Use these as navigation hints, then search or read the actual file for precision.
+
 ## Overview
 
 DevBrain implements a robust AGE encryption system with Node.js fallback to handle password-protected notes seamlessly across different server environments. The system provides transparent encryption/decryption with full feature support for all DevBrain capabilities.
@@ -12,13 +14,13 @@ AGE Encrypted Content → PHP Backend → AES-256-CBC → JavaScript Client → 
 ```
 
 ### Backend Components
-- **`decrypt-age.php`** (1411 lines): Main encryption handler with dual decryption methods
-- **`decrypt-age-node.js`** (353 lines): Node.js AGE decryption script using `age-encryption` npm package (v0.2.4)
-- **`find-nodejs-path.php`** (142 lines): Helper script for Node.js path detection and configuration
+- **`decrypt-age.php`** (~1411 lines): Main encryption handler with dual decryption methods
+- **`decrypt-age-node.js`** (~352 lines): Node.js AGE decryption script using `age-encryption` npm package (v0.2.4)
+- **`find-nodejs-path.php`** (~141 lines): Helper script for Node.js path detection and configuration
 
 ### Frontend Components
-- **`assets/js/encryption.js`** (399 lines): Client-side encryption management with console logging
-- **`assets/css/encryption.css`**: Password dialog styling and modal appearance
+- **`assets/js/encryption.js`** (~399 lines): Client-side encryption management with console logging
+- **`assets/css/encryption.css`** (~290 lines): Password dialog styling and modal appearance
 
 ## Decryption Methods
 
@@ -31,7 +33,6 @@ AGE Encrypted Content → PHP Backend → AES-256-CBC → JavaScript Client → 
 - Uses `age-encryption` npm package (v0.2.4, already in `package.json`)
 - Works in all environments including nginx/PHP-FPM
 - Automatically triggered when age binary fails
-- Handles TTY issues and non-interactive environments
 - ES module support for Node.js v14+ with dynamic import
 - Can be configured as primary method via `bypassAgeBinary` setting
 
@@ -44,9 +45,7 @@ AGE Encrypted Content → PHP Backend → AES-256-CBC → JavaScript Client → 
     "appendSystemPath": [
       "/usr/local/bin",
       "/opt/homebrew/bin",
-      "/usr/bin",
-      "/bin",
-      "/opt/homebrew/bin/age"
+      "/usr/bin"
     ],
     "bypassAgeBinary": true
   },
@@ -54,9 +53,7 @@ AGE Encrypted Content → PHP Backend → AES-256-CBC → JavaScript Client → 
     "appendSystemPath": [
       "/Users/wengffung/.nvm/versions/node/v22.7.0/bin",
       "/usr/local/bin",
-      "/opt/homebrew/bin",
-      "/usr/bin",
-      "/bin"
+      "/opt/homebrew/bin"
     ]
   }
 }
@@ -68,26 +65,22 @@ AGE Encrypted Content → PHP Backend → AES-256-CBC → JavaScript Client → 
 3. Automatic detection - no manual binary path needed
 
 ### Configuration Options
-- **`bypassAgeBinary`**: Set to `true` to use Node.js as primary method instead of age binary
+- **`bypassAgeBinary`**: Set to `true` to use Node.js as primary method
 - **`appendSystemPath`**: Array of paths to search for Node.js and age binaries
-- **Automatic Fallback**: System automatically falls back to Node.js if age binary fails
 
 ## Key Features
 
 ### Robust Fallback Support
 - **TTY Issue Resolution**: Handles nginx/PHP-FPM environments where age binary requires TTY
-- **Automatic Detection**: Smart Node.js path detection using system commands and configurable paths
+- **Automatic Detection**: Smart Node.js path detection using system commands
 - **Error Handling**: Comprehensive error messages with troubleshooting guidance
 
 ### Console Logging
 - **Browser Console**: Shows which decryption method was used
-- **Server Logs**: PHP error_log statements for debugging
 - **Method Indicators**:
   - `🔧 AGE Decryption: Using Age Binary`
   - `⚠️ AGE Decryption: Using Node.js (Fallback)`
   - `🔧 AGE Decryption: Using Node.js (Primary)`
-- **Debug Information**: Comprehensive logging of decryption process, Node.js version detection, and error details
-- **Error Context**: Enhanced error messages with troubleshooting guidance for common issues
 
 ### Security Features
 - **PBKDF2 Key Derivation**: Secure password-based key generation
@@ -98,77 +91,47 @@ AGE Encrypted Content → PHP Backend → AES-256-CBC → JavaScript Client → 
 ## Implementation Details
 
 ### PHP Backend (`decrypt-age.php`)
+Located near the middle of the file, the main decryption function implements fallback logic:
 ```php
 // Main decryption function with fallback logic
 function decryptAge($ageContent, $password) {
-    // Try age binary first
-    if ($ageAvailable) {
-        try {
-            return decryptAgeWithBinary($ageContent, $password);
-        } catch (Exception $e) {
-            // Fallback to Node.js
-            return decryptAgeWithNodeJS($ageContent, $password);
-        }
-    } else {
-        // Use Node.js as primary method
-        return decryptAgeWithNodeJS($ageContent, $password);
-    }
+    // Try age binary first (if not bypassed)
+    // Fallback to Node.js on failure
 }
 ```
 
 ### Node.js Script (`decrypt-age-node.js`)
+Near the top of the file, ES module import for age-encryption:
 ```javascript
 // ES module import for age-encryption package (Node.js v14+)
 const age = await import('age-encryption');
 const decrypter = new age.Decrypter();
 decrypter.addPassphrase(password);
-
-// Handle both armored and unarmored content
-let binaryData;
-if (armored.includes('-----BEGIN AGE ENCRYPTED FILE-----')) {
-    binaryData = age.armor.decode(armored);
-} else {
-    // Handle unarmored content with manual base64 decoding
-    const cleanPayload = armored.replace(/\s+/g, '');
-    const binaryString = atob(cleanPayload);
-    binaryData = new Uint8Array(binaryString.length);
-    for (let i = 0; i < binaryString.length; i++) {
-        binaryData[i] = binaryString.charCodeAt(i);
-    }
-}
-
-const decrypted = await decrypter.decrypt(binaryData, "text");
 ```
 
 ### Frontend Integration (`assets/js/encryption.js`)
+Near the bottom third of the file, console logging for decryption method:
 ```javascript
 // Console logging for decryption method
 if (result.decryption_method) {
-    const methodEmoji = {
-        'age_binary': '🔧',
-        'nodejs_fallback': '⚠️',
-        'nodejs_primary': '🔧'
-    };
     console.log(`${emoji} AGE Decryption: Using ${name}`);
 }
 ```
 
 ## File Sizes for AI Reference
-- `decrypt-age.php`: 1411 lines (large - use targeted search)
-- `assets/js/encryption.js`: 399 lines (medium - consider targeted search)
-- `decrypt-age-node.js`: 353 lines (medium - consider targeted search)
-- `find-nodejs-path.php`: 142 lines (small-medium - read full file)
+- `decrypt-age.php`: ~1411 lines (large - use targeted search)
+- `assets/js/encryption.js`: ~399 lines (medium - consider targeted search)
+- `decrypt-age-node.js`: ~352 lines (medium - consider targeted search)
+- `find-nodejs-path.php`: ~141 lines (small-medium - read full file)
+- `assets/css/encryption.css`: ~290 lines (medium - consider targeted search)
 
 ## Troubleshooting
 
 ### Common Issues
 1. **"Node.js not found"**: Run `php find-nodejs-path.php` to detect paths
 2. **"age-encryption package not found"**: Run `npm install age-encryption`
-3. **"Cannot find module"**: Ensure Node.js and npm are properly installed
-4. **TTY errors**: Normal behavior - system automatically falls back to Node.js
-5. **"Node.js version too old"**: Upgrade to Node.js v14+ for ES module support
-6. **"Invalid base64 characters"**: Check for line breaks or invalid characters in AGE content
-7. **"AGE content truncated"**: Ensure full AGE file was transmitted (check for missing final stanza)
+3. **TTY errors**: Normal behavior - system automatically falls back to Node.js
+4. **"Node.js version too old"**: Upgrade to Node.js v14+ for ES module support
 
 ### Configuration Helper
 ```bash
@@ -197,5 +160,3 @@ node decrypt-age-node.js "$(cat encryption-test.md)" "password"
 - **Temporary Caching**: Decrypted content cached in session only
 - **Security**: No persistent storage of sensitive data
 - **Performance**: Avoids re-decryption during session
-
-This encryption system provides enterprise-grade security while maintaining the seamless user experience that DevBrain is known for, with robust fallback mechanisms ensuring compatibility across all server environments.

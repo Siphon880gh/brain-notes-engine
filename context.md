@@ -1,5 +1,7 @@
 # DevBrain - Notes Brain Engine Context
 
+> **Note for AI Tools:** Line references in this file are intentionally approximate (e.g., "near the top," "around lines 100–150"). Exact line numbers are fragile and shift with edits. Use these as navigation hints, then search or read the actual file for precision.
+
 ## Project Overview
 
 **DevBrain** is a powerful knowledge management and publishing engine that transforms Markdown notes into an interactive, searchable web application. It's designed to handle thousands of notes across various topics (coding, 3D modeling, business, health) with features like full-text search, hierarchical organization, AI-assisted content generation, interactive mindmap visualization, link preview popovers, and click-to-expand image modals.
@@ -15,36 +17,36 @@
 ## Tech Stack
 
 ### Backend (PHP)
-- **`index.php`** (480 lines): Main application entry point with HTML structure, modal system, and template integration
-- **`search.php`** (21 lines): PCRE-based full-text search endpoint using `pcregrep`
-- **`decrypt-age.php`** (1411 lines): AGE encryption/decryption handler with Node.js fallback, robust TTY detection, and AES-256-CBC re-encryption for client-side compatibility
-- **`decrypt-age-node.js`** (353 lines): Node.js AGE decryption script using `age-encryption` npm package with ES module support
-- **`find-nodejs-path.php`** (142 lines): Node.js path detection helper for configuration
+- **`index.php`** (~480 lines): Main application entry point with HTML structure, modal system, and template integration
+- **`search.php`** (~21 lines): PCRE-based full-text search endpoint using `pcregrep`
+- **`decrypt-age.php`** (~1411 lines): AGE encryption/decryption handler with Node.js fallback, robust TTY detection, and AES-256-CBC re-encryption
+- **`decrypt-age-node.js`** (~352 lines): Node.js AGE decryption script using `age-encryption` npm package with ES module support
+- **`find-nodejs-path.php`** (~141 lines): Node.js path detection helper for configuration
 - **Template System**: Multi-brain configuration support in `env/templates-*/`
 
 ### Frontend (JavaScript + CSS)
-- **`assets/js/mindmap.js`** (1681 lines): Interactive mindmap generation with Mermaid.js, zoom/pan controls, layout cycling
-- **`assets/js/link-popover.js`** (550 lines): Link preview system with CORS proxy and content extraction
-- **`assets/js/note-opener.js`** (1361 lines): Markdown rendering, note display, and content loading
-- **`assets/js/index.js`** (399 lines): Main UI logic, navigation, and interaction handling
-- **`assets/js/searchers.js`** (363 lines): Search functionality and result display
-- **`assets/js/image-modal.js`** (128 lines): Image viewing modal functionality with click-to-expand
-- **`assets/js/encryption.js`** (399 lines): AGE encryption/decryption functionality with client-side AES-256-CBC support and browser console logging
-- **CSS Framework**: Tailwind CSS, FontAwesome icons, custom styling (9 CSS files)
+- **`assets/js/mindmap.js`** (~1681 lines): Interactive mindmap generation with Mermaid.js, zoom/pan controls, layout cycling
+- **`assets/js/link-popover.js`** (~550 lines): Link preview system with CORS proxy and content extraction
+- **`assets/js/note-opener.js`** (~1453 lines): Markdown rendering, note display, content loading, and code block enhancement
+- **`assets/js/index.js`** (~399 lines): Main UI logic, navigation, and interaction handling
+- **`assets/js/searchers.js`** (~398 lines): Search functionality and result display
+- **`assets/js/image-modal.js`** (~127 lines): Image viewing modal functionality with click-to-expand
+- **`assets/js/encryption.js`** (~399 lines): AGE encryption/decryption functionality with client-side AES-256-CBC
+- **CSS Framework**: Tailwind CSS, FontAwesome icons, custom styling (9 CSS files, ~2700 lines total)
 
 ### Build System (Node.js)
-- **`cache_data.js`** (153 lines): Scans curriculum directory, builds hierarchical file tree
-- **`cache_render.js`** (226 lines): Generates PHP partials from cached data using EJS templates
+- **`cache_data.js`** (~153 lines): Scans curriculum directory, builds hierarchical file tree
+- **`cache_render.js`** (~226 lines): Generates PHP partials from cached data using EJS templates
 - **Package Scripts**: Build commands for different brain variants (devbrain, 3dbrain, etc.)
 
 ### External Dependencies
 - **Mermaid.js v10.6.1**: Interactive diagram rendering for mindmaps
+- **D3.js v7**: Force-based layout for spread mindmap type
 - **jQuery + jQuery UI**: DOM manipulation and UI components
 - **MarkdownIt**: Markdown parsing with LaTeX support
 - **Highlight.js**: Syntax highlighting for code blocks
 - **AGE Encryption**: Command-line encryption tool with Node.js fallback using `age-encryption` npm package (v0.2.4)
 - **Web Crypto API**: Client-side AES-256-CBC encryption with PBKDF2 key derivation
-- **Node.js ES Modules**: Dynamic import support for age-encryption package (Node.js v14+)
 
 ## Architecture
 
@@ -71,33 +73,32 @@ env/templates-{devbrain,3dbrain,bizbrain,healthbrain}/
 ### File Structure (Key Components)
 ```
 devbrain/
-├── index.php                 # Main app (480 lines)
-├── search.php               # Search endpoint (21 lines)
-├── decrypt-age.php          # AGE encryption handler with Node.js fallback (1411 lines)
-├── decrypt-age-node.js      # Node.js AGE decryption script (353 lines, ES module)
-├── find-nodejs-path.php     # Node.js path detection helper (142 lines)
-├── cache_data.js            # File tree builder (153 lines)
-├── cache_render.js          # HTML generator (226 lines)
-├── config-mindmap.json      # Mindmap configuration (5 lines)
-├── config.json              # Image hosting & Node.js configuration (22 lines)
+├── index.php                 # Main app (~480 lines)
+├── search.php               # Search endpoint (~21 lines)
+├── decrypt-age.php          # AGE encryption handler (~1411 lines)
+├── decrypt-age-node.js      # Node.js AGE decryption (~352 lines)
+├── find-nodejs-path.php     # Node.js path detection (~141 lines)
+├── cache_data.js            # File tree builder (~153 lines)
+├── cache_render.js          # HTML generator (~226 lines)
+├── config-mindmap.json      # Mindmap configuration (~5 lines)
+├── config.json              # Image hosting & Node.js configuration (~21 lines)
 ├── 1x2.png                  # Link popover marker image
 ├── assets/
-│   ├── css/                 # Styling (9 files, ~2400+ total lines)
-│   │   ├── mindmap.css      # Mindmap styling (458 lines)
-│   │   ├── link-popover.css # Link popover styling (368 lines)
-│   │   ├── index.css        # Main application styling (1205 lines)
-│   │   └── encryption.css   # Encryption styling
-│   └── js/                  # Frontend logic (12 files, ~6000+ total lines)
-│       ├── mindmap.js       # Mindmap system (1681 lines)
-│       ├── link-popover.js  # Link preview system (550 lines)
-│       ├── note-opener.js   # Note loading/rendering (1361 lines)
-│       ├── index.js         # Main UI logic (399 lines)
-│       ├── searchers.js     # Search functionality (363 lines)
-│       ├── image-modal.js   # Image modal functionality (128 lines)
-│       ├── encryption.js    # AGE encryption/decryption functionality with console logging (399 lines)
-
-│       ├── game.js          # Game mode functionality (600 lines)
-│       └── modal.js         # Modal system management (27 lines)
+│   ├── css/                 # Styling (9 files, ~2800 lines total)
+│   │   ├── mindmap.css      # Mindmap styling (~458 lines)
+│   │   ├── link-popover.css # Link popover styling (~430 lines)
+│   │   ├── index.css        # Main styling + code blocks (~1294 lines)
+│   │   └── encryption.css   # Encryption styling (~290 lines)
+│   └── js/                  # Frontend logic (10 files, ~5900 lines total)
+│       ├── mindmap.js       # Mindmap system (~1681 lines)
+│       ├── link-popover.js  # Link preview system (~550 lines)
+│       ├── note-opener.js   # Note loading/rendering + code blocks (~1453 lines)
+│       ├── index.js         # Main UI logic (~399 lines)
+│       ├── searchers.js     # Search functionality (~398 lines)
+│       ├── image-modal.js   # Image modal functionality (~127 lines)
+│       ├── encryption.js    # AGE encryption/decryption (~399 lines)
+│       ├── game.js          # Game mode functionality (~600 lines)
+│       └── modal.js         # Modal system management (~27 lines)
 ├── env/                     # Multi-brain templates and configuration
 ├── curriculum/              # Markdown notes (separate repository)
 └── future-*/               # Planned features (game modes, progress tracking)
@@ -136,7 +137,7 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 - **Mindmaps**: Detect `1x1.png` in lists → parse structure → generate Mermaid → render with controls
 - **Link Previews**: Detect `1x2.png` markers → parse boundary words → fetch via CORS proxy → display popover
 - **Search**: User input → PCRE query → highlight results → navigate to content
-- **Encryption**: Detect AGE blocks → prompt for password → decrypt via PHP backend (age binary or Node.js fallback) → re-encrypt with AES → client-side decryption → render content with console logging
+- **Encryption**: Detect AGE blocks → prompt for password → decrypt via PHP backend → re-encrypt with AES → client-side decryption → render content
 
 ## Key Features Implementation
 
@@ -158,7 +159,6 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 - **Custom Preview Text**: Uses `##` delimiter for instant custom previews
 - **CORS Handling**: Uses `api.allorigins.win` proxy for external content
 - **Caching**: Results cached to avoid repeated requests
-- **Responsive**: Desktop hover + mobile touch with contextual positioning
 
 **Markdown Syntax:**
 ```markdown
@@ -170,8 +170,15 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 - **Click-to-Expand**: Images in notes open in fullscreen modal on click
 - **Keyboard Support**: ESC key to close, smooth animations
 - **Dynamic Detection**: Automatically attaches to new images when notes load
-- **Event Management**: Prevents conflicts with other interactive elements
-- **File**: `assets/js/image-modal.js` (128 lines) - Small-medium file, read full for complete understanding
+- **File**: `assets/js/image-modal.js` (~127 lines) - Small file, read full for complete understanding
+
+### Code Snippet Enhancement
+- **Line Numbers**: Automatic line number gutter on the left side of all code blocks
+- **Copy Button**: Custom one-click copy with visual feedback (Copied! with checkmark)
+- **Syntax Highlighting**: Language-aware syntax highlighting with Highlight.js
+- **Dark Theme**: Modern dark theme styling (#2d2d2d background)
+- **No Language Label**: Clean UI without potentially incorrect language labels
+- **Implementation**: `addLineNumbersToCodeBlocks()` function in `note-opener.js` (near middle of file)
 
 ### Enhanced Markdown Support
 - **Internal Links**: `[[Topic Title]]` for navigation between notes
@@ -181,24 +188,15 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 
 ### AI Integration
 - **"Ask Folder" Feature**: AI can analyze entire folder contents for context-aware assistance
-- **Content Generation**: AI-assisted note creation and improvement while preserving markdown formatting
+- **Content Generation**: AI-assisted note creation and improvement
 - **Large Prompt Handling**: Manages prompts too large for direct API calls
-- **ChatGPT Integration**: Seamless connection to external AI services with fallback for large prompts
+- **ChatGPT Integration**: Seamless connection to external AI services
 
 ### Encryption System
 - **AGE Format Support**: Detects and handles AGE-encrypted content in markdown files
-- **Password-Protected Notes**: Secure password entry modal with error handling
 - **Hybrid Encryption**: AGE → PHP backend → AES-256-CBC → JavaScript client → rendered content
-- **Seamless Integration**: Encrypted content renders exactly like regular notes after decryption
-- **Full Feature Support**: Decrypted content supports all DevBrain features (mindmaps, link previews, TOC, etc.)
-- **Robust Fallback Support**: Primary age binary with Node.js fallback using `age-encryption` npm package (v0.2.4)
-- **TTY Issue Resolution**: Handles nginx/PHP-FPM environments where age binary requires TTY
-- **Automatic Detection**: Smart Node.js path detection using `which node` and configurable system paths
-- **Console Logging**: Browser console shows which decryption method was used (age binary vs Node.js fallback)
-- **Session Caching**: Decrypted content cached for session duration only
-- **Security**: Uses PBKDF2 key derivation and AES-256-CBC encryption for client-side handling
-- **ES Module Support**: Node.js v14+ dynamic import support for age-encryption package
-- **Configuration Bypass**: Optional bypass of age binary to use Node.js as primary method
+- **Robust Fallback**: Primary age binary with Node.js fallback using `age-encryption` npm package
+- **Console Logging**: Browser console shows which decryption method was used
 
 ## Development Workflow
 
@@ -207,12 +205,6 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 2. **Build Process**: Run `npm run build-devbrain` (or other brain variant)
 3. **Testing**: Local server serves content with live reloading
 4. **Feature Development**: Modify JavaScript/CSS, test with sample content
-
-### Deployment Pipeline  
-1. **Content Push**: `git push` curriculum changes to repository
-2. **Deploy Script**: `npm run deploy` triggers remote server update
-3. **Server Pipeline**: Remote PHP script pulls changes and rebuilds cache
-4. **Live Update**: New content immediately available on production
 
 ### Build Scripts
 ```bash
@@ -228,22 +220,21 @@ npm run build-healthbrain # Health notes variant
 - **Lazy Loading**: Notes loaded on-demand via AJAX to reduce initial page load
 - **Search Optimization**: Efficient PCRE patterns with file exclusions (git, node_modules, binaries)
 - **Image Optimization**: Automatic thumbnail generation and hosted image serving
-- **Memory Management**: Efficient data structures for handling thousands of notes
 
 ## Detailed Documentation
 
 For comprehensive implementation details, see specialized context files:
 
-- **[context-architecture.md](./context-architecture.md)** (126 lines) - System architecture, caching pipeline, build process, multi-brain template system
-- **[context-features.md](./context-features.md)** (157 lines) - Enhanced markdown, search capabilities, publishing pipeline, UI features, AI integration
-- **[context-tech-stack.md](./context-tech-stack.md)** (161 lines) - Backend/frontend technologies, build system, external integrations, security considerations
-- **[context-mindmap.md](./context-mindmap.md)** (253 lines) - Mindmap system implementation, detection, generation, interactive controls, configuration
-- **[context-link-preview.md](./context-link-preview.md)** (234 lines) - Link preview system with popover excerpts, CORS handling, content extraction
-- **[context-encryption.md](./context-encryption.md)** (180 lines) - AGE encryption system with Node.js fallback, TTY resolution, console logging, and security features
+- **[context-architecture.md](./context-architecture.md)** (~130 lines) - System architecture, caching pipeline, build process
+- **[context-features.md](./context-features.md)** (~175 lines) - Enhanced markdown, search, UI features, AI integration
+- **[context-tech-stack.md](./context-tech-stack.md)** (~180 lines) - Backend/frontend technologies, build system, security
+- **[context-mindmap.md](./context-mindmap.md)** (~255 lines) - Mindmap system implementation, detection, generation
+- **[context-link-preview.md](./context-link-preview.md)** (~235 lines) - Link preview system with popover excerpts
+- **[context-encryption.md](./context-encryption.md)** (~200 lines) - AGE encryption system with Node.js fallback
 
 ## Quick Reference for AI Code Generation
 
-**Refer to README.md for high-level context; details are in specialized context files.**
+**Refer to context.md for high-level context; details are in specialized context files.**
 
 ### When to Read Full Files vs Targeted Search:
 - **Small files (<100 lines)**: Read entire file (config files, simple scripts)
@@ -251,28 +242,17 @@ For comprehensive implementation details, see specialized context files:
 - **Large files (500+ lines)**: Use targeted search unless full understanding needed
 
 ### Key File Sizes for Reference:
-- `index.php`: 480 lines (medium - consider targeted search)
-- `decrypt-age.php`: 1411 lines (large - use targeted search)
-- `decrypt-age-node.js`: 353 lines (medium - consider targeted search)
-- `find-nodejs-path.php`: 142 lines (small-medium - read full file)
-- `assets/js/mindmap.js`: 1681 lines (large - use targeted search)
-- `assets/css/mindmap.css`: 458 lines (medium - consider targeted search)
-- `assets/js/link-popover.js`: 550 lines (large - use targeted search)
-- `assets/js/note-opener.js`: 1361 lines (large - use targeted search)
-- `assets/js/index.js`: 399 lines (medium - consider targeted search)
-- `assets/js/searchers.js`: 363 lines (medium - consider targeted search)
-- `assets/js/encryption.js`: 399 lines (medium - consider targeted search)
-- `assets/js/image-modal.js`: 128 lines (small-medium - read full file)
-- `assets/js/game.js`: 600 lines (large - use targeted search)
+- `index.php`: ~480 lines (medium - consider targeted search)
+- `decrypt-age.php`: ~1411 lines (large - use targeted search)
+- `decrypt-age-node.js`: ~352 lines (medium - consider targeted search)
+- `find-nodejs-path.php`: ~141 lines (small-medium - read full file)
+- `assets/js/mindmap.js`: ~1681 lines (large - use targeted search)
+- `assets/js/link-popover.js`: ~550 lines (large - use targeted search)
+- `assets/js/note-opener.js`: ~1453 lines (large - use targeted search)
+- `assets/js/index.js`: ~399 lines (medium - consider targeted search)
+- `assets/js/searchers.js`: ~398 lines (medium - consider targeted search)
+- `assets/js/encryption.js`: ~399 lines (medium - consider targeted search)
+- `assets/js/image-modal.js`: ~127 lines (small-medium - read full file)
 - Configuration files: <50 lines each (small - read full files)
 
-This architecture enables efficient handling of thousands of notes while providing a rich, interactive experience for knowledge discovery, learning, and content management. The modular design supports easy feature extension and multiple knowledge domain deployments.
-
-## AI Context Optimization
-
-- **Total Documentation**: ~1350 lines across 7 focused files optimized for AI context windows
-- **Main Overview**: This file (context.md) provides complete high-level understanding (260 lines)
-- **Feature-Specific**: 6 specialized files for deep implementation details
-- **Efficient Loading**: Each context file under 260 lines for optimal token usage
-- **Code Generation Ready**: Includes file sizes, syntax examples, and implementation patterns
-- **Recent Updates**: Enhanced encryption system with robust Node.js fallback, ES module support, configuration bypass options, and comprehensive console logging for debugging
+This architecture enables efficient handling of thousands of notes while providing a rich, interactive experience for knowledge discovery and content management. The modular design supports easy feature extension and multiple knowledge domain deployments.

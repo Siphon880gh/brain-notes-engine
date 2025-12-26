@@ -144,11 +144,102 @@ body {
   border-color: white;
 }
 
-#summary-inner pre {
+/* Code Block Wrapper - contains line numbers and code */
+.code-block-wrapper {
+  display: flex;
+  position: relative;
+  margin: 10px;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #2d2d2d;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Line Numbers Gutter */
+.line-numbers-gutter {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0;
+  background-color: #1e1e1e;
+  border-right: 1px solid #404040;
+  user-select: none;
+  text-align: right;
+  min-width: 40px;
+}
+
+.line-numbers-gutter .line-number {
+  display: block;
+  padding: 0 10px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #6e7681;
+}
+
+/* Pre element inside wrapper */
+.code-block-wrapper pre {
+  flex: 1;
+  margin: 0 !important;
+  padding: 12px 15px !important;
+  overflow-x: auto;
+  background-color: #2d2d2d !important;
+}
+
+.code-block-wrapper pre code {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre;
+}
+
+/* Standalone pre elements (not wrapped yet or in other contexts) */
+#summary-inner pre:not(.code-block-wrapper pre) {
   white-space: break-spaces;
   color: white;
-  background-color: #969696;
+  background-color: #2d2d2d;
   margin: 10px;
+  padding: 12px 15px;
+  border-radius: 6px;
+}
+
+/* Custom Copy Button Styling */
+.code-copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  z-index: 10;
+  opacity: 0.8;
+}
+
+.code-copy-btn:hover {
+  background: #2563eb;
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+.code-copy-btn:active {
+  transform: scale(0.98);
+}
+
+.code-copy-btn.copied {
+  background: #10b981;
+  opacity: 1;
+}
+
+.code-copy-btn i {
+  font-size: 12px;
 }
 
 #summary-inner img {

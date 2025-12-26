@@ -1,16 +1,18 @@
 # DevBrain - Features & Functionality
 
+> **Note for AI Tools:** Line references in this file are intentionally approximate (e.g., "near the top," "around lines 100–150"). Exact line numbers are fragile and shift with edits. Use these as navigation hints, then search or read the actual file for precision.
+
 ## Enhanced Markdown Support
 
 ### Obsidian-Style Features
 - **Internal Links**: `[[Topic Title]]` creates internal navigation between notes
 - **Collapsible Sections**: `> [!note] HEADING` syntax creates expandable content blocks
-- **Math Equations**: KaTeX/LaTeX support with `$E = mc^2$` and `@(1/2[1-(1/2)^n])/(1-(1/2))=s_n@` syntax
+- **Math Equations**: KaTeX/LaTeX support with `$E = mc^2$` syntax
 - **Heading Indentation**: Visual hierarchy with `<<<` reset markers for content organization
 
 ### Markdown Processing Pipeline
 ```javascript
-// From note-opener.js - markdown rendering flow
+// From note-opener.js - markdown rendering flow (near middle of file)
 // 1. Fetch markdown content via AJAX
 // 2. Process with MarkdownIt + LaTeX support
 // 3. Handle image path rewriting for hosted images
@@ -27,7 +29,7 @@
 
 ### Search Implementation
 ```php
-// From search.php - search execution
+// From search.php - search execution (entire file is ~21 lines)
 $cmd = $pcregrep . ' -ri --exclude-dir=.git --exclude-dir=node_modules "' . $search . '" "' . $DIR_SNIPPETS . '"';
 $res = [];
 $stdout = exec($cmd, $res);
@@ -60,13 +62,23 @@ echo json_encode(["res"=>$res, "cmd"=>$cmd, "stdout"=>$stdout]);
 - **Image Modal**: Click-to-expand fullscreen image viewing with keyboard support
 - **Tooltip System**: Contextual help and information
 - **Responsive Design**: Mobile-friendly interface with Tailwind CSS
-- **Keyboard Shortcuts**: Efficient navigation and interaction
 
 ### Image Enhancement Features
 - **Click-to-Expand**: All images in notes can be clicked to open in fullscreen modal
 - **Keyboard Navigation**: ESC key to close modals, smooth fade animations
 - **Dynamic Detection**: Automatically attaches modal functionality to new images when content loads
-- **Event Management**: Prevents modal triggers from interfering with other interactive elements like buttons
+- **Event Management**: Prevents modal triggers from interfering with other interactive elements
+
+### Code Snippet Enhancement
+- **Line Numbers**: Automatic line number gutter on the left side of all code blocks
+- **Copy Button**: Custom copy button with "Copied!" feedback and checkmark animation
+- **Syntax Highlighting**: Language-aware syntax highlighting with Highlight.js
+- **Dark Theme**: Modern dark theme styling (#2d2d2d background) for improved readability
+- **No Language Label**: Clean UI without language labels (which can be incorrect)
+- **Clipboard API**: Uses modern `navigator.clipboard` with fallback for older browsers
+- **Responsive**: Horizontal scroll for long lines while maintaining line number alignment
+- **Implementation**: Located in `note-opener.js` function `addLineNumbersToCodeBlocks()` (near middle of file)
+- **CSS Styling**: Code block styles in `index.css` under `.code-block-wrapper` and `.code-copy-btn` sections
 
 ## AI Integration
 
@@ -91,11 +103,10 @@ echo json_encode(["res"=>$res, "cmd"=>$cmd, "stdout"=>$stdout]);
 - **Fallback Support**: Works with or without the `age` binary installed
 
 ### Encryption Architecture
-- **Backend Decryption**: `decrypt-age.php` (1411 lines) handles AGE decryption and re-encryption with AES-256-CBC
+- **Backend Decryption**: `decrypt-age.php` (~1411 lines) handles AGE decryption and re-encryption with AES-256-CBC
 - **Client-Side Decryption**: JavaScript handles AES-256-CBC decryption with PBKDF2 key derivation
 - **Security Flow**: AGE → PHP backend → AES-256-CBC → JavaScript client → rendered content
 - **Caching**: Decrypted content cached for session duration only
-- **File**: `assets/js/encryption.js` (399 lines) - Medium file, consider targeted search for specific functions
 
 ## Sharing & Collaboration
 
@@ -137,7 +148,6 @@ Each brain can have:
 - **Mastery Tracking**: Progress monitoring for concepts
 - **Importance Rating**: Thermometer-style importance indicators
 - **Review Scheduling**: Spaced repetition system
-- **Performance Analytics**: Learning pattern analysis
 
 ## Performance Features
 
@@ -151,7 +161,6 @@ Each brain can have:
 - **Large Dataset Support**: Handles thousands of notes efficiently
 - **Memory Management**: Efficient data structures for large file trees
 - **Network Optimization**: Minimized AJAX requests and data transfer
-- **Browser Compatibility**: Works across modern browsers with graceful degradation
 
 ## AI Code Generation Guidelines
 
@@ -160,11 +169,13 @@ Each brain can have:
 - **MEDIUM files (100-500 lines)**: Consider targeted search for specific functions
 - **LARGE files (500+ lines)**: Use targeted search unless complete understanding needed
 
-### Updated File Sizes for Reference
-- **`assets/js/image-modal.js`** (128 lines): Image modal functionality [SMALL-MEDIUM - read full file]
-- **`assets/js/link-popover.js`** (550 lines): Link preview system [LARGE - use targeted search]
-- **`assets/js/note-opener.js`** (1361 lines): Note rendering and content loading [LARGE - use targeted search]
-- **`assets/js/mindmap.js`** (1681 lines): Mindmap generation and controls [LARGE - use targeted search]
+### Key File Sizes for Features
+- **`assets/js/image-modal.js`** (~127 lines): Image modal functionality [SMALL-MEDIUM]
+- **`assets/js/link-popover.js`** (~550 lines): Link preview system [LARGE]
+- **`assets/js/note-opener.js`** (~1453 lines): Note rendering, content loading, code blocks [LARGE]
+- **`assets/js/mindmap.js`** (~1681 lines): Mindmap generation and controls [LARGE]
+- **`assets/js/encryption.js`** (~399 lines): Encryption management [MEDIUM]
+- **`assets/css/index.css`** (~1294 lines): Main styling including code blocks [LARGE]
 
 ### Key Implementation Patterns
 - **Feature Detection**: Check for placeholder images (`1x1.png`, `1x2.png`) before activation

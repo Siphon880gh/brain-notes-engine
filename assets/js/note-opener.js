@@ -742,34 +742,15 @@ function openNote(id) {
             }
 
             try {
-                // hljs.highlightAll();
-
                 setTimeout(function () {
                     var pres = document.querySelectorAll("pre>code");
                     for (var i = 0; i < pres.length; i++) {
                         hljs.highlightBlock(pres[i]);
                     }
-                    var options = {
-                        contentSelector: ".container",
-                        // Delay in ms used for `setTimeout` before badging is applied
-                        // Use if you need to time highlighting and badge application
-                        // since the badges need to be applied afterwards.
-                        // 0 - direct execution (ie. you handle timing
-                        loadDelay:0,
-            
-                        // CSS class(es) used to render the copy icon.
-                        copyIconClass: "fa fa-copy",
-                        // CSS class(es) used to render the done icon.
-                        checkIconClass: "fa fa-check text-success",
-            
-                        // intercept text copying - passed in text return text out
-                        onBeforeCodeCopied: function(text) {                
-                            // text = "$$$ " + text;
-                            return text;
-                        }
-                    };
-                    //window.highlightJsBadge(options);
-                },10);
+                    
+                    // Add line numbers and copy button to code blocks
+                    addLineNumbersToCodeBlocks();
+                }, 10);
             } catch(e) {
                 console.log("Error highlighting code blocks", e);
             }
@@ -778,6 +759,102 @@ function openNote(id) {
             window.currentNoteFrontmatter = frontmatterProps;
         }) // fetch md
 }; // openNote
+
+/**
+ * Add line numbers and copy button to all code blocks
+ * Creates a line numbers gutter on the left side and copy button on top-right
+ */
+function addLineNumbersToCodeBlocks() {
+    const codeBlocks = document.querySelectorAll('#summary-inner pre > code');
+    
+    codeBlocks.forEach(function(codeElement) {
+        const preElement = codeElement.parentElement;
+        
+        // Skip if already has line numbers
+        if (preElement.classList.contains('has-line-numbers')) {
+            return;
+        }
+        
+        // Mark as processed
+        preElement.classList.add('has-line-numbers');
+        
+        // Get the code text and split into lines
+        const codeText = codeElement.textContent;
+        const lines = codeText.split('\n');
+        
+        // Remove trailing empty line if exists (common in code blocks)
+        if (lines.length > 0 && lines[lines.length - 1] === '') {
+            lines.pop();
+        }
+        
+        // Create line numbers container
+        const lineNumbersDiv = document.createElement('div');
+        lineNumbersDiv.className = 'line-numbers-gutter';
+        
+        // Generate line numbers
+        for (let i = 1; i <= lines.length; i++) {
+            const lineNum = document.createElement('span');
+            lineNum.className = 'line-number';
+            lineNum.textContent = i;
+            lineNumbersDiv.appendChild(lineNum);
+        }
+        
+        // Create copy button
+        const copyButton = document.createElement('button');
+        copyButton.className = 'code-copy-btn';
+        copyButton.innerHTML = '<i class="fa fa-copy"></i> Copy';
+        copyButton.title = 'Copy to clipboard';
+        
+        // Add click handler for copy functionality
+        copyButton.addEventListener('click', function() {
+            const textToCopy = codeElement.textContent;
+            
+            navigator.clipboard.writeText(textToCopy).then(function() {
+                // Success - show checkmark
+                copyButton.innerHTML = '<i class="fa fa-check"></i> Copied!';
+                copyButton.classList.add('copied');
+                
+                // Reset after 2 seconds
+                setTimeout(function() {
+                    copyButton.innerHTML = '<i class="fa fa-copy"></i> Copy';
+                    copyButton.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = textToCopy;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    copyButton.innerHTML = '<i class="fa fa-check"></i> Copied!';
+                    copyButton.classList.add('copied');
+                    setTimeout(function() {
+                        copyButton.innerHTML = '<i class="fa fa-copy"></i> Copy';
+                        copyButton.classList.remove('copied');
+                    }, 2000);
+                } catch (e) {
+                    console.error('Copy failed:', e);
+                }
+                document.body.removeChild(textarea);
+            });
+        });
+        
+        // Wrap the code block structure
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-block-wrapper';
+        
+        // Insert wrapper before pre element
+        preElement.parentNode.insertBefore(wrapper, preElement);
+        
+        // Move pre element into wrapper and add components
+        wrapper.appendChild(copyButton);
+        wrapper.appendChild(lineNumbersDiv);
+        wrapper.appendChild(preElement);
+    });
+}
 
 function addScrollProgressMarkers(div) {
     const windowHeight = window.innerHeight;
@@ -1260,6 +1337,21 @@ async function renderDecryptedContent(decryptedContent, title, summaryInnerEl, f
     // Re-scan for link popover previews
     if (window.linkPopoverPreview) {
         window.linkPopoverPreview.rescan();
+    }
+
+    // Highlight code blocks and add line numbers
+    try {
+        setTimeout(function () {
+            var pres = summaryInnerEl.querySelectorAll("pre>code");
+            for (var i = 0; i < pres.length; i++) {
+                hljs.highlightBlock(pres[i]);
+            }
+            
+            // Add line numbers and copy button to code blocks
+            addLineNumbersToCodeBlocks();
+        }, 10);
+    } catch(e) {
+        console.log("Error highlighting code blocks in decrypted content", e);
     }
 
     // Start fade-out timer after 1 second
