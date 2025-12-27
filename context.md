@@ -213,6 +213,7 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 
 ### Private Notes System
 - **Filename-Based Protection**: Files ending with "PRIVATE.md" or "(PRIVATE).md" require authentication (case insensitive)
+- **Hidden Paths in Build**: Private files have `href=""` in `cachedResPartial.php` to hide their true file paths from HTML source
 - **Session-Based Auth**: Password verified against `.env-password.php`, stored in PHP session
 - **Key Icon UI**: Top-right key button (🔑) for login/logout, turns green when authenticated
 - **Blocked Content**: Unauthenticated users see a login prompt instead of private note content

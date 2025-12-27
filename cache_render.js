@@ -164,13 +164,18 @@ function generateHtml(folders) {
     // const dataPathAttr = isFolder ? '' : ` data-path="${escapedItemPath}"`;
     const dataIDAttr = ` data-id=${item.id}`;
 
+    // Check if file is private (ends with PRIVATE.md or (PRIVATE).md, case insensitive)
+    const isPrivateFile = !isFolder && /(?:PRIVATE|\(PRIVATE\))\.md$/i.test(item.current);
+
     html += `<li class="accordion meta">`;
     if (isFolder) {
       html += `<span class="name ${itemClass}"${dataIDAttr}>`;
     } else if(!want_a_tag_for_seo)
       html += `<span class="name ${itemClass}"${dataIDAttr}>`;
     else if(want_a_tag_for_seo) {
-      html += `<a class="name ${itemClass}"${dataIDAttr} href="${http_to_file_protocol+dir_snippets+itemPath}">`;
+      // Hide href for private files to prevent path exposure
+      const hrefValue = isPrivateFile ? '' : http_to_file_protocol+dir_snippets+itemPath;
+      html += `<a class="name ${itemClass}"${dataIDAttr} href="${hrefValue}">`;
     }
     
     // Insert custom icon if available. It will hide the fa book icon because of css selector `.custom-icon+.fa-folder {`
