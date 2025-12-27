@@ -217,6 +217,7 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 - **Session-Based Auth**: Password verified against `.env-password.php`, stored in PHP session
 - **Key Icon UI**: Top-right key button (🔑) for login/logout, turns green when authenticated
 - **Blocked Content**: Unauthenticated users see a login prompt instead of private note content
+- **Auto-Retry After Login**: After successful authentication, the blocked private note automatically reopens using the stored note ID
 
 ## Development Workflow
 

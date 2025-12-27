@@ -1,8 +1,10 @@
 ## Private notes require a password
 
-If a Markdown file ends with `PRIVATE` or `(PRIVATE)` in the filename, the app should prompt for a password before opening it. If the user enters the correct password, we store their authenticated state in a PHP session to keep them “logged in”.
+If a Markdown file ends with `PRIVATE` or `(PRIVATE)` in the filename, the app should prompt for a password before opening it. If the user enters the correct password, we store their authenticated state in a PHP session to keep them "logged in".
 
 While logged in, private notes are allowed to open normally (same flow as non-private notes).
+
+**Auto-retry after login**: When a user tries to open a private note without being logged in, they see a "Login to View" button. After successful authentication, the note automatically reopens - the user doesn't need to manually click on the note again.
 
 ## Security Measures
 

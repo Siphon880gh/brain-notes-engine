@@ -409,7 +409,7 @@ function openNote(id) {
             
             // Check if this is a blocked private file
             if (summary && summary.trim() === '__PRIVATE_BLOCKED__') {
-                handlePrivateBlockedContent(title);
+                handlePrivateBlockedContent(title, id);
                 return;
             }
             
@@ -1514,8 +1514,10 @@ function convertNotesToDetails(inputText) {
 
 /**
  * Handle blocked private content - shows login prompt
+ * @param {string} title - The title of the note
+ * @param {number|string} noteId - The ID of the note for re-opening after auth
  */
-function handlePrivateBlockedContent(title) {
+function handlePrivateBlockedContent(title, noteId) {
     parent.document.querySelector(".side-by-side-possible.hidden")?.classList?.remove("hidden");
 
     let summaryInnerEl = parent.document.querySelector("#summary-inner");
@@ -1535,7 +1537,7 @@ function handlePrivateBlockedContent(title) {
             </div>
             <h3>Private Note</h3>
             <p>This note is protected and requires authentication to view.</p>
-            <button onclick="openPrivateAuthAndRetry('${title.replace(/'/g, "\\'")}')">
+            <button onclick="openPrivateAuthAndRetry(${noteId})">
                 <i class="fas fa-key"></i> Login to View
             </button>
         </div>
@@ -1560,32 +1562,20 @@ function handlePrivateBlockedContent(title) {
 
 /**
  * Open the private auth modal and retry opening the note after successful auth
+ * @param {number|string} noteId - The ID of the note to re-open after authentication
  */
-function openPrivateAuthAndRetry(title) {
+function openPrivateAuthAndRetry(noteId) {
     if (window.privateAuthManager) {
         window.privateAuthManager.showModal();
         
         // Listen for successful authentication
         const authHandler = (event) => {
             if (event.detail.authenticated) {
-                // Find the note by title and re-open it
-                const noteElement = Array.from(document.querySelectorAll('.name.is-file')).find(el => 
-                    el.textContent.trim() === title || el.textContent.trim() === title + '.md'
-                );
+                // Close the auth modal
+                window.privateAuthManager.hideModal();
                 
-                if (noteElement) {
-                    // Get the id from the parent li element's data attribute or onclick
-                    const liElement = noteElement.closest('li');
-                    if (liElement) {
-                        const onclickAttr = noteElement.getAttribute('onclick') || liElement.getAttribute('onclick');
-                        if (onclickAttr) {
-                            const idMatch = onclickAttr.match(/openNote\((\d+)\)/);
-                            if (idMatch) {
-                                openNote(parseInt(idMatch[1]));
-                            }
-                        }
-                    }
-                }
+                // Re-open the note using the stored ID
+                openNote(noteId);
                 
                 // Remove listener after handling
                 document.removeEventListener('privateAuthChanged', authHandler);
