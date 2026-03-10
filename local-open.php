@@ -43,15 +43,36 @@ function isPrivateFile($filename) {
 }
 
 /**
+ * Check if a folder name ends with (PRIVATE) or PRIVATE (case insensitive)
+ */
+function isPrivateFolderName($name) {
+    return preg_match('/(?:\(PRIVATE\)|PRIVATE)$/i', $name);
+}
+
+/**
+ * Check if a path is inside a private folder (any segment ends with (PRIVATE) or PRIVATE)
+ */
+function isInPrivateFolder($pathTp) {
+    if (empty($pathTp)) return false;
+    $segments = explode('/', $pathTp);
+    foreach ($segments as $seg) {
+        if (isPrivateFolderName($seg)) return true;
+    }
+    return false;
+}
+
+/**
  * Check if user is authenticated for private files
  */
 function isPrivateAuthenticated() {
     return isset($_SESSION['private_auth']) && $_SESSION['private_auth'] === true;
 }
 
-// Check if this is a PRIVATE file
+// Check if this is a PRIVATE file or inside a PRIVATE folder
 $filename = $result["current"] ?? '';
-if (isPrivateFile($filename)) {
+$pathTp = $result["path_tp"] ?? '';
+$isPrivate = isPrivateFile($filename) || isInPrivateFolder($pathTp);
+if ($isPrivate) {
     // Check if user is authenticated
     if (!isPrivateAuthenticated()) {
         // Return blocked content response

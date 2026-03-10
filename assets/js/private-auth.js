@@ -16,6 +16,8 @@ class PrivateAuthManager {
     async init() {
         this.createKeyButton();
         this.createModal();
+        // Hide private elements immediately (before auth check) to prevent flash of private content
+        this.updatePrivateElementsVisibility();
         await this.checkAuthStatus();
         this.setupEventListeners();
     }
@@ -27,6 +29,24 @@ class PrivateAuthManager {
         if (!filename) return false;
         // Match files ending with "PRIVATE.md" or "(PRIVATE).md" (case insensitive)
         return /\(?PRIVATE\)?\.md$/i.test(filename);
+    }
+
+    /**
+     * Check if a path is inside a private folder (any segment ends with (PRIVATE) or PRIVATE)
+     */
+    isInPrivateFolder(pathTp) {
+        if (!pathTp) return false;
+        return pathTp.split('/').some(seg => /(?:\(PRIVATE\)|PRIVATE)$/i.test(seg));
+    }
+
+    /**
+     * Update visibility of private folders/files based on auth state
+     */
+    updatePrivateElementsVisibility() {
+        const elements = document.querySelectorAll('[data-private="1"]');
+        elements.forEach(el => {
+            el.style.display = this.isAuthenticated ? '' : 'none';
+        });
     }
 
     /**
@@ -266,6 +286,7 @@ class PrivateAuthManager {
             this.keyButton.title = 'Private Notes Login';
             statusDiv.innerHTML = '<span class="text-gray-500"><i class="fas fa-lock"></i> Not authenticated</span>';
         }
+        this.updatePrivateElementsVisibility();
     }
 
     /**

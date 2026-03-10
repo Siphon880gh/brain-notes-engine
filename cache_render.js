@@ -139,6 +139,11 @@ function generateHtml(folders) {
   <% }); %>
   `;
 
+  // Helper: folder name ends with (PRIVATE) or PRIVATE (case insensitive)
+  const isPrivateFolderName = (name) => /(?:\(PRIVATE\)|PRIVATE)$/i.test(name);
+  // Helper: path contains any private folder segment
+  const isInPrivateFolder = (pathStr) => pathStr ? pathStr.split('/').some(isPrivateFolderName) : false;
+
   // Helper function to render each item
   const renderItem = (item, parentPath = '') => {
     let html = '';
@@ -166,15 +171,21 @@ function generateHtml(folders) {
 
     // Check if file is private (ends with PRIVATE.md or (PRIVATE).md, case insensitive)
     const isPrivateFile = !isFolder && /(?:PRIVATE|\(PRIVATE\))\.md$/i.test(item.current);
+    // Check if folder is private (ends with (PRIVATE) or PRIVATE) or item is inside a private folder
+    const isPrivateFolder = isFolder && isPrivateFolderName(item.current);
+    const inPrivateFolder = isInPrivateFolder(parentPath);
+    const isPrivate = isPrivateFile || isPrivateFolder || inPrivateFolder;
 
-    html += `<li class="accordion meta">`;
+    const dataPrivateAttr = isPrivate ? ' data-private="1"' : '';
+
+    html += `<li class="accordion meta"${dataPrivateAttr}>`;
     if (isFolder) {
       html += `<span class="name ${itemClass}"${dataIDAttr}>`;
     } else if(!want_a_tag_for_seo)
       html += `<span class="name ${itemClass}"${dataIDAttr}>`;
     else if(want_a_tag_for_seo) {
-      // Hide href for private files to prevent path exposure
-      const hrefValue = isPrivateFile ? '' : http_to_file_protocol+dir_snippets+itemPath;
+      // Hide href for private files/folders to prevent path exposure
+      const hrefValue = isPrivate ? '' : http_to_file_protocol+dir_snippets+itemPath;
       html += `<a class="name ${itemClass}"${dataIDAttr} href="${hrefValue}">`;
     }
     

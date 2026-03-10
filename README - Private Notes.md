@@ -1,6 +1,6 @@
 ## Private notes require a password
 
-If a Markdown file ends with `PRIVATE` or `(PRIVATE)` in the filename, the app should prompt for a password before opening it. If the user enters the correct password, we store their authenticated state in a PHP session to keep them "logged in".
+If a Markdown file ends with `PRIVATE` or `(PRIVATE)` in the filename, or if the file is inside a folder ending with `(PRIVATE)` or `PRIVATE`, the app should prompt for a password before opening it. If the user enters the correct password, we store their authenticated state in a PHP session to keep them "logged in".
 
 While logged in, private notes are allowed to open normally (same flow as non-private notes).
 
@@ -8,7 +8,7 @@ While logged in, private notes are allowed to open normally (same flow as non-pr
 
 ## Security Measures
 
-**Hidden href paths**: When `cachedResPartial.php` is built, private files have their `href=""` set to empty instead of exposing the true file path. This prevents users from right-clicking to copy the link or inspecting the HTML source to find private note paths.
+**Hidden href paths**: When `cachedResPartial.php` is built, private files and files in private folders have their `href=""` set to empty instead of exposing the true file path. Private folders and their contents are marked with `data-private="1"` and hidden from the file tree until the user authenticates.
 
 ## Hackable for now
 

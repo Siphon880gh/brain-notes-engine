@@ -1,6 +1,6 @@
 # DevBrain - Notes Brain Engine Context
 
-> **Note for AI Tools:** Line references in this file are intentionally approximate (e.g., "near the top," "around lines 100–150"). Exact line numbers are fragile and shift with edits. Use these as navigation hints, then search or read the actual file for precision.
+**Purpose of this file:** Give AI assistants a quick, reliable overview of the codebase—what the app does, its tech stack, architecture, and where key files live—so they can answer questions and generate code safely. Deeper module notes are in companion docs such as `AGENTS-auth.md`, `AGENTS-ui.md`, and `AGENTS-api.md`. All code pointers rely on approximate locations (e.g., “near the top of `server.ts`”) rather than exact line numbers to stay robust as the code evolves.
 
 ## Project Overview
 
@@ -211,13 +211,10 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 - **Robust Fallback**: Primary age binary with Node.js fallback using `age-encryption` npm package
 - **Console Logging**: Browser console shows which decryption method was used
 
-### Private Notes System
-- **Filename-Based Protection**: Files ending with "PRIVATE.md" or "(PRIVATE).md" require authentication (case insensitive)
-- **Hidden Paths in Build**: Private files have `href=""` in `cachedResPartial.php` to hide their true file paths from HTML source
-- **Session-Based Auth**: Password verified against `.env-password.php`, stored in PHP session
-- **Key Icon UI**: Top-right key button (🔑) for login/logout, turns green when authenticated
-- **Blocked Content**: Unauthenticated users see a login prompt instead of private note content
-- **Auto-Retry After Login**: After successful authentication, the blocked private note automatically reopens using the stored note ID
+### Private Notes & Folders
+- **Protection**: Files ending with "PRIVATE.md" or "(PRIVATE).md"; folders ending with "(PRIVATE)" or "PRIVATE" require authentication (case insensitive)
+- **Session-Based Auth**: Password in `.env-password.php`, key icon (🔑) for login, blocked content with auto-retry after login
+- **Details**: See **[AGENTS-private.md](./AGENTS-private.md)** for architecture, components, and flow
 
 ## Development Workflow
 
@@ -246,12 +243,13 @@ npm run build-healthbrain # Health notes variant
 
 For comprehensive implementation details, see specialized context files:
 
-- **[context-architecture.md](./context-architecture.md)** (~130 lines) - System architecture, caching pipeline, build process
-- **[context-features.md](./context-features.md)** (~175 lines) - Enhanced markdown, search, UI features, AI integration
-- **[context-tech-stack.md](./context-tech-stack.md)** (~180 lines) - Backend/frontend technologies, build system, security
-- **[context-mindmap.md](./context-mindmap.md)** (~255 lines) - Mindmap system implementation, detection, generation
-- **[context-link-preview.md](./context-link-preview.md)** (~235 lines) - Link preview system with popover excerpts
-- **[context-encryption.md](./context-encryption.md)** (~200 lines) - AGE encryption system with Node.js fallback
+- **[AGENTS-architecture.md](./AGENTS-architecture.md)** - System architecture, caching pipeline, build process
+- **[AGENTS-features.md](./AGENTS-features.md)** - Enhanced markdown, search, UI features, AI integration
+- **[AGENTS-tech-stack.md](./AGENTS-tech-stack.md)** - Backend/frontend technologies, build system, security
+- **[AGENTS-mindmap.md](./AGENTS-mindmap.md)** - Mindmap system implementation, detection, generation
+- **[AGENTS-link-preview.md](./AGENTS-link-preview.md)** - Link preview system with popover excerpts
+- **[AGENTS-encryption.md](./AGENTS-encryption.md)** - AGE encryption system with Node.js fallback
+- **[AGENTS-private.md](./AGENTS-private.md)** - Private notes and folders authentication and visibility
 
 ## Quick Reference for AI Code Generation
 
