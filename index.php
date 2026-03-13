@@ -101,14 +101,22 @@
     
     <div id="bottom-bar">
         <button id="jump-curriculum" class="bottom-btn">📗 See topics</button>
-        <button id="ai-assist-btn" class="bottom-btn ai-btn">
-            <span class="fa fa-robot"></span>
-            <span class="ai-text">Ask folder</span>
-        </button>
-        <button id="share-folder-btn" class="bottom-btn share-folder-btn">
-            <span class="fa fa-share-alt"></span>
-            <span class="share-folder-text">Share folder</span>
-        </button>
+        <div id="folder-options-wrapper" class="folder-options-wrapper">
+            <div id="folder-options-buttons" class="folder-options-buttons">
+                <button id="ai-assist-btn" class="bottom-btn ai-btn">
+                    <span class="fa fa-robot"></span>
+                    <span class="ai-text">Ask folder</span>
+                </button>
+                <button id="share-folder-btn" class="bottom-btn share-folder-btn">
+                    <span class="fa fa-share-alt"></span>
+                    <span class="share-folder-text">Share folder</span>
+                </button>
+            </div>
+            <button id="folder-options-toggle" class="bottom-btn folder-options-toggle">
+                <span class="fa fa-chevron-up folder-options-chevron"></span>
+                <span class="folder-options-toggle-text">Folder Options</span>
+            </button>
+        </div>
     </div>
     
     <div class="site-header mx-auto">

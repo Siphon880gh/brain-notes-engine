@@ -502,16 +502,17 @@ body {
   bottom: env(safe-area-inset-bottom);
   right: env(safe-area-inset-right);
   padding-right: 20px;
+  padding-bottom: 10px;
   background-color: transparent;
   z-index: 500;
   width: 100%;
   text-align: right;
-  height: 60px;
+  min-height: 60px;
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-end;
-  width: 100%;
-  padding-bottom: 10px;
+  align-items: flex-end;
+  overflow: visible;
 }
 #bottom-bar > * {
   opacity: .75;
@@ -528,6 +529,68 @@ body {
     height: fit-content;
   }
 }
+
+.folder-options-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.folder-options-buttons {
+  display: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.folder-options-wrapper.expanded .folder-options-buttons {
+  display: flex;
+  animation: folderOptionsSlideIn 0.25s ease forwards;
+}
+
+@keyframes folderOptionsSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.folder-options-toggle .fa {
+  margin-right: 6px;
+}
+
+.folder-options-toggle {
+  background: #0d9488;
+  white-space: nowrap;
+}
+
+.folder-options-toggle:hover {
+  background: #0f766e;
+}
+
+#bottom-bar #jump-curriculum,
+#bottom-bar .folder-options-toggle {
+  width: 150px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.folder-options-chevron {
+  transition: transform 0.25s ease;
+}
+
+.folder-options-wrapper.expanded .folder-options-chevron {
+  transform: rotate(180deg);
+}
+
 #ai-assist-btn {
   background: #059669;
 }

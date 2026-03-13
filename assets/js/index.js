@@ -477,11 +477,27 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
 
 
     // AI Assistant and Share Folder functionality
-    document.addEventListener('DOMContentLoaded', function() {
+    function initFolderOptionsAndAI() {
+        const folderOptionsWrapper = document.getElementById('folder-options-wrapper');
+        const folderOptionsToggle = document.getElementById('folder-options-toggle');
         const aiBtn = document.getElementById('ai-assist-btn');
         const shareFolderBtn = document.getElementById('share-folder-btn');
         let aiActive = false;
         let shareFolderActive = false;
+
+        if (folderOptionsToggle && folderOptionsWrapper) {
+            folderOptionsToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                folderOptionsWrapper.classList.toggle('expanded');
+            });
+            document.addEventListener('click', function(e) {
+                if (!folderOptionsWrapper.contains(e.target)) {
+                    folderOptionsWrapper.classList.remove('expanded');
+                }
+            });
+        }
+
 
         function deactivateShareFolder() {
             if (shareFolderActive && shareFolderBtn) {
@@ -500,7 +516,7 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
             }
         }
 
-        aiBtn.addEventListener('click', function() {
+        if (aiBtn) aiBtn.addEventListener('click', function() {
             if (!aiActive) {
                 deactivateShareFolder();
                 window.modeAskAI = true;
@@ -525,6 +541,12 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
                 }
             });
         }
-    });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initFolderOptionsAndAI);
+    } else {
+        initFolderOptionsAndAI();
+    }
 
 // #endregion
