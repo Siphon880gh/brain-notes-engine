@@ -1,17 +1,17 @@
 /* Private Notes Authentication Styling */
 
-/* Key Button - Top Right */
+/* Key Button - Top Right (aligned with toc-button) */
 .private-auth-button {
     position: fixed;
     top: 20px;
     right: 80px;
-    width: 44px;
-    height: 44px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
     border: none;
     color: white;
-    font-size: 18px;
+    font-size: 1.2rem;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
     transition: all 0.3s ease;
@@ -270,14 +270,14 @@
     box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
 }
 
-/* Mobile responsiveness */
+/* Mobile responsiveness (aligned with toc-button) */
 @media (max-width: 768px) {
     .private-auth-button {
-        top: 15px;
-        right: 70px;
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
+        top: 20px;
+        right: 80px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
     }
     
     #privateAuthModal .modal-dialog {
