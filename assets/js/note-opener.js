@@ -21,11 +21,13 @@ document.addEventListener("DOMContentLoaded", function () {
  * In the note: shareTutorialSection share icon at a heading generates the note section share link
  */
 function shareTutorial() {
+    document.getElementById("shareModalLabel").textContent = "Share this link";
     document.getElementById("shareSnippet").value = window.location.host + window.location.pathname + `?open=${encodeURI(document.getElementById("summary-title").textContent)}`
     document.getElementById("shareModal").modal("show");
 }
 
 function shareTutorialSection(trailingHash) {
+    document.getElementById("shareModalLabel").textContent = "Share this link";
     document.getElementById("shareSnippet").value = window.location.host + encodeURI(window.location.pathname + `${trailingHash}`)
     document.getElementById("shareModal").modal("show");
 }

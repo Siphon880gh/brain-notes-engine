@@ -177,8 +177,9 @@ function generateHtml(folders) {
     const isPrivate = isPrivateFile || isPrivateFolder || inPrivateFolder;
 
     const dataPrivateAttr = isPrivate ? ' data-private="1"' : '';
+    const dataPathAttr = isFolder ? ` data-path="${itemPath.replace(/"/g, '&quot;')}"` : '';
 
-    html += `<li class="accordion meta"${dataPrivateAttr}>`;
+    html += `<li class="accordion meta"${dataPrivateAttr}${dataPathAttr}>`;
     if (isFolder) {
       html += `<span class="name ${itemClass}"${dataIDAttr}>`;
     } else if(!want_a_tag_for_seo)

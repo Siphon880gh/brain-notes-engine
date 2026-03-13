@@ -536,6 +536,14 @@ body {
   background: #dc2626;
 }
 
+#share-folder-btn {
+  background: #2563eb;
+}
+
+#share-folder-btn.active {
+  background: #7c3aed;
+}
+
 .toc-button:not(.filled) {
   display: none;
 }
@@ -1070,6 +1078,10 @@ button {
 
 .highlight {
   background-color: #FFC966;
+}
+
+#topics-list .accordion.meta {
+  transition: background-color 0.4s ease-out;
 }
 
 #explorer-btns .info-flex-child:nth-child(1) {

@@ -105,6 +105,10 @@
             <span class="fa fa-robot"></span>
             <span class="ai-text">Ask folder</span>
         </button>
+        <button id="share-folder-btn" class="bottom-btn share-folder-btn">
+            <span class="fa fa-share-alt"></span>
+            <span class="share-folder-text">Share folder</span>
+        </button>
     </div>
     
     <div class="site-header mx-auto">

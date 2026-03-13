@@ -147,6 +147,7 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 - **Mindmaps**: Detect `1x1.png` in lists → parse structure → generate Mermaid → render with controls
 - **Link Previews**: Detect `1x2.png` markers → parse boundary words → fetch via CORS proxy → display popover
 - **Search**: User input → PCRE query → highlight results → navigate to content
+- **URL Parameters**: `?open=` opens note by title; `?search-titles=` opens search; `?folder=` opens, highlights, and scrolls to folder in navigator (Share folder button generates these URLs)
 - **Encryption**: Detect AGE blocks → prompt for password → decrypt via PHP backend → re-encrypt with AES → client-side decryption → render content
 
 ## Key Features Implementation

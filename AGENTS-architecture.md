@@ -35,7 +35,7 @@ Each template contains:
    - Reads cached data from JSON
    - Merges folders by common path
    - Applies Obsidian sort specifications
-   - Generates HTML using EJS templates
+   - Generates HTML using EJS templates with `data-path` on folder `<li>` elements for URL-based folder navigation
    - Outputs: `cachedResPartial.php`
 
 ### Build Process Flow
@@ -63,8 +63,8 @@ npm run build-healthbrain # Same process for health notes
 - Returns JSON results for AJAX consumption
 
 ### Frontend Architecture (`assets/js/` - 11 files, ~6200 total lines)
-- `index.js` (~399 lines): Main application logic, note opening, UI interactions [MEDIUM]
-- `searchers.js` (~398 lines): Search functionality and result display [MEDIUM]
+- `index.js` (~399 lines): Main application logic, note opening, UI interactions, Ask folder and Share folder toggle modes, folder highlight clear [MEDIUM]
+- `searchers.js` (~398 lines): Search functionality, result display, `?folder=` URL handling (`_openFolderFromUrl`) [MEDIUM]
 - `modal.js` (~27 lines): Modal system management [SMALL]
 - `note-opener.js` (~1550 lines): Markdown rendering, note display, code blocks, private note handling [LARGE]
 - `image-modal.js` (~127 lines): Image viewing functionality [SMALL-MEDIUM]

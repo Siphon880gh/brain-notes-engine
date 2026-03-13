@@ -71,6 +71,8 @@ echo json_encode(["res"=>$res, "cmd"=>$cmd, "stdout"=>$stdout]);
 
 ### Navigation
 - **Hierarchical File Tree**: Expandable folder structure with custom icons
+- **Folder URL Parameter**: Visiting `?folder=path/to/folder` opens that folder in the navigator, expands ancestor folders to show nested content, highlights the folder, and scrolls it into view. Highlight fades out with a 0.4s transition when the user clicks or moves the mouse over the topics list.
+- **Share Folder Button**: Bottom-right button (next to Ask folder) toggles a mode where clicking a folder opens a modal with the shareable `?folder=` URL. Button shows active state (purple) when mode is on; mutually exclusive with Ask folder mode.
 - **Random Note**: Quick access to random content for discovery, with option to prioritize notes containing images
 - **Jump to Topics**: Direct navigation to specific sections
 - **Print Support**: Print-friendly note rendering
@@ -144,8 +146,9 @@ Files and folders ending with `PRIVATE` or `(PRIVATE)` require authentication. S
 ## Sharing & Collaboration
 
 ### URL Generation
-- **Note Sharing**: Direct links to specific notes
-- **Search Sharing**: Shareable URLs for search results
+- **Note Sharing**: Direct links to specific notes (`?open=Note Title`)
+- **Search Sharing**: Shareable URLs for search results (`?search-titles=query`)
+- **Folder Sharing**: Direct links to open and scroll to a folder in the navigator (`?folder=path/to/folder`). Opens the folder, expands all ancestor folders to reveal nested content, highlights the folder, and scrolls it into view. Use the Share folder button (bottom-right) to generate these URLs: toggle the button, click a folder, and copy the URL from the modal.
 - **Embed Support**: Code snippets for embedding content
 
 ### Git Integration
@@ -215,3 +218,4 @@ Each brain can have:
 - **Event-Driven Architecture**: Features initialize on content load and update events
 - **Graceful Degradation**: All features work with or without external dependencies
 - **Modular Design**: Each feature system is self-contained with clear integration points
+- **Folder URL & Share**: `?folder=` handled in `searchers.js` (`_openFolderFromUrl`); Share folder button and `modeShareFolder` in `index.js` (`sendToOtherWorkhouses`); highlight clear with transition in `index.js` (`setupExploreInteractions`) and `index.css` (`#topics-list .accordion.meta` transition)

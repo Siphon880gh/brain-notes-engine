@@ -10,6 +10,12 @@ var addonSearch = {
 
         this.setupSearchAutocomplete();
         this.addClearURLParamsFunction();
+        const shareSearchEl = document.getElementById("share-search-titles");
+        if (shareSearchEl) {
+            shareSearchEl.addEventListener("click", () => {
+                document.getElementById("shareModalLabel").textContent = "Share search";
+            }, { capture: true });
+        }
     }, // init
     setupClearingByEmptyingSearchInput: function() {
         // If user erases all text at search input, erase any current search titles results (highlighted rows) and search content results (search results section)
@@ -280,6 +286,20 @@ var addonSearch = {
                         
                     } // _openNoteFromUrl
                     
+                    function _openFolderFromUrl() {
+                        const params = new URLSearchParams(window.location.search);
+                        let path = params.get("folder");
+                        if (!path) return;
+                        path = decodeURIComponent(path).replace(/\.md$/i, "").replace(/\.json$/i, "").trim().replace(/\/+$/, "");
+                        const folderLi = Array.from(document.querySelectorAll(".accordion.meta[data-path]")).find(
+                            li => li.getAttribute("data-path") === path
+                        );
+                        if (!folderLi) return;
+                        toOpenUp_Exec(folderLi);
+                        folderLi.classList.add("highlight");
+                        folderLi.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                    }
+
                     function _openSearchFromUrl() {
                         
                         var params = new URLSearchParams(window.location.search);
@@ -303,6 +323,8 @@ var addonSearch = {
                         
                     } else if (window.location.search.includes("search-titles=")) {
                         _openSearchFromUrl();
+                    } else if (window.location.search.includes("folder=")) {
+                        _openFolderFromUrl();
                     } // if search-titles
                     
                     

@@ -98,6 +98,15 @@ var app = {
 
     setupExploreInteractions: function() {
 
+        const topicsList = document.getElementById("topics-list");
+        if (topicsList) {
+            const clearFolderHighlight = () => {
+                topicsList.querySelectorAll(".accordion.meta.highlight").forEach(el => el.classList.remove("highlight"));
+            };
+            topicsList.addEventListener("click", clearFolderHighlight, true);
+            topicsList.addEventListener("mouseenter", clearFolderHighlight, true);
+        }
+
         document.querySelectorAll(".name.is-folder").forEach(el=>{
             el.addEventListener("click", (event)=>{
                 let interruptDefaultBehaavior = sendToOtherWorkhouses(event.target)
@@ -373,6 +382,23 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
   }
   
   function sendToOtherWorkhouses(el) {
+    if (window.modeShareFolder) {
+        window.modeShareFolder = false;
+        const shareFolderBtn = document.getElementById('share-folder-btn');
+        if (shareFolderBtn) {
+            shareFolderBtn.classList.remove("active");
+            shareFolderBtn.querySelector('.share-folder-text').innerHTML = 'Share folder';
+        }
+        const folderLi = el.closest ? el.closest('li.accordion.meta[data-path]') : null;
+        if (!folderLi) return false;
+        const path = folderLi.getAttribute('data-path');
+        if (!path) return false;
+        const url = window.location.origin + window.location.pathname + '?folder=' + encodeURIComponent(path);
+        document.getElementById('shareModalLabel').textContent = 'Share folder link';
+        document.getElementById('shareSnippet').value = url;
+        document.getElementById('shareModal').modal('show');
+        return true;
+    }
     if(window.modeAskAI) {
         // Toggle logic
         window.modeAskAI = false;
@@ -450,26 +476,55 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
   } // sendToOtherWorkhouses
 
 
-    // AI Assistant functionality
+    // AI Assistant and Share Folder functionality
     document.addEventListener('DOMContentLoaded', function() {
         const aiBtn = document.getElementById('ai-assist-btn');
-        let isActive = false;
-        
-        aiBtn.addEventListener('click', function() {
-            if (!isActive) {
-                // Activate AI mode
-                window.modeAskAI = true;
-                aiBtn.classList.add("active"); // Red background when active
-                aiBtn.querySelector('.ai-text').innerHTML = 'AI Active<br><small>Click a folder. Ask it!</small>';
-                isActive = true;
-            } else {
-                // Deactivate AI mode
+        const shareFolderBtn = document.getElementById('share-folder-btn');
+        let aiActive = false;
+        let shareFolderActive = false;
+
+        function deactivateShareFolder() {
+            if (shareFolderActive && shareFolderBtn) {
+                window.modeShareFolder = false;
+                shareFolderBtn.classList.remove("active");
+                shareFolderBtn.querySelector('.share-folder-text').innerHTML = 'Share folder';
+                shareFolderActive = false;
+            }
+        }
+        function deactivateAI() {
+            if (aiActive && aiBtn) {
                 window.modeAskAI = false;
-                aiBtn.classList.remove("active"); // Green background when inactive
+                aiBtn.classList.remove("active");
                 aiBtn.querySelector('.ai-text').innerHTML = 'Ask folder';
-                isActive = false;
+                aiActive = false;
+            }
+        }
+
+        aiBtn.addEventListener('click', function() {
+            if (!aiActive) {
+                deactivateShareFolder();
+                window.modeAskAI = true;
+                aiBtn.classList.add("active");
+                aiBtn.querySelector('.ai-text').innerHTML = 'AI Active<br><small>Click a folder. Ask it!</small>';
+                aiActive = true;
+            } else {
+                deactivateAI();
             }
         });
+
+        if (shareFolderBtn) {
+            shareFolderBtn.addEventListener('click', function() {
+                if (!shareFolderActive) {
+                    deactivateAI();
+                    window.modeShareFolder = true;
+                    shareFolderBtn.classList.add("active");
+                    shareFolderBtn.querySelector('.share-folder-text').innerHTML = 'Active<br><small>Click a folder</small>';
+                    shareFolderActive = true;
+                } else {
+                    deactivateShareFolder();
+                }
+            });
+        }
     });
 
 // #endregion
