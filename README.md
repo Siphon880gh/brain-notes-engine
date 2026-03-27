@@ -146,6 +146,12 @@ Users can search by topic title or contents. The search bars are to the top of t
 
 ![](README-assets/search.png)
 
+## Private and Superprivate Notes
+
+Use `(PRIVATE)` or `PRIVATE` at the end of a note filename, or at the end of a folder name, when you want the note to stay hidden in the frontend until someone logs in. Those notes and folders do not show in the file tree for unauthenticated visitors, and if someone tries to open one they are prompted to log in from the key button at the top right. The frontend unlock password is stored in `.env-password.php`, which is gitignored.
+
+Use `(SUPERPRIVATE)` for markdown files that should never even make it into git. Matching files are ignored by the repo's `.gitignore` rules, so they are not committed and therefore never appear in the built app or frontend at all.
+
 ## Templates
 
 To change the layout of your document, add the following YAML frontmatter at the top.

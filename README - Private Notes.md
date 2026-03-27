@@ -1,10 +1,14 @@
 ## Private notes require a password
 
-If a Markdown file ends with `PRIVATE` or `(PRIVATE)` in the filename, or if the file is inside a folder ending with `(PRIVATE)` or `PRIVATE`, the app should prompt for a password before opening it. If the user enters the correct password, we store their authenticated state in a PHP session to keep them "logged in".
+If a Markdown file ends with `PRIVATE` or `(PRIVATE)` in the filename, or if the file is inside a folder ending with `(PRIVATE)` or `PRIVATE`, the app should prompt for a password before opening it. Until login, those notes and folders stay hidden in the frontend. The user can unlock access from the key button at the top right, and the password is read from `.env-password.php`.
 
 While logged in, private notes are allowed to open normally (same flow as non-private notes).
 
 **Auto-retry after login**: When a user tries to open a private note without being logged in, they see a "Login to View" button. After successful authentication, the note automatically reopens - the user doesn't need to manually click on the note again.
+
+## Superprivate notes stay out of git
+
+If a markdown filename contains `(SUPERPRIVATE)`, it is ignored by the repo's gitignore rules. That means it is not committed and never reaches the built frontend.
 
 ## Security Measures
 

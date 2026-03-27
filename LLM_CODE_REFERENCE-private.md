@@ -6,6 +6,8 @@
 
 DevBrain protects notes and folders that end with `PRIVATE` or `(PRIVATE)` (case insensitive). Unauthenticated users cannot see private folders in the file tree or open private notes. A key icon in the top right allows login with a password stored in `.env-password.php`.
 
+Notes containing `(SUPERPRIVATE)` in the markdown filename are a separate convention: they are gitignored and never make it into committed curriculum content, so they never appear in the frontend at all.
+
 ## Naming Convention
 
 ### Files
@@ -69,4 +71,5 @@ DevBrain protects notes and folders that end with `PRIVATE` or `(PRIVATE)` (case
 
 - **Path exposure**: Private paths are hidden from HTML source (`href=""`)
 - **cachedResData.json**: Still contains full paths; used for random note and lookup. Direct access is blocked by `local-open.php`
+- **Superprivate files**: `**/*(SUPERPRIVATE)*.md` is ignored by the repo's gitignore rules, so those notes stay out of git and out of the rendered app
 - **README - Private Notes.md**: Documents current security posture and hackability

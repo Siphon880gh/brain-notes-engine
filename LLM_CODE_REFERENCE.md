@@ -214,7 +214,8 @@ openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
 
 ### Private Notes & Folders
 - **Protection**: Files ending with "PRIVATE.md" or "(PRIVATE).md"; folders ending with "(PRIVATE)" or "PRIVATE" require authentication (case insensitive)
-- **Session-Based Auth**: Password in `.env-password.php`, key icon (🔑) for login, blocked content with auto-retry after login
+- **Session-Based Auth**: Password is stored in `.env-password.php` (gitignored); frontend access is unlocked from the top-right key icon (🔑), with blocked content and auto-retry after login
+- **Superprivate**: Markdown files containing `(SUPERPRIVATE)` are gitignored and never reach the committed app content, so they never appear in the frontend
 - **Details**: See **[AGENTS-private.md](./AGENTS-private.md)** for architecture, components, and flow
 
 ## Development Workflow
