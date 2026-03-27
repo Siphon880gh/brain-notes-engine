@@ -28,4 +28,4 @@ out/
 *.env
 .env-password.php
 env/all/pcregrep.php
-**/*(PRIVATE)*.md
+**/*(SUPERPRIVATE)*.md

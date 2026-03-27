@@ -1,4 +1,4 @@
 *
 */
 !.gitignore
-**/*(PRIVATE)*.md
+**/*(SUPERPRIVATE)*.md
