@@ -1199,117 +1199,117 @@
     },
     {
       "id": 199,
+      "current": "Enterprise - CLOUDFLARE, Bunny, Cache Control",
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CLOUDFLARE, Bunny, Cache Control",
+      "path_tp": "Enterprise - CLOUDFLARE, Bunny, Cache Control"
+    },
+    {
+      "id": 200,
+      "current": "_ Cache Control",
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control",
+      "path_tp": "Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control"
+    },
+    {
+      "id": 201,
+      "current": "API Endpoint Testing - Postman responses seem cached.md",
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/API Endpoint Testing - Postman responses seem cached.md",
+      "path_tp": "Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/API Endpoint Testing - Postman responses seem cached.md"
+    },
+    {
+      "id": 202,
+      "current": "Best Practice - Legacy Header Pragma with modern Cache-Control.md",
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/Best Practice - Legacy Header Pragma with modern Cache-Control.md",
+      "path_tp": "Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/Best Practice - Legacy Header Pragma with modern Cache-Control.md"
+    },
+    {
+      "id": 203,
+      "current": "Cache busting as the developer and sys admin.md",
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/Cache busting as the developer and sys admin.md",
+      "path_tp": "Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/Cache busting as the developer and sys admin.md"
+    },
+    {
+      "id": 204,
+      "current": "Cache busting from client side (You are the client).md",
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/Cache busting from client side (You are the client).md",
+      "path_tp": "Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/Cache busting from client side (You are the client).md"
+    },
+    {
+      "id": 205,
+      "current": "__Cache Bust on iPads",
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/__Cache Bust on iPads",
+      "path_tp": "Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/__Cache Bust on iPads"
+    },
+    {
+      "id": 206,
+      "current": "iPad Safari aggressively caches - 2. How to mitigate.md",
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/__Cache Bust on iPads/iPad Safari aggressively caches - 2. How to mitigate.md",
+      "path_tp": "Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/__Cache Bust on iPads/iPad Safari aggressively caches - 2. How to mitigate.md"
+    },
+    {
+      "id": 207,
       "current": "Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality",
       "path_tp": "Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality"
     },
     {
-      "id": 200,
+      "id": 208,
       "current": "Payment Processor - Stripe Developer",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Payment Processor - Stripe Developer",
       "path_tp": "Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Payment Processor - Stripe Developer"
     },
     {
-      "id": 201,
+      "id": 209,
       "current": "Stripe Developer - Email Problem.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Payment Processor - Stripe Developer/Stripe Developer - Email Problem.md",
       "path_tp": "Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Payment Processor - Stripe Developer/Stripe Developer - Email Problem.md"
     },
     {
-      "id": 202,
+      "id": 210,
       "current": "Stripe Developer - Payments - Custom Payment.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Payment Processor - Stripe Developer/Stripe Developer - Payments - Custom Payment.md",
       "path_tp": "Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Payment Processor - Stripe Developer/Stripe Developer - Payments - Custom Payment.md"
     },
     {
-      "id": 203,
+      "id": 211,
       "current": "Stripe Developer - Price ID.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Payment Processor - Stripe Developer/Stripe Developer - Price ID.md",
       "path_tp": "Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Payment Processor - Stripe Developer/Stripe Developer - Price ID.md"
     },
     {
-      "id": 204,
+      "id": 212,
       "current": "Stripe Developer - Sample code (From Stripe CLI).md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Payment Processor - Stripe Developer/Stripe Developer - Sample code (From Stripe CLI).md",
       "path_tp": "Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Payment Processor - Stripe Developer/Stripe Developer - Sample code (From Stripe CLI).md"
     },
     {
-      "id": 205,
+      "id": 213,
       "current": "Stripe Developer - _PRIMER.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Payment Processor - Stripe Developer/Stripe Developer - _PRIMER.md",
       "path_tp": "Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Payment Processor - Stripe Developer/Stripe Developer - _PRIMER.md"
     },
     {
-      "id": 206,
+      "id": 214,
       "current": "Virality",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Virality",
       "path_tp": "Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Virality"
     },
     {
-      "id": 207,
+      "id": 215,
       "current": "Facebook user personalized titles.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Virality/Facebook user personalized titles.md",
       "path_tp": "Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Virality/Facebook user personalized titles.md"
     },
     {
-      "id": 208,
+      "id": 216,
       "current": "Javascript Share Link or Text message.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Virality/Javascript Share Link or Text message.md",
       "path_tp": "Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Virality/Javascript Share Link or Text message.md"
     },
     {
-      "id": 209,
+      "id": 217,
       "current": "React Native Share Link or Text message.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Virality/React Native Share Link or Text message.md",
       "path_tp": "Enterprise - Chat Bot, SEO, Support Docs, Receiving Payments, Virality/Virality/React Native Share Link or Text message.md"
-    },
-    {
-      "id": 210,
-      "current": "Enterprise - Cloudflare, Bunny, Cache Control",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Cloudflare, Bunny, Cache Control",
-      "path_tp": "Enterprise - Cloudflare, Bunny, Cache Control"
-    },
-    {
-      "id": 211,
-      "current": "Cache Control",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Cloudflare, Bunny, Cache Control/Cache Control",
-      "path_tp": "Enterprise - Cloudflare, Bunny, Cache Control/Cache Control"
-    },
-    {
-      "id": 212,
-      "current": "API Endpoint Testing - Postman responses seem cached.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Cloudflare, Bunny, Cache Control/Cache Control/API Endpoint Testing - Postman responses seem cached.md",
-      "path_tp": "Enterprise - Cloudflare, Bunny, Cache Control/Cache Control/API Endpoint Testing - Postman responses seem cached.md"
-    },
-    {
-      "id": 213,
-      "current": "Best Practice - Legacy Header Pragma with modern Cache-Control.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Cloudflare, Bunny, Cache Control/Cache Control/Best Practice - Legacy Header Pragma with modern Cache-Control.md",
-      "path_tp": "Enterprise - Cloudflare, Bunny, Cache Control/Cache Control/Best Practice - Legacy Header Pragma with modern Cache-Control.md"
-    },
-    {
-      "id": 214,
-      "current": "Cache busting as the developer and sys admin.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Cloudflare, Bunny, Cache Control/Cache Control/Cache busting as the developer and sys admin.md",
-      "path_tp": "Enterprise - Cloudflare, Bunny, Cache Control/Cache Control/Cache busting as the developer and sys admin.md"
-    },
-    {
-      "id": 215,
-      "current": "Cache busting from client side (You are the client).md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Cloudflare, Bunny, Cache Control/Cache Control/Cache busting from client side (You are the client).md",
-      "path_tp": "Enterprise - Cloudflare, Bunny, Cache Control/Cache Control/Cache busting from client side (You are the client).md"
-    },
-    {
-      "id": 216,
-      "current": "__Cache Bust on iPads",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Cloudflare, Bunny, Cache Control/Cache Control/__Cache Bust on iPads",
-      "path_tp": "Enterprise - Cloudflare, Bunny, Cache Control/Cache Control/__Cache Bust on iPads"
-    },
-    {
-      "id": 217,
-      "current": "iPad Safari aggressively caches - 2. How to mitigate.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Cloudflare, Bunny, Cache Control/Cache Control/__Cache Bust on iPads/iPad Safari aggressively caches - 2. How to mitigate.md",
-      "path_tp": "Enterprise - Cloudflare, Bunny, Cache Control/Cache Control/__Cache Bust on iPads/iPad Safari aggressively caches - 2. How to mitigate.md"
     },
     {
       "id": 218,
