@@ -1199,51 +1199,51 @@
     },
     {
       "id": 199,
-      "current": "Enterprise - CLOUDFLARE, Bunny, Cache Control",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CLOUDFLARE, Bunny, Cache Control",
-      "path_tp": "Enterprise - CLOUDFLARE, Bunny, Cache Control"
+      "current": "Enterprise - CACHE, CLOUDFLARE, Bunny",
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CACHE, CLOUDFLARE, Bunny",
+      "path_tp": "Enterprise - CACHE, CLOUDFLARE, Bunny"
     },
     {
       "id": 200,
       "current": "_ Cache Control",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control",
-      "path_tp": "Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CACHE, CLOUDFLARE, Bunny/_ Cache Control",
+      "path_tp": "Enterprise - CACHE, CLOUDFLARE, Bunny/_ Cache Control"
     },
     {
       "id": 201,
       "current": "API Endpoint Testing - Postman responses seem cached.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/API Endpoint Testing - Postman responses seem cached.md",
-      "path_tp": "Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/API Endpoint Testing - Postman responses seem cached.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CACHE, CLOUDFLARE, Bunny/_ Cache Control/API Endpoint Testing - Postman responses seem cached.md",
+      "path_tp": "Enterprise - CACHE, CLOUDFLARE, Bunny/_ Cache Control/API Endpoint Testing - Postman responses seem cached.md"
     },
     {
       "id": 202,
       "current": "Best Practice - Legacy Header Pragma with modern Cache-Control.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/Best Practice - Legacy Header Pragma with modern Cache-Control.md",
-      "path_tp": "Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/Best Practice - Legacy Header Pragma with modern Cache-Control.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CACHE, CLOUDFLARE, Bunny/_ Cache Control/Best Practice - Legacy Header Pragma with modern Cache-Control.md",
+      "path_tp": "Enterprise - CACHE, CLOUDFLARE, Bunny/_ Cache Control/Best Practice - Legacy Header Pragma with modern Cache-Control.md"
     },
     {
       "id": 203,
       "current": "Cache busting as the developer and sys admin.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/Cache busting as the developer and sys admin.md",
-      "path_tp": "Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/Cache busting as the developer and sys admin.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CACHE, CLOUDFLARE, Bunny/_ Cache Control/Cache busting as the developer and sys admin.md",
+      "path_tp": "Enterprise - CACHE, CLOUDFLARE, Bunny/_ Cache Control/Cache busting as the developer and sys admin.md"
     },
     {
       "id": 204,
       "current": "Cache busting from client side (You are the client).md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/Cache busting from client side (You are the client).md",
-      "path_tp": "Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/Cache busting from client side (You are the client).md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CACHE, CLOUDFLARE, Bunny/_ Cache Control/Cache busting from client side (You are the client).md",
+      "path_tp": "Enterprise - CACHE, CLOUDFLARE, Bunny/_ Cache Control/Cache busting from client side (You are the client).md"
     },
     {
       "id": 205,
       "current": "__Cache Bust on iPads",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/__Cache Bust on iPads",
-      "path_tp": "Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/__Cache Bust on iPads"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CACHE, CLOUDFLARE, Bunny/_ Cache Control/__Cache Bust on iPads",
+      "path_tp": "Enterprise - CACHE, CLOUDFLARE, Bunny/_ Cache Control/__Cache Bust on iPads"
     },
     {
       "id": 206,
       "current": "iPad Safari aggressively caches - 2. How to mitigate.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/__Cache Bust on iPads/iPad Safari aggressively caches - 2. How to mitigate.md",
-      "path_tp": "Enterprise - CLOUDFLARE, Bunny, Cache Control/_ Cache Control/__Cache Bust on iPads/iPad Safari aggressively caches - 2. How to mitigate.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - CACHE, CLOUDFLARE, Bunny/_ Cache Control/__Cache Bust on iPads/iPad Safari aggressively caches - 2. How to mitigate.md",
+      "path_tp": "Enterprise - CACHE, CLOUDFLARE, Bunny/_ Cache Control/__Cache Bust on iPads/iPad Safari aggressively caches - 2. How to mitigate.md"
     },
     {
       "id": 207,
@@ -1313,489 +1313,489 @@
     },
     {
       "id": 218,
-      "current": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin"
+      "current": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin",
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin"
     },
     {
       "id": 219,
       "current": "Headers",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/Headers",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/Headers"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/Headers",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/Headers"
     },
     {
       "id": 220,
       "current": "Header Syntax (PHP, Nginx).md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/Headers/Header Syntax (PHP, Nginx).md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/Headers/Header Syntax (PHP, Nginx).md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/Headers/Header Syntax (PHP, Nginx).md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/Headers/Header Syntax (PHP, Nginx).md"
     },
     {
       "id": 221,
       "current": "__ Hosting & Server Architecture",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture"
     },
     {
       "id": 222,
       "current": "1. Hosting Solutions",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions"
     },
     {
       "id": 223,
       "current": "2. Webhosting Providers",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions/2. Webhosting Providers",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions/2. Webhosting Providers"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions/2. Webhosting Providers",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions/2. Webhosting Providers"
     },
     {
       "id": 224,
       "current": "Web Hosting Provider - Hostinger",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions/2. Webhosting Providers/Web Hosting Provider - Hostinger",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions/2. Webhosting Providers/Web Hosting Provider - Hostinger"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions/2. Webhosting Providers/Web Hosting Provider - Hostinger",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions/2. Webhosting Providers/Web Hosting Provider - Hostinger"
     },
     {
       "id": 225,
       "current": "Hostinger Common Problem - Does not charge your auto renewal, then disables your website.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions/2. Webhosting Providers/Web Hosting Provider - Hostinger/Hostinger Common Problem - Does not charge your auto renewal, then disables your website.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions/2. Webhosting Providers/Web Hosting Provider - Hostinger/Hostinger Common Problem - Does not charge your auto renewal, then disables your website.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions/2. Webhosting Providers/Web Hosting Provider - Hostinger/Hostinger Common Problem - Does not charge your auto renewal, then disables your website.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions/2. Webhosting Providers/Web Hosting Provider - Hostinger/Hostinger Common Problem - Does not charge your auto renewal, then disables your website.md"
     },
     {
       "id": 226,
       "current": "Hostinger Restore Auto Backup.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions/2. Webhosting Providers/Web Hosting Provider - Hostinger/Hostinger Restore Auto Backup.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions/2. Webhosting Providers/Web Hosting Provider - Hostinger/Hostinger Restore Auto Backup.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions/2. Webhosting Providers/Web Hosting Provider - Hostinger/Hostinger Restore Auto Backup.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/1. Hosting Solutions/2. Webhosting Providers/Web Hosting Provider - Hostinger/Hostinger Restore Auto Backup.md"
     },
     {
       "id": 227,
       "current": "3. Application Stack (Mixed, PHP, HTML, NodeJS, Python)",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/3. Application Stack (Mixed, PHP, HTML, NodeJS, Python)",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/3. Application Stack (Mixed, PHP, HTML, NodeJS, Python)"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/3. Application Stack (Mixed, PHP, HTML, NodeJS, Python)",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/3. Application Stack (Mixed, PHP, HTML, NodeJS, Python)"
     },
     {
       "id": 228,
       "current": "Mixed Web Server - Reverse Proxied CRA React app.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/3. Application Stack (Mixed, PHP, HTML, NodeJS, Python)/Mixed Web Server - Reverse Proxied CRA React app.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/3. Application Stack (Mixed, PHP, HTML, NodeJS, Python)/Mixed Web Server - Reverse Proxied CRA React app.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/3. Application Stack (Mixed, PHP, HTML, NodeJS, Python)/Mixed Web Server - Reverse Proxied CRA React app.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Hosting & Server Architecture/3. Application Stack (Mixed, PHP, HTML, NodeJS, Python)/Mixed Web Server - Reverse Proxied CRA React app.md"
     },
     {
       "id": 229,
       "current": "__ Server Management - Control Panels, DNS Panels, Etc",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc"
     },
     {
       "id": 230,
       "current": "__ Webhosting Control Panels",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels"
     },
     {
       "id": 231,
       "current": "Control Panel - CloudPanel",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel"
     },
     {
       "id": 232,
       "current": "CloudPanel - Add FTP.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - Add FTP.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - Add FTP.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - Add FTP.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - Add FTP.md"
     },
     {
       "id": 233,
       "current": "CloudPanel - Change PHP Version.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - Change PHP Version.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - Change PHP Version.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - Change PHP Version.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - Change PHP Version.md"
     },
     {
       "id": 234,
       "current": "CloudPanel - Redirect error when visit www on browser.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - Redirect error when visit www on browser.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - Redirect error when visit www on browser.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - Redirect error when visit www on browser.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - Redirect error when visit www on browser.md"
     },
     {
       "id": 235,
       "current": "CloudPanel - Root Directory (Fundamental).md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - Root Directory (Fundamental).md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - Root Directory (Fundamental).md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - Root Directory (Fundamental).md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - Root Directory (Fundamental).md"
     },
     {
       "id": 236,
       "current": "CloudPanel - SSL Fundamental - Only one SSL certificate is active among multiple SSL certificates.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - SSL Fundamental - Only one SSL certificate is active among multiple SSL certificates.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - SSL Fundamental - Only one SSL certificate is active among multiple SSL certificates.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - SSL Fundamental - Only one SSL certificate is active among multiple SSL certificates.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - SSL Fundamental - Only one SSL certificate is active among multiple SSL certificates.md"
     },
     {
       "id": 237,
       "current": "CloudPanel - SSL _FUNDAMENTALS - Let's Encrypt Self-Signed.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - SSL _FUNDAMENTALS - Let's Encrypt Self-Signed.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - SSL _FUNDAMENTALS - Let's Encrypt Self-Signed.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - SSL _FUNDAMENTALS - Let's Encrypt Self-Signed.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - CloudPanel/CloudPanel - SSL _FUNDAMENTALS - Let's Encrypt Self-Signed.md"
     },
     {
       "id": 238,
       "current": "Control Panel - Misc",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - Misc",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - Misc"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - Misc",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - Misc"
     },
     {
       "id": 239,
       "current": "Webmin.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - Misc/Webmin.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - Misc/Webmin.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - Misc/Webmin.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Control Panels/Control Panel - Misc/Webmin.md"
     },
     {
       "id": 240,
       "current": "__ Webhosting Domain Registrars - DNS Concepts",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Domain Registrars - DNS Concepts",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Domain Registrars - DNS Concepts"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Domain Registrars - DNS Concepts",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Domain Registrars - DNS Concepts"
     },
     {
       "id": 241,
       "current": "Transfer Registrar - Out of GoDaddy into Hostinger.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Domain Registrars - DNS Concepts/Transfer Registrar - Out of GoDaddy into Hostinger.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Domain Registrars - DNS Concepts/Transfer Registrar - Out of GoDaddy into Hostinger.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Domain Registrars - DNS Concepts/Transfer Registrar - Out of GoDaddy into Hostinger.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Control Panels, DNS Panels, Etc/__ Webhosting Domain Registrars - DNS Concepts/Transfer Registrar - Out of GoDaddy into Hostinger.md"
     },
     {
       "id": 242,
       "current": "__ Server Management - Linux",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux"
     },
     {
       "id": 243,
       "current": "__ 1. Linux Basics for Server Administration",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 1. Linux Basics for Server Administration",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 1. Linux Basics for Server Administration"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 1. Linux Basics for Server Administration",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 1. Linux Basics for Server Administration"
     },
     {
       "id": 244,
       "current": "Setup X11 Xquartz to load GUI locally from remote cli tools.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 1. Linux Basics for Server Administration/Setup X11 Xquartz to load GUI locally from remote cli tools.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 1. Linux Basics for Server Administration/Setup X11 Xquartz to load GUI locally from remote cli tools.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 1. Linux Basics for Server Administration/Setup X11 Xquartz to load GUI locally from remote cli tools.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 1. Linux Basics for Server Administration/Setup X11 Xquartz to load GUI locally from remote cli tools.md"
     },
     {
       "id": 245,
       "current": "chmod Fundamentals.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 1. Linux Basics for Server Administration/chmod Fundamentals.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 1. Linux Basics for Server Administration/chmod Fundamentals.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 1. Linux Basics for Server Administration/chmod Fundamentals.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 1. Linux Basics for Server Administration/chmod Fundamentals.md"
     },
     {
       "id": 246,
       "current": "__ 2. Linux Basics for Server Administration - File Permissions and Users (chmod, chown, etc)",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 2. Linux Basics for Server Administration - File Permissions and Users (chmod, chown, etc)",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 2. Linux Basics for Server Administration - File Permissions and Users (chmod, chown, etc)"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 2. Linux Basics for Server Administration - File Permissions and Users (chmod, chown, etc)",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 2. Linux Basics for Server Administration - File Permissions and Users (chmod, chown, etc)"
     },
     {
       "id": 247,
       "current": "PHP or python script can't create new file.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 2. Linux Basics for Server Administration - File Permissions and Users (chmod, chown, etc)/PHP or python script can't create new file.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 2. Linux Basics for Server Administration - File Permissions and Users (chmod, chown, etc)/PHP or python script can't create new file.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 2. Linux Basics for Server Administration - File Permissions and Users (chmod, chown, etc)/PHP or python script can't create new file.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 2. Linux Basics for Server Administration - File Permissions and Users (chmod, chown, etc)/PHP or python script can't create new file.md"
     },
     {
       "id": 248,
       "current": "chmod Fundamentals.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 2. Linux Basics for Server Administration - File Permissions and Users (chmod, chown, etc)/chmod Fundamentals.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 2. Linux Basics for Server Administration - File Permissions and Users (chmod, chown, etc)/chmod Fundamentals.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 2. Linux Basics for Server Administration - File Permissions and Users (chmod, chown, etc)/chmod Fundamentals.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 2. Linux Basics for Server Administration - File Permissions and Users (chmod, chown, etc)/chmod Fundamentals.md"
     },
     {
       "id": 249,
       "current": "__ 4. Linux Advanced for Server Administration - Storage and Memory",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory"
     },
     {
       "id": 250,
       "current": "Performance & Memory Management",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management"
     },
     {
       "id": 251,
       "current": "Audit Gunicorn worker processes for memory leaks.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management/Audit Gunicorn worker processes for memory leaks.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management/Audit Gunicorn worker processes for memory leaks.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management/Audit Gunicorn worker processes for memory leaks.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management/Audit Gunicorn worker processes for memory leaks.md"
     },
     {
       "id": 252,
       "current": "Audit memory used on os or server (vmstat, vm_stat).md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management/Audit memory used on os or server (vmstat, vm_stat).md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management/Audit memory used on os or server (vmstat, vm_stat).md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management/Audit memory used on os or server (vmstat, vm_stat).md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management/Audit memory used on os or server (vmstat, vm_stat).md"
     },
     {
       "id": 253,
       "current": "Mac terminal to analyze process RAM use.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management/Mac terminal to analyze process RAM use.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management/Mac terminal to analyze process RAM use.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management/Mac terminal to analyze process RAM use.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management/Mac terminal to analyze process RAM use.md"
     },
     {
       "id": 254,
       "current": "Python memory management per script.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management/Python memory management per script.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management/Python memory management per script.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management/Python memory management per script.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ 4. Linux Advanced for Server Administration - Storage and Memory/Performance & Memory Management/Python memory management per script.md"
     },
     {
       "id": 255,
       "current": "__ Webhosting - Linux for Server Administration - Dedicated Server or VPS",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ Webhosting - Linux for Server Administration - Dedicated Server or VPS",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ Webhosting - Linux for Server Administration - Dedicated Server or VPS"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ Webhosting - Linux for Server Administration - Dedicated Server or VPS",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ Webhosting - Linux for Server Administration - Dedicated Server or VPS"
     },
     {
       "id": 256,
       "current": "_ GET STARTED - Setup Dedicated Server Checklist.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ Webhosting - Linux for Server Administration - Dedicated Server or VPS/_ GET STARTED - Setup Dedicated Server Checklist.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ Webhosting - Linux for Server Administration - Dedicated Server or VPS/_ GET STARTED - Setup Dedicated Server Checklist.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ Webhosting - Linux for Server Administration - Dedicated Server or VPS/_ GET STARTED - Setup Dedicated Server Checklist.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ Webhosting - Linux for Server Administration - Dedicated Server or VPS/_ GET STARTED - Setup Dedicated Server Checklist.md"
     },
     {
       "id": 257,
       "current": "_Computer Architecture - Processor L3 Cache and Clock Speed.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ Webhosting - Linux for Server Administration - Dedicated Server or VPS/_Computer Architecture - Processor L3 Cache and Clock Speed.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ Webhosting - Linux for Server Administration - Dedicated Server or VPS/_Computer Architecture - Processor L3 Cache and Clock Speed.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ Webhosting - Linux for Server Administration - Dedicated Server or VPS/_Computer Architecture - Processor L3 Cache and Clock Speed.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Linux/__ Webhosting - Linux for Server Administration - Dedicated Server or VPS/_Computer Architecture - Processor L3 Cache and Clock Speed.md"
     },
     {
       "id": 258,
       "current": "__ Server Management - Web Server Etc",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc"
     },
     {
       "id": 259,
       "current": "SSH, OpenSSH",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/SSH, OpenSSH",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/SSH, OpenSSH"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/SSH, OpenSSH",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/SSH, OpenSSH"
     },
     {
       "id": 260,
       "current": "Known host problem when connecting to remote server.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/SSH, OpenSSH/Known host problem when connecting to remote server.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/SSH, OpenSSH/Known host problem when connecting to remote server.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/SSH, OpenSSH/Known host problem when connecting to remote server.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/SSH, OpenSSH/Known host problem when connecting to remote server.md"
     },
     {
       "id": 261,
       "current": "Web Service (DNS, Https)",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Web Service (DNS, Https)",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Web Service (DNS, Https)"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Web Service (DNS, Https)",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Web Service (DNS, Https)"
     },
     {
       "id": 262,
       "current": "___Server SSL Https 443",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Web Service (DNS, Https)/___Server SSL Https 443",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Web Service (DNS, Https)/___Server SSL Https 443"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Web Service (DNS, Https)/___Server SSL Https 443",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Web Service (DNS, Https)/___Server SSL Https 443"
     },
     {
       "id": 263,
       "current": "Let's Encrypt on CloudPanel (HTTP Challenge)",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Web Service (DNS, Https)/___Server SSL Https 443/Let's Encrypt on CloudPanel (HTTP Challenge)",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Web Service (DNS, Https)/___Server SSL Https 443/Let's Encrypt on CloudPanel (HTTP Challenge)"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Web Service (DNS, Https)/___Server SSL Https 443/Let's Encrypt on CloudPanel (HTTP Challenge)",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Web Service (DNS, Https)/___Server SSL Https 443/Let's Encrypt on CloudPanel (HTTP Challenge)"
     },
     {
       "id": 264,
       "current": "Let's Encrypt Self-Signed SSL for two domains to the same web host and document root.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Web Service (DNS, Https)/___Server SSL Https 443/Let's Encrypt on CloudPanel (HTTP Challenge)/Let's Encrypt Self-Signed SSL for two domains to the same web host and document root.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Web Service (DNS, Https)/___Server SSL Https 443/Let's Encrypt on CloudPanel (HTTP Challenge)/Let's Encrypt Self-Signed SSL for two domains to the same web host and document root.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Web Service (DNS, Https)/___Server SSL Https 443/Let's Encrypt on CloudPanel (HTTP Challenge)/Let's Encrypt Self-Signed SSL for two domains to the same web host and document root.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Web Service (DNS, Https)/___Server SSL Https 443/Let's Encrypt on CloudPanel (HTTP Challenge)/Let's Encrypt Self-Signed SSL for two domains to the same web host and document root.md"
     },
     {
       "id": 265,
       "current": "Webhosting Remote IT Help",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Webhosting Remote IT Help",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Webhosting Remote IT Help"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Webhosting Remote IT Help",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Webhosting Remote IT Help"
     },
     {
       "id": 266,
       "current": "Dedicated Servers - Remote Recovery Consoles",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Webhosting Remote IT Help/Dedicated Servers - Remote Recovery Consoles",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Webhosting Remote IT Help/Dedicated Servers - Remote Recovery Consoles"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Webhosting Remote IT Help/Dedicated Servers - Remote Recovery Consoles",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Webhosting Remote IT Help/Dedicated Servers - Remote Recovery Consoles"
     },
     {
       "id": 267,
       "current": "Lantronix Spider - PRIMER.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Webhosting Remote IT Help/Dedicated Servers - Remote Recovery Consoles/Lantronix Spider - PRIMER.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Webhosting Remote IT Help/Dedicated Servers - Remote Recovery Consoles/Lantronix Spider - PRIMER.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Webhosting Remote IT Help/Dedicated Servers - Remote Recovery Consoles/Lantronix Spider - PRIMER.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Etc/Webhosting Remote IT Help/Dedicated Servers - Remote Recovery Consoles/Lantronix Spider - PRIMER.md"
     },
     {
       "id": 268,
       "current": "__ Server Management - Web Server Software (Apache, Nginx)",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Software (Apache, Nginx)",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Software (Apache, Nginx)"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Software (Apache, Nginx)",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Software (Apache, Nginx)"
     },
     {
       "id": 269,
       "current": "Web Server - Nginx",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Software (Apache, Nginx)/Web Server - Nginx",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Software (Apache, Nginx)/Web Server - Nginx"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Software (Apache, Nginx)/Web Server - Nginx",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Software (Apache, Nginx)/Web Server - Nginx"
     },
     {
       "id": 270,
       "current": "Troubleshooting - Nginx webpage not showing.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Software (Apache, Nginx)/Web Server - Nginx/Troubleshooting - Nginx webpage not showing.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Software (Apache, Nginx)/Web Server - Nginx/Troubleshooting - Nginx webpage not showing.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Software (Apache, Nginx)/Web Server - Nginx/Troubleshooting - Nginx webpage not showing.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Management - Web Server Software (Apache, Nginx)/Web Server - Nginx/Troubleshooting - Nginx webpage not showing.md"
     },
     {
       "id": 271,
       "current": "__ Server Scaling",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling"
     },
     {
       "id": 272,
       "current": "Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)"
     },
     {
       "id": 273,
       "current": "Process Manager - PM2",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - PM2",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - PM2"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - PM2",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - PM2"
     },
     {
       "id": 274,
       "current": "PM2 - _Beginner PRIMER.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - PM2/PM2 - _Beginner PRIMER.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - PM2/PM2 - _Beginner PRIMER.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - PM2/PM2 - _Beginner PRIMER.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - PM2/PM2 - _Beginner PRIMER.md"
     },
     {
       "id": 275,
       "current": "Process Manager - Supervisor",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - Supervisor",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - Supervisor"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - Supervisor",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - Supervisor"
     },
     {
       "id": 276,
       "current": "Supervisor Primer - GET STARTED (Python stack with Sh, Pyenv-virtualenvs, Pipenv, Gunicorn).md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - Supervisor/Supervisor Primer - GET STARTED (Python stack with Sh, Pyenv-virtualenvs, Pipenv, Gunicorn).md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - Supervisor/Supervisor Primer - GET STARTED (Python stack with Sh, Pyenv-virtualenvs, Pipenv, Gunicorn).md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - Supervisor/Supervisor Primer - GET STARTED (Python stack with Sh, Pyenv-virtualenvs, Pipenv, Gunicorn).md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - Supervisor/Supervisor Primer - GET STARTED (Python stack with Sh, Pyenv-virtualenvs, Pipenv, Gunicorn).md"
     },
     {
       "id": 277,
       "current": "Supervisor Primer - QUICK REFERENCE.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - Supervisor/Supervisor Primer - QUICK REFERENCE.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - Supervisor/Supervisor Primer - QUICK REFERENCE.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - Supervisor/Supervisor Primer - QUICK REFERENCE.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - Supervisor/Supervisor Primer - QUICK REFERENCE.md"
     },
     {
       "id": 278,
       "current": "Supervisor web interface.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - Supervisor/Supervisor web interface.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - Supervisor/Supervisor web interface.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - Supervisor/Supervisor web interface.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/Process Manager - Supervisor/Supervisor web interface.md"
     },
     {
       "id": 279,
       "current": "__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading"
     },
     {
       "id": 280,
       "current": "Server - _Scaling - Process Level Scaling",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/Server - _Scaling - Process Level Scaling",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/Server - _Scaling - Process Level Scaling"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/Server - _Scaling - Process Level Scaling",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/Server - _Scaling - Process Level Scaling"
     },
     {
       "id": 281,
       "current": "Gunicorn for Scaling - Primer including math.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/Server - _Scaling - Process Level Scaling/Gunicorn for Scaling - Primer including math.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/Server - _Scaling - Process Level Scaling/Gunicorn for Scaling - Primer including math.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/Server - _Scaling - Process Level Scaling/Gunicorn for Scaling - Primer including math.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/Server - _Scaling - Process Level Scaling/Gunicorn for Scaling - Primer including math.md"
     },
     {
       "id": 282,
       "current": "__Server Admin - Scaling - VMs as VPS",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/__Server Admin - Scaling - VMs as VPS",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/__Server Admin - Scaling - VMs as VPS"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/__Server Admin - Scaling - VMs as VPS",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/__Server Admin - Scaling - VMs as VPS"
     },
     {
       "id": 283,
       "current": "GUI - Webmin Cloudmin (No KVM).md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/__Server Admin - Scaling - VMs as VPS/GUI - Webmin Cloudmin (No KVM).md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/__Server Admin - Scaling - VMs as VPS/GUI - Webmin Cloudmin (No KVM).md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/__Server Admin - Scaling - VMs as VPS/GUI - Webmin Cloudmin (No KVM).md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/__Server Admin - Scaling - VMs as VPS/GUI - Webmin Cloudmin (No KVM).md"
     },
     {
       "id": 284,
       "current": "Splitting Dedicated Server into VPS (via VMs) - Fundamental Concepts.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/__Server Admin - Scaling - VMs as VPS/Splitting Dedicated Server into VPS (via VMs) - Fundamental Concepts.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/__Server Admin - Scaling - VMs as VPS/Splitting Dedicated Server into VPS (via VMs) - Fundamental Concepts.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/__Server Admin - Scaling - VMs as VPS/Splitting Dedicated Server into VPS (via VMs) - Fundamental Concepts.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/__Server Admin - Scaling - VMs as VPS/Splitting Dedicated Server into VPS (via VMs) - Fundamental Concepts.md"
     },
     {
       "id": 285,
       "current": "Xen - Setup XEN VMs (Type 1 Hypervisor, no KMV) - Part 2.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/__Server Admin - Scaling - VMs as VPS/Xen - Setup XEN VMs (Type 1 Hypervisor, no KMV) - Part 2.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/__Server Admin - Scaling - VMs as VPS/Xen - Setup XEN VMs (Type 1 Hypervisor, no KMV) - Part 2.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/__Server Admin - Scaling - VMs as VPS/Xen - Setup XEN VMs (Type 1 Hypervisor, no KMV) - Part 2.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling/Legacy Tools (Supervisor, Pyenv, Pipenv, Poetry, PM2 ecosystem)/__Server Admin, Scaling - With load balancing, supervision processes, worker processes, multithreading/__Server Admin - Scaling - VMs as VPS/Xen - Setup XEN VMs (Type 1 Hypervisor, no KMV) - Part 2.md"
     },
     {
       "id": 286,
       "current": "__ Server Scaling - DOCKER",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling - DOCKER",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling - DOCKER"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling - DOCKER",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling - DOCKER"
     },
     {
       "id": 287,
       "current": "Docker Desktop - Ports.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling - DOCKER/Docker Desktop - Ports.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling - DOCKER/Docker Desktop - Ports.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling - DOCKER/Docker Desktop - Ports.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling - DOCKER/Docker Desktop - Ports.md"
     },
     {
       "id": 288,
       "current": "Docker Desktop - _PRIMER.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling - DOCKER/Docker Desktop - _PRIMER.md",
-      "path_tp": "Enterprise - DevOps, CI CD, Docker, Jenkins, Kubernetes, Redis, Linux, Scaling, Server Admin/__ Server Scaling - DOCKER/Docker Desktop - _PRIMER.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling - DOCKER/Docker Desktop - _PRIMER.md",
+      "path_tp": "Enterprise - DevOps, CI CD, DOCKER, Kubernetes, Jenkins, Redis, Linux, Scaling, Server Admin/__ Server Scaling - DOCKER/Docker Desktop - _PRIMER.md"
     },
     {
       "id": 289,
-      "current": "Enterprise - Email, Forms, Internal Tools",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Email, Forms, Internal Tools",
-      "path_tp": "Enterprise - Email, Forms, Internal Tools"
+      "current": "Enterprise - Email and Forms",
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Email and Forms",
+      "path_tp": "Enterprise - Email and Forms"
     },
     {
       "id": 290,
       "current": "Internal Tools",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Email, Forms, Internal Tools/Internal Tools",
-      "path_tp": "Enterprise - Email, Forms, Internal Tools/Internal Tools"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Email and Forms/Internal Tools",
+      "path_tp": "Enterprise - Email and Forms/Internal Tools"
     },
     {
       "id": 291,
       "current": "Boilerplate - Internal Tools Portal.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Email, Forms, Internal Tools/Internal Tools/Boilerplate - Internal Tools Portal.md",
-      "path_tp": "Enterprise - Email, Forms, Internal Tools/Internal Tools/Boilerplate - Internal Tools Portal.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Email and Forms/Internal Tools/Boilerplate - Internal Tools Portal.md",
+      "path_tp": "Enterprise - Email and Forms/Internal Tools/Boilerplate - Internal Tools Portal.md"
     },
     {
       "id": 292,
-      "current": "Enterprise - Open Source Web Apps and CLI-Powered Web Tools",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Open Source Web Apps and CLI-Powered Web Tools",
-      "path_tp": "Enterprise - Open Source Web Apps and CLI-Powered Web Tools"
+      "current": "Enterprise - Open Source Web Apps, CLI-Powered Web Tools, and Internal Tools",
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Open Source Web Apps, CLI-Powered Web Tools, and Internal Tools",
+      "path_tp": "Enterprise - Open Source Web Apps, CLI-Powered Web Tools, and Internal Tools"
     },
     {
       "id": 293,
       "current": "CLI-Powered Tools",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Open Source Web Apps and CLI-Powered Web Tools/CLI-Powered Tools",
-      "path_tp": "Enterprise - Open Source Web Apps and CLI-Powered Web Tools/CLI-Powered Tools"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Open Source Web Apps, CLI-Powered Web Tools, and Internal Tools/CLI-Powered Tools",
+      "path_tp": "Enterprise - Open Source Web Apps, CLI-Powered Web Tools, and Internal Tools/CLI-Powered Tools"
     },
     {
       "id": 294,
       "current": "Multimedia Processes",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Open Source Web Apps and CLI-Powered Web Tools/CLI-Powered Tools/Multimedia Processes",
-      "path_tp": "Enterprise - Open Source Web Apps and CLI-Powered Web Tools/CLI-Powered Tools/Multimedia Processes"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Open Source Web Apps, CLI-Powered Web Tools, and Internal Tools/CLI-Powered Tools/Multimedia Processes",
+      "path_tp": "Enterprise - Open Source Web Apps, CLI-Powered Web Tools, and Internal Tools/CLI-Powered Tools/Multimedia Processes"
     },
     {
       "id": 295,
       "current": "Base64 Image Conversion from command line process.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Open Source Web Apps and CLI-Powered Web Tools/CLI-Powered Tools/Multimedia Processes/Base64 Image Conversion from command line process.md",
-      "path_tp": "Enterprise - Open Source Web Apps and CLI-Powered Web Tools/CLI-Powered Tools/Multimedia Processes/Base64 Image Conversion from command line process.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Open Source Web Apps, CLI-Powered Web Tools, and Internal Tools/CLI-Powered Tools/Multimedia Processes/Base64 Image Conversion from command line process.md",
+      "path_tp": "Enterprise - Open Source Web Apps, CLI-Powered Web Tools, and Internal Tools/CLI-Powered Tools/Multimedia Processes/Base64 Image Conversion from command line process.md"
     },
     {
       "id": 296,
       "current": "Video Composition - MoviePy",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Open Source Web Apps and CLI-Powered Web Tools/CLI-Powered Tools/Multimedia Processes/Video Composition - MoviePy",
-      "path_tp": "Enterprise - Open Source Web Apps and CLI-Powered Web Tools/CLI-Powered Tools/Multimedia Processes/Video Composition - MoviePy"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Open Source Web Apps, CLI-Powered Web Tools, and Internal Tools/CLI-Powered Tools/Multimedia Processes/Video Composition - MoviePy",
+      "path_tp": "Enterprise - Open Source Web Apps, CLI-Powered Web Tools, and Internal Tools/CLI-Powered Tools/Multimedia Processes/Video Composition - MoviePy"
     },
     {
       "id": 297,
       "current": "MoviePy - Horizontal text centered.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Open Source Web Apps and CLI-Powered Web Tools/CLI-Powered Tools/Multimedia Processes/Video Composition - MoviePy/MoviePy - Horizontal text centered.md",
-      "path_tp": "Enterprise - Open Source Web Apps and CLI-Powered Web Tools/CLI-Powered Tools/Multimedia Processes/Video Composition - MoviePy/MoviePy - Horizontal text centered.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Open Source Web Apps, CLI-Powered Web Tools, and Internal Tools/CLI-Powered Tools/Multimedia Processes/Video Composition - MoviePy/MoviePy - Horizontal text centered.md",
+      "path_tp": "Enterprise - Open Source Web Apps, CLI-Powered Web Tools, and Internal Tools/CLI-Powered Tools/Multimedia Processes/Video Composition - MoviePy/MoviePy - Horizontal text centered.md"
     },
     {
       "id": 298,
       "current": "MoviePy - Vertical text centered.md",
-      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Open Source Web Apps and CLI-Powered Web Tools/CLI-Powered Tools/Multimedia Processes/Video Composition - MoviePy/MoviePy - Vertical text centered.md",
-      "path_tp": "Enterprise - Open Source Web Apps and CLI-Powered Web Tools/CLI-Powered Tools/Multimedia Processes/Video Composition - MoviePy/MoviePy - Vertical text centered.md"
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Enterprise - Open Source Web Apps, CLI-Powered Web Tools, and Internal Tools/CLI-Powered Tools/Multimedia Processes/Video Composition - MoviePy/MoviePy - Vertical text centered.md",
+      "path_tp": "Enterprise - Open Source Web Apps, CLI-Powered Web Tools, and Internal Tools/CLI-Powered Tools/Multimedia Processes/Video Composition - MoviePy/MoviePy - Vertical text centered.md"
     },
     {
       "id": 299,
