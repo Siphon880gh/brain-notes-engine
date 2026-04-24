@@ -182,6 +182,93 @@ sudo systemctl reload nginx
   }
   ```
 
+### Which server block on multi-block setups (CloudPanel, Plesk, reverse-proxy)
+
+CloudPanel and many panel-managed hosts split Nginx into two server blocks:
+
+- **Port 443** — the public-facing Nginx. Terminates SSL, serves static files (images, CSS, JS, JSON, HTML) directly from disk, and reverse-proxies only the PHP requests to the backend.
+- **Port 8080** — an internal backend (another Nginx or Apache) that talks to `php-fpm` and returns the rendered PHP output. It never sees static-file requests in the default setup.
+
+Our three files — `cachedResData.json`, `cachedResDataImaged.json`, `cachedResPartial.html` — are **static files**. They're served straight from disk by the 443 block. So:
+
+**Put the `location ~* ^/cached.*\.(json|html)$` block in the 443 server block, not the 8080 one.**
+
+If you put it in 8080 only, the 443 front-end happily serves the file without any `Cache-Control` header, because it never consulted the 8080 config for static paths. That's the "I added it but nothing changed" trap.
+
+On CloudPanel the file is typically:
+
+```
+/etc/nginx/sites-enabled/<domain>.conf
+```
+
+and contains something like this (abridged; CloudPanel's real config is longer):
+
+```nginx
+# === 443: public-facing, serves static + proxies PHP to 8080 ===
+server {
+    listen 443 ssl http2;
+    server_name your.host;
+    root /home/<site-user>/htdocs/your.host;
+
+    # ... SSL, security headers, etc ...
+
+    # Static files are served here — add the cache headers HERE
+    location ~* ^/app/devbrain/cached.*\.(json|html)$ {
+        add_header Cache-Control "no-cache, must-revalidate" always;
+        add_header Vary "Accept-Encoding" always;
+        etag on;
+    }
+
+    # PHP goes to the backend on 8080
+    location ~ \.php$ {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+# === 8080: internal PHP backend — nothing to do here for our cache files ===
+server {
+    listen 127.0.0.1:8080;
+    server_name your.host;
+    root /home/<site-user>/htdocs/your.host;
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php8.x-fpm-<site-user>.sock;
+    }
+}
+```
+
+Rules of thumb for two-tier Nginx:
+
+- **Static-file headers (caching, compression, CORS for static assets)** → public-facing 443 block.
+- **PHP-response headers (session cookies, dynamic `Cache-Control`, security headers on PHP pages)** → can go in either block, but the public 443 block is the one the browser sees, so it wins. CloudPanel often sets `proxy_pass_header` / `proxy_pass_request_headers` so backend headers propagate, but setting them on 443 is the most predictable.
+- **Compression (`gzip on;`, `brotli on;`)** → 443 block. The body only needs to be compressed once, right before it leaves the server to the client.
+
+Two telltale signs that you edited the wrong block:
+
+```bash
+# Should show your Cache-Control header. If it doesn't, the 443 block wasn't hit.
+curl -sI https://your.host/app/devbrain/cachedResPartial.html | grep -i cache-control
+
+# Look at the Server header to confirm which tier replied.
+# CloudPanel's 443 front-end usually just reports "nginx"; the 8080 backend may
+# show via "X-Powered-By: PHP/..." on dynamic responses. A static .html file
+# should have no PHP fingerprint.
+curl -sI https://your.host/app/devbrain/cachedResPartial.html | grep -iE 'server|x-powered'
+```
+
+After editing, reload from the CloudPanel UI or via CLI:
+
+```bash
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+CloudPanel also has a "Vhost" editor per site in its UI; pasting the `location` block inside the HTTPS vhost there is equivalent to editing the 443 server block directly.
+
 ### Verifying on Nginx
 
 ```bash
