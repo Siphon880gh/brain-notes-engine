@@ -1,6 +1,18 @@
 var app = {
     init: async function() {
 
+        // Inject the topics tree HTML partial before anything else reads #topics-list.
+        // Served as a static .html so the browser can cache it via Last-Modified / 304.
+        try {
+            const partialHtml = await fetch("./cachedResPartial.html").then(r => r.text());
+            const topicsList = document.getElementById("topics-list");
+            if (topicsList) topicsList.innerHTML = partialHtml;
+        } catch (e) {
+            console.error("Failed to load cachedResPartial.html", e);
+        }
+        window.__topicsReady = true;
+        document.dispatchEvent(new CustomEvent("topics-ready"));
+
         const resource = await fetch("./cachedResData.json").then(response=>response.json());
 
         window.folders = resource.dirs;
@@ -543,10 +555,10 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
         }
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initFolderOptionsAndAI);
-    } else {
+    if (window.__topicsReady) {
         initFolderOptionsAndAI();
+    } else {
+        document.addEventListener('topics-ready', initFolderOptionsAndAI, { once: true });
     }
 
 // #endregion

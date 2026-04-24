@@ -4,16 +4,20 @@
  * 
  * In the note: Share note modal has Copy button
  */
-document.addEventListener("DOMContentLoaded", function () {
-    var copyButton = document.getElementById("copyButton");
+(function () {
+    var onTopicsReady = function () {
+        var copyButton = document.getElementById("copyButton");
 
-    copyButton.addEventListener("click", function () {
-        var copyText = document.getElementById("shareSnippet");
-        copyText.select();
-        document.execCommand("copy");
-        // alert("Copied the text: " + copyText.value); // Optional: alert message
-    });
-});
+        copyButton.addEventListener("click", function () {
+            var copyText = document.getElementById("shareSnippet");
+            copyText.select();
+            document.execCommand("copy");
+            // alert("Copied the text: " + copyText.value); // Optional: alert message
+        });
+    };
+    if (window.__topicsReady) onTopicsReady();
+    else document.addEventListener("topics-ready", onTopicsReady, { once: true });
+})();
 
 /**
  * 
@@ -57,17 +61,21 @@ function goToItem() {
  * In the note: setTableOfContents makes TOC menu (aka #mobile-tap) at top right appear
  */
 
-document.addEventListener("DOMContentLoaded", function () {
-    document.body.addEventListener("click", (event) => {
-        if (!event.target.matches('#toc-toggler') && !event.target.closest('#toc-toggler')) { 
-            document.querySelector('#mobile-tap').classList.remove('active'); 
-        }
-    })
-    document.getElementById("toc-toggler").addEventListener("click", (event) => {
-        event.preventDefault();
-        document.querySelector('#mobile-tap').classList.toggle('active');
-    });
-});
+(function () {
+    var onTopicsReady = function () {
+        document.body.addEventListener("click", (event) => {
+            if (!event.target.matches('#toc-toggler') && !event.target.closest('#toc-toggler')) {
+                document.querySelector('#mobile-tap').classList.remove('active');
+            }
+        })
+        document.getElementById("toc-toggler").addEventListener("click", (event) => {
+            event.preventDefault();
+            document.querySelector('#mobile-tap').classList.toggle('active');
+        });
+    };
+    if (window.__topicsReady) onTopicsReady();
+    else document.addEventListener("topics-ready", onTopicsReady, { once: true });
+})();
 
 function setTableOfContents(tocEl, markdownContentEl) {
     // Check if TOC has already been numbered to prevent duplicates

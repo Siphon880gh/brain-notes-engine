@@ -1,0 +1,25 @@
+# Browser cache policy for generated cache outputs.
+#
+# Target files (at repo root):
+#   cachedResData.json
+#   cachedResDataImaged.json
+#   cachedResPartial.html
+#
+# Strategy: conditional-GET revalidation.
+# Apache auto-emits Last-Modified + ETag for static files. "no-cache" here
+# means the browser MAY store the response but MUST revalidate with the server
+# on each request. When the file's mtime is unchanged, Apache answers 304 and
+# the browser serves its cached copy. When the file has been rebuilt (e.g. by
+# `npm run build-devbrain`), its mtime changes and the browser gets the fresh
+# body. This gives us "use the browser's copy unless the last-modified differs".
+<IfModule mod_headers.c>
+    <FilesMatch "^cached.*\.(json|html)$">
+        Header set Cache-Control "no-cache, must-revalidate"
+        Header unset Pragma
+        Header unset Expires
+    </FilesMatch>
+</IfModule>
+
+# Make ETag strong by basing it on mtime + size (no inode, so it survives
+# filesystem moves / replicas).
+FileETag MTime Size

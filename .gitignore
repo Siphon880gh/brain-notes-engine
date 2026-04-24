@@ -1,6 +1,6 @@
 # Same front-end that's polymorphic to different environments
 cachedResData.json
-cachedResPartial.php
+cachedResPartial.html
 
 # Same front-end that's polymorphic to different note collections
 env/description-meta.php

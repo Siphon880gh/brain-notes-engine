@@ -6,8 +6,9 @@ const icons = require('./env/icons.js');
 // Path to your output.json file
 const outputJsonPath = 'cachedResData.json';
 
-// Path where the generated PHP partial will be saved
-const outputPhpPath = 'cachedResPartial.php';
+// Path where the generated HTML partial will be saved.
+// HTML (not PHP) so the browser can cache it via conditional GET (Last-Modified / 304).
+const outputHtmlPath = 'cachedResPartial.html';
 
 // Read the output.json file
 let outputData;
@@ -225,19 +226,17 @@ function generateHtml(folders) {
 // Generate the HTML content
 const htmlContent = generateHtml(nestedFolders);
 
-// Wrap the content in a PHP file
-const phpContent = `<?php
-// This file is auto-generated. Do not edit manually.
-?>
+// Wrap the content as a plain HTML partial
+const htmlDoc = `<!-- This file is auto-generated. Do not edit manually. -->
 <ul class="ul-root">
 ${htmlContent}
 </ul>`;
 
-// Save the PHP partial
-fs.writeFile(outputPhpPath, phpContent, (err) => {
+// Save the HTML partial
+fs.writeFile(outputHtmlPath, htmlDoc, (err) => {
   if (err) {
-    console.error(`ERROR: Problems writing to ${outputPhpPath}: `, err);
+    console.error(`ERROR: Problems writing to ${outputHtmlPath}: `, err);
   } else {
-    console.log(`\n\n>> PHP partial successfully saved to:\n${outputPhpPath}`);
+    console.log(`\n\n>> HTML partial successfully saved to:\n${outputHtmlPath}`);
   }
 });

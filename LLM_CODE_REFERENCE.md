@@ -56,7 +56,7 @@
 ```
 1. Content Creation (Obsidian/Markdown) → curriculum/
 2. Build Process: cache_data.js → cachedResData.json
-3. HTML Generation: cache_render.js → cachedResPartial.php  
+3. HTML Generation: cache_render.js → cachedResPartial.html  
 4. Runtime: index.php loads cached content + JavaScript enhances UI
 5. Search: search.php provides PCRE-based full-text search
 6. Features: Mindmaps, link previews, AI assistance activate dynamically
@@ -116,7 +116,7 @@ devbrain/
 ### 1. Application Bootstrap (`index.php`)
 - Loads environment configuration from templates
 - Renders HTML structure with modals, search, and UI components
-- Includes cached content from `cachedResPartial.php`
+- Client-side loads the cached topics tree from `cachedResPartial.html` (browser-cached via Last-Modified)
 - Initializes JavaScript modules and external dependencies
 
 ### 2. Content Processing Pipeline
@@ -128,7 +128,7 @@ scanDirectory(curriculumPath) → buildFileTree() → cachedResData.json
 scanDirectory(curriculumPath) → filterNotesWithImages() → cachedResDataImaged.json
 
 // cache_render.js - HTML generation  
-loadCachedData() → processTemplates() → cachedResPartial.php
+loadCachedData() → processTemplates() → cachedResPartial.html
 ```
 
 ### 3. Runtime Enhancement

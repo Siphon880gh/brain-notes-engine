@@ -36,7 +36,7 @@ Each template contains:
    - Merges folders by common path
    - Applies Obsidian sort specifications
    - Generates HTML using EJS templates with `data-path` on folder `<li>` elements for URL-based folder navigation
-   - Outputs: `cachedResPartial.php`
+   - Outputs: `cachedResPartial.html` (plain HTML so the browser can cache it via Last-Modified / 304)
 
 ### Build Process Flow
 ```bash
@@ -85,7 +85,7 @@ devbrain/
 ├── search.php               # Search endpoint (~21 lines) [SMALL]
 ├── check-private-auth.php   # Private notes auth endpoint (~80 lines) [SMALL]
 ├── .env-password.php        # Password for private notes (gitignored)
-├── cachedResPartial.php     # Generated HTML content
+├── cachedResPartial.html    # Generated HTML content (fetched client-side, browser-cached)
 ├── assets/
 │   ├── css/                 # Styling (10 CSS files, ~3000 total lines)
 │   │   ├── index.css        # Main styling + code blocks (~1294 lines) [LARGE]

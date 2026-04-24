@@ -272,7 +272,7 @@
                                 <div class="clear-both"></div>
 
                                 <main id="topics-list">
-                                    <?php include("./cachedResPartial.php"); ?>
+                                    <!-- Topics tree is injected client-side from cachedResPartial.html (browser-cached via Last-Modified). See assets/js/index.js app.init(). -->
                                 </main>
 
                                 <div id="search-results" style="display:none;">

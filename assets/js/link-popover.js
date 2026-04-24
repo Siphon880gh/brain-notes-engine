@@ -15,12 +15,10 @@ class LinkPopoverPreview {
     }
 
     init() {
-        // Wait for DOM to be ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => this.enhanceLinks());
-        } else {
-            this.enhanceLinks();
-        }
+        // Wait until the topics tree is injected so any links inside it are also enhanced.
+        const run = () => this.enhanceLinks();
+        if (window.__topicsReady) run();
+        else document.addEventListener('topics-ready', run, { once: true });
     }
 
     /**

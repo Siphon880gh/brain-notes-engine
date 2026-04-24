@@ -329,10 +329,15 @@ class PrivateAuthManager {
 // Global instance
 window.privateAuthManager = null;
 
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    window.privateAuthManager = new PrivateAuthManager();
-});
+// Initialize after the topics tree is injected, so updatePrivateElementsVisibility()
+// can hide [data-private="1"] items that live inside cachedResPartial.html.
+(function () {
+    const onTopicsReady = () => {
+        window.privateAuthManager = new PrivateAuthManager();
+    };
+    if (window.__topicsReady) onTopicsReady();
+    else document.addEventListener('topics-ready', onTopicsReady, { once: true });
+})();
 
 // Export for module use
 if (typeof module !== 'undefined' && module.exports) {

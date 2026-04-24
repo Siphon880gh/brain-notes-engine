@@ -12,7 +12,7 @@ If a markdown filename contains `(SUPERPRIVATE)`, it is ignored by the repo's gi
 
 ## Security Measures
 
-**Hidden href paths**: When `cachedResPartial.php` is built, private files and files in private folders have their `href=""` set to empty instead of exposing the true file path. Private folders and their contents are marked with `data-private="1"` and hidden from the file tree until the user authenticates.
+**Hidden href paths**: When `cachedResPartial.html` is built, private files and files in private folders have their `href=""` set to empty instead of exposing the true file path. Private folders and their contents are marked with `data-private="1"` and hidden from the file tree until the user authenticates.
 
 ## Hackable for now
 
