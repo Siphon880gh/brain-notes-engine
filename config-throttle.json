@@ -4,7 +4,7 @@
     "window_seconds": 30,
     "storage_dir": "temp/throttle",
     "cooldown_message": "**Slow down.** You're opening notes too quickly. Please wait a moment and try again.",
-    "bypass_authenticated_private": true,
-    "trust_forwarded_for": true,
+    "bypass_authenticated_private": false,
+    "trust_forwarded_for": false,
     "trust_cloudflare": true
 }

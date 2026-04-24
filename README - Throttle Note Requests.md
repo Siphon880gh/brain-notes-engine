@@ -8,11 +8,13 @@ Companion to [README - Protect MD Files Guide.md](README - Protect MD Files Guid
 
 [local-open.php](local-open.php) is the single entry point for note content (see §2 of the Protect MD Files Guide). Before it resolves `?id=N`, it now keeps a short sliding-window counter per client IP. If a client exceeds the configured rate, the endpoint returns **HTTP 429 Too Many Requests** with a `Retry-After` header and a friendly cooldown message that the frontend renders in place of the note body.
 
-Defaults (from [config-throttle.json](config-throttle.json)):
+Shipping default (from [config-throttle.json](config-throttle.json)) — the **Cloudflare + CloudPanel** shape described in §3:
 - **4 requests per 30 seconds** per IP.
-- Authenticated PRIVATE users bypass the limit.
-- `X-Forwarded-For` is **not** trusted by default (flip this on behind CloudPanel / reverse proxies).
-- `CF-Connecting-IP` is **not** trusted by default (flip this on when behind Cloudflare — see §5).
+- Authenticated PRIVATE users are **not** auto-bypassed — the limit applies to everyone so a logged-in tab can't be used as an unthrottled scraping channel.
+- `X-Forwarded-For` / `X-Real-IP` are **not** trusted. CloudPanel terminates TLS and talks to PHP over loopback, so those headers can be set by anything on the public edge that isn't Cloudflare.
+- `CF-Connecting-IP` **is** trusted — the box is assumed to be locked down to Cloudflare's IP ranges (§5), which makes that header authoritative.
+
+If you're not on Cloudflare, see §3's "No Cloudflare" recipe — it's the same file with `trust_cloudflare` flipped off.
 
 ## 2. How it works
 
@@ -49,6 +51,12 @@ Key properties:
 
 ## 3. Configuration — [config-throttle.json](config-throttle.json)
 
+Two recipes cover almost every deployment. Pick one, drop it into [config-throttle.json](config-throttle.json), done. The field-by-field reference is below if you want to deviate.
+
+### Recipe A — Cloudflare in front of CloudPanel (recommended, shipping default)
+
+Origin is locked to Cloudflare IPs (§5), so `CF-Connecting-IP` is authoritative. Everything else — including CloudPanel's own `X-Forwarded-For` / `X-Real-IP` — is ignored, because on a Cloudflare-fronted host those headers are only as trustworthy as whatever set them on the public edge. With the origin firewalled to Cloudflare, only Cloudflare can set `CF-Connecting-IP`, and that's the one we key off.
+
 ```json
 {
     "enabled": true,
@@ -56,22 +64,43 @@ Key properties:
     "window_seconds": 30,
     "storage_dir": "temp/throttle",
     "cooldown_message": "**Slow down.** You're opening notes too quickly. Please wait a moment and try again.",
-    "bypass_authenticated_private": true,
+    "bypass_authenticated_private": false,
+    "trust_forwarded_for": false,
+    "trust_cloudflare": true
+}
+```
+
+### Recipe B — No Cloudflare, PHP served directly
+
+No reverse proxy above CloudPanel, or CloudPanel talking straight to the internet on 443. `REMOTE_ADDR` is already the real client on this topology, so both trust flags stay off — the moment you flip either one on, a scraper can forge the header and rotate through an infinite supply of fake IPs.
+
+```json
+{
+    "enabled": true,
+    "max_requests": 4,
+    "window_seconds": 30,
+    "storage_dir": "temp/throttle",
+    "cooldown_message": "**Slow down.** You're opening notes too quickly. Please wait a moment and try again.",
+    "bypass_authenticated_private": false,
     "trust_forwarded_for": false,
     "trust_cloudflare": false
 }
 ```
 
-| Field | Type | Default | Meaning |
+If you have a bare CloudPanel / nginx 443→8080 split in front of PHP but **no** Cloudflare, see §4 — that's the one case where `trust_forwarded_for: true` is correct.
+
+### Field reference
+
+| Field | Type | Recipe A / B | Meaning |
 |---|---|---|---|
 | `enabled` | bool | `true` | Master switch. Set `false` to disable throttling entirely without removing the code. |
 | `max_requests` | int | `4` | How many note opens are allowed inside `window_seconds`. The N-th+1 request in the window returns 429. |
 | `window_seconds` | int | `30` | Rolling window length. |
 | `storage_dir` | string | `"temp/throttle"` | Where per-IP counter files live. Absolute paths OK; relative paths resolve against the script dir. Auto-created with `0755`. |
 | `cooldown_message` | string | (see json) | Shown to the user when throttled. Markdown is rendered by the frontend's existing `markdown-it`. |
-| `bypass_authenticated_private` | bool | `true` | If `true`, visitors who unlocked private notes via the 🔑 key icon (session flag `private_auth`) skip the throttle. |
-| `trust_forwarded_for` | bool | `false` | If `true`, the IP is read from `X-Real-IP` / `X-Forwarded-For`. Only enable this behind a trusted reverse proxy (e.g. CloudPanel 443 → 8080); otherwise clients can spoof headers and evade the limit. |
-| `trust_cloudflare` | bool | `false` | If `true`, the IP is read from `CF-Connecting-IP` (Cloudflare's always-correct real-client header). Takes priority over `trust_forwarded_for` when both are set. See §5. |
+| `bypass_authenticated_private` | bool | `false` | If `true`, visitors who unlocked private notes via the 🔑 key icon (session flag `private_auth`) skip the throttle. Kept off in both recipes so a logged-in session can't be weaponised as an unthrottled scraping channel. |
+| `trust_forwarded_for` | bool | `false` | If `true`, the IP is read from `X-Real-IP` / `X-Forwarded-For`. Only enable this behind a trusted reverse proxy that strips inbound copies of those headers (e.g. a bare CloudPanel 443 → 8080 with **no** Cloudflare in front); otherwise clients can spoof the header and evade the limit. |
+| `trust_cloudflare` | bool | Recipe A `true`, Recipe B `false` | If `true`, the IP is read from `CF-Connecting-IP` (Cloudflare's real-client header). Only safe when the origin is firewalled to Cloudflare's IP ranges or using Authenticated Origin Pulls (§5), otherwise a scraper can set the header directly. Takes priority over `trust_forwarded_for` when both are on. |
 
 **Header priority when multiple trust flags are on:**
 
@@ -152,7 +181,7 @@ flowchart TD
     H --> Z
 ```
 
-So on a CloudPanel box that is also behind Cloudflare, turning BOTH `trust_cloudflare: true` and `trust_forwarded_for: true` is correct — Cloudflare is checked first (that's the real client), and XFF is a fallback if Cloudflare ever stopped setting the header for some reason.
+On a CloudPanel box that is also behind Cloudflare, the shipping recipe (§3, Recipe A) is `trust_cloudflare: true` and `trust_forwarded_for: false`. `CF-Connecting-IP` is the only header we trust, which is only safe because the origin is firewalled to Cloudflare (see "close off direct-to-origin access" below). `trust_forwarded_for: true` is **not** a useful fallback here: on a Cloudflare-fronted origin, any request that bypasses Cloudflare and reaches PHP directly also controls `X-Forwarded-For` / `X-Real-IP`, so turning that flag on hands the scraper the same per-request-rotation bypass we're trying to prevent. If Cloudflare ever stops setting `CF-Connecting-IP`, the throttle harmlessly falls through to `REMOTE_ADDR` (every request hashes to the same Cloudflare edge IP → one global bucket → the endpoint goes cold very quickly), which is a louder failure mode than silently trusting a spoofable header.
 
 ### Important: close off direct-to-origin access
 

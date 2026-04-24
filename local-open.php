@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 $id = isset($_GET["id"]) ? intval($_GET["id"]) : null;
 
 // ============================================================
@@ -62,6 +63,7 @@ $id = isset($_GET["id"]) ? intval($_GET["id"]) : null;
         @mkdir($storagePath, 0755, true);
     }
     if (!is_dir($storagePath) || !is_writable($storagePath)) return;
+
 
     $ipKey       = hash('sha256', $clientIp);
     $counterFile = $storagePath . '/' . $ipKey . '.json';
