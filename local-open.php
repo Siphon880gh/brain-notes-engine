@@ -3,6 +3,105 @@ session_start();
 
 $id = isset($_GET["id"]) ? intval($_GET["id"]) : null;
 
+// ============================================================
+// Rate limiting (anti-scraping) — see README - Throttle Note Requests.md
+// Config: config-throttle.json. Missing/invalid config = fail-open (off).
+// Keyed on client IP, stored as JSON counter files under storage_dir.
+// ============================================================
+(function () {
+    $configPath = __DIR__ . '/config-throttle.json';
+    if (!file_exists($configPath)) return;
+    $raw = @file_get_contents($configPath);
+    if ($raw === false) return;
+    $cfg = json_decode($raw, true);
+    if (!is_array($cfg) || empty($cfg['enabled'])) return;
+
+    $maxRequests   = isset($cfg['max_requests'])   ? max(1, intval($cfg['max_requests']))   : 4;
+    $windowSeconds = isset($cfg['window_seconds']) ? max(1, intval($cfg['window_seconds'])) : 30;
+    $storageDir    = isset($cfg['storage_dir'])    ? (string)$cfg['storage_dir']            : 'temp/throttle';
+    $cooldownMsg   = isset($cfg['cooldown_message'])
+        ? (string)$cfg['cooldown_message']
+        : "Slow down — too many note requests. Please wait a moment and try again.";
+    $bypassPrivAuthed = !empty($cfg['bypass_authenticated_private']);
+    $trustXff         = !empty($cfg['trust_forwarded_for']);
+
+    // Already-authenticated PRIVATE users can opt out (normal browsing shouldn't trip rate limits).
+    if ($bypassPrivAuthed && isset($_SESSION['private_auth']) && $_SESSION['private_auth'] === true) {
+        return;
+    }
+
+    // Identity: direct REMOTE_ADDR by default. Honor X-Forwarded-For / X-Real-IP only
+    // when explicitly trusted (e.g. CloudPanel 443 -> 8080 reverse-proxy). Otherwise
+    // anyone could spoof headers and evade rate limiting.
+    $clientIp = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+    if ($trustXff) {
+        if (!empty($_SERVER['HTTP_X_REAL_IP'])) {
+            $clientIp = $_SERVER['HTTP_X_REAL_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $parts = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+            $clientIp = trim($parts[0]);
+        }
+    }
+    // No identifiable client (CLI, odd SAPI) — skip rather than globally rate-limit.
+    if ($clientIp === '') return;
+
+    // Resolve storage dir. Accept absolute or relative-to-script paths.
+    $storagePath = (strlen($storageDir) > 0 && $storageDir[0] === '/')
+        ? $storageDir
+        : __DIR__ . '/' . ltrim($storageDir, '/');
+    if (!is_dir($storagePath)) {
+        @mkdir($storagePath, 0755, true);
+    }
+    if (!is_dir($storagePath) || !is_writable($storagePath)) return;
+
+    $ipKey       = hash('sha256', $clientIp);
+    $counterFile = $storagePath . '/' . $ipKey . '.json';
+    $now         = time();
+    $windowStart = $now - $windowSeconds;
+
+    $timestamps = [];
+    if (file_exists($counterFile)) {
+        $prev = @file_get_contents($counterFile);
+        if ($prev !== false && $prev !== '') {
+            $decoded = json_decode($prev, true);
+            if (is_array($decoded)) {
+                foreach ($decoded as $t) {
+                    if (is_numeric($t) && intval($t) >= $windowStart) {
+                        $timestamps[] = intval($t);
+                    }
+                }
+            }
+        }
+    }
+
+    if (count($timestamps) >= $maxRequests) {
+        http_response_code(429);
+        header('Retry-After: ' . $windowSeconds);
+        header('Content-Type: text/plain; charset=utf-8');
+        // YAML envelope matches what note-opener.js expects, so the message renders
+        // in place of the note body rather than as a raw error.
+        echo "title: Too many requests\nhtml: |\n" . $cooldownMsg;
+        exit;
+    }
+
+    $timestamps[] = $now;
+    @file_put_contents($counterFile, json_encode(array_values($timestamps)));
+
+    // Opportunistic cleanup (~1% of requests): delete counter files untouched for 24h.
+    if (mt_rand(1, 100) === 1) {
+        $entries = @scandir($storagePath);
+        if (is_array($entries)) {
+            foreach ($entries as $entry) {
+                if ($entry === '.' || $entry === '..') continue;
+                $full = $storagePath . '/' . $entry;
+                if (is_file($full) && filemtime($full) < ($now - 86400)) {
+                    @unlink($full);
+                }
+            }
+        }
+    }
+})();
+
 // Load and decode the JSON file
 $jsonFile = 'cachedResData.json';
 $jsonData = json_decode(file_get_contents($jsonFile), true);

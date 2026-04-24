@@ -29,3 +29,6 @@ out/
 .env-password.php
 env/all/pcregrep.php
 **/*(SUPERPRIVATE)*.md
+
+# Rate-limit counter files (one JSON per IP hash). See README - Throttle Note Requests.md.
+temp/throttle/
