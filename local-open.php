@@ -24,17 +24,26 @@ $id = isset($_GET["id"]) ? intval($_GET["id"]) : null;
         : "Slow down — too many note requests. Please wait a moment and try again.";
     $bypassPrivAuthed = !empty($cfg['bypass_authenticated_private']);
     $trustXff         = !empty($cfg['trust_forwarded_for']);
+    $trustCloudflare  = !empty($cfg['trust_cloudflare']);
 
     // Already-authenticated PRIVATE users can opt out (normal browsing shouldn't trip rate limits).
     if ($bypassPrivAuthed && isset($_SESSION['private_auth']) && $_SESSION['private_auth'] === true) {
         return;
     }
 
-    // Identity: direct REMOTE_ADDR by default. Honor X-Forwarded-For / X-Real-IP only
-    // when explicitly trusted (e.g. CloudPanel 443 -> 8080 reverse-proxy). Otherwise
-    // anyone could spoof headers and evade rate limiting.
+    // Identity: direct REMOTE_ADDR by default.
+    //
+    // Header priority when trusted:
+    //   1. CF-Connecting-IP  (Cloudflare) — always the real client IP, no parsing
+    //   2. X-Real-IP         (set by Nginx / CloudPanel reverse proxy)
+    //   3. X-Forwarded-For   (first hop is the client)
+    //
+    // Only enable the trust flags if your origin is actually behind that proxy;
+    // otherwise any visitor can forge these headers and evade rate limiting.
     $clientIp = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
-    if ($trustXff) {
+    if ($trustCloudflare && !empty($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+        $clientIp = trim($_SERVER['HTTP_CF_CONNECTING_IP']);
+    } elseif ($trustXff) {
         if (!empty($_SERVER['HTTP_X_REAL_IP'])) {
             $clientIp = $_SERVER['HTTP_X_REAL_IP'];
         } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
