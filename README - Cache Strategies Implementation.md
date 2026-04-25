@@ -341,17 +341,15 @@ cf-cache-status: DYNAMIC
 
 ![](README-assets/cache-cloudflare-dynamic-means-origin-handles.png)
 
-This also ok because it’s instant from local cache though it doesn’t report 304.
-
-Consider that as a 200 from disk cache rather than a 200
-![](README-assets/cache-200-local-details.png)
-
 DYNAMIC is okay here. It means Cloudflare bypassed cache and forwarded to your origin
 
 This increases the chance of the descriptive and performant 304:
 ![](README-assets/cache-304-and-200-local.png)
 
-Note disk cache is aka local cache
+There is still a 200 local cache aka disk cache but at least 304's are showing through
+![[cache-200-local-details.png]]
+
+This also ok because it’s instant from local cache (200 local) though it doesn’t report the strategy that it's not been modified so we pull from local cache (304).
 
 ## 7. Cache 200 and 304 Strategy - Troubleshooting
 
