@@ -321,7 +321,7 @@ Now let's considered you never visited:
 
 These are all 200 fresh requests
 
-For example when you go into detail, there's no "local cache":
+For example when you go into detail of any 200 fresh requests, there's no "local cache":
 ![](README-assets/cache-200-fresh-details.png)
   
 During troubleshooting, you can mess up because you might forget to check the type of 200 statuses and assumed it's a normal 200 status that retrieved data.
@@ -351,6 +351,7 @@ DYNAMIC is okay here. It means Cloudflare bypassed cache and forwarded to your o
 This increases the chance of the descriptive and performant 304:
 ![](README-assets/cache-304-and-200-local.png)
 
+Note disk cache is aka local cache
 
 ## 7. Cache 200 and 304 Strategy - Troubleshooting
 
