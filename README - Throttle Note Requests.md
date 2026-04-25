@@ -1,6 +1,11 @@
 # Throttle Note Requests — Anti-Scraping for `local-open.php`
 
-Companion to [README - Protect MD Files Guide.md](README - Protect MD Files Guide.md). That guide blocks the direct `.md` URL. This guide rate-limits the PHP endpoint that legitimately serves notes, so a scraper can't just walk `?id=1`, `?id=2`, `?id=3`, … and pull the whole knowledge base.
+Companion to [README - Protect MD Files Guide.md](README - Protect MD Files Guide.md). That guide blocks the direct `.md` URL. This guide rate-limits the PHP endpoint that legitimately serves notes, so a scraper can't just walk `?id=1`, `?id=2`, `?id=3`, … (generally speaking for any website) and pull the whole knowledge base.
+
+The scraper gets served a 429 status code which means too many requests. If it's an actual user clicking too much on the web browser (still bad for our network / cpu), we degrade to friendlier message:
+
+![[throttle.png]]
+
 
 ---
 

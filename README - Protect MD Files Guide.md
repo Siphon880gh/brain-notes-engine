@@ -1,6 +1,6 @@
 # Protect MD Files — Block Direct HTTP Access to Raw Notes
 
-This guide explains why raw `.md` files under `curriculum/` should not be reachable by URL, how the app already avoids needing them over HTTP, and how to add a block rule to Apache (`.htaccess`) or Nginx (vhost / CloudPanel). For the companion topic of browser caching of the generated artifacts, see [README - Cached Files Guide.md](README - Cached Files Guide.md).
+This guide explains why raw `.md` files under `curriculum/` should not be reachable by URL, how the app already avoids needing them over HTTP, and how to add a block rule to Apache (`.htaccess`) or Nginx (vhost / CloudPanel). For the companion topic of browser caching of the generated artifacts, see [README - Cache Strategies Implementation.md](README - Cache Strategies Implementation.md).
 
 ---
 
@@ -156,7 +156,7 @@ CloudPanel (and many panel-managed hosts) split Nginx into a public-facing 443 s
 
 > **Add the `location ~* ^/…curriculum/.+\.md$` block to the 443 server block, not the 8080 one.**
 
-Putting it only in 8080 is the same "I added it but nothing changed" trap documented in [README - Cached Files Guide.md](README - Cached Files Guide.md) §5. The 443 front-end never consults the 8080 config for static paths.
+Putting it only in 8080 is the same "I added it but nothing changed" trap documented in [README - Cache Strategies Implementation.md](README - Cache Strategies Implementation.md) §5. The 443 front-end never consults the 8080 config for static paths.
 
 On CloudPanel the file is usually:
 
@@ -254,7 +254,7 @@ This rule is a surgical fix for one leak (raw markdown URLs). It intentionally d
 
 This block is additive to [.htaccess](.htaccess):
 
-- The existing `<FilesMatch "^cached.*\.(json|html)$">` `Cache-Control` rule and the `FileETag MTime Size` directive from [README - Cached Files Guide.md](README - Cached Files Guide.md) are unaffected — they match a disjoint set of filenames.
+- The existing `<FilesMatch "^cached.*\.(json|html)$">` `Cache-Control` rule and the `FileETag MTime Size` directive from [README - Cache Strategies Implementation.md](README - Cache Strategies Implementation.md) are unaffected — they match a disjoint set of filenames.
 - The rewrite rule is outside any `FilesMatch`, so the two blocks coexist without ordering constraints.
 - No Node build script, `.env` value, or PHP endpoint needs to change.
 

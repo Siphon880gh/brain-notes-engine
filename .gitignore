@@ -2,6 +2,11 @@
 cachedResData.json
 cachedResPartial.html
 
+# Pre-compressed variants of the cached files (built by cache_compress.js).
+# Regenerated on every `npm run build-*`, so never tracked.
+cachedRes*.br
+cachedRes*.gz
+
 # Same front-end that's polymorphic to different note collections
 env/description-meta.php
 env/description-must.php

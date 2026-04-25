@@ -1,22 +1,76 @@
-# Browser cache policy for generated cache outputs.
+# Browser cache + pre-compressed delivery for generated cache outputs.
 #
 # Target files (at repo root):
 #   cachedResData.json
 #   cachedResDataImaged.json
 #   cachedResPartial.html
+# plus their .br / .gz pre-compressed siblings (built by cache_compress.js).
 #
-# Strategy: conditional-GET revalidation.
+# === Caching strategy: conditional-GET revalidation ===
 # Apache auto-emits Last-Modified + ETag for static files. "no-cache" here
 # means the browser MAY store the response but MUST revalidate with the server
 # on each request. When the file's mtime is unchanged, Apache answers 304 and
 # the browser serves its cached copy. When the file has been rebuilt (e.g. by
 # `npm run build-devbrain`), its mtime changes and the browser gets the fresh
-# body. This gives us "use the browser's copy unless the last-modified differs".
+# body. cache_compress.js forces .br/.gz mtimes to match the source so the
+# 304 logic behaves identically across encodings.
+#
+# === Compression strategy: pre-compressed static ===
+# Instead of compressing on every request, the build step writes brotli (q=11)
+# and gzip (level 9) variants once, and Apache serves the smallest variant the
+# client accepts. Brotli q=11 saves another 15-25% over what an on-the-fly
+# server module produces, and costs zero CPU per request. Cloudflare passes
+# Content-Encoding: br through unchanged.
+#
+# Variant selection priority: br > gz > raw.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Serve pre-compressed brotli when the client supports it AND the .br
+    # exists on disk AND has non-zero size. -s avoids the empty-file race if
+    # the build was interrupted mid-write.
+    RewriteCond %{HTTP:Accept-Encoding} br
+    RewriteCond %{REQUEST_FILENAME}.br -s
+    RewriteRule ^(cached.*\.(json|html))$ $1.br [QSA,L]
+
+    # Otherwise pre-compressed gzip.
+    RewriteCond %{HTTP:Accept-Encoding} gzip
+    RewriteCond %{REQUEST_FILENAME}.gz -s
+    RewriteRule ^(cached.*\.(json|html))$ $1.gz [QSA,L]
+</IfModule>
+
 <IfModule mod_headers.c>
-    <FilesMatch "^cached.*\.(json|html)$">
+    # Cache-Control + Vary apply to every variant (raw, .br, .gz). Vary tells
+    # any shared cache (Cloudflare, browser, intermediate proxy) that the
+    # response body depends on Accept-Encoding, so variants don't get crossed.
+    <FilesMatch "^cached.*\.(json|html)(\.(br|gz))?$">
         Header set Cache-Control "no-cache, must-revalidate"
         Header unset Pragma
         Header unset Expires
+        Header append Vary Accept-Encoding
+    </FilesMatch>
+
+    # When the rewrite lands on a .br variant: tell the browser this is brotli
+    # and force the original Content-Type (Apache's default mime guess for
+    # ".br" would be wrong / a download).
+    <FilesMatch "^cached.*\.json\.br$">
+        Header set Content-Encoding br
+        Header set Content-Type application/json
+    </FilesMatch>
+    <FilesMatch "^cached.*\.html\.br$">
+        Header set Content-Encoding br
+        Header set Content-Type text/html
+    </FilesMatch>
+
+    # Same for the .gz variants.
+    <FilesMatch "^cached.*\.json\.gz$">
+        Header set Content-Encoding gzip
+        Header set Content-Type application/json
+    </FilesMatch>
+    <FilesMatch "^cached.*\.html\.gz$">
+        Header set Content-Encoding gzip
+        Header set Content-Type text/html
     </FilesMatch>
 </IfModule>
 
