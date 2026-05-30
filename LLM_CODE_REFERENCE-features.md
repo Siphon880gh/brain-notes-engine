@@ -73,14 +73,22 @@ echo json_encode(["res"=>$res, "cmd"=>$cmd, "stdout"=>$stdout]);
 - **Hierarchical File Tree**: Expandable folder structure with custom icons
 - **Folder URL Parameter**: Visiting `?folder=path/to/folder` opens that folder in the navigator, expands ancestor folders to show nested content, highlights the folder, and scrolls it into view. Highlight fades out with a 0.4s transition when the user clicks or moves the mouse over the topics list.
 - **Share Folder Button**: Bottom-right button (next to Ask folder) toggles a mode where clicking a folder opens a modal with the shareable `?folder=` URL. Button shows active state (purple) when mode is on; mutually exclusive with Ask folder mode.
-- **Random Note**: Quick access to random content for discovery, with option to prioritize notes containing images
+- **Random Note**: Quick access to random content for discovery, with option to prioritize notes containing images (excludes `*.quiz.csv` items)
 - **Jump to Topics**: Direct navigation to specific sections
 - **Print Support**: Print-friendly note rendering
+
+### Quiz CSV Files
+- **Filename pattern**: `*.quiz.csv` (e.g. `seo-basics.quiz.csv`, `ppc-pruning.quiz.csv`)
+- **Build pipeline**: Included by `cache_data.js` scan; rendered in `cache_render.js` with stripped suffix and purple Quiz pill
+- **Click behavior**: Opens `#quizModal` in `index.php` (not the note panel) via `openQuiz()` in `index.js`
+- **Modal UX**: Readonly CSV textarea, Copy CSV button, Open Quiz App button (new tab to https://wengindustries.com/app/quiz-gsheet), and instruction to paste CSV for folder-wide quizzing
+- **Private folders**: Same `local-open.php` auth gate as notes; after login, quiz modal opens via `openPrivateAuthAndRetryQuiz()`
+- **User guide**: [README - Quizzing.md](README%20-%20Quizzing.md)
 
 ### Random Note Prioritization
 - **Chevron Dropdown**: Down-arrow icon next to Random Note button reveals options
 - **Prioritize Pictures Option**: Checkbox (checked by default) to prioritize notes containing images
-- **Fallback Behavior**: If no imaged notes available, falls back to all notes
+- **Fallback Behavior**: If no imaged notes available, falls back to all notes (`.name.is-file:not(.is-quiz)` only)
 - **Auto-Expand Folders**: When random note opens, expands parent folders so note is visible when user navigates to topics
 - **No Auto-Scroll**: Keeps user at the opened note content at top; use "See topics" button to jump to folder tree
 - **Jump to Topics Integration**: Sets `lastClickedNote` for "See topics" button functionality
@@ -89,7 +97,7 @@ echo json_encode(["res"=>$res, "cmd"=>$cmd, "stdout"=>$stdout]);
 - **Image Detection**: Scans for markdown image syntax `![alt](path)` and HTML `<img>` tags, excluding placeholder images (1x1.png, 1x2.png)
 
 ### Interactive Elements
-- **Modal System**: Overlay windows for notes, sharing, and AI assistance
+- **Modal System**: Overlay windows for notes, sharing, AI assistance, and quiz CSV export
 - **Image Modal**: Click-to-expand fullscreen image viewing with keyboard support
 - **Tooltip System**: Contextual help and information
 - **Responsive Design**: Mobile-friendly interface with Tailwind CSS

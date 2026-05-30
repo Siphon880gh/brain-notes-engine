@@ -58,7 +58,8 @@ function rglob(dir) {
         }
       } else {
         let ext = path.extname(entry.name).substring(1);
-        if (['md', 'json'].includes(ext) && !/\.(no|hide)\.md$/.test(entry.name)) {
+        const isQuizCsv = /\.quiz\.csv$/i.test(entry.name);
+        if ((['md', 'json'].includes(ext) && !/\.(no|hide)\.md$/.test(entry.name)) || isQuizCsv) {
           hasValidEntries = true;
           let relativeEntryPath = path.relative(DIR_SNIPPETS, entryPath);
           files.push(relativeEntryPath);

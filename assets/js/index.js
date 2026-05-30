@@ -43,12 +43,19 @@ var app = {
         this.setupJumpToTopics._init();
         this.setupExpandNote();
         this.setupRandomNote._init();
+        this.setupQuizModal();
 
     }, // init
+
+    setupQuizModal: function() {
+        document.getElementById('openQuizAppButton')?.addEventListener('click', function() {
+            window.open('https://wengindustries.com/app/quiz-gsheet', '_blank');
+        });
+    }, // setupQuizModal
     
     setupCountNotes: function() {
         if (document?.getElementById("count-notes")) {
-            const countNotes = document.querySelectorAll(".name.is-file").length;
+            const countNotes = document.querySelectorAll(".name.is-file:not(.is-quiz)").length;
             document.getElementById("count-notes").innerText = `${countNotes - 2} Notes!`;
         }
     }, // setupCountNotes
@@ -140,9 +147,16 @@ var app = {
             el.addEventListener("click", (event)=>{
                 event.stopPropagation();
                 event.preventDefault();
-                const el = event.target;
+                const el = event.target.closest('.name.is-file');
+                if (!el) return;
                 const id = el.dataset["id"];
-                const row = el.tagName.toLowerCase()==="li"?el:el.closest("li");
+                const row = el.closest("li");
+
+                if (el.classList.contains('is-quiz')) {
+                    window.lastClickedNote = row;
+                    openQuiz(id);
+                    return;
+                }
                 
                 window.lastClickedNote = row;
 
@@ -310,7 +324,7 @@ var app = {
             }
             
             // Fallback: use all notes from DOM
-            const notes = Array.from(document.querySelectorAll(".name.is-file"));
+            const notes = Array.from(document.querySelectorAll(".name.is-file:not(.is-quiz)"));
             const i = Math.floor(Math.random() * notes.length);
             noteElement = notes[i];
             const noteId = noteElement.dataset["id"];
@@ -339,6 +353,77 @@ var app = {
     }, // setupRandomNote
 
 } // app
+
+/**
+ * Open a quiz CSV file in the quiz modal.
+ * @param {string|number} id - cachedResData.json entry id
+ */
+function openQuiz(id) {
+    fetch("local-open.php?id=" + id)
+        .then(response => response.text())
+        .then((yamlTextish) => {
+            const titleMatch = yamlTextish.match(/^title:\s*(.*?)\n/);
+            const htmlMatch = yamlTextish.match(/^html:\s*\|([\s\S]*)/m);
+
+            let title = titleMatch ? titleMatch[1].replace(/^ {2}/gm, '').trim() : 'Quiz';
+            title = title.replace(/\.quiz\.csv$/i, '');
+
+            let csvContent = htmlMatch ? htmlMatch[1].replace(/^ {2}/gm, '') : '';
+            if (csvContent) {
+                csvContent = csvContent.trim();
+            }
+
+            if (csvContent === '__PRIVATE_BLOCKED__') {
+                openPrivateAuthAndRetryQuiz(id);
+                return;
+            }
+
+            document.getElementById('quizCsvText').value = csvContent;
+            document.getElementById('quizModalLabel').textContent = 'Quiz: ' + title;
+            document.getElementById('quizModal').modal('show');
+
+            document.getElementById('copyQuizCsvButton').onclick = function() {
+                const textarea = document.getElementById('quizCsvText');
+                const button = this;
+                const originalText = button.innerHTML;
+                const onCopied = () => {
+                    button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    button.classList.add('btn-success');
+                    button.classList.remove('btn-primary');
+                    setTimeout(() => {
+                        button.innerHTML = originalText;
+                        button.classList.remove('btn-success');
+                        button.classList.add('btn-primary');
+                    }, 2000);
+                };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(textarea.value).then(onCopied);
+                } else {
+                    textarea.select();
+                    textarea.setSelectionRange(0, 99999);
+                    document.execCommand('copy');
+                    onCopied();
+                }
+            };
+        });
+}
+
+function openPrivateAuthAndRetryQuiz(quizId) {
+    if (window.privateAuthManager) {
+        window.privateAuthManager.showModal();
+
+        const authHandler = (event) => {
+            if (event.detail.authenticated) {
+                window.privateAuthManager.hideModal();
+                openQuiz(quizId);
+                document.removeEventListener('privateAuthChanged', authHandler);
+            }
+        };
+
+        document.addEventListener('privateAuthChanged', authHandler);
+    }
+}
+
 app.init();
 
 // #region TODO: BELOW NEED REFACTOR

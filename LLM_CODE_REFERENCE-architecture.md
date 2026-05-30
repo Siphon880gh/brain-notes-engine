@@ -28,6 +28,7 @@ Each template contains:
    - Scans curriculum directory recursively
    - Builds hierarchical file tree structure
    - Collects metadata and sorting specifications
+   - Includes `.md`, `.json`, and `*.quiz.csv` files (e.g. `seo-basics.quiz.csv`)
    - Excludes git directories and node_modules
    - Outputs: `cachedResData.json`
 
@@ -36,6 +37,7 @@ Each template contains:
    - Merges folders by common path
    - Applies Obsidian sort specifications
    - Generates HTML using EJS templates with `data-path` on folder `<li>` elements for URL-based folder navigation
+   - Quiz CSV entries get `is-quiz` class, `data-quiz="1"`, and a `.quiz-pill` badge in the tree
    - Outputs: `cachedResPartial.html` (plain HTML so the browser can cache it via Last-Modified / 304)
 
 ### Build Process Flow

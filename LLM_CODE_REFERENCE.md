@@ -11,7 +11,7 @@
 - **Knowledge Management**: Transforms Obsidian/Markdown vaults into interactive web applications
 - **Multi-Brain Architecture**: Supports multiple knowledge collections (dev, 3D, business, health) with independent configurations
 - **Enhanced Markdown**: Processes Obsidian-style links `[[Topic]]`, collapsible sections, math equations, and heading indentation
-- **Interactive Features**: Auto-generated mindmaps from lists, link popover previews, full-text search, AI assistance, image modals
+- **Interactive Features**: Auto-generated mindmaps from lists, link popover previews, full-text search, AI assistance, image modals, quiz CSV files (`*.quiz.csv`)
 - **Publishing Pipeline**: Automated image hosting, path rewriting, and deployment for public-facing knowledge bases
 
 ## Tech Stack
@@ -28,7 +28,7 @@
 - **`assets/js/mindmap.js`** (~1681 lines): Interactive mindmap generation with Mermaid.js, zoom/pan controls, layout cycling
 - **`assets/js/link-popover.js`** (~550 lines): Link preview system with CORS proxy and content extraction
 - **`assets/js/note-opener.js`** (~1550 lines): Markdown rendering, note display, content loading, code block enhancement, and private note handling
-- **`assets/js/index.js`** (~399 lines): Main UI logic, navigation, and interaction handling
+- **`assets/js/index.js`** (~560 lines): Main UI logic, navigation, quiz modal handling, and interaction handling
 - **`assets/js/searchers.js`** (~398 lines): Search functionality and result display
 - **`assets/js/image-modal.js`** (~127 lines): Image viewing modal functionality with click-to-expand
 - **`assets/js/encryption.js`** (~399 lines): AGE encryption/decryption functionality with client-side AES-256-CBC
@@ -141,9 +141,13 @@ onContentLoad() → detectMindmapContent() + enhanceLinks()
 
 // Dynamic content loading (note-opener.js)
 openNote() → fetchMarkdown() → renderWithMarkdownIt() → enhanceContent()
+
+// Quiz CSV files (index.js)
+openQuiz() → fetch via local-open.php → #quizModal with copy + link to quiz app
 ```
 
 ### 4. Feature Systems
+- **Quiz CSV**: Files named `*.quiz.csv` (e.g. `seo-basics.quiz.csv`) appear in the topic tree with a purple Quiz pill; clicking opens a modal with the full CSV and instructions to paste into [Weng's Quiz app](https://wengindustries.com/app/quiz-gsheet)
 - **Mindmaps**: Detect `1x1.png` in lists → parse structure → generate Mermaid → render with controls
 - **Link Previews**: Detect `1x2.png` markers → parse boundary words → fetch via CORS proxy → display popover
 - **Search**: User input → PCRE query → highlight results → navigate to content

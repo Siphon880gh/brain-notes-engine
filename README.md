@@ -53,7 +53,7 @@ You can contribute knowledge to Weng's notes at:
 
 ## Organizing the folders and files
 
-Folders of MD files. For a beefed up version that is more than MD files, you can have .JSON files. Take a look at JSON Example section below. Place these in curriculum/.
+Folders of MD files. For a beefed up version that is more than MD files, you can have `.json` files or quiz CSV files named `*.quiz.csv` (see [README - Quizzing.md](README%20-%20Quizzing.md)). Take a look at JSON Example section below. Place these in curriculum/.
 
 Note that the curriculum at this repo is empty but the deployed app still renders content at <a target="_blank" href="https://wengindustry.com/tools/devbrain/">the demo (developer notees)</a>. For the curriculum content, visit my [Coding Snipppets and Guides repository](https://github.com/Siphon880gh/devbrain). I chose to separate the content so people can contribute guides and snippets more easily. My deployment server automatically combines this repo with the curriculum repo as a pipeline. This applies to my 3d notes and business notes as well.
 
@@ -75,6 +75,14 @@ Note that the curriculum at this repo is empty but the deployed app still render
     ]
 }
 ```
+
+### Quiz CSV files
+
+Add `*.quiz.csv` files (e.g. `seo-basics.quiz.csv`) to quiz readers on folder topics via [Weng's Quiz app](https://wengindustries.com/app/quiz-gsheet). They show in the topic tree with a Quiz pill; clicking opens a modal to copy the CSV and open the quiz app.
+
+Full workflow, filename rules, private-folder behavior, and developer pointers:
+
+[README - Quizzing.md](README%20-%20Quizzing.md)
 
 ## Referring to other notes from a note
 

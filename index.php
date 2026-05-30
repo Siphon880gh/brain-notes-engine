@@ -377,6 +377,33 @@
         </div>
     </div>
 
+    <!-- Quiz CSV Modal -->
+    <div class="modal" id="quizModal" style="display:none;">
+        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h4 id="quizModalLabel" class="modal-title mt-0">Quiz</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <p>Copy the quiz CSV below and paste it into <a href="https://wengindustries.com/app/quiz-gsheet" target="_blank" rel="noopener noreferrer">Weng's Quiz app</a> to be quizzed on all the topics in this folder.</p>
+            <textarea id="quizCsvText" class="form-control mx-auto w-full" rows="10" readonly></textarea>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-primary mt-4 p-2 bg-blue-300" id="copyQuizCsvButton">
+                    <i class="fas fa-copy"></i> 1. Copy CSV
+                </button>
+                <button type="button" class="btn btn-success mt-4 p-2 ml-2 bg-blue-200" id="openQuizAppButton">
+                    <i class="fas fa-external-link-alt"></i> 2. Open Quiz App
+                </button>
+                <button type="button" class="btn btn-secondary mt-4 p-2 ml-2" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
     <!-- Share the search -->
     <div id="share-search-title-wrapper" class="hidden">
         <span id="share-search-titles" class="hoverable cursor-pointer" data-toggle="modal" data-target="#shareModal">

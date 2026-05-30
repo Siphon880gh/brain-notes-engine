@@ -1094,6 +1094,24 @@ li:not(:first-child) {
   text-decoration: none;
 }
 
+.quiz-pill {
+  display: inline-block;
+  margin-left: 0.5ch;
+  padding: 0.1em 0.5em;
+  font-size: 0.75em;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #fff;
+  background: #7c3aed;
+  border-radius: 9999px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.quiz-pill .fa-question-circle {
+  margin-right: 0.25ch;
+}
+
 #topics-list > ul > li > .name.is-folder[icon]::before {
   filter: sepia(1) hue-rotate(180deg);
   display: inline-block;
