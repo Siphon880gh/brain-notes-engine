@@ -59,7 +59,8 @@ function rglob(dir) {
       } else {
         let ext = path.extname(entry.name).substring(1);
         const isQuizCsv = /\.quiz\.csv$/i.test(entry.name);
-        if ((['md', 'json'].includes(ext) && !/\.(no|hide)\.md$/.test(entry.name)) || isQuizCsv) {
+        const isRegularCsv = ext === 'csv' && !isQuizCsv;
+        if ((['md', 'json'].includes(ext) && !/\.(no|hide)\.md$/.test(entry.name)) || isQuizCsv || isRegularCsv) {
           hasValidEntries = true;
           let relativeEntryPath = path.relative(DIR_SNIPPETS, entryPath);
           files.push(relativeEntryPath);

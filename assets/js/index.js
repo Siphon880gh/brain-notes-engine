@@ -128,17 +128,19 @@ var app = {
 
         document.querySelectorAll(".name.is-folder").forEach(el=>{
             el.addEventListener("click", (event)=>{
-                let interruptDefaultBehaavior = sendToOtherWorkhouses(event.target)
+                const folderEl = event.target.closest('.name.is-folder');
+                if (!folderEl) return;
+
+                let interruptDefaultBehaavior = sendToOtherWorkhouses(folderEl)
                 if(interruptDefaultBehaavior) {
                     return;
                 }
                 event.stopPropagation();
                 event.preventDefault();
-                const el = event.target;
-                const id = el.dataset["id"];
 
-                var ul = el.querySelector('ul'); 
-                if(ul) { 
+                const row = folderEl.closest('li');
+                const ul = row?.querySelector('ul');
+                if(ul) {
                     ul.style.display = ul.style.display === 'none' ? 'block' : 'none';
                 }
             }); // click

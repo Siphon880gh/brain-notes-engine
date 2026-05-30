@@ -150,8 +150,9 @@ function generateHtml(folders) {
     let html = '';
 
     const isQuizFile = /\.quiz\.csv$/i.test(item.current);
+    const isCsvFile = /\.csv$/i.test(item.current) && !isQuizFile;
     const isFolder = item.next.length && !item.current.includes('.md');
-    const itemClass = isFolder ? 'is-folder' : (isQuizFile ? 'is-file is-quiz' : 'is-file');
+    const itemClass = isFolder ? 'is-folder' : (isQuizFile ? 'is-file is-quiz' : (isCsvFile ? 'is-file is-csv' : 'is-file'));
     const iconClass = isFolder ? 'fas fa-folder' : '';
 
     // Skip certain files
@@ -165,7 +166,7 @@ function generateHtml(folders) {
 
     // Escape single quotes in attributes
     // const escapedItemCurrent = item.current.replace(/'/g, "\\'").replace(/\.md$/, '').replace(/\.json$/, '');
-    const escapedItemCurrent = item.current.replace(/\.md$/, '').replace(/\.json$/, '').replace(/\.quiz\.csv$/i, '');
+    const escapedItemCurrent = item.current.replace(/\.md$/, '').replace(/\.json$/, '').replace(/\.quiz\.csv$/i, '').replace(/\.csv$/i, '');
 
     // For files, store the path in a data attribute (if needed)
     // const dataPathAttr = isFolder ? '' : ` data-path="${escapedItemPath}"`;
@@ -202,6 +203,8 @@ function generateHtml(folders) {
     html += `${escapedItemCurrent}`;
     if (isQuizFile) {
       html += `<span class="quiz-pill"><i class="fas fa-question-circle"></i> Quiz</span>`;
+    } else if (isCsvFile) {
+      html += `<span class="csv-pill"><i class="fas fa-file-csv"></i> CSV</span>`;
     }
     html += isFolder || !want_a_tag_for_seo ? `</span>` : `</a>`;
 

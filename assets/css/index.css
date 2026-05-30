@@ -1092,6 +1092,27 @@ li:not(:first-child) {
 
 #topics-list .name.is-file {
   text-decoration: none;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin-left: -6px;
+  transition: background-color 0.15s ease;
+}
+
+#topics-list .name.is-file:hover {
+  background-color: #dbeafe;
+}
+
+#topics-list .name.is-folder {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin-left: -6px;
+  transition: background-color 0.15s ease;
+}
+
+#topics-list .name.is-folder:hover {
+  background-color: #e5e7eb;
 }
 
 .quiz-pill {
@@ -1109,6 +1130,24 @@ li:not(:first-child) {
 }
 
 .quiz-pill .fa-question-circle {
+  margin-right: 0.25ch;
+}
+
+.csv-pill {
+  display: inline-block;
+  margin-left: 0.5ch;
+  padding: 0.1em 0.5em;
+  font-size: 0.75em;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #4b5563;
+  background: #e5e7eb;
+  border-radius: 9999px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.csv-pill .fa-file-csv {
   margin-right: 0.25ch;
 }
 
@@ -1318,6 +1357,15 @@ th {
 
 tr:nth-child(even) {
   background-color: #fafafa;
+}
+
+.csv-data-view {
+  overflow-x: auto;
+  margin-top: 0.75rem;
+}
+
+.csv-table {
+  min-width: 100%;
 }
 
 /* Heading sizes */

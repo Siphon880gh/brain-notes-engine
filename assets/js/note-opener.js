@@ -396,6 +396,133 @@ function enhanceWithImageButtons(img, type) {
     wrapperDiv.append(iconContainer);
 } // enhanceWithImageButtons
 
+function escapeHtml(text) {
+    return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
+function parseCsvRows(text) {
+    const rows = [];
+    let row = [];
+    let cell = '';
+    let inQuotes = false;
+
+    for (let i = 0; i < text.length; i++) {
+        const c = text[i];
+        const next = text[i + 1];
+
+        if (inQuotes) {
+            if (c === '"' && next === '"') {
+                cell += '"';
+                i++;
+            } else if (c === '"') {
+                inQuotes = false;
+            } else {
+                cell += c;
+            }
+        } else if (c === '"') {
+            inQuotes = true;
+        } else if (c === ',') {
+            row.push(cell);
+            cell = '';
+        } else if (c === '\r' && next === '\n') {
+            row.push(cell);
+            rows.push(row);
+            row = [];
+            cell = '';
+            i++;
+        } else if (c === '\n') {
+            row.push(cell);
+            rows.push(row);
+            row = [];
+            cell = '';
+        } else {
+            cell += c;
+        }
+    }
+
+    row.push(cell);
+    if (!(row.length === 1 && row[0] === '' && rows.length > 0)) {
+        rows.push(row);
+    }
+
+    while (rows.length && rows[rows.length - 1].every(c => c === '')) {
+        rows.pop();
+    }
+
+    return rows;
+}
+
+function csvToHtmlTable(csvText) {
+    const rows = parseCsvRows(csvText);
+    if (!rows.length) {
+        return '<p><em>(empty file)</em></p>';
+    }
+
+    let html = '<div class="csv-data-view"><table class="csv-table">';
+    html += '<thead><tr>';
+    rows[0].forEach(cell => {
+        html += `<th>${escapeHtml(cell)}</th>`;
+    });
+    html += '</tr></thead>';
+
+    if (rows.length > 1) {
+        html += '<tbody>';
+        rows.slice(1).forEach(row => {
+            html += '<tr>';
+            row.forEach(cell => {
+                html += `<td>${escapeHtml(cell)}</td>`;
+            });
+            html += '</tr>';
+        });
+        html += '</tbody>';
+    }
+
+    html += '</table></div>';
+    return html;
+}
+
+function renderCsvAsNote({ csvContent, title, summaryInnerEl }) {
+    parent.document.querySelector(".side-by-side-possible.hidden")?.classList?.remove("hidden");
+    summaryInnerEl.classList.remove("hidden");
+
+    const displayTitle = title.replace(/\.csv$/i, '');
+    const summaryHTML = '<p>This is the data:</p>' + csvToHtmlTable(csvContent);
+
+    document.getElementById("summary-title").textContent = displayTitle;
+    document.getElementById("summary-collapser").classList.remove("hidden");
+    document.getElementById("summary-collapser").classList.add("stated");
+    document.getElementById("summary-sharer").classList.remove("hidden");
+    document.getElementById("summary-outer").classList.remove("hidden");
+
+    summaryInnerEl.innerHTML = summaryHTML;
+
+    window.document.getElementById("explore-curriculum").scrollIntoView({
+        behavior: "smooth",
+    });
+
+    const tocEl = window.document.querySelector("#toc");
+    tocEl.classList.remove('toc-numbered');
+    setTableOfContents(tocEl, summaryInnerEl);
+
+    const notePanel = window.document.querySelector("#summary-inner");
+    const parentWindow = window;
+    parentWindow.removeScrollProgressMarkers(notePanel);
+    parentWindow.hydrateAnimationOnProgressMarkers(notePanel);
+    parentWindow.addScrollProgressMarkers(notePanel);
+
+    const summaryCollapser = document.getElementById("summary-collapser");
+    if (!summaryCollapser.className.includes("stated")) {
+        summaryCollapser.click();
+    }
+
+    loadAnyPersistentNoteConfigs();
+    document.dispatchEvent(new Event('noteOpened'));
+}
+
 /**
  * @function openNote
  * @param {String} id "1"
@@ -410,8 +537,9 @@ function openNote(id) {
 
             // Extract the title
             let title = titleMatch ? titleMatch[1].replace(/^ {2}/gm, '') : null;
+            const rawFilename = title ? title.trim() : '';
             title = title?.replace(/\.md$/i, ""); // Remove .md from the title
-            title = title?.replace(/\.json$/i, ""); // Remove .md from the title
+            title = title?.replace(/\.json$/i, ""); // Remove .json from the title
             if (!title) { title = ""; }
 
             // Extract and clean up HTML content
@@ -420,6 +548,23 @@ function openNote(id) {
             // Check if this is a blocked private file
             if (summary && summary.trim() === '__PRIVATE_BLOCKED__') {
                 handlePrivateBlockedContent(title, id);
+                return;
+            }
+
+            if (summary) {
+                summary = summary.trim();
+            }
+
+            if (/\.quiz\.csv$/i.test(rawFilename)) {
+                if (typeof openQuiz === 'function') {
+                    openQuiz(id);
+                    return;
+                }
+            }
+
+            if (/\.csv$/i.test(rawFilename) && !/\.quiz\.csv$/i.test(rawFilename)) {
+                const summaryInnerEl = parent.document.querySelector("#summary-inner");
+                renderCsvAsNote({ csvContent: summary || '', title: rawFilename, summaryInnerEl });
                 return;
             }
             

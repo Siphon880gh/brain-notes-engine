@@ -12,7 +12,7 @@ ppc-pruning.quiz.csv
 ai-film.quiz.csv
 ```
 
-The `.quiz.csv` suffix is required. A plain `.csv` file is not picked up by the build.
+The `.quiz.csv` suffix is required for quiz modal behavior. Regular `.csv` files (without `.quiz.`) are also supported—they open as notes with a rendered table (see [README.md](README.md) Organizing section).
 
 ## Where to put files
 

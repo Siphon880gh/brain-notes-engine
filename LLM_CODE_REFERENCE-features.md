@@ -77,6 +77,13 @@ echo json_encode(["res"=>$res, "cmd"=>$cmd, "stdout"=>$stdout]);
 - **Jump to Topics**: Direct navigation to specific sections
 - **Print Support**: Print-friendly note rendering
 
+### CSV Data Files
+- **Filename pattern**: `.csv` but not `*.quiz.csv` (e.g. `sales-q1.csv`, `inventory.csv`)
+- **Build pipeline**: Included by `cache_data.js` (`isRegularCsv` excludes `.quiz.csv` rows already matched as quiz files)
+- **Click behavior**: Opens in the note panel via `openNote()` → `renderCsvAsNote()` in `note-opener.js`
+- **Display**: Heading text **This is the data:** followed by a scrollable HTML table (quoted-field CSV parsing)
+- **Topic tree**: Display name strips `.csv` suffix; no Quiz pill
+
 ### Quiz CSV Files
 - **Filename pattern**: `*.quiz.csv` (e.g. `seo-basics.quiz.csv`, `ppc-pruning.quiz.csv`)
 - **Build pipeline**: Included by `cache_data.js` scan; rendered in `cache_render.js` with stripped suffix and purple Quiz pill
