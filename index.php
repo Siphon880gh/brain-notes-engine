@@ -388,7 +388,7 @@
             </button>
             </div>
             <div class="modal-body">
-            <p>Copy the quiz CSV below and paste it into <a href="https://wengindustries.com/app/quiz-gsheet" target="_blank" rel="noopener noreferrer">Weng's Quiz app</a> to be quizzed on all the topics in this folder.</p>
+            <p>Copy the quiz CSV below and paste it into <a href="https://wengindustries.com/app/quiz-gsheet/gsheets/_Special%20-%20User%20Provides/Intake.php" target="_blank" rel="noopener noreferrer">Weng's Quiz app</a> to be quizzed on all the topics in this folder.</p>
             <textarea id="quizCsvText" class="form-control mx-auto w-full" rows="10" readonly></textarea>
             </div>
             <div class="modal-footer text-center">
