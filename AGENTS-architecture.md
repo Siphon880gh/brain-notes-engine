@@ -34,9 +34,25 @@ Each template contains:
 2. **HTML Generation** (`cache_render.js` - ~226 lines) [MEDIUM - consider targeted search]
    - Reads cached data from JSON
    - Merges folders by common path
-   - Applies Obsidian sort specifications
+   - Applies Obsidian sort specifications from `sortspec.md` (root folder order + explorer dividers)
    - Generates HTML using EJS templates with `data-path` on folder `<li>` elements for URL-based folder navigation
-   - Outputs: `cachedResPartial.php`
+   - Outputs: `cachedResPartial.html`
+
+#### Curriculum sort spec (`sortspec.md`)
+
+User-facing guide: [README - Custom Sort and Categories.md](README%20-%20Custom%20Sort%20and%20Categories.md)
+
+Place a `sortspec.md` file in the curriculum vault root (Obsidian Custom Sort format). During `npm run build-*`, `cache_data.js` reads it into `cachedResData.json`, and `cache_render.js` uses it to order root-level folders in the curriculum explorer and insert section dividers.
+
+**Divider syntax** (inside the `sorting-spec` block):
+
+| Line | Effect |
+|------|--------|
+| `--- Section Title` | Section divider with a small uppercase heading, then the folders listed below it |
+| `---` | Plain horizontal rule between groups |
+| `%` | Same as plain `---` (legacy alias) |
+
+Folder names must match root folder names exactly. Folders omitted from the spec are appended alphabetically at the end.
 
 ### Build Process Flow
 ```bash

@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const ejs = require('ejs');
 const icons = require('./env/icons.js');
 
 // Path to your output.json file
@@ -26,6 +25,89 @@ const dir_snippets = (outputData && outputData.dir_snippets) ? outputData.dir_sn
 const http_to_file_protocol = (outputData && outputData.http_to_file_protocol) ? outputData.http_to_file_protocol : "";
 const want_a_tag_for_seo = (outputData && outputData.want_a_tag_for_seo === "1") ? true : false;
 const sortSpec = (outputData && outputData.sort_spec) ? outputData.sort_spec : undefined;
+
+function parseSortSpecEntries(raw) {
+  if (!raw || typeof raw !== 'string') return [];
+
+  let body = raw.trim();
+  const sortingSpecMatch = body.match(/sorting-spec:\s*\|-?\s*\r?\n([\s\S]*?)(?:\r?\n---\s*$|\r?\n---\r?\n|$)/);
+  if (sortingSpecMatch) {
+    body = sortingSpecMatch[1];
+  } else if (body.startsWith('---')) {
+    body = body.replace(/^---[\s\S]*?---\s*\r?\n?/, '');
+  }
+
+  return body
+    .split(/\r?\n/)
+    .map((line) => line.replace(/^\s+/, '').trim())
+    .filter((line) => line.length > 0);
+}
+
+const sortEntries = parseSortSpecEntries(sortSpec);
+
+function isSortSpecDivider(entry) {
+  return entry === '---' || entry === '%' || /^---\s+/.test(entry);
+}
+
+function getSortSpecDividerTitle(entry) {
+  if (entry === '---' || entry === '%') return '';
+  const match = entry.match(/^---\s+(.+)$/);
+  return match ? match[1].trim() : '';
+}
+
+function escapeHtml(text) {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function renderSortSpecDivider(entry) {
+  const title = getSortSpecDividerTitle(entry);
+  if (title) {
+    return `<li class="explorer-divider explorer-divider--section" aria-hidden="true"><span class="explorer-divider__title">${escapeHtml(title)}</span><hr></li>`;
+  }
+  return `<li class="explorer-divider" aria-hidden="true"><hr></li>`;
+}
+
+function loadExplorerConfig() {
+  try {
+    const config = JSON.parse(fs.readFileSync('config-explorer.json', 'utf8'));
+    return (config && config.explorer) ? config.explorer : {};
+  } catch (err) {
+    if (err.code !== 'ENOENT') {
+      console.error('Error reading config-explorer.json:', err);
+    }
+    return {};
+  }
+}
+
+function compileHideRootFolderPatterns(patterns) {
+  if (!Array.isArray(patterns)) return [];
+  return patterns
+    .filter((pattern) => typeof pattern === 'string' && pattern.length > 0)
+    .map((pattern) => {
+      try {
+        return new RegExp(pattern);
+      } catch (err) {
+        console.error(`Invalid hideRootFolderPatterns regex "${pattern}":`, err);
+        return null;
+      }
+    })
+    .filter(Boolean);
+}
+
+const explorerConfig = loadExplorerConfig();
+const hideRootFolderPatterns = compileHideRootFolderPatterns(explorerConfig.hideRootFolderPatterns);
+
+function isHiddenRootFolder(name) {
+  return hideRootFolderPatterns.some((pattern) => pattern.test(name));
+}
+
+function filterHiddenRootFolders(items) {
+  return items.filter((item) => !isHiddenRootFolder(item.current));
+}
 
 // Function to merge folders by common path and build the nested structure
 function mergeByCommonPath(data) {
@@ -81,7 +163,7 @@ function mergeByKey(array) {
  * @param {Array} items - The array of items to sort.
  * @param {number} level - The current depth level (0 for root).
  */
-function sortByFoldersFirstAndObsidianSpecs({items, level = 0, sortSpec}) {
+function sortByFoldersFirstAndObsidianSpecs({items, level = 0, sortEntries}) {
   items.sort((a, b) => {
     // Determine if items are folders or files
     const isFolderA = a.next.length && !a.current.includes('.md');
@@ -94,9 +176,9 @@ function sortByFoldersFirstAndObsidianSpecs({items, level = 0, sortSpec}) {
     } else {
       // Both are folders or both are files
       // Apply custom sort criteria at root level
-      if (level === 0 && sortSpec && sortSpec.length > 0) {
-        const indexA = sortSpec.indexOf(a.current);
-        const indexB = sortSpec.indexOf(b.current);
+      if (level === 0 && sortEntries && sortEntries.length > 0) {
+        const indexA = sortEntries.indexOf(a.current);
+        const indexB = sortEntries.indexOf(b.current);
 
         if (indexA !== -1 && indexB !== -1) {
           return indexA - indexB; // both in ordered list
@@ -117,7 +199,7 @@ function sortByFoldersFirstAndObsidianSpecs({items, level = 0, sortSpec}) {
   // Recursively sort the next arrays
   for (const item of items) {
     if (item.next && item.next.length > 0) {
-      sortByFoldersFirstAndObsidianSpecs({items: item.next, level: level + 1, sortSpec});
+      sortByFoldersFirstAndObsidianSpecs({items: item.next, level: level + 1, sortEntries});
     }
   }
 
@@ -129,17 +211,11 @@ function sortByFoldersFirstAndObsidianSpecs({items, level = 0, sortSpec}) {
 console.log("\n\n>> Data merging by common path, merging by path, then sorting by folders first and by Obsidian sortspec:\nProcessed successfully.");
 let nestedFolders = mergeByCommonPath(folders);
 nestedFolders = mergeByKey(nestedFolders);
-nestedFolders = sortByFoldersFirstAndObsidianSpecs({items: nestedFolders, sortSpec});
+nestedFolders = sortByFoldersFirstAndObsidianSpecs({items: nestedFolders, sortEntries});
+nestedFolders = filterHiddenRootFolders(nestedFolders);
 
 // Function to generate HTML markup using EJS templates
 function generateHtml(folders) {
-  // EJS template for the menu
-  const template = `
-  <% folders.forEach(function(item) { %>
-    <%- renderItem(item) %>
-  <% }); %>
-  `;
-
   // Helper: folder name ends with (PRIVATE) or PRIVATE (case insensitive)
   const isPrivateFolderName = (name) => /(?:\(PRIVATE\)|PRIVATE)$/i.test(name);
   // Helper: path contains any private folder segment
@@ -225,10 +301,34 @@ function generateHtml(folders) {
     return html;
   };
 
-  // Render the template
-  const htmlContent = ejs.render(template, { folders, renderItem });
+  const renderRootItems = (rootFolders) => {
+    let html = '';
+    const visibleRootFolders = filterHiddenRootFolders(rootFolders);
+    const folderByName = Object.fromEntries(visibleRootFolders.map((item) => [item.current, item]));
+    const rendered = new Set();
 
-  return htmlContent;
+    if (sortEntries.length > 0) {
+      for (const entry of sortEntries) {
+        if (isSortSpecDivider(entry)) {
+          html += renderSortSpecDivider(entry);
+        } else if (folderByName[entry] && !rendered.has(entry)) {
+          html += renderItem(folderByName[entry]);
+          rendered.add(entry);
+        }
+      }
+    }
+
+    visibleRootFolders
+      .filter((item) => !rendered.has(item.current))
+      .sort((a, b) => a.current.localeCompare(b.current))
+      .forEach((item) => {
+        html += renderItem(item);
+      });
+
+    return html;
+  };
+
+  return renderRootItems(folders);
 }
 
 // Generate the HTML content

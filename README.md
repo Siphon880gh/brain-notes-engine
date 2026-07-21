@@ -86,6 +86,14 @@ Full quiz workflow, filename rules, private-folder behavior, and developer point
 
 [README - Quizzing.md](README%20-%20Quizzing.md)
 
+### Custom sort and categories (`sortspec.md`)
+
+Add a `sortspec.md` file at the root of `curriculum/` to control the order of top-level folders in the topic navigator and to insert section dividers (for example `--- Web Development` for a labeled group, or plain `---` between groups). Folder names in the spec must match your root folder names exactly; omitted folders are appended alphabetically at the end.
+
+Full syntax, examples, and rebuild steps:
+
+[README - Custom Sort and Categories.md](README%20-%20Custom%20Sort%20and%20Categories.md)
+
 ## Referring to other notes from a note
 
 You can jump to different concepts from a summary.

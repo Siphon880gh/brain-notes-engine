@@ -1010,6 +1010,43 @@ li:not(:first-child) {
   margin-bottom: 0.5rem;
 }
 
+#explorer li.explorer-divider {
+  list-style: none;
+  margin: 0.65rem 0;
+  padding: 0;
+  pointer-events: none;
+  cursor: default;
+}
+
+#explorer li.explorer-divider:hover {
+  color: inherit;
+}
+
+#explorer li.explorer-divider hr {
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  margin: 0;
+}
+
+#explorer li.explorer-divider--section {
+  margin-top: 1.4rem;
+}
+
+#explorer li.explorer-divider--section:first-child {
+  margin-top: 0.65rem;
+}
+
+#explorer li.explorer-divider--section .explorer-divider__title {
+  display: block;
+  color: #666;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+}
+
 #explorer li:hover {
   color: darkblue;
   cursor: pointer;
