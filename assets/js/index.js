@@ -49,7 +49,7 @@ var app = {
 
     setupQuizModal: function() {
         document.getElementById('openQuizAppButton')?.addEventListener('click', function() {
-            window.open('https://wengindustries.com/app/quiz-gsheet', '_blank');
+            window.open('https://wengindustries.com/app/quiz-gsheet/gsheets/_Special%20-%20User%20Provides/Intake.php', '_blank');
         });
     }, // setupQuizModal
     
