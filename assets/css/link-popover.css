@@ -3,13 +3,6 @@
  * Styling for enhanced links with content preview tooltips
  */
 
-/* Hide marker images (1x2.png files) */
-img[src*="1x2.png"],
-img[src*="1x2"],
-img[alt*="1x2"] {
-    display: none !important;
-}
-
 /* Enhanced link styling */
 .link-with-preview {
     text-decoration: none;
@@ -546,10 +539,4 @@ a.note-link-preview {
     .popover-body::-webkit-scrollbar-thumb:hover {
         background: #a0aec0;
     }
-}
-
-/* Hide marker images (1x2.png files) */
-.img-wrapper:has(img[src*="1x2.png"]),
-.img-wrapper:has(img[src*="1x2"]) {
-    display: none !important;
 }

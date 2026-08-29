@@ -87,7 +87,6 @@ devbrain/
 ├── cache_render.js          # HTML generator (~226 lines)
 ├── config-mindmap.json      # Mindmap configuration (~5 lines)
 ├── config.json              # Image hosting & Node.js configuration (~21 lines)
-├── 1x2.png                  # Link popover marker image
 ├── assets/
 │   ├── css/                 # Styling (10 files, ~3000 lines total)
 │   │   ├── mindmap.css      # Mindmap styling (~458 lines)
@@ -153,7 +152,7 @@ openNote() → renderCsvAsNote() → "This is the data:" + HTML table
 - **CSV data files**: Plain `.csv` files (not `*.quiz.csv`) appear in the topic tree and open in the note panel with **This is the data:** and a parsed HTML table (`renderCsvAsNote()` in `note-opener.js`)
 - **Quiz CSV**: Files named `*.quiz.csv` (e.g. `seo-basics.quiz.csv`) appear in the topic tree with a purple Quiz pill; clicking opens a modal with the full CSV and instructions to paste into [Weng's Quiz app](https://wengindustries.com/app/quiz-gsheet)
 - **Mindmaps**: Detect `1x1.png` in lists → parse structure → generate Mermaid → render with controls
-- **Link Previews**: Detect `1x2.png` markers → parse boundary words → fetch via CORS proxy → display popover
+- **Link Previews**: Convert wiki syntax → preview another document or show custom inline preview text
 - **Search**: User input → PCRE query → highlight results → navigate to content
 - **URL Parameters**: `?open=` opens note by title; `?search-titles=` opens search; `?folder=` opens, highlights, and scrolls to folder in navigator (Share folder button generates these URLs)
 - **Encryption**: Detect AGE blocks → prompt for password → decrypt via PHP backend → re-encrypt with AES → client-side decryption → render content
@@ -174,15 +173,19 @@ openNote() → renderCsvAsNote() → "This is the data:" + HTML table
 ```
 
 ### Link Popover Preview System  
-- **Smart Content Extraction**: Parses boundary words from alt text (`startWord..endWord`)
-- **Custom Preview Text**: Uses `##` delimiter for instant custom previews
-- **CORS Handling**: Uses `api.allorigins.win` proxy for external content
-- **Caching**: Results cached to avoid repeated requests
+- **Document Preview**: `[[DOCUMENT NAME]]` links to another note and shows its first paragraph and table of contents
+- **Custom Preview Text**: `[[TEXT]]##preview text##` renders only `TEXT` in the note and shows the delimited text in the popover
+- **Custom Override**: The custom payload takes precedence even when `TEXT` names an existing document; the rendered text does not navigate
+- **Rich Custom Content**: Custom payloads support Markdown, formatting HTML, multiple lines, and literal `\n` line breaks
+- **No Marker Image**: Link previews no longer use a `1x1.png`/`1x2.png` placeholder
+- **No External Fetching**: Preview content comes from local documents or inline custom text
 
 **Markdown Syntax:**
 ```markdown
-[Example Site](https://example.com) ![title..content](../1x2.png)
-[API](https://example.com) ![API##Application Programming Interface](../1x2.png)
+[[DOCUMENT NAME]]
+[[API]]##Application Programming Interface##
+[[Existing Document]]##Test **Preview**
+<b>Text</b>##
 ```
 
 ### Image Modal System

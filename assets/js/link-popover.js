@@ -1,17 +1,15 @@
 /**
  * Link Popover Preview System
- * - Links followed by 1x2.png markers: external/custom excerpt previews
- * - Links that open another note (?open= / [[wiki]] links): first-paragraph + TOC tabs
+ * - [[DOCUMENT NAME]] links: first-paragraph + TOC tabs
+ * - [[TEXT]]##preview text## links: inline custom-text previews
  */
 
 class LinkPopoverPreview {
     constructor() {
-        this.cache = new Map();
         this.noteCache = new Map();
         this.activePopover = null;
         this.hoverTimeout = null;
         this.hideTimeout = null;
-        this.proxyUrl = 'https://api.allorigins.win/get?url=';
         
         this.init();
     }
@@ -27,11 +25,8 @@ class LinkPopoverPreview {
      * Main function to enhance links with popover previews
      */
     enhanceLinks() {
-        // Find all links followed by 1x2.png images
-        const links = this.findLinksWithMarkers();
-        
-        links.forEach(linkData => {
-            this.enhanceLink(linkData);
+        this.findCustomPreviewLinks().forEach(linkData => {
+            this.enhanceCustomLink(linkData);
         });
 
         this.findNoteOpenLinks().forEach(linkData => {
@@ -40,45 +35,16 @@ class LinkPopoverPreview {
     }
 
     /**
-     * Find links that are followed by 1x2.png marker images
+     * Find custom previews emitted by note-opener's wiki syntax renderer.
      */
-    findLinksWithMarkers() {
-        const links = [];
-        const allLinks = document.querySelectorAll('a[href]');
-        
-        allLinks.forEach(link => {
-            if (link.dataset.previewEnhanced === '1') return;
-
-            const markerImage = this.findMarkerImage(link);
-            if (markerImage) {
-                const parsedData = this.parseBoundaryWords(markerImage.alt);
-                if (parsedData) {
-                    if (parsedData.type === 'custom') {
-                        // Custom preview with ## pattern
-                        links.push({
-                            link: link,
-                            markerImage: markerImage,
-                            url: '#', // Links to nowhere for custom previews
-                            type: 'custom',
-                            linkText: parsedData.linkText,
-                            previewText: parsedData.previewText
-                        });
-                    } else if (parsedData.type === 'boundary') {
-                        // Original boundary word functionality
-                        links.push({
-                            link: link,
-                            markerImage: markerImage,
-                            url: link.href,
-                            type: 'boundary',
-                            startWord: parsedData.start,
-                            endWord: parsedData.end
-                        });
-                    }
-                }
-            }
-        });
-        
-        return links;
+    findCustomPreviewLinks() {
+        return Array.from(document.querySelectorAll('a[data-custom-preview]'))
+            .filter(link => link.dataset.previewEnhanced !== '1')
+            .map(link => ({
+                link,
+                linkText: (link.textContent || '').trim(),
+                previewText: link.dataset.customPreview || ''
+            }));
     }
 
     /**
@@ -92,7 +58,6 @@ class LinkPopoverPreview {
             if (link.dataset.previewEnhanced === '1') return;
             if (link.classList.contains('link-with-preview')) return;
             if ((link.textContent || '').includes('🔗')) return;
-            if (this.findMarkerImage(link)) return;
 
             const title = this.getNoteTitleFromLink(link);
             if (!title) return;
@@ -145,104 +110,20 @@ class LinkPopoverPreview {
     }
 
     /**
-     * Find the 1x2.png marker image that follows a link
+     * Enhance a custom text preview.
      */
-    findMarkerImage(link) {
-        let nextElement = link.nextSibling;
-        
-        // Skip text nodes and find the next element
-        while (nextElement && nextElement.nodeType !== Node.ELEMENT_NODE) {
-            nextElement = nextElement.nextSibling;
-        }
-        
-        if (nextElement && nextElement.tagName === 'IMG') {
-            const src = nextElement.src || nextElement.getAttribute('src') || '';
-            const alt = nextElement.alt || '';
-            
-            // Check if it's a 1x2.png marker
-            if (src.includes('1x2.png') || src.includes('1x2') || alt.includes('1x2')) {
-                return nextElement;
-            }
-        }
-        
-        return null;
-    }
-
-    /**
-     * Parse boundary words or custom preview from image alt text
-     * Supports patterns: 
-     * - "startWord..endWord" or "startWord...endWord" (for fetching content)
-     * - "linkText##previewText" (for custom preview text)
-     */
-    parseBoundaryWords(altText) {
-        if (!altText) return null;
-        
-        // Check for custom preview pattern: linkText##previewText
-        const customPreviewMatch = altText.match(/^(.+?)##(.+)$/);
-        if (customPreviewMatch) {
-            return {
-                type: 'custom',
-                linkText: customPreviewMatch[1].trim(),
-                previewText: customPreviewMatch[2].trim()
-            };
-        }
-        
-        // Match pattern: word..word or word...word (original functionality)
-        const boundaryMatch = altText.match(/^(.+?)\.{2,3}(.+)$/);
-        if (boundaryMatch) {
-            return {
-                type: 'boundary',
-                start: boundaryMatch[1].trim(),
-                end: boundaryMatch[2].trim()
-            };
-        }
-        
-        return null;
-    }
-
-    /**
-     * Enhance a single link with popover functionality
-     */
-    enhanceLink(linkData) {
-        const { link, markerImage, type } = linkData;
-
+    enhanceCustomLink(linkData) {
+        const { link, linkText, previewText } = linkData;
         link.dataset.previewEnhanced = '1';
-        
-        // Add enhanced styling
-        link.classList.add('link-with-preview');
-        
-        // Hide the marker image
-        markerImage.style.display = 'none';
-        
-        // For custom preview, update the link text and make it go nowhere
-        if (type === 'custom') {
-            const { linkText, previewText } = linkData;
-            link.textContent = linkText;
-            link.href = '#';
-            link.classList.add('no-link');
-            
-            // Add hover event listeners for custom preview
-            link.addEventListener('mouseenter', (e) => {
-                this.handleCustomMouseEnter(e, linkText, previewText);
-            });
-            
-            // Prevent default click behavior for custom links
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                return false;
-            });
-        } else {
-            // Original boundary word functionality
-            const { url, startWord, endWord } = linkData;
-            
-            // Add hover event listeners
-            link.addEventListener('mouseenter', (e) => {
-                this.handleMouseEnter(e, url, startWord, endWord);
-            });
-        }
-        
+        link.classList.add('link-with-preview', 'no-link');
+        link.addEventListener('mouseenter', (e) => {
+            this.handleCustomMouseEnter(e, linkText, previewText);
+        });
         link.addEventListener('mouseleave', (e) => {
             this.handleMouseLeave(e);
+        });
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
         });
     }
 
@@ -412,6 +293,8 @@ class LinkPopoverPreview {
             let headingText = headingMatch[2]
                 .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
                 .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+                .replace(/\[\[([^\]\r\n]+?)\]\]##[^\r\n]*?##/g, '$1')
+                .replace(/\[\[([^\]\r\n]+?)\]\]/g, '$1')
                 .replace(/[*_`~]/g, '')
                 .trim();
             if (!headingText) continue;
@@ -488,6 +371,8 @@ class LinkPopoverPreview {
         excerpt = excerpt
             .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
             .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+            .replace(/\[\[([^\]\r\n]+?)\]\]##[^\r\n]*?##/g, '$1')
+            .replace(/\[\[([^\]\r\n]+?)\]\]/g, '$1')
             .replace(/[*_`~]/g, '')
             .replace(/\s+/g, ' ')
             .trim();
@@ -600,22 +485,6 @@ class LinkPopoverPreview {
     }
 
     /**
-     * Handle mouse enter on enhanced link
-     */
-    handleMouseEnter(event, url, startWord, endWord) {
-        // Clear any existing timeouts
-        if (this.hideTimeout) {
-            clearTimeout(this.hideTimeout);
-            this.hideTimeout = null;
-        }
-        
-        // Set delay before showing popover
-        this.hoverTimeout = setTimeout(() => {
-            this.showPopover(event.target, url, startWord, endWord);
-        }, 300);
-    }
-
-    /**
      * Handle mouse enter on custom preview link
      */
     handleCustomMouseEnter(event, linkText, previewText) {
@@ -645,34 +514,6 @@ class LinkPopoverPreview {
         this.hideTimeout = setTimeout(() => {
             this.hidePopover();
         }, 200);
-    }
-
-    /**
-     * Show popover with content preview
-     */
-    async showPopover(linkElement, url, startWord, endWord) {
-        // Hide any existing popover
-        this.hidePopover();
-        
-        // Create popover element
-        const popover = this.createPopoverElement();
-        document.body.appendChild(popover);
-        
-        // Position popover
-        this.positionPopover(popover, linkElement);
-        
-        // Show loading state
-        this.showLoadingState(popover);
-        
-        this.activePopover = popover;
-        
-        try {
-            // Get content from cache or fetch it
-            const content = await this.getContent(url, startWord, endWord);
-            this.showContent(popover, content);
-        } catch (error) {
-            this.showError(popover, error.message);
-        }
     }
 
     /**
@@ -792,39 +633,51 @@ class LinkPopoverPreview {
     }
 
     /**
-     * Show content in popover
-     */
-    showContent(popover, content) {
-        const title = popover.querySelector('.popover-title');
-        const body = popover.querySelector('.popover-body');
-        
-        title.textContent = content.title || 'Content Preview';
-        body.innerHTML = `
-            <div class="popover-text">
-                ${content.excerpt}
-            </div>
-            <div class="popover-footer">
-                <a href="${content.url}" target="_blank" class="popover-link">
-                    <i class="fas fa-external-link-alt"></i>
-                    View full content
-                </a>
-            </div>
-        `;
-    }
-
-    /**
      * Show custom content in popover (no external link)
      */
     showCustomContent(popover, content) {
         const title = popover.querySelector('.popover-title');
         const body = popover.querySelector('.popover-body');
-        
+
         title.textContent = content.title || 'Custom Preview';
-        body.innerHTML = `
-            <div class="popover-text">
-                ${content.excerpt}
-            </div>
-        `;
+        body.innerHTML = '<div class="popover-text"></div>';
+        const previewElement = body.querySelector('.popover-text');
+        const previewMarkdown = String(content.excerpt || '')
+            .replace(/\\r\\n|\\n|\\r/g, '\n')
+            .replace(/\r\n?/g, '\n');
+
+        if (!window.markdownit) {
+            previewElement.textContent = previewMarkdown;
+            return;
+        }
+
+        const renderer = window.markdownit({
+            html: true,
+            linkify: true,
+            breaks: true,
+            typographer: false
+        });
+        const renderedPreview = document.createElement('template');
+        renderedPreview.innerHTML = renderer.render(previewMarkdown);
+
+        // Sanitize in inert template content before adding it to the live page.
+        renderedPreview.content.querySelectorAll('script, iframe, object, embed').forEach(element => {
+            element.remove();
+        });
+        renderedPreview.content.querySelectorAll('*').forEach(element => {
+            Array.from(element.attributes).forEach(attribute => {
+                const name = attribute.name.toLowerCase();
+                const value = attribute.value.trim().toLowerCase();
+                if (name.startsWith('on') || ((name === 'href' || name === 'src') && value.startsWith('javascript:'))) {
+                    element.removeAttribute(attribute.name);
+                }
+            });
+        });
+        renderedPreview.content.querySelectorAll('a[href]').forEach(link => {
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+        });
+        previewElement.replaceChildren(renderedPreview.content);
     }
 
     /**
@@ -841,122 +694,6 @@ class LinkPopoverPreview {
                 <span>${message}</span>
             </div>
         `;
-    }
-
-    /**
-     * Get content from cache or fetch it
-     */
-    async getContent(url, startWord, endWord) {
-        const cacheKey = `${url}|${startWord}|${endWord}`;
-        
-        // Check cache first
-        if (this.cache.has(cacheKey)) {
-            return this.cache.get(cacheKey);
-        }
-        
-        // Fetch content
-        const content = await this.fetchContent(url, startWord, endWord);
-        
-        // Cache the result
-        this.cache.set(cacheKey, content);
-        
-        return content;
-    }
-
-    /**
-     * Fetch content from URL using CORS proxy
-     */
-    async fetchContent(url, startWord, endWord) {
-        try {
-            const proxyUrl = `${this.proxyUrl}${encodeURIComponent(url)}`;
-            const response = await fetch(proxyUrl);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-            
-            const data = await response.json();
-            
-            if (!data.contents) {
-                throw new Error('No content received from proxy');
-            }
-            
-            // Parse HTML and extract text
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(data.contents, 'text/html');
-            
-            // Get page title
-            const title = doc.querySelector('title')?.textContent || 
-                         doc.querySelector('h1')?.textContent || 
-                         'Content Preview';
-            
-            // Extract text content
-            const textContent = this.extractTextContent(doc);
-            
-            // Find content between boundary words
-            const excerpt = this.extractContentBetweenWords(textContent, startWord, endWord);
-            
-            return {
-                title: title.trim(),
-                excerpt: excerpt,
-                url: url
-            };
-            
-        } catch (error) {
-            if (error.name === 'TypeError' && error.message.includes('fetch')) {
-                throw new Error('Unable to fetch content. This may be due to CORS restrictions.');
-            }
-            throw new Error(`Failed to load content: ${error.message}`);
-        }
-    }
-
-    /**
-     * Extract text content from HTML document
-     */
-    extractTextContent(doc) {
-        // Remove script and style elements
-        const scripts = doc.querySelectorAll('script, style, nav, header, footer, aside');
-        scripts.forEach(el => el.remove());
-        
-        // Get text content
-        return doc.body?.textContent || doc.textContent || '';
-    }
-
-    /**
-     * Extract content between boundary words
-     */
-    extractContentBetweenWords(text, startWord, endWord) {
-        if (!text || !startWord || !endWord) {
-            return 'No content found between specified boundary words.';
-        }
-        
-        // Clean up text
-        const cleanText = text.replace(/\s+/g, ' ').trim();
-        
-        // Find start and end positions (case-insensitive)
-        const startIndex = cleanText.toLowerCase().indexOf(startWord.toLowerCase());
-        const endIndex = cleanText.toLowerCase().indexOf(endWord.toLowerCase(), startIndex + startWord.length);
-        
-        if (startIndex === -1) {
-            return `Selected excerpt not found. Start word "${startWord}" not found in content.`;
-        }
-        
-        if (endIndex === -1) {
-            return `Selected excerpt not found. End word "${endWord}" not found in content.`;
-        }
-        
-        // Extract content including boundary words
-        let excerpt = cleanText.substring(startIndex, endIndex + endWord.length).trim();
-        
-        // Clean up excerpt (but keep the boundary words)
-        excerpt = excerpt.replace(/^\W+|\W+$/g, ''); // Remove leading/trailing punctuation
-        
-        // Limit length
-        if (excerpt.length > 500) {
-            excerpt = excerpt.substring(0, 500) + '...';
-        }
-        
-        return excerpt || 'No content found between the specified boundary words.';
     }
 
     /**

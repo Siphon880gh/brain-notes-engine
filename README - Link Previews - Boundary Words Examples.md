@@ -1,32 +1,26 @@
-# Boundary Words Example
+# Link Preview Syntax Migration
 
-This example demonstrates how the link popover system now includes boundary words in the excerpt.
+Boundary-word previews and marker images are no longer supported. Link previews now target other DevBrain documents, while custom text previews are embedded directly in the wiki syntax.
 
-## Example
+## Document Preview
 
-[MDN JavaScript Documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript) ![JavaScript...Reference](../1x2.png)
-
-## What Changed
-
-**Before:** The excerpt would show content between "JavaScript" and "Reference" words, excluding the boundary words themselves.
-
-**After:** The excerpt now includes both "JavaScript" and "Reference" words, providing better context.
-
-## Example Output
-
-If the webpage contains:
-```
-JavaScript is a programming language that is one of the core technologies of the World Wide Web. It is used to make web pages interactive and provide online programs. Reference materials are available for learning.
+```markdown
+[[JavaScript Documentation]]
 ```
 
-**Before:** The excerpt would show:
-```
-is a programming language that is one of the core technologies of the World Wide Web. It is used to make web pages interactive and provide online programs. Reference materials are available for learning.
+## Custom Text Preview
+
+```markdown
+[[JavaScript]]##A programming language commonly used to build interactive web applications##
 ```
 
-**After:** The excerpt now shows:
-```
-JavaScript is a programming language that is one of the core technologies of the World Wide Web. It is used to make web pages interactive and provide online programs. Reference materials are available for learning.
-```
+In the second example, only `JavaScript` renders in the note. The text between `##` delimiters appears in its popover.
 
-This provides much better context and makes the excerpt more meaningful!
+Custom content takes precedence if `JavaScript` is also an existing document name. The custom form does not open or preview that document.
+
+Custom payloads can contain Markdown, formatting HTML, actual newlines, or literal `\n` line breaks:
+
+```markdown
+[[JavaScript]]##Test **Preview**
+<b>Text</b>##
+```

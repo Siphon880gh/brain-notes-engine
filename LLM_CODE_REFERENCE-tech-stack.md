@@ -94,7 +94,6 @@
 - **Image Hosting**: Custom image server integration via `config.json`
 - **Git Integration**: Repository URL management through `env/urls.json`
 - **AI Services**: ChatGPT integration for content assistance
-- **CORS Proxy**: `api.allorigins.win` for link preview content extraction
 - **AGE Encryption**: Command-line encryption tool for secure note storage
 
 ## Development Tools

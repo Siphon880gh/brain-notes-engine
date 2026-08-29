@@ -404,6 +404,147 @@ function escapeHtml(text) {
         .replace(/"/g, '&quot;');
 }
 
+/**
+ * Remove custom preview payloads before MarkdownIt sees them. This lets a
+ * payload contain multiple lines, Markdown, and HTML without rendering it in
+ * the note or allowing its block syntax to split the custom preview token.
+ */
+function extractCustomWikiPreviews(markdownText) {
+    const previews = [];
+    const source = String(markdownText || '');
+    const customPreviewPattern = /\[\[([^\]\r\n]+?)\]\]##([\s\S]*?)##/g;
+
+    const markdown = source.replace(customPreviewPattern, (match, rawLabel, previewText, offset) => {
+        if (isMarkdownCodePosition(source, offset)) return match;
+
+        const label = rawLabel.trim();
+        if (!label) return match;
+
+        const placeholder = `\uE000DEVBRAINPREVIEW${previews.length}\uE001`;
+        previews.push({ placeholder, label, previewText });
+        return placeholder;
+    });
+
+    return { markdown, previews };
+}
+
+/**
+ * Keep syntax examples inside fenced and inline code literal.
+ */
+function isMarkdownCodePosition(markdownText, position) {
+    const htmlPrefix = markdownText.slice(0, position).toLowerCase();
+    const insideHtmlCode = ['code', 'pre'].some(tag => {
+        return htmlPrefix.lastIndexOf(`<${tag}`) > htmlPrefix.lastIndexOf(`</${tag}>`);
+    });
+    if (insideHtmlCode) return true;
+
+    const lines = markdownText.slice(0, position).split(/\r?\n/);
+    let activeFence = null;
+
+    for (const line of lines.slice(0, -1)) {
+        const fenceMatch = line.match(/^ {0,3}(`{3,}|~{3,})/);
+        if (!fenceMatch) continue;
+
+        const marker = fenceMatch[1];
+        if (!activeFence) {
+            activeFence = { character: marker[0], length: marker.length };
+        } else if (marker[0] === activeFence.character && marker.length >= activeFence.length) {
+            activeFence = null;
+        }
+    }
+
+    if (activeFence) return true;
+
+    const currentLine = lines[lines.length - 1];
+    let inlineDelimiterLength = 0;
+    for (let i = 0; i < currentLine.length;) {
+        if (currentLine[i] !== '`') {
+            i++;
+            continue;
+        }
+
+        let end = i;
+        while (currentLine[end] === '`') end++;
+        const runLength = end - i;
+        if (inlineDelimiterLength === 0) inlineDelimiterLength = runLength;
+        else if (runLength === inlineDelimiterLength) inlineDelimiterLength = 0;
+        i = end;
+    }
+
+    return inlineDelimiterLength > 0;
+}
+
+/**
+ * Convert preview placeholders and standard wiki links after MarkdownIt has
+ * rendered the note.
+ *
+ * [[DOCUMENT NAME]]                  -> linked note preview
+ * [[TEXT]]##This is preview text##   -> custom text preview
+ *
+ * Processing text nodes keeps standard wiki syntax out of code blocks and
+ * lets the DOM handle escaping for link labels and preview text.
+ */
+function replaceWikiLinksWithPreviews(htmlString, customPreviews = []) {
+    const template = document.createElement('template');
+    template.innerHTML = htmlString;
+
+    const textNodes = [];
+    const walker = document.createTreeWalker(template.content, NodeFilter.SHOW_TEXT);
+    let textNode;
+    while ((textNode = walker.nextNode())) {
+        const parent = textNode.parentElement;
+        if (parent && !parent.closest('a, code, pre, script, style')) {
+            textNodes.push(textNode);
+        }
+    }
+
+    const wikiPreviewPattern = /\uE000DEVBRAINPREVIEW(\d+)\uE001|\[\[([^\]\r\n]+?)\]\]/g;
+
+    textNodes.forEach(node => {
+        const source = node.nodeValue;
+        wikiPreviewPattern.lastIndex = 0;
+        if (!wikiPreviewPattern.test(source)) return;
+
+        wikiPreviewPattern.lastIndex = 0;
+        const fragment = document.createDocumentFragment();
+        let cursor = 0;
+        let match;
+
+        while ((match = wikiPreviewPattern.exec(source)) !== null) {
+            fragment.appendChild(document.createTextNode(source.slice(cursor, match.index)));
+
+            const customPreview = match[1] !== undefined
+                ? customPreviews[Number(match[1])]
+                : null;
+            if (match[1] !== undefined && !customPreview) {
+                fragment.appendChild(document.createTextNode(match[0]));
+                cursor = wikiPreviewPattern.lastIndex;
+                continue;
+            }
+
+            const label = customPreview ? customPreview.label : match[2].trim();
+            const link = document.createElement('a');
+            link.textContent = label;
+
+            if (customPreview) {
+                link.href = '#';
+                link.dataset.customPreview = customPreview.previewText.trim();
+            } else {
+                link.target = '_blank';
+                link.href = `${window.openURL}${encodeURIComponent(label)}`;
+            }
+
+            fragment.appendChild(link);
+            cursor = wikiPreviewPattern.lastIndex;
+        }
+
+        fragment.appendChild(document.createTextNode(source.slice(cursor)));
+        node.replaceWith(fragment);
+    });
+
+    return template.innerHTML;
+}
+
 function parseCsvRows(text) {
     const rows = [];
     let row = [];
@@ -647,6 +788,9 @@ function openNote(id) {
                     // Other options as needed
                 });
 
+            const customPreviewData = extractCustomWikiPreviews(summary);
+            summary = customPreviewData.markdown;
+
             // md.renderer.rules.newline = (tokens, idx) => {
             //     return '\n';
             // };
@@ -807,13 +951,7 @@ function openNote(id) {
 
             summaryHTML = summaryHTML.replaceAll(/\xA0/g, " ");
 
-            function replaceBracketsWithLinks(htmlString) {
-                return htmlString.replace(/\[\[(.*?)\]\]/g, function (match, p1) {
-                    const encodedText = encodeURIComponent(p1); // To handle special characters in URLs
-                    return `<a target="_blank" href="${window.openURL}${encodedText}">${p1}</a>`;
-                });
-            }
-            summaryHTML = replaceBracketsWithLinks(summaryHTML);
+            summaryHTML = replaceWikiLinksWithPreviews(summaryHTML, customPreviewData.previews);
 
 
             summaryInnerEl.innerHTML = summaryHTML;
@@ -1480,7 +1618,8 @@ async function renderDecryptedContent(decryptedContent, title, summaryInnerEl, f
         });
 
     // Apply same content processing as regular notes
-    let processedContent = decryptedContent;
+    const customPreviewData = extractCustomWikiPreviews(decryptedContent);
+    let processedContent = customPreviewData.markdown;
 
     // Apply line break fixes
     processedContent = processedContent.replace(/(.+)(\n)(?!\n)/g, "$1  \n");
@@ -1520,11 +1659,8 @@ async function renderDecryptedContent(decryptedContent, title, summaryInnerEl, f
     // Fix special characters
     summaryHTML = summaryHTML.replaceAll(/\xA0/g, " ");
 
-    // Replace Obsidian links
-    summaryHTML = summaryHTML.replace(/\[\[(.*?)\]\]/g, function (match, p1) {
-        const encodedText = encodeURIComponent(p1);
-        return `<a target="_blank" href="${window.openURL}${encodedText}">${p1}</a>`;
-    });
+    // Replace document links and custom text previews.
+    summaryHTML = replaceWikiLinksWithPreviews(summaryHTML, customPreviewData.previews);
 
     // Add decrypted content wrapper
     summaryHTML = `<div class="decrypted-content">${summaryHTML}</div>`;
@@ -1740,4 +1876,3 @@ function openPrivateAuthAndRetry(noteId) {
         document.addEventListener('privateAuthChanged', authHandler);
     }
 }
-

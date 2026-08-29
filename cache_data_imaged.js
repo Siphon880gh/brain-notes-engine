@@ -33,14 +33,14 @@ function hasImages(filePath) {
     const content = fs.readFileSync(filePath, 'utf-8');
     
     // Match markdown image syntax: ![anything](anything)
-    // But exclude the special 1x1.png and 1x2.png placeholders used for mindmaps/link previews
+    // But exclude the special 1x1.png placeholder used for mindmaps
     const mdImageRegex = /!\[[^\]]*\]\([^)]+\)/g;
     const matches = content.match(mdImageRegex) || [];
     
-    // Filter out placeholder images (1x1.png for mindmaps, 1x2.png for link previews)
+    // Filter out the mindmap placeholder image.
     const realImages = matches.filter(match => {
       const lower = match.toLowerCase();
-      return !lower.includes('1x1.png') && !lower.includes('1x2.png');
+      return !lower.includes('1x1.png');
     });
     
     if (realImages.length > 0) {
@@ -193,4 +193,3 @@ fs.writeFile(cachedDataFilename, JSON.stringify(outputData, null, 2), (err) => {
     console.log(`\n\n>>Renderable data (imaged notes only) successfully saved to:\n${cachedDataFilename}`);
   }
 });
-

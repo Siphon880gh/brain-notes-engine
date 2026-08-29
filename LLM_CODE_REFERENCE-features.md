@@ -101,7 +101,7 @@ echo json_encode(["res"=>$res, "cmd"=>$cmd, "stdout"=>$stdout]);
 - **Jump to Topics Integration**: Sets `lastClickedNote` for "See topics" button functionality
 - **Build Integration**: `cache_data_imaged.js` generates `cachedResDataImaged.json` with notes containing images
 - **Path Matching**: Uses `path_tp` to match imaged notes with correct DOM IDs from main cache
-- **Image Detection**: Scans for markdown image syntax `![alt](path)` and HTML `<img>` tags, excluding placeholder images (1x1.png, 1x2.png)
+- **Image Detection**: Scans for markdown image syntax `![alt](path)` and HTML `<img>` tags, excluding the mindmap placeholder image (1x1.png)
 
 ### Interactive Elements
 - **Modal System**: Overlay windows for notes, sharing, AI assistance, and quiz CSV export
@@ -229,7 +229,7 @@ Each brain can have:
 - **`assets/css/index.css`** (~1294 lines): Main styling including code blocks [LARGE]
 
 ### Key Implementation Patterns
-- **Feature Detection**: Check for placeholder images (`1x1.png`, `1x2.png`) before activation
+- **Feature Detection**: Check for mindmap placeholder images (`1x1.png`) and wiki-link preview syntax before activation
 - **Event-Driven Architecture**: Features initialize on content load and update events
 - **Graceful Degradation**: All features work with or without external dependencies
 - **Modular Design**: Each feature system is self-contained with clear integration points
