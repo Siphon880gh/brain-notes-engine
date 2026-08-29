@@ -477,7 +477,7 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
     }
   
     const rootUL = doc.querySelector('ul');
-    return traverseList(rootUL);
+    return rootUL ? traverseList(rootUL) : '';
   }
   
   function sendToOtherWorkhouses(el) {
@@ -499,6 +499,9 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
         return true;
     }
     if(window.modeAskAI) {
+        const folderLi = el.closest ? el.closest('li.accordion.meta') : null;
+        if (!folderLi) return false;
+
         // Toggle logic
         window.modeAskAI = false;
         document.getElementById('ai-assist-btn').click();
@@ -506,13 +509,8 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
         // AI prompting logic
         const enums = {OPEN_FOLDER: 0, DONT_OPEN_FOLDER:1}
         const basePath = window.location.origin + window.location.pathname;
-        let hierarchyText = htmlToIndentedList(el.outerHTML, "./")
-        let folderName = Array.from(el.childNodes).reduce((str, el) => {
-            if(el.nodeType === Node.TEXT_NODE || el.tagName.toLowerCase() !== "ul") {
-                return str + (el.textContent || '');
-            }
-            return str;
-        }, '').trim(); // Add empty string as initial value
+        let hierarchyText = htmlToIndentedList(folderLi.outerHTML, "./")
+        let folderName = el.textContent.trim();
         let userQuestion = prompt(`Ask the AI about these notes at ${folderName}?\n\nEg. What can I learn here?\nEg. How to get started?\n\nPopup: You needs popups enabled to open properly.\nPaid Version: This free version opens your notes directly in ChatGPT and is limited by the model's input size. Need something more powerful that handles bigger note sets and can handle deeper queries? Email weng@wengindustries.com for details on our paid plan. Thanks!`)
         if (!userQuestion) return enums.OPEN_FOLDER;
         
