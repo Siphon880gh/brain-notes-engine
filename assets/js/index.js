@@ -372,7 +372,11 @@ function openQuiz(id) {
 
             let csvContent = htmlMatch ? htmlMatch[1].replace(/^ {2}/gm, '') : '';
             if (csvContent) {
-                csvContent = csvContent.trim();
+                csvContent = csvContent
+                    .split(/\r?\n/)
+                    .filter(line => !/^,+$/.test(line.trim()))
+                    .join('\n')
+                    .trim();
             }
 
             if (csvContent === '__PRIVATE_BLOCKED__') {
