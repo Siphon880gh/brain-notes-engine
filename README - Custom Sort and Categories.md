@@ -72,5 +72,6 @@ Everything else must match a **root folder name exactly** (same spelling and pun
 
 ## Related docs
 
+- [README - Custom Headings.md](README%20-%20Custom%20Headings.md) — where navigator labels such as Fundamentals and Web Development come from, with a screenshot
 - [README.md](README.md) — Organizing folders and files
 - [AGENTS-architecture.md](AGENTS-architecture.md) — Build pipeline and caching details

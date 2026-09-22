@@ -40,7 +40,7 @@ Each template contains:
 
 #### Curriculum sort spec (`sortspec.md`)
 
-User-facing guide: [README - Custom Sort and Categories.md](README%20-%20Custom%20Sort%20and%20Categories.md)
+User-facing guides: [README - Custom Sort and Categories.md](README%20-%20Custom%20Sort%20and%20Categories.md) (order and dividers) and [README - Custom Headings.md](README%20-%20Custom%20Headings.md) (section labels such as Fundamentals and Web Development)
 
 Place a `sortspec.md` file in the curriculum vault root (Obsidian Custom Sort format). During `npm run build-*`, `cache_data.js` reads it into `cachedResData.json`, and `cache_render.js` uses it to order root-level folders in the curriculum explorer and insert section dividers.
 

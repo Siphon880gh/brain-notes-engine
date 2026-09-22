@@ -94,6 +94,10 @@ Full syntax, examples, and rebuild steps:
 
 [README - Custom Sort and Categories.md](README%20-%20Custom%20Sort%20and%20Categories.md)
 
+The gray uppercase labels in the navigator (Fundamentals, Web Development, and so on) are the `--- Section Title` lines from that file:
+
+[README - Custom Headings.md](README%20-%20Custom%20Headings.md)
+
 ## Referring to other notes from a note
 
 You can jump to different concepts from a summary.
