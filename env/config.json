@@ -1,5 +1,5 @@
 {
     "theme": "classic",
-    "showThemeSwitcher": true,
+    "showThemeSwitcher": false,
     "showNightDaySwitcher": true
 }

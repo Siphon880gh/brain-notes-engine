@@ -8,6 +8,7 @@ cachedRes*.br
 cachedRes*.gz
 
 # Same front-end that's polymorphic to different note collections
+env/config.json
 env/description-meta.php
 env/description-must.php
 env/description.php
