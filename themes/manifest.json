@@ -19,6 +19,21 @@
       "id": "classic",
       "name": "Classic",
       "description": "Pale yellow hire bar, DB logo, orange key, blue-bordered search, featured lesson card, chevron topic rows, gradient See topics bar."
+    },
+    {
+      "id": "3d-games",
+      "name": "3D & Games",
+      "description": "Charcoal studio HUD with cyan, lime, and orange accents, a mesh, gamepad, and wireframe cube."
+    },
+    {
+      "id": "business",
+      "name": "Business & Finance",
+      "description": "Navy, charcoal, and gold finance desk with a ledger grid, skyline, coins, and charts."
+    },
+    {
+      "id": "health",
+      "name": "Health & Wellness",
+      "description": "Clinic palette of green, teal, white, and calm blue with a heart, pulse, leaf, and plus."
     }
   ],
   "default": "classic"

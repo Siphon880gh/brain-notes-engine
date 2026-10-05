@@ -143,7 +143,7 @@
   function allowedThemes() {
     const cfg = window.DevBrainThemeConfig;
     if (cfg && Array.isArray(cfg.allowed) && cfg.allowed.length) return cfg.allowed;
-    return ['generic', 'soft-cards', 'terminal', 'classic'];
+    return ['generic', 'soft-cards', 'terminal', 'classic', '3d-games', 'business', 'health'];
   }
 
   function rememberTheme(id) {

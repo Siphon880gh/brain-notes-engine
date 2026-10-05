@@ -1,0 +1,154 @@
+@import "../base.css";
+
+html[data-theme="business"] {
+  --theme-bg: #f3f5f8;
+  --theme-fg: #1b2430;
+  --theme-muted: #5c6775;
+  --theme-title: #0f2744;
+  --theme-link: #163e66;
+  --theme-link-hover: #0c2744;
+  --theme-accent: #b8892e;
+  --theme-accent-contrast: #fffdf8;
+  --theme-surface: #ffffff;
+  --theme-surface-2: #eef1f5;
+  --theme-border: #d5dbe3;
+  --theme-shadow: 0 10px 28px rgba(15, 39, 68, 0.07);
+  --theme-radius: 2px;
+  --theme-font: system-ui, "Segoe UI", sans-serif;
+  --theme-heading-font: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+  --theme-banner-bg: #0f2744;
+  --theme-banner-fg: #f7f4ec;
+  --theme-banner-link: #f0d48a;
+  --theme-more-bg: #ffffff;
+  --theme-explorer-fg: #163e66;
+  --theme-file-hover: #f4efe4;
+  --theme-folder-hover: #e7edf4;
+  --theme-btn-bg: #0f2744;
+  --theme-btn-hover: #1c3d63;
+  --theme-btn-fg: #f7f4ec;
+  --theme-btn-ai: #1f6b4a;
+  --theme-btn-ai-hover: #18573c;
+  --theme-btn-ai-fg: #ffffff;
+  --theme-btn-share: #b8892e;
+  --theme-btn-share-hover: #d4a64a;
+  --theme-btn-share-fg: #1a1408;
+  --theme-btn-folder: #243246;
+  --theme-btn-folder-hover: #0f2744;
+  --theme-btn-folder-fg: #f7f4ec;
+  --theme-toc-bg: #0f2744;
+  --theme-mindmap-bg: #1f6b4a;
+  --theme-btn-mindmap-fg: #ffffff;
+  --theme-code-bg: #16202c;
+  --theme-code-fg: #f4f6f8;
+  --theme-code-gutter: #101820;
+  --theme-table-border: #d5dbe3;
+  --theme-table-head: #eef1f5;
+  --theme-table-stripe: #f7f8fa;
+  --theme-mark: #f6e7c1;
+  --theme-input-bg: #ffffff;
+  --theme-input-fg: #1b2430;
+  --theme-input-border: #b8892e;
+  --theme-sticky-bg: #ffffff;
+  --theme-divider: rgba(15, 39, 68, 0.14);
+  --theme-overlay: rgba(15, 39, 68, 0.52);
+  --theme-line-height: 1.55;
+}
+
+html[data-theme="business"] body {
+  background-color: var(--theme-bg);
+  background-image:
+    linear-gradient(rgba(15, 39, 68, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 39, 68, 0.045) 1px, transparent 1px);
+  background-size: 28px 28px, 28px 28px;
+}
+
+html[data-theme="business"] .site-header {
+  background-image: url("assets/skyline.svg");
+  background-repeat: repeat-x;
+  background-position: center bottom;
+  background-size: auto 28px;
+  padding-bottom: 2.4rem;
+}
+
+html[data-theme="business"] .site-header::before {
+  content: "MARKETS  ·  FINANCE";
+  display: block;
+  margin: 0.85rem auto 0;
+  font-family: var(--theme-font);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #8d6a2a;
+}
+
+html[data-theme="business"] #title {
+  display: inline-block;
+  letter-spacing: -0.02em;
+  background: url("assets/coin-mark.svg") left center / 0.95em no-repeat;
+  padding-left: 1.2em;
+}
+
+html[data-theme="business"] .hire-banner {
+  opacity: 1;
+  color: var(--theme-banner-fg);
+  background-color: var(--theme-banner-bg);
+  background-image: url("assets/chart.svg");
+  background-repeat: no-repeat;
+  background-position: 0.65rem center;
+  background-size: 22px 22px;
+  border-bottom: 3px solid #c6a15a;
+}
+
+html[data-theme="business"] .hire-banner a {
+  color: var(--theme-banner-link);
+}
+
+html[data-theme="business"] .hire-banner button {
+  color: inherit;
+}
+
+html[data-theme="business"] .card {
+  background-color: var(--theme-surface);
+  background-image: url("assets/coin.svg");
+  background-repeat: no-repeat;
+  background-position: right 16px bottom 16px;
+  background-size: 88px 88px;
+  border-top: 3px solid #c6a15a;
+}
+
+html[data-theme="business"] #explore-header h2,
+html[data-theme="business"] .modal-title {
+  letter-spacing: -0.01em;
+}
+
+html[data-theme="business"] #explore-header h2 {
+  background: url("assets/chart.svg") left center / 1.15em no-repeat;
+  padding-left: 1.5em;
+}
+
+html[data-theme="business"] #searcher-input {
+  box-sizing: border-box;
+  max-width: 100%;
+  border-color: #b8892e;
+  background-image: url("assets/chart.svg");
+  background-repeat: no-repeat;
+  background-position: 8px center;
+  background-size: 14px 14px;
+  padding-left: 28px;
+}
+
+html[data-theme="business"] #bottom-bar {
+  background-color: #0f2744;
+  background-image: url("assets/skyline-gold.svg");
+  background-repeat: repeat-x;
+  background-position: center bottom;
+  background-size: auto 14px;
+  border-radius: 2px;
+  border-top: 3px solid #c6a15a;
+  padding: 6px 8px 8px;
+}
+
+html[data-theme="business"] th {
+  font-family: var(--theme-heading-font);
+  font-weight: 600;
+}

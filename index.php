@@ -19,7 +19,7 @@
   // That file is copied from env/templates-* by npm run build-*.
   // "showThemeSwitcher": true adds a top-right theme control.
   // "showNightDaySwitcher": true adds a Day/Night control beside it.
-  $allowedThemes = ['generic', 'soft-cards', 'terminal', 'classic'];
+  $allowedThemes = ['generic', 'soft-cards', 'terminal', 'classic', '3d-games', 'business', 'health'];
   $themeId = 'generic';
   $showThemeSwitcher = false;
   $showNightDaySwitcher = false;
@@ -176,11 +176,12 @@
     </script>
 ";
     ?>
+
 </head>
 
 <body>
-    <div class="hire-banner bg-yellow-300 w-full py-2 text-center opacity-80 relative" onmouseleave="setTimeout(()=> { this.style.height=0; this.style.padding=0; }, 2000);" style="transition: height 2s; overflow: clip;">
-        <button class="absolute right-4 top-0 -translate-y-1/2 bg-transparent text-2xl opacity-60" onclick="this.parentElement.remove();">×</button>
+    <div class="hire-banner bg-yellow-300 w-full py-2 text-center opacity-80 relative" onmouseleave="setTimeout(()=> { this.style.height=0; this.style.padding=0; }, 2000);" style="transition: height 2s;">
+        <button type="button" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-transparent text-2xl leading-none h-6 w-6 flex items-center justify-center opacity-60" aria-label="Dismiss announcement" onclick="this.parentElement.remove();">×</button>
         View Weng's work or hire him → <a target="_blank" href="https://wengindustries.com" class="text-blue-500 underline font-semibold">WengIndustries.com</a>
     </div>
     
