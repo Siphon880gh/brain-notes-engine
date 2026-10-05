@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Original candlestick chart, CC0 1.0 -->
+  <path d="M4 27 H28" stroke="#c6a15a" stroke-width="1.3"/>
+  <path d="M8 22 V12" stroke="#c6a15a" stroke-width="1.2"/>
+  <rect x="6.2" y="14" width="3.6" height="6" fill="#c6a15a"/>
+  <path d="M14 24 V9" stroke="#c6a15a" stroke-width="1.2"/>
+  <rect x="12.2" y="12" width="3.6" height="8" fill="none" stroke="#c6a15a" stroke-width="1.2"/>
+  <path d="M20 22 V10" stroke="#c6a15a" stroke-width="1.2"/>
+  <rect x="18.2" y="13" width="3.6" height="6" fill="#c6a15a"/>
+  <path d="M26 21 V14" stroke="#c6a15a" stroke-width="1.2"/>
+  <rect x="24.2" y="15.5" width="3.6" height="4" fill="none" stroke="#c6a15a" stroke-width="1.2"/>
+</svg>

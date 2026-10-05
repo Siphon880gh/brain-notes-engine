@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Original gamepad, CC0 1.0 -->
+  <path d="M9 13 H23 C27 13 29 16 29 19 C29 22 27 24 24 24 H22 L20 22 H12 L10 24 H8 C5 24 3 22 3 19 C3 16 5 13 9 13 Z" fill="none" stroke="#3ee0ff" stroke-width="1.6"/>
+  <path d="M8 18 H12 M10 16 V20" stroke="#c6f54a" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="20" cy="17" r="1.15" fill="#ff8a1e"/>
+  <circle cx="23.2" cy="19.4" r="1.15" fill="#3ee0ff"/>
+</svg>

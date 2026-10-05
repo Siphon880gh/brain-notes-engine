@@ -16,9 +16,9 @@ An unknown or missing id falls back to the manifest default (`classic`).
 | `generic` | Neutral gray documentation chrome. |
 | `soft-cards` | Pastel cards, large radii, soft shadows. |
 | `terminal` | Dark monospace console. |
-| `3d-games` | Navy HUD for 3D and videogame notes. Cyan and magenta accents. |
-| `business` | Warm paper, navy, gold rule, serif headings for finance notes. |
-| `health` | Sage and teal clinic palette for health and wellness notes. |
+| `3d-games` | Charcoal studio HUD. Cyan, lime, and orange. Mesh, gamepad, and wireframe cube. |
+| `business` | Finance desk. Navy, charcoal, gold, and grey. Ledger grid, skyline, coin, and chart. |
+| `health` | Clinic. Green, teal, white, and calm blue. Heart, pulse, leaf, and plus. |
 
 Switch themes by editing the root config:
 
@@ -34,6 +34,10 @@ Reload the page. Stylesheets are chosen on the server, so a reload is required.
 2. Set variables on `html[data-theme="<id>"]`. Use the same custom properties as the existing themes (`--theme-bg`, `--theme-fg`, `--theme-surface`, `--theme-accent`, button colors, and the rest listed in any `theme.css`).
 3. Register the id in `themes/manifest.json`.
 4. Keep layout rules out of the theme file. Overflow, padding, sticky offsets, and z-index live in `assets/css/theme-layout.css` so one theme cannot reintroduce a gallery-wide glitch.
+
+## Ornament license
+
+Icons and patterns under `themes/3d-games/assets/`, `themes/business/assets/`, and `themes/health/assets/` are original drawings made for this project and released under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). No copyrighted game art or stock imagery is included. The health plus is a generic clinic mark, not the Red Cross emblem.
 
 ## Layout fixes (all themes)
 

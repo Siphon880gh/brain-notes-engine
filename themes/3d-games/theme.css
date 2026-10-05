@@ -1,77 +1,127 @@
 html[data-theme="3d-games"] {
-  --theme-bg: #0b1020;
-  --theme-fg: #e7f2ff;
-  --theme-muted: #9eb4d4;
-  --theme-title: #f4f8ff;
-  --theme-link: #67e8f9;
-  --theme-link-hover: #a5f3fc;
-  --theme-accent: #22d3ee;
-  --theme-accent-contrast: #041018;
-  --theme-surface: #141a2e;
-  --theme-surface-2: #1c2540;
-  --theme-border: rgba(103, 232, 249, 0.32);
-  --theme-shadow: 0 16px 40px rgba(0, 0, 0, 0.38);
-  --theme-radius: 12px;
+  --theme-bg: #14181c;
+  --theme-fg: #e7f2f8;
+  --theme-muted: #9eb4c4;
+  --theme-title: #f3fbff;
+  --theme-link: #7af0ff;
+  --theme-link-hover: #c6f54a;
+  --theme-accent: #3ee0ff;
+  --theme-accent-contrast: #04141c;
+  --theme-surface: #1b2128;
+  --theme-surface-2: #242c34;
+  --theme-border: rgba(62, 224, 255, 0.38);
+  --theme-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  --theme-radius: 10px;
   --theme-font: "Segoe UI", "Avenir Next", system-ui, sans-serif;
   --theme-heading-font: "Trebuchet MS", "Segoe UI", sans-serif;
-  --theme-banner-bg: #241033;
-  --theme-banner-fg: #f7f2ff;
-  --theme-banner-link: #67e8f9;
-  --theme-more-bg: #141a2e;
-  --theme-explorer-fg: #7dd3fc;
-  --theme-file-hover: rgba(34, 211, 238, 0.16);
-  --theme-folder-hover: rgba(244, 63, 138, 0.16);
-  --theme-btn-bg: #22d3ee;
-  --theme-btn-hover: #67e8f9;
-  --theme-btn-fg: #041018;
-  --theme-btn-ai: #e11d74;
-  --theme-btn-ai-hover: #fb7185;
-  --theme-btn-ai-fg: #ffffff;
-  --theme-btn-share: #6366f1;
-  --theme-btn-share-hover: #818cf8;
-  --theme-btn-share-fg: #ffffff;
-  --theme-btn-folder: #0284c7;
-  --theme-btn-folder-hover: #0ea5e9;
-  --theme-btn-folder-fg: #ffffff;
-  --theme-toc-bg: #22d3ee;
-  --theme-mindmap-bg: #e11d74;
-  --theme-btn-mindmap-fg: #ffffff;
-  --theme-code-bg: #070b16;
-  --theme-code-fg: #dbeafe;
-  --theme-code-gutter: #0e1426;
-  --theme-table-border: #31405f;
-  --theme-table-head: #1a2340;
-  --theme-table-stripe: #12182c;
-  --theme-mark: #5b3b16;
-  --theme-input-bg: #0e1426;
-  --theme-input-fg: #e7f2ff;
-  --theme-input-border: #31405f;
-  --theme-sticky-bg: #141a2e;
-  --theme-divider: rgba(103, 232, 249, 0.28);
-  --theme-overlay: rgba(4, 8, 20, 0.72);
+  --theme-banner-bg: #101820;
+  --theme-banner-fg: #e9f8ff;
+  --theme-banner-link: #c6f54a;
+  --theme-more-bg: #151d28;
+  --theme-explorer-fg: #8be9ff;
+  --theme-file-hover: rgba(62, 224, 255, 0.16);
+  --theme-folder-hover: rgba(255, 138, 30, 0.16);
+  --theme-btn-bg: #3ee0ff;
+  --theme-btn-hover: #8af4ff;
+  --theme-btn-fg: #042028;
+  --theme-btn-ai: #ff8a1e;
+  --theme-btn-ai-hover: #ffb15a;
+  --theme-btn-ai-fg: #1a1208;
+  --theme-btn-share: #c6f54a;
+  --theme-btn-share-hover: #dcff86;
+  --theme-btn-share-fg: #142006;
+  --theme-btn-folder: #ffb020;
+  --theme-btn-folder-hover: #ffc75a;
+  --theme-btn-folder-fg: #1a1208;
+  --theme-toc-bg: #3ee0ff;
+  --theme-mindmap-bg: #ff8a1e;
+  --theme-btn-mindmap-fg: #1a1208;
+  --theme-code-bg: #090e14;
+  --theme-code-fg: #dff6ff;
+  --theme-code-gutter: #121a24;
+  --theme-table-border: #2c3c4e;
+  --theme-table-head: #1a2633;
+  --theme-table-stripe: #121a24;
+  --theme-mark: #3d3414;
+  --theme-input-bg: #0c141c;
+  --theme-input-fg: #e7f2f8;
+  --theme-input-border: #3ee0ff;
+  --theme-sticky-bg: #151d28;
+  --theme-divider: rgba(62, 224, 255, 0.28);
+  --theme-overlay: rgba(6, 10, 16, 0.74);
   --theme-line-height: 1.55;
 }
 
 html[data-theme="3d-games"] body {
   background-color: var(--theme-bg);
   background-image:
-    radial-gradient(ellipse at 8% -10%, rgba(34, 211, 238, 0.18), transparent 42%),
-    radial-gradient(ellipse at 100% 0%, rgba(225, 29, 116, 0.16), transparent 36%),
-    linear-gradient(rgba(148, 163, 209, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 209, 0.05) 1px, transparent 1px);
-  background-size: auto, auto, 28px 28px, 28px 28px;
+    radial-gradient(circle at 0 0, rgba(62, 224, 255, 0.16), transparent 34%),
+    radial-gradient(circle at 100% 80%, rgba(255, 138, 30, 0.1), transparent 28%),
+    url("assets/mesh.svg?v=2");
+  background-size: auto, auto, 100px 58px;
 }
 
-html[data-theme="3d-games"] .card {
-  border: 1px solid rgba(34, 211, 238, 0.4);
-  box-shadow: 0 0 0 1px rgba(225, 29, 116, 0.18), var(--theme-shadow);
-}
-
-html[data-theme="3d-games"] #explore-header {
-  background: linear-gradient(90deg, rgba(34, 211, 238, 0.14), rgba(225, 29, 116, 0.1));
+html[data-theme="3d-games"] .site-header::before {
+  content: "3D  ·  GAMES  ·  STUDIO";
+  display: block;
+  margin: 0.85rem auto 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #ff8a1e;
 }
 
 html[data-theme="3d-games"] #title {
-  letter-spacing: 0.04em;
+  display: inline-block;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  background: url("assets/cube.svg") left center / 0.95em no-repeat;
+  padding-left: 1.25em;
+}
+
+html[data-theme="3d-games"] .promo-banner {
+  background-color: var(--theme-banner-bg);
+  background-image: url("assets/controller.svg"), linear-gradient(90deg, rgba(255, 138, 30, 0.2), rgba(62, 224, 255, 0.08) 28%, transparent 60%);
+  background-repeat: no-repeat, no-repeat;
+  background-position: 0.7rem center, left center;
+  background-size: 22px 22px, 100% 100%;
+  border-bottom: 2px solid #ff8a1e;
+}
+
+html[data-theme="3d-games"] .card {
+  background-color: var(--theme-surface);
+  background-image: none;
+  border: 1px solid rgba(62, 224, 255, 0.5);
+  box-shadow: inset 3px 0 0 #c6f54a, var(--theme-shadow);
+}
+
+html[data-theme="3d-games"] #explore-header {
+  background-color: #121b26;
+  background-image: linear-gradient(90deg, rgba(62, 224, 255, 0.16), rgba(255, 138, 30, 0.08));
+}
+
+html[data-theme="3d-games"] #explore-header h2 {
+  background: url("assets/controller.svg") left center / 1.15em no-repeat;
+  padding-left: 1.55em;
+}
+
+html[data-theme="3d-games"] #searcher-input {
+  box-sizing: border-box;
+  max-width: 100%;
+  border-color: #3ee0ff;
+  background-image: url("assets/cube.svg");
+  background-repeat: no-repeat;
+  background-position: 8px center;
+  background-size: 14px 14px;
+  padding-left: 28px;
+}
+
+html[data-theme="3d-games"] #bottom-bar {
+  background-color: rgba(16, 24, 32, 0.94);
+  background-image: url("assets/mesh.svg?v=2");
+  background-size: 70px 40px;
+  border: 1px solid rgba(62, 224, 255, 0.55);
+  box-shadow: 0 0 0 1px rgba(255, 138, 30, 0.35);
+  border-radius: 8px;
+  padding: 6px;
 }

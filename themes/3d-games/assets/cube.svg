@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Original wireframe cube, CC0 1.0 -->
+  <g fill="none" stroke-linejoin="round" stroke-width="1.7">
+    <path d="M32 6 L56 18 L32 30 L8 18 Z" stroke="#3ee0ff"/>
+    <path d="M8 18 L32 30 L32 54 L8 42 Z" stroke="#c6f54a"/>
+    <path d="M32 30 L56 18 L56 42 L32 54 Z" stroke="#ff8a1e"/>
+  </g>
+</svg>

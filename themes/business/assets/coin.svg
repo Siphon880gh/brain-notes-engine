@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Original generic coin, CC0 1.0. Not a currency trademark. -->
+  <circle cx="32" cy="32" r="22" fill="none" stroke="#c6a15a" stroke-opacity="0.45" stroke-width="2"/>
+  <circle cx="32" cy="32" r="14" fill="none" stroke="#c6a15a" stroke-opacity="0.35" stroke-width="1.4"/>
+  <path d="M32 22 V42" stroke="#c6a15a" stroke-opacity="0.4" stroke-width="1.6"/>
+</svg>

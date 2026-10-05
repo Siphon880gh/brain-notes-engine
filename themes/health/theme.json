@@ -1,7 +1,7 @@
 {
   "id": "health",
   "name": "Health & Wellness",
-  "description": "Calm sage clinic palette for health, wellness, and healthcare notes.",
+  "description": "Clinic palette of green, teal, white, and calm blue with a heart, pulse, leaf, and plus.",
   "domain": "health-wellness",
-  "version": "1.0.0"
+  "version": "1.1.0"
 }
