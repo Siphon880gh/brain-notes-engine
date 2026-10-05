@@ -187,6 +187,24 @@ html[data-theme="classic"] #side-b:not(.side-by-side) {
   max-width: 100%;
   box-sizing: border-box;
 }
+html[data-theme="classic"] #side-a,
+html[data-theme="classic"] #summary-outer,
+html[data-theme="classic"] #summary-inner {
+  min-width: 0;
+  max-width: 100%;
+}
+html[data-theme="classic"] #summary-inner .img-wrapper {
+  max-width: 100%;
+  min-width: 0;
+}
+html[data-theme="classic"] #side-a img,
+html[data-theme="classic"] #summary-inner .img-wrapper > img {
+  max-width: calc(100% - 2.75rem);
+  width: auto;
+  height: auto;
+  min-width: 0;
+  flex: 1 1 auto;
+}
 html[data-theme="classic"] #explore-curriculum {
   max-width: 720px;
   margin: 0 auto;
