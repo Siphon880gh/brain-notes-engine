@@ -22,6 +22,7 @@
     const snippetsChoiceBtn = document.getElementById("practice-scope-snippets");
     const headingsChoiceBtn = document.getElementById("practice-scope-headings");
     const highlightChoiceBtn = document.getElementById("practice-scope-highlight");
+    const resetScopeBtn = document.getElementById("practice-scope-reset");
     const snippetListEl = document.getElementById("practice-scope-snippet-list");
     const headingListEl = document.getElementById("practice-scope-heading-list");
     const highlightModalEl = document.getElementById("practice-highlight-modal");
@@ -123,9 +124,11 @@
         snippetsChoiceBtn.disabled = !hasSnippets;
         headingsChoiceBtn.disabled = !hasHeadings;
         highlightChoiceBtn.disabled = !hasLesson;
+        resetScopeBtn.disabled = state.scopeText == null;
         snippetsChoiceBtn.title = hasSnippets ? "Pick one code block" : "This lesson has no code snippets";
         headingsChoiceBtn.title = hasHeadings ? "Pick one heading" : "This lesson has no headings";
         highlightChoiceBtn.title = hasLesson ? "Drag across a copy of the lesson" : "This lesson has nothing to highlight";
+        resetScopeBtn.title = state.scopeText == null ? "Nothing to reset" : "Practice the full lesson again";
     }
 
     function updateScopeStatus() {
@@ -366,12 +369,24 @@
         if (collapser && outer && outer.classList.contains("hidden")) collapser.click();
     }
 
+    function resetScope() {
+        state.scopeText = null;
+        state.scopeLabel = "";
+        snippetListEl.querySelectorAll(".is-selected").forEach((item) => item.classList.remove("is-selected"));
+        headingListEl.querySelectorAll(".is-selected").forEach((item) => item.classList.remove("is-selected"));
+        updateScopeStatus();
+        updateScopeButtons();
+        syncPracticeAvailability();
+        loadSource(true);
+    }
+
     function applyScope(text, label) {
         const passage = (text || "").trim();
         if (!passage) return;
         state.scopeText = passage;
         state.scopeLabel = label;
         updateScopeStatus();
+        updateScopeButtons();
         syncPracticeAvailability();
         loadSource(true);
         sourceEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
@@ -513,6 +528,7 @@
     snippetsChoiceBtn.addEventListener("click", () => showScopeList("snippets"));
     headingsChoiceBtn.addEventListener("click", () => showScopeList("headings"));
     highlightChoiceBtn.addEventListener("click", openHighlightModal);
+    resetScopeBtn.addEventListener("click", resetScope);
     highlightCancelBtn.addEventListener("click", closeHighlightModal);
     highlightUseBtn.addEventListener("mousedown", (event) => {
         event.preventDefault();

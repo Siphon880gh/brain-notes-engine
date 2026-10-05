@@ -133,6 +133,10 @@
   border-color: #cbd5e1;
 }
 
+#practice-scope-reset {
+  margin-left: auto;
+}
+
 .practice-scope__list {
   display: flex;
   flex-direction: column;

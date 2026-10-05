@@ -314,6 +314,7 @@
                                         <button type="button" id="practice-scope-snippets">Code snippets</button>
                                         <button type="button" id="practice-scope-headings">Table of contents</button>
                                         <button type="button" id="practice-scope-highlight">Highlight a passage</button>
+                                        <button type="button" id="practice-scope-reset">Reset</button>
                                     </div>
                                     <div id="practice-scope-snippet-list" class="practice-scope__list" hidden></div>
                                     <div id="practice-scope-heading-list" class="practice-scope__list" hidden></div>
