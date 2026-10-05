@@ -146,9 +146,15 @@
     return ['generic', 'soft-cards', 'terminal', 'classic', '3d-games', 'business', 'health'];
   }
 
+  function storageScope() {
+    var path = (location.pathname || '/').replace(/index\.php$/i, '');
+    if (path.charAt(path.length - 1) !== '/') path += '/';
+    return path;
+  }
+
   function rememberTheme(id) {
     try {
-      localStorage.setItem('devbrain-theme', id);
+      localStorage.setItem('devbrain-theme:' + storageScope(), id);
     } catch (e) {}
   }
 
@@ -240,7 +246,7 @@
     document.documentElement.setAttribute('data-mode', mode);
     if (window.DevBrainThemeConfig && window.DevBrainThemeConfig.showNightDaySwitcher) {
       try {
-        localStorage.setItem('devbrain-color-mode', mode);
+        localStorage.setItem('devbrain-color-mode:' + storageScope(), mode);
       } catch (e) {}
     }
     syncColorSwitcher();

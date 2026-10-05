@@ -1,5 +1,5 @@
 {
     "theme": "health",
-    "showThemeSwitcher": true,
+    "showThemeSwitcher": false,
     "showNightDaySwitcher": true
 }

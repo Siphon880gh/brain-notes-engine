@@ -83,8 +83,10 @@
       var cfg = window.DevBrainThemeConfig;
       if (!cfg) return;
       try {
+        var scope = (location.pathname || '/').replace(/index\.php$/i, '');
+        if (scope.charAt(scope.length - 1) !== '/') scope += '/';
         if (cfg.showSwitcher) {
-          var saved = localStorage.getItem('devbrain-theme');
+          var saved = localStorage.getItem('devbrain-theme:' + scope);
           if (saved && cfg.allowed.indexOf(saved) !== -1 && saved !== document.documentElement.getAttribute('data-theme')) {
             document.documentElement.setAttribute('data-theme', saved);
             var link = document.getElementById('theme-css');
@@ -92,7 +94,7 @@
           }
         }
         if (cfg.showNightDaySwitcher) {
-          var mode = localStorage.getItem('devbrain-color-mode');
+          var mode = localStorage.getItem('devbrain-color-mode:' + scope);
           if (mode === 'night' || mode === 'day') {
             document.documentElement.setAttribute('data-mode', mode);
           }

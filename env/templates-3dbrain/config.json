@@ -1,5 +1,5 @@
 {
     "theme": "3d-games",
-    "showThemeSwitcher": true,
+    "showThemeSwitcher": false,
     "showNightDaySwitcher": true
 }

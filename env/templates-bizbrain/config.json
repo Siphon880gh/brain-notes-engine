@@ -1,5 +1,5 @@
 {
     "theme": "business",
-    "showThemeSwitcher": true,
+    "showThemeSwitcher": false,
     "showNightDaySwitcher": true
 }
