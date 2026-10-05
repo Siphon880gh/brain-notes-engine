@@ -1,4 +1,10 @@
 {
+    "theme": "classic",
+    "showThemeSwitcher": true,
+    "showNightDaySwitcher": true,
+    "theme0": "generic",
+    "theme1": "soft-cards",
+    "theme2": "terminal",
     "imgHostedUrl": "https://wengindustries.com/hosted/obs-imgur/",
     "age": {
         "appendSystemPath": [

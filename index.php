@@ -14,8 +14,58 @@
   // Configurable
   $DEFAULT_THUMBNAIL_SIZE = "90x90"; // height x width
   $warningSearchWillFail_Arr = [];
+
+  // UI theme gallery (themes/). Selected via root config.json "theme".
+  // "showThemeSwitcher": true adds a top-right theme control.
+  // "showNightDaySwitcher": true adds a Day/Night control beside it.
+  $allowedThemes = ['generic', 'soft-cards', 'terminal', 'classic'];
+  $themeId = 'generic';
+  $showThemeSwitcher = false;
+  $showNightDaySwitcher = false;
+  $themeCatalog = [];
+  $cfg = null;
+  $configPath = __DIR__ . '/config.json';
+  if (is_readable($configPath)) {
+      $cfg = json_decode(file_get_contents($configPath), true);
+      if (is_array($cfg) && !empty($cfg['theme']) && in_array($cfg['theme'], $allowedThemes, true)) {
+          $themeId = $cfg['theme'];
+      }
+      if (is_array($cfg) && isset($cfg['showThemeSwitcher']) && $cfg['showThemeSwitcher'] === true) {
+          $showThemeSwitcher = true;
+      }
+      if (is_array($cfg) && isset($cfg['showNightDaySwitcher']) && $cfg['showNightDaySwitcher'] === true) {
+          $showNightDaySwitcher = true;
+      }
+  }
+  $manifestPath = __DIR__ . '/themes/manifest.json';
+  if (is_readable($manifestPath)) {
+      $manifest = json_decode(file_get_contents($manifestPath), true);
+      if (is_array($manifest) && !empty($manifest['themes']) && is_array($manifest['themes'])) {
+          foreach ($manifest['themes'] as $themeMeta) {
+              if (!is_array($themeMeta) || empty($themeMeta['id']) || !in_array($themeMeta['id'], $allowedThemes, true)) {
+                  continue;
+              }
+              $themeCatalog[] = [
+                  'id' => $themeMeta['id'],
+                  'name' => !empty($themeMeta['name']) ? $themeMeta['name'] : $themeMeta['id'],
+              ];
+          }
+      }
+  }
+  if (!$themeCatalog) {
+      foreach ($allowedThemes as $allowedId) {
+          $themeCatalog[] = ['id' => $allowedId, 'name' => $allowedId];
+      }
+  }
+  $themeCssPath = 'themes/' . $themeId . '/theme.css';
+  $themeConfigJson = json_encode([
+      'showSwitcher' => $showThemeSwitcher,
+      'showNightDaySwitcher' => $showNightDaySwitcher,
+      'themes' => $themeCatalog,
+      'allowed' => $allowedThemes,
+  ], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE);
 ?><!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="<?php echo htmlspecialchars($themeId, ENT_QUOTES, 'UTF-8'); ?>" data-mode="day">
 
 <head>
     <title><?php include 'env/title-long.php'; ?></title>
@@ -25,6 +75,30 @@
 
     <!-- CSS Assets -->
     <link href="assets/css/index.css" rel="stylesheet">
+    <link id="theme-css" href="<?php echo htmlspecialchars($themeCssPath, ENT_QUOTES, 'UTF-8'); ?>" rel="stylesheet">
+    <script>
+    window.DevBrainThemeConfig = <?php echo $themeConfigJson; ?>;
+    (function () {
+      var cfg = window.DevBrainThemeConfig;
+      if (!cfg) return;
+      try {
+        if (cfg.showSwitcher) {
+          var saved = localStorage.getItem('devbrain-theme');
+          if (saved && cfg.allowed.indexOf(saved) !== -1 && saved !== document.documentElement.getAttribute('data-theme')) {
+            document.documentElement.setAttribute('data-theme', saved);
+            var link = document.getElementById('theme-css');
+            if (link) link.href = 'themes/' + saved + '/theme.css';
+          }
+        }
+        if (cfg.showNightDaySwitcher) {
+          var mode = localStorage.getItem('devbrain-color-mode');
+          if (mode === 'night' || mode === 'day') {
+            document.documentElement.setAttribute('data-mode', mode);
+          }
+        }
+      } catch (e) {}
+    })();
+    </script>
     <link href="assets/css/modal.css" rel="stylesheet">
     <link href="assets/css/mindmap.css" rel="stylesheet">
     <link href="assets/css/link-popover.css" rel="stylesheet">
@@ -85,16 +159,22 @@
     }
 
     // Set URLs to JavaScript variables in HTML
+    $themeJson = json_encode($themeId);
     echo "<script>
         window.commitsURL = '{$commitsURL}';
         window.openURL = '{$openURL}';
         window.dirSnippets = '{$DIR_SNIPPETS}';
-    </script>";
+    </script>
+    <script>
+        window.config = window.config || {};
+        window.config.theme = {$themeJson};
+    </script>
+";
     ?>
 </head>
 
 <body>
-    <div class="bg-yellow-300 w-full py-2 text-center opacity-80 relative" class="bg-yellow-300 w-full py-2 text-center opacity-80 relative" onmouseleave="setTimeout(()=> { this.style.height=0; this.style.padding=0; }, 2000);" style="transition: height 2s; overflow: clip;">
+    <div class="hire-banner bg-yellow-300 w-full py-2 text-center opacity-80 relative" onmouseleave="setTimeout(()=> { this.style.height=0; this.style.padding=0; }, 2000);" style="transition: height 2s; overflow: clip;">
         <button class="absolute right-4 top-0 -translate-y-1/2 bg-transparent text-2xl opacity-60" onclick="this.parentElement.remove();">×</button>
         View Weng's work or hire him → <a target="_blank" href="https://wengindustries.com" class="text-blue-500 underline font-semibold">WengIndustries.com</a>
     </div>
@@ -512,7 +592,10 @@
         if(typeof window?.config === "undefined") {
             window.config = {};
         }
-        window.config.imgHostedUrl = data.imgHostedUrl
+        window.config.imgHostedUrl = data.imgHostedUrl;
+        window.config.theme = data.theme || document.documentElement.getAttribute('data-theme') || 'generic';
+        window.config.showThemeSwitcher = data.showThemeSwitcher === true;
+        window.config.showNightDaySwitcher = data.showNightDaySwitcher === true;
     });
     </script>
     <script src="assets/js/modal.js"></script>
@@ -520,6 +603,7 @@
     <script src="assets/js/private-auth.js"></script>
     <script src="assets/js/note-opener.js"></script>
     <script src="assets/js/mindmap.js"></script>
+    <script src="assets/js/theme-enhancer.js"></script>
     <script src="assets/js/index.js"></script>
     <script src="assets/js/searchers.js"></script>
     <script src="assets/js/link-popover.js"></script>

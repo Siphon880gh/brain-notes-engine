@@ -1,0 +1,25 @@
+{
+  "themes": [
+    {
+      "id": "generic",
+      "name": "Generic",
+      "description": "The original Developer Brain homepage look (pre-gallery baseline)."
+    },
+    {
+      "id": "soft-cards",
+      "name": "Soft Cards",
+      "description": "Dark blue hire banner, three-circle logo, pastel category cards, floating pill nav."
+    },
+    {
+      "id": "terminal",
+      "name": "Terminal",
+      "description": "Monospaced ~/developer-brain header, teal accents, green git badge, numbered categories, terminal search."
+    },
+    {
+      "id": "classic",
+      "name": "Classic",
+      "description": "Pale yellow hire bar, DB logo, orange key, blue-bordered search, featured lesson card, chevron topic rows, gradient See topics bar."
+    }
+  ],
+  "default": "classic"
+}

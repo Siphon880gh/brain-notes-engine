@@ -1,0 +1,345 @@
+/**
+ * Theme: soft-cards
+ * Dark blue hire banner, three colored-circle logo, pastel category cards,
+ * floating bottom pill navigation.
+ */
+html[data-theme="soft-cards"] {
+  --theme-bg: #f4f6fb;
+  --theme-text: #1e293b;
+  --theme-muted: #64748b;
+  --theme-link: #334155;
+  --theme-hire-bg: #1e3a8a;
+  --theme-hire-text: #e2e8f0;
+  --theme-hire-link: #93c5fd;
+  --theme-accent: #6366f1;
+  --theme-accent-2: #0ea5e9;
+  --theme-key-bg: linear-gradient(135deg, #fb7185 0%, #f97316 100%);
+  --theme-card-bg: #ffffff;
+  --theme-font: 'Inter', 'Roboto', system-ui, sans-serif;
+  --pastel-1: #fce7f3;
+  --pastel-2: #dbeafe;
+  --pastel-3: #d1fae5;
+  --pastel-4: #fef3c7;
+  --pastel-5: #ede9fe;
+  --pastel-6: #ffedd5;
+}
+
+html[data-theme="soft-cards"] body {
+  background: var(--theme-bg);
+  color: var(--theme-text);
+  font-family: var(--theme-font);
+  padding-bottom: 96px;
+}
+
+/* Dark blue hire banner */
+html[data-theme="soft-cards"] .hire-banner {
+  background: linear-gradient(90deg, #1e3a8a 0%, #1e40af 55%, #312e81 100%) !important;
+  color: var(--theme-hire-text) !important;
+  opacity: 1 !important;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+html[data-theme="soft-cards"] .hire-banner a {
+  color: var(--theme-hire-link) !important;
+}
+
+/* Three colored-circle logo */
+html[data-theme="soft-cards"] .theme-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 36px;
+  position: relative;
+  margin: 0 auto 0.75rem;
+}
+html[data-theme="soft-cards"] .theme-logo .orb {
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  position: absolute;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+}
+html[data-theme="soft-cards"] .theme-logo .orb-1 { background: #fb7185; left: 0; z-index: 1; }
+html[data-theme="soft-cards"] .theme-logo .orb-2 { background: #38bdf8; left: 14px; z-index: 2; }
+html[data-theme="soft-cards"] .theme-logo .orb-3 { background: #a78bfa; left: 28px; z-index: 3; }
+
+html[data-theme="soft-cards"] .theme-path-label { display: none; }
+
+html[data-theme="soft-cards"] .site-header {
+  padding: 1.25rem 1rem 0.5rem;
+}
+html[data-theme="soft-cards"] .site-header .justify-around {
+  justify-content: center;
+  align-items: center;
+}
+html[data-theme="soft-cards"] #title {
+  color: #0f172a !important;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 0.5rem;
+}
+html[data-theme="soft-cards"] .site-header .clickable.text-blue-800 {
+  color: #64748b !important;
+}
+
+html[data-theme="soft-cards"] .private-auth-button {
+  background: var(--theme-key-bg);
+  right: 18px;
+  top: 64px;
+}
+
+/* Soft card shell around explore */
+html[data-theme="soft-cards"] .card.card-primary {
+  background: transparent;
+  box-shadow: none;
+  margin-top: 1rem !important;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+html[data-theme="soft-cards"] #side-a:not(.side-by-side),
+html[data-theme="soft-cards"] #side-b:not(.side-by-side) {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+html[data-theme="soft-cards"] #explore-header {
+  border-top: none;
+  background: transparent;
+  padding: 0.5rem 1rem !important;
+}
+html[data-theme="soft-cards"] #explore-header h2 {
+  font-size: 1.05rem;
+  color: #475569;
+}
+
+/* Search as soft pill */
+html[data-theme="soft-cards"] #explorer,
+html[data-theme="soft-cards"] #explorer-btns {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+html[data-theme="soft-cards"] #explorer {
+  display: block;
+}
+html[data-theme="soft-cards"] #explorer-btns .info-flex-child:nth-child(1) {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: auto;
+}
+html[data-theme="soft-cards"] #search-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+html[data-theme="soft-cards"] #searcher-input {
+  border: none !important;
+  border-radius: 9999px !important;
+  background: #fff !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  padding: 0.75rem 1.1rem !important;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+html[data-theme="soft-cards"] #search-container-btns button,
+html[data-theme="soft-cards"] #explorer-btns button {
+  border-radius: 9999px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+  padding: 0.4rem 0.85rem;
+  color: #475569;
+}
+
+/* Pastel category cards for top-level folders */
+html[data-theme="soft-cards"] #topics-list {
+  overflow-x: clip;
+  max-width: 100%;
+  padding: 0.5rem 0.75rem 2rem;
+  box-sizing: border-box;
+}
+html[data-theme="soft-cards"] #topics-list .name {
+  text-wrap: wrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  min-width: 0;
+  margin-left: 0;
+}
+html[data-theme="soft-cards"] #topics-list > .ul-root {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: 0.85rem;
+  min-width: 0;
+  max-width: 100%;
+}
+html[data-theme="soft-cards"] #topics-list > .ul-root > li.explorer-divider {
+  grid-column: 1 / -1;
+  margin: 0.75rem 0 0.15rem;
+  opacity: 0.85;
+}
+html[data-theme="soft-cards"] #topics-list > .ul-root > li.accordion.meta {
+  background: var(--theme-card-bg);
+  border-radius: 1.1rem;
+  padding: 0.85rem 1rem;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.07);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+html[data-theme="soft-cards"] #topics-list > .ul-root > li.accordion.meta:nth-child(6n+1) { background: var(--pastel-1); }
+html[data-theme="soft-cards"] #topics-list > .ul-root > li.accordion.meta:nth-child(6n+2) { background: var(--pastel-2); }
+html[data-theme="soft-cards"] #topics-list > .ul-root > li.accordion.meta:nth-child(6n+3) { background: var(--pastel-3); }
+html[data-theme="soft-cards"] #topics-list > .ul-root > li.accordion.meta:nth-child(6n+4) { background: var(--pastel-4); }
+html[data-theme="soft-cards"] #topics-list > .ul-root > li.accordion.meta:nth-child(6n+5) { background: var(--pastel-5); }
+html[data-theme="soft-cards"] #topics-list > .ul-root > li.accordion.meta:nth-child(6n+6) { background: var(--pastel-6); }
+html[data-theme="soft-cards"] #topics-list > .ul-root > li.accordion.meta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.12);
+}
+html[data-theme="soft-cards"] #topics-list > .ul-root > li.accordion.meta > .name.is-folder {
+  display: block;
+  font-weight: 600;
+  color: #0f172a;
+  padding: 0.25rem 0;
+  margin: 0;
+}
+html[data-theme="soft-cards"] #topics-list > .ul-root > li.accordion.meta > ul {
+  margin-top: 0.5rem;
+  padding-left: 0.25rem;
+}
+
+/* Floating bottom pill nav */
+html[data-theme="soft-cards"] #bottom-bar {
+  left: 0;
+  right: 0;
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  transform: none;
+  width: fit-content;
+  max-width: calc(100% - 24px);
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  min-height: 0;
+  text-align: center;
+}
+html[data-theme="soft-cards"] #bottom-bar > * {
+  opacity: 1;
+}
+html[data-theme="soft-cards"] .folder-options-wrapper {
+  flex-direction: row;
+  align-items: center;
+  gap: 0;
+}
+html[data-theme="soft-cards"] .folder-options-buttons {
+  flex-direction: row;
+  align-items: center;
+}
+html[data-theme="soft-cards"] #bottom-bar #jump-curriculum,
+html[data-theme="soft-cards"] #bottom-bar .folder-options-toggle,
+html[data-theme="soft-cards"] #bottom-bar .bottom-btn {
+  width: auto;
+  margin: 0;
+  border-radius: 9999px;
+  padding: 0.7rem 1.1rem;
+  box-shadow: none;
+  background: transparent;
+  color: #0f172a;
+  font-weight: 600;
+}
+html[data-theme="soft-cards"] #bottom-bar {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 9999px;
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.18);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  padding: 0.35rem 0.45rem;
+  gap: 0.15rem;
+}
+html[data-theme="soft-cards"] #bottom-bar #jump-curriculum:hover,
+html[data-theme="soft-cards"] #bottom-bar .folder-options-toggle:hover,
+html[data-theme="soft-cards"] #bottom-bar .bottom-btn:hover {
+  background: #eef2ff;
+  transform: none;
+  box-shadow: none;
+}
+html[data-theme="soft-cards"] #bottom-bar #jump-curriculum {
+  color: #4338ca;
+}
+html[data-theme="soft-cards"] .folder-options-toggle {
+  background: transparent !important;
+  color: #0f766e !important;
+}
+
+html[data-theme="soft-cards"][data-mode="night"] {
+  --theme-bg: #0b1020;
+  --theme-text: #e2e8f0;
+  --theme-card-bg: #1e293b;
+  --pastel-1: #3b2434;
+  --pastel-2: #1e2a44;
+  --pastel-3: #14332c;
+  --pastel-4: #3a3018;
+  --pastel-5: #2a2444;
+  --pastel-6: #3a2818;
+}
+html[data-theme="soft-cards"][data-mode="night"] .hire-banner {
+  background: linear-gradient(90deg, #0f172a 0%, #1e1b4b 55%, #172554 100%) !important;
+}
+html[data-theme="soft-cards"][data-mode="night"] #title {
+  color: #f8fafc !important;
+}
+html[data-theme="soft-cards"][data-mode="night"] .site-header .clickable.text-blue-800,
+html[data-theme="soft-cards"][data-mode="night"] #explore-header h2 {
+  color: #94a3b8 !important;
+}
+html[data-theme="soft-cards"][data-mode="night"] #searcher-input {
+  background: #1e293b !important;
+  color: #e2e8f0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+html[data-theme="soft-cards"][data-mode="night"] #search-container-btns button,
+html[data-theme="soft-cards"][data-mode="night"] #explorer-btns button {
+  background: #1e293b;
+  color: #e2e8f0;
+}
+html[data-theme="soft-cards"][data-mode="night"] #topics-list > .ul-root > li.accordion.meta {
+  border-color: rgba(148, 163, 184, 0.2);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+}
+html[data-theme="soft-cards"][data-mode="night"] #topics-list > .ul-root > li.accordion.meta > .name.is-folder {
+  color: #f8fafc;
+}
+html[data-theme="soft-cards"][data-mode="night"] #bottom-bar {
+  background: rgba(15, 23, 42, 0.92);
+  border-color: rgba(148, 163, 184, 0.28);
+}
+html[data-theme="soft-cards"][data-mode="night"] #bottom-bar #jump-curriculum,
+html[data-theme="soft-cards"][data-mode="night"] #bottom-bar .folder-options-toggle,
+html[data-theme="soft-cards"][data-mode="night"] #bottom-bar .bottom-btn {
+  color: #e2e8f0;
+}
+html[data-theme="soft-cards"][data-mode="night"] #bottom-bar #jump-curriculum {
+  color: #a5b4fc;
+}
+html[data-theme="soft-cards"][data-mode="night"] #bottom-bar #jump-curriculum:hover,
+html[data-theme="soft-cards"][data-mode="night"] #bottom-bar .folder-options-toggle:hover,
+html[data-theme="soft-cards"][data-mode="night"] #bottom-bar .bottom-btn:hover {
+  background: #1e293b;
+}
+html[data-theme="soft-cards"][data-mode="night"] .folder-options-toggle {
+  color: #5eead4 !important;
+}

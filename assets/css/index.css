@@ -501,12 +501,15 @@ body {
   cursor: pointer;
   position: fixed;
   bottom: env(safe-area-inset-bottom);
-  right: env(safe-area-inset-right);
+  left: 0;
+  right: 0;
   padding-right: 20px;
   padding-bottom: 10px;
   background-color: transparent;
   z-index: 500;
-  width: 100%;
+  box-sizing: border-box;
+  width: auto;
+  max-width: 100%;
   text-align: right;
   min-height: 60px;
   display: flex;
@@ -525,7 +528,8 @@ body {
 
 @media screen and (max-width: 768px) {
   #bottom-bar {
-    width: unset;
+    width: auto;
+    max-width: 100%;
     padding: 5px;
     height: fit-content;
   }
@@ -1545,4 +1549,183 @@ center li {
     font-size: 13px;
     margin: 0 4px;
   }
+}
+
+/* Top-right theme and day/night controls. Sit left of the private-notes key (right: 80px, 50px wide). */
+.theme-controls {
+  position: fixed;
+  top: 8px;
+  right: 142px;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100vw - 160px);
+  box-sizing: border-box;
+}
+html:has(#theme-controls) .hire-banner {
+  box-sizing: border-box;
+  padding-left: 16px;
+  padding-right: 460px;
+}
+.theme-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 4px 8px 4px 10px;
+  background: rgba(255, 255, 255, 0.96);
+  color: #0f172a;
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.14);
+  font-family: 'Inter', 'Roboto', system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.2;
+}
+.theme-switcher__label {
+  font-weight: 600;
+  color: #475569;
+  white-space: nowrap;
+}
+.theme-switcher select {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  padding: 2px 18px 2px 2px;
+  border: 0;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23475569' d='M1.4.6 6 5.2 10.6.6 12 2 6 8 0 2z'/%3E%3C/svg%3E") no-repeat right center;
+  color: #0f172a;
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  max-width: 9.5rem;
+}
+.theme-switcher select:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+@media screen and (max-width: 720px) {
+  html:has(#theme-controls) .hire-banner {
+    padding-right: 16px;
+    padding-bottom: 6px;
+  }
+  .theme-controls {
+    top: 46px;
+  }
+}
+@media screen and (max-width: 520px) {
+  .theme-controls {
+    top: 46px;
+    gap: 4px;
+  }
+  .theme-switcher {
+    padding-left: 8px;
+  }
+  .theme-switcher select {
+    max-width: 5.6rem;
+  }
+  .theme-switcher__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+/* Night mode: shared surfaces. Theme sheets override their own painted pieces. */
+html[data-mode="night"] {
+  color-scheme: dark;
+}
+html[data-mode="night"] body {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+html[data-mode="night"] #title {
+  color: #f8fafc !important;
+}
+html[data-mode="night"] .clickable {
+  color: #cbd5e1;
+}
+html[data-mode="night"] .more-notes,
+html[data-mode="night"] .more-notes .mn-header {
+  background: #1e293b;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+html[data-mode="night"] #explorer,
+html[data-mode="night"] #explore-header,
+html[data-mode="night"] .card.card-primary {
+  color: #e2e8f0;
+}
+html[data-mode="night"] #explorer li {
+  color: #93c5fd;
+}
+html[data-mode="night"] #explorer li.explorer-divider hr,
+html[data-mode="night"] #topics-list hr {
+  border-top-color: #334155;
+}
+html[data-mode="night"] #topics-list .name.is-folder:hover,
+html[data-mode="night"] #topics-list .name.is-file:hover {
+  background-color: #1e293b;
+}
+html[data-mode="night"] #searcher-input {
+  background-color: #0f172a;
+  color: #e2e8f0;
+  border-color: #475569;
+}
+html[data-mode="night"] #searcher-input::placeholder {
+  color: #94a3b8;
+}
+html[data-mode="night"] #summary-inner,
+html[data-mode="night"] #summary-inner h1,
+html[data-mode="night"] #summary-inner h2,
+html[data-mode="night"] #summary-inner h3,
+html[data-mode="night"] #summary-inner h4,
+html[data-mode="night"] #summary-inner p,
+html[data-mode="night"] #summary-inner li {
+  color: #e2e8f0;
+}
+html[data-mode="night"] #summary-title,
+html[data-mode="night"] #summary-title-inner {
+  background: #1e293b;
+  color: #e2e8f0;
+}
+html[data-mode="night"] #toc,
+html[data-mode="night"] .random-note-dropdown {
+  background: #1e293b;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+html[data-mode="night"] table,
+html[data-mode="night"] th,
+html[data-mode="night"] td {
+  border-color: #334155;
+  color: #e2e8f0;
+}
+html[data-mode="night"] th {
+  background: #1e293b;
+}
+html[data-mode="night"] tr:nth-child(even) {
+  background: #162033;
+}
+html[data-mode="night"] .theme-switcher {
+  background: rgba(15, 23, 42, 0.94);
+  color: #e2e8f0;
+  border-color: rgba(148, 163, 184, 0.35);
+}
+html[data-mode="night"] .theme-switcher__label,
+html[data-mode="night"] .theme-switcher select {
+  color: #e2e8f0;
+}
+html[data-mode="night"] .theme-switcher select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23e2e8f0' d='M1.4.6 6 5.2 10.6.6 12 2 6 8 0 2z'/%3E%3C/svg%3E");
 }

@@ -1,0 +1,389 @@
+/**
+ * Theme: terminal
+ * Monospaced ~/developer-brain, teal accents, green git badge,
+ * numbered 01–04 categories, terminal-style search.
+ */
+html[data-theme="terminal"] {
+  --theme-bg: #f3f4f6;
+  --theme-text: #0f172a;
+  --theme-muted: #64748b;
+  --theme-teal: #0d9488;
+  --theme-teal-bright: #14b8a6;
+  --theme-navy: #0f172a;
+  --theme-orange: #f97316;
+  --theme-mint: #ccfbf1;
+  --theme-green-badge: #dcfce7;
+  --theme-green-dot: #22c55e;
+  --theme-font: 'Inter', 'Roboto', system-ui, sans-serif;
+  --theme-mono: ui-monospace, 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+}
+
+html[data-theme="terminal"] body {
+  background: var(--theme-bg);
+  color: var(--theme-text);
+  font-family: var(--theme-font);
+  padding-bottom: 2rem;
+}
+
+/* Hide default hire banner; theme-enhancer may relocate hire CTA */
+html[data-theme="terminal"] .hire-banner {
+  display: none !important;
+}
+
+html[data-theme="terminal"] .theme-logo { display: none; }
+
+/* Path label: ~/developer-brain — same column as the title */
+html[data-theme="terminal"] .theme-path-label {
+  display: block;
+  font-family: var(--theme-mono);
+  color: var(--theme-teal);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  box-sizing: border-box;
+  width: min(100%, 752px);
+  max-width: 100%;
+  margin: 1.25rem auto 0.35rem;
+  padding: 0 1rem;
+  text-align: left;
+}
+html[data-theme="terminal"] .theme-path-label .tilde {
+  color: var(--theme-teal-bright);
+}
+
+html[data-theme="terminal"] .site-header {
+  text-align: left;
+  box-sizing: border-box;
+  width: min(100%, 752px);
+  max-width: 100%;
+  padding: 0 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+html[data-theme="terminal"] .site-header .justify-around {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+html[data-theme="terminal"] #title {
+  text-align: left;
+  margin-top: 0.75rem;
+  color: var(--theme-navy) !important;
+  font-weight: 800;
+  font-size: 1.85rem;
+  letter-spacing: -0.03em;
+}
+html[data-theme="terminal"] .site-header .clickable.text-blue-800 {
+  color: var(--theme-muted) !important;
+  text-align: left;
+  margin-bottom: 0.75rem !important;
+}
+
+/* Green git / notes badge */
+html[data-theme="terminal"] #count-notes {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--theme-mono);
+  font-size: 0.8rem;
+  background: var(--theme-green-badge);
+  color: #166534;
+  border-radius: 9999px;
+  padding: 0.35rem 0.75rem;
+  font-weight: 600;
+}
+html[data-theme="terminal"] #count-notes::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--theme-green-dot);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+}
+html[data-theme="terminal"] #whats-changed {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--theme-navy);
+  color: #fff !important;
+  border-radius: 0.65rem;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none !important;
+}
+html[data-theme="terminal"] .more-notes {
+  border-radius: 0.75rem;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+}
+
+html[data-theme="terminal"] .private-auth-button {
+  border-radius: 0.65rem;
+  background: var(--theme-orange);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.35);
+  top: 16px;
+  right: 16px;
+}
+
+/* Terminal-style search */
+html[data-theme="terminal"] .card.card-primary {
+  background: transparent;
+  box-shadow: none;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+html[data-theme="terminal"] #side-a:not(.side-by-side),
+html[data-theme="terminal"] #side-b:not(.side-by-side) {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+html[data-theme="terminal"] #explore-header {
+  border-top: none;
+  box-sizing: border-box;
+  width: min(100%, 752px);
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.5rem 1rem !important;
+}
+html[data-theme="terminal"] #explore-header h2 {
+  font-family: var(--theme-mono);
+  font-size: 0.9rem;
+  color: var(--theme-teal);
+  font-weight: 600;
+}
+html[data-theme="terminal"] #explore-header h2 .fa-book-reader { display: none; }
+html[data-theme="terminal"] #explore-header h2::before {
+  content: '// ';
+  opacity: 0.8;
+}
+html[data-theme="terminal"] #explorer {
+  display: block;
+  box-sizing: border-box;
+  width: min(100%, 752px);
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+}
+html[data-theme="terminal"] #explorer-btns {
+  background: var(--theme-navy);
+  border-radius: 0.85rem;
+  padding: 0.85rem 1rem 0.65rem;
+  margin-bottom: 1.25rem;
+  flex-direction: column;
+  gap: 0.65rem;
+  color: #e2e8f0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+html[data-theme="terminal"] #explorer-btns .info-flex-child:nth-child(1),
+html[data-theme="terminal"] #search-container {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+html[data-theme="terminal"] #search-container label { display: none; }
+html[data-theme="terminal"] #searcher-input {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(45, 212, 191, 0.35) !important;
+  border-radius: 0 !important;
+  color: var(--theme-teal-bright) !important;
+  font-family: var(--theme-mono) !important;
+  font-size: 0.95rem;
+  padding: 0.35rem 0 !important;
+  outline: none;
+}
+html[data-theme="terminal"] #searcher-input::placeholder {
+  color: var(--theme-teal-bright);
+  opacity: 0.85;
+}
+html[data-theme="terminal"] #search-container-btns {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+html[data-theme="terminal"] #searcher-btn-titles {
+  background: var(--theme-teal) !important;
+  color: #fff !important;
+  border-radius: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  border: none;
+  font-family: var(--theme-mono);
+  font-size: 0.8rem;
+}
+html[data-theme="terminal"] #searcher-btn-contents,
+html[data-theme="terminal"] #searcher-clear {
+  background: transparent !important;
+  color: #94a3b8 !important;
+  border: none;
+  font-family: var(--theme-mono);
+  font-size: 0.8rem;
+  box-shadow: none;
+}
+html[data-theme="terminal"] #explorer-btns .info-flex-child:nth-child(2) {
+  display: none;
+}
+
+/* Featured lesson card tint */
+html[data-theme="terminal"] #explore-header {
+  background: var(--theme-mint);
+  border-radius: 0.85rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Numbered section dividers 01–04 */
+html[data-theme="terminal"] #topics-list {
+  overflow-x: clip;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+html[data-theme="terminal"] #topics-list .name {
+  text-wrap: wrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+html[data-theme="terminal"] #topics-list > .ul-root {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+html[data-theme="terminal"] li.explorer-divider--section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.35rem 0 0.65rem;
+  font-family: var(--theme-mono);
+}
+html[data-theme="terminal"] li.explorer-divider--section .explorer-divider__title {
+  color: var(--theme-navy);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+html[data-theme="terminal"] li.explorer-divider--section::before {
+  content: attr(data-theme-index);
+  color: var(--theme-orange);
+  font-weight: 700;
+  font-size: 0.95rem;
+  min-width: 1.6rem;
+}
+html[data-theme="terminal"] li.explorer-divider--section hr {
+  flex: 1;
+  border: none;
+  border-top: 1px solid #cbd5e1;
+  margin: 0;
+}
+html[data-theme="terminal"] li.explorer-divider--section::after {
+  content: attr(data-theme-count);
+  color: #94a3b8;
+  font-size: 0.8rem;
+}
+
+/* Category chips under each section */
+html[data-theme="terminal"] #topics-list > .ul-root > li.accordion.meta {
+  display: inline-flex;
+  vertical-align: top;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.65rem;
+  padding: 0.45rem 0.7rem;
+  margin: 0.25rem 0.35rem 0.25rem 0;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+html[data-theme="terminal"] #topics-list > .ul-root > li.accordion.meta > .name.is-folder {
+  color: var(--theme-navy);
+  font-weight: 600;
+  font-size: 0.88rem;
+  margin: 0;
+  padding: 0;
+}
+html[data-theme="terminal"] #topics-list > .ul-root > li.accordion.meta > .name.is-folder .fa-folder {
+  color: var(--theme-teal);
+}
+html[data-theme="terminal"] #topics-list > .ul-root > li.accordion.meta > ul {
+  /* keep nested closed look; when opened, stack below */
+}
+
+/* Terminal hire footer (injected) */
+html[data-theme="terminal"] .theme-hire-footer {
+  box-sizing: border-box;
+  width: min(100%, 752px);
+  max-width: 100%;
+  margin: 2rem auto 1rem;
+  padding: 0.9rem 1rem;
+  border: 1.5px dashed #94a3b8;
+  border-radius: 0.75rem;
+  background: #e5e7eb;
+  color: #334155;
+  font-size: 0.92rem;
+}
+html[data-theme="terminal"] .theme-hire-footer a {
+  color: #ea580c;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Bottom bar: quieter for terminal */
+html[data-theme="terminal"] #bottom-bar {
+  opacity: 0.9;
+}
+html[data-theme="terminal"] .bottom-btn {
+  background: var(--theme-navy);
+  border-radius: 0.65rem;
+}
+html[data-theme="terminal"] .folder-options-toggle {
+  background: var(--theme-teal) !important;
+}
+
+html[data-theme="terminal"][data-mode="night"] {
+  --theme-bg: #0b0f14;
+  --theme-text: #e2e8f0;
+  --theme-muted: #94a3b8;
+  --theme-mint: #134e4a;
+  --theme-green-badge: #14532d;
+}
+html[data-theme="terminal"][data-mode="night"] #title {
+  color: #f8fafc !important;
+}
+html[data-theme="terminal"][data-mode="night"] #count-notes {
+  color: #bbf7d0;
+}
+html[data-theme="terminal"][data-mode="night"] .more-notes {
+  background: #111827;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+html[data-theme="terminal"][data-mode="night"] #explore-header h2,
+html[data-theme="terminal"][data-mode="night"] li.explorer-divider--section .explorer-divider__title {
+  color: #5eead4;
+}
+html[data-theme="terminal"][data-mode="night"] #topics-list > .ul-root > li.accordion.meta {
+  background: #111827;
+  border-color: #1e293b;
+}
+html[data-theme="terminal"][data-mode="night"] #topics-list > .ul-root > li.accordion.meta > .name.is-folder {
+  color: #e2e8f0;
+}
+html[data-theme="terminal"][data-mode="night"] .theme-hire-footer {
+  background: #111827;
+  color: #cbd5e1;
+  border-color: #475569;
+}
