@@ -124,6 +124,10 @@ html[data-theme="terminal"] .private-auth-button {
   top: 16px;
   right: 16px;
 }
+html[data-theme="terminal"] .toc-button {
+  top: 16px;
+  right: 78px;
+}
 
 /* Terminal-style search */
 html[data-theme="terminal"] .card.card-primary {
@@ -164,6 +168,7 @@ html[data-theme="terminal"] #explorer {
   box-sizing: border-box;
   width: min(100%, 752px);
   max-width: 100%;
+  height: auto;
   margin-left: auto;
   margin-right: auto;
   padding: 0 1rem;
@@ -327,7 +332,7 @@ html[data-theme="terminal"] .theme-hire-footer {
   box-sizing: border-box;
   width: min(100%, 752px);
   max-width: 100%;
-  margin: 2rem auto 1rem;
+  margin: 2rem auto 5rem;
   padding: 0.9rem 1rem;
   border: 1.5px dashed #94a3b8;
   border-radius: 0.75rem;
