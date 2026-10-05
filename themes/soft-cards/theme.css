@@ -1,0 +1,67 @@
+html[data-theme="soft-cards"] {
+  --theme-bg: #f4eefc;
+  --theme-fg: #2a2438;
+  --theme-muted: #655c78;
+  --theme-title: #3b2f6b;
+  --theme-link: #6d28d9;
+  --theme-link-hover: #5b21b6;
+  --theme-accent: #7c6af7;
+  --theme-accent-contrast: #ffffff;
+  --theme-surface: #fffdfb;
+  --theme-surface-2: #f7f1ea;
+  --theme-border: #e4dced;
+  --theme-shadow: 0 12px 32px rgba(88, 62, 140, 0.1);
+  --theme-radius: 18px;
+  --theme-font: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --theme-heading-font: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --theme-banner-bg: #e4d8fb;
+  --theme-banner-fg: #3b2f6b;
+  --theme-banner-link: #5b21b6;
+  --theme-more-bg: #fffdfb;
+  --theme-explorer-fg: #4c1d95;
+  --theme-file-hover: #efe7ff;
+  --theme-folder-hover: #f3e8ff;
+  --theme-btn-bg: #7c6af7;
+  --theme-btn-hover: #6d5ae8;
+  --theme-btn-fg: #ffffff;
+  --theme-btn-ai: #0f766e;
+  --theme-btn-ai-hover: #115e59;
+  --theme-btn-ai-fg: #ffffff;
+  --theme-btn-share: #4f46e5;
+  --theme-btn-share-hover: #4338ca;
+  --theme-btn-share-fg: #ffffff;
+  --theme-btn-folder: #7c6af7;
+  --theme-btn-folder-hover: #6d5ae8;
+  --theme-btn-folder-fg: #ffffff;
+  --theme-toc-bg: #7c6af7;
+  --theme-mindmap-bg: #0f766e;
+  --theme-btn-mindmap-fg: #ffffff;
+  --theme-code-bg: #2a2438;
+  --theme-code-fg: #f8f5ff;
+  --theme-code-gutter: #221c30;
+  --theme-table-border: #e4dced;
+  --theme-table-head: #f7f1ea;
+  --theme-table-stripe: #fbf8ff;
+  --theme-mark: #ffe8a3;
+  --theme-input-bg: #fffdfb;
+  --theme-input-fg: #2a2438;
+  --theme-input-border: #ddd2ee;
+  --theme-sticky-bg: #fffdfb;
+  --theme-divider: rgba(76, 29, 149, 0.15);
+  --theme-overlay: rgba(42, 36, 56, 0.45);
+  --theme-line-height: 1.6;
+}
+
+html[data-theme="soft-cards"] .bottom-btn,
+html[data-theme="soft-cards"] .toc-button,
+html[data-theme="soft-cards"] .mindmap-button,
+html[data-theme="soft-cards"] .private-auth-button {
+  border-radius: 999px;
+}
+
+html[data-theme="soft-cards"] .card,
+html[data-theme="soft-cards"] .modal-content,
+html[data-theme="soft-cards"] #toc,
+html[data-theme="soft-cards"] .link-popover {
+  box-shadow: var(--theme-shadow);
+}

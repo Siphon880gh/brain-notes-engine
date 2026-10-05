@@ -1,0 +1,512 @@
+/*
+ * Shared layout fixes for every theme.
+ * Loaded after component CSS so these rules win on equal specificity.
+ * Themes should recolor via tokens in themes/base.css, not reintroduce
+ * overflow, double padding, or a competing z-index scale.
+ *
+ * Stacking (low to high):
+ *   20 promo banner (in flow)
+ *   30 explore header / dropdown
+ *   40 summary sticky bar
+ *   400 bottom bar
+ *   420 share-search bar
+ *   450 floating buttons
+ *   460 TOC and mindmap panels
+ *   900 link popovers
+ *   2000 dialogs
+ *   2100 image lightbox
+ *   2200 password / private-auth dialogs
+ *   2300 mindmap fullscreen
+ *   2400 copied toast
+ */
+
+:root {
+  --chrome-btn-size: 50px;
+  --chrome-btn-gap: 10px;
+  --chrome-btn-inset: 16px;
+  --promo-offset: 0px;
+  --bottom-bar-height: 64px;
+  --bottom-bar-clear: 64px;
+  --explore-header-offset: 0px;
+}
+
+html,
+body {
+  max-width: 100%;
+}
+
+body {
+  /* Clear the fixed bottom bar. Overflow is removed at the source so sticky bars keep working. */
+  padding-bottom: calc(var(--bottom-bar-clear) + 16px + env(safe-area-inset-bottom));
+}
+
+html.theme-overflow-guard,
+html.theme-overflow-guard body {
+  overflow-x: clip !important;
+}
+
+img,
+video,
+iframe,
+svg,
+canvas {
+  max-width: 100%;
+}
+
+#side-a img {
+  height: auto;
+}
+
+@media screen and (min-width: 768px) {
+  #side-a img {
+    max-width: min(800px, 100%);
+  }
+}
+
+.site-header,
+.container-off,
+.card,
+.sides,
+#explorer,
+#summary-inner,
+#summary-outer,
+.modal-body,
+.more-notes,
+.promo-banner {
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* --- Promo banner: close control stays inside the bar and does not clip --- */
+.promo-banner {
+  position: relative;
+  z-index: 20;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+  padding: 0.55rem 2.75rem;
+  line-height: 1.4;
+  transition: height 0.4s ease, padding 0.4s ease;
+}
+
+.promo-banner__close {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.promo-banner__close:hover,
+.promo-banner__close:focus-visible {
+  opacity: 1;
+}
+
+/* --- Page columns were sized with 100vw, which includes the scrollbar --- */
+@media screen and (max-width: 768px) {
+  .container,
+  .card {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .card-body {
+    padding: 12px;
+    box-sizing: border-box;
+  }
+}
+
+#side-a,
+#side-b {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+#side-a {
+  width: calc(100% - 28px);
+  margin-left: 28px;
+  overflow: visible;
+}
+
+@media screen and (max-width: 768px) {
+  #side-a,
+  #side-b {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+  }
+
+  #summary-left-bar {
+    left: 0;
+  }
+}
+
+.side-by-side {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 769px) {
+  .sides:has(.side-by-side) #side-a {
+    width: calc(50% - 28px);
+    max-width: calc(50% - 28px);
+    margin-left: 28px;
+  }
+
+  .sides:has(.side-by-side) #side-b {
+    width: 50%;
+    max-width: 50%;
+    margin-left: 0;
+  }
+}
+
+/* One padding value for the explorer header (was p-2 plus a 30px mobile override). */
+#explore-header {
+  position: relative;
+  z-index: 30;
+  overflow: visible;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  gap: 0.75rem;
+}
+
+@media screen and (max-width: 768px) {
+  #explore-header {
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+  }
+}
+
+#explorer-btns {
+  box-sizing: border-box;
+  max-width: 100%;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding: 10px 12px;
+}
+
+#topics-list {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+#skeleton-1,
+#skeleton-2 {
+  max-width: 100%;
+}
+
+.more-notes {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.more-notes .mn-links {
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.more-notes .mn-links li {
+  min-width: 0;
+  flex: 1 1 140px;
+}
+
+.code-block-wrapper {
+  max-width: 100%;
+  margin: 10px 0;
+  box-sizing: border-box;
+}
+
+#summary-inner {
+  overflow-x: auto;
+  overflow-wrap: anywhere;
+}
+
+#summary-inner table {
+  max-width: 100%;
+}
+
+/* Title clamp used a 1.7rem scroller that clipped the sticky bar. */
+#summary-title {
+  max-height: none;
+  overflow: visible;
+  white-space: normal;
+}
+
+@media screen and (max-width: 720px) {
+  #summary-title {
+    max-height: none !important;
+    overflow: visible !important;
+    white-space: normal;
+  }
+}
+
+/* Transform on the sticky element itself cancels stickiness. Offset with margin. */
+.summary-sticky-bar {
+  position: sticky;
+  top: 8px;
+  z-index: 40;
+  max-width: 100%;
+}
+
+@media screen and (min-width: 769px) {
+  .summary-sticky-bar {
+    margin-left: -12px;
+    width: calc(100% + 12px);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .summary-sticky-bar {
+    top: calc(var(--promo-offset) + var(--chrome-btn-size) + 16px);
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* Dropdown was translated up over its toggle and clipped. */
+.random-note-dropdown {
+  top: calc(100% + 6px);
+  transform: none;
+  z-index: 5;
+  max-width: min(280px, calc(100vw - 24px));
+  box-sizing: border-box;
+}
+
+/* --- Fixed chrome --- */
+#bottom-bar {
+  box-sizing: border-box;
+  width: auto;
+  max-width: calc(100% - 12px);
+  left: auto;
+  right: max(8px, env(safe-area-inset-right));
+  bottom: max(8px, env(safe-area-inset-bottom));
+  min-height: 0;
+  height: auto;
+  padding: 0;
+  gap: 8px;
+  z-index: 400;
+  pointer-events: none;
+}
+
+#bottom-bar > * {
+  pointer-events: auto;
+}
+
+.bottom-btn {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 768px) {
+  #bottom-bar {
+    width: auto;
+    max-width: calc(100% - 8px);
+    padding: 0;
+    height: auto;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  #bottom-bar #jump-curriculum,
+  #bottom-bar .folder-options-toggle {
+    width: auto;
+    min-width: 0;
+    max-width: 46vw;
+  }
+}
+
+#share-search-title-wrapper {
+  box-sizing: border-box;
+  width: auto;
+  max-width: calc(100% - 16px);
+  left: auto;
+  right: max(8px, env(safe-area-inset-right));
+  bottom: calc(var(--bottom-bar-height) + 10px + env(safe-area-inset-bottom));
+  height: auto;
+  padding: 8px 14px;
+  z-index: 420;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  pointer-events: auto;
+}
+
+/* Floating buttons occupy separate slots so TOC, mindmap, and the key never stack. */
+.toc-button,
+.mindmap-button,
+.private-auth-button {
+  top: calc(var(--promo-offset) + 12px);
+  width: var(--chrome-btn-size);
+  height: var(--chrome-btn-size);
+  z-index: 450;
+  box-sizing: border-box;
+  /* Do not animate `top`; the private-notes button uses transition: all. */
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
+}
+
+.toc-button {
+  right: var(--chrome-btn-inset);
+}
+
+.mindmap-button {
+  right: calc(var(--chrome-btn-inset) + var(--chrome-btn-size) + var(--chrome-btn-gap));
+}
+
+.private-auth-button {
+  right: calc(var(--chrome-btn-inset) + (var(--chrome-btn-size) + var(--chrome-btn-gap)) * 2);
+}
+
+/* Scale-on-hover makes this button a containing block and yanks the fixed TOC. */
+.toc-button:hover {
+  transform: none;
+  filter: brightness(1.08);
+}
+
+#toc {
+  box-sizing: border-box;
+  top: calc(var(--promo-offset) + var(--chrome-btn-size) + 24px);
+  right: 16px;
+  max-width: min(40vw, calc(100vw - 32px));
+  max-height: calc(100vh - var(--promo-offset) - var(--bottom-bar-height) - 140px);
+  z-index: 460;
+}
+
+.mindmap-panel {
+  box-sizing: border-box;
+  top: calc(var(--promo-offset) + var(--chrome-btn-size) + 24px);
+  max-width: min(900px, calc(100vw - 32px));
+  z-index: 460;
+}
+
+.mindmap-header,
+.mindmap-fullscreen-header {
+  flex-wrap: wrap;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.mindmap-controls,
+.mindmap-fullscreen-controls {
+  flex-wrap: wrap;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.mindmap-fullscreen-modal {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  box-sizing: border-box;
+  z-index: 2300;
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    --chrome-btn-size: 44px;
+    --chrome-btn-gap: 8px;
+    --chrome-btn-inset: 10px;
+  }
+
+  .mindmap-button,
+  .private-auth-button,
+  .toc-button {
+    top: calc(var(--promo-offset) + 8px);
+  }
+
+  .mindmap-panel,
+  #toc {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    max-width: none;
+  }
+}
+
+.link-popover {
+  z-index: 900;
+  box-sizing: border-box;
+  width: auto;
+  min-width: min(280px, calc(100vw - 32px));
+  max-width: min(400px, calc(100vw - 32px));
+}
+
+.modal {
+  z-index: 2000;
+}
+
+.modal-dialog {
+  box-sizing: border-box;
+  max-width: calc(100vw - 24px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.modal-content {
+  box-sizing: border-box;
+  width: min(80%, 500px);
+  max-width: min(500px, calc(100vw - 24px));
+}
+
+.modal-dialog.modal-lg .modal-content {
+  width: min(92vw, 720px);
+  max-width: min(720px, calc(100vw - 24px));
+}
+
+.modal-header {
+  box-sizing: border-box;
+  padding-right: 2rem;
+}
+
+.modal .close {
+  z-index: 2;
+  top: 0.35rem;
+  right: 0.35rem;
+  line-height: 1;
+  background: transparent;
+  border: 0;
+}
+
+.modal textarea,
+.modal input,
+.modal select {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.image-modal {
+  z-index: 2100;
+}
+
+.image-modal .close-button {
+  z-index: 1;
+}
+
+#passwordModal,
+#privateAuthModal {
+  z-index: 2200;
+}
+
+#copied-message {
+  z-index: 2400 !important;
+  max-width: calc(100vw - 24px);
+  box-sizing: border-box;
+}

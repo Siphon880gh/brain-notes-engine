@@ -1,0 +1,40 @@
+{
+  "default": "classic",
+  "themes": [
+    {
+      "id": "classic",
+      "name": "Classic",
+      "description": "Original Developer Brain light theme with indigo actions and a yellow announcement bar."
+    },
+    {
+      "id": "generic",
+      "name": "Generic",
+      "description": "Neutral system chrome with gray surfaces and a single blue accent."
+    },
+    {
+      "id": "soft-cards",
+      "name": "Soft Cards",
+      "description": "Rounded pastel cards, soft shadows, and generous reading surfaces."
+    },
+    {
+      "id": "terminal",
+      "name": "Terminal",
+      "description": "Dark monospace console with phosphor green type and sharp edges."
+    },
+    {
+      "id": "3d-games",
+      "name": "3D & Games",
+      "description": "Night HUD for 3D modeling, videogame design, and motion notes."
+    },
+    {
+      "id": "business",
+      "name": "Business & Finance",
+      "description": "Navy and warm paper with serif headings for business and finance notes."
+    },
+    {
+      "id": "health",
+      "name": "Health & Wellness",
+      "description": "Calm sage clinic palette for health, wellness, and healthcare notes."
+    }
+  ]
+}

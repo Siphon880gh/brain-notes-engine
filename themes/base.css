@@ -1,0 +1,328 @@
+/*
+ * Maps design tokens from the active theme onto shared chrome.
+ * Each themes/<id>/theme.css sets the variables on html[data-theme="<id>"].
+ */
+
+html[data-theme] {
+  background: var(--theme-bg);
+  color: var(--theme-fg);
+  color-scheme: light;
+}
+
+html[data-theme="terminal"],
+html[data-theme="3d-games"] {
+  color-scheme: dark;
+}
+
+html[data-theme] body {
+  background: var(--theme-bg);
+  color: var(--theme-fg);
+  font-family: var(--theme-font);
+  line-height: var(--theme-line-height, 1.5);
+}
+
+html[data-theme] #title {
+  color: var(--theme-title) !important;
+  font-family: var(--theme-heading-font, var(--theme-font));
+}
+
+html[data-theme] h1,
+html[data-theme] h2,
+html[data-theme] h3,
+html[data-theme] .modal-title {
+  font-family: var(--theme-heading-font, var(--theme-font));
+  color: var(--theme-title);
+}
+
+html[data-theme] a {
+  color: var(--theme-link);
+}
+
+html[data-theme] a:hover {
+  color: var(--theme-link-hover);
+}
+
+html[data-theme] .clickable {
+  color: var(--theme-muted);
+}
+
+html[data-theme] .clickable:hover {
+  color: var(--theme-fg);
+}
+
+html[data-theme] .promo-banner {
+  background: var(--theme-banner-bg);
+  color: var(--theme-banner-fg);
+}
+
+html[data-theme] .promo-banner a {
+  color: var(--theme-banner-link);
+}
+
+html[data-theme] .site-header {
+  color: var(--theme-fg);
+}
+
+html[data-theme] .more-notes {
+  background: var(--theme-more-bg);
+  color: var(--theme-fg);
+  border: 1px solid var(--theme-border);
+  border-radius: var(--theme-radius);
+}
+
+html[data-theme] .card {
+  background: var(--theme-surface);
+  color: var(--theme-fg);
+  border: 1px solid var(--theme-border);
+  border-radius: var(--theme-radius);
+  box-shadow: var(--theme-shadow);
+}
+
+html[data-theme] #explore-header {
+  background: var(--theme-surface);
+  color: var(--theme-fg);
+  border-top: 1px solid var(--theme-border);
+  border-radius: var(--theme-radius) var(--theme-radius) 0 0;
+}
+
+html[data-theme] #explorer,
+html[data-theme] #topics-list {
+  color: var(--theme-fg);
+}
+
+html[data-theme] #explorer li {
+  color: var(--theme-explorer-fg);
+}
+
+html[data-theme] #explorer li:hover {
+  color: var(--theme-link-hover);
+}
+
+html[data-theme] #explorer a.name,
+html[data-theme] #topics-list .name {
+  color: inherit;
+}
+
+html[data-theme] #topics-list .name.is-file:hover {
+  background: var(--theme-file-hover);
+}
+
+html[data-theme] #topics-list .name.is-folder:hover {
+  background: var(--theme-folder-hover);
+}
+
+html[data-theme] #explorer li.explorer-divider hr {
+  border-top-color: var(--theme-divider);
+}
+
+html[data-theme] #explorer li.explorer-divider--section .explorer-divider__title {
+  color: var(--theme-muted);
+}
+
+html[data-theme] #searcher-input,
+html[data-theme] textarea,
+html[data-theme] input[type="search"],
+html[data-theme] input[type="text"],
+html[data-theme] input[type="password"],
+html[data-theme] input[type="email"] {
+  background: var(--theme-input-bg);
+  color: var(--theme-input-fg);
+  border: 1px solid var(--theme-input-border);
+  border-radius: 6px;
+}
+
+html[data-theme] #searcher-input::placeholder,
+html[data-theme] textarea::placeholder {
+  color: var(--theme-muted);
+}
+
+html[data-theme] .bottom-btn {
+  background: var(--theme-btn-bg);
+  color: var(--theme-btn-fg, var(--theme-accent-contrast));
+  border-radius: var(--theme-radius);
+}
+
+html[data-theme] .bottom-btn:hover {
+  background: var(--theme-btn-hover);
+  color: var(--theme-btn-fg, var(--theme-accent-contrast));
+}
+
+html[data-theme] #ai-assist-btn,
+html[data-theme] .ai-btn {
+  background: var(--theme-btn-ai);
+  color: var(--theme-btn-ai-fg, var(--theme-accent-contrast));
+}
+
+html[data-theme] #ai-assist-btn:hover,
+html[data-theme] .ai-btn:hover {
+  background: var(--theme-btn-ai-hover);
+}
+
+html[data-theme] #ai-assist-btn.active {
+  background: var(--theme-btn-ai-active, #b91c1c);
+  color: #fff;
+}
+
+html[data-theme] #share-folder-btn {
+  background: var(--theme-btn-share);
+  color: var(--theme-btn-share-fg, var(--theme-accent-contrast));
+}
+
+html[data-theme] #share-folder-btn:hover,
+html[data-theme] #share-folder-btn.active {
+  background: var(--theme-btn-share-hover);
+}
+
+html[data-theme] .folder-options-toggle {
+  background: var(--theme-btn-folder);
+  color: var(--theme-btn-folder-fg, var(--theme-accent-contrast));
+}
+
+html[data-theme] .folder-options-toggle:hover {
+  background: var(--theme-btn-folder-hover);
+}
+
+html[data-theme] .toc-button {
+  background: var(--theme-toc-bg);
+  color: var(--theme-btn-fg, var(--theme-accent-contrast));
+}
+
+html[data-theme] .toc-button:hover {
+  background: var(--theme-toc-bg);
+}
+
+html[data-theme] .mindmap-button {
+  background: var(--theme-mindmap-bg);
+  color: var(--theme-btn-mindmap-fg, #fff);
+}
+
+html[data-theme] .private-auth-button {
+  background: var(--theme-btn-folder);
+  color: var(--theme-btn-folder-fg, var(--theme-accent-contrast));
+}
+
+html[data-theme] .private-auth-button.authenticated {
+  background: var(--theme-btn-ai);
+  color: var(--theme-btn-ai-fg, #fff);
+}
+
+html[data-theme] #toc,
+html[data-theme] .mindmap-panel,
+html[data-theme] .random-note-dropdown,
+html[data-theme] .link-popover,
+html[data-theme] #share-search-title-wrapper,
+html[data-theme] .modal-content {
+  background: var(--theme-surface);
+  color: var(--theme-fg);
+  border-color: var(--theme-border);
+}
+
+html[data-theme] .mindmap-header,
+html[data-theme] .mindmap-fullscreen-header,
+html[data-theme] .popover-header {
+  background: var(--theme-surface-2);
+  color: var(--theme-fg);
+  border-color: var(--theme-border);
+}
+
+html[data-theme] .mindmap-header h3,
+html[data-theme] .mindmap-fullscreen-header h3,
+html[data-theme] .popover-title {
+  color: var(--theme-title);
+}
+
+html[data-theme] #toc .toc-link {
+  color: var(--theme-muted);
+}
+
+html[data-theme] #toc .toc-link:hover,
+html[data-theme] #toc .toc-link.active {
+  color: var(--theme-fg);
+}
+
+html[data-theme] .modal {
+  background-color: var(--theme-overlay, rgba(0, 0, 0, 0.55));
+}
+
+html[data-theme] .modal .close {
+  color: var(--theme-muted);
+}
+
+html[data-theme] .modal .close:hover,
+html[data-theme] .modal .close:focus {
+  color: var(--theme-fg);
+}
+
+html[data-theme] .modal .btn-secondary {
+  background: var(--theme-surface-2);
+  color: var(--theme-fg);
+  border: 1px solid var(--theme-border);
+  border-radius: var(--theme-radius);
+}
+
+html[data-theme] #summary-title {
+  background: transparent;
+  color: var(--theme-fg);
+}
+
+html[data-theme] #summary-title-inner {
+  background: var(--theme-sticky-bg);
+  color: var(--theme-fg);
+  border-color: var(--theme-border);
+}
+
+html[data-theme] #summary-collapser {
+  background: var(--theme-surface-2);
+  color: var(--theme-fg);
+}
+
+html[data-theme] .code-block-wrapper,
+html[data-theme] .code-block-wrapper pre {
+  background-color: var(--theme-code-bg) !important;
+  color: var(--theme-code-fg);
+}
+
+html[data-theme] .line-numbers-gutter {
+  background: var(--theme-code-gutter);
+  border-right-color: var(--theme-border);
+  color: var(--theme-muted);
+}
+
+html[data-theme] table,
+html[data-theme] th,
+html[data-theme] td {
+  border-color: var(--theme-table-border);
+  color: var(--theme-fg);
+}
+
+html[data-theme] th {
+  background: var(--theme-table-head);
+}
+
+html[data-theme] tr:nth-child(even) {
+  background: var(--theme-table-stripe);
+}
+
+html[data-theme] #summary-inner mark,
+html[data-theme] .highlight {
+  background: var(--theme-mark);
+  color: var(--theme-fg);
+}
+
+html[data-theme] .random-note-chevron,
+html[data-theme] .random-note-option {
+  color: var(--theme-muted);
+}
+
+html[data-theme] .random-note-option span {
+  color: var(--theme-fg);
+}
+
+html[data-theme] #explorer-btns button,
+html[data-theme] #search-container-btns button {
+  color: var(--theme-fg);
+  background: var(--theme-surface-2);
+  border: 1px solid var(--theme-border);
+  border-radius: var(--theme-radius);
+  padding: 4px 8px;
+}

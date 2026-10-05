@@ -1,0 +1,77 @@
+html[data-theme="3d-games"] {
+  --theme-bg: #0b1020;
+  --theme-fg: #e7f2ff;
+  --theme-muted: #9eb4d4;
+  --theme-title: #f4f8ff;
+  --theme-link: #67e8f9;
+  --theme-link-hover: #a5f3fc;
+  --theme-accent: #22d3ee;
+  --theme-accent-contrast: #041018;
+  --theme-surface: #141a2e;
+  --theme-surface-2: #1c2540;
+  --theme-border: rgba(103, 232, 249, 0.32);
+  --theme-shadow: 0 16px 40px rgba(0, 0, 0, 0.38);
+  --theme-radius: 12px;
+  --theme-font: "Segoe UI", "Avenir Next", system-ui, sans-serif;
+  --theme-heading-font: "Trebuchet MS", "Segoe UI", sans-serif;
+  --theme-banner-bg: #241033;
+  --theme-banner-fg: #f7f2ff;
+  --theme-banner-link: #67e8f9;
+  --theme-more-bg: #141a2e;
+  --theme-explorer-fg: #7dd3fc;
+  --theme-file-hover: rgba(34, 211, 238, 0.16);
+  --theme-folder-hover: rgba(244, 63, 138, 0.16);
+  --theme-btn-bg: #22d3ee;
+  --theme-btn-hover: #67e8f9;
+  --theme-btn-fg: #041018;
+  --theme-btn-ai: #e11d74;
+  --theme-btn-ai-hover: #fb7185;
+  --theme-btn-ai-fg: #ffffff;
+  --theme-btn-share: #6366f1;
+  --theme-btn-share-hover: #818cf8;
+  --theme-btn-share-fg: #ffffff;
+  --theme-btn-folder: #0284c7;
+  --theme-btn-folder-hover: #0ea5e9;
+  --theme-btn-folder-fg: #ffffff;
+  --theme-toc-bg: #22d3ee;
+  --theme-mindmap-bg: #e11d74;
+  --theme-btn-mindmap-fg: #ffffff;
+  --theme-code-bg: #070b16;
+  --theme-code-fg: #dbeafe;
+  --theme-code-gutter: #0e1426;
+  --theme-table-border: #31405f;
+  --theme-table-head: #1a2340;
+  --theme-table-stripe: #12182c;
+  --theme-mark: #5b3b16;
+  --theme-input-bg: #0e1426;
+  --theme-input-fg: #e7f2ff;
+  --theme-input-border: #31405f;
+  --theme-sticky-bg: #141a2e;
+  --theme-divider: rgba(103, 232, 249, 0.28);
+  --theme-overlay: rgba(4, 8, 20, 0.72);
+  --theme-line-height: 1.55;
+}
+
+html[data-theme="3d-games"] body {
+  background-color: var(--theme-bg);
+  background-image:
+    radial-gradient(ellipse at 8% -10%, rgba(34, 211, 238, 0.18), transparent 42%),
+    radial-gradient(ellipse at 100% 0%, rgba(225, 29, 116, 0.16), transparent 36%),
+    linear-gradient(rgba(148, 163, 209, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 209, 0.05) 1px, transparent 1px);
+  background-size: auto, auto, 28px 28px, 28px 28px;
+}
+
+html[data-theme="3d-games"] .card {
+  border: 1px solid rgba(34, 211, 238, 0.4);
+  box-shadow: 0 0 0 1px rgba(225, 29, 116, 0.18), var(--theme-shadow);
+}
+
+html[data-theme="3d-games"] #explore-header {
+  background: linear-gradient(90deg, rgba(34, 211, 238, 0.14), rgba(225, 29, 116, 0.1));
+}
+
+html[data-theme="3d-games"] #title {
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}

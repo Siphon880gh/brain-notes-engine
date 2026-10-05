@@ -1,0 +1,73 @@
+html[data-theme="health"] {
+  --theme-bg: #f3f8f5;
+  --theme-fg: #16332c;
+  --theme-muted: #3f655c;
+  --theme-title: #0f3d36;
+  --theme-link: #0f766e;
+  --theme-link-hover: #115e59;
+  --theme-accent: #0f766e;
+  --theme-accent-contrast: #ffffff;
+  --theme-surface: #ffffff;
+  --theme-surface-2: #e7f3ee;
+  --theme-border: #d5e6de;
+  --theme-shadow: 0 10px 28px rgba(15, 61, 54, 0.07);
+  --theme-radius: 16px;
+  --theme-font: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --theme-heading-font: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --theme-banner-bg: #d7efe6;
+  --theme-banner-fg: #0f3d36;
+  --theme-banner-link: #0f766e;
+  --theme-more-bg: #ffffff;
+  --theme-explorer-fg: #0f766e;
+  --theme-file-hover: #e7f3ee;
+  --theme-folder-hover: #e5f4ea;
+  --theme-btn-bg: #0f766e;
+  --theme-btn-hover: #115e59;
+  --theme-btn-fg: #ffffff;
+  --theme-btn-ai: #3f7d6a;
+  --theme-btn-ai-hover: #326454;
+  --theme-btn-ai-fg: #ffffff;
+  --theme-btn-share: #1d6a8a;
+  --theme-btn-share-hover: #155672;
+  --theme-btn-share-fg: #ffffff;
+  --theme-btn-folder: #3d6b5a;
+  --theme-btn-folder-hover: #2f5547;
+  --theme-btn-folder-fg: #ffffff;
+  --theme-toc-bg: #0f766e;
+  --theme-mindmap-bg: #3f7d6a;
+  --theme-btn-mindmap-fg: #ffffff;
+  --theme-code-bg: #14312c;
+  --theme-code-fg: #e7f6f1;
+  --theme-code-gutter: #0f2622;
+  --theme-table-border: #d5e6de;
+  --theme-table-head: #e7f3ee;
+  --theme-table-stripe: #f7fbf9;
+  --theme-mark: #d9f5c8;
+  --theme-input-bg: #ffffff;
+  --theme-input-fg: #16332c;
+  --theme-input-border: #b7d4c8;
+  --theme-sticky-bg: #ffffff;
+  --theme-divider: rgba(15, 61, 54, 0.14);
+  --theme-overlay: rgba(15, 49, 44, 0.45);
+  --theme-line-height: 1.65;
+}
+
+html[data-theme="health"] body {
+  background-image: radial-gradient(circle at 100% 0%, rgba(15, 118, 110, 0.1), transparent 34%);
+}
+
+html[data-theme="health"] .bottom-btn,
+html[data-theme="health"] .toc-button,
+html[data-theme="health"] .mindmap-button,
+html[data-theme="health"] .private-auth-button {
+  border-radius: 999px;
+}
+
+html[data-theme="health"] #title {
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+html[data-theme="health"] .card {
+  border-color: #c9e0d6;
+}

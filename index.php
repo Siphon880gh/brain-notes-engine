@@ -14,8 +14,55 @@
   // Configurable
   $DEFAULT_THUMBNAIL_SIZE = "90x90"; // height x width
   $warningSearchWillFail_Arr = [];
+
+  // Theme gallery: config.json "theme" must be an id listed in themes/manifest.json
+  // and must have themes/<id>/theme.css. Unknown ids fall back to classic.
+  $brainTheme = [
+    'id' => 'classic',
+    'default' => 'classic',
+  ];
+  $themeAllow = [];
+  $themeManifestFile = __DIR__ . '/themes/manifest.json';
+  if (is_readable($themeManifestFile)) {
+    $themeManifest = json_decode(file_get_contents($themeManifestFile), true);
+    if (is_array($themeManifest)) {
+      if (!empty($themeManifest['default']) && is_string($themeManifest['default'])) {
+        $brainTheme['default'] = $themeManifest['default'];
+        $brainTheme['id'] = $themeManifest['default'];
+      }
+      foreach (($themeManifest['themes'] ?? []) as $themeEntry) {
+        if (!is_array($themeEntry) || empty($themeEntry['id']) || !is_string($themeEntry['id'])) {
+          continue;
+        }
+        $themeId = $themeEntry['id'];
+        if (!preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $themeId)) {
+          continue;
+        }
+        if (is_file(__DIR__ . '/themes/' . $themeId . '/theme.css')) {
+          $themeAllow[$themeId] = true;
+        }
+      }
+    }
+  }
+  $appConfigFile = __DIR__ . '/config.json';
+  if (is_readable($appConfigFile)) {
+    $appConfig = json_decode(file_get_contents($appConfigFile), true);
+    if (is_array($appConfig) && isset($appConfig['theme']) && is_string($appConfig['theme']) && isset($themeAllow[$appConfig['theme']])) {
+      $brainTheme['id'] = $appConfig['theme'];
+    }
+  }
+  if (!isset($themeAllow[$brainTheme['id']])) {
+    if (isset($themeAllow[$brainTheme['default']])) {
+      $brainTheme['id'] = $brainTheme['default'];
+    } elseif (isset($themeAllow['classic'])) {
+      $brainTheme['id'] = 'classic';
+    } else {
+      $themeIds = array_keys($themeAllow);
+      $brainTheme['id'] = $themeIds[0] ?? 'classic';
+    }
+  }
 ?><!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="<?php echo htmlspecialchars($brainTheme['id'], ENT_QUOTES, 'UTF-8'); ?>">
 
 <head>
     <title><?php include 'env/title-long.php'; ?></title>
@@ -91,11 +138,15 @@
         window.dirSnippets = '{$DIR_SNIPPETS}';
     </script>";
     ?>
+
+    <link rel="stylesheet" href="assets/css/theme-layout.css">
+    <link rel="stylesheet" href="themes/base.css">
+    <link rel="stylesheet" href="themes/<?php echo htmlspecialchars($brainTheme['id'], ENT_QUOTES, 'UTF-8'); ?>/theme.css">
 </head>
 
 <body>
-    <div class="bg-yellow-300 w-full py-2 text-center opacity-80 relative" class="bg-yellow-300 w-full py-2 text-center opacity-80 relative" onmouseleave="setTimeout(()=> { this.style.height=0; this.style.padding=0; }, 2000);" style="transition: height 2s; overflow: clip;">
-        <button class="absolute right-4 top-0 -translate-y-1/2 bg-transparent text-2xl opacity-60" onclick="this.parentElement.remove();">×</button>
+    <div class="promo-banner" onmouseleave="setTimeout(()=> { this.style.height='0'; this.style.padding='0'; }, 2000);">
+        <button type="button" class="promo-banner__close" aria-label="Dismiss announcement" onclick="this.parentElement.remove();">×</button>
         View Weng's work or hire him → <a target="_blank" href="https://wengindustries.com" class="text-blue-500 underline font-semibold">WengIndustries.com</a>
     </div>
     
@@ -202,7 +253,7 @@
                 <div class="sides">
 
                     <div id="side-a" class="card-body side-by-side-possible mb-4 hidden">
-                        <div style="position: sticky; top: 0; left: 0; transform: translateX(-25px); z-index: 1;">
+                        <div class="summary-sticky-bar">
                             <h2 id="summary-title-wrapper" class="inline cursor-pointer">
                                 <div id="summary-title-inner" class="flex flex-row items-center justify-start gap-4 my-2 bg-white shadow-md border-b border-gray-200 z-10 rounded-tr-lg rounded-br-lg p-1.5">
                                     <span id="summary-collapser">»</span>
@@ -512,7 +563,10 @@
         if(typeof window?.config === "undefined") {
             window.config = {};
         }
-        window.config.imgHostedUrl = data.imgHostedUrl
+        window.config.imgHostedUrl = data.imgHostedUrl;
+        if (typeof data.theme === "string") {
+            window.config.theme = data.theme;
+        }
     });
     </script>
     <script src="assets/js/modal.js"></script>
@@ -526,6 +580,7 @@
     <!-- <script src="assets/js/game.js"></script> -->
 
     <script src="./assets/js/image-modal.js"></script>
+    <script src="assets/js/theme-enhancer.js"></script>
 </body>
 
 </html>
