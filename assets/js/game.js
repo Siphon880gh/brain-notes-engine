@@ -1,601 +1,389 @@
+(function () {
+    const sourceEl = document.getElementById("practice-source");
+    const inputEl = document.getElementById("practice-input");
+    const accuracyEl = document.getElementById("practice-accuracy");
+    const panelEl = document.getElementById("practice-panel");
+    const openBtn = document.getElementById("practice-open");
+    const closeBtn = document.getElementById("practice-close");
+    const snippetEl = document.getElementById("practice-snippet");
+    const snippetLabel = document.querySelector(".practice-snippet-label");
+    const retypeEl = document.getElementById("practice-retype");
+    const rearrangeEl = document.getElementById("practice-rearrange");
+    const linesEl = document.getElementById("practice-lines");
+    const rearrangeStatusEl = document.getElementById("practice-rearrange-status");
+    const shuffleBtn = document.getElementById("practice-shuffle");
+    const emptyEl = document.getElementById("practice-empty");
+    const retypeModeBtn = document.getElementById("practice-mode-retype");
+    const rearrangeModeBtn = document.getElementById("practice-mode-rearrange");
 
-// TODO: Is this used?
-function placeCaretAtEnd(el) {
-    el.focus();
-    if (typeof window.getSelection != "undefined" &&
-        typeof document.createRange != "undefined") {
-        var range = document.createRange();
-        range.selectNodeContents(el);
-        range.collapse(false);
-        var sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
-    } else if (typeof document.body.createTextRange != "undefined") {
-        var textRange = document.body.createTextRange();
-        textRange.moveToElementText(el);
-        textRange.collapse(false);
-        textRange.select();
-    }
-} // placeCaretAtEnd
+    if (!sourceEl || !inputEl || !panelEl || !openBtn) return;
 
-function animateExploreCurriculum() {
-    $("#explore-curriculum .card-header")
-        .animate({ "color": "red" }, 1000)
-        .delay(500)
-        .animate({ "color": "black" }, 2000)
-}
+    const state = {
+        snippets: [],
+        sourceText: "",
+        mode: "retype",
+        level: "1",
+        fogTimer: null,
+        fogIndex: 0,
+        fogCovers: 2
+    };
 
-function notes1() {
-    alert("- RTF supported: You may copy and paste from Word Document or Text Edit and most formatting like bolding, font size, and lists will be copied over.\n- Shortcut keys: You may use shortcut keys for bold or italicized.");
-}
-
-
-window.formatters = [
-    (text) => {
-        // console.log("1");
-        return text.replace(/\s/g, ''); // space, tab, newline
-    },
-    (text) => {
-        // console.log("2");
-        return text; // removing comments
-    }
-]
-
-function confirmEraseText() {
-    if (confirm('Start all over retyping?')) {
-        $('#new .contents').val('');
-        $('.highlight').removeClass('highlight');
-        $("#new .contents").trigger("keyup"); // Call the delegator for evalDifference to clear accuracy text 
-    }
-}
-
-/** ----------------------------------------------------------------------------------------------- */
-// Globals
-
-window.fogsMode = null;
-window.fogsMax = -1;
-window.fogs = 0;
-
-window.words = [];
-
-window.maxHeight = 0;
-
-
-/** ----------------------------------------------------------------------------------------------- */
-// Utilities
-
-
-/**
- * 
- * @function encodeURIFurther Chrome has default behavior of leaving " and ' as literal characters rather than encoding them when using location.href/hash
- * So we use our own encoding strings
- * 
- */
-function encodeURIFurther(str) {
-
-    if (str && typeof str === 'string') {
-        str = str.replace(/%22/gmi, '__DQ__'); // "
-        str = str.replace(/%27/gmi, '__SQ__'); // '
-    }
-
-    return str;
-}
-
-
-/**
- * 
- * @function decodeURIFurther Chrome has default behavior of leaving " and ' as literal characters rather than encoding them when using location.href/hash
- * So we use our own encoding strings
- * 
- */
-function decodeURIFurther(str) {
-
-    if (str && typeof str === 'string') {
-        str = str.replace(/__DQ__/gmi, '"');
-        str = str.replace(/__SQ__/gmi, '\'');
-    }
-
-    return str;
-}
-
-function decodeEntities(str) {
-
-    if (str && typeof str === 'string') {
-        str = str.replace(/&lt;/gmi, '<');
-        str = str.replace(/&gt;/gmi, '>');
-        // strip script tags
-        str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
-        // strip html tags
-        // str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
-    }
-
-    return str;
-}
-
-function encodeEntities(str) {
-
-    if (str && typeof str === 'string') {
-        str = str.replace(/</gmi, '&lt;');
-        str = str.replace(/>/gmi, '&gt;');
-        // strip script tags
-        str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
-        // strip html tags
-        // str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
-    }
-
-    return str;
-}
-
-// Split randomly the text 5-8 chars
-function splitCharacters(text) {
-    // text = encodeEntities(text);
-    // text = encodeURI(text);
-    // text = encodeURIFurther(text);
-
-    // texts split by < and > html entities
-    // let texts = text.split(new RegExp("&lt;|&gt;"));
-
-    text = text.replace(/<\//gmi, '√');
-    text = text.replace(/</gmi, '£');
-    text = text.replace(/>/gmi, 'å');
-
-    let min = 5;
-    let max = 8;
-    text = text.split(""); // change "asdf" => ["a", "s", ...]
-    let randNum = function() {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-
-    let splitted = [];
-    while (text.length) {
-        var chars = text.splice(0, randNum());
-        var psuedoWord = chars.join("");
-        splitted.push(psuedoWord);
-    }
-    // debugger;
-    // console.log({ splitted })
-
-    // debugger;
-    return splitted;
-} // splitCharacters
-
-/**
- * 
- * @function parseWords Returns words between {}, [], periods, spaces, etc, but only those words
- * @param {string} text Left text 
- */
-function parseWords(text) {
-    // Between space-type characters
-    // return text.match(/([^\s]+)[\s$]/g);
-
-    // Between special symbols and space-type characters:
-    const words = text.match(/([^\s{}\(\)=+\.<>\\\/\~]+)[\s{}\(\)=+\.<>\\\/\~]/g);
-
-    return words;
-}
-
-/** ----------------------------------------------------------------------------------------------- */
-// Retype Game - User starts game, levels, fogs
-
-// Copy over notes to retype template
-function copyOver() {
-    var $summary = $("#summary-inner");
-    var summary = $summary.text();
-    summary = summary.trim();
-    
-    if ($summary.text().length) {
-        var $template = $("#old .contents");
-        var code = [...summary.matchAll(new RegExp("\`\`\`((.|\n|\r)*?)\`\`\`", "gmi"))].map(regExpItr => regExpItr[1]);
-
-        // If text has ```___```, then get all text between those backticks, otherwise just get all of the text
-        if (code.length) {
-            var code = code.join("\n");
-            code = code.replaceAll("\n\n", "\n");
-            code = code.replaceAll("\r\r", "\r");
-            code = code.trim();
-            $template.text(code);
-            $template.trigger("input");
-        } else {
-            $template.text(summary);
-            $template.trigger("input");
+    function collectSnippets() {
+        const snippets = [];
+        document.querySelectorAll("#summary-inner pre > code").forEach((code) => {
+            const text = code.textContent.replace(/\n$/, "");
+            if (text.trim()) snippets.push(text);
+        });
+        if (!snippets.length) {
+            const note = document.getElementById("summary-inner");
+            const text = note ? note.innerText.trim() : "";
+            if (text) snippets.push(text);
         }
-    } else {
-        let html = `Nothing loaded in notes. Find a lesson from the curriculum and open it here by clicking the <i class="fa fa-book-reader"></i> icon.`;
-        $("#modal-error .message").html(html);
-        $("#modal-error").modal("show");
+        return snippets;
     }
-}
-// End: Copy over notes to retype template
 
-function initLevel1() {
-    // resetParsedClasses();
+    function snippetOptionLabel(text, index) {
+        const first = (text.split("\n").find((line) => line.trim()) || "").trim();
+        const short = first.length > 48 ? first.slice(0, 45) + "..." : first;
+        return short ? (index + 1) + ". " + short : "Snippet " + (index + 1);
+    }
 
-}
+    function selectedText() {
+        if (!state.snippets.length) return "";
+        if (snippetEl.value === "all") return state.snippets.join("\n");
+        const index = Number(snippetEl.value);
+        return state.snippets[index] || "";
+    }
 
-function initLevel2() {
-    // resetParsedClasses();
+    function fillSnippetSelect() {
+        const previous = snippetEl.value;
+        snippetEl.innerHTML = "";
+        state.snippets = collectSnippets();
 
-    // 200ms, 2 covers
-    const covers = 2;
-    const pollTime = 200;
-    reinitFogs(covers, pollTime);
-    window.fogsMode = "a";
-}
-
-function initLevel3() {
-    // resetParsedClasses();
-
-    // 1000ms, 3 covers
-    const covers = 3;
-    const pollTime = 5000;
-    reinitFogs(covers, pollTime);
-    window.fogsMode = "b";
-}
-
-function initFogs() {
-
-    // Using someInterval = setInterval(..) and clearInterval stops style from rendering so have to do this approach:
-    setInterval(function() {
-        if (window.fogsMode === "a") {
-            let fogsMax = 2;
-            console.log(`Setting style #style-fogs for up to ${fogsMax} every 200ms`);
-            document.querySelector("#style-fogs").innerHTML = `
-            #old[data-class-level="fog"] .fog {
-                background-color: black;
-            }
-            #old[data-class-level="fog"] .fog.fog-${window.fogs} {
-                background-color: transparent;
-            }
-            `;
-            window.fogs++;
-            if (window.fogs >= fogsMax) window.fogs = 0;
+        if (state.snippets.length > 1) {
+            const all = document.createElement("option");
+            all.value = "all";
+            all.textContent = "All snippets in this lesson";
+            snippetEl.appendChild(all);
         }
-    }, 200);
 
-    setInterval(function() {
-        if (window.fogsMode === "b") {
-            let fogsMax = 3;
-            console.log(`Setting style #style-fogs for up to ${fogsMax} every 5s`);
-            console.log("Setting style #style-fogs");
-            document.querySelector("#style-fogs").innerHTML = `
-            #old[data-class-level="fog"] .fog {
-                background-color: black;
-            }
-            #old[data-class-level="fog"] .fog.fog-${window.fogs} {
-                background-color: transparent;
-            }
-            `;
-            window.fogs++;
-            if (window.fogs >= fogsMax) window.fogs = 0;
+        state.snippets.forEach((text, index) => {
+            const option = document.createElement("option");
+            option.value = String(index);
+            option.textContent = snippetOptionLabel(text, index);
+            snippetEl.appendChild(option);
+        });
+
+        const stillThere = previous && snippetEl.querySelector('option[value="' + CSS.escape(previous) + '"]');
+        if (stillThere) snippetEl.value = previous;
+
+        const hasSnippets = state.snippets.length > 0;
+        snippetLabel.hidden = state.snippets.length <= 1;
+        emptyEl.hidden = hasSnippets;
+        retypeEl.hidden = state.mode !== "retype" || !hasSnippets;
+        rearrangeEl.hidden = state.mode !== "rearrange" || !hasSnippets;
+    }
+
+    function stopFog() {
+        if (state.fogTimer) {
+            clearInterval(state.fogTimer);
+            state.fogTimer = null;
         }
-    }, 5000);
-}
+    }
 
-function reinitFogs(covers, pollTime) {
+    function splitCharacters(text) {
+        const min = 5;
+        const max = 8;
+        const chars = text.split("");
+        const chunks = [];
+        while (chars.length) {
+            const size = Math.floor(Math.random() * (max - min + 1) + min);
+            chunks.push(chars.splice(0, size).join(""));
+        }
+        return chunks;
+    }
 
-    let oldText = $("#old .contents").text();
-    let word = splitCharacters(oldText);
-    // word = word.map(word => {
-    //     // word = decodeURI(word); // %20 becomes space
-    //     // word = decodeURIFurther(word); // %22 becomes ", %27 becomes '
-    //     word = decodeEntities(word); // &lt; becomes <
-    // });
-    word = word.map((word, i) => `<span class="fog fog-${i%covers}">` + word + '</span>')
-    let newText = word.join("");
+    function revealFog() {
+        sourceEl.querySelectorAll(".fog").forEach((span) => {
+            span.classList.toggle("is-clear", Number(span.dataset.fog) === state.fogIndex);
+        });
+    }
 
-    // newText = decodeEntities(newText);
+    function renderSource() {
+        stopFog();
+        sourceEl.dataset.level = state.level;
+        if (state.level === "1") {
+            sourceEl.textContent = state.sourceText;
+            return;
+        }
 
-    // newText = newText.replace(/√/gmi, '</');
-    // newText = newText.replace(/£/gmi, '<');
-    // newText = newText.replace(/å/gmi, '>');
+        const covers = state.level === "3" ? 3 : 2;
+        const interval = state.level === "3" ? 5000 : 200;
+        state.fogCovers = covers;
+        state.fogIndex = 0;
+        sourceEl.innerHTML = "";
+        splitCharacters(state.sourceText).forEach((chunk, index) => {
+            const span = document.createElement("span");
+            span.className = "fog";
+            span.dataset.fog = String(index % covers);
+            span.textContent = chunk;
+            sourceEl.appendChild(span);
+        });
+        revealFog();
+        state.fogTimer = setInterval(() => {
+            state.fogIndex = (state.fogIndex + 1) % state.fogCovers;
+            revealFog();
+        }, interval);
+    }
 
-    newText = newText.replace(/√/gmi, '&lt;/');
-    newText = newText.replace(/£/gmi, '&lt;');
-    newText = newText.replace(/å/gmi, '&gt;');
+    function stripSpace(text) {
+        return text.replace(/\s/g, "");
+    }
 
-    $("#old .contents").html(newText);
+    function setAccuracy(text, percent) {
+        accuracyEl.textContent = text;
+        accuracyEl.classList.remove("is-perfect", "is-close", "is-mid", "is-low");
+        if (!text) return;
+        if (percent === 100) accuracyEl.classList.add("is-perfect");
+        else if (percent >= 90) accuracyEl.classList.add("is-close");
+        else if (percent >= 85) accuracyEl.classList.add("is-mid");
+        else accuracyEl.classList.add("is-low");
+    }
 
-}
+    function evalDifferences() {
+        let typed = inputEl.value;
+        let target = state.sourceText;
+        if (!typed.length) {
+            setAccuracy("");
+            return;
+        }
+        typed = stripSpace(typed);
+        target = stripSpace(target);
+        if (typed.length <= target.length) target = target.slice(0, typed.length);
+        else typed = typed.slice(0, target.length);
+        const percent = (typeof similarity === "function" ? similarity(typed, target) : 0) * 100;
+        const shown = String(percent).slice(0, 5);
+        setAccuracy("Accuracy: " + shown + "%", parseInt(shown, 10));
+    }
 
-initFogs();
-
-
-/** ----------------------------------------------------------------------------------------------- */
-// Retype Game - User typing
-
-function newInputted(event) {
-    let key = event.key;
-    key = key.toLowerCase();
-
-    if (key !== " " && key !== "enter" && key !== "{" && key !== "}" && key !== "(" && key !== ")" && key !== "[" && key !== "'" && key !== "\"" && key !== "\\" && key !== "/" && key !== ", " && key !== "." && key !== ": " && key !== ";" && key !== " - " && key !== " = ")
-        return;
-
-    readjustInputHeight($("#new .contents"));
-
-    // Extract words
-    var text = $("#new .contents").val();
-
-    let words = parseWords(text);
-
-    // Remove duplicated words
-    words = [...new Set(words)];
-    console.log("words", words);
-
-    // If difficulty is level 1, we are highlighting as we type. This prevents collision with other difficulty levels
-    const isLevel1 = $(".difficulty :checked")[0].id === "level-1";
-    if (isLevel1) {
-        let resetHighlights = $("#old .contents").text();
-        $("#old .contents").text(resetHighlights);
-
-        // Highlight words (have to run through each word individually)
+    function highlightTyped() {
+        if (state.level !== "1") return;
+        sourceEl.textContent = state.sourceText;
+        const words = [...new Set((inputEl.value.match(/\S+/g) || []).filter((word) => word.length >= 2))];
         words.forEach((word) => {
-            $("#old .contents").highlight(word);
-        }); // foreach
+            $(sourceEl).highlight(word);
+        });
     }
 
-} // newInputted
-
-function evalDifferences() {
-    var newText = $("#new .contents").val();
-    var oldText = $("#old .contents").text();
-
-    // If user erases all text
-    if (newText.length === 0) {
-        $("#diff").text("").css("background-color", "transparent")
-        return;
+    function resizeInput() {
+        inputEl.style.height = "inherit";
+        const maxHeight = Math.max(160, window.innerHeight - 240);
+        const next = Math.min(inputEl.scrollHeight, maxHeight);
+        inputEl.style.height = Math.max(next, 160) + "px";
     }
 
-    formatters.forEach((formatter) => { oldText = formatter(oldText); });
-    formatters.forEach((formatter) => { newText = formatter(newText); });
-
-    var typedSoFar = newText.length;
-    var typedTooFar = typedSoFar > oldText.length;
-    if (!typedTooFar)
-        oldText = oldText.substr(0, typedSoFar);
-    else
-        newText = newText.substr(0, oldText.length);
-
-    var percent = similarity(newText, oldText); // 0 - 0.XXXX - 1
-
-    // NN.NN%
-    percent = ((p) => {
-        p *= 100;
-        p = "" + p;
-        return p.substr(0, 5);
-    })(percent);
-
-    $("#diff").text("Accuracy: " + percent);
-    percent = parseInt(percent);
-    if (percent == 100) {
-        $("#diff").css("background-color", "lightgreen");
-    } else if (percent >= 90) {
-        $("#diff").css("background-color", "yellow");
-    } else if (percent >= 85) {
-        $("#diff").css("background-color", "orange");
-    } else {
-        $("#diff").css("background-color", "red");
-    }
-}
-
-function readjustInputHeight($field) {
-    var minHeightTextarea = 25;
-    var field = $field[0];
-    if (field.value.length === 0) {
-        field.style.height = 25;
-        return;
+    function setMode(mode) {
+        state.mode = mode;
+        retypeModeBtn.classList.toggle("is-active", mode === "retype");
+        rearrangeModeBtn.classList.toggle("is-active", mode === "rearrange");
+        retypeModeBtn.setAttribute("aria-pressed", mode === "retype" ? "true" : "false");
+        rearrangeModeBtn.setAttribute("aria-pressed", mode === "rearrange" ? "true" : "false");
+        const hasSnippets = state.snippets.length > 0;
+        retypeEl.hidden = mode !== "retype" || !hasSnippets;
+        rearrangeEl.hidden = mode !== "rearrange" || !hasSnippets;
+        if (mode === "rearrange") buildLines();
+        if (mode === "retype" && state.level === "1") highlightTyped();
     }
 
-    // Reset field height
-    field.style.height = 'inherit';
+    function shuffle(items) {
+        const copy = items.slice();
+        for (let i = copy.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const swap = copy[i];
+            copy[i] = copy[j];
+            copy[j] = swap;
+        }
+        const alreadySolved = copy.every((item, index) => item.order === index);
+        if (alreadySolved && copy.length > 1) {
+            const first = copy[0];
+            copy[0] = copy[1];
+            copy[1] = first;
+        }
+        return copy;
+    }
 
-    // Get the computed styles for the element
-    var computed = window.getComputedStyle(field);
+    function gradeLines() {
+        const rows = linesEl.querySelectorAll(".practice-line");
+        let correct = 0;
+        rows.forEach((row, index) => {
+            const isCorrect = Number(row.dataset.order) === index;
+            row.classList.toggle("is-correct", isCorrect);
+            row.classList.toggle("is-incorrect", !isCorrect);
+            if (isCorrect) correct += 1;
+        });
+        if (!rows.length) return;
+        rearrangeStatusEl.textContent = correct === rows.length
+            ? "Every line is in order."
+            : correct + " of " + rows.length + " lines are in place.";
+    }
 
-    // Calculate the height
-    var height = parseInt(computed.getPropertyValue('border-top-width'), 10) +
-        parseInt(computed.getPropertyValue('padding-top'), 10) +
-        field.scrollHeight +
-        parseInt(computed.getPropertyValue('padding-bottom'), 10) +
-        parseInt(computed.getPropertyValue('border-bottom-width'), 10);
+    function buildLines() {
+        if ($(linesEl).data("ui-sortable")) $(linesEl).sortable("destroy");
+        linesEl.innerHTML = "";
+        rearrangeStatusEl.textContent = "";
+        const lines = state.sourceText.split("\n").filter((line) => line.trim().length > 0);
+        if (lines.length <= 1) {
+            rearrangeStatusEl.textContent = "This snippet needs more than one line to rearrange.";
+            return;
+        }
 
-    if (height > maxHeight) height = maxHeight;
-    field.style.height = height + 'px';
+        shuffle(lines.map((text, order) => ({ text, order }))).forEach((item) => {
+            const row = document.createElement("div");
+            row.className = "practice-line";
+            row.dataset.order = String(item.order);
 
-} // readjustInputHeight
+            const up = document.createElement("button");
+            up.type = "button";
+            up.className = "practice-line__move";
+            up.dataset.move = "up";
+            up.textContent = "↑";
+            up.setAttribute("aria-label", "Move line up");
 
-// dom ready. readying retype game
-$(() => {
-    // Difficulty level for retyping notes
-    $(".difficulty input").change((a, b) => {
-        let newLevel = $(".difficulty input:checked")[0].value;
-        $("#old").attr("data-class-level", newLevel);
-        // debugger;
+            const down = document.createElement("button");
+            down.type = "button";
+            down.className = "practice-line__move";
+            down.dataset.move = "down";
+            down.textContent = "↓";
+            down.setAttribute("aria-label", "Move line down");
+
+            const text = document.createElement("code");
+            text.className = "practice-line__text";
+            text.textContent = item.text;
+
+            row.append(up, down, text);
+            linesEl.appendChild(row);
+        });
+
+        $(linesEl).sortable({
+            items: ".practice-line",
+            axis: "y",
+            handle: ".practice-line__text",
+            update: gradeLines
+        });
+        gradeLines();
+    }
+
+    function loadSource(resetTyping) {
+        state.sourceText = selectedText();
+        renderSource();
+        if (resetTyping) {
+            inputEl.value = "";
+            resizeInput();
+            setAccuracy("");
+        }
+        if (state.mode === "rearrange") buildLines();
+        if (state.level === "1") highlightTyped();
+        evalDifferences();
+    }
+
+    function expandLesson() {
+        const collapser = document.getElementById("summary-collapser");
+        const outer = document.getElementById("summary-outer");
+        if (collapser && outer && outer.classList.contains("hidden")) collapser.click();
+    }
+
+    function openPanel() {
+        expandLesson();
+        fillSnippetSelect();
+        panelEl.hidden = false;
+        openBtn.setAttribute("aria-expanded", "true");
+        loadSource(true);
+        panelEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function closePanel() {
+        panelEl.hidden = true;
+        openBtn.setAttribute("aria-expanded", "false");
+        stopFog();
+    }
+
+    openBtn.addEventListener("click", (event) => {
+        event.stopPropagation();
+        if (panelEl.hidden) openPanel();
+        else closePanel();
+    });
+    closeBtn.addEventListener("click", closePanel);
+    retypeModeBtn.addEventListener("click", () => setMode("retype"));
+    rearrangeModeBtn.addEventListener("click", () => setMode("rearrange"));
+    snippetEl.addEventListener("change", () => loadSource(true));
+
+    document.querySelectorAll('input[name="practice-level"]').forEach((input) => {
+        input.addEventListener("change", () => {
+            if (!input.checked) return;
+            state.sourceText = sourceEl.textContent;
+            state.level = input.value;
+            renderSource();
+            if (state.level === "1") highlightTyped();
+            evalDifferences();
+        });
     });
 
-    // Tooltip
-    $('[data-toggle="toolbar"]').tooltip({ placement: "bottom" });
-
-    initLevel1(); // default level
-
-
-    window.maxHeight = $(window).height() - 240; // the textarea max height should be the window height except header and accuracy lines
-
-    // $("#new .contents").on("keyup blur", newInputted); // keyup
-    $("#new .contents").on("keyup", newInputted); // keyup
-
-    $("#old .contents").on("input", () => {
-        var $old = $("#old .contents");
-        var $clonedDom = $old.clone();
-        $clonedDom.find('span.highlight').contents().unwrap();
-        $clonedDom.find('span.fog').contents().unwrap();
-        // var oldText = $clonedDom.html(); // html -> text
-        // oldText = oldText.replace(/<div>/gi, '\n').replace(/<\/div>/gi, '').trim();
-        // localStorage.setItem("old", oldText);
-        // oldTextURI = encodeURI(oldText);
-        // oldTextURI = encodeURIFurther(oldTextURI);
-        // window.location.hash = oldTextURI;
-        // console.log("setItem old text: ", oldText);
-        // console.log("set URL hash: ", oldTextURI);
+    sourceEl.addEventListener("input", () => {
+        if (state.level === "1") state.sourceText = sourceEl.textContent;
+        evalDifferences();
+    });
+    sourceEl.addEventListener("blur", () => {
+        state.sourceText = sourceEl.textContent;
+        if (state.level !== "1") renderSource();
+        if (state.mode === "rearrange") buildLines();
     });
 
-    $("#old .contents").on("input", evalDifferences);
-    $("#new .contents").on("keyup", evalDifferences);
+    inputEl.addEventListener("input", () => {
+        resizeInput();
+        evalDifferences();
+        highlightTyped();
+    });
+    inputEl.addEventListener("keydown", (event) => {
+        if (event.key !== "Tab") return;
+        event.preventDefault();
+        const start = inputEl.selectionStart;
+        const end = inputEl.selectionEnd;
+        inputEl.value = inputEl.value.slice(0, start) + "\t" + inputEl.value.slice(end);
+        inputEl.selectionStart = inputEl.selectionEnd = start + 1;
+        evalDifferences();
+        highlightTyped();
+    });
 
-    $('#new .contents', 'keydown', function(e) {
-        if (e.keyCode === 9) {
-            var v = this.value,
-                s = this.selectionStart,
-                e = this.selectionEnd;
-            this.value = v.substring(0, s) + '\t' + v.substring(e);
-            this.selectionStart = this.selectionEnd = s + 1;
-            return false;
+    document.getElementById("practice-erase").addEventListener("click", () => {
+        inputEl.value = "";
+        resizeInput();
+        setAccuracy("");
+        highlightTyped();
+    });
+
+    shuffleBtn.addEventListener("click", buildLines);
+    linesEl.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-move]");
+        if (!button) return;
+        const row = button.closest(".practice-line");
+        if (!row) return;
+        if (button.dataset.move === "up" && row.previousElementSibling) {
+            row.parentNode.insertBefore(row, row.previousElementSibling);
+        } else if (button.dataset.move === "down" && row.nextElementSibling) {
+            row.parentNode.insertBefore(row.nextElementSibling, row);
+        }
+        gradeLines();
+    });
+
+    document.addEventListener("noteOpened", () => {
+        openBtn.hidden = false;
+        if (!panelEl.hidden) {
+            fillSnippetSelect();
+            loadSource(true);
         }
     });
 
-    // if (window.location.hash.length) {
-    //     var overrideByHash = window.location.hash;
-    //     overrideByHash = overrideByHash.substr(1);
-    //     overrideByHash = decodeURI(overrideByHash); // %20 becomes space
-    //     overrideByHash = decodeURIFurther(overrideByHash); // %22 becomes ", %27 becomes '
-    //     overrideByHash = decodeEntities(overrideByHash); // &lt; becomes <
-    //     $("#old .contents").text(overrideByHash); // html -> text
-    // } else if (localStorage.getItem("old")) {
-    //     var overrideByLocalStorage = localStorage.getItem("old");
-    //     overrideByLocalStorage = decodeEntities(overrideByLocalStorage); // &lt; becomes <
-    //     $("#old .contents").text(overrideByLocalStorage); // html -> text
-    // }
-}); // dom ready. readying retype game
-
-
-/** ----------------------------------------------------------------------------------------------- */
-// Rearrange lines in order game
-
-/**
- * resort-lines
- */
-$(document).on("show.bs.modal", "#modal-puzzle", () => {
-    $("#modal-puzzle .list-group").html("");
-
-    var $template = $("#old .contents"); // Retype template
-    // var lines = $template.find("div").toArray(); // Sometimes newlines are actually div's in contenteditable
-    // if (lines.length === 0) {
-    //     debugger;
-    //     lines = $template.text().split("\n"); // And sometimes it's one whole text node
-    // } else { // if it's not onewhole text node, you might still have textNode then followed by div's
-    //     debugger;
-    //     let firstNode = $("#old .contents").contents()[0];
-    //     if (firstNode.nodeType === 3) // test for textNode
-    //     lines.unshift(firstNode);
-    
-    // }
-    // Probably can be simplified into:
-
-    var lines = $("#old .contents div").length>1?$("#old .contents div").map(div=>$(div).text()).get().split("\n"):$template.text().split("\n");    
-
-    lines = lines.filter(line=>line.length); // Skip blank lines
-    console.log({lines})
-    // lines = lines.split("\n");
-    // var template = $template.html();
-    // var lines = template.split("\n");
-    // debugger;
-    var listGroupEl = document.querySelector("#modal-puzzle .list-group");
-    if (lines.length <= 1) {
-        $("#modal-error .message").text("You need over 1 line to practice rearranging lines.");
-        $("#modal-error").modal("show");
-        return false;
+    if (document.getElementById("summary-title") && document.getElementById("summary-title").textContent.trim()) {
+        openBtn.hidden = false;
     }
-
-    function appendLine(line, i, lines) {
-
-        if (typeof lines[i] === "undefined") return false;
-
-        try {
-            if (typeof line !== "string") line = line.textContent;
-        } catch (err) {
-            debugger;
-        }
-
-        var listGroupItemEl = document.createElement("div");
-        listGroupItemEl.classList = "list-group-item";
-        listGroupItemEl.textContent = line;
-        listGroupItemEl.setAttribute("contenteditable", true);
-        listGroupItemEl.setAttribute("data-correct-order", i);
-        listGroupEl.appendChild(listGroupItemEl);
-        console.log("Line: " + line);
-        return true;
-    } // appendLine
-    
-    var i = 0;
-    while (true) {
-        var line = lines[i];
-
-        var sublines = [];
-        try {
-            sublines = line.split("\n");
-        } catch (err) {
-
-        }
-
-        if (sublines.length > 1) {
-            for (var j = 0; j < sublines.length; j++) {
-                if (!appendLine(sublines[j], j, sublines)) break;
-            } // for
-        } else {
-            if (!appendLine(lines[i], i, lines)) break;
-            i++;
-        }
-    } // while
-
-    // Shuffle list items
-    // Detach the children from the DOM.
-    let parent = $(listGroupEl);
-    let children = parent.children();
-
-    children.detach();
-
-    // Sort the children in random order (shuffle them).
-    children.sort(function() {
-    return Math.random() - 0.5; // This gives a 50/50 chance of a or b being first.
-    });
-
-    // Append them back to the parent.
-    parent.append(children);
-
-
-    // Reinit sortable/rearrangeable
-    $("#modal-puzzle .list-group").sortable({
-        stop: (event, ui) => {
-          debugger;
-        },
-        // When user drops a list item to a new position:
-        update: (event, ui) => {
-            let $listItems = $("#modal-puzzle .list-group .list-group-item");
-            $listItems.removeClass("li-correct").removeClass("li-incorrect");
-            $listItems.each((i, el) => {
-                var $listItem = $(el);
-                var newPos = $listItem.index();
-                var correctPos = $listItem.data("correct-order");
-                if (newPos === correctPos) {
-                    $listItem.addClass("li-correct");
-                } else {
-                    $listItem.addClass("li-incorrect");
-                }
-            })
-        }
-    });
-});
-
-// End: resort-lines
-
-
-// UX: Copy summary to practice area
-document.querySelector("#gamify-now")?.addEventListener("click", (event) => {
-    $('#retype-container, #rearrange-container').removeClass('hidden');
-    copyOver();
-    document.querySelector('#retype-container').scrollIntoView()
-});
-
-
-// Allow copy from textarea to practice areas
-let guideCopyToPractice = document.querySelector("#js-visible-if-contents");
-guideCopyToPractice.classList.remove("hidden");
+})();

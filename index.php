@@ -108,7 +108,7 @@
     <link href="assets/css/encryption.css" rel="stylesheet">
     <link href="assets/css/private-auth.css" rel="stylesheet">
 
-    <!-- <link href="assets/css/game.css" rel="stylesheet"> -->
+    <link href="assets/css/game.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" /> -->
 
     <!-- jQuery -->
@@ -254,12 +254,7 @@
 
     <div class="container-off">
 
-        <!-- <_php include("./game-retyper.php"); _> -->
-
         <div style="clear:both"></div>
-
-       <!-- <_php echo("./game-rearranger.php"); _> -->
-
 
         <!-- Wouldn't allow table of contents to z-index on top if you hadn't unset position away from relative -->
         <div class="card card-primary my-8" style="position:unset;">
@@ -285,8 +280,6 @@
                     </div>
                 </div>
 
-                <!-- <_php include("./game-copy-to-practice.php"); _> -->
-                
                 <div class="sides">
 
                     <div id="side-a" class="card-body side-by-side-possible mb-4 hidden">
@@ -295,6 +288,7 @@
                                 <div id="summary-title-inner" class="flex flex-row items-center justify-start gap-4 my-2 bg-white shadow-md border-b border-gray-200 z-10 rounded-tr-lg rounded-br-lg p-1.5">
                                     <span id="summary-collapser">»</span>
                                     <span id="summary-title" onclick="document.querySelector('#summary-collapser').click();"></span>
+                                    <button type="button" id="practice-open" class="practice-open" hidden aria-expanded="false" aria-controls="practice-panel">Practice</button>
                                 </div>
                             </h2>
                         </div>
@@ -302,6 +296,49 @@
                             <div id="summary-left-bar" onclick="document.getElementById('summary-collapser').click()"></div>
                             <div id="summary-inner" style="height: 100%; resize: none; width:100%;"></div>
 
+                            <section id="practice-panel" class="practice-panel" hidden>
+                                <div class="practice-panel__bar">
+                                    <h3>Practice this lesson</h3>
+                                    <div class="practice-modes" role="group" aria-label="Practice mode">
+                                        <button type="button" id="practice-mode-retype" class="is-active" aria-pressed="true">Retype</button>
+                                        <button type="button" id="practice-mode-rearrange" aria-pressed="false">Rearrange</button>
+                                    </div>
+                                    <label class="practice-snippet-label" for="practice-snippet">Snippet
+                                        <select id="practice-snippet"></select>
+                                    </label>
+                                    <button type="button" id="practice-close">Close</button>
+                                </div>
+                                <p id="practice-empty" class="practice-empty" hidden>This lesson has nothing to practice yet.</p>
+                                <div id="practice-retype">
+                                    <fieldset class="practice-difficulty">
+                                        <legend>Difficulty</legend>
+                                        <label title="Highlights matching code as you type"><input type="radio" name="practice-level" value="1" checked> Level 1</label>
+                                        <label title="Covers stretches of the code and reveals them briefly"><input type="radio" name="practice-level" value="2"> Level 2</label>
+                                        <label title="Covers more of the code for longer"><input type="radio" name="practice-level" value="3"> Level 3</label>
+                                    </fieldset>
+                                    <div class="practice-columns">
+                                        <div>
+                                            <h4>Correct code</h4>
+                                            <p class="practice-hint">Edit the sample if you want a shorter passage.</p>
+                                            <div id="practice-source" class="practice-source" contenteditable="true" spellcheck="false" data-level="1"></div>
+                                        </div>
+                                        <div>
+                                            <h4>Retype it</h4>
+                                            <p class="practice-hint">
+                                                <button type="button" id="practice-erase">Clear</button>
+                                                <span id="practice-accuracy"></span>
+                                            </p>
+                                            <textarea id="practice-input" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Type the code from the left"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="practice-rearrange" hidden>
+                                    <p class="practice-hint">Drag a line, or use the arrows, until the snippet is back in order.</p>
+                                    <button type="button" id="practice-shuffle">Shuffle</button>
+                                    <div id="practice-lines" class="practice-lines"></div>
+                                    <p id="practice-rearrange-status" class="practice-status"></p>
+                                </div>
+                            </section>
                         </div>
                     </div>
 
@@ -582,10 +619,6 @@
         </div>
     </div>
 
-    <!-- <_php echo("./game-error.php"); _> -->
-
-    <!-- <_php echo("./game-fogs.php"); _> -->
-
     <script src="assets/js/vendors/MarkdownItLatex.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/markdown-it@12.0.4/dist/markdown-it.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/markdown-it-emoji/1.4.0/markdown-it-emoji.min.js"></script>
@@ -613,7 +646,10 @@
     <script src="assets/js/index.js"></script>
     <script src="assets/js/searchers.js"></script>
     <script src="assets/js/link-popover.js"></script>
-    <!-- <script src="assets/js/game.js"></script> -->
+    <script src="assets/js/vendors/jquery.highlight-5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-ui-touch-punch@0.2.3/jquery.ui.touch-punch.min.js"></script>
+    <script src="assets/js/diff.js"></script>
+    <script src="assets/js/game.js"></script>
 
     <script src="./assets/js/image-modal.js"></script>
 </body>

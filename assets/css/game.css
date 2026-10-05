@@ -1,67 +1,258 @@
-/* Game Layout */
-#new,
-#old {
-  float: left;
-  width: 50%;
+.practice-open {
+  margin-left: 8px;
+  border: 1px solid #94a3b8;
+  background: #f8fafc;
+  color: #0f172a;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.2;
+  padding: 4px 10px;
+  cursor: pointer;
+  flex: 0 0 auto;
 }
 
-#new .contents,
-#old .contents {
-  border: 1px solid darkgray;
-  margin: 5px;
-  white-space: break-spaces;
+.practice-open:hover,
+.practice-open[aria-expanded="true"] {
+  background: #e2e8f0;
 }
 
-#new textarea:blur {
-  border-style: none !important;
-  border-color: Transparent !important;
-  overflow: auto !important;
+.practice-panel {
+  margin: 16px 8px 24px;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #0f172a;
 }
 
-#old[data-class-level="1"] .highlight {
-  background-color: orange !important;
+.practice-panel__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-bottom: 12px;
 }
 
-#diff {
-  padding: 2px 5px;
-  border: 1px solid gray;
-  border-radius: 5px;
+.practice-panel__bar h3 {
+  margin: 0;
+  font-size: 16px;
 }
 
-#diff:empty {
-  border: none;
+.practice-modes button,
+.practice-panel button,
+.practice-difficulty label {
+  font-size: 13px;
 }
 
-#diff:not(:empty)::after {
-  content: "%";
+.practice-modes button,
+#practice-close,
+#practice-erase,
+#practice-shuffle,
+.practice-line__move {
+  border: 1px solid #94a3b8;
+  background: #fff;
+  color: #0f172a;
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
 }
 
-/* Retype Game: Difficulty levels */
-.instructions {
-  min-height: 60px;
-  max-height: 60px;
+.practice-modes button.is-active {
+  background: #0f172a;
+  color: #fff;
+  border-color: #0f172a;
 }
 
-.difficulty .form-control[type="radio"] {
-  height: auto;
+.practice-snippet-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
 }
 
-.difficulty .form-group {
-  margin-right: 2ch;
+.practice-open[hidden],
+.practice-snippet-label[hidden],
+#practice-panel[hidden],
+#practice-retype[hidden],
+#practice-rearrange[hidden],
+#practice-empty[hidden] {
+  display: none !important;
 }
 
-/* Retype Game: Hiding parts at higher difficulty levels */
-.fog {
-  transition: background-color 200ms ease;
+.practice-snippet-label select {
+  max-width: 280px;
 }
 
-/* Resort-lines */
-.li-correct {
-  border: 1px solid green;
-  background-color: lightgreen;
+.practice-panel__bar #practice-close {
+  margin-left: auto;
 }
 
-.li-incorrect {
-  border: 1px solid red;
-  background-color: #FFCCCB;
+.practice-empty,
+.practice-hint,
+.practice-status {
+  margin: 0 0 8px;
+  font-size: 13px;
+}
+
+.practice-difficulty {
+  border: 0;
+  margin: 0 0 12px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+}
+
+.practice-difficulty legend {
+  padding: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.practice-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.practice-columns h4 {
+  margin: 0 0 4px;
+  font-size: 14px;
+}
+
+.practice-source,
+#practice-input {
+  width: 100%;
+  min-height: 160px;
+  box-sizing: border-box;
+  border: 1px solid #94a3b8;
+  border-radius: 6px;
+  padding: 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  background: #fff;
+  color: #0f172a;
+}
+
+#practice-input {
+  resize: vertical;
+}
+
+.practice-source .highlight {
+  background-color: orange;
+}
+
+.practice-source .fog {
+  background-color: #111;
+  color: transparent;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.practice-source .fog.is-clear {
+  background-color: transparent;
+  color: inherit;
+}
+
+#practice-accuracy {
+  margin-left: 8px;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+#practice-accuracy:empty {
+  padding: 0;
+}
+
+#practice-accuracy.is-perfect {
+  background: lightgreen;
+}
+
+#practice-accuracy.is-close {
+  background: #fde047;
+}
+
+#practice-accuracy.is-mid {
+  background: #fdba74;
+}
+
+#practice-accuracy.is-low {
+  background: #fca5a5;
+}
+
+.practice-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.practice-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 6px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.practice-line__text {
+  flex: 1;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  white-space: pre-wrap;
+  cursor: grab;
+}
+
+.practice-line.is-correct {
+  border-color: green;
+  background: lightgreen;
+}
+
+.practice-line.is-incorrect {
+  border-color: #dc2626;
+  background: #fecaca;
+}
+
+@media (max-width: 800px) {
+  .practice-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+html[data-mode="night"] .practice-open,
+html[data-mode="night"] .practice-panel,
+html[data-mode="night"] .practice-source,
+html[data-mode="night"] #practice-input,
+html[data-mode="night"] .practice-line,
+html[data-mode="night"] .practice-modes button,
+html[data-mode="night"] #practice-close,
+html[data-mode="night"] #practice-erase,
+html[data-mode="night"] #practice-shuffle,
+html[data-mode="night"] .practice-line__move {
+  background: #0f172a;
+  color: #e2e8f0;
+  border-color: #475569;
+}
+
+html[data-mode="night"] .practice-panel {
+  background: #1e293b;
+}
+
+html[data-mode="night"] .practice-modes button.is-active {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+html[data-mode="night"] .practice-line.is-correct {
+  background: #14532d;
+  color: #dcfce7;
+}
+
+html[data-mode="night"] .practice-line.is-incorrect {
+  background: #7f1d1d;
+  color: #fee2e2;
 }
