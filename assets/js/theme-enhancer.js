@@ -1,7 +1,7 @@
 /**
  * Homepage theme enhancements that CSS alone cannot express
  * (logos, path labels, numbered section indexes, hire footers).
- * Active theme comes from <html data-theme="..."> set by index.php from config.json.
+ * Active theme comes from <html data-theme="..."> set by index.php from env/config.json.
  */
 (function () {
   function themeId() {

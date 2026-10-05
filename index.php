@@ -15,7 +15,8 @@
   $DEFAULT_THUMBNAIL_SIZE = "90x90"; // height x width
   $warningSearchWillFail_Arr = [];
 
-  // UI theme gallery (themes/). Selected via root config.json "theme".
+  // UI theme gallery (themes/). Selected via env/config.json "theme".
+  // That file is copied from env/templates-* by npm run build-*.
   // "showThemeSwitcher": true adds a top-right theme control.
   // "showNightDaySwitcher": true adds a Day/Night control beside it.
   $allowedThemes = ['generic', 'soft-cards', 'terminal', 'classic'];
@@ -24,7 +25,7 @@
   $showNightDaySwitcher = false;
   $themeCatalog = [];
   $cfg = null;
-  $configPath = __DIR__ . '/config.json';
+  $configPath = __DIR__ . '/env/config.json';
   if (is_readable($configPath)) {
       $cfg = json_decode(file_get_contents($configPath), true);
       if (is_array($cfg) && !empty($cfg['theme']) && in_array($cfg['theme'], $allowedThemes, true)) {
@@ -160,6 +161,8 @@
 
     // Set URLs to JavaScript variables in HTML
     $themeJson = json_encode($themeId);
+    $showThemeSwitcherJson = $showThemeSwitcher ? 'true' : 'false';
+    $showNightDaySwitcherJson = $showNightDaySwitcher ? 'true' : 'false';
     echo "<script>
         window.commitsURL = '{$commitsURL}';
         window.openURL = '{$openURL}';
@@ -168,6 +171,8 @@
     <script>
         window.config = window.config || {};
         window.config.theme = {$themeJson};
+        window.config.showThemeSwitcher = {$showThemeSwitcherJson};
+        window.config.showNightDaySwitcher = {$showNightDaySwitcherJson};
     </script>
 ";
     ?>
@@ -594,9 +599,6 @@
             window.config = {};
         }
         window.config.imgHostedUrl = data.imgHostedUrl;
-        window.config.theme = data.theme || document.documentElement.getAttribute('data-theme') || 'generic';
-        window.config.showThemeSwitcher = data.showThemeSwitcher === true;
-        window.config.showNightDaySwitcher = data.showNightDaySwitcher === true;
     });
     </script>
     <script src="assets/js/modal.js"></script>
