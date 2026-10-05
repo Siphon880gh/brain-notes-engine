@@ -331,7 +331,7 @@
                                                 <i class="fa fa-search"></i> Titles
                                             </button>
 
-                                            <button id="searcher-btn-contents" class="override-ios-button-style cursor-pointer">
+                                            <button id="searcher-btn-contents" class="override-ios-button-style cursor-pointer" title="Searches inside notes. Limited to 5 a day.">
                                                 <i class="fa fa-search"></i> Contents
                                             </button>
                                             
@@ -357,6 +357,7 @@
 
                                 <div id="search-results" style="display:none;">
                                 <h2>Search Results</h2>
+                                <p id="search-content-quota" class="hidden"></p>
                                 <div class="contents"></div>
                                 </div>
 
