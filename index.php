@@ -303,10 +303,20 @@
                                         <button type="button" id="practice-mode-retype" class="is-active" aria-pressed="true">Retype</button>
                                         <button type="button" id="practice-mode-rearrange" aria-pressed="false">Rearrange</button>
                                     </div>
-                                    <label class="practice-snippet-label" for="practice-snippet">Snippet
-                                        <select id="practice-snippet"></select>
-                                    </label>
                                     <button type="button" id="practice-close">Close</button>
+                                </div>
+                                <p class="practice-narrow">
+                                    <button type="button" id="practice-narrow-open" aria-expanded="false" aria-controls="practice-scope">Too long to practice? Narrow the scope</button>
+                                </p>
+                                <p id="practice-scope-status" class="practice-scope-status" hidden></p>
+                                <div id="practice-scope" class="practice-scope" hidden>
+                                    <div class="practice-scope__choices" role="group" aria-label="Ways to shorten practice">
+                                        <button type="button" id="practice-scope-snippets">Code snippets</button>
+                                        <button type="button" id="practice-scope-headings">Table of contents</button>
+                                        <button type="button" id="practice-scope-highlight">Highlight a passage</button>
+                                    </div>
+                                    <div id="practice-scope-snippet-list" class="practice-scope__list" hidden></div>
+                                    <div id="practice-scope-heading-list" class="practice-scope__list" hidden></div>
                                 </div>
                                 <p id="practice-empty" class="practice-empty" hidden>This lesson has nothing to practice yet.</p>
                                 <div id="practice-retype">
@@ -649,6 +659,21 @@
     <script src="assets/js/vendors/jquery.highlight-5.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-ui-touch-punch@0.2.3/jquery.ui.touch-punch.min.js"></script>
     <script src="assets/js/diff.js"></script>
+
+    <div id="practice-highlight-modal" class="practice-highlight-modal" hidden>
+        <div class="practice-highlight-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="practice-highlight-title">
+            <div class="practice-highlight-modal__header">
+                <h3 id="practice-highlight-title">Select a passage to practice</h3>
+                <p>This is a separate copy of the lesson, not the original article. Drag across the passage you want.</p>
+                <div class="practice-highlight-modal__actions">
+                    <button type="button" id="practice-highlight-use" disabled>Practice this selection</button>
+                    <button type="button" id="practice-highlight-cancel">Cancel</button>
+                </div>
+            </div>
+            <div id="practice-highlight-article" class="practice-highlight-article"></div>
+        </div>
+    </div>
+
     <script src="assets/js/game.js"></script>
 
     <script src="./assets/js/image-modal.js"></script>

@@ -5,8 +5,6 @@
     const panelEl = document.getElementById("practice-panel");
     const openBtn = document.getElementById("practice-open");
     const closeBtn = document.getElementById("practice-close");
-    const snippetEl = document.getElementById("practice-snippet");
-    const snippetLabel = document.querySelector(".practice-snippet-label");
     const retypeEl = document.getElementById("practice-retype");
     const rearrangeEl = document.getElementById("practice-rearrange");
     const linesEl = document.getElementById("practice-lines");
@@ -18,8 +16,24 @@
 
     if (!sourceEl || !inputEl || !panelEl || !openBtn) return;
 
+    const narrowBtn = document.getElementById("practice-narrow-open");
+    const scopeEl = document.getElementById("practice-scope");
+    const scopeStatusEl = document.getElementById("practice-scope-status");
+    const snippetsChoiceBtn = document.getElementById("practice-scope-snippets");
+    const headingsChoiceBtn = document.getElementById("practice-scope-headings");
+    const highlightChoiceBtn = document.getElementById("practice-scope-highlight");
+    const snippetListEl = document.getElementById("practice-scope-snippet-list");
+    const headingListEl = document.getElementById("practice-scope-heading-list");
+    const highlightModalEl = document.getElementById("practice-highlight-modal");
+    const highlightArticleEl = document.getElementById("practice-highlight-article");
+    const highlightUseBtn = document.getElementById("practice-highlight-use");
+    const highlightCancelBtn = document.getElementById("practice-highlight-cancel");
+
     const state = {
-        snippets: [],
+        codeSnippets: [],
+        sections: [],
+        scopeText: null,
+        scopeLabel: "",
         sourceText: "",
         mode: "retype",
         level: "1",
@@ -28,60 +42,118 @@
         fogCovers: 2
     };
 
-    function collectSnippets() {
+    function lessonText() {
+        const note = document.getElementById("summary-inner");
+        return note ? note.innerText.trim() : "";
+    }
+
+    function collectCodeSnippets() {
         const snippets = [];
         document.querySelectorAll("#summary-inner pre > code").forEach((code) => {
             const text = code.textContent.replace(/\n$/, "");
             if (text.trim()) snippets.push(text);
         });
-        if (!snippets.length) {
-            const note = document.getElementById("summary-inner");
-            const text = note ? note.innerText.trim() : "";
-            if (text) snippets.push(text);
-        }
         return snippets;
     }
 
-    function snippetOptionLabel(text, index) {
-        const first = (text.split("\n").find((line) => line.trim()) || "").trim();
-        const short = first.length > 48 ? first.slice(0, 45) + "..." : first;
-        return short ? (index + 1) + ". " + short : "Snippet " + (index + 1);
+    function readableText(node) {
+        const clone = node.cloneNode(true);
+        clone.querySelectorAll(".line-numbers-gutter, .code-copy-btn, .scroll-marker").forEach((el) => el.remove());
+        return clone.innerText.replaceAll("🔗", "").trim();
+    }
+
+    function sectionText(heading) {
+        const parts = [readableText(heading)];
+        let node = heading.nextElementSibling;
+        while (node) {
+            if (/^H[1-6]$/.test(node.tagName)) break;
+            const text = readableText(node);
+            if (text) parts.push(text);
+            node = node.nextElementSibling;
+        }
+        return parts.join("\n").trim();
+    }
+
+    function collectSections() {
+        const note = document.getElementById("summary-inner");
+        if (!note) return [];
+        return Array.from(note.querySelectorAll("h1, h2, h3, h4, h5, h6")).map((heading) => {
+            const title = heading.textContent.replaceAll("🔗", "").trim();
+            const text = sectionText(heading);
+            return {
+                title: title || "Untitled section",
+                level: parseInt(heading.tagName[1], 10) || 1,
+                text: text
+            };
+        }).filter((section) => section.text);
+    }
+
+    function countLabel(text) {
+        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+        const lines = text.split("\n").filter((line) => line.trim()).length;
+        const wordLabel = words === 1 ? "1 word" : words + " words";
+        const lineLabel = lines === 1 ? "1 line" : lines + " lines";
+        return "(" + wordLabel + ", " + lineLabel + ")";
+    }
+
+    function snippetPreview(text) {
+        const lines = text.split("\n");
+        const preview = lines.slice(0, 4).join("\n");
+        return lines.length > 4 ? preview + "\n…" : preview;
     }
 
     function selectedText() {
-        if (!state.snippets.length) return "";
-        if (snippetEl.value === "all") return state.snippets.join("\n");
-        const index = Number(snippetEl.value);
-        return state.snippets[index] || "";
+        if (state.scopeText != null) return state.scopeText;
+        if (state.codeSnippets.length) return state.codeSnippets.join("\n");
+        return lessonText();
     }
 
-    function fillSnippetSelect() {
-        const previous = snippetEl.value;
-        snippetEl.innerHTML = "";
-        state.snippets = collectSnippets();
+    function syncPracticeAvailability() {
+        const hasPractice = selectedText().trim().length > 0;
+        emptyEl.hidden = hasPractice;
+        retypeEl.hidden = state.mode !== "retype" || !hasPractice;
+        rearrangeEl.hidden = state.mode !== "rearrange" || !hasPractice;
+    }
 
-        if (state.snippets.length > 1) {
-            const all = document.createElement("option");
-            all.value = "all";
-            all.textContent = "All snippets in this lesson";
-            snippetEl.appendChild(all);
+    function updateScopeButtons() {
+        const hasSnippets = state.codeSnippets.length > 0;
+        const hasHeadings = state.sections.length > 0;
+        const hasLesson = lessonText().length > 0;
+        snippetsChoiceBtn.disabled = !hasSnippets;
+        headingsChoiceBtn.disabled = !hasHeadings;
+        highlightChoiceBtn.disabled = !hasLesson;
+        snippetsChoiceBtn.title = hasSnippets ? "Pick one code block" : "This lesson has no code snippets";
+        headingsChoiceBtn.title = hasHeadings ? "Pick one heading" : "This lesson has no headings";
+        highlightChoiceBtn.title = hasLesson ? "Drag across a copy of the lesson" : "This lesson has nothing to highlight";
+    }
+
+    function updateScopeStatus() {
+        scopeStatusEl.hidden = !state.scopeLabel;
+        scopeStatusEl.textContent = state.scopeLabel;
+    }
+
+    function prepareLesson(resetScope) {
+        if (resetScope) {
+            state.scopeText = null;
+            state.scopeLabel = "";
         }
-
-        state.snippets.forEach((text, index) => {
-            const option = document.createElement("option");
-            option.value = String(index);
-            option.textContent = snippetOptionLabel(text, index);
-            snippetEl.appendChild(option);
-        });
-
-        const stillThere = previous && snippetEl.querySelector('option[value="' + CSS.escape(previous) + '"]');
-        if (stillThere) snippetEl.value = previous;
-
-        const hasSnippets = state.snippets.length > 0;
-        snippetLabel.hidden = state.snippets.length <= 1;
-        emptyEl.hidden = hasSnippets;
-        retypeEl.hidden = state.mode !== "retype" || !hasSnippets;
-        rearrangeEl.hidden = state.mode !== "rearrange" || !hasSnippets;
+        state.codeSnippets = collectCodeSnippets();
+        state.sections = collectSections();
+        updateScopeButtons();
+        updateScopeStatus();
+        syncPracticeAvailability();
+        if (snippetsChoiceBtn.disabled) {
+            snippetListEl.hidden = true;
+            snippetsChoiceBtn.classList.remove("is-active");
+        }
+        if (headingsChoiceBtn.disabled) {
+            headingListEl.hidden = true;
+            headingsChoiceBtn.classList.remove("is-active");
+        }
+        if (scopeEl && !scopeEl.hidden) {
+            if (!snippetListEl.hidden) renderSnippetChoices();
+            if (!headingListEl.hidden) renderHeadingChoices();
+        }
     }
 
     function stopFog() {
@@ -188,9 +260,9 @@
         rearrangeModeBtn.classList.toggle("is-active", mode === "rearrange");
         retypeModeBtn.setAttribute("aria-pressed", mode === "retype" ? "true" : "false");
         rearrangeModeBtn.setAttribute("aria-pressed", mode === "rearrange" ? "true" : "false");
-        const hasSnippets = state.snippets.length > 0;
-        retypeEl.hidden = mode !== "retype" || !hasSnippets;
-        rearrangeEl.hidden = mode !== "rearrange" || !hasSnippets;
+        const hasPractice = selectedText().trim().length > 0;
+        retypeEl.hidden = mode !== "retype" || !hasPractice;
+        rearrangeEl.hidden = mode !== "rearrange" || !hasPractice;
         if (mode === "rearrange") buildLines();
         if (mode === "retype" && state.level === "1") highlightTyped();
     }
@@ -292,9 +364,129 @@
         if (collapser && outer && outer.classList.contains("hidden")) collapser.click();
     }
 
+    function applyScope(text, label) {
+        const passage = (text || "").trim();
+        if (!passage) return;
+        state.scopeText = passage;
+        state.scopeLabel = label;
+        updateScopeStatus();
+        syncPracticeAvailability();
+        loadSource(true);
+        sourceEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function renderSnippetChoices() {
+        snippetListEl.innerHTML = "";
+        state.codeSnippets.forEach((text, index) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "practice-scope__item practice-scope__item--code";
+            const preview = document.createElement("pre");
+            preview.textContent = snippetPreview(text);
+            const meta = document.createElement("span");
+            meta.className = "practice-scope__meta";
+            meta.textContent = "Snippet " + (index + 1) + " " + countLabel(text);
+            button.append(preview, meta);
+            button.addEventListener("click", () => {
+                snippetListEl.querySelectorAll(".practice-scope__item").forEach((item) => item.classList.remove("is-selected"));
+                button.classList.add("is-selected");
+                applyScope(text, "Practicing snippet " + (index + 1) + " " + countLabel(text) + ".");
+            });
+            snippetListEl.appendChild(button);
+        });
+    }
+
+    function renderHeadingChoices() {
+        headingListEl.innerHTML = "";
+        state.sections.forEach((section) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "practice-scope__item";
+            button.style.paddingLeft = (8 + (section.level - 1) * 14) + "px";
+            const title = document.createElement("span");
+            title.className = "practice-scope__title";
+            title.textContent = section.title + " ";
+            const meta = document.createElement("span");
+            meta.className = "practice-scope__meta";
+            meta.textContent = countLabel(section.text);
+            button.append(title, meta);
+            button.addEventListener("click", () => {
+                headingListEl.querySelectorAll(".practice-scope__item").forEach((item) => item.classList.remove("is-selected"));
+                button.classList.add("is-selected");
+                applyScope(section.text, "Practicing “" + section.title + "” " + countLabel(section.text) + ".");
+            });
+            headingListEl.appendChild(button);
+        });
+    }
+
+    function showScopeList(which) {
+        snippetListEl.hidden = which !== "snippets";
+        headingListEl.hidden = which !== "headings";
+        snippetsChoiceBtn.classList.toggle("is-active", which === "snippets");
+        headingsChoiceBtn.classList.toggle("is-active", which === "headings");
+        highlightChoiceBtn.classList.remove("is-active");
+        if (which === "snippets") renderSnippetChoices();
+        if (which === "headings") renderHeadingChoices();
+    }
+
+    function toggleScope() {
+        const willOpen = scopeEl.hidden;
+        scopeEl.hidden = !willOpen;
+        narrowBtn.setAttribute("aria-expanded", willOpen ? "true" : "false");
+        if (!willOpen) {
+            snippetListEl.hidden = true;
+            headingListEl.hidden = true;
+            snippetsChoiceBtn.classList.remove("is-active");
+            headingsChoiceBtn.classList.remove("is-active");
+            return;
+        }
+        prepareLesson(false);
+    }
+
+    function highlightedPassage() {
+        const selection = window.getSelection();
+        if (!selection || selection.isCollapsed || !selection.rangeCount) return "";
+        const range = selection.getRangeAt(0);
+        const startsInside = highlightArticleEl.contains(range.startContainer);
+        const endsInside = highlightArticleEl.contains(range.endContainer);
+        if (!startsInside || !endsInside) return "";
+        return selection.toString().trim();
+    }
+
+    let pendingPassage = "";
+
+    function refreshHighlightButton() {
+        if (!highlightModalEl || highlightModalEl.hidden) return;
+        pendingPassage = highlightedPassage();
+        highlightUseBtn.disabled = pendingPassage.length === 0;
+    }
+
+    function openHighlightModal() {
+        const clone = document.getElementById("summary-inner").cloneNode(true);
+        clone.removeAttribute("id");
+        clone.querySelectorAll("[id]").forEach((el) => el.removeAttribute("id"));
+        clone.querySelectorAll(".line-numbers-gutter, .code-copy-btn, .scroll-marker").forEach((el) => el.remove());
+        highlightArticleEl.innerHTML = "";
+        highlightArticleEl.appendChild(clone);
+        pendingPassage = "";
+        highlightUseBtn.disabled = true;
+        highlightModalEl.hidden = false;
+        document.body.classList.add("practice-highlight-open");
+        window.getSelection()?.removeAllRanges();
+    }
+
+    function closeHighlightModal() {
+        highlightModalEl.hidden = true;
+        document.body.classList.remove("practice-highlight-open");
+        highlightArticleEl.innerHTML = "";
+        window.getSelection()?.removeAllRanges();
+        pendingPassage = "";
+        highlightUseBtn.disabled = true;
+    }
+
     function openPanel() {
         expandLesson();
-        fillSnippetSelect();
+        prepareLesson(true);
         panelEl.hidden = false;
         openBtn.setAttribute("aria-expanded", "true");
         loadSource(true);
@@ -315,7 +507,30 @@
     closeBtn.addEventListener("click", closePanel);
     retypeModeBtn.addEventListener("click", () => setMode("retype"));
     rearrangeModeBtn.addEventListener("click", () => setMode("rearrange"));
-    snippetEl.addEventListener("change", () => loadSource(true));
+    narrowBtn.addEventListener("click", toggleScope);
+    snippetsChoiceBtn.addEventListener("click", () => showScopeList("snippets"));
+    headingsChoiceBtn.addEventListener("click", () => showScopeList("headings"));
+    highlightChoiceBtn.addEventListener("click", openHighlightModal);
+    highlightCancelBtn.addEventListener("click", closeHighlightModal);
+    highlightUseBtn.addEventListener("mousedown", (event) => {
+        event.preventDefault();
+    });
+    highlightUseBtn.addEventListener("click", () => {
+        const passage = pendingPassage || highlightedPassage();
+        if (!passage) return;
+        closeHighlightModal();
+        applyScope(passage, "Practicing your highlighted passage " + countLabel(passage) + ".");
+    });
+    highlightModalEl.addEventListener("click", (event) => {
+        if (event.target === highlightModalEl) closeHighlightModal();
+    });
+    highlightArticleEl.addEventListener("click", (event) => {
+        if (event.target.closest("a")) event.preventDefault();
+    });
+    document.addEventListener("selectionchange", refreshHighlightButton);
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && highlightModalEl && !highlightModalEl.hidden) closeHighlightModal();
+    });
 
     document.querySelectorAll('input[name="practice-level"]').forEach((input) => {
         input.addEventListener("change", () => {
@@ -378,7 +593,7 @@
     document.addEventListener("noteOpened", () => {
         openBtn.hidden = false;
         if (!panelEl.hidden) {
-            fillSnippetSelect();
+            prepareLesson(true);
             loadSource(true);
         }
     });
