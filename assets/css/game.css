@@ -16,13 +16,46 @@
   background: #e2e8f0;
 }
 
+.practice-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10500;
+  display: flex;
+  padding: max(12px, 2vh) max(12px, 2vw);
+  background: rgba(15, 23, 42, 0.72);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+body.practice-modal-open {
+  overflow: hidden;
+}
+
 .practice-panel {
-  margin: 16px 8px 24px;
-  padding: 12px;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  margin: 0;
+  padding: 16px;
   border: 1px solid #cbd5e1;
-  border-radius: 8px;
+  border-radius: 12px;
   background: #f8fafc;
   color: #0f172a;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.practice-panel__body {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .practice-panel__bar {
@@ -71,6 +104,7 @@
 }
 
 .practice-open[hidden],
+.practice-modal[hidden],
 #practice-panel[hidden],
 #practice-retype[hidden],
 #practice-rearrange[hidden],
@@ -166,6 +200,8 @@
 .practice-scope__item pre {
   margin: 0 0 6px;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 12px;
   line-height: 1.4;
@@ -382,10 +418,34 @@ body.practice-mod-held .practice-level-key {
   font-weight: 600;
 }
 
+#practice-retype,
+#practice-rearrange {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+#practice-shuffle {
+  align-self: flex-start;
+}
+
 .practice-columns {
+  flex: 1 1 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 12px;
+  min-width: 0;
+  min-height: 0;
+}
+
+.practice-columns > div {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .practice-columns h4 {
@@ -396,7 +456,11 @@ body.practice-mod-held .practice-level-key {
 .practice-source,
 #practice-input {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  flex: 1 1 auto;
   min-height: 160px;
+  height: auto;
   box-sizing: border-box;
   border: 1px solid #94a3b8;
   border-radius: 6px;
@@ -405,12 +469,15 @@ body.practice-mod-held .practice-level-key {
   font-size: 13px;
   line-height: 1.45;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  overflow: auto;
   background: #fff;
   color: #0f172a;
 }
 
 #practice-input {
-  resize: vertical;
+  resize: none;
 }
 
 .practice-source .highlight {
@@ -459,6 +526,8 @@ body.practice-mod-held .practice-level-key {
   flex-direction: column;
   gap: 6px;
   margin-top: 8px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .practice-line {
@@ -469,13 +538,18 @@ body.practice-mod-held .practice-level-key {
   border: 1px solid #cbd5e1;
   border-radius: 6px;
   background: #fff;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .practice-line__text {
-  flex: 1;
+  flex: 1 1 auto;
+  min-width: 0;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 13px;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   cursor: grab;
 }
 
@@ -491,7 +565,7 @@ body.practice-mod-held .practice-level-key {
 
 @media (max-width: 800px) {
   .practice-columns {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

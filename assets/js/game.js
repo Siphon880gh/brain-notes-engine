@@ -3,6 +3,7 @@
     const inputEl = document.getElementById("practice-input");
     const accuracyEl = document.getElementById("practice-accuracy");
     const panelEl = document.getElementById("practice-panel");
+    const modalEl = document.getElementById("practice-modal");
     const openBtn = document.getElementById("practice-open");
     const closeBtn = document.getElementById("practice-close");
     const retypeEl = document.getElementById("practice-retype");
@@ -14,7 +15,7 @@
     const retypeModeBtn = document.getElementById("practice-mode-retype");
     const rearrangeModeBtn = document.getElementById("practice-mode-rearrange");
 
-    if (!sourceEl || !inputEl || !panelEl || !openBtn) return;
+    if (!sourceEl || !inputEl || !panelEl || !modalEl || !openBtn) return;
 
     const narrowBtn = document.getElementById("practice-narrow-open");
     const scopeEl = document.getElementById("practice-scope");
@@ -253,10 +254,7 @@
     }
 
     function resizeInput() {
-        inputEl.style.height = "inherit";
-        const maxHeight = Math.max(160, window.innerHeight - 240);
-        const next = Math.min(inputEl.scrollHeight, maxHeight);
-        inputEl.style.height = Math.max(next, 160) + "px";
+        inputEl.style.height = "";
     }
 
     function setMode(mode) {
@@ -506,14 +504,18 @@
     function openPanel() {
         expandLesson();
         prepareLesson(true);
+        modalEl.hidden = false;
         panelEl.hidden = false;
+        document.body.classList.add("practice-modal-open");
         openBtn.setAttribute("aria-expanded", "true");
         loadSource(true);
-        panelEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        if (!retypeEl.hidden) inputEl.focus();
     }
 
     function closePanel() {
+        modalEl.hidden = true;
         panelEl.hidden = true;
+        document.body.classList.remove("practice-modal-open");
         openBtn.setAttribute("aria-expanded", "false");
         stopFog();
     }
@@ -524,6 +526,9 @@
         else closePanel();
     });
     closeBtn.addEventListener("click", closePanel);
+    modalEl.addEventListener("click", (event) => {
+        if (event.target === modalEl) closePanel();
+    });
     retypeModeBtn.addEventListener("click", () => setMode("retype"));
     rearrangeModeBtn.addEventListener("click", () => setMode("rearrange"));
     narrowBtn.addEventListener("click", toggleScope);
@@ -577,7 +582,10 @@
             setLevelInfoOpen(false);
         });
         document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") setLevelInfoOpen(false);
+            if (event.key !== "Escape" || !levelInfoWrap.classList.contains("is-open")) return;
+            if (highlightModalEl && !highlightModalEl.hidden) return;
+            setLevelInfoOpen(false);
+            event.stopImmediatePropagation();
         });
     }
     document.querySelectorAll('input[name="practice-level"]').forEach((input) => {
@@ -642,7 +650,12 @@
     }
 
     document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && highlightModalEl && !highlightModalEl.hidden) closeHighlightModal();
+        if (event.key !== "Escape") return;
+        if (highlightModalEl && !highlightModalEl.hidden) {
+            closeHighlightModal();
+            return;
+        }
+        if (!modalEl.hidden) closePanel();
     });
 
     document.addEventListener("keydown", (event) => {

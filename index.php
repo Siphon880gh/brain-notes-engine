@@ -295,68 +295,6 @@
                         <div id="summary-outer" style="height: 100%; margin-top: 20px; padding-left: 5px; padding-right: 5px;">
                             <div id="summary-left-bar" onclick="document.getElementById('summary-collapser').click()"></div>
                             <div id="summary-inner" style="height: 100%; resize: none; width:100%;"></div>
-
-                            <section id="practice-panel" class="practice-panel" hidden>
-                                <div class="practice-panel__bar">
-                                    <h3>Practice this lesson</h3>
-                                    <div class="practice-modes" role="group" aria-label="Practice mode">
-                                        <button type="button" id="practice-mode-retype" class="is-active" aria-pressed="true">Retype</button>
-                                        <button type="button" id="practice-mode-rearrange" aria-pressed="false">Rearrange</button>
-                                    </div>
-                                    <button type="button" id="practice-close">Close</button>
-                                </div>
-                                <p class="practice-narrow">
-                                    <button type="button" id="practice-narrow-open" aria-expanded="false" aria-controls="practice-scope">Too long to practice? Narrow the scope</button>
-                                </p>
-                                <p id="practice-scope-status" class="practice-scope-status" hidden></p>
-                                <div id="practice-scope" class="practice-scope" hidden>
-                                    <div class="practice-scope__choices" role="group" aria-label="Ways to shorten practice">
-                                        <button type="button" id="practice-scope-snippets">Code snippets</button>
-                                        <button type="button" id="practice-scope-headings">Table of contents</button>
-                                        <button type="button" id="practice-scope-highlight">Highlight a passage</button>
-                                        <button type="button" id="practice-scope-reset">Reset</button>
-                                    </div>
-                                    <div id="practice-scope-snippet-list" class="practice-scope__list" hidden></div>
-                                    <div id="practice-scope-heading-list" class="practice-scope__list" hidden></div>
-                                </div>
-                                <p id="practice-empty" class="practice-empty" hidden>This lesson has nothing to practice yet.</p>
-                                <div id="practice-retype">
-                                    <fieldset class="practice-difficulty">
-                                        <legend>Difficulty</legend>
-                                        <p id="practice-level-popover" class="practice-level-popover" role="tooltip"></p>
-                                        <label title="Highlights matching code as you type"><input type="radio" name="practice-level" value="1" checked> Level <span class="practice-level-key">1</span></label>
-                                        <label title="Covers stretches of the code and reveals them briefly"><input type="radio" name="practice-level" value="2"> Level <span class="practice-level-key">2</span></label>
-                                        <label title="Covers more of the code for longer"><input type="radio" name="practice-level" value="3"> Level <span class="practice-level-key">3</span></label>
-                                        <span class="practice-level-info-wrap">
-                                            <button type="button" id="practice-level-info" class="practice-level-info" aria-expanded="false" aria-controls="practice-level-info-popover" aria-label="About difficulty levels">
-                                                <i class="fas fa-info-circle" aria-hidden="true"></i>
-                                            </button>
-                                            <p id="practice-level-info-popover" class="practice-level-info-popover" role="tooltip"></p>
-                                        </span>
-                                    </fieldset>
-                                    <div class="practice-columns">
-                                        <div>
-                                            <h4>Correct code</h4>
-                                            <p class="practice-hint">Edit the sample if you want a shorter passage.</p>
-                                            <div id="practice-source" class="practice-source" contenteditable="true" spellcheck="false" data-level="1"></div>
-                                        </div>
-                                        <div>
-                                            <h4>Retype it</h4>
-                                            <p class="practice-hint">
-                                                <button type="button" id="practice-erase">Clear</button>
-                                                <span id="practice-accuracy"></span>
-                                            </p>
-                                            <textarea id="practice-input" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Type the code from the left"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="practice-rearrange" hidden>
-                                    <p class="practice-hint">Drag a line, or use the arrows, until the snippet is back in order.</p>
-                                    <button type="button" id="practice-shuffle">Shuffle</button>
-                                    <div id="practice-lines" class="practice-lines"></div>
-                                    <p id="practice-rearrange-status" class="practice-status"></p>
-                                </div>
-                            </section>
                         </div>
                     </div>
 
@@ -667,6 +605,72 @@
     <script src="assets/js/vendors/jquery.highlight-5.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-ui-touch-punch@0.2.3/jquery.ui.touch-punch.min.js"></script>
     <script src="assets/js/diff.js"></script>
+
+    <div id="practice-modal" class="practice-modal" hidden>
+        <section id="practice-panel" class="practice-panel" role="dialog" aria-modal="true" aria-labelledby="practice-title" hidden>
+            <div class="practice-panel__bar">
+                <h3 id="practice-title">Practice this lesson</h3>
+                <div class="practice-modes" role="group" aria-label="Practice mode">
+                    <button type="button" id="practice-mode-retype" class="is-active" aria-pressed="true">Retype</button>
+                    <button type="button" id="practice-mode-rearrange" aria-pressed="false">Rearrange</button>
+                </div>
+                <button type="button" id="practice-close">Close</button>
+            </div>
+            <div class="practice-panel__body">
+                <p class="practice-narrow">
+                    <button type="button" id="practice-narrow-open" aria-expanded="false" aria-controls="practice-scope">Too long to practice? Narrow the scope</button>
+                </p>
+                <p id="practice-scope-status" class="practice-scope-status" hidden></p>
+                <div id="practice-scope" class="practice-scope" hidden>
+                    <div class="practice-scope__choices" role="group" aria-label="Ways to shorten practice">
+                        <button type="button" id="practice-scope-snippets">Code snippets</button>
+                        <button type="button" id="practice-scope-headings">Table of contents</button>
+                        <button type="button" id="practice-scope-highlight">Highlight a passage</button>
+                        <button type="button" id="practice-scope-reset">Reset</button>
+                    </div>
+                    <div id="practice-scope-snippet-list" class="practice-scope__list" hidden></div>
+                    <div id="practice-scope-heading-list" class="practice-scope__list" hidden></div>
+                </div>
+                <p id="practice-empty" class="practice-empty" hidden>This lesson has nothing to practice yet.</p>
+                <div id="practice-retype">
+                    <fieldset class="practice-difficulty">
+                        <legend>Difficulty</legend>
+                        <p id="practice-level-popover" class="practice-level-popover" role="tooltip"></p>
+                        <label title="Highlights matching code as you type"><input type="radio" name="practice-level" value="1" checked> Level <span class="practice-level-key">1</span></label>
+                        <label title="Covers stretches of the code and reveals them briefly"><input type="radio" name="practice-level" value="2"> Level <span class="practice-level-key">2</span></label>
+                        <label title="Covers more of the code for longer"><input type="radio" name="practice-level" value="3"> Level <span class="practice-level-key">3</span></label>
+                        <span class="practice-level-info-wrap">
+                            <button type="button" id="practice-level-info" class="practice-level-info" aria-expanded="false" aria-controls="practice-level-info-popover" aria-label="About difficulty levels">
+                                <i class="fas fa-info-circle" aria-hidden="true"></i>
+                            </button>
+                            <p id="practice-level-info-popover" class="practice-level-info-popover" role="tooltip"></p>
+                        </span>
+                    </fieldset>
+                    <div class="practice-columns">
+                        <div>
+                            <h4>Correct code</h4>
+                            <p class="practice-hint">Edit the sample if you want a shorter passage.</p>
+                            <div id="practice-source" class="practice-source" contenteditable="true" spellcheck="false" data-level="1"></div>
+                        </div>
+                        <div>
+                            <h4>Retype it</h4>
+                            <p class="practice-hint">
+                                <button type="button" id="practice-erase">Clear</button>
+                                <span id="practice-accuracy"></span>
+                            </p>
+                            <textarea id="practice-input" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Type the code from the left"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div id="practice-rearrange" hidden>
+                    <p class="practice-hint">Drag a line, or use the arrows, until the snippet is back in order.</p>
+                    <button type="button" id="practice-shuffle">Shuffle</button>
+                    <div id="practice-lines" class="practice-lines"></div>
+                    <p id="practice-rearrange-status" class="practice-status"></p>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <div id="practice-highlight-modal" class="practice-highlight-modal" hidden>
         <div class="practice-highlight-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="practice-highlight-title">
