@@ -327,6 +327,12 @@
                                         <label title="Highlights matching code as you type"><input type="radio" name="practice-level" value="1" checked> Level <span class="practice-level-key">1</span></label>
                                         <label title="Covers stretches of the code and reveals them briefly"><input type="radio" name="practice-level" value="2"> Level <span class="practice-level-key">2</span></label>
                                         <label title="Covers more of the code for longer"><input type="radio" name="practice-level" value="3"> Level <span class="practice-level-key">3</span></label>
+                                        <span class="practice-level-info-wrap">
+                                            <button type="button" id="practice-level-info" class="practice-level-info" aria-expanded="false" aria-controls="practice-level-info-popover" aria-label="About difficulty levels">
+                                                <i class="fas fa-info-circle" aria-hidden="true"></i>
+                                            </button>
+                                            <p id="practice-level-info-popover" class="practice-level-info-popover" role="tooltip"></p>
+                                        </span>
                                     </fieldset>
                                     <div class="practice-columns">
                                         <div>

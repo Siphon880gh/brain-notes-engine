@@ -328,6 +328,54 @@ body.practice-mod-held .practice-level-key {
   font-weight: 700;
 }
 
+.practice-level-info-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.practice-level-info {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: #64748b;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.practice-level-info:hover,
+.practice-level-info[aria-expanded="true"] {
+  color: #0f172a;
+}
+
+.practice-level-info-popover {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: calc(100% + 6px);
+  z-index: 6;
+  margin: 0;
+  width: max-content;
+  max-width: 280px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: #0f172a;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: normal;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.practice-level-info-wrap:hover .practice-level-info-popover,
+.practice-level-info-wrap:focus-within .practice-level-info-popover,
+.practice-level-info-wrap.is-open .practice-level-info-popover {
+  display: block;
+}
+
 .practice-difficulty legend {
   padding: 0;
   font-size: 13px;
@@ -485,9 +533,19 @@ html[data-mode="night"] #practice-narrow-open {
   color: #93c5fd;
 }
 
-html[data-mode="night"] .practice-level-popover {
+html[data-mode="night"] .practice-level-popover,
+html[data-mode="night"] .practice-level-info-popover {
   background: #e2e8f0;
   color: #0f172a;
+}
+
+html[data-mode="night"] .practice-level-info {
+  color: #94a3b8;
+}
+
+html[data-mode="night"] .practice-level-info:hover,
+html[data-mode="night"] .practice-level-info[aria-expanded="true"] {
+  color: #e2e8f0;
 }
 
 html[data-mode="night"] .practice-scope__choices button,

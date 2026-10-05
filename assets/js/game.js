@@ -548,14 +548,41 @@
         if (event.target.closest("a")) event.preventDefault();
     });
     document.addEventListener("selectionchange", refreshHighlightButton);
-    const levelModLabel = /Mac|iPhone|iPad/.test(navigator.platform) ? "⌥" : "Alt+";
+    const isApple = /Mac|iPhone|iPad/.test(navigator.platform);
+    const levelModLabel = isApple ? "⇧⌥" : "Alt+";
     const levelPopover = document.getElementById("practice-level-popover");
     if (levelPopover) {
         levelPopover.textContent = levelModLabel + "1 Level 1 · " + levelModLabel + "2 Level 2 · " + levelModLabel + "3 Level 3";
     }
+    const levelInfoPopover = document.getElementById("practice-level-info-popover");
+    if (levelInfoPopover) {
+        levelInfoPopover.textContent = isApple
+            ? "Level 1, Level 2, and Level 3 increase in difficulty. Hold OPT to show the shortcut key. Level 1 on Mac is Shift+Opt+1, Level 2 is Shift+Opt+2, and Level 3 is Shift+Opt+3."
+            : "Level 1, Level 2, and Level 3 increase in difficulty. Hold Alt to show the shortcut key. Level 1 is Alt+1, Level 2 is Alt+2, and Level 3 is Alt+3.";
+    }
+    const levelInfoBtn = document.getElementById("practice-level-info");
+    const levelInfoWrap = levelInfoBtn ? levelInfoBtn.parentElement : null;
+    if (levelInfoBtn && levelInfoWrap) {
+        const setLevelInfoOpen = (open) => {
+            levelInfoWrap.classList.toggle("is-open", open);
+            levelInfoBtn.setAttribute("aria-expanded", open ? "true" : "false");
+        };
+        levelInfoBtn.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            setLevelInfoOpen(!levelInfoWrap.classList.contains("is-open"));
+        });
+        document.addEventListener("pointerdown", (event) => {
+            if (levelInfoWrap.contains(event.target)) return;
+            setLevelInfoOpen(false);
+        });
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") setLevelInfoOpen(false);
+        });
+    }
     document.querySelectorAll('input[name="practice-level"]').forEach((input) => {
         const keyName = levelModLabel + input.value;
-        input.parentElement.setAttribute("aria-keyshortcuts", "Alt+" + input.value);
+        input.parentElement.setAttribute("aria-keyshortcuts", (isApple ? "Shift+" : "") + "Alt+" + input.value);
         const title = input.parentElement.getAttribute("title") || "";
         if (title && title.indexOf(keyName) === -1) input.parentElement.setAttribute("title", title + " (" + keyName + ")");
     });
