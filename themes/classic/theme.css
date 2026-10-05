@@ -221,6 +221,8 @@ html[data-theme="classic"] #explorer {
   box-sizing: border-box;
   width: 100%;
   max-width: 100%;
+  height: auto;
+  overflow: visible;
   background: #fff;
   border-radius: 0 0 1rem 1rem;
   box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
