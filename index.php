@@ -15,54 +15,58 @@
   $DEFAULT_THUMBNAIL_SIZE = "90x90"; // height x width
   $warningSearchWillFail_Arr = [];
 
-  // Theme gallery: config.json "theme" must be an id listed in themes/manifest.json
-  // and must have themes/<id>/theme.css. Unknown ids fall back to classic.
-  $brainTheme = [
-    'id' => 'classic',
-    'default' => 'classic',
-  ];
-  $themeAllow = [];
-  $themeManifestFile = __DIR__ . '/themes/manifest.json';
-  if (is_readable($themeManifestFile)) {
-    $themeManifest = json_decode(file_get_contents($themeManifestFile), true);
-    if (is_array($themeManifest)) {
-      if (!empty($themeManifest['default']) && is_string($themeManifest['default'])) {
-        $brainTheme['default'] = $themeManifest['default'];
-        $brainTheme['id'] = $themeManifest['default'];
+  // UI theme gallery (themes/). Selected via env/config.json "theme".
+  // That file is copied from env/templates-* by npm run build-*.
+  // "showThemeSwitcher": true adds a top-right theme control.
+  // "showNightDaySwitcher": true adds a Day/Night control beside it.
+  $allowedThemes = ['generic', 'soft-cards', 'terminal', 'classic', '3d-games', 'business', 'health'];
+  $themeId = 'generic';
+  $showThemeSwitcher = false;
+  $showNightDaySwitcher = false;
+  $themeCatalog = [];
+  $cfg = null;
+  $configPath = __DIR__ . '/env/config.json';
+  if (is_readable($configPath)) {
+      $cfg = json_decode(file_get_contents($configPath), true);
+      if (is_array($cfg) && !empty($cfg['theme']) && in_array($cfg['theme'], $allowedThemes, true)) {
+          $themeId = $cfg['theme'];
       }
-      foreach (($themeManifest['themes'] ?? []) as $themeEntry) {
-        if (!is_array($themeEntry) || empty($themeEntry['id']) || !is_string($themeEntry['id'])) {
-          continue;
-        }
-        $themeId = $themeEntry['id'];
-        if (!preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $themeId)) {
-          continue;
-        }
-        if (is_file(__DIR__ . '/themes/' . $themeId . '/theme.css')) {
-          $themeAllow[$themeId] = true;
-        }
+      if (is_array($cfg) && isset($cfg['showThemeSwitcher']) && $cfg['showThemeSwitcher'] === true) {
+          $showThemeSwitcher = true;
       }
-    }
+      if (is_array($cfg) && isset($cfg['showNightDaySwitcher']) && $cfg['showNightDaySwitcher'] === true) {
+          $showNightDaySwitcher = true;
+      }
   }
-  $appConfigFile = __DIR__ . '/config.json';
-  if (is_readable($appConfigFile)) {
-    $appConfig = json_decode(file_get_contents($appConfigFile), true);
-    if (is_array($appConfig) && isset($appConfig['theme']) && is_string($appConfig['theme']) && isset($themeAllow[$appConfig['theme']])) {
-      $brainTheme['id'] = $appConfig['theme'];
-    }
+  $manifestPath = __DIR__ . '/themes/manifest.json';
+  if (is_readable($manifestPath)) {
+      $manifest = json_decode(file_get_contents($manifestPath), true);
+      if (is_array($manifest) && !empty($manifest['themes']) && is_array($manifest['themes'])) {
+          foreach ($manifest['themes'] as $themeMeta) {
+              if (!is_array($themeMeta) || empty($themeMeta['id']) || !in_array($themeMeta['id'], $allowedThemes, true)) {
+                  continue;
+              }
+              $themeCatalog[] = [
+                  'id' => $themeMeta['id'],
+                  'name' => !empty($themeMeta['name']) ? $themeMeta['name'] : $themeMeta['id'],
+              ];
+          }
+      }
   }
-  if (!isset($themeAllow[$brainTheme['id']])) {
-    if (isset($themeAllow[$brainTheme['default']])) {
-      $brainTheme['id'] = $brainTheme['default'];
-    } elseif (isset($themeAllow['classic'])) {
-      $brainTheme['id'] = 'classic';
-    } else {
-      $themeIds = array_keys($themeAllow);
-      $brainTheme['id'] = $themeIds[0] ?? 'classic';
-    }
+  if (!$themeCatalog) {
+      foreach ($allowedThemes as $allowedId) {
+          $themeCatalog[] = ['id' => $allowedId, 'name' => $allowedId];
+      }
   }
+  $themeCssPath = 'themes/' . $themeId . '/theme.css';
+  $themeConfigJson = json_encode([
+      'showSwitcher' => $showThemeSwitcher,
+      'showNightDaySwitcher' => $showNightDaySwitcher,
+      'themes' => $themeCatalog,
+      'allowed' => $allowedThemes,
+  ], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE);
 ?><!DOCTYPE html>
-<html lang="en" data-theme="<?php echo htmlspecialchars($brainTheme['id'], ENT_QUOTES, 'UTF-8'); ?>">
+<html lang="en" data-theme="<?php echo htmlspecialchars($themeId, ENT_QUOTES, 'UTF-8'); ?>" data-mode="day">
 
 <head>
     <title><?php include 'env/title-long.php'; ?></title>
@@ -72,6 +76,30 @@
 
     <!-- CSS Assets -->
     <link href="assets/css/index.css" rel="stylesheet">
+    <link id="theme-css" href="<?php echo htmlspecialchars($themeCssPath, ENT_QUOTES, 'UTF-8'); ?>" rel="stylesheet">
+    <script>
+    window.DevBrainThemeConfig = <?php echo $themeConfigJson; ?>;
+    (function () {
+      var cfg = window.DevBrainThemeConfig;
+      if (!cfg) return;
+      try {
+        if (cfg.showSwitcher) {
+          var saved = localStorage.getItem('devbrain-theme');
+          if (saved && cfg.allowed.indexOf(saved) !== -1 && saved !== document.documentElement.getAttribute('data-theme')) {
+            document.documentElement.setAttribute('data-theme', saved);
+            var link = document.getElementById('theme-css');
+            if (link) link.href = 'themes/' + saved + '/theme.css';
+          }
+        }
+        if (cfg.showNightDaySwitcher) {
+          var mode = localStorage.getItem('devbrain-color-mode');
+          if (mode === 'night' || mode === 'day') {
+            document.documentElement.setAttribute('data-mode', mode);
+          }
+        }
+      } catch (e) {}
+    })();
+    </script>
     <link href="assets/css/modal.css" rel="stylesheet">
     <link href="assets/css/mindmap.css" rel="stylesheet">
     <link href="assets/css/link-popover.css" rel="stylesheet">
@@ -132,21 +160,28 @@
     }
 
     // Set URLs to JavaScript variables in HTML
+    $themeJson = json_encode($themeId);
+    $showThemeSwitcherJson = $showThemeSwitcher ? 'true' : 'false';
+    $showNightDaySwitcherJson = $showNightDaySwitcher ? 'true' : 'false';
     echo "<script>
         window.commitsURL = '{$commitsURL}';
         window.openURL = '{$openURL}';
         window.dirSnippets = '{$DIR_SNIPPETS}';
-    </script>";
+    </script>
+    <script>
+        window.config = window.config || {};
+        window.config.theme = {$themeJson};
+        window.config.showThemeSwitcher = {$showThemeSwitcherJson};
+        window.config.showNightDaySwitcher = {$showNightDaySwitcherJson};
+    </script>
+";
     ?>
 
-    <link rel="stylesheet" href="assets/css/theme-layout.css">
-    <link rel="stylesheet" href="themes/base.css">
-    <link rel="stylesheet" href="themes/<?php echo htmlspecialchars($brainTheme['id'], ENT_QUOTES, 'UTF-8'); ?>/theme.css">
 </head>
 
 <body>
-    <div class="promo-banner" onmouseleave="setTimeout(()=> { this.style.height='0'; this.style.padding='0'; }, 2000);">
-        <button type="button" class="promo-banner__close" aria-label="Dismiss announcement" onclick="this.parentElement.remove();">×</button>
+    <div class="hire-banner bg-yellow-300 w-full py-2 text-center opacity-80 relative" onmouseleave="setTimeout(()=> { this.style.height=0; this.style.padding=0; }, 2000);" style="transition: height 2s;">
+        <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 bg-transparent text-2xl opacity-60" aria-label="Dismiss announcement" onclick="this.parentElement.remove();">×</button>
         View Weng's work or hire him → <a target="_blank" href="https://wengindustries.com" class="text-blue-500 underline font-semibold">WengIndustries.com</a>
     </div>
     
@@ -253,7 +288,7 @@
                 <div class="sides">
 
                     <div id="side-a" class="card-body side-by-side-possible mb-4 hidden">
-                        <div class="summary-sticky-bar">
+                        <div style="position: sticky; top: 0; left: 0; transform: translateX(-25px); z-index: 1;">
                             <h2 id="summary-title-wrapper" class="inline cursor-pointer">
                                 <div id="summary-title-inner" class="flex flex-row items-center justify-start gap-4 my-2 bg-white shadow-md border-b border-gray-200 z-10 rounded-tr-lg rounded-br-lg p-1.5">
                                     <span id="summary-collapser">»</span>
@@ -302,7 +337,7 @@
                                                 <i class="fa fa-search"></i> Titles
                                             </button>
 
-                                            <button id="searcher-btn-contents" class="override-ios-button-style cursor-pointer">
+                                            <button id="searcher-btn-contents" class="override-ios-button-style cursor-pointer" title="Searches inside notes. Limited to 5 a day.">
                                                 <i class="fa fa-search"></i> Contents
                                             </button>
                                             
@@ -328,6 +363,7 @@
 
                                 <div id="search-results" style="display:none;">
                                 <h2>Search Results</h2>
+                                <p id="search-content-quota" class="hidden"></p>
                                 <div class="contents"></div>
                                 </div>
 
@@ -564,9 +600,6 @@
             window.config = {};
         }
         window.config.imgHostedUrl = data.imgHostedUrl;
-        if (typeof data.theme === "string") {
-            window.config.theme = data.theme;
-        }
     });
     </script>
     <script src="assets/js/modal.js"></script>
@@ -574,13 +607,13 @@
     <script src="assets/js/private-auth.js"></script>
     <script src="assets/js/note-opener.js"></script>
     <script src="assets/js/mindmap.js"></script>
+    <script src="assets/js/theme-enhancer.js"></script>
     <script src="assets/js/index.js"></script>
     <script src="assets/js/searchers.js"></script>
     <script src="assets/js/link-popover.js"></script>
     <!-- <script src="assets/js/game.js"></script> -->
 
     <script src="./assets/js/image-modal.js"></script>
-    <script src="assets/js/theme-enhancer.js"></script>
 </body>
 
 </html>

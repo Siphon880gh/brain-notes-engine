@@ -37,3 +37,6 @@ env/all/pcregrep.php
 
 # Rate-limit counter files (one JSON per IP hash). See README - Throttle Note Requests.md.
 temp/throttle/
+
+# Per-IP daily counters for note content search (search.php).
+temp/search-content-quota/

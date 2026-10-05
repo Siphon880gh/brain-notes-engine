@@ -1,25 +1,24 @@
 {
-  "default": "classic",
   "themes": [
-    {
-      "id": "classic",
-      "name": "Classic",
-      "description": "Original Developer Brain light theme with indigo actions and a yellow announcement bar."
-    },
     {
       "id": "generic",
       "name": "Generic",
-      "description": "Neutral system chrome with gray surfaces and a single blue accent."
+      "description": "The original Developer Brain homepage look (pre-gallery baseline)."
     },
     {
       "id": "soft-cards",
       "name": "Soft Cards",
-      "description": "Rounded pastel cards, soft shadows, and generous reading surfaces."
+      "description": "Dark blue hire banner, three-circle logo, pastel category cards, floating pill nav."
     },
     {
       "id": "terminal",
       "name": "Terminal",
-      "description": "Dark monospace console with phosphor green type and sharp edges."
+      "description": "Monospaced ~/developer-brain header, teal accents, green git badge, numbered categories, terminal search."
+    },
+    {
+      "id": "classic",
+      "name": "Classic",
+      "description": "Pale yellow hire bar, DB logo, orange key, blue-bordered search, featured lesson card, chevron topic rows, gradient See topics bar."
     },
     {
       "id": "3d-games",
@@ -36,5 +35,6 @@
       "name": "Health & Wellness",
       "description": "Clinic palette of green, teal, white, and calm blue with a heart, pulse, leaf, and plus."
     }
-  ]
+  ],
+  "default": "classic"
 }

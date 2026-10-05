@@ -29,7 +29,8 @@ var addonSearch = {
             document.getElementById("searcher-btn-titles").addEventListener("click", ()=>{
                 this.searchAllTitles({
                     searchText: document.getElementById('searcher-input').value, 
-                    jumpTo: true, 
+                    jumpTo: true,
+                    recommendContent: true,
                     callback: ()=> { 
                         /* Show search results button at bottom right */
                         document.getElementById('shareSnippet').value = (window.location.host + window.location.pathname).replaceAll('explorer.php', '') + `?search-titles=${encodeURI(document.getElementById('searcher-input').value)}`;
@@ -37,6 +38,18 @@ var addonSearch = {
                     }
                 });
             }); // searcher-btn-titles
+
+            document.getElementById("searcher-input").addEventListener("keydown", function(event) {
+                if (event.key !== "Enter" || event.isComposing) return;
+                event.preventDefault();
+                setTimeout(function() {
+                    var $input = window.jQuery && jQuery("#searcher-input");
+                    if ($input && $input.autocomplete("instance")) {
+                        $input.autocomplete("close");
+                    }
+                    document.getElementById("searcher-btn-titles").click();
+                }, 0);
+            });
             
             document.getElementById("searcher-btn-contents").addEventListener("click", ()=>{
                 this.searchAllContents(document.getElementById('searcher-input').value);
@@ -85,20 +98,32 @@ var addonSearch = {
             if (query.length === 0) return;
             
             $div = $("#search-results .contents");
-            fetch("search.php?search=" + query)
-            .then(response => response.text())
-            .then(greps => {
+            fetch("search.php?search=" + encodeURIComponent(query))
+            .then(response => response.text().then(text => ({ status: response.status, text: text })))
+            .then(({ status, text }) => {
+                var payload;
                 try {
-                    greps = JSON.parse(greps); // grep results array
+                    payload = JSON.parse(text);
                 } catch (err) {
-                    if (greps.length === 0) {
+                    if (text.length === 0) {
                         alert("No results found for: " + originalQuery);
                         return;
                     }
                     console.error(err);
-                    console.log({ greps });
+                    console.log({ greps: text });
+                    return;
                 }
-                greps = greps["res"];
+
+                if (payload.error === "content_search_limit" || status === 429) {
+                    alert(payload.message || "Note content search is limited to 5 times a day so this free search stays available for everyone. Please try again tomorrow.");
+                    return;
+                }
+
+                var greps = payload["res"];
+                if (!Array.isArray(greps)) {
+                    alert("No results found for: " + originalQuery);
+                    return;
+                }
                 console.log(greps);
                 
                 // Reset
@@ -164,6 +189,12 @@ var addonSearch = {
                         })(value);
                         
                         
+                        var quotaNote = document.getElementById("search-content-quota");
+                        if (quotaNote && typeof payload.remaining === "number") {
+                            quotaNote.textContent = "Content searches left today: " + payload.remaining + " of " + payload.limit + ".";
+                            quotaNote.classList.remove("hidden");
+                        }
+
                         document.getElementById("search-results").style.display = "block";
                         
                         // Scroll to bottom where search results are
@@ -172,12 +203,12 @@ var addonSearch = {
                     });
                 }, // searchAllContents
                 
-                searchAllTitles: function({ searchText, jumpTo = false, callback }) {
+                searchAllTitles: function({ searchText, jumpTo = false, callback, recommendContent = false }) {
                     if (searchText.length === 0) {
                         alert("Error: Nothing typed!");
                         return false;
                     }
-                    const finalJumpTo = scrollToRow(searchText, callback);
+                    const finalJumpTo = scrollToRow(searchText, callback, recommendContent);
                     
                     if (jumpTo) {
                         setTimeout(() => {
@@ -373,7 +404,18 @@ var addonSearch = {
         
         addonSearch.init();
         
-        function scrollToRow(partial, callback = false) {
+        function recommendContentSearch(query) {
+            var offer = confirm(
+                "No document found for \"" + query + "\".\n\n" +
+                "Search note content instead?\n\n" +
+                "Note content search is limited to 5 times a day so this free search stays available for everyone."
+            );
+            if (offer) {
+                addonSearch.setupSearchControls.searchAllContents(query);
+            }
+        }
+
+        function scrollToRow(partial, callback = false, recommendContent = false) {
             let finalJumpTo = null;
             const foundFiles = document.querySelectorAll(".name.is-file");
 
@@ -391,7 +433,15 @@ var addonSearch = {
     });
 
     if (!finalJumpTo) {
-        alert("The search returned blank:\n" + partial);
+        if (recommendContent) {
+            if (foundFiles.length === 0) {
+                alert("Notes are still loading. Try the title search again in a moment.");
+            } else {
+                recommendContentSearch(partial);
+            }
+        } else {
+            alert("The search returned blank:\n" + partial);
+        }
         return false;
     }
 

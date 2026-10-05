@@ -1,3 +1,5 @@
+@import "../base.css";
+
 html[data-theme="business"] {
   --theme-bg: #f3f5f8;
   --theme-fg: #1b2430;
@@ -86,13 +88,23 @@ html[data-theme="business"] #title {
   padding-left: 1.2em;
 }
 
-html[data-theme="business"] .promo-banner {
+html[data-theme="business"] .hire-banner {
+  opacity: 1;
+  color: var(--theme-banner-fg);
   background-color: var(--theme-banner-bg);
   background-image: url("assets/chart.svg");
   background-repeat: no-repeat;
   background-position: 0.65rem center;
   background-size: 22px 22px;
   border-bottom: 3px solid #c6a15a;
+}
+
+html[data-theme="business"] .hire-banner a {
+  color: var(--theme-banner-link);
+}
+
+html[data-theme="business"] .hire-banner button {
+  color: inherit;
 }
 
 html[data-theme="business"] .card {

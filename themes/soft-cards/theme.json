@@ -1,6 +1,5 @@
 {
   "id": "soft-cards",
   "name": "Soft Cards",
-  "description": "Rounded pastel cards, soft shadows, and generous reading surfaces.",
-  "version": "1.0.0"
+  "description": "Pastel cards + dark hire banner + floating pill nav."
 }

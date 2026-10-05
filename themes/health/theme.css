@@ -1,3 +1,5 @@
+@import "../base.css";
+
 html[data-theme="health"] {
   --theme-bg: #f4fbf8;
   --theme-fg: #14332e;
@@ -86,13 +88,23 @@ html[data-theme="health"] #title {
   padding-left: 1.2em;
 }
 
-html[data-theme="health"] .promo-banner {
+html[data-theme="health"] .hire-banner {
+  opacity: 1;
+  color: var(--theme-banner-fg);
   background-color: var(--theme-banner-bg);
   background-image: url("assets/heart.svg"), url("assets/pulse.svg");
   background-repeat: no-repeat, repeat-x;
   background-position: 0.7rem center, left bottom;
   background-size: 18px 18px, 140px 14px;
   border-bottom: 2px solid #9fd9d0;
+}
+
+html[data-theme="health"] .hire-banner a {
+  color: var(--theme-banner-link);
+}
+
+html[data-theme="health"] .hire-banner button {
+  color: inherit;
 }
 
 html[data-theme="health"] .bottom-btn,

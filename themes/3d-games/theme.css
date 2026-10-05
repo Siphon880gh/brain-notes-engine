@@ -1,3 +1,5 @@
+@import "../base.css";
+
 html[data-theme="3d-games"] {
   --theme-bg: #14181c;
   --theme-fg: #e7f2f8;
@@ -79,13 +81,23 @@ html[data-theme="3d-games"] #title {
   padding-left: 1.25em;
 }
 
-html[data-theme="3d-games"] .promo-banner {
+html[data-theme="3d-games"] .hire-banner {
+  opacity: 1;
+  color: var(--theme-banner-fg);
   background-color: var(--theme-banner-bg);
   background-image: url("assets/controller.svg"), linear-gradient(90deg, rgba(255, 138, 30, 0.2), rgba(62, 224, 255, 0.08) 28%, transparent 60%);
   background-repeat: no-repeat, no-repeat;
   background-position: 0.7rem center, left center;
   background-size: 22px 22px, 100% 100%;
   border-bottom: 2px solid #ff8a1e;
+}
+
+html[data-theme="3d-games"] .hire-banner a {
+  color: var(--theme-banner-link);
+}
+
+html[data-theme="3d-games"] .hire-banner button {
+  color: inherit;
 }
 
 html[data-theme="3d-games"] .card {

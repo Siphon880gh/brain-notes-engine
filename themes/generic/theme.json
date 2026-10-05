@@ -1,6 +1,5 @@
 {
   "id": "generic",
   "name": "Generic",
-  "description": "Neutral system chrome with gray surfaces and a single blue accent.",
-  "version": "1.0.0"
+  "description": "Original homepage look extracted as the baseline theme."
 }

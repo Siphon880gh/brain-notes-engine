@@ -50,12 +50,15 @@ html[data-theme] .clickable:hover {
   color: var(--theme-fg);
 }
 
-html[data-theme] .promo-banner {
+html[data-theme] .promo-banner,
+html[data-theme] .hire-banner {
   background: var(--theme-banner-bg);
   color: var(--theme-banner-fg);
+  opacity: 1;
 }
 
-html[data-theme] .promo-banner a {
+html[data-theme] .promo-banner a,
+html[data-theme] .hire-banner a {
   color: var(--theme-banner-link);
 }
 
