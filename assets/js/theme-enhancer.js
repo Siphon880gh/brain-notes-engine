@@ -287,10 +287,34 @@
     mountColorSwitcher(bar);
   }
 
+  function ensureCornerCluster() {
+    const toc = document.getElementById('toc-toggler');
+    if (!toc) return;
+    let cluster = document.getElementById('corner-controls');
+    const key = document.getElementById('private-auth-btn');
+
+    if (themeId() !== 'classic' && themeId() !== 'soft-cards') {
+      if (!cluster) return;
+      const parent = cluster.parentNode;
+      while (cluster.firstChild) parent.insertBefore(cluster.firstChild, cluster);
+      cluster.remove();
+      return;
+    }
+
+    if (!cluster) {
+      cluster = document.createElement('div');
+      cluster.id = 'corner-controls';
+      toc.parentNode.insertBefore(cluster, toc);
+    }
+    if (key && key.parentNode !== cluster) cluster.insertBefore(key, cluster.firstChild);
+    if (toc.parentNode !== cluster) cluster.appendChild(toc);
+  }
+
   function apply() {
     ensureLogo();
     ensurePathLabel();
     ensureHireFooter();
+    ensureCornerCluster();
     numberSectionDividers();
     tweakSearchPlaceholder();
   }
@@ -319,6 +343,9 @@
   }
 
   mountControls();
+
+  if (window.__topicsReady) ensureCornerCluster();
+  else document.addEventListener('topics-ready', ensureCornerCluster);
 
   window.DevBrainTheme = { apply: apply, themeId: themeId, setTheme: setTheme, setColorMode: setColorMode, colorMode: colorMode };
 })();

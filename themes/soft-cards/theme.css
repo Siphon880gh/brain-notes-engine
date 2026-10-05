@@ -90,6 +90,40 @@ html[data-theme="soft-cards"] .private-auth-button {
   top: 64px;
 }
 
+/* Key + table of contents, tucked together until the pointer is over the pair. */
+html[data-theme="soft-cards"] #corner-controls {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  width: 50px;
+  height: 0;
+  z-index: 1000;
+  pointer-events: none;
+}
+html[data-theme="soft-cards"] #corner-controls:has(.toc-button.filled) {
+  height: 124px;
+  pointer-events: auto;
+}
+html[data-theme="soft-cards"] #corner-controls .private-auth-button,
+html[data-theme="soft-cards"] #corner-controls .toc-button {
+  position: absolute;
+  right: 0;
+  pointer-events: auto;
+  transition: top 0.55s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+html[data-theme="soft-cards"] #corner-controls .private-auth-button {
+  top: 46px;
+}
+html[data-theme="soft-cards"] #corner-controls .toc-button {
+  top: 14px;
+}
+html[data-theme="soft-cards"] #corner-controls:has(.toc-button.filled):hover .toc-button {
+  top: 0;
+}
+html[data-theme="soft-cards"] #corner-controls:has(.toc-button.filled):hover .private-auth-button {
+  top: 74px;
+}
+
 /* Soft card shell around explore */
 html[data-theme="soft-cards"] .card.card-primary {
   background: transparent;

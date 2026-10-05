@@ -139,6 +139,40 @@ html[data-theme="classic"] .private-auth-button {
   height: 52px;
 }
 
+/* Key + table of contents, tucked together until the pointer is over the pair. */
+html[data-theme="classic"] #corner-controls {
+  position: fixed;
+  top: 12px;
+  right: 18px;
+  width: 52px;
+  height: 0;
+  z-index: 1000;
+  pointer-events: none;
+}
+html[data-theme="classic"] #corner-controls:has(.toc-button.filled) {
+  height: 126px;
+  pointer-events: auto;
+}
+html[data-theme="classic"] #corner-controls .private-auth-button,
+html[data-theme="classic"] #corner-controls .toc-button {
+  position: absolute;
+  right: 0;
+  pointer-events: auto;
+  transition: top 0.55s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+html[data-theme="classic"] #corner-controls .private-auth-button {
+  top: 46px;
+}
+html[data-theme="classic"] #corner-controls .toc-button {
+  top: 14px;
+}
+html[data-theme="classic"] #corner-controls:has(.toc-button.filled):hover .toc-button {
+  top: 0;
+}
+html[data-theme="classic"] #corner-controls:has(.toc-button.filled):hover .private-auth-button {
+  top: 74px;
+}
+
 /* Featured lesson card */
 html[data-theme="classic"] .card.card-primary {
   background: transparent;
