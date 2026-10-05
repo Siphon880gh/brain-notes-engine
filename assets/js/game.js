@@ -37,6 +37,7 @@
         scopeLabel: "",
         sourceText: "",
         retypeCursor: null,
+        retypeCaretKnown: false,
         mode: "retype",
         level: "1",
         fogTimer: null,
@@ -355,6 +356,7 @@
         if (resetTyping) {
             inputEl.value = "";
             state.retypeCursor = null;
+            state.retypeCaretKnown = false;
             resizeInput();
             setAccuracy("");
         }
@@ -567,18 +569,30 @@
             start: inputEl.selectionStart,
             end: inputEl.selectionEnd
         };
+        state.retypeCaretKnown = true;
+    }
+
+    function rememberRetypeCaret() {
+        if (document.activeElement !== inputEl && !state.retypeCaretKnown) return;
+        saveRetypeCursor();
     }
 
     function restoreRetypeCursor() {
         const place = () => {
+            if (retypeEl.hidden) return;
             const length = inputEl.value.length;
             const saved = state.retypeCursor;
             const start = saved ? Math.min(saved.start, length) : length;
             const end = saved ? Math.min(saved.end, length) : length;
-            inputEl.focus();
+            inputEl.focus({ preventScroll: true });
             inputEl.setSelectionRange(start, end);
         };
         place();
+        queueMicrotask(place);
+        requestAnimationFrame(() => {
+            place();
+            requestAnimationFrame(place);
+        });
         setTimeout(place, 0);
     }
 
@@ -619,7 +633,7 @@
         if (foreignField) return;
         event.preventDefault();
         event.stopPropagation();
-        if (document.activeElement === inputEl) saveRetypeCursor();
+        rememberRetypeCaret();
         applyLevel(level);
     }, true);
 
@@ -634,21 +648,34 @@
             applyLevel(input.value);
         });
     });
-    document.querySelector(".practice-difficulty").addEventListener("mousedown", (event) => {
+    const difficultyEl = document.querySelector(".practice-difficulty");
+    document.addEventListener("pointerdown", (event) => {
+        if (!event.target.closest || !event.target.closest(".practice-difficulty")) return;
+        rememberRetypeCaret();
+    }, true);
+    difficultyEl.addEventListener("click", (event) => {
         const label = event.target.closest("label");
         if (!label) return;
-        event.preventDefault();
+        rememberRetypeCaret();
         const input = label.querySelector("input");
         if (!input) return;
-        if (document.activeElement === inputEl) saveRetypeCursor();
         if (!input.checked) input.checked = true;
         applyLevel(input.value);
+    });
+    difficultyEl.addEventListener("focusin", (event) => {
+        if (!event.target.matches || !event.target.matches('input[name="practice-level"]')) return;
+        restoreRetypeCursor();
     });
 
     inputEl.addEventListener("input", saveRetypeCursor);
     inputEl.addEventListener("keyup", saveRetypeCursor);
     inputEl.addEventListener("mouseup", saveRetypeCursor);
-    inputEl.addEventListener("blur", saveRetypeCursor);
+    inputEl.addEventListener("blur", (event) => {
+        const next = event.relatedTarget;
+        if (next && next.closest && next.closest(".practice-difficulty")) return;
+        if (!next) return;
+        saveRetypeCursor();
+    });
 
     sourceEl.addEventListener("input", () => {
         if (state.level === "1") state.sourceText = sourceEl.textContent;
