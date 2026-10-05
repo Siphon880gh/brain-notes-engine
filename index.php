@@ -322,9 +322,10 @@
                                 <div id="practice-retype">
                                     <fieldset class="practice-difficulty">
                                         <legend>Difficulty</legend>
-                                        <label title="Highlights matching code as you type"><input type="radio" name="practice-level" value="1" checked> Level 1</label>
-                                        <label title="Covers stretches of the code and reveals them briefly"><input type="radio" name="practice-level" value="2"> Level 2</label>
-                                        <label title="Covers more of the code for longer"><input type="radio" name="practice-level" value="3"> Level 3</label>
+                                        <p id="practice-level-popover" class="practice-level-popover" role="tooltip"></p>
+                                        <label title="Highlights matching code as you type"><input type="radio" name="practice-level" value="1" checked> Level <span class="practice-level-key">1</span></label>
+                                        <label title="Covers stretches of the code and reveals them briefly"><input type="radio" name="practice-level" value="2"> Level <span class="practice-level-key">2</span></label>
+                                        <label title="Covers more of the code for longer"><input type="radio" name="practice-level" value="3"> Level <span class="practice-level-key">3</span></label>
                                     </fieldset>
                                     <div class="practice-columns">
                                         <div>

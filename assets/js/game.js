@@ -35,6 +35,7 @@
         scopeText: null,
         scopeLabel: "",
         sourceText: "",
+        retypeCursor: null,
         mode: "retype",
         level: "1",
         fogTimer: null,
@@ -350,6 +351,7 @@
         renderSource();
         if (resetTyping) {
             inputEl.value = "";
+            state.retypeCursor = null;
             resizeInput();
             setAccuracy("");
         }
@@ -528,20 +530,109 @@
         if (event.target.closest("a")) event.preventDefault();
     });
     document.addEventListener("selectionchange", refreshHighlightButton);
+    const levelModLabel = /Mac|iPhone|iPad/.test(navigator.platform) ? "⌥" : "Alt+";
+    const levelPopover = document.getElementById("practice-level-popover");
+    if (levelPopover) {
+        levelPopover.textContent = levelModLabel + "1 Level 1 · " + levelModLabel + "2 Level 2 · " + levelModLabel + "3 Level 3";
+    }
+    document.querySelectorAll('input[name="practice-level"]').forEach((input) => {
+        const keyName = levelModLabel + input.value;
+        input.parentElement.setAttribute("aria-keyshortcuts", "Alt+" + input.value);
+        const title = input.parentElement.getAttribute("title") || "";
+        if (title && title.indexOf(keyName) === -1) input.parentElement.setAttribute("title", title + " (" + keyName + ")");
+    });
+
+    function retypeShortcutsActive() {
+        return !panelEl.hidden && !retypeEl.hidden && highlightModalEl.hidden;
+    }
+
+    function saveRetypeCursor() {
+        state.retypeCursor = {
+            start: inputEl.selectionStart,
+            end: inputEl.selectionEnd
+        };
+    }
+
+    function restoreRetypeCursor() {
+        const place = () => {
+            const length = inputEl.value.length;
+            const saved = state.retypeCursor;
+            const start = saved ? Math.min(saved.start, length) : length;
+            const end = saved ? Math.min(saved.end, length) : length;
+            inputEl.focus();
+            inputEl.setSelectionRange(start, end);
+        };
+        place();
+        setTimeout(place, 0);
+    }
+
+    function applyLevel(level) {
+        level = String(level);
+        if (state.level !== level) {
+            state.sourceText = sourceEl.textContent;
+            state.level = level;
+            const input = document.querySelector('input[name="practice-level"][value="' + level + '"]');
+            if (input) input.checked = true;
+            renderSource();
+            if (state.level === "1") highlightTyped();
+            evalDifferences();
+        }
+        restoreRetypeCursor();
+    }
+
+    function setLevelHint(on) {
+        document.body.classList.toggle("practice-mod-held", on && retypeShortcutsActive());
+    }
+
     document.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && highlightModalEl && !highlightModalEl.hidden) closeHighlightModal();
     });
 
+    document.addEventListener("keydown", (event) => {
+        if (!retypeShortcutsActive() || event.metaKey || !event.altKey) return;
+        if (event.key === "Alt") {
+            setLevelHint(true);
+            return;
+        }
+        const levelByCode = { Digit1: "1", Digit2: "2", Digit3: "3", Numpad1: "1", Numpad2: "2", Numpad3: "3" };
+        const level = levelByCode[event.code];
+        if (!level) return;
+        const target = event.target;
+        const inPractice = target === inputEl || (target.closest && target.closest("#practice-panel"));
+        const foreignField = target && target.matches && target.matches("input, textarea, select, [contenteditable='true']") && !inPractice;
+        if (foreignField) return;
+        event.preventDefault();
+        event.stopPropagation();
+        if (document.activeElement === inputEl) saveRetypeCursor();
+        applyLevel(level);
+    }, true);
+
+    document.addEventListener("keyup", (event) => {
+        if (event.key === "Alt" || !event.altKey) setLevelHint(false);
+    });
+    window.addEventListener("blur", () => setLevelHint(false));
+
     document.querySelectorAll('input[name="practice-level"]').forEach((input) => {
         input.addEventListener("change", () => {
             if (!input.checked) return;
-            state.sourceText = sourceEl.textContent;
-            state.level = input.value;
-            renderSource();
-            if (state.level === "1") highlightTyped();
-            evalDifferences();
+            applyLevel(input.value);
         });
     });
+    document.querySelector(".practice-difficulty").addEventListener("mousedown", (event) => {
+        const label = event.target.closest("label");
+        if (!label) return;
+        event.preventDefault();
+        const input = label.querySelector("input");
+        if (!input) return;
+        if (document.activeElement === inputEl) saveRetypeCursor();
+        if (!input.checked) input.checked = true;
+        applyLevel(input.value);
+    });
+
+    inputEl.addEventListener("input", saveRetypeCursor);
+    inputEl.addEventListener("keyup", saveRetypeCursor);
+    inputEl.addEventListener("mouseup", saveRetypeCursor);
+    inputEl.addEventListener("blur", saveRetypeCursor);
 
     sourceEl.addEventListener("input", () => {
         if (state.level === "1") state.sourceText = sourceEl.textContent;
