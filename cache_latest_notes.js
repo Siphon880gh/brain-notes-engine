@@ -92,6 +92,25 @@ function titlesFromLog(raw) {
   return groups;
 }
 
+function git(repo, args) {
+  return execFileSync('git', [
+    '--git-dir', repo.gitDir,
+    '--work-tree', repo.workTree
+  ].concat(args), { encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 });
+}
+
+function recentCommitDays(repo) {
+  const raw = git(repo, ['log', '--pretty=format:%cI', '--', '*.md']);
+  const days = [];
+  raw.split(/\r?\n/).forEach((line) => {
+    const key = line.trim().slice(0, 10);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(key) || days.indexOf(key) !== -1) return;
+    days.push(key);
+    if (days.length >= dayCount) return;
+  });
+  return days.slice(0, dayCount);
+}
+
 function main() {
   const repo = notesRepo();
   if (!repo) {
@@ -100,29 +119,31 @@ function main() {
     process.exit(0);
   }
 
-  const since = new Date(Date.now() - dayCount * 24 * 60 * 60 * 1000).toISOString();
+  let dayKeys = [];
   let raw = '';
   try {
-    raw = execFileSync('git', [
-      '--git-dir', repo.gitDir,
-      '--work-tree', repo.workTree,
-      'log',
-      '--since', since,
-      '--pretty=format:%x1e%cI',
-      '--name-only',
-      '--',
-      '*.md'
-    ], { encoding: 'utf8', maxBuffer: 10 * 1024 * 1024 });
+    dayKeys = recentCommitDays(repo);
+    if (dayKeys.length) {
+      raw = git(repo, [
+        'log',
+        '--since', dayKeys[dayKeys.length - 1],
+        '--pretty=format:%x1e%cI',
+        '--name-only',
+        '--',
+        '*.md'
+      ]);
+    }
   } catch (err) {
     console.error('cache_latest_notes: git log failed for ' + repo.label + '.');
     console.error(err.stderr || err.message);
     process.exit(1);
   }
 
-  const groups = titlesFromLog(raw);
+  const allowed = new Set(dayKeys);
+  const groups = titlesFromLog(raw).filter((group) => allowed.has(group.dateKey)).slice(0, dayCount);
   write(groups, repo.label);
   const count = groups.reduce((sum, group) => sum + group.notes.length, 0);
-  console.log('cache_latest_notes: ' + count + ' notes over the last ' + dayCount + ' days, from ' + repo.label + '.');
+  console.log('cache_latest_notes: ' + count + ' notes across ' + groups.length + ' commit days, from ' + repo.label + '.');
 }
 
 if (require.main === module) {
