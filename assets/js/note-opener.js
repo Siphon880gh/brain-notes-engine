@@ -37,23 +37,82 @@ function shareTutorialSection(trailingHash) {
 }
 
 
-function goToItem() {
-    const noteTitle = document.getElementById("summary-title").textContent;
-    const noteTitleElement = Array.from(document.querySelectorAll('.name.is-file')).find(el => 
-        el.textContent.trim() === noteTitle
-    );
-    const noteLiElement = noteTitleElement.closest("li");
+function noteRowLabel(el) {
+    const clone = el.cloneNode(true);
+    clone.querySelectorAll(".custom-icon, .quiz-pill, .csv-pill").forEach((node) => node.remove());
+    return clone.textContent.replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
+}
 
+function findCurrentNoteRow() {
+    if (window.currentNoteId != null && window.currentNoteId !== "") {
+        const byId = document.querySelector('.name.is-file[data-id="' + String(window.currentNoteId).replace(/"/g, "") + '"]');
+        if (byId) return byId.closest("li");
+    }
+
+    const noteTitle = document.getElementById("summary-title")?.textContent?.trim();
+    if (!noteTitle) return null;
+    const match = Array.from(document.querySelectorAll(".name.is-file")).find((el) => noteRowLabel(el) === noteTitle);
+    return match ? match.closest("li") : null;
+}
+
+let jumpHighlightTimer = null;
+
+function highlightJumpedNote(noteLiElement) {
+    const until = Date.now() + 10000;
+    document.querySelectorAll("#topics-list li.highlight").forEach((el) => {
+        el.classList.remove("highlight");
+        delete el.dataset.jumpHighlightUntil;
+    });
+    noteLiElement.dataset.jumpHighlightUntil = String(until);
     noteLiElement.classList.add("highlight");
-    toOpenUp_Exec(noteLiElement); // Expand li up to root
+    if (jumpHighlightTimer) clearTimeout(jumpHighlightTimer);
+    jumpHighlightTimer = setTimeout(() => {
+        if (noteLiElement.dataset.jumpHighlightUntil !== String(until)) return;
+        noteLiElement.classList.remove("highlight");
+        delete noteLiElement.dataset.jumpHighlightUntil;
+    }, 10000);
+}
 
-    setTimeout(() => {
-        noteLiElement.scrollIntoView({behavior: 'smooth'});
-        setTimeout(() => {
-            window.scrollBy({top: 100, behavior: 'smooth'});
-        }, 500);
-    }, 150);
+function goToItem() {
+    const run = () => {
+        const noteLiElement = findCurrentNoteRow();
+        if (!noteLiElement) return;
+
+        if (typeof toOpenUp_Exec === "function") {
+            toOpenUp_Exec(noteLiElement);
+        }
+
+        highlightJumpedNote(noteLiElement);
+        window.lastClickedNote = noteLiElement;
+
+        requestAnimationFrame(() => {
+            noteLiElement.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+    };
+
+    if (window.__topicsReady) run();
+    else document.addEventListener("topics-ready", run, { once: true });
 } // goToItem
+
+(function () {
+    const jumpBtn = document.getElementById("jump-to-note");
+    if (!jumpBtn) return;
+
+    const revealJumpToNote = () => {
+        jumpBtn.hidden = false;
+    };
+
+    jumpBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        goToItem();
+    });
+
+    document.addEventListener("noteOpened", revealJumpToNote);
+    if (document.getElementById("summary-title")?.textContent.trim()) {
+        revealJumpToNote();
+    }
+})();
 
 
 /**
@@ -671,6 +730,7 @@ function renderCsvAsNote({ csvContent, title, summaryInnerEl }) {
  * 
  */
 function openNote(id) {
+    window.currentNoteId = id;
     fetch("local-open.php?id=" + id)
         .then(response => response.text()).then((yamlTextish) => {
             const titleMatch = yamlTextish.match(/^title:\s*(.*?)\n/);

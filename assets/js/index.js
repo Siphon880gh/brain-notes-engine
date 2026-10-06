@@ -304,7 +304,12 @@ var app = {
         const topicsList = document.getElementById("topics-list");
         if (topicsList) {
             const clearFolderHighlight = () => {
-                topicsList.querySelectorAll(".accordion.meta.highlight").forEach(el => el.classList.remove("highlight"));
+                const now = Date.now();
+                topicsList.querySelectorAll(".accordion.meta.highlight").forEach(el => {
+                    const until = Number(el.dataset.jumpHighlightUntil || 0);
+                    if (until > now) return;
+                    el.classList.remove("highlight");
+                });
             };
             topicsList.addEventListener("click", clearFolderHighlight, true);
             topicsList.addEventListener("mouseenter", clearFolderHighlight, true);

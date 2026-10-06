@@ -310,6 +310,7 @@
                                     <span id="summary-collapser">»</span>
                                     <span id="summary-title" onclick="document.querySelector('#summary-collapser').click();"></span>
                                     <button type="button" id="practice-open" class="practice-open" hidden aria-expanded="false" aria-controls="practice-panel">Practice</button>
+                                    <button type="button" id="jump-to-note" class="practice-open" hidden>Jump to</button>
                                 </div>
                             </h2>
                         </div>
