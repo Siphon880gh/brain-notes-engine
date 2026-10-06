@@ -152,11 +152,41 @@ body {
   border-radius: 3px;
 }
 
+/* Unbroken strings (links, paths, hashes, tokens) stay inside the note column. */
+#summary-inner,
+#summary-title {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+#summary-title-inner {
+  min-width: 0;
+  max-width: 100%;
+}
+
+#summary-inner :where(img, video, svg, canvas, iframe) {
+  max-width: 100%;
+}
+
+#summary-inner .katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+#summary-inner :not(pre) > code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
 /* Code Block Wrapper - contains line numbers and code */
 .code-block-wrapper {
   display: flex;
   position: relative;
-  margin: 10px;
+  margin: 10px 0;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   border-radius: 6px;
   overflow: hidden;
   background-color: #2d2d2d;
@@ -185,9 +215,12 @@ body {
   color: #6e7681;
 }
 
-/* Pre element inside wrapper */
+/* Pre element inside wrapper.
+   min-width: 0 lets a long line scroll inside the block instead of widening the page. */
 .code-block-wrapper pre {
   flex: 1;
+  min-width: 0;
+  max-width: 100%;
   margin: 0 !important;
   padding: 12px 15px !important;
   overflow-x: auto;
@@ -204,9 +237,12 @@ body {
 /* Standalone pre elements (not wrapped yet or in other contexts) */
 #summary-inner pre:not(.code-block-wrapper pre) {
   white-space: break-spaces;
+  overflow-wrap: anywhere;
   color: white;
   background-color: #2d2d2d;
-  margin: 10px;
+  margin: 10px 0;
+  max-width: 100%;
+  box-sizing: border-box;
   padding: 12px 15px;
   border-radius: 6px;
 }
@@ -279,11 +315,13 @@ body {
 }
 #summary-inner .img-wrapper .responsive-iframe-container.state-1 iframe {
   width: 80vh;
+  max-width: 100%;
   height: 80vh;
 }
 
 #summary-inner .img-wrapper .responsive-iframe-container.state-2 iframe {
   width: 65vh;
+  max-width: 100%;
   height: 65vh;
 }
 
@@ -1394,6 +1432,23 @@ td {
 
 th {
   background-color: #f4f4f4;
+}
+
+/* Markdown tables grow to their longest cell. Fit the note and wrap cell text.
+   CSV views already scroll on their own wrapper. */
+#summary-inner table:not(.csv-table) {
+  width: 100%;
+  max-width: 100%;
+  table-layout: fixed;
+}
+
+#summary-inner th,
+#summary-inner td {
+  overflow-wrap: anywhere;
+}
+
+#summary-inner .csv-data-view {
+  max-width: 100%;
 }
 
 tr:nth-child(even) {
