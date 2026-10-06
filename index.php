@@ -23,6 +23,7 @@
   $themeId = 'generic';
   $showThemeSwitcher = false;
   $showNightDaySwitcher = false;
+  $checkoutLatestNotes = false;
   $themeCatalog = [];
   $cfg = null;
   $configPath = __DIR__ . '/env/config.json';
@@ -36,6 +37,9 @@
       }
       if (is_array($cfg) && isset($cfg['showNightDaySwitcher']) && $cfg['showNightDaySwitcher'] === true) {
           $showNightDaySwitcher = true;
+      }
+      if (is_array($cfg) && isset($cfg['checkoutLatestNotes']) && $cfg['checkoutLatestNotes'] === true) {
+          $checkoutLatestNotes = true;
       }
   }
   $manifestPath = __DIR__ . '/themes/manifest.json';
@@ -165,6 +169,7 @@
     $themeJson = json_encode($themeId);
     $showThemeSwitcherJson = $showThemeSwitcher ? 'true' : 'false';
     $showNightDaySwitcherJson = $showNightDaySwitcher ? 'true' : 'false';
+    $checkoutLatestNotesJson = $checkoutLatestNotes ? 'true' : 'false';
     echo "<script>
         window.commitsURL = '{$commitsURL}';
         window.openURL = '{$openURL}';
@@ -175,6 +180,7 @@
         window.config.theme = {$themeJson};
         window.config.showThemeSwitcher = {$showThemeSwitcherJson};
         window.config.showNightDaySwitcher = {$showNightDaySwitcherJson};
+        window.config.checkoutLatestNotes = {$checkoutLatestNotesJson};
     </script>
 ";
     ?>
@@ -220,8 +226,23 @@
                 <!-- <div><a id="count-notes" href="#explore-curriculum">1457 Notes!</a></div> -->
                 <div><span id="count-notes" href="#explore-curriculum"><i class="fas fa-spinner fa-spin"></i> Loading Notes</span></div>
                 <div class="mt-2">
-                    <?php if(isset($commitsURL) && strlen($commitsURL)>0) { 
-                        echo "<a class='text-blue-800 no-underline' id='whats-changed' target='_blank' href='$commitsURL' rel='nofollow'>Git newest notes</a>";
+                    <?php if(isset($commitsURL) && strlen($commitsURL)>0) {
+                        if ($checkoutLatestNotes) {
+                    ?>
+                    <div id="latest-notes" class="latest-notes text-blue-800">
+                        <button type="button" id="latest-notes-action" class="latest-notes__action">Check out latest notes</button>
+                        <button type="button" id="latest-notes-mode" class="latest-notes__mode" aria-haspopup="menu" aria-expanded="false" aria-controls="latest-notes-menu" aria-label="Latest notes options">
+                            <span class="fas fa-chevron-down" aria-hidden="true"></span>
+                        </button>
+                        <div id="latest-notes-menu" class="latest-notes__menu" role="menu" hidden>
+                            <button type="button" role="menuitemradio" data-mode="commits" aria-checked="false">Github Commits</button>
+                            <button type="button" role="menuitemradio" data-mode="notes" aria-checked="true">Choose Notes</button>
+                        </div>
+                    </div>
+                    <?php
+                        } else {
+                            echo "<a class='text-blue-800 no-underline' id='whats-changed' target='_blank' href='" . htmlspecialchars($commitsURL, ENT_QUOTES, 'UTF-8') . "' rel='nofollow'>Git newest notes</a>";
+                        }
                     }
                     ?>
                 </div>
@@ -401,6 +422,26 @@
         </div>
     </div>
     </div>
+
+    <?php if ($checkoutLatestNotes) { ?>
+    <div class="modal" id="latestNotesModal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="latestNotesModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content latest-notes-modal">
+                <div class="modal-header">
+                    <h4 class="modal-title mt-0" id="latestNotesModalLabel">Latest notes</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="latest-notes-list"></div>
+                <div class="latest-notes-modal__footer">
+                    <a id="latest-notes-more" href="#" target="_blank" rel="nofollow noopener">Show more at Github commits</a>
+                    <button type="button" class="btn btn-secondary p-2" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php } ?>
 
     <!-- <_php echo("./game-puzzler.php"); _> -->
 

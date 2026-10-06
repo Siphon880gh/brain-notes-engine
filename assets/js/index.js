@@ -1,5 +1,6 @@
 var app = {
     init: async function() {
+        this.setupLatestNotes();
 
         // Inject the topics tree HTML partial before anything else reads #topics-list.
         // Served as a static .html so the browser can cache it via Last-Modified / 304.
@@ -46,6 +47,189 @@ var app = {
         this.setupQuizModal();
 
     }, // init
+
+    setupLatestNotes: function() {
+        const root = document.getElementById("latest-notes");
+        const modal = document.getElementById("latestNotesModal");
+        if (!root || !modal || !window.commitsURL) return;
+
+        const actionBtn = document.getElementById("latest-notes-action");
+        const modeBtn = document.getElementById("latest-notes-mode");
+        const menu = document.getElementById("latest-notes-menu");
+        const listEl = document.getElementById("latest-notes-list");
+        const moreLink = document.getElementById("latest-notes-more");
+        const modeKey = "devbrain-latest-notes-mode";
+        let mode = "notes";
+
+        try {
+            const saved = localStorage.getItem(modeKey);
+            if (saved === "commits" || saved === "notes") mode = saved;
+        } catch (e) {}
+
+        moreLink.href = window.commitsURL;
+
+        const syncMenu = () => {
+            menu.querySelectorAll("[data-mode]").forEach((item) => {
+                item.setAttribute("aria-checked", item.getAttribute("data-mode") === mode ? "true" : "false");
+            });
+        };
+        const closeMenu = () => {
+            menu.hidden = true;
+            modeBtn.setAttribute("aria-expanded", "false");
+        };
+        const openMenu = () => {
+            menu.hidden = false;
+            modeBtn.setAttribute("aria-expanded", "true");
+        };
+
+        syncMenu();
+
+        modeBtn.addEventListener("click", (event) => {
+            event.stopPropagation();
+            if (menu.hidden) openMenu();
+            else closeMenu();
+        });
+
+        menu.addEventListener("click", (event) => {
+            const item = event.target.closest("[data-mode]");
+            if (!item) return;
+            mode = item.getAttribute("data-mode") === "commits" ? "commits" : "notes";
+            try { localStorage.setItem(modeKey, mode); } catch (e) {}
+            syncMenu();
+            closeMenu();
+        });
+
+        document.addEventListener("click", (event) => {
+            if (!root.contains(event.target)) closeMenu();
+        });
+
+        const closeModal = () => {
+            modal.style.display = "none";
+        };
+        modal.querySelectorAll('[data-dismiss="modal"]').forEach((el) => {
+            el.addEventListener("click", closeModal);
+        });
+        modal.addEventListener("click", (event) => {
+            if (!event.target.closest(".modal-content")) closeModal();
+        });
+
+        const noteLabel = (el) => {
+            const clone = el.cloneNode(true);
+            clone.querySelectorAll(".custom-icon, .quiz-pill, .csv-pill").forEach((node) => node.remove());
+            return clone.textContent.replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim().toLowerCase();
+        };
+
+        const openMatchedNote = (title) => {
+            const wanted = title.trim().toLowerCase();
+            const files = Array.from(document.querySelectorAll(".name.is-file"));
+            let file = files.find((el) => noteLabel(el) === wanted);
+            if (!file) {
+                const partial = files.filter((el) => noteLabel(el).includes(wanted));
+                if (partial.length === 1) file = partial[0];
+            }
+            if (!file || !file.dataset.id || typeof openNote !== "function") return;
+            const row = file.closest("li");
+            if (row && typeof toOpenUp_Exec === "function") toOpenUp_Exec(row);
+            openNote(file.dataset.id);
+            const side = document.getElementById("side-a");
+            if (side) side.scrollIntoView({ behavior: "smooth", block: "start" });
+        };
+
+        const searchTitle = (title) => {
+            const go = () => {
+                const input = document.getElementById("searcher-input");
+                if (input) {
+                    input.removeAttribute("readonly");
+                    input.value = title;
+                }
+                if (typeof window.searchAllTitles === "function") {
+                    window.searchAllTitles({
+                        searchText: title,
+                        jumpTo: false,
+                        recommendContent: true
+                    });
+                }
+                openMatchedNote(title);
+            };
+            if (window.__topicsReady) go();
+            else document.addEventListener("topics-ready", go, { once: true });
+        };
+
+        const renderNotes = (groups) => {
+            listEl.replaceChildren();
+            if (!groups.length) {
+                const empty = document.createElement("p");
+                empty.className = "latest-notes-modal__empty";
+                empty.textContent = "No notes in the last 5 days.";
+                listEl.appendChild(empty);
+                return;
+            }
+            groups.forEach((group) => {
+                const heading = document.createElement("h5");
+                heading.className = "latest-notes-modal__day";
+                heading.textContent = group.dateLabel;
+                listEl.appendChild(heading);
+                group.notes.forEach((title) => {
+                    const button = document.createElement("button");
+                    button.type = "button";
+                    button.className = "latest-notes-modal__note";
+                    button.textContent = title;
+                    button.addEventListener("click", () => {
+                        closeModal();
+                        searchTitle(title);
+                    });
+                    listEl.appendChild(button);
+                });
+            });
+        };
+
+        const loadNotes = async () => {
+            listEl.replaceChildren();
+            const loading = document.createElement("p");
+            loading.className = "latest-notes-modal__empty";
+            loading.textContent = "Loading recent notes…";
+            listEl.appendChild(loading);
+
+            const cacheKey = "devbrain-latest-notes:" + window.commitsURL;
+            try {
+                const cached = JSON.parse(sessionStorage.getItem(cacheKey) || "null");
+                if (cached && Array.isArray(cached.groups) && Date.now() - cached.at < 10 * 60 * 1000) {
+                    renderNotes(cached.groups);
+                    return;
+                }
+            } catch (e) {}
+
+            try {
+                const groups = await fetchLatestNoteGroups(window.commitsURL);
+                try {
+                    sessionStorage.setItem(cacheKey, JSON.stringify({ at: Date.now(), groups }));
+                } catch (e) {}
+                renderNotes(groups);
+            } catch (e) {
+                listEl.replaceChildren();
+                const failed = document.createElement("p");
+                failed.className = "latest-notes-modal__empty";
+                failed.textContent = "Could not load recent commits.";
+                listEl.appendChild(failed);
+            }
+        };
+
+        actionBtn.addEventListener("click", () => {
+            closeMenu();
+            if (mode === "commits") {
+                window.open(window.commitsURL, "_blank", "noopener");
+                return;
+            }
+            modal.style.display = "block";
+            loadNotes();
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key !== "Escape") return;
+            if (!menu.hidden) closeMenu();
+            else if (modal.style.display === "block") closeModal();
+        });
+    }, // setupLatestNotes
 
     setupQuizModal: function() {
         document.getElementById('openQuizAppButton')?.addEventListener('click', function() {
@@ -428,6 +612,73 @@ function openPrivateAuthAndRetryQuiz(quizId) {
 
         document.addEventListener('privateAuthChanged', authHandler);
     }
+}
+
+function fetchLatestNoteGroups(commitsURL) {
+    const match = String(commitsURL).match(/github\.com\/([^/]+)\/([^/]+)\/commits\/([^/#?]+)/i);
+    if (!match) return Promise.reject(new Error("Unrecognized commits URL"));
+
+    const since = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString();
+    let pageUrl = "https://api.github.com/repos/" + encodeURIComponent(match[1]) + "/" + encodeURIComponent(match[2])
+        + "/commits?sha=" + encodeURIComponent(match[3])
+        + "&since=" + encodeURIComponent(since)
+        + "&per_page=100";
+
+    const titlesInMessage = (message) => {
+        const titles = [];
+        const re = /"([^"]+?\.md)"/gi;
+        let found;
+        while ((found = re.exec(message))) {
+            const title = found[1].replace(/\.md$/i, "").trim();
+            if (title) titles.push(title);
+        }
+        return titles;
+    };
+
+    const dayLabel = (iso) => new Date(iso).toLocaleDateString(undefined, {
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+    });
+
+    const readPage = (url, pagesLeft) => fetch(url, {
+        headers: { Accept: "application/vnd.github+json" }
+    }).then((response) => {
+        if (!response.ok) throw new Error("GitHub commits request failed");
+        const next = (response.headers.get("Link") || "").match(/<([^>]+)>;\s*rel="next"/);
+        return response.json().then((commits) => {
+            if (!Array.isArray(commits)) throw new Error("Unexpected commits payload");
+            if (next && pagesLeft > 1) {
+                return readPage(next[1], pagesLeft - 1).then((rest) => commits.concat(rest));
+            }
+            return commits;
+        });
+    });
+
+    return readPage(pageUrl, 3).then((commits) => {
+        const seen = new Set();
+        const groups = [];
+        commits.forEach((commit) => {
+            const iso = commit && commit.commit && commit.commit.author && commit.commit.author.date;
+            const message = commit && commit.commit && commit.commit.message;
+            if (!iso || !message) return;
+            const titles = titlesInMessage(message).filter((title) => {
+                const key = title.toLowerCase();
+                if (seen.has(key)) return false;
+                seen.add(key);
+                return true;
+            });
+            if (!titles.length) return;
+            const dateKey = iso.slice(0, 10);
+            let group = groups.find((item) => item.dateKey === dateKey);
+            if (!group) {
+                group = { dateKey: dateKey, dateLabel: dayLabel(iso), notes: [] };
+                groups.push(group);
+            }
+            group.notes.push.apply(group.notes, titles);
+        });
+        return groups;
+    });
 }
 
 app.init();
