@@ -1,5 +1,7 @@
 {
     "theme": "3d-games",
     "showThemeSwitcher": false,
-    "showNightDaySwitcher": true
+    "showNightDaySwitcher": true,
+    "checkoutLatestNotes": true,
+    "checkoutLatestGit": false
 }

@@ -1,5 +1,7 @@
 {
     "theme": "health",
     "showThemeSwitcher": false,
-    "showNightDaySwitcher": true
+    "showNightDaySwitcher": true,
+    "checkoutLatestNotes": true,
+    "checkoutLatestGit": false
 }

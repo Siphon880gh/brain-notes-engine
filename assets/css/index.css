@@ -1914,6 +1914,10 @@ html[data-mode="night"] .theme-switcher select {
   margin-top: 0.75rem;
 }
 
+.latest-notes-modal__footer:not(:has(a)) {
+  justify-content: flex-end;
+}
+
 .latest-notes-modal__footer a {
   overflow-wrap: anywhere;
 }

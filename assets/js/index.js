@@ -58,50 +58,58 @@ var app = {
         const menu = document.getElementById("latest-notes-menu");
         const listEl = document.getElementById("latest-notes-list");
         const moreLink = document.getElementById("latest-notes-more");
+        const checkoutLatestGit = root.getAttribute("data-checkout-latest-git") === "true";
         const modeKey = "devbrain-latest-notes-mode";
         let mode = "notes";
 
-        try {
-            const saved = localStorage.getItem(modeKey);
-            if (saved === "commits" || saved === "notes") mode = saved;
-        } catch (e) {}
+        if (checkoutLatestGit) {
+            try {
+                const saved = localStorage.getItem(modeKey);
+                if (saved === "commits" || saved === "notes") mode = saved;
+            } catch (e) {}
+        }
 
-        moreLink.href = window.commitsURL;
+        if (moreLink) moreLink.href = window.commitsURL;
 
         const syncMenu = () => {
+            if (!menu) return;
             menu.querySelectorAll("[data-mode]").forEach((item) => {
                 item.setAttribute("aria-checked", item.getAttribute("data-mode") === mode ? "true" : "false");
             });
         };
         const closeMenu = () => {
+            if (!menu || !modeBtn) return;
             menu.hidden = true;
             modeBtn.setAttribute("aria-expanded", "false");
         };
         const openMenu = () => {
+            if (!menu || !modeBtn) return;
             menu.hidden = false;
             modeBtn.setAttribute("aria-expanded", "true");
         };
 
-        syncMenu();
-
-        modeBtn.addEventListener("click", (event) => {
-            event.stopPropagation();
-            if (menu.hidden) openMenu();
-            else closeMenu();
-        });
-
-        menu.addEventListener("click", (event) => {
-            const item = event.target.closest("[data-mode]");
-            if (!item) return;
-            mode = item.getAttribute("data-mode") === "commits" ? "commits" : "notes";
-            try { localStorage.setItem(modeKey, mode); } catch (e) {}
+        if (checkoutLatestGit && modeBtn && menu) {
             syncMenu();
-            closeMenu();
-        });
 
-        document.addEventListener("click", (event) => {
-            if (!root.contains(event.target)) closeMenu();
-        });
+            modeBtn.addEventListener("click", (event) => {
+                event.stopPropagation();
+                if (menu.hidden) openMenu();
+                else closeMenu();
+            });
+
+            menu.addEventListener("click", (event) => {
+                const item = event.target.closest("[data-mode]");
+                if (!item) return;
+                mode = item.getAttribute("data-mode") === "commits" ? "commits" : "notes";
+                try { localStorage.setItem(modeKey, mode); } catch (e) {}
+                syncMenu();
+                closeMenu();
+            });
+
+            document.addEventListener("click", (event) => {
+                if (!root.contains(event.target)) closeMenu();
+            });
+        }
 
         const closeModal = () => {
             modal.style.display = "none";
@@ -216,7 +224,7 @@ var app = {
 
         actionBtn.addEventListener("click", () => {
             closeMenu();
-            if (mode === "commits") {
+            if (checkoutLatestGit && mode === "commits") {
                 window.open(window.commitsURL, "_blank", "noopener");
                 return;
             }

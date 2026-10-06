@@ -24,6 +24,7 @@
   $showThemeSwitcher = false;
   $showNightDaySwitcher = false;
   $checkoutLatestNotes = false;
+  $checkoutLatestGit = false;
   $themeCatalog = [];
   $cfg = null;
   $configPath = __DIR__ . '/env/config.json';
@@ -40,6 +41,9 @@
       }
       if (is_array($cfg) && isset($cfg['checkoutLatestNotes']) && $cfg['checkoutLatestNotes'] === true) {
           $checkoutLatestNotes = true;
+      }
+      if (is_array($cfg) && isset($cfg['checkoutLatestGit']) && $cfg['checkoutLatestGit'] === true) {
+          $checkoutLatestGit = true;
       }
   }
   $manifestPath = __DIR__ . '/themes/manifest.json';
@@ -170,6 +174,7 @@
     $showThemeSwitcherJson = $showThemeSwitcher ? 'true' : 'false';
     $showNightDaySwitcherJson = $showNightDaySwitcher ? 'true' : 'false';
     $checkoutLatestNotesJson = $checkoutLatestNotes ? 'true' : 'false';
+    $checkoutLatestGitJson = $checkoutLatestGit ? 'true' : 'false';
     echo "<script>
         window.commitsURL = '{$commitsURL}';
         window.openURL = '{$openURL}';
@@ -181,6 +186,7 @@
         window.config.showThemeSwitcher = {$showThemeSwitcherJson};
         window.config.showNightDaySwitcher = {$showNightDaySwitcherJson};
         window.config.checkoutLatestNotes = {$checkoutLatestNotesJson};
+        window.config.checkoutLatestGit = {$checkoutLatestGitJson};
     </script>
 ";
     ?>
@@ -229,8 +235,9 @@
                     <?php if(isset($commitsURL) && strlen($commitsURL)>0) {
                         if ($checkoutLatestNotes) {
                     ?>
-                    <div id="latest-notes" class="latest-notes text-blue-800">
+                    <div id="latest-notes" class="latest-notes text-blue-800" data-checkout-latest-git="<?php echo $checkoutLatestGit ? 'true' : 'false'; ?>">
                         <button type="button" id="latest-notes-action" class="latest-notes__action">Check out latest notes</button>
+                        <?php if ($checkoutLatestGit) { ?>
                         <button type="button" id="latest-notes-mode" class="latest-notes__mode" aria-haspopup="menu" aria-expanded="false" aria-controls="latest-notes-menu" aria-label="Latest notes options">
                             <span class="fas fa-chevron-down" aria-hidden="true"></span>
                         </button>
@@ -238,6 +245,7 @@
                             <button type="button" role="menuitemradio" data-mode="commits" aria-checked="false">Github Commits</button>
                             <button type="button" role="menuitemradio" data-mode="notes" aria-checked="true">Choose Notes</button>
                         </div>
+                        <?php } ?>
                     </div>
                     <?php
                         } else {
@@ -436,7 +444,9 @@
                 </div>
                 <div class="modal-body" id="latest-notes-list"></div>
                 <div class="latest-notes-modal__footer">
+                    <?php if ($checkoutLatestGit) { ?>
                     <a id="latest-notes-more" href="#" target="_blank" rel="nofollow noopener">Show more at Github commits</a>
+                    <?php } ?>
                     <button type="button" class="btn btn-secondary p-2" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
