@@ -50,19 +50,21 @@ var app = {
 
     setupLatestNotes: function() {
         const root = document.getElementById("latest-notes");
-        const modal = document.getElementById("latestNotesModal");
-        if (!root || !modal || !window.commitsURL) return;
+        if (!root) return;
 
+        const modal = document.getElementById("latestNotesModal");
         const actionBtn = document.getElementById("latest-notes-action");
         const modeBtn = document.getElementById("latest-notes-mode");
         const menu = document.getElementById("latest-notes-menu");
         const listEl = document.getElementById("latest-notes-list");
         const moreLink = document.getElementById("latest-notes-more");
+        const checkoutLatestNotes = root.getAttribute("data-checkout-latest-notes") === "true";
         const checkoutLatestGit = root.getAttribute("data-checkout-latest-git") === "true";
+        const showChooser = checkoutLatestNotes && checkoutLatestGit;
         const modeKey = "devbrain-latest-notes-mode";
         let mode = "notes";
 
-        if (checkoutLatestGit) {
+        if (showChooser) {
             try {
                 const saved = localStorage.getItem(modeKey);
                 if (saved === "commits" || saved === "notes") mode = saved;
@@ -88,7 +90,7 @@ var app = {
             modeBtn.setAttribute("aria-expanded", "true");
         };
 
-        if (checkoutLatestGit && modeBtn && menu) {
+        if (showChooser && modeBtn && menu) {
             syncMenu();
 
             modeBtn.addEventListener("click", (event) => {
@@ -112,14 +114,16 @@ var app = {
         }
 
         const closeModal = () => {
-            modal.style.display = "none";
+            if (modal) modal.style.display = "none";
         };
-        modal.querySelectorAll('[data-dismiss="modal"]').forEach((el) => {
-            el.addEventListener("click", closeModal);
-        });
-        modal.addEventListener("click", (event) => {
-            if (!event.target.closest(".modal-content")) closeModal();
-        });
+        if (modal) {
+            modal.querySelectorAll('[data-dismiss="modal"]').forEach((el) => {
+                el.addEventListener("click", closeModal);
+            });
+            modal.addEventListener("click", (event) => {
+                if (!event.target.closest(".modal-content")) closeModal();
+            });
+        }
 
         const noteLabel = (el) => {
             const clone = el.cloneNode(true);
@@ -222,20 +226,25 @@ var app = {
             }
         };
 
+        const openCommits = () => {
+            if (window.commitsURL) window.open(window.commitsURL, "_blank", "noopener");
+        };
+
         actionBtn.addEventListener("click", () => {
             closeMenu();
-            if (checkoutLatestGit && mode === "commits") {
-                window.open(window.commitsURL, "_blank", "noopener");
+            if (!checkoutLatestNotes || (showChooser && mode === "commits")) {
+                openCommits();
                 return;
             }
+            if (!modal) return;
             modal.style.display = "block";
             loadNotes();
         });
 
         document.addEventListener("keydown", (event) => {
             if (event.key !== "Escape") return;
-            if (!menu.hidden) closeMenu();
-            else if (modal.style.display === "block") closeModal();
+            if (menu && !menu.hidden) closeMenu();
+            else if (modal && modal.style.display === "block") closeModal();
         });
     }, // setupLatestNotes
 

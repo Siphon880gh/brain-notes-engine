@@ -232,12 +232,14 @@
                 <!-- <div><a id="count-notes" href="#explore-curriculum">1457 Notes!</a></div> -->
                 <div><span id="count-notes" href="#explore-curriculum"><i class="fas fa-spinner fa-spin"></i> Loading Notes</span></div>
                 <div class="mt-2">
-                    <?php if(isset($commitsURL) && strlen($commitsURL)>0) {
-                        if ($checkoutLatestNotes) {
+                    <?php
+                    $showLatestChooser = $checkoutLatestNotes && $checkoutLatestGit;
+                    if ($checkoutLatestNotes || $checkoutLatestGit) {
+                        $latestActionLabel = $checkoutLatestNotes ? 'Check out latest notes' : 'Check out latest git commits';
                     ?>
-                    <div id="latest-notes" class="latest-notes text-blue-800" data-checkout-latest-git="<?php echo $checkoutLatestGit ? 'true' : 'false'; ?>">
-                        <button type="button" id="latest-notes-action" class="latest-notes__action">Check out latest notes</button>
-                        <?php if ($checkoutLatestGit) { ?>
+                    <div id="latest-notes" class="latest-notes text-blue-800" data-checkout-latest-notes="<?php echo $checkoutLatestNotes ? 'true' : 'false'; ?>" data-checkout-latest-git="<?php echo $checkoutLatestGit ? 'true' : 'false'; ?>">
+                        <button type="button" id="latest-notes-action" class="latest-notes__action"><?php echo htmlspecialchars($latestActionLabel, ENT_QUOTES, 'UTF-8'); ?></button>
+                        <?php if ($showLatestChooser) { ?>
                         <button type="button" id="latest-notes-mode" class="latest-notes__mode" aria-haspopup="menu" aria-expanded="false" aria-controls="latest-notes-menu" aria-label="Latest notes options">
                             <span class="fas fa-chevron-down" aria-hidden="true"></span>
                         </button>
@@ -248,9 +250,8 @@
                         <?php } ?>
                     </div>
                     <?php
-                        } else {
-                            echo "<a class='text-blue-800 no-underline' id='whats-changed' target='_blank' href='" . htmlspecialchars($commitsURL, ENT_QUOTES, 'UTF-8') . "' rel='nofollow'>Git newest notes</a>";
-                        }
+                    } elseif (isset($commitsURL) && strlen($commitsURL)>0) {
+                        echo "<a class='text-blue-800 no-underline' id='whats-changed' target='_blank' href='" . htmlspecialchars($commitsURL, ENT_QUOTES, 'UTF-8') . "' rel='nofollow'>Git newest notes</a>";
                     }
                     ?>
                 </div>
