@@ -202,26 +202,16 @@ var app = {
             loading.textContent = "Loading recent notes…";
             listEl.appendChild(loading);
 
-            const cacheKey = "devbrain-latest-notes:" + window.commitsURL;
             try {
-                const cached = JSON.parse(sessionStorage.getItem(cacheKey) || "null");
-                if (cached && Array.isArray(cached.groups) && Date.now() - cached.at < 10 * 60 * 1000) {
-                    renderNotes(cached.groups);
-                    return;
-                }
-            } catch (e) {}
-
-            try {
-                const groups = await fetchLatestNoteGroups(window.commitsURL);
-                try {
-                    sessionStorage.setItem(cacheKey, JSON.stringify({ at: Date.now(), groups }));
-                } catch (e) {}
-                renderNotes(groups);
+                const response = await fetch("./cachedLatestNotes.json");
+                if (!response.ok) throw new Error("missing latest notes cache");
+                const payload = await response.json();
+                renderNotes(Array.isArray(payload.groups) ? payload.groups : []);
             } catch (e) {
                 listEl.replaceChildren();
                 const failed = document.createElement("p");
                 failed.className = "latest-notes-modal__empty";
-                failed.textContent = "Could not load recent commits.";
+                failed.textContent = "Latest notes have not been built yet.";
                 listEl.appendChild(failed);
             }
         };
@@ -634,73 +624,6 @@ function openPrivateAuthAndRetryQuiz(quizId) {
 
         document.addEventListener('privateAuthChanged', authHandler);
     }
-}
-
-function fetchLatestNoteGroups(commitsURL) {
-    const match = String(commitsURL).match(/github\.com\/([^/]+)\/([^/]+)\/commits\/([^/#?]+)/i);
-    if (!match) return Promise.reject(new Error("Unrecognized commits URL"));
-
-    const since = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString();
-    let pageUrl = "https://api.github.com/repos/" + encodeURIComponent(match[1]) + "/" + encodeURIComponent(match[2])
-        + "/commits?sha=" + encodeURIComponent(match[3])
-        + "&since=" + encodeURIComponent(since)
-        + "&per_page=100";
-
-    const titlesInMessage = (message) => {
-        const titles = [];
-        const re = /"([^"]+?\.md)"/gi;
-        let found;
-        while ((found = re.exec(message))) {
-            const title = found[1].replace(/\.md$/i, "").trim();
-            if (title) titles.push(title);
-        }
-        return titles;
-    };
-
-    const dayLabel = (iso) => new Date(iso).toLocaleDateString(undefined, {
-        month: "short",
-        day: "numeric",
-        year: "numeric"
-    });
-
-    const readPage = (url, pagesLeft) => fetch(url, {
-        headers: { Accept: "application/vnd.github+json" }
-    }).then((response) => {
-        if (!response.ok) throw new Error("GitHub commits request failed");
-        const next = (response.headers.get("Link") || "").match(/<([^>]+)>;\s*rel="next"/);
-        return response.json().then((commits) => {
-            if (!Array.isArray(commits)) throw new Error("Unexpected commits payload");
-            if (next && pagesLeft > 1) {
-                return readPage(next[1], pagesLeft - 1).then((rest) => commits.concat(rest));
-            }
-            return commits;
-        });
-    });
-
-    return readPage(pageUrl, 3).then((commits) => {
-        const seen = new Set();
-        const groups = [];
-        commits.forEach((commit) => {
-            const iso = commit && commit.commit && commit.commit.author && commit.commit.author.date;
-            const message = commit && commit.commit && commit.commit.message;
-            if (!iso || !message) return;
-            const titles = titlesInMessage(message).filter((title) => {
-                const key = title.toLowerCase();
-                if (seen.has(key)) return false;
-                seen.add(key);
-                return true;
-            });
-            if (!titles.length) return;
-            const dateKey = iso.slice(0, 10);
-            let group = groups.find((item) => item.dateKey === dateKey);
-            if (!group) {
-                group = { dateKey: dateKey, dateLabel: dayLabel(iso), notes: [] };
-                groups.push(group);
-            }
-            group.notes.push.apply(group.notes, titles);
-        });
-        return groups;
-    });
 }
 
 app.init();

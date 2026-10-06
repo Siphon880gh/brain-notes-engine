@@ -1,6 +1,7 @@
 # Same front-end that's polymorphic to different environments
 cachedResData.json
 cachedResPartial.html
+cachedLatestNotes.json
 
 # Pre-compressed variants of the cached files (built by cache_compress.js).
 # Regenerated on every `npm run build-*`, so never tracked.
