@@ -137,16 +137,24 @@
     function lessonRecord(lesson) {
         if (!lesson || typeof lesson !== "object") return null;
         const openedAt = Number(lesson.openedAt) || 0;
-        const reached = Math.max(0, Math.min(100, Math.round(Number(lesson.reached) || 0)));
+        const hasReached = lesson.reached != null && lesson.reached !== "";
+        const reached = hasReached ? Math.max(0, Math.min(100, Math.round(Number(lesson.reached)))) : null;
+        const hasScore = lesson.score != null && lesson.score !== "" && Number(lesson.scoreTotal) > 0;
+        const score = hasScore ? Math.max(0, Math.round(Number(lesson.score))) : null;
+        const scoreTotal = hasScore ? Math.max(1, Math.round(Number(lesson.scoreTotal))) : null;
         const complete = !!lesson.complete;
-        if (!complete && !openedAt && !reached) return null;
+        if (!complete && !openedAt && reached == null && score == null) return null;
         const record = {};
         if (complete) {
             record.complete = true;
             record.completedAt = Number(lesson.completedAt) || openedAt || Date.now();
         }
         if (openedAt) record.openedAt = openedAt;
-        if (reached) record.reached = reached;
+        if (reached != null) record.reached = reached;
+        if (score != null) {
+            record.score = score;
+            record.scoreTotal = scoreTotal;
+        }
         return record;
     }
 
@@ -229,10 +237,27 @@
         return label;
     }
 
+    function visitPercent(record) {
+        if (!record || record.reached == null || record.reached === "") return null;
+        return Math.max(0, Math.min(100, Math.round(Number(record.reached))));
+    }
+
+    function visitScore(record) {
+        if (!record || record.score == null || record.score === "" || !(Number(record.scoreTotal) > 0)) return "";
+        return "Score " + Math.round(Number(record.score)) + "/" + Math.round(Number(record.scoreTotal));
+    }
+
     function visitText(record) {
-        if (!record || !record.openedAt) return "";
-        const pct = Math.max(0, Math.min(100, Math.round(Number(record.reached) || 0)));
-        return formatOpened(record.openedAt, false) + " · " + pct + "%";
+        if (!record) return "";
+        const pct = visitPercent(record);
+        const date = record.openedAt ? formatOpened(record.openedAt, false) : "";
+        const score = visitScore(record);
+        const parts = [];
+        if (date) parts.push(date);
+        if (pct != null) parts.push(pct + "%");
+        else if (date) parts.push("0%");
+        if (score) parts.push(score);
+        return parts.join(" · ");
     }
 
     function fillVisit(el, record) {
@@ -243,10 +268,16 @@
             el.removeAttribute("title");
             return;
         }
-        const pct = Math.max(0, Math.min(100, Math.round(Number(record.reached) || 0)));
+        const pct = visitPercent(record);
+        const shown = pct == null ? 0 : pct;
+        const score = visitScore(record);
         el.hidden = false;
         el.textContent = text;
-        el.title = "Last opened " + formatOpened(record.openedAt, true) + ". Reached " + pct + "%.";
+        const bits = [];
+        if (record.openedAt) bits.push("Last opened " + formatOpened(record.openedAt, true));
+        if (pct != null || record.openedAt) bits.push("Reached " + shown + "%");
+        if (score) bits.push(score);
+        el.title = bits.join(". ") + ".";
     }
 
     function updateVisitLabel(path) {
@@ -323,13 +354,18 @@
         const complete = !prev.complete;
         const next = {};
         if (prev.openedAt) next.openedAt = prev.openedAt;
-        if (prev.reached) next.reached = prev.reached;
+        if (prev.reached != null && prev.reached !== "") next.reached = prev.reached;
+        if (prev.score != null && prev.score !== "" && Number(prev.scoreTotal) > 0) {
+            next.score = prev.score;
+            next.scoreTotal = prev.scoreTotal;
+        }
         if (complete) {
             next.complete = true;
             next.completedAt = Date.now();
         }
-        if (!next.complete && !next.openedAt && !next.reached) delete state.lessons[path];
-        else state.lessons[path] = next;
+        const record = lessonRecord(next);
+        if (!record) delete state.lessons[path];
+        else state.lessons[path] = record;
         paint();
         syncOpenNote();
         queueSave();
@@ -436,9 +472,391 @@
         if (path) toggleLesson(path);
     }
 
+    const PERCENT_CHOICES = [0, 10, 25, 33, 50, 66, 75, 90, 100];
+    let menuEl = null;
+    let pendingQuizId = "";
+
+    function parentFolderPath(nameEl) {
+        const li = nameEl.closest("li");
+        const parent = li && li.parentElement;
+        const folderLi = parent && parent.closest("li[data-path]");
+        return folderLi ? normalize(folderLi.getAttribute("data-path")) : "";
+    }
+
+    function lessonPathForName(nameEl) {
+        return idToPath.get(String(nameEl.getAttribute("data-id"))) || "";
+    }
+
+    const SCROLL_LOCK_MS = 2000;
+    let menuScrollLocked = false;
+    let scrollHideArmed = true;
+    let scrollLockTimer = 0;
+
+    function preventMenuScroll(event) {
+        if (event.ctrlKey || event.metaKey) return;
+        event.preventDefault();
+    }
+
+    function preventMenuScrollKeys(event) {
+        if (event.metaKey || event.ctrlKey || event.altKey) return;
+        const keys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "PageUp", "PageDown", "Home", "End", " ", "Spacebar"];
+        if (keys.indexOf(event.key) === -1) return;
+        const target = event.target;
+        if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable)) return;
+        event.preventDefault();
+    }
+
+    function unlockMenuScroll() {
+        window.clearTimeout(scrollLockTimer);
+        scrollHideArmed = true;
+        if (!menuScrollLocked) return;
+        menuScrollLocked = false;
+        document.documentElement.classList.remove("learning-menu-open");
+        document.documentElement.style.removeProperty("--learning-menu-scrollbar");
+        document.removeEventListener("wheel", preventMenuScroll, { capture: true });
+        document.removeEventListener("touchmove", preventMenuScroll, { capture: true });
+        document.removeEventListener("keydown", preventMenuScrollKeys, true);
+    }
+
+    function holdMenuScroll() {
+        if (!menuScrollLocked) {
+            menuScrollLocked = true;
+            const gap = Math.max(0, window.innerWidth - document.documentElement.clientWidth);
+            document.documentElement.style.setProperty("--learning-menu-scrollbar", gap + "px");
+            document.documentElement.classList.add("learning-menu-open");
+            document.addEventListener("wheel", preventMenuScroll, { capture: true, passive: false });
+            document.addEventListener("touchmove", preventMenuScroll, { capture: true, passive: false });
+            document.addEventListener("keydown", preventMenuScrollKeys, true);
+        }
+        scrollHideArmed = false;
+        window.clearTimeout(scrollLockTimer);
+        scrollLockTimer = window.setTimeout(unlockMenuScroll, SCROLL_LOCK_MS);
+    }
+
+    function hideMenu() {
+        const wasOpen = menuEl && !menuEl.hidden;
+        if (menuEl) menuEl.hidden = true;
+        if (wasOpen || menuScrollLocked) unlockMenuScroll();
+    }
+
+    function onMenuScrollHide() {
+        if (!scrollHideArmed || !menuEl || menuEl.hidden) return;
+        hideMenu();
+    }
+
+    function setReached(path, pct) {
+        path = normalize(path);
+        if (!isTrackedLesson(path)) return;
+        const prev = state.lessons[path] || {};
+        state.lessons[path] = lessonRecord(Object.assign({}, prev, { reached: pct }));
+        updateVisitLabel(path);
+        queueSave();
+    }
+
+    function resetVisit(path) {
+        path = normalize(path);
+        const prev = state.lessons[path] || {};
+        const kept = {};
+        if (prev.complete) {
+            kept.complete = true;
+            kept.completedAt = prev.completedAt || Date.now();
+        }
+        if (prev.score != null && prev.score !== "" && Number(prev.scoreTotal) > 0) {
+            kept.score = prev.score;
+            kept.scoreTotal = prev.scoreTotal;
+        }
+        const record = lessonRecord(kept);
+        if (record) state.lessons[path] = record;
+        else delete state.lessons[path];
+        updateVisitLabel(path);
+        queueSave();
+    }
+
+    function recordScore(correct, total) {
+        const path = lessonPathForOpenNote();
+        const count = Math.max(0, Math.round(Number(correct)));
+        const outOf = Math.max(0, Math.round(Number(total)));
+        if (!path || !(outOf > 0)) return false;
+        const prev = state.lessons[path] || {};
+        const record = lessonRecord(Object.assign({}, prev, { score: count, scoreTotal: outOf }));
+        if (!record) return false;
+        state.lessons[path] = record;
+        updateVisitLabel(path);
+        queueSave();
+        return true;
+    }
+
+    function trackParentFolder(nameEl) {
+        const folderPath = parentFolderPath(nameEl);
+        if (!folderPath || state.folders[folderPath]) return;
+        applyToggle(folderPath);
+    }
+
+    function onQuizNoteOpened() {
+        if (!pendingQuizId || String(window.currentNoteId) !== String(pendingQuizId)) return;
+        pendingQuizId = "";
+        document.removeEventListener("noteOpened", onQuizNoteOpened);
+        document.dispatchEvent(new CustomEvent("learning-quiz"));
+    }
+
+    function startQuiz(nameEl) {
+        const id = nameEl.getAttribute("data-id");
+        if (!id) return;
+        if (nameEl.classList.contains("is-quiz")) {
+            if (typeof openQuiz === "function") openQuiz(id);
+            return;
+        }
+        const openTitle = document.getElementById("summary-title");
+        const alreadyOpen = String(window.currentNoteId) === String(id) && openTitle && openTitle.textContent.trim() && document.getElementById("summary-inner");
+        if (alreadyOpen) {
+            document.dispatchEvent(new CustomEvent("learning-quiz"));
+            return;
+        }
+        pendingQuizId = id;
+        document.removeEventListener("noteOpened", onQuizNoteOpened);
+        document.addEventListener("noteOpened", onQuizNoteOpened);
+        if (typeof openNote === "function") openNote(id);
+    }
+
+    function menuButton(label, iconClass, onClick) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "learning-menu__item";
+        button.setAttribute("role", "menuitem");
+        const icon = document.createElement("i");
+        icon.className = "fas " + iconClass + " learning-menu__icon";
+        icon.setAttribute("aria-hidden", "true");
+        const text = document.createElement("span");
+        text.className = "learning-menu__label";
+        text.textContent = label;
+        button.append(icon, text);
+        button.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            hideMenu();
+            onClick();
+        });
+        return button;
+    }
+
+    let drawerTimer = null;
+
+    function closePercentDrawer(submenu) {
+        if (!submenu) return;
+        const drawer = submenu.querySelector(".learning-menu__drawer");
+        const trigger = submenu.querySelector(".learning-menu__item--parent");
+        if (drawer) drawer.hidden = true;
+        if (trigger) trigger.setAttribute("aria-expanded", "false");
+    }
+
+    function placePercentDrawer(submenu) {
+        const drawer = submenu.querySelector(".learning-menu__drawer");
+        if (!drawer) return;
+        drawer.hidden = false;
+        drawer.classList.remove("is-flip");
+        drawer.style.top = "";
+        const trigger = submenu.querySelector(".learning-menu__item--parent");
+        if (trigger) trigger.setAttribute("aria-expanded", "true");
+        const rect = drawer.getBoundingClientRect();
+        if (rect.right > window.innerWidth - 8) drawer.classList.add("is-flip");
+        const placed = drawer.getBoundingClientRect();
+        const overflow = placed.bottom - (window.innerHeight - 8);
+        if (overflow > 0) drawer.style.top = (-overflow) + "px";
+    }
+
+    function percentDrawer(path) {
+        const submenu = document.createElement("div");
+        submenu.className = "learning-menu__submenu";
+        const trigger = document.createElement("button");
+        trigger.type = "button";
+        trigger.className = "learning-menu__item learning-menu__item--parent";
+        trigger.setAttribute("role", "menuitem");
+        trigger.setAttribute("aria-haspopup", "true");
+        trigger.setAttribute("aria-expanded", "false");
+        const icon = document.createElement("i");
+        icon.className = "fas fa-percentage learning-menu__icon";
+        icon.setAttribute("aria-hidden", "true");
+        const label = document.createElement("span");
+        label.className = "learning-menu__label";
+        label.textContent = "Adjust percentage";
+        const caret = document.createElement("span");
+        caret.className = "learning-menu__caret";
+        caret.setAttribute("aria-hidden", "true");
+        caret.textContent = "›";
+        trigger.append(icon, label, caret);
+        const current = visitPercent(state.lessons[path]);
+        if (current != null) {
+            const now = document.createElement("span");
+            now.className = "learning-menu__current";
+            now.textContent = current + "%";
+            trigger.insertBefore(now, caret);
+        }
+        const drawer = document.createElement("div");
+        drawer.className = "learning-menu__drawer";
+        drawer.hidden = true;
+        drawer.setAttribute("role", "menu");
+        drawer.setAttribute("aria-label", "Adjust percentage");
+        const percents = document.createElement("div");
+        percents.className = "learning-menu__percents";
+        PERCENT_CHOICES.forEach((pct) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "learning-menu__percent";
+            button.setAttribute("role", "menuitemradio");
+            button.setAttribute("aria-checked", current === pct ? "true" : "false");
+            button.textContent = pct + "%";
+            button.addEventListener("click", (clickEvent) => {
+                clickEvent.preventDefault();
+                clickEvent.stopPropagation();
+                hideMenu();
+                setReached(path, pct);
+            });
+            percents.appendChild(button);
+        });
+        drawer.appendChild(percents);
+        const open = () => {
+            window.clearTimeout(drawerTimer);
+            placePercentDrawer(submenu);
+        };
+        const scheduleClose = () => {
+            window.clearTimeout(drawerTimer);
+            drawerTimer = window.setTimeout(() => closePercentDrawer(submenu), 160);
+        };
+        submenu.addEventListener("pointerenter", open);
+        submenu.addEventListener("pointerleave", scheduleClose);
+        drawer.addEventListener("pointerenter", open);
+        trigger.addEventListener("click", (clickEvent) => {
+            clickEvent.preventDefault();
+            clickEvent.stopPropagation();
+            if (drawer.hidden) open();
+            else closePercentDrawer(submenu);
+        });
+        submenu.append(trigger, drawer);
+        return submenu;
+    }
+
+    function placeMenu(event) {
+        holdMenuScroll();
+        menuEl.hidden = false;
+        menuEl.style.left = "0px";
+        menuEl.style.top = "0px";
+        const rect = menuEl.getBoundingClientRect();
+        let x = event.clientX;
+        let y = event.clientY;
+        if (x + rect.width > window.innerWidth - 8) x = window.innerWidth - rect.width - 8;
+        if (y + rect.height > window.innerHeight - 8) y = window.innerHeight - rect.height - 8;
+        menuEl.style.left = Math.max(8, x) + "px";
+        menuEl.style.top = Math.max(8, y) + "px";
+    }
+
+    function leaveFolderModes() {
+        if (typeof window.exitAskFolderMode === "function") window.exitAskFolderMode();
+        if (typeof window.exitShareFolderMode === "function") window.exitShareFolderMode();
+        if (typeof window.exitTrackLearningMode === "function") window.exitTrackLearningMode();
+    }
+
+    function showMenu(event, nameEl) {
+        const path = lessonPathForName(nameEl);
+        if (!path) return false;
+        const tracked = isTrackedLesson(path);
+        window.clearTimeout(drawerTimer);
+        menuEl.replaceChildren();
+        if (tracked) {
+            menuEl.appendChild(percentDrawer(path));
+            menuEl.appendChild(menuButton("Reset date and percentage", "fa-undo", () => resetVisit(path)));
+        } else {
+            menuEl.appendChild(menuButton("Start tracking folder", "fa-chart-line", () => trackParentFolder(nameEl)));
+        }
+        menuEl.appendChild(menuButton("Quiz", "fa-question-circle", () => startQuiz(nameEl)));
+        placeMenu(event);
+        return true;
+    }
+
+    function showFolderMenu(event, nameEl) {
+        const folderLi = nameEl.closest("li.accordion.meta[data-path]");
+        if (!folderLi) return false;
+        const folderPath = normalize(folderLi.getAttribute("data-path"));
+        window.clearTimeout(drawerTimer);
+        menuEl.replaceChildren();
+        const tracking = !!state.folders[folderPath];
+        menuEl.appendChild(menuButton(tracking ? "Stop tracking folder" : "Track folder", tracking ? "fa-times-circle" : "fa-chart-line", () => {
+            leaveFolderModes();
+            const result = applyToggle(folderPath);
+            if (result && result.tracked) {
+                const ul = folderLi.querySelector(":scope > ul");
+                if (ul) ul.style.display = "block";
+            }
+        }));
+        menuEl.appendChild(menuButton("Ask folder", "fa-robot", () => {
+            leaveFolderModes();
+            if (typeof window.askAboutFolder === "function") window.askAboutFolder(nameEl);
+        }));
+        menuEl.appendChild(menuButton("Share folder", "fa-share-alt", () => {
+            leaveFolderModes();
+            if (typeof window.shareFolderLink === "function") window.shareFolderLink(nameEl);
+        }));
+        placeMenu(event);
+        return true;
+    }
+
+    function willOpenLearningMenu(event) {
+        const topics = document.getElementById("topics-list");
+        if (!topics || !event.target.closest || !topics.contains(event.target)) return false;
+        const li = event.target.closest("li");
+        if (!li || !topics.contains(li)) return false;
+        return !!li.querySelector(":scope > .name.is-file, :scope > .name.is-folder");
+    }
+
+    function onTopicsContextMenu(event) {
+        const li = event.target.closest("li");
+        const topics = document.getElementById("topics-list");
+        if (!li || !topics || !topics.contains(li)) {
+            unlockMenuScroll();
+            return;
+        }
+        const fileName = li.querySelector(":scope > .name.is-file");
+        const folderName = li.querySelector(":scope > .name.is-folder");
+        let shown = false;
+        if (fileName) shown = showMenu(event, fileName);
+        else if (folderName) shown = showFolderMenu(event, folderName);
+        if (!shown) {
+            unlockMenuScroll();
+            return;
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
     function bindUi() {
         const topics = document.getElementById("topics-list");
-        if (topics) topics.addEventListener("click", onTopicsClick);
+        if (topics) {
+            topics.addEventListener("click", onTopicsClick);
+            topics.addEventListener("pointerdown", (event) => {
+                if (event.button !== 2 || !willOpenLearningMenu(event)) return;
+                holdMenuScroll();
+            });
+            topics.addEventListener("contextmenu", onTopicsContextMenu);
+        }
+        menuEl = document.createElement("div");
+        menuEl.id = "learning-menu";
+        menuEl.className = "learning-menu";
+        menuEl.setAttribute("role", "menu");
+        menuEl.hidden = true;
+        document.body.appendChild(menuEl);
+        document.addEventListener("pointerdown", (event) => {
+            if (!menuEl || menuEl.hidden || menuEl.contains(event.target)) return;
+            if (event.button === 2 && willOpenLearningMenu(event)) return;
+            hideMenu();
+        });
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") hideMenu();
+        });
+        document.addEventListener("pointerup", () => {
+            window.setTimeout(() => {
+                if (menuEl && menuEl.hidden) unlockMenuScroll();
+            }, 0);
+        });
+        window.addEventListener("scroll", onMenuScrollHide, true);
         const completeBtn = document.getElementById("learning-complete");
         if (completeBtn) {
             completeBtn.addEventListener("click", (event) => {
@@ -479,6 +897,7 @@
 
     window.TrackLearning = {
         start: start,
-        toggleFolder: toggleFolder
+        toggleFolder: toggleFolder,
+        recordScore: recordScore
     };
 })();
