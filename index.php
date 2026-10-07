@@ -672,6 +672,7 @@
                 <div class="practice-modes" role="group" aria-label="Practice mode">
                     <button type="button" id="practice-mode-retype" class="is-active" aria-pressed="true">Retype</button>
                     <button type="button" id="practice-mode-rearrange" aria-pressed="false">Rearrange</button>
+                    <button type="button" id="practice-mode-quiz" aria-pressed="false">Quiz</button>
                 </div>
                 <button type="button" id="practice-close">Close</button>
             </div>
@@ -726,6 +727,20 @@
                     <button type="button" id="practice-shuffle">Shuffle</button>
                     <div id="practice-lines" class="practice-lines"></div>
                     <p id="practice-rearrange-status" class="practice-status"></p>
+                </div>
+                <div id="practice-quiz" hidden>
+                    <p class="practice-hint">This prompt quizzes you on the open lesson. The chatbot asks how many questions you want, waits for your answers, then grades you. After grading, it prints CSV you can paste into the quiz app.</p>
+                    <label class="practice-quiz__label" for="practice-quiz-prompt">Prompt preview</label>
+                    <textarea id="practice-quiz-prompt" readonly spellcheck="false"></textarea>
+                    <div class="practice-quiz__actions">
+                        <button type="button" id="practice-quiz-copy">Copy prompt</button>
+                        <span class="practice-quiz__open">Open in
+                            <button type="button" id="practice-quiz-chatgpt" class="practice-quiz__link">ChatGPT</button>
+                            <button type="button" id="practice-quiz-claude" class="practice-quiz__link">Claude</button>
+                        </span>
+                        <a id="practice-quiz-app" class="practice-quiz__app" href="https://wengindustries.com/app/quiz-gsheet/gsheets/_Special%20-%20User%20Provides/Intake.php" target="_blank" rel="noopener noreferrer">Open quiz app</a>
+                    </div>
+                    <p id="practice-quiz-status" class="practice-status" aria-live="polite"></p>
                 </div>
             </div>
         </section>

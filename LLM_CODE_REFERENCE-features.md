@@ -91,6 +91,7 @@ echo json_encode(["res"=>$res, "cmd"=>$cmd, "stdout"=>$stdout]);
 - **Modal UX**: Readonly CSV textarea, Copy CSV button, Open Quiz App button (new tab to https://wengindustries.com/app/quiz-gsheet), and instruction to paste CSV for folder-wide quizzing
 - **Private folders**: Same `local-open.php` auth gate as notes; after login, quiz modal opens via `openPrivateAuthAndRetryQuiz()`
 - **User guide**: [README - Quizzing.md](README%20-%20Quizzing.md)
+- **Practice → Quiz**: On an open lesson, the Practice modal’s Quiz mode (`assets/js/game.js`) fills a prompt with the lesson text, or with a narrowed passage. Copy, or open ChatGPT (`https://chatgpt.com/?q=`) or Claude (`https://claude.ai/new?q=`). Prompts that do not fit in the URL are copied so the reader can paste them. After grading, the prompt asks for CSV in the quiz-app column layout documented in README - Quizzing.md.
 
 ### Random Note Prioritization
 - **Chevron Dropdown**: Down-arrow icon next to Random Note button reveals options

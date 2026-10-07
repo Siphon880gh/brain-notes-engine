@@ -108,6 +108,7 @@ body.practice-modal-open {
 #practice-panel[hidden],
 #practice-retype[hidden],
 #practice-rearrange[hidden],
+#practice-quiz[hidden],
 #practice-empty[hidden],
 #practice-scope[hidden],
 #practice-scope-status[hidden],
@@ -419,13 +420,72 @@ body.practice-mod-held .practice-level-key {
 }
 
 #practice-retype,
-#practice-rearrange {
+#practice-rearrange,
+#practice-quiz {
   flex: 1 1 auto;
   min-width: 0;
   min-height: 0;
   display: flex;
   flex-direction: column;
   overflow: auto;
+}
+
+.practice-quiz__label {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+#practice-quiz-prompt {
+  flex: 1 1 auto;
+  min-height: 12rem;
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  color: #0f172a;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.practice-quiz__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-top: 10px;
+}
+
+.practice-quiz__open {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.practice-quiz__link,
+.practice-quiz__app {
+  border: 0;
+  padding: 0;
+  background: none;
+  color: #1d4ed8;
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#practice-quiz-copy {
+  border: 1px solid #94a3b8;
+  background: #fff;
+  color: #0f172a;
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
 }
 
 #practice-shuffle {
@@ -603,8 +663,17 @@ html[data-mode="night"] .practice-line.is-incorrect {
   color: #fee2e2;
 }
 
-html[data-mode="night"] #practice-narrow-open {
+html[data-mode="night"] #practice-narrow-open,
+html[data-mode="night"] .practice-quiz__link,
+html[data-mode="night"] .practice-quiz__app {
   color: #93c5fd;
+}
+
+html[data-mode="night"] #practice-quiz-prompt,
+html[data-mode="night"] #practice-quiz-copy {
+  background: #0f172a;
+  color: #e2e8f0;
+  border-color: #475569;
 }
 
 html[data-mode="night"] .practice-level-popover,

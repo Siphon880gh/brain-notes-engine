@@ -80,6 +80,8 @@ Note that the curriculum at this repo is empty but the deployed app still render
 
 Add `*.quiz.csv` files (e.g. `seo-basics.quiz.csv`) to quiz readers on folder topics via [Weng's Quiz app](https://wengindustries.com/app/quiz-gsheet). They show in the topic tree with a Quiz pill; clicking opens a modal to copy the CSV and open the quiz app.
 
+On an open lesson, **Practice → Quiz** builds a prompt for ChatGPT or Claude. After it grades you, the reply includes CSV you can paste into the quiz app.
+
 Regular `.csv` files (not ending in `.quiz.csv`) also appear in the topic tree and open like notes: the panel shows **This is the data:** followed by the CSV rendered as a table.
 
 Full quiz workflow, filename rules, private-folder behavior, and developer pointers:
