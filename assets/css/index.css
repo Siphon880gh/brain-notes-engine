@@ -704,6 +704,17 @@ body {
   transform: rotate(45deg) translate(-1px, -1px);
 }
 
+.learning-visit {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.7;
+  color: #64748b;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
 .learning-progress {
   display: inline-block;
   margin-left: 8px;
@@ -1815,6 +1826,9 @@ html[data-mode="night"] .learning-progress {
   background: #134e4a;
 }
 html[data-mode="night"] #topics-list li.learning-done > .name.is-file {
+  color: #94a3b8;
+}
+html[data-mode="night"] .learning-visit {
   color: #94a3b8;
 }
 html[data-mode="night"] #explorer li.explorer-divider hr,

@@ -3,14 +3,20 @@
     const STORE = "brains";
     const SKIP_NAMES = new Set(["sortspec.md", "readme.md", "package.json", "package-lock.json"]);
 
+    const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
     let started = false;
     let loaded = false;
     let useLocal = false;
     let readyPromise = Promise.resolve();
     let saveChain = Promise.resolve();
+    let saveTimer = 0;
+    let scrollTick = false;
+    let watchPath = "";
     let state = emptyState();
     let idToPath = new Map();
     let fileById = new Map();
+    let visitEls = new Map();
 
     function emptyState() {
         return { folders: {}, lessons: {} };
@@ -48,12 +54,8 @@
         }
         if (raw.lessons && typeof raw.lessons === "object") {
             Object.keys(raw.lessons).forEach((key) => {
-                const lesson = raw.lessons[key];
-                if (!lesson || !lesson.complete) return;
-                next.lessons[normalize(key)] = {
-                    complete: true,
-                    completedAt: Number(lesson.completedAt) || Date.now()
-                };
+                const record = lessonRecord(raw.lessons[key]);
+                if (record) next.lessons[normalize(key)] = record;
             });
         }
         return next;
@@ -132,11 +134,39 @@
         });
     }
 
+    function lessonRecord(lesson) {
+        if (!lesson || typeof lesson !== "object") return null;
+        const openedAt = Number(lesson.openedAt) || 0;
+        const reached = Math.max(0, Math.min(100, Math.round(Number(lesson.reached) || 0)));
+        const complete = !!lesson.complete;
+        if (!complete && !openedAt && !reached) return null;
+        const record = {};
+        if (complete) {
+            record.complete = true;
+            record.completedAt = Number(lesson.completedAt) || openedAt || Date.now();
+        }
+        if (openedAt) record.openedAt = openedAt;
+        if (reached) record.reached = reached;
+        return record;
+    }
+
     function queueSave() {
+        if (saveTimer) {
+            window.clearTimeout(saveTimer);
+            saveTimer = 0;
+        }
         const snapshot = JSON.parse(JSON.stringify(state));
         saveChain = saveChain.then(() => writeState(snapshot)).catch((err) => {
             console.error("Track learning save failed", err);
         });
+    }
+
+    function scheduleSave() {
+        if (saveTimer) return;
+        saveTimer = window.setTimeout(() => {
+            saveTimer = 0;
+            queueSave();
+        }, 400);
     }
 
     function indexLessons() {
@@ -191,8 +221,42 @@
         return btn;
     }
 
+    function formatOpened(ts, withYear) {
+        const date = new Date(ts);
+        if (Number.isNaN(date.getTime())) return "";
+        const label = MONTHS[date.getMonth()] + " " + date.getDate();
+        if (withYear || date.getFullYear() !== new Date().getFullYear()) return label + ", " + date.getFullYear();
+        return label;
+    }
+
+    function visitText(record) {
+        if (!record || !record.openedAt) return "";
+        const pct = Math.max(0, Math.min(100, Math.round(Number(record.reached) || 0)));
+        return formatOpened(record.openedAt, false) + " · " + pct + "%";
+    }
+
+    function fillVisit(el, record) {
+        const text = visitText(record);
+        if (!text) {
+            el.hidden = true;
+            el.textContent = "";
+            el.removeAttribute("title");
+            return;
+        }
+        const pct = Math.max(0, Math.min(100, Math.round(Number(record.reached) || 0)));
+        el.hidden = false;
+        el.textContent = text;
+        el.title = "Last opened " + formatOpened(record.openedAt, true) + ". Reached " + pct + "%.";
+    }
+
+    function updateVisitLabel(path) {
+        const el = visitEls.get(path);
+        if (el) fillVisit(el, state.lessons[path]);
+    }
+
     function clearPaint() {
-        document.querySelectorAll("#topics-list .learning-check, #topics-list .learning-progress").forEach((el) => el.remove());
+        visitEls = new Map();
+        document.querySelectorAll("#topics-list .learning-check, #topics-list .learning-progress, #topics-list .learning-visit").forEach((el) => el.remove());
         document.querySelectorAll("#topics-list li.learning-done").forEach((el) => el.classList.remove("learning-done"));
     }
 
@@ -217,9 +281,16 @@
                 const el = fileById.get(lesson.id);
                 const li = el && el.closest("li");
                 if (!li) return;
-                const complete = !!(state.lessons[lesson.path] && state.lessons[lesson.path].complete);
+                const record = state.lessons[lesson.path];
+                const complete = !!(record && record.complete);
                 li.insertBefore(makeCheck(lesson.path, complete), li.firstChild);
                 li.classList.toggle("learning-done", complete);
+                const visit = document.createElement("span");
+                visit.className = "learning-visit";
+                visit.setAttribute("data-lesson", lesson.path);
+                fillVisit(visit, record);
+                el.appendChild(visit);
+                visitEls.set(lesson.path, visit);
             });
         });
     }
@@ -248,12 +319,75 @@
 
     function toggleLesson(path) {
         path = normalize(path);
-        const complete = !(state.lessons[path] && state.lessons[path].complete);
-        if (complete) state.lessons[path] = { complete: true, completedAt: Date.now() };
-        else delete state.lessons[path];
+        const prev = state.lessons[path] || {};
+        const complete = !prev.complete;
+        const next = {};
+        if (prev.openedAt) next.openedAt = prev.openedAt;
+        if (prev.reached) next.reached = prev.reached;
+        if (complete) {
+            next.complete = true;
+            next.completedAt = Date.now();
+        }
+        if (!next.complete && !next.openedAt && !next.reached) delete state.lessons[path];
+        else state.lessons[path] = next;
         paint();
         syncOpenNote();
         queueSave();
+    }
+
+    function measureReached() {
+        const panel = document.querySelector("#summary-inner");
+        if (!panel || panel.scrollHeight < 80) return null;
+        const rect = panel.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > window.innerHeight) return null;
+        const markers = panel.querySelectorAll(".scroll-marker");
+        let max = 0;
+        markers.forEach((marker) => {
+            if (marker.getBoundingClientRect().top > window.innerHeight / 4) return;
+            const pct = parseInt(marker.textContent, 10);
+            if (pct > max) max = pct;
+        });
+        const fits = markers.length === 0 && panel.scrollHeight <= window.innerHeight + 8;
+        if (fits) max = 100;
+        return max;
+    }
+
+    function measureAndStore() {
+        if (!watchPath || !isTrackedLesson(watchPath)) return;
+        const reached = measureReached();
+        if (reached == null) return;
+        const prev = state.lessons[watchPath] || {};
+        if (reached <= (Number(prev.reached) || 0)) return;
+        state.lessons[watchPath] = Object.assign({}, prev, { reached: reached });
+        updateVisitLabel(watchPath);
+        scheduleSave();
+    }
+
+    function onTrackedNoteOpened() {
+        syncOpenNote();
+        const path = lessonPathForOpenNote();
+        if (!loaded || !isTrackedLesson(path)) {
+            watchPath = "";
+            return;
+        }
+        watchPath = path;
+        const prev = state.lessons[path] || {};
+        state.lessons[path] = Object.assign({}, prev, { openedAt: Date.now() });
+        updateVisitLabel(path);
+        queueSave();
+        window.requestAnimationFrame(() => {
+            measureAndStore();
+            window.requestAnimationFrame(measureAndStore);
+        });
+    }
+
+    function onScroll() {
+        if (scrollTick || !watchPath) return;
+        scrollTick = true;
+        window.requestAnimationFrame(() => {
+            scrollTick = false;
+            measureAndStore();
+        });
     }
 
     function flashTrackButton(message) {
@@ -314,7 +448,11 @@
                 if (path) toggleLesson(path);
             });
         }
-        document.addEventListener("noteOpened", syncOpenNote);
+        document.addEventListener("noteOpened", () => {
+            if (!loaded) readyPromise.then(onTrackedNoteOpened);
+            else onTrackedNoteOpened();
+        });
+        window.addEventListener("scroll", onScroll, { passive: true });
         document.addEventListener("privateAuthChanged", () => {
             if (loaded) paint();
         });
@@ -331,6 +469,7 @@
             loaded = true;
             paint();
             syncOpenNote();
+            onTrackedNoteOpened();
         }).catch((err) => {
             console.error("Track learning load failed", err);
             loaded = true;
