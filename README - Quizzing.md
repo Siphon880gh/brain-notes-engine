@@ -47,7 +47,7 @@ Quiz files do not open in the main note panel; they always use the quiz modal.
 
 Open any lesson, then click **Practice** and choose **Quiz**. The panel fills a prompt with that lesson (or with a passage you narrowed under “Too long to practice?”). Copy it, or open it in ChatGPT or Claude.
 
-The chatbot asks how many questions you want, which formats, and how hard. It waits for your answers before it grades you. After the grade report, it prints CSV for [Weng's Quiz app](https://wengindustries.com/app/quiz-gsheet/gsheets/_Special%20-%20User%20Provides/Intake.php). Reply `export` if you want that CSV without finishing the chat quiz.
+The chatbot asks how many questions you want, which formats, and how hard. It waits for your answers before it grades you. A suggested reply is on the panel to copy: `1. 10. 2. You choose. 3. A Mix.` That means 10 questions, the chatbot picks the formats, and mixed difficulty. After the grade report, it prints CSV for [Weng's Quiz app](https://wengindustries.com/app/quiz-gsheet/gsheets/_Special%20-%20User%20Provides/Intake.php). Reply `export` if you want that CSV without finishing the chat quiz.
 
 Paste the CSV on the quiz app’s intake page. Column layout is below.
 

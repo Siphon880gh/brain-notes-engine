@@ -22,6 +22,7 @@
     const quizChatgptBtn = document.getElementById("practice-quiz-chatgpt");
     const quizClaudeBtn = document.getElementById("practice-quiz-claude");
     const QUIZ_APP_URL = "https://wengindustries.com/app/quiz-gsheet/gsheets/_Special%20-%20User%20Provides/Intake.php";
+    const QUIZ_SUGGESTED_REPLY = "1. 10. 2. You choose. 3. A Mix.";
 
     if (!sourceEl || !inputEl || !panelEl || !modalEl || !openBtn) return;
 
@@ -184,6 +185,18 @@
             "",
             "Ask me if there are any sections, topics, definitions, claims, examples, or details I want to emphasize or avoid.",
             "",
+            "A short reply is enough. Read it like this:",
+            "",
+            "- \"You choose\" for formats means you pick a sensible mix.",
+            "- \"A Mix\" or \"Mix\" means MIX difficulty.",
+            "- If I answer questions 1–3 and say nothing about focus, skip focus and generate the quiz.",
+            "",
+            "I may send this exact reply in a later message:",
+            "",
+            QUIZ_SUGGESTED_REPLY,
+            "",
+            "That means 10 questions, you choose the formats, mixed difficulty, and no focus. Wait until I send it. Do not treat this instruction as my answer.",
+            "",
             "STEP 2 — Generate the quiz",
             "",
             "After I answer the quiz settings:",
@@ -192,22 +205,35 @@
             "- Do not use outside knowledge.",
             "- Avoid trivia that is not supported by the article.",
             "- If a question depends on a specific claim, definition, example, or section, make sure it is clearly grounded in the article.",
-            "- If using MC questions, provide 4 options labeled A–D.",
-            "- If using SATA questions, provide 5–7 options.",
-            "- If using Mix & Match, provide two clear columns.",
             "- If difficulty is set to MIX, include a reasonable blend of easy, medium, and hard questions.",
+            "",
+            "Output in this order:",
+            "",
+            "1. Before the CSV and the questions, explain in this sentence, with this link:",
+            "I will give you csv for Weng's quiz app (" + QUIZ_APP_URL + ") as well as the questions we can answer immediately",
+            "2. One fenced csv code block (header + data rows) using the schema in STEP 5. This block is the file I paste into the quiz app. It includes the correct answers.",
+            "3. Then the generated questions, written so I can answer them in this chat. Do not repeat which choice is correct in that question list.",
+            "4. End with exactly these two lines:",
+            "Answer in a compact format: 1) B  2) T  3) A,C,E  4) ...",
+            "Or ask me to quiz you interactively",
+            "",
+            "For the questions after the CSV:",
+            "",
+            "- MC: 4 options labeled A–D.",
+            "- SATA: 5–7 options, and say to select all that apply.",
+            "- FIB: a blank written as ___.",
+            "- TF: ask me to answer True or False.",
+            "- RANK: list the items and ask me to put them in order.",
+            "- MM: two columns to match.",
+            "- FC, SA, and FR: the prompt only. The answer stays on the back of the flash card inside the CSV.",
             "",
             "STEP 3 — Answer handling",
             "",
-            "After generating the quiz:",
+            "The two lines at the end of STEP 2 are how I choose what happens next.",
             "",
-            "Ask me to answer using a compact format like this:",
+            "If I answer in the compact format, grade that submission. Do not reveal the answer key until I submit my answers. Do not include explanations yet unless I ask for them.",
             "",
-            "“1) B  2) T  3) A,C,E  4) ...”",
-            "",
-            "Do not reveal the answer key until I submit my answers.",
-            "",
-            "Do not include explanations yet unless I ask for them.",
+            "If I ask you to quiz me interactively, ask one question at a time, wait for my answer, then tell me whether it was right before the next question. Do not show the CSV again.",
             "",
             "STEP 4 — Grading",
             "",
@@ -223,46 +249,112 @@
             "",
             "STEP 5 — Quiz app CSV",
             "",
-            "After the grade report, output the same quiz as CSV I can paste into Weng's Quiz app:",
-            QUIZ_APP_URL,
+            "The csv code block is the whole quiz, not a score report. I paste it into the quiz intake.",
             "",
-            "If I reply \"export\" at any time, skip ahead and output that CSV for the quiz you generated. If I have not chosen settings yet, use 8 questions, MC5 TF1 SATA1 FIB1, difficulty MIX, and output CSV only.",
+            "If I reply \"export\" at any time, output that CSV for the quiz you generated. If I have not chosen settings yet, use 8 questions, MC5 TF1 SATA1 FIB1, difficulty MIX, and output the csv code block only.",
             "",
-            "Print the grade report first (unless I said export). Then print one fenced csv block and no other CSV.",
+            "Question type codes",
             "",
-            "The CSV is the whole quiz, including questions I got right. It is not a score report.",
+            "MC = Multiple Choice. Question Type column: Multiple Choice",
+            "TF = True/False. Question Type column: True False",
+            "SATA = Select All That Apply. Question Type column: Multiple Choice. Correct Choice is comma-separated.",
+            "FIB = Fill in the Blank. Question Type column: Multiple Choice. The question text contains ___.",
+            "RANK = Ranked / Order in sequence. Question Type column: Ranked",
+            "MM = Mix & Match. Question Type column: Mix and match",
+            "FC = Flash Card. Question Type column: Flash card",
             "",
-            "Use this header row exactly:",
+            "Aliases (treat the same): ORD, SEQ, ORDER mean RANK. FLASH means FC. MATCH means MM. T/F means TF. SA and FR become FC.",
             "",
-            "Number,Title,Question,Instruction,Question Type,Correct Choice,Choice 1,Choice 2,Choice 3,Choice 4,Choice 5,Choice 6,Choice 7,Hint",
+            "CSV column schema (required order)",
             "",
-            "Column rules:",
+            "Every row has these columns, in this exact order:",
             "",
-            "- Number: leave blank. Use -1 only to hide a row.",
-            "- Title: a short topic label from the article.",
-            "- Question: the question text. No A/B/C labels inside it.",
-            "- Instruction: one short line on how to answer.",
-            "- Question Type: exactly one of: Multiple Choice, True False, Ranked, Mix and match, Flash card",
-            "- Correct Choice: a 1-based index into the Choice columns (Choice 1 is 1). Select-all questions use comma-separated indexes such as 1,3,5. Ranked and Mix and match use N/A.",
-            "- Choice columns: answer text only, with no A) B) or 1) prefixes. Leave unused choice cells empty.",
-            "- Hint: optional one sentence grounded in the article, or leave blank.",
-            "- Quote any field that contains a comma, a double quote, or a line break. Escape a double quote by doubling it.",
-            "- Mix and match and flash card cells need real line breaks inside the quotes. Do not write a backslash followed by n.",
+            "1. Number — optional sort key; use a blank cell",
+            "2. Title — short label shown in the quiz UI (for example Multiple choice, True or false)",
+            "3. Question — question text",
+            "4. Instruction — how to answer, shown under the question",
+            "5. Question Type — drives rendering",
+            "6. Correct Choice — 1-based index into the choice columns, or N/A for ranked and mix-and-match, or comma-separated for SATA",
+            "7. Choice 1 through Choice N — answer options. Use as many columns as needed. Trailing empty columns may be omitted.",
             "",
-            "Map each quiz format to a row:",
+            "Header row, included once at the top of the csv block:",
             "",
-            "- MC: Question Type Multiple Choice. Four choices. Correct Choice is 1, 2, 3, or 4. Instruction: Select the correct answer.",
-            "- TF: Question Type True False. Choice 1 is True. Choice 2 is False. Correct Choice is 1 or 2. Instruction: Select True or False.",
-            "- SATA: Question Type Multiple Choice (not the word SATA). Five to seven choices. Correct Choice is every correct index, comma-separated. Instruction: Toggle each correct choice, then press the confirm button.",
-            "- FIB: Question Type Multiple Choice. The question uses ___ for the blank. Put the correct wording in one choice and plausible distractors in the others. Correct Choice points at the correct choice. Instruction: Select the answer that fills the blank.",
-            "- RANK: Question Type Ranked. Correct Choice is N/A. Choice 1 through Choice N are already in the correct order. Instruction: Drag into the correct order, then press Finished ordering.",
-            "- MM: Question Type Mix and match. Correct Choice is N/A. Each matched Choice cell is three lines: the left item, a line that is only ===, then the right item. An extra unmatched distractor is one line with no ===. Instruction: Drag each item on the left into the matching slot on the right.",
-            "- SA and FR: Question Type Flash card. The Question cell is three lines: the prompt, a line that is only ====, then a model answer grounded in the article. Choice 1 is Yes. Choice 2 is No. Correct Choice is 1. Instruction: Did you remember correctly?",
+            "\"\",\"Title\",\"Question\",\"Instruction\",\"Question Type\",\"Correct Choice\",\"Choice 1\",\"Choice 2\",\"Choice 3\",\"Choice 4\",\"Choice 5\",\"Choice 6\",\"Choice 7\"",
+            "",
+            "Global CSV rules",
+            "",
+            "- Correct Choice indices are 1-based: Choice 1 = 1, Choice 2 = 2, and so on.",
+            "- Do not prefix choices with a), b), 1., or similar. The column position is the label.",
+            "- Do not wrap values in quotes unless required (commas or multiline content inside a cell).",
+            "- For multiline cells, use real newlines inside double quotes. Do not write a backslash followed by n.",
+            "- SATA is detected when Correct Choice contains commas (for example 1,2,4), not by writing SATA in Question Type.",
+            "- Ranked and Mix and match ignore Correct Choice. Use N/A.",
+            "- Escape a double quote inside a quoted field by doubling it.",
+            "",
+            "How to generate each type",
+            "",
+            "MC — Multiple Choice",
+            "Question Type: Multiple Choice",
+            "Correct Choice: a single number pointing at the right choice column",
+            "Choice columns: 3–6 plausible options (4 is typical)",
+            "Instruction: Select the correct answer.",
+            "Example row: ,Multiple choice,What is 2 + 2?,Select the correct answer.,Multiple Choice,2,3,4,5,6",
+            "",
+            "FIB — Fill in the Blank",
+            "Question Type: Multiple Choice (not a separate FIB type)",
+            "Question text: use ___ for each blank",
+            "Correct Choice: index of the choice that fills the blank",
+            "Put the correct wording in the indexed choice column and add 3–4 plausible distractors",
+            "Instruction: Select the answer that best fills the blank.",
+            "Example row: ,Fill in the blank,The ___ is the powerhouse of the cell.,Select the answer that best fills the blank.,Multiple Choice,2,nucleus,mitochondria,ribosome,vacuole",
+            "",
+            "TF — True/False",
+            "Question Type: True False",
+            "Correct Choice: 1 = True, 2 = False",
+            "Exactly two choice columns: True, then False",
+            "Instruction: Select True or False.",
+            "Example row: ,True or false,The sky is blue on a clear day.,Select True or False.,True False,1,True,False",
+            "",
+            "SATA — Select All That Apply",
+            "Question Type: Multiple Choice",
+            "Correct Choice: comma-separated indices of all correct choices",
+            "Instruction: Toggle each correct choice, then press the confirm button.",
+            "Provide 4–6 choices with 2–4 correct answers",
+            "Example row: ,Select all that apply,Which of these are mammals? (Select all that apply.),Toggle each correct choice then press the confirm button.,Multiple Choice,\"1,2,4\",Dog,Cat,Salmon,Horse,Eagle",
+            "",
+            "FC — Flash Card",
+            "Question cell: front side, then a line of exactly four equals signs ====, then the back side. That is one cell, so quote it and use a real line break.",
+            "Question Type: Flash card",
+            "Correct Choice: 1 (Yes, I remembered, is the success path)",
+            "Choice 1: Yes. Choice 2: No.",
+            "Instruction: Flip the card to see the answer, then choose whether you remembered it.",
+            "",
+            "RANK — Ranked / Order in Correct Sequence",
+            "Question Type: Ranked",
+            "Correct Choice: N/A",
+            "Choice columns: items in the correct order from left to right. The app shuffles them for the learner.",
+            "Instruction: Drag into the correct order, then press Finished ordering.",
+            "Example row: ,Ranked,Order these steps for hand washing.,Drag into the correct order then press Finished ordering.,Ranked,N/A,Wet hands with water,Apply soap and scrub,Rinse thoroughly,Dry hands",
+            "",
+            "MM — Mix and Match",
+            "Question Type: Mix and match",
+            "Correct Choice: N/A",
+            "Each paired choice cell is three lines: the left term, a line that is only ===, then the right definition. Quote the cell.",
+            "Optional distractor: a choice with text only and no === line (an extra left-side item with no match slot).",
+            "Do not shuffle pairs. List the correct pairings in the choice columns.",
+            "Instruction: Drag items from the left into the matching slot on the right.",
+            "",
+            "Output format for the csv block",
+            "",
+            "The block starts with ```csv and ends with ```.",
+            "Inside it: the header row, then one data row per question.",
+            "The explanation sentence comes first. Then the csv fence. Immediately after the closing fence, write the generated questions, then the two ending lines from STEP 2.",
+            "If the output is truncated, I will say \"continue the same CSV format\". Append more rows without repeating the header, then continue the questions.",
             "",
             "Do not use outside knowledge. Do not add Picture, Video, or audio rows.",
             "",
             "YOUR REPLY:",
-            "Ask me the STEP 1 questions. The article is already included below. Do not ask me to paste it again.",
+            "Ask me the STEP 1 questions. The article is already included below. Do not ask me to paste it again. You can also suggest \"" + QUIZ_SUGGESTED_REPLY + "\" for the user to copy as a response, or to say to go by your suggestion.",
             "",
             "INPUT:",
             "Use only this article content as the source material for the quiz.",
@@ -285,27 +377,39 @@
         if (quizStatusEl) quizStatusEl.textContent = message;
     }
 
-    function copyQuizPrompt() {
-        const text = quizPromptEl ? quizPromptEl.value : "";
-        const done = () => setQuizStatus("Prompt copied.");
+    function fallbackCopy(text) {
+        const area = document.createElement("textarea");
+        area.value = text;
+        area.setAttribute("readonly", "");
+        area.style.position = "fixed";
+        area.style.left = "-9999px";
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+    }
+
+    function copyText(text, message) {
+        const done = () => setQuizStatus(message);
         if (navigator.clipboard && navigator.clipboard.writeText) {
             return navigator.clipboard.writeText(text).then(done).catch(() => {
-                quizPromptEl.focus();
-                quizPromptEl.select();
-                document.execCommand("copy");
+                fallbackCopy(text);
                 done();
             });
         }
-        quizPromptEl.focus();
-        quizPromptEl.select();
-        document.execCommand("copy");
+        fallbackCopy(text);
         done();
         return Promise.resolve();
+    }
+
+    function copyQuizPrompt() {
+        return copyText(quizPromptEl ? quizPromptEl.value : "", "Prompt copied.");
     }
 
     function openQuizChat(homeUrl, queryUrl) {
         const prompt = quizPromptEl ? quizPromptEl.value : "";
         const url = queryUrl + encodeURIComponent(prompt);
+        showWhatNow();
         if (url.length > 1800) {
             copyQuizPrompt().then(() => {
                 setQuizStatus("Prompt copied. Paste it into the chat.");
@@ -315,6 +419,315 @@
         }
         setQuizStatus("");
         window.open(url, "_blank", "noopener,noreferrer");
+    }
+
+    function showWhatNow() {
+        const section = document.getElementById("practice-quiz-next");
+        const quiz = document.getElementById("practice-quiz");
+        if (!section) return;
+        section.hidden = false;
+        if (quiz) quiz.classList.add("is-next-open");
+        requestAnimationFrame(() => {
+            if (!quiz) {
+                section.scrollIntoView({ behavior: "smooth", block: "start" });
+                return;
+            }
+            const delta = section.getBoundingClientRect().top - quiz.getBoundingClientRect().top;
+            quiz.scrollTo({ top: quiz.scrollTop + delta, behavior: "smooth" });
+        });
+    }
+
+    function extractCsv(raw) {
+        const text = String(raw || "").replace(/^\uFEFF/, "").trim();
+        const fenced = text.match(/```(?:csv)?\s*([\s\S]*?)```/i);
+        return (fenced ? fenced[1] : text).trim();
+    }
+
+    function parseCsv(text) {
+        const rows = [];
+        let row = [];
+        let cell = "";
+        let quoted = false;
+        for (let i = 0; i < text.length; i++) {
+            const ch = text[i];
+            if (quoted) {
+                if (ch === '"') {
+                    if (text[i + 1] === '"') {
+                        cell += '"';
+                        i++;
+                    } else quoted = false;
+                } else cell += ch;
+            } else if (ch === '"') quoted = true;
+            else if (ch === ",") {
+                row.push(cell);
+                cell = "";
+            } else if (ch === "\n") {
+                row.push(cell);
+                rows.push(row);
+                row = [];
+                cell = "";
+            } else if (ch !== "\r") cell += ch;
+        }
+        if (cell.length || row.length) {
+            row.push(cell);
+            rows.push(row);
+        }
+        return rows.filter((line) => line.some((value) => String(value).trim() !== ""));
+    }
+
+    function questionsFromCsv(raw) {
+        const rows = parseCsv(extractCsv(raw));
+        if (!rows.length) return [];
+        const head = rows[0].map((cell) => cell.trim().toLowerCase());
+        const headered = head.indexOf("question") !== -1 && (head.indexOf("question type") !== -1 || head.indexOf("correct choice") !== -1);
+        const col = (names, fallback) => {
+            if (!headered) return fallback;
+            for (let i = 0; i < names.length; i++) {
+                const at = head.indexOf(names[i]);
+                if (at !== -1) return at;
+            }
+            return fallback;
+        };
+        const iTitle = col(["title"], 1);
+        const iQuestion = col(["question"], 2);
+        const iInstruction = col(["instruction"], 3);
+        const iType = col(["question type"], 4);
+        const iCorrect = col(["correct choice"], 5);
+        let iChoice = 6;
+        if (headered) {
+            const named = head.findIndex((name) => name.indexOf("choice ") === 0 || name === "choice 1");
+            iChoice = named === -1 ? iCorrect + 1 : named;
+        }
+        const questions = [];
+        for (let r = headered ? 1 : 0; r < rows.length; r++) {
+            const cells = rows[r];
+            const choices = [];
+            for (let c = iChoice; c < cells.length; c++) {
+                if (String(cells[c] || "").trim() !== "") choices.push(String(cells[c]));
+            }
+            const question = String(cells[iQuestion] || "").trim();
+            if (!question || !choices.length) continue;
+            questions.push({
+                title: String(cells[iTitle] || "").trim(),
+                question: question,
+                instruction: String(cells[iInstruction] || "").trim(),
+                type: String(cells[iType] || "").trim(),
+                correct: String(cells[iCorrect] || "").trim(),
+                choices: choices
+            });
+        }
+        return questions;
+    }
+
+    function questionKind(q) {
+        const type = q.type.toLowerCase().replace(/\s+/g, " ");
+        if (type === "true false" || type === "true/false" || type === "tf" || type === "t/f") return "tf";
+        if (type === "ranked" || type === "rank" || type === "ord" || type === "seq" || type === "order") return "rank";
+        if (type === "mix and match" || type === "mix & match" || type === "mm" || type === "match") return "mm";
+        if (type === "flash card" || type === "flashcard" || type === "fc" || type === "flash") return "fc";
+        if (q.correct.indexOf(",") !== -1) return "sata";
+        return "mc";
+    }
+
+    function shuffleItems(list) {
+        const copy = list.slice();
+        for (let i = copy.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const tmp = copy[i];
+            copy[i] = copy[j];
+            copy[j] = tmp;
+        }
+        return copy;
+    }
+
+    function splitMarker(text, marker) {
+        const lines = String(text).split(/\r?\n/);
+        const at = lines.findIndex((line) => line.trim() === marker);
+        if (at === -1) return null;
+        return {
+            left: lines.slice(0, at).join("\n").trim(),
+            right: lines.slice(at + 1).join("\n").trim()
+        };
+    }
+
+    function quizNode(tag, className, text) {
+        const node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text != null) node.textContent = text;
+        return node;
+    }
+
+    function kindLabel(kind) {
+        if (kind === "tf") return "True or false";
+        if (kind === "sata") return "Select all that apply";
+        if (kind === "rank") return "Ranked";
+        if (kind === "mm") return "Mix and match";
+        if (kind === "fc") return "Flash card";
+        return "Multiple choice";
+    }
+
+    function moveRank(row, dir) {
+        const parent = row.parentNode;
+        if (!parent) return;
+        if (dir < 0 && row.previousElementSibling) parent.insertBefore(row, row.previousElementSibling);
+        if (dir > 0 && row.nextElementSibling) parent.insertBefore(row.nextElementSibling, row);
+    }
+
+    function renderIntake(questions) {
+        const runner = document.getElementById("practice-quiz-runner");
+        if (!runner) return;
+        runner.innerHTML = "";
+        questions.forEach((q, index) => {
+            const kind = questionKind(q);
+            const card = quizNode("article", "quiz-card");
+            card.setAttribute("data-kind", kind);
+            card.setAttribute("data-correct", q.correct);
+            card.appendChild(quizNode("h5", "quiz-card__title", (index + 1) + ". " + (q.title || kindLabel(kind))));
+            if (kind === "fc") {
+                const sides = splitMarker(q.question, "====") || { left: q.question, right: "" };
+                card.appendChild(quizNode("p", "quiz-card__text", sides.left));
+                const back = quizNode("p", "quiz-card__back", sides.right);
+                back.hidden = true;
+                const flip = quizNode("button", "quiz-card__flip", "Show answer");
+                flip.type = "button";
+                flip.addEventListener("click", () => {
+                    back.hidden = false;
+                    flip.hidden = true;
+                });
+                card.appendChild(flip);
+                card.appendChild(back);
+            } else {
+                card.appendChild(quizNode("p", "quiz-card__text", kind === "mm" ? q.question.split("\n")[0] : q.question));
+            }
+            if (q.instruction) card.appendChild(quizNode("p", "quiz-card__instruction", q.instruction));
+            const choices = quizNode("div", "quiz-card__choices");
+            if (kind === "rank") {
+                shuffleItems(q.choices.map((text, choiceIndex) => ({ text: text, index: choiceIndex }))).forEach((item) => {
+                    const row = quizNode("div", "quiz-rank");
+                    row.setAttribute("data-index", String(item.index));
+                    const up = quizNode("button", "quiz-rank__move", "Up");
+                    const down = quizNode("button", "quiz-rank__move", "Down");
+                    up.type = "button";
+                    down.type = "button";
+                    up.addEventListener("click", () => moveRank(row, -1));
+                    down.addEventListener("click", () => moveRank(row, 1));
+                    row.appendChild(quizNode("span", "quiz-rank__label", item.text));
+                    row.appendChild(up);
+                    row.appendChild(down);
+                    choices.appendChild(row);
+                });
+            } else if (kind === "mm") {
+                const pairs = [];
+                const lefts = [];
+                q.choices.forEach((choice) => {
+                    const pair = splitMarker(choice, "===");
+                    if (pair && pair.left && pair.right) {
+                        pairs.push(pair);
+                        lefts.push(pair.left);
+                    } else if (choice.trim()) lefts.push(choice.trim());
+                });
+                const options = shuffleItems(lefts);
+                pairs.forEach((pair) => {
+                    const row = quizNode("label", "quiz-match");
+                    const select = document.createElement("select");
+                    select.setAttribute("data-answer", pair.left);
+                    const blank = document.createElement("option");
+                    blank.value = "";
+                    blank.textContent = "Choose";
+                    select.appendChild(blank);
+                    options.forEach((left) => {
+                        const option = document.createElement("option");
+                        option.value = left;
+                        option.textContent = left;
+                        select.appendChild(option);
+                    });
+                    row.appendChild(select);
+                    row.appendChild(quizNode("span", "quiz-match__right", pair.right));
+                    choices.appendChild(row);
+                });
+            } else {
+                const multi = kind === "sata";
+                q.choices.forEach((choice, choiceIndex) => {
+                    const row = quizNode("label", "quiz-choice");
+                    const input = document.createElement("input");
+                    input.type = multi ? "checkbox" : "radio";
+                    input.name = "quiz-q-" + index;
+                    input.value = String(choiceIndex + 1);
+                    row.appendChild(input);
+                    row.appendChild(document.createTextNode(" " + choice));
+                    choices.appendChild(row);
+                });
+            }
+            card.appendChild(choices);
+            const result = quizNode("p", "quiz-card__result", "");
+            result.hidden = true;
+            card.appendChild(result);
+            runner.appendChild(card);
+        });
+        const check = quizNode("button", "quiz-check", "Check answers");
+        check.type = "button";
+        check.addEventListener("click", () => gradeIntake(runner));
+        runner.appendChild(check);
+        runner.appendChild(quizNode("p", "quiz-score", ""));
+        runner.lastChild.id = "practice-quiz-score";
+        runner.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function numberSet(values) {
+        return values.map((value) => parseInt(value, 10)).filter((value) => !Number.isNaN(value)).sort((a, b) => a - b).join(",");
+    }
+
+    function gradeCard(card) {
+        const kind = card.getAttribute("data-kind");
+        const correct = card.getAttribute("data-correct") || "";
+        if (kind === "rank") {
+            const order = Array.from(card.querySelectorAll(".quiz-rank")).map((row) => row.getAttribute("data-index"));
+            return order.every((value, index) => value === String(index));
+        }
+        if (kind === "mm") {
+            const selects = Array.from(card.querySelectorAll("select"));
+            return selects.length > 0 && selects.every((select) => select.value === select.getAttribute("data-answer"));
+        }
+        if (kind === "sata") {
+            const wanted = numberSet(correct.split(","));
+            const got = numberSet(Array.from(card.querySelectorAll("input:checked")).map((input) => input.value));
+            return wanted !== "" && wanted === got;
+        }
+        const picked = card.querySelector("input:checked");
+        return !!picked && picked.value === String(correct).trim();
+    }
+
+    function gradeIntake(runner) {
+        const cards = Array.from(runner.querySelectorAll(".quiz-card"));
+        let correct = 0;
+        cards.forEach((card) => {
+            const ok = gradeCard(card);
+            if (ok) correct += 1;
+            card.classList.toggle("is-correct", ok);
+            card.classList.toggle("is-incorrect", !ok);
+            const result = card.querySelector(".quiz-card__result");
+            if (result) {
+                result.hidden = false;
+                result.textContent = ok ? "Correct" : "Not quite";
+            }
+        });
+        const scoreEl = document.getElementById("practice-quiz-score");
+        const saved = window.TrackLearning && window.TrackLearning.recordScore && window.TrackLearning.recordScore(correct, cards.length);
+        if (scoreEl) scoreEl.textContent = "Score " + correct + "/" + cards.length + (saved ? ". Saved next to this lesson." : ".");
+    }
+
+    function startIntake() {
+        const intake = document.getElementById("practice-quiz-intake");
+        const runner = document.getElementById("practice-quiz-runner");
+        const questions = questionsFromCsv(intake ? intake.value : "");
+        if (!questions.length) {
+            if (runner) {
+                runner.innerHTML = "";
+                runner.appendChild(quizNode("p", "quiz-score", "Paste a CSV with a header and at least one question."));
+            }
+            return;
+        }
+        renderIntake(questions);
     }
 
     function syncPracticeAvailability() {
@@ -728,6 +1141,10 @@
         panelEl.hidden = true;
         document.body.classList.remove("practice-modal-open");
         openBtn.setAttribute("aria-expanded", "false");
+        const next = document.getElementById("practice-quiz-next");
+        if (next) next.hidden = true;
+        const quiz = document.getElementById("practice-quiz");
+        if (quiz) quiz.classList.remove("is-next-open");
         stopFog();
     }
 
@@ -743,9 +1160,17 @@
     retypeModeBtn.addEventListener("click", () => setMode("retype"));
     rearrangeModeBtn.addEventListener("click", () => setMode("rearrange"));
     if (quizModeBtn) quizModeBtn.addEventListener("click", () => setMode("quiz"));
+    document.addEventListener("learning-quiz", () => {
+        if (panelEl.hidden) openPanel();
+        setMode("quiz");
+    });
     if (quizCopyBtn) quizCopyBtn.addEventListener("click", () => copyQuizPrompt());
+    const quizCopyReplyBtn = document.getElementById("practice-quiz-copy-reply");
+    if (quizCopyReplyBtn) quizCopyReplyBtn.addEventListener("click", () => copyText(QUIZ_SUGGESTED_REPLY, "Reply copied."));
     if (quizChatgptBtn) quizChatgptBtn.addEventListener("click", () => openQuizChat("https://chatgpt.com/", "https://chatgpt.com/?q="));
     if (quizClaudeBtn) quizClaudeBtn.addEventListener("click", () => openQuizChat("https://claude.ai/new", "https://claude.ai/new?q="));
+    const quizIntakeBtn = document.getElementById("practice-quiz-intake-start");
+    if (quizIntakeBtn) quizIntakeBtn.addEventListener("click", startIntake);
     narrowBtn.addEventListener("click", toggleScope);
     snippetsChoiceBtn.addEventListener("click", () => showScopeList("snippets"));
     headingsChoiceBtn.addEventListener("click", () => showScopeList("headings"));

@@ -758,18 +758,45 @@
                     <p id="practice-rearrange-status" class="practice-status"></p>
                 </div>
                 <div id="practice-quiz" hidden>
-                    <p class="practice-hint">This prompt quizzes you on the open lesson. The chatbot asks how many questions you want, waits for your answers, then grades you. After grading, it prints CSV you can paste into the quiz app.</p>
+                    <p class="practice-hint">This prompt quizzes you on the open lesson. The chatbot asks how many questions you want, then returns a CSV code block followed by the questions.</p>
+                    <p class="practice-quiz__suggest">
+                        <span>Suggested reply</span>
+                        <code id="practice-quiz-reply">1. 10. 2. You choose. 3. A Mix.</code>
+                        <button type="button" id="practice-quiz-copy-reply">Copy reply</button>
+                    </p>
                     <label class="practice-quiz__label" for="practice-quiz-prompt">Prompt preview</label>
                     <textarea id="practice-quiz-prompt" readonly spellcheck="false"></textarea>
-                    <div class="practice-quiz__actions">
-                        <button type="button" id="practice-quiz-copy">Copy prompt</button>
-                        <span class="practice-quiz__open">Open in
-                            <button type="button" id="practice-quiz-chatgpt" class="practice-quiz__link">ChatGPT</button>
-                            <button type="button" id="practice-quiz-claude" class="practice-quiz__link">Claude</button>
+                    <div class="practice-quiz__actions prompt-actions">
+                        <button type="button" id="practice-quiz-copy" class="prompt-actions__copy">Copy prompt</button>
+                        <span class="prompt-actions__open">Open in
+                            <button type="button" id="practice-quiz-chatgpt" class="prompt-actions__chat">
+                                <svg class="prompt-actions__icon" aria-hidden="true"><use href="#icon-chatgpt"></use></svg>
+                                ChatGPT
+                            </button>
+                            <button type="button" id="practice-quiz-claude" class="prompt-actions__chat">
+                                <svg class="prompt-actions__icon" aria-hidden="true"><use href="#icon-claude"></use></svg>
+                                Claude
+                            </button>
                         </span>
                         <a id="practice-quiz-app" class="practice-quiz__app" href="https://wengindustries.com/app/quiz-gsheet/gsheets/_Special%20-%20User%20Provides/Intake.php" target="_blank" rel="noopener noreferrer">Open quiz app</a>
                     </div>
                     <p id="practice-quiz-status" class="practice-status" aria-live="polite"></p>
+                    <section id="practice-quiz-next" class="practice-quiz-next" hidden>
+                        <h4>What to do now?</h4>
+                        <div class="practice-quiz-next__option">
+                            <p>You can get quizzed in here. The app tracks Score next to the date and percent scrolled.</p>
+                            <label class="practice-quiz__label" for="practice-quiz-intake">Intake the CSV here</label>
+                            <textarea id="practice-quiz-intake" spellcheck="false" placeholder="Paste the CSV code block from the chat"></textarea>
+                            <button type="button" id="practice-quiz-intake-start">Start quiz from CSV</button>
+                            <div id="practice-quiz-runner" class="practice-quiz-runner"></div>
+                        </div>
+                        <div class="practice-quiz-next__option">
+                            <p>Or you can get quizzed at the chat page (ChatGPT or Claude). Ask it to give you the answer key, or to quiz you one question at a time.</p>
+                        </div>
+                        <div class="practice-quiz-next__option">
+                            <p>Or you can get quizzed at the dedicated quiz app by copying the CSV to <a href="https://wengindustries.com/app/quiz-gsheet/gsheets/" target="_blank" rel="noopener noreferrer">https://wengindustries.com/app/quiz-gsheet/gsheets/</a>.</p>
+                        </div>
+                    </section>
                 </div>
             </div>
         </section>
