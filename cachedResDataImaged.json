@@ -2075,936 +2075,942 @@
     },
     {
       "id": 345,
+      "current": "README.md",
+      "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/README.md",
+      "path_tp": "README.md"
+    },
+    {
+      "id": 346,
       "current": "Scraping",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Scraping",
       "path_tp": "Scraping"
     },
     {
-      "id": 346,
+      "id": 347,
       "current": "Scrape all asset files (images, videos, icons, pdfs, etc)",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Scraping/Scrape all asset files (images, videos, icons, pdfs, etc)",
       "path_tp": "Scraping/Scrape all asset files (images, videos, icons, pdfs, etc)"
     },
     {
-      "id": 347,
+      "id": 348,
       "current": "How to Save All Images, Videos, and Asset Files From a Website.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Scraping/Scrape all asset files (images, videos, icons, pdfs, etc)/How to Save All Images, Videos, and Asset Files From a Website.md",
       "path_tp": "Scraping/Scrape all asset files (images, videos, icons, pdfs, etc)/How to Save All Images, Videos, and Asset Files From a Website.md"
     },
     {
-      "id": 348,
+      "id": 349,
       "current": "Scraper APIs - Crawlbase API",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Scraping/Scraper APIs - Crawlbase API",
       "path_tp": "Scraping/Scraper APIs - Crawlbase API"
     },
     {
-      "id": 349,
+      "id": 350,
       "current": "Quicks - Crawlbase API",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Scraping/Scraper APIs - Crawlbase API/Quicks - Crawlbase API",
       "path_tp": "Scraping/Scraper APIs - Crawlbase API/Quicks - Crawlbase API"
     },
     {
-      "id": 350,
+      "id": 351,
       "current": "Quick - Screenshot URL.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Scraping/Scraper APIs - Crawlbase API/Quicks - Crawlbase API/Quick - Screenshot URL.md",
       "path_tp": "Scraping/Scraper APIs - Crawlbase API/Quicks - Crawlbase API/Quick - Screenshot URL.md"
     },
     {
-      "id": 351,
+      "id": 352,
       "current": "Troubleshooting - Google SERP Captcha page html got scraped instead.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Scraping/Scraper APIs - Crawlbase API/Troubleshooting - Google SERP Captcha page html got scraped instead.md",
       "path_tp": "Scraping/Scraper APIs - Crawlbase API/Troubleshooting - Google SERP Captcha page html got scraped instead.md"
     },
     {
-      "id": 352,
+      "id": 353,
       "current": "_PRIMER - Crawlbase API.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Scraping/Scraper APIs - Crawlbase API/_PRIMER - Crawlbase API.md",
       "path_tp": "Scraping/Scraper APIs - Crawlbase API/_PRIMER - Crawlbase API.md"
     },
     {
-      "id": 353,
+      "id": 354,
       "current": "Scraper Wizards - Crawlbase Crawler (Online platform)",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Scraping/Scraper Wizards - Crawlbase Crawler (Online platform)",
       "path_tp": "Scraping/Scraper Wizards - Crawlbase Crawler (Online platform)"
     },
     {
-      "id": 354,
+      "id": 355,
       "current": "_PRIMER - Crawlbase Crawler (Cursorily).md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Scraping/Scraper Wizards - Crawlbase Crawler (Online platform)/_PRIMER - Crawlbase Crawler (Cursorily).md",
       "path_tp": "Scraping/Scraper Wizards - Crawlbase Crawler (Online platform)/_PRIMER - Crawlbase Crawler (Cursorily).md"
     },
     {
-      "id": 355,
+      "id": 356,
       "current": "Scraper Wizards - LocalScraper",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Scraping/Scraper Wizards - LocalScraper",
       "path_tp": "Scraping/Scraper Wizards - LocalScraper"
     },
     {
-      "id": 356,
+      "id": 357,
       "current": "_Enrich previously scraped results with emails and socials.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Scraping/Scraper Wizards - LocalScraper/_Enrich previously scraped results with emails and socials.md",
       "path_tp": "Scraping/Scraper Wizards - LocalScraper/_Enrich previously scraped results with emails and socials.md"
     },
     {
-      "id": 357,
+      "id": 358,
       "current": "__Local Scraper PRIMER.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Scraping/Scraper Wizards - LocalScraper/__Local Scraper PRIMER.md",
       "path_tp": "Scraping/Scraper Wizards - LocalScraper/__Local Scraper PRIMER.md"
     },
     {
-      "id": 358,
+      "id": 359,
       "current": "Supervised Scraping on Computer",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Scraping/Supervised Scraping on Computer",
       "path_tp": "Scraping/Supervised Scraping on Computer"
     },
     {
-      "id": 359,
+      "id": 360,
       "current": "Chrome Network Tab Scraping.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Scraping/Supervised Scraping on Computer/Chrome Network Tab Scraping.md",
       "path_tp": "Scraping/Supervised Scraping on Computer/Chrome Network Tab Scraping.md"
     },
     {
-      "id": 360,
+      "id": 361,
       "current": "LinkedIn Connections Scraping.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Scraping/Supervised Scraping on Computer/LinkedIn Connections Scraping.md",
       "path_tp": "Scraping/Supervised Scraping on Computer/LinkedIn Connections Scraping.md"
     },
     {
-      "id": 361,
+      "id": 362,
       "current": "Scrape local Pasadena real estate agents - Crawler API.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Scraping/Supervised Scraping on Computer/Scrape local Pasadena real estate agents - Crawler API.md",
       "path_tp": "Scraping/Supervised Scraping on Computer/Scrape local Pasadena real estate agents - Crawler API.md"
     },
     {
-      "id": 362,
+      "id": 363,
       "current": "Scrape pickleball companies that may want us to manufacture with or without us design bags - LinkedIn, LocalScraper, Crawler API.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Scraping/Supervised Scraping on Computer/Scrape pickleball companies that may want us to manufacture with or without us design bags - LinkedIn, LocalScraper, Crawler API.md",
       "path_tp": "Scraping/Supervised Scraping on Computer/Scrape pickleball companies that may want us to manufacture with or without us design bags - LinkedIn, LocalScraper, Crawler API.md"
     },
     {
-      "id": 363,
+      "id": 364,
       "current": "Version Control - git, github, gitlab",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab",
       "path_tp": "Version Control - git, github, gitlab"
     },
     {
-      "id": 364,
+      "id": 365,
       "current": "Git CLI",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Git CLI",
       "path_tp": "Version Control - git, github, gitlab/Git CLI"
     },
     {
-      "id": 365,
+      "id": 366,
       "current": "Fav Git Aliases",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Git CLI/Fav Git Aliases",
       "path_tp": "Version Control - git, github, gitlab/Git CLI/Fav Git Aliases"
     },
     {
-      "id": 366,
+      "id": 367,
       "current": "Show commits grouped by dates.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Git CLI/Fav Git Aliases/Show commits grouped by dates.md",
       "path_tp": "Version Control - git, github, gitlab/Git CLI/Fav Git Aliases/Show commits grouped by dates.md"
     },
     {
-      "id": 367,
+      "id": 368,
       "current": "_ Rewrite commit history - filter-repo and filter-branch",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Git CLI/_ Rewrite commit history - filter-repo and filter-branch",
       "path_tp": "Version Control - git, github, gitlab/Git CLI/_ Rewrite commit history - filter-repo and filter-branch"
     },
     {
-      "id": 368,
+      "id": 369,
       "current": "Change commit dates of older commits.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Git CLI/_ Rewrite commit history - filter-repo and filter-branch/Change commit dates of older commits.md",
       "path_tp": "Version Control - git, github, gitlab/Git CLI/_ Rewrite commit history - filter-repo and filter-branch/Change commit dates of older commits.md"
     },
     {
-      "id": 369,
+      "id": 370,
       "current": "_ Rewrite commit history - rebase",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Git CLI/_ Rewrite commit history - rebase",
       "path_tp": "Version Control - git, github, gitlab/Git CLI/_ Rewrite commit history - rebase"
     },
     {
-      "id": 370,
+      "id": 371,
       "current": "Rebase Edit While Preserving Commit Dates and Author Information.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Git CLI/_ Rewrite commit history - rebase/Rebase Edit While Preserving Commit Dates and Author Information.md",
       "path_tp": "Version Control - git, github, gitlab/Git CLI/_ Rewrite commit history - rebase/Rebase Edit While Preserving Commit Dates and Author Information.md"
     },
     {
-      "id": 371,
+      "id": 372,
       "current": "Rebase after edit has many commits with merge conflicts - Shortcut the merge conflicts into one commit.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Git CLI/_ Rewrite commit history - rebase/Rebase after edit has many commits with merge conflicts - Shortcut the merge conflicts into one commit.md",
       "path_tp": "Version Control - git, github, gitlab/Git CLI/_ Rewrite commit history - rebase/Rebase after edit has many commits with merge conflicts - Shortcut the merge conflicts into one commit.md"
     },
     {
-      "id": 372,
+      "id": 373,
       "current": "__ Troubleshooting",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Git CLI/__ Troubleshooting",
       "path_tp": "Version Control - git, github, gitlab/Git CLI/__ Troubleshooting"
     },
     {
-      "id": 373,
+      "id": 374,
       "current": "Git Dubious ownership or folders are owned by someone else.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Git CLI/__ Troubleshooting/Git Dubious ownership or folders are owned by someone else.md",
       "path_tp": "Version Control - git, github, gitlab/Git CLI/__ Troubleshooting/Git Dubious ownership or folders are owned by someone else.md"
     },
     {
-      "id": 374,
+      "id": 375,
       "current": "Git CLI - Monorepo, and Nested Repos and Submodules",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Git CLI - Monorepo, and Nested Repos and Submodules",
       "path_tp": "Version Control - git, github, gitlab/Git CLI - Monorepo, and Nested Repos and Submodules"
     },
     {
-      "id": 375,
+      "id": 376,
       "current": "Nested Repos Warnings.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Git CLI - Monorepo, and Nested Repos and Submodules/Nested Repos Warnings.md",
       "path_tp": "Version Control - git, github, gitlab/Git CLI - Monorepo, and Nested Repos and Submodules/Nested Repos Warnings.md"
     },
     {
-      "id": 376,
+      "id": 377,
       "current": "Github.com platform",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Github.com platform",
       "path_tp": "Version Control - git, github, gitlab/Github.com platform"
     },
     {
-      "id": 377,
+      "id": 378,
       "current": "Badge Generator (For Github Readme)",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Github.com platform/Badge Generator (For Github Readme)",
       "path_tp": "Version Control - git, github, gitlab/Github.com platform/Badge Generator (For Github Readme)"
     },
     {
-      "id": 378,
+      "id": 379,
       "current": "Version Badge (Github).md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Github.com platform/Badge Generator (For Github Readme)/Version Badge (Github).md",
       "path_tp": "Version Control - git, github, gitlab/Github.com platform/Badge Generator (For Github Readme)/Version Badge (Github).md"
     },
     {
-      "id": 379,
+      "id": 380,
       "current": "_Github Badge - Syntax.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Github.com platform/Badge Generator (For Github Readme)/_Github Badge - Syntax.md",
       "path_tp": "Version Control - git, github, gitlab/Github.com platform/Badge Generator (For Github Readme)/_Github Badge - Syntax.md"
     },
     {
-      "id": 380,
+      "id": 381,
       "current": "Github discussions.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Github.com platform/Github discussions.md",
       "path_tp": "Version Control - git, github, gitlab/Github.com platform/Github discussions.md"
     },
     {
-      "id": 381,
+      "id": 382,
       "current": "Licenses at Github.com",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Github.com platform/Licenses at Github.com",
       "path_tp": "Version Control - git, github, gitlab/Github.com platform/Licenses at Github.com"
     },
     {
-      "id": 382,
+      "id": 383,
       "current": "License Badges.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Github.com platform/Licenses at Github.com/License Badges.md",
       "path_tp": "Version Control - git, github, gitlab/Github.com platform/Licenses at Github.com/License Badges.md"
     },
     {
-      "id": 383,
+      "id": 384,
       "current": "Polishing Readme.md (Repo front page)",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Github.com platform/Polishing Readme.md (Repo front page)",
       "path_tp": "Version Control - git, github, gitlab/Github.com platform/Polishing Readme.md (Repo front page)"
     },
     {
-      "id": 384,
+      "id": 385,
       "current": "Aesthetic header.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/Github.com platform/Polishing Readme.md (Repo front page)/Aesthetic header.md",
       "path_tp": "Version Control - git, github, gitlab/Github.com platform/Polishing Readme.md (Repo front page)/Aesthetic header.md"
     },
     {
-      "id": 385,
+      "id": 386,
       "current": "VS Code Git",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/VS Code Git",
       "path_tp": "Version Control - git, github, gitlab/VS Code Git"
     },
     {
-      "id": 386,
+      "id": 387,
       "current": "All merge conflicts resolve but can't continue (VS Code).md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/VS Code Git/All merge conflicts resolve but can't continue (VS Code).md",
       "path_tp": "Version Control - git, github, gitlab/VS Code Git/All merge conflicts resolve but can't continue (VS Code).md"
     },
     {
-      "id": 387,
+      "id": 388,
       "current": "Git Merging Basics (VS Code).md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Version Control - git, github, gitlab/VS Code Git/Git Merging Basics (VS Code).md",
       "path_tp": "Version Control - git, github, gitlab/VS Code Git/Git Merging Basics (VS Code).md"
     },
     {
-      "id": 388,
+      "id": 389,
       "current": "Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)",
       "path_tp": "Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)"
     },
     {
-      "id": 389,
+      "id": 390,
       "current": "GraphQL",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/GraphQL",
       "path_tp": "Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/GraphQL"
     },
     {
-      "id": 390,
+      "id": 391,
       "current": "GraphQL Sandbox and Authentication.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/GraphQL/GraphQL Sandbox and Authentication.md",
       "path_tp": "Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/GraphQL/GraphQL Sandbox and Authentication.md"
     },
     {
-      "id": 391,
+      "id": 392,
       "current": "NEXTJS, NextAuth, Vercel.com",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/NEXTJS, NextAuth, Vercel.com",
       "path_tp": "Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/NEXTJS, NextAuth, Vercel.com"
     },
     {
-      "id": 392,
+      "id": 393,
       "current": "NextJS Import Paths.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/NEXTJS, NextAuth, Vercel.com/NextJS Import Paths.md",
       "path_tp": "Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/NEXTJS, NextAuth, Vercel.com/NextJS Import Paths.md"
     },
     {
-      "id": 393,
+      "id": 394,
       "current": "__1. Learn by Editing Code - NextJS and NextAuth",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/NEXTJS, NextAuth, Vercel.com/__1. Learn by Editing Code - NextJS and NextAuth",
       "path_tp": "Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/NEXTJS, NextAuth, Vercel.com/__1. Learn by Editing Code - NextJS and NextAuth"
     },
     {
-      "id": 394,
+      "id": 395,
       "current": "07-10. Fetch, Stream, Static vs Dynamic vs Partial Prerender.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/NEXTJS, NextAuth, Vercel.com/__1. Learn by Editing Code - NextJS and NextAuth/07-10. Fetch, Stream, Static vs Dynamic vs Partial Prerender.md",
       "path_tp": "Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/NEXTJS, NextAuth, Vercel.com/__1. Learn by Editing Code - NextJS and NextAuth/07-10. Fetch, Stream, Static vs Dynamic vs Partial Prerender.md"
     },
     {
-      "id": 395,
+      "id": 396,
       "current": "PHP",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/PHP",
       "path_tp": "Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/PHP"
     },
     {
-      "id": 396,
+      "id": 397,
       "current": "Syntactic Sugar PHP",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/PHP/Syntactic Sugar PHP",
       "path_tp": "Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/PHP/Syntactic Sugar PHP"
     },
     {
-      "id": 397,
+      "id": 398,
       "current": "Heredoc.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/PHP/Syntactic Sugar PHP/Heredoc.md",
       "path_tp": "Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/PHP/Syntactic Sugar PHP/Heredoc.md"
     },
     {
-      "id": 398,
+      "id": 399,
       "current": "Python",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/Python",
       "path_tp": "Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/Python"
     },
     {
-      "id": 399,
+      "id": 400,
       "current": "Common Pitfalls",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/Python/Common Pitfalls",
       "path_tp": "Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/Python/Common Pitfalls"
     },
     {
-      "id": 400,
+      "id": 401,
       "current": "Stuck in python process in terminal - saying Process Completed.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/Python/Common Pitfalls/Stuck in python process in terminal - saying Process Completed.md",
       "path_tp": "Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/Python/Common Pitfalls/Stuck in python process in terminal - saying Process Completed.md"
     },
     {
-      "id": 401,
+      "id": 402,
       "current": "_Pip common problems",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/Python/_Pip common problems",
       "path_tp": "Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/Python/_Pip common problems"
     },
     {
-      "id": 402,
+      "id": 403,
       "current": "Youtube tutorial video older than git repo python packages.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/Python/_Pip common problems/Youtube tutorial video older than git repo python packages.md",
       "path_tp": "Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/Python/_Pip common problems/Youtube tutorial video older than git repo python packages.md"
     },
     {
-      "id": 403,
+      "id": 404,
       "current": "Use Case - File Upload",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/Use Case - File Upload",
       "path_tp": "Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/Use Case - File Upload"
     },
     {
-      "id": 404,
+      "id": 405,
       "current": "File Upload AWS.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/Use Case - File Upload/File Upload AWS.md",
       "path_tp": "Web Development - Backend and Server-Side Rendering SSR (PHP, Python, NodeJS, NextJS, GraphQL, Web Pushes, etc)/Use Case - File Upload/File Upload AWS.md"
     },
     {
-      "id": 405,
+      "id": 406,
       "current": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)"
     },
     {
-      "id": 406,
+      "id": 407,
       "current": "1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5"
     },
     {
-      "id": 407,
+      "id": 408,
       "current": "css - Bootstrap",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Bootstrap",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Bootstrap"
     },
     {
-      "id": 408,
+      "id": 409,
       "current": "CSS Fundamental - Fluid.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Bootstrap/CSS Fundamental - Fluid.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Bootstrap/CSS Fundamental - Fluid.md"
     },
     {
-      "id": 409,
+      "id": 410,
       "current": "css - Industry Trends",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Industry Trends",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Industry Trends"
     },
     {
-      "id": 410,
+      "id": 411,
       "current": "Dev navbar that’s sticky and changes style with a transition when scrolling past.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Industry Trends/Dev navbar that’s sticky and changes style with a transition when scrolling past.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Industry Trends/Dev navbar that’s sticky and changes style with a transition when scrolling past.md"
     },
     {
-      "id": 411,
+      "id": 412,
       "current": "Pagination Dots or Bubbles aka Steppers.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Industry Trends/Pagination Dots or Bubbles aka Steppers.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Industry Trends/Pagination Dots or Bubbles aka Steppers.md"
     },
     {
-      "id": 412,
+      "id": 413,
       "current": "Parallax.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Industry Trends/Parallax.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Industry Trends/Parallax.md"
     },
     {
-      "id": 413,
+      "id": 414,
       "current": "Skeleton loading sprite.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Industry Trends/Skeleton loading sprite.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Industry Trends/Skeleton loading sprite.md"
     },
     {
-      "id": 414,
+      "id": 415,
       "current": "Top right horizontal navbar.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Industry Trends/Top right horizontal navbar.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Industry Trends/Top right horizontal navbar.md"
     },
     {
-      "id": 415,
+      "id": 416,
       "current": "Underline animation when hover mouse over nav link.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Industry Trends/Underline animation when hover mouse over nav link.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Industry Trends/Underline animation when hover mouse over nav link.md"
     },
     {
-      "id": 416,
+      "id": 417,
       "current": "iPhone - Controlling content in notch area aka safe area inset.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Industry Trends/iPhone - Controlling content in notch area aka safe area inset.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/css - Industry Trends/iPhone - Controlling content in notch area aka safe area inset.md"
     },
     {
-      "id": 417,
+      "id": 418,
       "current": "html",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/html",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/html"
     },
     {
-      "id": 418,
+      "id": 419,
       "current": "Srcset.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/html/Srcset.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/html/Srcset.md"
     },
     {
-      "id": 419,
+      "id": 420,
       "current": "js",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/js",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/js"
     },
     {
-      "id": 420,
+      "id": 421,
       "current": "__js",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/js/__js",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/js/__js"
     },
     {
-      "id": 421,
+      "id": 422,
       "current": "JS Concepts",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/js/__js/JS Concepts",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/js/__js/JS Concepts"
     },
     {
-      "id": 422,
+      "id": 423,
       "current": "JS Runtime.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/js/__js/JS Concepts/JS Runtime.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/js/__js/JS Concepts/JS Runtime.md"
     },
     {
-      "id": 423,
+      "id": 424,
       "current": "Make image all white.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/js/__js/Make image all white.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/js/__js/Make image all white.md"
     },
     {
-      "id": 424,
+      "id": 425,
       "current": "__js on iOS",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/js/__js on iOS",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/js/__js on iOS"
     },
     {
-      "id": 425,
+      "id": 426,
       "current": "Js on iPad Errors May Be Cache Related.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/js/__js on iOS/Js on iPad Errors May Be Cache Related.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/js/__js on iOS/Js on iPad Errors May Be Cache Related.md"
     },
     {
-      "id": 426,
+      "id": 427,
       "current": "Multiple base64 url string images appending to webpage not instant on iOS or iPad OS.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/js/__js on iOS/Multiple base64 url string images appending to webpage not instant on iOS or iPad OS.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/1. Basics (2008 to Present) - Javascript ES5, CSS3, Bootstrap, HTML5/js/__js on iOS/Multiple base64 url string images appending to webpage not instant on iOS or iPad OS.md"
     },
     {
-      "id": 427,
+      "id": 428,
       "current": "2. Old Generation (2006) - jQuery, jQuery UI, Handlebars",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/2. Old Generation (2006) - jQuery, jQuery UI, Handlebars",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/2. Old Generation (2006) - jQuery, jQuery UI, Handlebars"
     },
     {
-      "id": 428,
+      "id": 429,
       "current": "js - handlebars",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/2. Old Generation (2006) - jQuery, jQuery UI, Handlebars/js - handlebars",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/2. Old Generation (2006) - jQuery, jQuery UI, Handlebars/js - handlebars"
     },
     {
-      "id": 429,
+      "id": 430,
       "current": "Handlebars Dev Experience - Render in place.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/2. Old Generation (2006) - jQuery, jQuery UI, Handlebars/js - handlebars/Handlebars Dev Experience - Render in place.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/2. Old Generation (2006) - jQuery, jQuery UI, Handlebars/js - handlebars/Handlebars Dev Experience - Render in place.md"
     },
     {
-      "id": 430,
+      "id": 431,
       "current": "3a. New Generation (2013) - React, NodeJS, Express, Svelte",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3a. New Generation (2013) - React, NodeJS, Express, Svelte",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3a. New Generation (2013) - React, NodeJS, Express, Svelte"
     },
     {
-      "id": 431,
+      "id": 432,
       "current": "_ React",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3a. New Generation (2013) - React, NodeJS, Express, Svelte/_ React",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3a. New Generation (2013) - React, NodeJS, Express, Svelte/_ React"
     },
     {
-      "id": 432,
+      "id": 433,
       "current": "react",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3a. New Generation (2013) - React, NodeJS, Express, Svelte/_ React/react",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3a. New Generation (2013) - React, NodeJS, Express, Svelte/_ React/react"
     },
     {
-      "id": 433,
+      "id": 434,
       "current": "component",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3a. New Generation (2013) - React, NodeJS, Express, Svelte/_ React/react/component",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3a. New Generation (2013) - React, NodeJS, Express, Svelte/_ React/react/component"
     },
     {
-      "id": 434,
+      "id": 435,
       "current": "React Components.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3a. New Generation (2013) - React, NodeJS, Express, Svelte/_ React/react/component/React Components.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3a. New Generation (2013) - React, NodeJS, Express, Svelte/_ React/react/component/React Components.md"
     },
     {
-      "id": 435,
+      "id": 436,
       "current": "useEffect - the new functional component.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3a. New Generation (2013) - React, NodeJS, Express, Svelte/_ React/react/useEffect - the new functional component.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3a. New Generation (2013) - React, NodeJS, Express, Svelte/_ React/react/useEffect - the new functional component.md"
     },
     {
-      "id": 436,
+      "id": 437,
       "current": "3b. New Generation (2013) - React Build Tools (CRA, Vite)",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3b. New Generation (2013) - React Build Tools (CRA, Vite)",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3b. New Generation (2013) - React Build Tools (CRA, Vite)"
     },
     {
-      "id": 437,
+      "id": 438,
       "current": "CRA",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3b. New Generation (2013) - React Build Tools (CRA, Vite)/CRA",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3b. New Generation (2013) - React Build Tools (CRA, Vite)/CRA"
     },
     {
-      "id": 438,
+      "id": 439,
       "current": "CRA React Troubleshooting - Invalid Host header.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3b. New Generation (2013) - React Build Tools (CRA, Vite)/CRA/CRA React Troubleshooting - Invalid Host header.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3b. New Generation (2013) - React Build Tools (CRA, Vite)/CRA/CRA React Troubleshooting - Invalid Host header.md"
     },
     {
-      "id": 439,
+      "id": 440,
       "current": "Troubleshoot full stack cra or vite showing blank page for npm start.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3b. New Generation (2013) - React Build Tools (CRA, Vite)/Troubleshoot full stack cra or vite showing blank page for npm start.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3b. New Generation (2013) - React Build Tools (CRA, Vite)/Troubleshoot full stack cra or vite showing blank page for npm start.md"
     },
     {
-      "id": 440,
+      "id": 441,
       "current": "Vite",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3b. New Generation (2013) - React Build Tools (CRA, Vite)/Vite",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3b. New Generation (2013) - React Build Tools (CRA, Vite)/Vite"
     },
     {
-      "id": 441,
+      "id": 442,
       "current": "Vite Import Paths.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3b. New Generation (2013) - React Build Tools (CRA, Vite)/Vite/Vite Import Paths.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3b. New Generation (2013) - React Build Tools (CRA, Vite)/Vite/Vite Import Paths.md"
     },
     {
-      "id": 442,
+      "id": 443,
       "current": "_Convert static website into Vite-React website.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3b. New Generation (2013) - React Build Tools (CRA, Vite)/Vite/_Convert static website into Vite-React website.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/3b. New Generation (2013) - React Build Tools (CRA, Vite)/Vite/_Convert static website into Vite-React website.md"
     },
     {
-      "id": 443,
+      "id": 444,
       "current": "Typescript",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/Typescript",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/Typescript"
     },
     {
-      "id": 444,
+      "id": 445,
       "current": "Typescript Fundamentals",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/Typescript/Typescript Fundamentals",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/Typescript/Typescript Fundamentals"
     },
     {
-      "id": 445,
+      "id": 446,
       "current": "Type for adding to possible types.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/Typescript/Typescript Fundamentals/Type for adding to possible types.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/Typescript/Typescript Fundamentals/Type for adding to possible types.md"
     },
     {
-      "id": 446,
+      "id": 447,
       "current": "Typescript Arrays.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/Typescript/Typescript Fundamentals/Typescript Arrays.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/Typescript/Typescript Fundamentals/Typescript Arrays.md"
     },
     {
-      "id": 447,
+      "id": 448,
       "current": "Typescript union - acceptable types.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/Typescript/Typescript Fundamentals/Typescript union - acceptable types.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/Typescript/Typescript Fundamentals/Typescript union - acceptable types.md"
     },
     {
-      "id": 448,
+      "id": 449,
       "current": "Why Typescript.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/Typescript/Why Typescript.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/Typescript/Why Typescript.md"
     },
     {
-      "id": 449,
+      "id": 450,
       "current": "__Rapid Development (Tailwind, Syntactic Sugar, UI Component Libraries)",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/__Rapid Development (Tailwind, Syntactic Sugar, UI Component Libraries)",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/__Rapid Development (Tailwind, Syntactic Sugar, UI Component Libraries)"
     },
     {
-      "id": 450,
+      "id": 451,
       "current": "Class-less css styling.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/__Rapid Development (Tailwind, Syntactic Sugar, UI Component Libraries)/Class-less css styling.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/__Rapid Development (Tailwind, Syntactic Sugar, UI Component Libraries)/Class-less css styling.md"
     },
     {
-      "id": 451,
+      "id": 452,
       "current": "Tailwind",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/__Rapid Development (Tailwind, Syntactic Sugar, UI Component Libraries)/Tailwind",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/__Rapid Development (Tailwind, Syntactic Sugar, UI Component Libraries)/Tailwind"
     },
     {
-      "id": 452,
+      "id": 453,
       "current": "Background colors - tailwind.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/__Rapid Development (Tailwind, Syntactic Sugar, UI Component Libraries)/Tailwind/Background colors - tailwind.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/__Rapid Development (Tailwind, Syntactic Sugar, UI Component Libraries)/Tailwind/Background colors - tailwind.md"
     },
     {
-      "id": 453,
+      "id": 454,
       "current": "Tailwind - Combine with React Native (Cross platform).md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/__Rapid Development (Tailwind, Syntactic Sugar, UI Component Libraries)/Tailwind/Tailwind - Combine with React Native (Cross platform).md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/__Rapid Development (Tailwind, Syntactic Sugar, UI Component Libraries)/Tailwind/Tailwind - Combine with React Native (Cross platform).md"
     },
     {
-      "id": 454,
+      "id": 455,
       "current": "Tailwind Component Libraries.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/__Rapid Development (Tailwind, Syntactic Sugar, UI Component Libraries)/Tailwind/Tailwind Component Libraries.md",
       "path_tp": "Web Development - Frontend (Javascript JS, CSS3, HTML5, NextJS, React, Tailwind, Typescript, Boostrap, jQuery, PWA, etc)/__Rapid Development (Tailwind, Syntactic Sugar, UI Component Libraries)/Tailwind/Tailwind Component Libraries.md"
     },
     {
-      "id": 455,
+      "id": 456,
       "current": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)"
     },
     {
-      "id": 456,
+      "id": 457,
       "current": "CMS in 2024 - Webflow, Framer, Plasmic, Versoly",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/CMS in 2024 - Webflow, Framer, Plasmic, Versoly",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/CMS in 2024 - Webflow, Framer, Plasmic, Versoly"
     },
     {
-      "id": 457,
+      "id": 458,
       "current": "Plasmic - WYSIWYG and React Component Code.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/CMS in 2024 - Webflow, Framer, Plasmic, Versoly/Plasmic - WYSIWYG and React Component Code.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/CMS in 2024 - Webflow, Framer, Plasmic, Versoly/Plasmic - WYSIWYG and React Component Code.md"
     },
     {
-      "id": 458,
+      "id": 459,
       "current": "_CMS - Wordpress",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress"
     },
     {
-      "id": 459,
+      "id": 460,
       "current": "Elementor Pro - Edit Page Failing.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Elementor Pro - Edit Page Failing.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Elementor Pro - Edit Page Failing.md"
     },
     {
-      "id": 460,
+      "id": 461,
       "current": "Gutenberg Site Builder - PRIMER.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Gutenberg Site Builder - PRIMER.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Gutenberg Site Builder - PRIMER.md"
     },
     {
-      "id": 461,
+      "id": 462,
       "current": "Lightbox with images, custom content, or iframe.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Lightbox with images, custom content, or iframe.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Lightbox with images, custom content, or iframe.md"
     },
     {
-      "id": 462,
+      "id": 463,
       "current": "Migration - All-in-One Migration",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Migration - All-in-One Migration",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Migration - All-in-One Migration"
     },
     {
-      "id": 463,
+      "id": 464,
       "current": "Install Wordpress Migration All-in-One.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Migration - All-in-One Migration/Install Wordpress Migration All-in-One.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Migration - All-in-One Migration/Install Wordpress Migration All-in-One.md"
     },
     {
-      "id": 464,
+      "id": 465,
       "current": "Migration - All-in-One Migration Free",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Migration - All-in-One Migration Free",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Migration - All-in-One Migration Free"
     },
     {
-      "id": 465,
+      "id": 466,
       "current": "Error - Import stuck at some percent - Browser console 413 Request Entity Too Large (All-in-One Migration Wordpress).md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Migration - All-in-One Migration Free/Error - Import stuck at some percent - Browser console 413 Request Entity Too Large (All-in-One Migration Wordpress).md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Migration - All-in-One Migration Free/Error - Import stuck at some percent - Browser console 413 Request Entity Too Large (All-in-One Migration Wordpress).md"
     },
     {
-      "id": 466,
+      "id": 467,
       "current": "zAppendix - Adjust - Increase limits on request body, post, timeout, etc (Wordpress Migrations All-in-One).md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Migration - All-in-One Migration Free/zAppendix - Adjust - Increase limits on request body, post, timeout, etc (Wordpress Migrations All-in-One).md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Migration - All-in-One Migration Free/zAppendix - Adjust - Increase limits on request body, post, timeout, etc (Wordpress Migrations All-in-One).md"
     },
     {
-      "id": 467,
+      "id": 468,
       "current": "Migration - _General",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Migration - _General",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Migration - _General"
     },
     {
-      "id": 468,
+      "id": 469,
       "current": "Migration Troubleshooting - Export file failed.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Migration - _General/Migration Troubleshooting - Export file failed.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Migration - _General/Migration Troubleshooting - Export file failed.md"
     },
     {
-      "id": 469,
+      "id": 470,
       "current": "Wordpress - Had changed database credentials, then reconnect wordpress to your database.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Migration - _General/Wordpress - Had changed database credentials, then reconnect wordpress to your database.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Migration - _General/Wordpress - Had changed database credentials, then reconnect wordpress to your database.md"
     },
     {
-      "id": 470,
+      "id": 471,
       "current": "_ Migrate in (import in).md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Migration - _General/_ Migrate in (import in).md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Migration - _General/_ Migrate in (import in).md"
     },
     {
-      "id": 471,
+      "id": 472,
       "current": "NectarBlocks Theme - Patterns.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/NectarBlocks Theme - Patterns.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/NectarBlocks Theme - Patterns.md"
     },
     {
-      "id": 472,
+      "id": 473,
       "current": "Salient - Mobile menu background color.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Salient - Mobile menu background color.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Salient - Mobile menu background color.md"
     },
     {
-      "id": 473,
+      "id": 474,
       "current": "Salient - Patterns.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Salient - Patterns.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Salient - Patterns.md"
     },
     {
-      "id": 474,
+      "id": 475,
       "current": "Salient's Page Builder (Salient WPBakery) - Nectar Shortcodes.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Salient's Page Builder (Salient WPBakery) - Nectar Shortcodes.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Salient's Page Builder (Salient WPBakery) - Nectar Shortcodes.md"
     },
     {
-      "id": 475,
+      "id": 476,
       "current": "Salient's Page Builder (Salient WPBakery) - _PRIMER.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Salient's Page Builder (Salient WPBakery) - _PRIMER.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Salient's Page Builder (Salient WPBakery) - _PRIMER.md"
     },
     {
-      "id": 476,
+      "id": 477,
       "current": "Salient’s Page Builder (Salient WPBakery) - Row Column PRIMER.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Salient’s Page Builder (Salient WPBakery) - Row Column PRIMER.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Salient’s Page Builder (Salient WPBakery) - Row Column PRIMER.md"
     },
     {
-      "id": 477,
+      "id": 478,
       "current": "Troubleshooting",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Troubleshooting",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Troubleshooting"
     },
     {
-      "id": 478,
+      "id": 479,
       "current": "Pages or Posts - Invalid JSON Error when saving or editing posts or pages.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Troubleshooting/Pages or Posts - Invalid JSON Error when saving or editing posts or pages.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Troubleshooting/Pages or Posts - Invalid JSON Error when saving or editing posts or pages.md"
     },
     {
-      "id": 479,
+      "id": 480,
       "current": "WPBakery - Page Builder.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/WPBakery - Page Builder.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/WPBakery - Page Builder.md"
     },
     {
-      "id": 480,
+      "id": 481,
       "current": "WPBakery Page Builder - Classic vs Backend vs Frontend vs Appearance Customize.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/WPBakery Page Builder - Classic vs Backend vs Frontend vs Appearance Customize.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/WPBakery Page Builder - Classic vs Backend vs Frontend vs Appearance Customize.md"
     },
     {
-      "id": 481,
+      "id": 482,
       "current": "WPBakery Page Builder - Divider.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/WPBakery Page Builder - Divider.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/WPBakery Page Builder - Divider.md"
     },
     {
-      "id": 482,
+      "id": 483,
       "current": "WPBakery Page Builder - Selecting Modes.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/WPBakery Page Builder - Selecting Modes.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/WPBakery Page Builder - Selecting Modes.md"
     },
     {
-      "id": 483,
+      "id": 484,
       "current": "WPBakery Page Builder - _PRIMER - Backend, Classic, Frontend, Visual, Text.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/WPBakery Page Builder - _PRIMER - Backend, Classic, Frontend, Visual, Text.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/WPBakery Page Builder - _PRIMER - Backend, Classic, Frontend, Visual, Text.md"
     },
     {
-      "id": 484,
+      "id": 485,
       "current": "WPBakery Page Builder - _Quirks - Kicks you back to Gutenberg Editor after saving.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/WPBakery Page Builder - _Quirks - Kicks you back to Gutenberg Editor after saving.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/WPBakery Page Builder - _Quirks - Kicks you back to Gutenberg Editor after saving.md"
     },
     {
-      "id": 485,
+      "id": 486,
       "current": "WPBakery Text Mode.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/WPBakery Text Mode.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/WPBakery Text Mode.md"
     },
     {
-      "id": 486,
+      "id": 487,
       "current": "Wordpress - JS plugins for quicker development times (but sacrifices performance).md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress - JS plugins for quicker development times (but sacrifices performance).md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress - JS plugins for quicker development times (but sacrifices performance).md"
     },
     {
-      "id": 487,
+      "id": 488,
       "current": "Wordpress - Theme Settings.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress - Theme Settings.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress - Theme Settings.md"
     },
     {
-      "id": 488,
+      "id": 489,
       "current": "Wordpress - Upload Media.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress - Upload Media.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress - Upload Media.md"
     },
     {
-      "id": 489,
+      "id": 490,
       "current": "Wordpress Custom Code (CSS and JS snippets)",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress Custom Code (CSS and JS snippets)",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress Custom Code (CSS and JS snippets)"
     },
     {
-      "id": 490,
+      "id": 491,
       "current": "Coding - Add CSS, JS, Shortcode - Globally or Per Page.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress Custom Code (CSS and JS snippets)/Coding - Add CSS, JS, Shortcode - Globally or Per Page.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress Custom Code (CSS and JS snippets)/Coding - Add CSS, JS, Shortcode - Globally or Per Page.md"
     },
     {
-      "id": 491,
+      "id": 492,
       "current": "Wordpress Footer",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress Footer",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress Footer"
     },
     {
-      "id": 492,
+      "id": 493,
       "current": "Salient - Footer.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress Footer/Salient - Footer.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress Footer/Salient - Footer.md"
     },
     {
-      "id": 493,
+      "id": 494,
       "current": "Wordpress Plugins - Forms",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress Plugins - Forms",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress Plugins - Forms"
     },
     {
-      "id": 494,
+      "id": 495,
       "current": "Wordpress Plugin - HappyForms.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress Plugins - Forms/Wordpress Plugin - HappyForms.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress Plugins - Forms/Wordpress Plugin - HappyForms.md"
     },
     {
-      "id": 495,
+      "id": 496,
       "current": "Wordpress Site Builders.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress Site Builders.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/Wordpress Site Builders.md"
     },
     {
-      "id": 496,
+      "id": 497,
       "current": "_ PRIMER - Wordpress (Includes Setup).md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/_ PRIMER - Wordpress (Includes Setup).md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/_ PRIMER - Wordpress (Includes Setup).md"
     },
     {
-      "id": 497,
+      "id": 498,
       "current": "_ Wordpress - Multiple wordpress websites sharing the same database.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/_ Wordpress - Multiple wordpress websites sharing the same database.md",
       "path_tp": "Web Development - No Code Low Code (WORDPRESS, Webflow, Framer, Versoly, etc)/_CMS - Wordpress/_ Wordpress - Multiple wordpress websites sharing the same database.md"
     },
     {
-      "id": 498,
+      "id": 499,
       "current": "zTest - Please Ignore",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/zTest - Please Ignore",
       "path_tp": "zTest - Please Ignore"
     },
     {
-      "id": 499,
+      "id": 500,
       "current": "mindmap-test.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/zTest - Please Ignore/mindmap-test.md",
       "path_tp": "zTest - Please Ignore/mindmap-test.md"
     },
     {
-      "id": 500,
+      "id": 501,
       "current": "popover-test.md",
       "path": "/Users/wengffung/Library/CloudStorage/GoogleDrive-siphon880g@gmail.com/My Drive/_Obsidian MD/Document Vaults/Content-Published/Dev/zTest - Please Ignore/popover-test.md",
       "path_tp": "zTest - Please Ignore/popover-test.md"
