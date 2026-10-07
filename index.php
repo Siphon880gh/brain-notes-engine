@@ -211,6 +211,10 @@
                     <span class="fa fa-share-alt"></span>
                     <span class="share-folder-text">Share folder</span>
                 </button>
+                <button id="track-learning-btn" class="bottom-btn track-learning-btn" title="Track this folder’s lessons, including subfolders, in completeness mode">
+                    <span class="fa fa-check-square"></span>
+                    <span class="track-learning-text">Track learning</span>
+                </button>
             </div>
             <button id="folder-options-toggle" class="bottom-btn folder-options-toggle">
                 <span class="fa fa-chevron-up folder-options-chevron"></span>
@@ -318,6 +322,7 @@
                                 <div id="summary-title-inner" class="flex flex-row items-center justify-start gap-4 my-2 bg-white shadow-md border-b border-gray-200 z-10 rounded-tr-lg rounded-br-lg p-1.5">
                                     <span id="summary-collapser">»</span>
                                     <span id="summary-title" onclick="document.querySelector('#summary-collapser').click();"></span>
+                                    <button type="button" id="learning-complete" class="practice-open" hidden aria-pressed="false">Mark complete</button>
                                     <button type="button" id="practice-open" class="practice-open" hidden aria-expanded="false" aria-controls="practice-panel">Practice</button>
                                     <button type="button" id="jump-to-note" class="practice-open" hidden>Jump to</button>
                                 </div>
@@ -652,6 +657,7 @@
     <script src="assets/js/note-opener.js"></script>
     <script src="assets/js/mindmap.js"></script>
     <script src="assets/js/theme-enhancer.js"></script>
+    <script src="assets/js/track-learning.js"></script>
     <script src="assets/js/index.js"></script>
     <script src="assets/js/searchers.js"></script>
     <script src="assets/js/link-popover.js"></script>

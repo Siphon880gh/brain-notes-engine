@@ -27,6 +27,8 @@ var app = {
             console.warn("cachedResDataImaged.json not found, random note will use all notes");
             window.foldersImaged = [];
         }
+
+        if (window.TrackLearning) window.TrackLearning.start();
         
         // initFolderDoms();
         
@@ -681,6 +683,20 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
   }
   
   function sendToOtherWorkhouses(el) {
+    if (window.modeTrackLearning) {
+        if (typeof window.exitTrackLearningMode === 'function') window.exitTrackLearningMode();
+        const folderLi = el.closest ? el.closest('li.accordion.meta[data-path]') : null;
+        if (!folderLi || !window.TrackLearning) return false;
+        const path = folderLi.getAttribute('data-path');
+        if (!path) return false;
+        Promise.resolve(window.TrackLearning.toggleFolder(path)).then((result) => {
+            if (result && result.tracked) {
+                const ul = folderLi.querySelector(':scope > ul');
+                if (ul) ul.style.display = 'block';
+            }
+        });
+        return true;
+    }
     if (window.modeShareFolder) {
         window.modeShareFolder = false;
         const shareFolderBtn = document.getElementById('share-folder-btn');
@@ -779,8 +795,10 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
         const folderOptionsToggle = document.getElementById('folder-options-toggle');
         const aiBtn = document.getElementById('ai-assist-btn');
         const shareFolderBtn = document.getElementById('share-folder-btn');
+        const trackLearningBtn = document.getElementById('track-learning-btn');
         let aiActive = false;
         let shareFolderActive = false;
+        let trackLearningActive = false;
 
         if (folderOptionsToggle && folderOptionsWrapper) {
             folderOptionsToggle.addEventListener('click', function(e) {
@@ -812,10 +830,20 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
                 aiActive = false;
             }
         }
+        function deactivateTrackLearning() {
+            if (trackLearningActive && trackLearningBtn) {
+                window.modeTrackLearning = false;
+                trackLearningBtn.classList.remove("active");
+                trackLearningBtn.querySelector('.track-learning-text').innerHTML = 'Track learning';
+                trackLearningActive = false;
+            }
+        }
+        window.exitTrackLearningMode = deactivateTrackLearning;
 
         if (aiBtn) aiBtn.addEventListener('click', function() {
             if (!aiActive) {
                 deactivateShareFolder();
+                deactivateTrackLearning();
                 window.modeAskAI = true;
                 aiBtn.classList.add("active");
                 aiBtn.querySelector('.ai-text').innerHTML = 'AI Active<br><small>Click a folder. Ask it!</small>';
@@ -829,12 +857,28 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
             shareFolderBtn.addEventListener('click', function() {
                 if (!shareFolderActive) {
                     deactivateAI();
+                    deactivateTrackLearning();
                     window.modeShareFolder = true;
                     shareFolderBtn.classList.add("active");
                     shareFolderBtn.querySelector('.share-folder-text').innerHTML = 'Active<br><small>Click a folder</small>';
                     shareFolderActive = true;
                 } else {
                     deactivateShareFolder();
+                }
+            });
+        }
+
+        if (trackLearningBtn) {
+            trackLearningBtn.addEventListener('click', function() {
+                if (!trackLearningActive) {
+                    deactivateAI();
+                    deactivateShareFolder();
+                    window.modeTrackLearning = true;
+                    trackLearningBtn.classList.add("active");
+                    trackLearningBtn.querySelector('.track-learning-text').innerHTML = 'Active<br><small>Click a folder</small>';
+                    trackLearningActive = true;
+                } else {
+                    deactivateTrackLearning();
                 }
             });
         }

@@ -175,6 +175,9 @@ class PrivateAuthManager {
             
             this.isAuthenticated = result.authenticated === true;
             this.updateUI();
+            document.dispatchEvent(new CustomEvent('privateAuthChanged', {
+                detail: { authenticated: this.isAuthenticated }
+            }));
             
             return this.isAuthenticated;
         } catch (error) {
