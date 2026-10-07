@@ -682,6 +682,180 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
     return rootUL ? traverseList(rootUL) : '';
   }
   
+  function folderRow(el) {
+    return el && el.closest ? el.closest('li.accordion.meta') : null;
+  }
+
+  function shareFolderLink(el) {
+    const folderLi = folderRow(el);
+    if (!folderLi) return false;
+    const path = folderLi.getAttribute('data-path');
+    if (!path) return false;
+    const url = window.location.origin + window.location.pathname + '?folder=' + encodeURIComponent(path);
+    document.getElementById('shareModalLabel').textContent = 'Share folder link';
+    document.getElementById('shareSnippet').value = url;
+    document.getElementById('shareModal').modal('show');
+    return true;
+  }
+
+  const enums = {OPEN_FOLDER: 0, DONT_OPEN_FOLDER:1};
+  let askFolderContext = null;
+
+  function sanitizedAskQuestion() {
+    const input = document.getElementById('ask-folder-question');
+    return (input ? input.value : '')
+        .replace(/[^\w\s?.,]/g, '')
+        .trim()
+        .slice(0, 250);
+  }
+
+  function askFolderPromptText() {
+    if (!askFolderContext) return '';
+    const userQuestion = sanitizedAskQuestion();
+    const { basePath, hierarchyText } = askFolderContext;
+    return `Given this hierarchy of topics, answer user's question. If it cannot answer user's question, then tell the user that the knowledge isn't part of the notes and that they can reach out to Weng if they want specific notes for this at "weng@wengindustries.com". But then provide your knowledge. You may visit the relative URLs to get more information if needed. The basepath for those relative URLs is ${basePath}
+
+    User's question:
+    ${userQuestion}
+
+    Hiearchy of topics:
+    """
+    ${hierarchyText}
+    """`;
+  }
+
+  function refreshAskFolderPreview() {
+    const preview = document.getElementById('largePromptText');
+    const status = document.getElementById('ask-folder-status');
+    const text = askFolderPromptText();
+    if (preview) preview.value = text;
+    if (status) {
+        const tooLong = text.length > 4000;
+        status.hidden = !tooLong;
+        status.textContent = tooLong
+            ? 'This prompt is too long to open directly. Copy it, then paste it into the chat.'
+            : '';
+    }
+    syncAskFolderSuggestions();
+    return text;
+  }
+
+  function syncAskFolderSuggestions() {
+    const input = document.getElementById('ask-folder-question');
+    const value = input ? input.value.trim() : '';
+    document.querySelectorAll('#ask-folder-suggestions button').forEach((button) => {
+        const match = button.dataset.question === value;
+        button.classList.toggle('is-current', match);
+        button.setAttribute('aria-pressed', match ? 'true' : 'false');
+    });
+  }
+
+  function markAskFolderCopied(button) {
+    if (!button) return;
+    button.textContent = 'Copied';
+    setTimeout(() => {
+        button.textContent = 'Copy prompt';
+    }, 1600);
+  }
+
+  function copyAskFolderPrompt() {
+    const text = refreshAskFolderPreview();
+    const button = document.getElementById('copyLargePromptButton');
+    const preview = document.getElementById('largePromptText');
+    const done = () => markAskFolderCopied(button);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(() => {
+            if (preview) {
+                preview.select();
+                document.execCommand('copy');
+            }
+            done();
+        });
+        return;
+    }
+    if (preview) {
+        preview.select();
+        document.execCommand('copy');
+    }
+    done();
+  }
+
+  function openAskFolderChat(pasteUrl, queryUrl) {
+    const text = refreshAskFolderPreview();
+    const input = document.getElementById('ask-folder-question');
+    const status = document.getElementById('ask-folder-status');
+    if (!sanitizedAskQuestion()) {
+        if (status) {
+            status.hidden = false;
+            status.textContent = 'Add a question first.';
+        }
+        if (input) input.focus();
+        return;
+    }
+    const url = queryUrl + encodeURIComponent(text);
+    if (text.length > 4000 || url.length > 7500) {
+        copyAskFolderPrompt();
+        window.open(pasteUrl, '_blank', 'noopener,noreferrer');
+        return;
+    }
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+
+  function initAskFolderBuilder() {
+    const input = document.getElementById('ask-folder-question');
+    if (!input || input.dataset.bound === '1') return;
+    input.dataset.bound = '1';
+    input.addEventListener('input', refreshAskFolderPreview);
+    const suggestions = document.getElementById('ask-folder-suggestions');
+    if (suggestions) {
+        suggestions.addEventListener('click', (event) => {
+            const button = event.target.closest('button[data-question]');
+            if (!button) return;
+            input.value = button.dataset.question;
+            refreshAskFolderPreview();
+        });
+    }
+    const copyButton = document.getElementById('copyLargePromptButton');
+    const chatgptButton = document.getElementById('openChatGPTButton');
+    const claudeButton = document.getElementById('openClaudeButton');
+    if (copyButton) copyButton.addEventListener('click', copyAskFolderPrompt);
+    if (chatgptButton) chatgptButton.addEventListener('click', () => openAskFolderChat(
+        'https://chatgpt.com/?m=' + encodeURIComponent('I will paste the prompt.'),
+        'https://chatgpt.com/?m='
+    ));
+    if (claudeButton) claudeButton.addEventListener('click', () => openAskFolderChat(
+        'https://claude.ai/new?q=' + encodeURIComponent('I will paste the prompt.'),
+        'https://claude.ai/new?q='
+    ));
+  }
+
+  function askAboutFolder(el) {
+    const folderLi = folderRow(el);
+    if (!folderLi) return false;
+
+    initAskFolderBuilder();
+    askFolderContext = {
+        basePath: window.location.origin + window.location.pathname,
+        hierarchyText: htmlToIndentedList(folderLi.outerHTML, "./")
+    };
+    const nameEl = document.getElementById('ask-folder-name');
+    const input = document.getElementById('ask-folder-question');
+    if (nameEl) nameEl.textContent = el.textContent.trim() || 'this folder';
+    if (input) input.value = 'What can I learn here?';
+    refreshAskFolderPreview();
+    const folderOptions = document.getElementById('folder-options-wrapper');
+    if (folderOptions) folderOptions.classList.remove('expanded');
+    document.getElementById('largePromptModal').modal('show');
+    if (input) {
+        input.focus();
+        input.select();
+    }
+    return enums.OPEN_FOLDER;
+  }
+
+  window.shareFolderLink = shareFolderLink;
+  window.askAboutFolder = askAboutFolder;
+
   function sendToOtherWorkhouses(el) {
     if (window.modeTrackLearning) {
         if (typeof window.exitTrackLearningMode === 'function') window.exitTrackLearningMode();
@@ -704,84 +878,12 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
             shareFolderBtn.classList.remove("active");
             shareFolderBtn.querySelector('.share-folder-text').innerHTML = 'Share folder';
         }
-        const folderLi = el.closest ? el.closest('li.accordion.meta[data-path]') : null;
-        if (!folderLi) return false;
-        const path = folderLi.getAttribute('data-path');
-        if (!path) return false;
-        const url = window.location.origin + window.location.pathname + '?folder=' + encodeURIComponent(path);
-        document.getElementById('shareModalLabel').textContent = 'Share folder link';
-        document.getElementById('shareSnippet').value = url;
-        document.getElementById('shareModal').modal('show');
-        return true;
+        return shareFolderLink(el);
     }
     if(window.modeAskAI) {
-        const folderLi = el.closest ? el.closest('li.accordion.meta') : null;
-        if (!folderLi) return false;
-
-        // Toggle logic
         window.modeAskAI = false;
         document.getElementById('ai-assist-btn').click();
-
-        // AI prompting logic
-        const enums = {OPEN_FOLDER: 0, DONT_OPEN_FOLDER:1}
-        const basePath = window.location.origin + window.location.pathname;
-        let hierarchyText = htmlToIndentedList(folderLi.outerHTML, "./")
-        let folderName = el.textContent.trim();
-        let userQuestion = prompt(`Ask the AI about these notes at ${folderName}?\n\nEg. What can I learn here?\nEg. How to get started?\n\nPopup: You needs popups enabled to open properly.\nPaid Version: This free version opens your notes directly in ChatGPT and is limited by the model's input size. Need something more powerful that handles bigger note sets and can handle deeper queries? Email weng@wengindustries.com for details on our paid plan. Thanks!`)
-        if (!userQuestion) return enums.OPEN_FOLDER;
-        
-        // Sanitize user input by removing special characters and limiting length
-        userQuestion = userQuestion
-            .replace(/[^\w\s?.,]/g, '') // Remove special chars except basic punctuation
-            .trim()
-            .slice(0, 250); // Limit lengt
-            
-        
-        let promptText = `Given this hierarchy of topics, answer user's question. If it cannot answer user's question, then tell the user that the knowledge isn't part of the notes and that they can reach out to Weng if they want specific notes for this at "weng@wengindustries.com". But then provide your knowledge. You may visit the relative URLs to get more information if needed. The basepath for those relative URLs is ${basePath}
-    
-    User's question:
-    ${userQuestion.trim()}
-    
-    Hiearchy of topics:
-    """
-    ${hierarchyText}
-    """`;
-        
-        // Check if prompt is too large (over 4000 characters)
-        if (promptText.length > 4000) {
-            // Show modal with prompt for manual copy/paste
-            document.getElementById('largePromptText').value = promptText;
-            document.getElementById('largePromptModal').modal('show');
-            
-            // Setup copy button functionality
-            document.getElementById('copyLargePromptButton').onclick = function() {
-                const textarea = document.getElementById('largePromptText');
-                textarea.select();
-                textarea.setSelectionRange(0, 99999); // For mobile devices
-                document.execCommand('copy');
-                
-                // Visual feedback
-                const button = this;
-                const originalText = button.innerHTML;
-                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                button.classList.add('btn-success');
-                button.classList.remove('btn-primary');
-                
-                setTimeout(() => {
-                    button.innerHTML = originalText;
-                    button.classList.remove('btn-success');
-                    button.classList.add('btn-primary');
-                }, 2000);
-            };
-            
-            // Setup open ChatGPT button functionality
-            document.getElementById('openChatGPTButton').onclick = function() {
-                window.open('https://chatgpt.com/?m=I%20will%20paste%20the%20prompt.', '_blank');
-            };
-        } else {
-            window.open(`https://chatgpt.com/?m=${promptText}`);
-        }
-        return enums.OPEN_FOLDER;
+        return askAboutFolder(el);
     } // modeAskAI
 
     
@@ -839,6 +941,8 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
             }
         }
         window.exitTrackLearningMode = deactivateTrackLearning;
+        window.exitAskFolderMode = deactivateAI;
+        window.exitShareFolderMode = deactivateShareFolder;
 
         if (aiBtn) aiBtn.addEventListener('click', function() {
             if (!aiActive) {

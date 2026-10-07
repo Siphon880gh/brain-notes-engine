@@ -490,28 +490,57 @@
         </div>
     </div>
 
-    <!-- Large Prompt Modal -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="prompt-icon-sprite" aria-hidden="true">
+        <symbol id="icon-chatgpt" viewBox="0 0 24 24">
+            <path fill="#10a37f" d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zm-9.022 12.608a4.476 4.476 0 0 1-2.876-1.04l.142-.081 4.779-2.758a.795.795 0 0 0 .393-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.495 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.341 7.896a4.485 4.485 0 0 1 2.365-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.596 3.855-5.833-3.387 2.021-1.164a.08.08 0 0 1 .068 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.41-.667zm2.011-3.023-.142-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zM8.307 12.863l-2.02-1.163a.08.08 0 0 1-.038-.057V6.074a4.5 4.5 0 0 1 7.376-3.453l-.142.08-4.779 2.758a.795.795 0 0 0-.393.681zm1.098-2.365 2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/>
+        </symbol>
+        <symbol id="icon-claude" viewBox="0 0 24 24">
+            <path fill="#d97757" d="M11.15.8h1.7l.62 6.55 4.55-4.55 1.2 1.2-4.55 4.55L23.2 9.15v1.7l-6.55.62 4.55 4.55-1.2 1.2-4.55-4.55-.62 6.55h-1.7l-.62-6.55-4.55 4.55-1.2-1.2 4.55-4.55L.8 10.85v-1.7l6.55-.62L2.8 3.98l1.2-1.2 4.55 4.55z"/>
+        </symbol>
+    </svg>
+
+    <!-- Ask folder prompt builder -->
     <div class="modal" id="largePromptModal" style="display:none;">
         <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+        <div class="modal-content prompt-builder">
             <div class="modal-header">
-            <h4 id="largePromptModalLabel" class="modal-title mt-0">Folder Too Large, But No Worries!</h4>
+            <h4 id="largePromptModalLabel" class="modal-title mt-0">Ask folder</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
             <div class="modal-body">
-            <p>The prompt is too large to connect directly to ChatGPT. Please copy the prompt below and paste it into your free ChatGPT (no signup needed):</p>
-            <textarea id="largePromptText" class="form-control mx-auto w-full" rows="10" readonly></textarea>
+            <p class="prompt-builder__lead">Ask about <span id="ask-folder-name" class="prompt-builder__chip">this folder</span></p>
+            <p class="prompt-builder__note">Popups need to be enabled. Prompts that do not fit in the chat link are copied so you can paste them. For bigger note sets, email weng@wengindustries.com.</p>
+            <div class="prompt-builder__card">
+                <label class="prompt-builder__label" for="ask-folder-question">Question</label>
+                <input id="ask-folder-question" class="prompt-builder__input" type="text" maxlength="250" autocomplete="off" placeholder="What can I learn here?">
+                <div id="ask-folder-suggestions" class="prompt-builder__suggestions" role="group" aria-label="Question suggestions">
+                    <button type="button" class="is-current" data-question="What can I learn here?" aria-pressed="true">What can I learn here?</button>
+                    <button type="button" data-question="How to get started?" aria-pressed="false">How to get started?</button>
+                    <button type="button" data-question="What should I learn first?" aria-pressed="false">What should I learn first?</button>
+                    <button type="button" data-question="Summarize these notes" aria-pressed="false">Summarize these notes</button>
+                </div>
+                <label class="prompt-builder__label" for="largePromptText">Dynamic prompt preview</label>
+                <textarea id="largePromptText" class="prompt-builder__preview" rows="8" readonly spellcheck="false"></textarea>
+                <p id="ask-folder-status" class="prompt-builder__limit" hidden></p>
+                <div class="prompt-actions">
+                    <button type="button" class="prompt-actions__copy" id="copyLargePromptButton">Copy prompt</button>
+                    <span class="prompt-actions__open">Open in
+                        <button type="button" class="prompt-actions__chat" id="openChatGPTButton">
+                            <svg class="prompt-actions__icon" aria-hidden="true"><use href="#icon-chatgpt"></use></svg>
+                            ChatGPT
+                        </button>
+                        <button type="button" class="prompt-actions__chat" id="openClaudeButton">
+                            <svg class="prompt-actions__icon" aria-hidden="true"><use href="#icon-claude"></use></svg>
+                            Claude
+                        </button>
+                    </span>
+                </div>
             </div>
-            <div class="modal-footer text-center">
-                <button type="button" class="btn btn-primary mt-4 p-2 bg-blue-300" id="copyLargePromptButton">
-                    <i class="fas fa-copy"></i> 1. Copy Prompt
-                </button>
-                <button type="button" class="btn btn-success mt-4 p-2 ml-2 bg-blue-200" id="openChatGPTButton">
-                    <i class="fas fa-external-link-alt"></i> 2. Open ChatGPT
-                </button>
-                <button type="button" class="btn btn-secondary mt-4 p-2 ml-2" data-dismiss="modal">Close</button>
+            </div>
+            <div class="modal-footer prompt-builder__footer">
+                <button type="button" class="prompt-builder__cancel" data-dismiss="modal">Cancel</button>
             </div>
         </div>
         </div>
