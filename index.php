@@ -512,6 +512,20 @@
             <div class="modal-body">
             <p class="prompt-builder__lead">Ask about <span id="ask-folder-name" class="prompt-builder__chip">this folder</span></p>
             <p class="prompt-builder__note">Popups need to be enabled. Prompts that do not fit in the chat link are copied so you can paste them. For bigger note sets, email weng@wengindustries.com.</p>
+            <details class="why-not-auto">
+              <summary class="why-not-auto__summary"><span class="why-not-auto__icon" aria-hidden="true">i</span> Why is this not automatic</summary>
+              <div class="why-not-auto__body">
+                <p>Weng provides this service for free and cannot cover the ongoing cost of AI tokens. That's why this Prompt Builder is designed to let users supply their own AI processing resources rather than having the app pay for them. This is also why AI processing isn't integrated directly into the app for a more seamless experience.</p>
+                <p>There are several ways to accomplish this:</p>
+                <ol>
+                  <li><strong>Copy the generated prompt into ChatGPT or Claude:</strong> Users can use their existing AI subscriptions to process the prompt.</li>
+                  <li><strong>Copy the generated prompt into an AI harness like Cursor or Claude Code:</strong> Users can leverage their own AI coding environments and available token allowances.</li>
+                  <li><strong>Provide their own API key:</strong> The app could process prompts directly using the user's API key, with usage billed to the user. However, this requires trusting that the app does not store, log, or copy the key. This is generally easier to verify with a locally running application or a Chrome extension, although neither is inherently secure without reviewing how it handles credentials.</li>
+                </ol>
+                <p><strong>For now, letting you use your own AI tools is the most practical approach.</strong> It keeps the service free while allowing you to use AI resources you already have access to. This app uses the method best suited to its particular workflow.</p>
+                <p>If the service eventually becomes commercial and can sustain the cost of AI tokens, AI processing could be integrated directly into the app for a more seamless experience.</p>
+              </div>
+            </details>
             <div class="prompt-builder__card">
                 <label class="prompt-builder__label" for="ask-folder-question">Question</label>
                 <input id="ask-folder-question" class="prompt-builder__input" type="text" maxlength="250" autocomplete="off" placeholder="What can I learn here?">
@@ -764,6 +778,20 @@
                         <code id="practice-quiz-reply">1. 10. 2. You choose. 3. A Mix.</code>
                         <button type="button" id="practice-quiz-copy-reply">Copy reply</button>
                     </p>
+                    <details class="why-not-auto">
+                      <summary class="why-not-auto__summary"><span class="why-not-auto__icon" aria-hidden="true">i</span> Why is this not automatic</summary>
+                      <div class="why-not-auto__body">
+                        <p>Weng provides this service for free and cannot cover the ongoing cost of AI tokens. That's why this Prompt Builder is designed to let users supply their own AI processing resources rather than having the app pay for them. This is also why AI processing isn't integrated directly into the app for a more seamless experience.</p>
+                        <p>There are several ways to accomplish this:</p>
+                        <ol>
+                          <li><strong>Copy the generated prompt into ChatGPT or Claude:</strong> Users can use their existing AI subscriptions to process the prompt.</li>
+                          <li><strong>Copy the generated prompt into an AI harness like Cursor or Claude Code:</strong> Users can leverage their own AI coding environments and available token allowances.</li>
+                          <li><strong>Provide their own API key:</strong> The app could process prompts directly using the user's API key, with usage billed to the user. However, this requires trusting that the app does not store, log, or copy the key. This is generally easier to verify with a locally running application or a Chrome extension, although neither is inherently secure without reviewing how it handles credentials.</li>
+                        </ol>
+                        <p><strong>For now, letting you use your own AI tools is the most practical approach.</strong> It keeps the service free while allowing you to use AI resources you already have access to. This app uses the method best suited to its particular workflow.</p>
+                        <p>If the service eventually becomes commercial and can sustain the cost of AI tokens, AI processing could be integrated directly into the app for a more seamless experience.</p>
+                      </div>
+                    </details>
                     <label class="practice-quiz__label" for="practice-quiz-prompt">Prompt preview</label>
                     <textarea id="practice-quiz-prompt" readonly spellcheck="false"></textarea>
                     <div class="practice-quiz__actions prompt-actions">
