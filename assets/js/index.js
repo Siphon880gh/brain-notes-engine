@@ -7,7 +7,10 @@ var app = {
         try {
             const partialHtml = await fetch("./cachedResPartial.html").then(r => r.text());
             const topicsList = document.getElementById("topics-list");
-            if (topicsList) topicsList.innerHTML = partialHtml;
+            if (topicsList) {
+                topicsList.innerHTML = partialHtml;
+                if (typeof applyIconRules === "function") applyIconRules(topicsList);
+            }
         } catch (e) {
             console.error("Failed to load cachedResPartial.html", e);
         }

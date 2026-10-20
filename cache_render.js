@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const icons = require('./env/icons.js');
+const iconRules = require('./env/icon-rules.js');
+const { resolveIconInnerHtml } = require('./env/icon-resolve.js');
 
 // Path to your output.json file
 const outputJsonPath = 'cachedResData.json';
@@ -270,9 +272,11 @@ function generateHtml(folders) {
       html += `<a class="name ${itemClass}"${dataIDAttr} href="${hrefValue}">`;
     }
     
-    // Insert custom icon if available. It will hide the fa book icon because of css selector `.custom-icon+.fa-folder {`
-    if (icons[escapedItemCurrent]) {
-      html += `<span class="custom-icon">${icons[escapedItemCurrent]}</span>`;
+    // Regex rules in env/icon-rules.js win, then an exact name from env/icons.js.
+    // The custom icon hides the folder glyph via `.custom-icon + .fa-folder`.
+    const iconInner = resolveIconInnerHtml(escapedItemCurrent, iconRules, icons);
+    if (iconInner) {
+      html += `<span class="custom-icon">${iconInner}</span>`;
     }
     html += iconClass ? `<span class="${iconClass}"></span>&nbsp;` : '';
 

@@ -126,8 +126,8 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css" rel="stylesheet"/>
 
-    <!-- Designer: FontAwesome -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.9.0/css/all.min.css">
+    <!-- Designer: icon font libraries (Font Awesome and any others you add) -->
+    <?php include __DIR__ . "/env/icon-fonts.php"; ?>
     
     <!-- Mermaid.js for mindmap generation -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
@@ -701,6 +701,8 @@
     <script src="assets/js/mindmap.js"></script>
     <script src="assets/js/theme-enhancer.js"></script>
     <script src="assets/js/track-learning.js"></script>
+    <script src="env/icon-rules.js"></script>
+    <script src="env/icon-resolve.js"></script>
     <script src="assets/js/index.js"></script>
     <script src="assets/js/searchers.js"></script>
     <script src="assets/js/link-popover.js"></script>

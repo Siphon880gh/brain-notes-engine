@@ -1471,6 +1471,13 @@ button {
   display: inline;
 }
 
+.custom-icon > img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
 #explorer-btns {
   padding: 10px;
   margin-bottom: 10px;

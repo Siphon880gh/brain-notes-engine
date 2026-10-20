@@ -1,3 +1,4 @@
+// Exact folder-name icons. Regex rules (emoji, font class, svg, image src) live in icon-rules.js.
 var icons = {
   "Tool-PM - Clickup": `<svg xmlns="http://www.w3.org/2000/svg" style="width:20px; height:20px; margin-left:-2px; transform:translateY(4px);" viewBox="0 0 1024 1024">
   <circle cx="512" cy="512" r="512" style="fill:#7b68ee"/>
