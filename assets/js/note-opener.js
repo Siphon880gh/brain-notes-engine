@@ -1069,9 +1069,10 @@ function openNote(id) {
                         }
 
                         // Add the embedded YouTube video, and remove the link.
-                        // Use youtube-nocookie.com for privacy-enhanced mode and add referrerpolicy to fix Error 153
+                        // Use youtube-nocookie.com for privacy-enhanced mode and add referrerpolicy to fix Error 153.
+                        // Share links use t=60s; the embed player only seeks when given start in whole seconds.
                         if (validatedID) {
-                            $(a).before('<div class="responsive-iframe-container"><iframe src="https://www.youtube-nocookie.com/embed/' + validatedID + '" frameborder="0" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>');
+                            $(a).before('<div class="responsive-iframe-container"><iframe src="' + youtubeEmbedSrc(validatedID, a) + '" frameborder="0" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>');
                             const $ytWrapper = $(a).prev('.responsive-iframe-container');
                             enhanceWithImageButtons($ytWrapper[0], "yt");
                             $(a).remove();
@@ -1796,9 +1797,10 @@ async function renderDecryptedContent(decryptedContent, title, summaryInnerEl, f
                     validatedID = id;
                 }
 
-                // Use youtube-nocookie.com for privacy-enhanced mode and add referrerpolicy to fix Error 153
+                // Use youtube-nocookie.com for privacy-enhanced mode and add referrerpolicy to fix Error 153.
+                // Share links use t=60s; the embed player only seeks when given start in whole seconds.
                 if (validatedID) {
-                    $(a).before('<div class="responsive-iframe-container"><iframe src="https://www.youtube-nocookie.com/embed/' + validatedID + '" frameborder="0" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>');
+                    $(a).before('<div class="responsive-iframe-container"><iframe src="' + youtubeEmbedSrc(validatedID, a) + '" frameborder="0" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>');
                     const $ytWrapper = $(a).prev('.responsive-iframe-container');
                     if (typeof enhanceWithImageButtons === 'function') {
                         enhanceWithImageButtons($ytWrapper[0], "yt");
@@ -1828,6 +1830,40 @@ async function renderDecryptedContent(decryptedContent, title, summaryInnerEl, f
     if (typeof generateMindmapFromLists === 'function') {
         generateMindmapFromLists();
     }
+}
+
+// Share URLs use t=60, t=60s, t=1m30s, or t=1h2m3s. Embeds only honor start as whole seconds.
+function youtubeTimestampToSeconds(raw) {
+    if (raw == null) return 0;
+    const value = String(raw).trim();
+    if (/^\d+s?$/i.test(value)) return parseInt(value, 10);
+
+    const match = value.match(/^(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?$/i);
+    if (!match || !(match[1] || match[2] || match[3])) return 0;
+    const hours = parseInt(match[1] || "0", 10);
+    const minutes = parseInt(match[2] || "0", 10);
+    const seconds = parseInt(match[3] || "0", 10);
+    return hours * 3600 + minutes * 60 + seconds;
+}
+
+function youtubeEmbedStartSeconds(anchor) {
+    const params = new URLSearchParams(anchor.search || "");
+    let raw = params.get("start") || params.get("t");
+    if (!raw && anchor.hash) {
+        const hash = anchor.hash.replace(/^#/, "");
+        const hashParams = new URLSearchParams(hash);
+        raw = hashParams.get("start") || hashParams.get("t");
+    }
+    const seconds = youtubeTimestampToSeconds(raw);
+    if (!Number.isFinite(seconds) || seconds <= 0) return 0;
+    return seconds;
+}
+
+function youtubeEmbedSrc(validatedID, anchor) {
+    let src = "https://www.youtube-nocookie.com/embed/" + validatedID;
+    const start = youtubeEmbedStartSeconds(anchor);
+    if (start > 0) src += "?start=" + start;
+    return src;
 }
 
 // Helper function - extract from existing code if needed
