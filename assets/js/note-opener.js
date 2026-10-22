@@ -488,6 +488,40 @@ function extractCustomWikiPreviews(markdownText) {
 }
 
 /**
+ * Obsidian aliases and heading suffixes must not be part of ?open=.
+ * [[Note|Alias]] and [[Note#Heading|Alias]] both open Note.
+ */
+function wikiNoteFilename(raw) {
+    const target = String(raw || '').split('|')[0].split('#')[0].trim();
+    return target.split('/').pop().replace(/\.md$/i, '').replace(/\.json$/i, '').trim();
+}
+
+function wikiNoteLabel(raw) {
+    const text = String(raw || '');
+    const pipe = text.indexOf('|');
+    if (pipe === -1) return wikiNoteFilename(text);
+    return text.slice(pipe + 1).trim() || wikiNoteFilename(text);
+}
+
+/**
+ * Lift [[wiki links]] out before MarkdownIt so table cells are not split on `|`.
+ */
+function extractObsidianWikiLinks(markdownText) {
+    const links = [];
+    const source = String(markdownText || '');
+    const markdown = source.replace(/\[\[([^\]\r\n]+?)\]\]/g, (match, raw, offset) => {
+        if (offset > 0 && source[offset - 1] === '!') return match;
+        if (isMarkdownCodePosition(source, offset)) return match;
+        const filename = wikiNoteFilename(raw);
+        if (!filename) return match;
+        const placeholder = `\uE000DEVBRAINWIKI${links.length}\uE001`;
+        links.push({ filename, label: wikiNoteLabel(raw) });
+        return placeholder;
+    });
+    return { markdown, links };
+}
+
+/**
  * Keep syntax examples inside fenced and inline code literal.
  */
 function isMarkdownCodePosition(markdownText, position) {
@@ -538,12 +572,13 @@ function isMarkdownCodePosition(markdownText, position) {
  * rendered the note.
  *
  * [[DOCUMENT NAME]]                  -> linked note preview
+ * [[DOCUMENT NAME|Alias]]            -> same note; alias is display text only
  * [[TEXT]]##This is preview text##   -> custom text preview
  *
  * Processing text nodes keeps standard wiki syntax out of code blocks and
  * lets the DOM handle escaping for link labels and preview text.
  */
-function replaceWikiLinksWithPreviews(htmlString, customPreviews = []) {
+function replaceWikiLinksWithPreviews(htmlString, customPreviews = [], wikiLinks = []) {
     const template = document.createElement('template');
     template.innerHTML = htmlString;
 
@@ -557,7 +592,7 @@ function replaceWikiLinksWithPreviews(htmlString, customPreviews = []) {
         }
     }
 
-    const wikiPreviewPattern = /\uE000DEVBRAINPREVIEW(\d+)\uE001|\[\[([^\]\r\n]+?)\]\]/g;
+    const wikiPreviewPattern = /\uE000DEVBRAINPREVIEW(\d+)\uE001|\uE000DEVBRAINWIKI(\d+)\uE001|\[\[([^\]\r\n]+?)\]\]/g;
 
     textNodes.forEach(node => {
         const source = node.nodeValue;
@@ -575,22 +610,35 @@ function replaceWikiLinksWithPreviews(htmlString, customPreviews = []) {
             const customPreview = match[1] !== undefined
                 ? customPreviews[Number(match[1])]
                 : null;
+            const extractedWiki = match[2] !== undefined
+                ? wikiLinks[Number(match[2])]
+                : null;
+            const leftoverWiki = match[3] !== undefined
+                ? { filename: wikiNoteFilename(match[3]), label: wikiNoteLabel(match[3]) }
+                : null;
+
             if (match[1] !== undefined && !customPreview) {
                 fragment.appendChild(document.createTextNode(match[0]));
                 cursor = wikiPreviewPattern.lastIndex;
                 continue;
             }
 
-            const label = customPreview ? customPreview.label : match[2].trim();
             const link = document.createElement('a');
-            link.textContent = label;
 
             if (customPreview) {
+                link.textContent = wikiNoteLabel(customPreview.label);
                 link.href = '#';
                 link.dataset.customPreview = customPreview.previewText.trim();
             } else {
+                const wiki = extractedWiki || leftoverWiki;
+                if (!wiki || !wiki.filename) {
+                    fragment.appendChild(document.createTextNode(match[0]));
+                    cursor = wikiPreviewPattern.lastIndex;
+                    continue;
+                }
+                link.textContent = wiki.label;
                 link.target = '_blank';
-                link.href = `${window.openURL}${encodeURIComponent(label)}`;
+                link.href = `${window.openURL}${encodeURIComponent(wiki.filename)}`;
             }
 
             fragment.appendChild(link);
@@ -987,6 +1035,9 @@ function openNote(id) {
                 console.log('📄 No encryption detected, rendering normally...');
             }
 
+            const wikiLinkData = extractObsidianWikiLinks(summary);
+            summary = wikiLinkData.markdown;
+
             var summaryHTML = md.render(summary);
 
             // Img src domain with base url (only for images without a domain):
@@ -1011,7 +1062,7 @@ function openNote(id) {
 
             summaryHTML = summaryHTML.replaceAll(/\xA0/g, " ");
 
-            summaryHTML = replaceWikiLinksWithPreviews(summaryHTML, customPreviewData.previews);
+            summaryHTML = replaceWikiLinksWithPreviews(summaryHTML, customPreviewData.previews, wikiLinkData.links);
 
 
             summaryInnerEl.innerHTML = summaryHTML;
@@ -1705,6 +1756,9 @@ async function renderDecryptedContent(decryptedContent, title, summaryInnerEl, f
         processedContent = "<center>" + processedContent + "</center>";
     }
 
+    const wikiLinkData = extractObsidianWikiLinks(processedContent);
+    processedContent = wikiLinkData.markdown;
+
     // Render markdown
     var summaryHTML = md.render(processedContent);
 
@@ -1721,7 +1775,7 @@ async function renderDecryptedContent(decryptedContent, title, summaryInnerEl, f
     summaryHTML = summaryHTML.replaceAll(/\xA0/g, " ");
 
     // Replace document links and custom text previews.
-    summaryHTML = replaceWikiLinksWithPreviews(summaryHTML, customPreviewData.previews);
+    summaryHTML = replaceWikiLinksWithPreviews(summaryHTML, customPreviewData.previews, wikiLinkData.links);
 
     // Add decrypted content wrapper
     summaryHTML = `<div class="decrypted-content">${summaryHTML}</div>`;
