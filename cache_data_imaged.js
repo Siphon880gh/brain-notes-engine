@@ -19,7 +19,8 @@ let sort_spec = "";
 let cachedDataFilename = "cachedResDataImaged.json";
 
 // Array of folder names to exclude recursively
-const excludeFolders = ['.git', 'node_modules'];
+const excludeFolders = ['.git', 'node_modules', '.agents'];
+const excludeFiles = ['AGENTS.md'];
 
 // Common image extensions to detect in markdown files
 const imageExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg', '.bmp', '.ico'];
@@ -72,7 +73,7 @@ function rglob(dir) {
       let folderName = entry.name;
 
       // Check if the entry is in the exclude list
-      if (excludeFolders.includes(folderName)) {
+      if (excludeFolders.includes(folderName) || excludeFiles.includes(folderName)) {
         continue; // Skip this folder or file
       }
 

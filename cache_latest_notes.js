@@ -8,7 +8,7 @@ const root = __dirname;
 const curriculum = path.join(root, 'curriculum');
 const outFile = path.join(root, 'cachedLatestNotes.json');
 const dayCount = 5;
-const skipNames = new Set(['sortspec.md', 'readme.md']);
+const skipNames = new Set(['sortspec.md', 'readme.md', 'agents.md']);
 
 function viewerRoot() {
   try {
