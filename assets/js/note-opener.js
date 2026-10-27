@@ -96,16 +96,95 @@ function goToItem() {
 
 (function () {
     const jumpBtn = document.getElementById("jump-to-note");
-    if (!jumpBtn) return;
+    const jumpWrapper = document.getElementById("jump-to-note-wrapper");
+    const jumpMap = document.getElementById("jump-to-note-map");
+    if (!jumpBtn || !jumpWrapper || !jumpMap) return;
 
     const revealJumpToNote = () => {
-        jumpBtn.hidden = false;
+        jumpWrapper.hidden = false;
+    };
+
+    const closeJumpMap = () => {
+        jumpMap.hidden = true;
+        jumpBtn.setAttribute("aria-expanded", "false");
+    };
+
+    const revealRow = (row, isCurrentNote) => {
+        if (typeof toOpenUp_Exec === "function") toOpenUp_Exec(row);
+        if (isCurrentNote) {
+            goToItem();
+        } else {
+            row.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+        closeJumpMap();
+    };
+
+    const buildJumpMap = () => {
+        const currentNote = findCurrentNoteRow();
+        jumpMap.replaceChildren();
+        if (!currentNote) return false;
+
+        const path = [];
+        let row = currentNote;
+        while (row && row.matches("#topics-list li")) {
+            path.unshift(row);
+            row = row.parentElement?.closest("li");
+        }
+
+        const pathList = document.createElement("ol");
+        pathList.className = "jump-to-note-map__path";
+        path.forEach((pathRow, index) => {
+            const name = pathRow.querySelector(":scope > .name");
+            if (!name) return;
+
+            const item = document.createElement("li");
+            item.className = "jump-to-note-map__item";
+            item.style.setProperty("--jump-path-depth", index);
+
+            const action = document.createElement("button");
+            action.type = "button";
+            action.className = "jump-to-note-map__action";
+            const isCurrentNote = pathRow === currentNote;
+            if (isCurrentNote) action.classList.add("is-current");
+            action.textContent = noteRowLabel(name);
+            action.title = isCurrentNote ? "Reveal this note" : "Reveal this category";
+            action.setAttribute("role", "menuitem");
+            action.addEventListener("click", (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                revealRow(pathRow, isCurrentNote);
+            });
+
+            item.append(action);
+            pathList.append(item);
+        });
+        jumpMap.append(pathList);
+        return pathList.childElementCount > 0;
     };
 
     jumpBtn.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
-        goToItem();
+        const isOpen = !jumpMap.hidden;
+        if (isOpen) {
+            closeJumpMap();
+            return;
+        }
+        if (buildJumpMap()) {
+            jumpMap.hidden = false;
+            jumpBtn.setAttribute("aria-expanded", "true");
+        }
+    });
+
+    document.addEventListener("click", (event) => {
+        if (!event.target.closest("#jump-to-note-wrapper")) closeJumpMap();
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !jumpMap.hidden) {
+            closeJumpMap();
+            jumpBtn.focus();
+        }
     });
 
     document.addEventListener("noteOpened", revealJumpToNote);

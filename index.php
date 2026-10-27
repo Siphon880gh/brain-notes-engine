@@ -324,7 +324,15 @@
                                     <span id="summary-title" onclick="document.querySelector('#summary-collapser').click();"></span>
                                     <button type="button" id="learning-complete" class="practice-open" hidden aria-pressed="false">Mark complete</button>
                                     <button type="button" id="practice-open" class="practice-open" hidden aria-expanded="false" aria-controls="practice-panel">Practice</button>
-                                    <button type="button" id="jump-to-note" class="practice-open" hidden>Jump to</button>
+                                    <div id="jump-to-note-wrapper" class="jump-to-note-wrapper" hidden>
+                                        <button type="button" id="jump-to-note" class="practice-open jump-to-note-trigger" aria-expanded="false" aria-controls="jump-to-note-map">
+                                            <span>Jump to</span>
+                                            <span class="jump-to-note-trigger__separator" aria-hidden="true"></span>
+                                            <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                                            <span class="sr-only">Show this note's category path</span>
+                                        </button>
+                                        <div id="jump-to-note-map" class="jump-to-note-map" role="menu" hidden></div>
+                                    </div>
                                 </div>
                             </h2>
                         </div>
