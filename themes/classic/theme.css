@@ -97,6 +97,7 @@ html[data-theme="classic"] .site-header .clickable.text-blue-800 {
 html[data-theme="classic"] #count-notes {
   display: inline-flex;
   align-items: center;
+  gap: 0.4rem;
   background: var(--theme-navy);
   color: #fff;
   border-radius: 9999px;
