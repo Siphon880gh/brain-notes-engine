@@ -8,7 +8,43 @@ const root = __dirname;
 const curriculum = path.join(root, 'curriculum');
 const outFile = path.join(root, 'cachedLatestNotes.json');
 const dayCount = 5;
-const skipNames = new Set(['sortspec.md', 'readme.md', 'agents.md']);
+const alwaysSkipNames = new Set(['sortspec.md', 'readme.md']);
+const defaultSkipPatterns = ['^AGENTS\\.md$', '^SKILL\\.md$'];
+
+function loadLatestNotesSkip() {
+  const configPath = path.join(root, 'env', 'config.json');
+  try {
+    const cfg = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+    if (cfg && Object.prototype.hasOwnProperty.call(cfg, 'latestNotesSkip')) {
+      if (!Array.isArray(cfg.latestNotesSkip)) return defaultSkipPatterns.slice();
+      return cfg.latestNotesSkip.map((token) => String(token)).filter(Boolean);
+    }
+  } catch (err) {
+    // Missing or invalid env/config.json keeps the default skip list.
+  }
+  return defaultSkipPatterns.slice();
+}
+
+function compileSkipPatterns(skipPatterns) {
+  const compiled = [];
+  (skipPatterns || []).forEach((pattern) => {
+    try {
+      compiled.push(new RegExp(pattern, 'i'));
+    } catch (err) {
+      console.warn('cache_latest_notes: invalid latestNotesSkip regex: ' + pattern);
+    }
+  });
+  return compiled;
+}
+
+function isSkippedNote(base, skipPatterns) {
+  const name = String(base);
+  if (alwaysSkipNames.has(name.toLowerCase())) return true;
+  const compiled = Array.isArray(skipPatterns) && skipPatterns[0] instanceof RegExp
+    ? skipPatterns
+    : compileSkipPatterns(skipPatterns);
+  return compiled.some((re) => re.test(name));
+}
 
 function viewerRoot() {
   try {
@@ -62,7 +98,8 @@ function dateLabel(dateKey) {
   });
 }
 
-function titlesFromLog(raw) {
+function titlesFromLog(raw, skipPatterns) {
+  const compiled = compileSkipPatterns(Array.isArray(skipPatterns) ? skipPatterns : loadLatestNotesSkip());
   const seen = new Set();
   const groups = [];
   String(raw).split('\x1e').forEach((record) => {
@@ -73,7 +110,7 @@ function titlesFromLog(raw) {
     const titles = [];
     lines.slice(1).forEach((filePath) => {
       const base = path.basename(filePath);
-      if (!/\.md$/i.test(base) || skipNames.has(base.toLowerCase())) return;
+      if (!/\.md$/i.test(base) || isSkippedNote(base, compiled)) return;
       const title = base.replace(/\.md$/i, '').trim();
       const key = title.toLowerCase();
       if (!title || seen.has(key)) return;
@@ -139,15 +176,17 @@ function main() {
     process.exit(1);
   }
 
+  const skipPatterns = loadLatestNotesSkip();
   const allowed = new Set(dayKeys);
-  const groups = titlesFromLog(raw).filter((group) => allowed.has(group.dateKey)).slice(0, dayCount);
+  const groups = titlesFromLog(raw, skipPatterns).filter((group) => allowed.has(group.dateKey)).slice(0, dayCount);
   write(groups, repo.label);
   const count = groups.reduce((sum, group) => sum + group.notes.length, 0);
-  console.log('cache_latest_notes: ' + count + ' notes across ' + groups.length + ' commit days, from ' + repo.label + '.');
+  const skipLabel = skipPatterns.length ? skipPatterns.join(', ') : 'none';
+  console.log('cache_latest_notes: ' + count + ' notes across ' + groups.length + ' commit days, from ' + repo.label + '. Skipped: ' + skipLabel + '.');
 }
 
 if (require.main === module) {
   main();
 }
 
-module.exports = { titlesFromLog };
+module.exports = { titlesFromLog, isSkippedNote, loadLatestNotesSkip, compileSkipPatterns };

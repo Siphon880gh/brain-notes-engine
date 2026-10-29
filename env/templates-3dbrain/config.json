@@ -3,5 +3,6 @@
     "showThemeSwitcher": false,
     "showNightDaySwitcher": true,
     "checkoutLatestNotes": true,
-    "checkoutLatestGit": false
+    "checkoutLatestGit": false,
+    "latestNotesSkip": ["^AGENTS\\.md$", "^SKILL\\.md$"]
 }

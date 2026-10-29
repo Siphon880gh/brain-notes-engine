@@ -170,6 +170,42 @@ Users can search by topic title or contents. The search bars are to the top of t
 
 ![](README-assets/search.png)
 
+## Latest notes
+
+The homepage can show a **Check out latest notes** link. That list is built at compile time by `cache_latest_notes.js` from recent git commits in your notes repo (the last 5 commit days). Rebuild after changing notes or skip rules: `npm run build-devbrain` (or the matching brain script).
+
+Turn the feature on in `env/templates-WHICH_BRAIN/config.json` (copied to `env/config.json` during build):
+
+```json
+{
+    "checkoutLatestNotes": true,
+    "checkoutLatestGit": true,
+    "latestNotesSkip": ["^AGENTS\\.md$", "^SKILL\\.md$"]
+}
+```
+
+`latestNotesSkip` is an array of JavaScript regular expressions matched against each note's **filename** (not the full path), case-insensitively. Invalid patterns are ignored with a build warning.
+
+The default skips only the exact files `AGENTS.md` and `SKILL.md`. Notes *about* those files, such as `Codex CLI - AGENTS.md vs model_instructions_file.md`, still appear. `sortspec.md` and `README.md` are always omitted.
+
+Examples:
+
+```json
+"latestNotesSkip": ["^AGENTS\\.md$", "^SKILL\\.md$"]
+```
+
+```json
+"latestNotesSkip": ["^AGENTS(-.*)?\\.md$", "^SKILL\\.md$"]
+```
+
+```json
+"latestNotesSkip": []
+```
+
+The first is the default (exact filenames). The second also skips companion files like `AGENTS-auth.md`. An empty array records `AGENTS.md` and `SKILL.md` like any other note.
+
+In JSON, write a literal dot as `\\.`. Anchors `^` and `$` pin the match to the whole filename.
+
 ## Private and Superprivate Notes
 
 Use `(PRIVATE)` or `PRIVATE` at the end of a note filename, or at the end of a folder name, when you want the note to stay hidden in the frontend until someone logs in. Those notes and folders do not show in the file tree for unauthenticated visitors, and if someone tries to open one they are prompted to log in from the key button at the top right. The frontend unlock password is stored in `.env-password.php`, which is gitignored.
