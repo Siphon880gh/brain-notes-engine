@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { execFileSync } = require('child_process');
 
 require('dotenv').config(); // Load environment variables from .env file
 const DIR_SNIPPETS = process.env.DIR_SNIPPETS;
@@ -127,14 +128,81 @@ function map_tp_to_decorated(relativePath) {
 
   } // sortspec // md or json
 
+  attachObsidianDeepLink(decorated);
+
   console.log("\n\n>> Directories and md files cached as renderable data successfully:\n");
   console.log(decorated)
 
   return decorated;
 }
 
+/**
+ * Pull the first obsidian:// URL out of a note.
+ * Markdown links can contain parentheses, so a URL ends at whitespace
+ * or at a ")" that closes the link.
+ */
+function extractObsidianUrl(text) {
+  const start = text.search(/obsidian:\/\//i);
+  if (start < 0) return '';
+  let i = start;
+  while (i < text.length) {
+    const c = text[i];
+    if (/\s/.test(c) || c === '"' || c === "'" || c === '<' || c === '>') break;
+    if (c === ')') {
+      const next = text[i + 1] || '';
+      if (!next || /[\s\]"']/.test(next)) break;
+    }
+    i++;
+  }
+  return text.slice(start, i);
+}
+
+/**
+ * Notes that hand off to Obsidian (obsidian:// deep link) are super private.
+ * The web app can list them, but it cannot unlock their real content.
+ * Only the matching files are opened, so the vault scan stays fast.
+ */
+function buildObsidianLinkMap(root) {
+  const map = new Map();
+  if (!root) return map;
+  let listed = '';
+  try {
+    listed = execFileSync(
+      'rg',
+      ['-l', '--glob', '*.md', '--glob', '!**/.git/**', 'obsidian://', root],
+      { encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 }
+    );
+  } catch (err) {
+    if (!err || err.status !== 1) {
+      console.error('Could not scan for Obsidian deep links:', err && err.message ? err.message : err);
+    }
+    return map;
+  }
+
+  listed.split(/\r?\n/).filter(Boolean).forEach((filePath) => {
+    let text = '';
+    try {
+      text = fs.readFileSync(filePath, 'utf8');
+    } catch (readErr) {
+      return;
+    }
+    const url = extractObsidianUrl(text);
+    if (!url) return;
+    map.set(path.relative(root, filePath), url);
+  });
+  return map;
+}
+
+function attachObsidianDeepLink(decorated) {
+  const url = obsidianLinkMap.get(decorated.path_tp);
+  if (url) decorated.obsidian_url = url;
+}
+
+const obsidianLinkMap = buildObsidianLinkMap(DIR_SNIPPETS);
 let dirs = rglob(DIR_SNIPPETS);
 dirs = dirs.map(map_tp_to_decorated);
+const superPrivateCount = dirs.filter((item) => item.obsidian_url).length;
+console.log(`\n\n>> Notes that open in Obsidian and stay super private: ${superPrivateCount}`);
 
 // Prepare data to save
 let outputData = {

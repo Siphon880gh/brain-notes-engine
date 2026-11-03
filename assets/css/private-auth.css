@@ -26,14 +26,101 @@
     box-shadow: 0 6px 16px rgba(245, 158, 11, 0.5);
 }
 
-.private-auth-button.authenticated {
+.private-auth-button.authenticated,
+html[data-theme] #corner-controls .private-auth-button.authenticated {
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
     opacity: .25;
 }
 
-.private-auth-button.authenticated:hover {
+.private-auth-button.authenticated:hover,
+.private-auth-button.authenticated:focus-within,
+.private-auth-button.authenticated:active,
+.private-auth-button.authenticated.is-active,
+html[data-theme] #corner-controls .private-auth-button.authenticated:hover,
+html[data-theme] #corner-controls .private-auth-button.authenticated:focus-within,
+html[data-theme] #corner-controls .private-auth-button.authenticated:active,
+html[data-theme] #corner-controls .private-auth-button.authenticated.is-active {
+    opacity: 1;
     box-shadow: 0 6px 16px rgba(16, 185, 129, 0.5);
+}
+
+.private-auth-key {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    border-radius: inherit;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.private-auth-button {
+    overflow: visible;
+}
+
+.private-auth-logout-note {
+    margin: 0.75rem 0 0;
+    color: #57534e;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.private-auth-chevron {
+    display: none;
+    cursor: pointer;
+}
+
+.private-auth-button.authenticated .private-auth-chevron {
+    display: inline-flex;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    bottom: -8px;
+    z-index: 2;
+    height: 22px;
+    padding: 0 7px;
+    border: 0;
+    border-radius: 999px;
+    background: #111827;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
+    transform: translateX(-50%);
+}
+
+.private-auth-chevron-label {
+    max-width: 0;
+    margin-right: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.private-auth-button.authenticated:hover .private-auth-chevron-label,
+.private-auth-button.authenticated:focus-within .private-auth-chevron-label,
+.private-auth-button.authenticated:active .private-auth-chevron-label,
+.private-auth-button.authenticated.is-active .private-auth-chevron-label {
+    max-width: 11rem;
+    margin-right: 6px;
+    opacity: 1;
+}
+
+.private-auth-button.authenticated:hover .private-auth-chevron,
+.private-auth-button.authenticated:focus-within .private-auth-chevron,
+.private-auth-button.authenticated:active .private-auth-chevron,
+.private-auth-button.authenticated.is-active .private-auth-chevron {
+    left: auto;
+    right: 0;
+    transform: none;
 }
 
 /* Animation for key icon */
@@ -210,7 +297,7 @@
     font-weight: 500;
 }
 
-.private-auth-success .fa-check-circle {
+.private-auth-success .fas {
     font-size: 1.5rem;
     color: #10b981;
 }
@@ -270,6 +357,195 @@
     box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
 }
 
+/* Unlock inventory */
+#privateUnlockedModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#privateUnlockedModal.show {
+    opacity: 1;
+}
+
+#privateUnlockedModal .modal-dialog {
+    max-width: 640px;
+    width: min(640px, calc(100% - 2rem));
+    margin: 0;
+    max-height: calc(100vh - 2rem);
+}
+
+#privateUnlockedModal .modal-content {
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    background: white;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: min(720px, calc(100vh - 2rem));
+    min-height: 0;
+    transform: translateY(-24px) scale(0.98);
+    transition: transform 0.3s ease;
+}
+
+#privateUnlockedModal.show .modal-content {
+    transform: translateY(0) scale(1);
+}
+
+#privateUnlockedModal .modal-header {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border-bottom: none;
+    padding: 1.25rem 1.5rem;
+    flex: 0 0 auto;
+}
+
+#privateUnlockedModal .modal-header .close {
+    color: white;
+    opacity: 0.8;
+    text-shadow: none;
+    font-size: 1.5rem;
+}
+
+#privateUnlockedModal .modal-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+#privateUnlockedModal .modal-body {
+    padding: 1.25rem 1.5rem 1.5rem;
+    background: #f8fafc;
+    overflow: auto;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+#privateUnlockedModal .modal-footer {
+    background: #f1f5f9;
+    border-top: 1px solid #e5e7eb;
+    padding: 1rem 1.5rem;
+    flex: 0 0 auto;
+}
+
+.private-unlock-section + .private-unlock-section {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.private-unlock-section h5 {
+    margin: 0 0 0.35rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.private-unlock-lead,
+.private-unlock-empty {
+    margin: 0 0 0.75rem;
+    color: #64748b;
+    font-size: 0.875rem;
+    line-height: 1.45;
+}
+
+.private-unlock-tree {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 0.85rem;
+}
+
+.private-unlock-tree .private-unlock-tree {
+    margin-top: 0.15rem;
+    border-left: 1px solid #e2e8f0;
+}
+
+.private-unlock-node {
+    margin: 0.1rem 0;
+}
+
+.private-unlock-folder,
+.private-unlock-file {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.45rem;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    color: #0f172a;
+    border-radius: 8px;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.92rem;
+    line-height: 1.35;
+    text-decoration: none;
+}
+
+.private-unlock-folder:hover,
+.private-unlock-file:hover {
+    background: #e2e8f0;
+}
+
+.private-unlock-folder .fa-chevron-down {
+    margin-top: 0.2rem;
+    font-size: 0.7rem;
+    transition: transform 0.15s ease;
+}
+
+.private-unlock-folder[aria-expanded="false"] .fa-chevron-down {
+    transform: rotate(-90deg);
+}
+
+.private-unlock-file--obsidian {
+    color: #9a3412;
+}
+
+.private-unlock-hint {
+    margin-left: auto;
+    flex: 0 0 auto;
+    color: #9a3412;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding-top: 0.15rem;
+}
+
+html[data-mode="night"] #privateUnlockedModal .modal-content,
+html[data-mode="night"] #privateUnlockedModal .modal-body,
+html[data-mode="night"] #privateUnlockedModal .modal-footer {
+    background: #1e293b;
+    color: #e2e8f0;
+    border-color: #334155;
+}
+
+html[data-mode="night"] .private-unlock-section h5,
+html[data-mode="night"] .private-unlock-folder,
+html[data-mode="night"] .private-unlock-file {
+    color: #e2e8f0;
+}
+
+html[data-mode="night"] .private-unlock-lead,
+html[data-mode="night"] .private-unlock-empty {
+    color: #94a3b8;
+}
+
+html[data-mode="night"] .private-unlock-section + .private-unlock-section,
+html[data-mode="night"] .private-unlock-tree .private-unlock-tree {
+    border-color: #334155;
+}
+
+html[data-mode="night"] .private-unlock-folder:hover,
+html[data-mode="night"] .private-unlock-file:hover {
+    background: #334155;
+}
+
 /* Mobile responsiveness (aligned with toc-button) */
 @media (max-width: 768px) {
     .private-auth-button {
@@ -298,6 +574,24 @@
     #privateAuthModal .modal-footer .btn {
         width: 100%;
     }
+
+    #privateUnlockedModal .modal-dialog {
+        margin: 1rem;
+        max-width: none;
+    }
+
+    #privateUnlockedModal .modal-footer {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    #privateUnlockedModal .modal-footer .btn {
+        width: 100%;
+    }
+
+    .private-unlock-hint {
+        display: none;
+    }
 }
 
 /* Focus styles for accessibility */
@@ -306,7 +600,8 @@
     outline-offset: 2px;
 }
 
-.private-auth-button:focus {
+.private-auth-key:focus-visible,
+.private-auth-chevron:focus-visible {
     outline: 3px solid #f59e0b;
     outline-offset: 3px;
 }

@@ -258,10 +258,14 @@ function generateHtml(folders) {
     const isPrivate = isPrivateFile || isPrivateFolder || inPrivateFolder;
 
     const dataPrivateAttr = isPrivate ? ' data-private="1"' : '';
+    const obsidianUrl = (!isFolder && item.obsidian_url) ? String(item.obsidian_url) : '';
+    const dataSuperAttr = obsidianUrl
+      ? ` data-superprivate="1" data-obsidian-url="${escapeHtml(obsidianUrl)}"`
+      : '';
     const dataQuizAttr = isQuizFile ? ' data-quiz="1"' : '';
     const dataPathAttr = isFolder ? ` data-path="${itemPath.replace(/"/g, '&quot;')}"` : '';
 
-    html += `<li class="accordion meta"${dataPrivateAttr}${dataQuizAttr}${dataPathAttr}>`;
+    html += `<li class="accordion meta"${dataPrivateAttr}${dataSuperAttr}${dataQuizAttr}${dataPathAttr}>`;
     if (isFolder) {
       html += `<span class="name ${itemClass}"${dataIDAttr}>`;
     } else if(!want_a_tag_for_seo)

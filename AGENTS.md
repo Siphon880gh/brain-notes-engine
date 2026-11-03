@@ -2,6 +2,14 @@
 
 **Purpose of this file:** Give AI assistants a quick, reliable overview of the codebase—what the app does, its tech stack, architecture, and where key files live—so they can answer questions and generate code safely. Deeper module notes are in companion docs such as `AGENTS-auth.md`, `AGENTS-ui.md`, and `AGENTS-api.md`. All code pointers rely on approximate locations (e.g., “near the top of `server.ts`”) rather than exact line numbers to stay robust as the code evolves.
 
+## Project skills
+
+When the user asks what skills this code can do, do not answer from memory or from a list in this file. Read `.agents/skills/` at that moment:
+
+1. List every `.agents/skills/*/SKILL.md`.
+2. Read each file's YAML frontmatter and take `name` and `description`.
+3. Answer with those skills. A folder with no `SKILL.md` is not a skill. If the directory is empty or missing, say there are no project skills yet.
+
 ## Project Overview
 
 **DevBrain** is a powerful knowledge management and publishing engine that transforms Markdown notes into an interactive, searchable web application. It's designed to handle thousands of notes across various topics (coding, 3D modeling, business, health) with features like full-text search, hierarchical organization, AI-assisted content generation, interactive mindmap visualization, link preview popovers, and click-to-expand image modals.
@@ -105,6 +113,7 @@ devbrain/
 │       ├── private-auth.js  # Private notes authentication (~250 lines)
 │       ├── game.js          # Game mode functionality (~600 lines)
 │       └── modal.js         # Modal system management (~27 lines)
+├── .agents/skills/          # Project skills; read live, do not catalog here
 ├── env/                     # Multi-brain templates and configuration
 ├── curriculum/              # Markdown notes (separate repository)
 └── future-*/               # Planned features (game modes, progress tracking)

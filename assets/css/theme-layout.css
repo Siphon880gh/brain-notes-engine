@@ -501,7 +501,8 @@ canvas {
 }
 
 #passwordModal,
-#privateAuthModal {
+#privateAuthModal,
+#privateUnlockedModal {
   z-index: 2200;
 }
 
