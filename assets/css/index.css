@@ -2247,6 +2247,32 @@ html[data-mode="night"] .theme-switcher select {
   text-underline-offset: 3px;
 }
 
+.prompt-actions__chat.is-disabled,
+.prompt-actions__chat:disabled {
+  opacity: 0.4;
+  filter: grayscale(1);
+  cursor: not-allowed;
+}
+
+.prompt-actions__chat.is-disabled:hover,
+.prompt-actions__chat:disabled:hover {
+  text-decoration: none;
+}
+
+.prompt-actions__hint {
+  flex-basis: 100%;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.prompt-actions__hint.is-stale {
+  color: #8a5a00;
+}
+
+.prompt-actions__hint[hidden] {
+  display: none;
+}
+
 .prompt-actions__icon {
   width: 16px;
   height: 16px;

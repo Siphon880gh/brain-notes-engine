@@ -727,6 +727,34 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
     """`;
   }
 
+  let askFolderCopiedPrompt = null;
+
+  function syncAskFolderHandoff() {
+    const text = askFolderPromptText();
+    const ready = askFolderCopiedPrompt !== null && askFolderCopiedPrompt === text;
+    const why = askFolderCopiedPrompt === null ? 'Copy the prompt first' : 'Prompt changed, copy again';
+    ['openChatGPTButton', 'openClaudeButton'].forEach((id) => {
+        const button = document.getElementById(id);
+        if (!button) return;
+        button.classList.toggle('is-disabled', !ready);
+        button.disabled = !ready;
+        if (ready) {
+            button.removeAttribute('aria-disabled');
+            button.removeAttribute('title');
+        } else {
+            button.setAttribute('aria-disabled', 'true');
+            button.title = why;
+        }
+    });
+    const hint = document.getElementById('ask-folder-handoff-hint');
+    if (hint) {
+        hint.textContent = ready ? '' : why;
+        hint.hidden = ready;
+        hint.classList.toggle('is-stale', !ready && askFolderCopiedPrompt !== null);
+    }
+    return ready;
+  }
+
   function refreshAskFolderPreview() {
     const preview = document.getElementById('largePromptText');
     const status = document.getElementById('ask-folder-status');
@@ -740,6 +768,7 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
             : '';
     }
     syncAskFolderSuggestions();
+    syncAskFolderHandoff();
     return text;
   }
 
@@ -765,7 +794,11 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
     const text = refreshAskFolderPreview();
     const button = document.getElementById('copyLargePromptButton');
     const preview = document.getElementById('largePromptText');
-    const done = () => markAskFolderCopied(button);
+    const done = () => {
+        askFolderCopiedPrompt = text;
+        syncAskFolderHandoff();
+        markAskFolderCopied(button);
+    };
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(done).catch(() => {
             if (preview) {
@@ -787,6 +820,11 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
     const text = refreshAskFolderPreview();
     const input = document.getElementById('ask-folder-question');
     const status = document.getElementById('ask-folder-status');
+    const copyButton = document.getElementById('copyLargePromptButton');
+    if (!syncAskFolderHandoff()) {
+        if (copyButton) copyButton.focus();
+        return;
+    }
     if (!sanitizedAskQuestion()) {
         if (status) {
             status.hidden = false;
@@ -845,6 +883,7 @@ function htmlToIndentedList(html, prefixCurriculumUrl="", maxDepth=2, maxItems=2
     const input = document.getElementById('ask-folder-question');
     if (nameEl) nameEl.textContent = el.textContent.trim() || 'this folder';
     if (input) input.value = 'What can I learn here?';
+    askFolderCopiedPrompt = null;
     refreshAskFolderPreview();
     const folderOptions = document.getElementById('folder-options-wrapper');
     if (folderOptions) folderOptions.classList.remove('expanded');

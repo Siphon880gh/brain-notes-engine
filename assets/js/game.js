@@ -368,9 +368,37 @@
         ].join("\n");
     }
 
+    let quizCopiedPrompt = null;
+
+    function syncQuizHandoff() {
+        const text = quizPromptEl ? quizPromptEl.value : "";
+        const ready = quizCopiedPrompt !== null && quizCopiedPrompt === text;
+        const why = quizCopiedPrompt === null ? "Copy the prompt first" : "Prompt changed, copy again";
+        [quizChatgptBtn, quizClaudeBtn].forEach((button) => {
+            if (!button) return;
+            button.classList.toggle("is-disabled", !ready);
+            button.disabled = !ready;
+            if (ready) {
+                button.removeAttribute("aria-disabled");
+                button.removeAttribute("title");
+            } else {
+                button.setAttribute("aria-disabled", "true");
+                button.title = why;
+            }
+        });
+        const hint = document.getElementById("practice-quiz-handoff-hint");
+        if (hint) {
+            hint.textContent = ready ? "" : why;
+            hint.hidden = ready;
+            hint.classList.toggle("is-stale", !ready && quizCopiedPrompt !== null);
+        }
+        return ready;
+    }
+
     function refreshQuizPrompt() {
         if (!quizPromptEl) return;
         quizPromptEl.value = buildQuizPrompt();
+        syncQuizHandoff();
     }
 
     function setQuizStatus(message) {
@@ -403,10 +431,17 @@
     }
 
     function copyQuizPrompt() {
-        return copyText(quizPromptEl ? quizPromptEl.value : "", "Prompt copied.");
+        const text = quizPromptEl ? quizPromptEl.value : "";
+        quizCopiedPrompt = text;
+        syncQuizHandoff();
+        return copyText(text, "Prompt copied.");
     }
 
     function openQuizChat(homeUrl, queryUrl) {
+        if (!syncQuizHandoff()) {
+            if (quizCopyBtn) quizCopyBtn.focus();
+            return;
+        }
         const prompt = quizPromptEl ? quizPromptEl.value : "";
         const url = queryUrl + encodeURIComponent(prompt);
         showWhatNow();

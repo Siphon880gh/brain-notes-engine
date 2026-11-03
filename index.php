@@ -549,15 +549,16 @@
                 <div class="prompt-actions">
                     <button type="button" class="prompt-actions__copy" id="copyLargePromptButton">Copy prompt</button>
                     <span class="prompt-actions__open">Open in
-                        <button type="button" class="prompt-actions__chat" id="openChatGPTButton">
+                        <button type="button" class="prompt-actions__chat is-disabled" id="openChatGPTButton" disabled aria-disabled="true" title="Copy the prompt first">
                             <svg class="prompt-actions__icon" aria-hidden="true"><use href="#icon-chatgpt"></use></svg>
                             ChatGPT
                         </button>
-                        <button type="button" class="prompt-actions__chat" id="openClaudeButton">
+                        <button type="button" class="prompt-actions__chat is-disabled" id="openClaudeButton" disabled aria-disabled="true" title="Copy the prompt first">
                             <svg class="prompt-actions__icon" aria-hidden="true"><use href="#icon-claude"></use></svg>
                             Claude
                         </button>
                     </span>
+                    <span id="ask-folder-handoff-hint" class="prompt-actions__hint" aria-live="polite">Copy the prompt first</span>
                 </div>
             </div>
             </div>
@@ -807,15 +808,16 @@
                     <div class="practice-quiz__actions prompt-actions">
                         <button type="button" id="practice-quiz-copy" class="prompt-actions__copy">Copy prompt</button>
                         <span class="prompt-actions__open">Open in
-                            <button type="button" id="practice-quiz-chatgpt" class="prompt-actions__chat">
+                            <button type="button" id="practice-quiz-chatgpt" class="prompt-actions__chat is-disabled" disabled aria-disabled="true" title="Copy the prompt first">
                                 <svg class="prompt-actions__icon" aria-hidden="true"><use href="#icon-chatgpt"></use></svg>
                                 ChatGPT
                             </button>
-                            <button type="button" id="practice-quiz-claude" class="prompt-actions__chat">
+                            <button type="button" id="practice-quiz-claude" class="prompt-actions__chat is-disabled" disabled aria-disabled="true" title="Copy the prompt first">
                                 <svg class="prompt-actions__icon" aria-hidden="true"><use href="#icon-claude"></use></svg>
                                 Claude
                             </button>
                         </span>
+                        <span id="practice-quiz-handoff-hint" class="prompt-actions__hint" aria-live="polite">Copy the prompt first</span>
                         <a id="practice-quiz-app" class="practice-quiz__app" href="https://wengindustries.com/app/quiz-gsheet/gsheets/_Special%20-%20User%20Provides/Intake.php" target="_blank" rel="noopener noreferrer">Open quiz app</a>
                     </div>
                     <p id="practice-quiz-status" class="practice-status" aria-live="polite"></p>
