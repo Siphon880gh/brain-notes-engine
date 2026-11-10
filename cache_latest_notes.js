@@ -8,6 +8,9 @@ const root = __dirname;
 const curriculum = path.join(root, 'curriculum');
 const outFile = path.join(root, 'cachedLatestNotes.json');
 const dayCount = 5;
+// How many matching commits to scan when finding the recent days, so git
+// doesn't diff the whole history.
+const recentCommitScan = 300;
 const alwaysSkipNames = new Set(['sortspec.md', 'readme.md']);
 const defaultSkipPatterns = ['^AGENTS\\.md$', '^SKILL\\.md$'];
 
@@ -136,8 +139,10 @@ function git(repo, args) {
   ].concat(args), { encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 });
 }
 
+// Only content edits count. -M detects renames and moves so they show up as R
+// instead of M, and --diff-filter=M then drops them (plus adds and deletes).
 function recentCommitDays(repo) {
-  const raw = git(repo, ['log', '--pretty=format:%cI', '--', '*.md']);
+  const raw = git(repo, ['log', '-M', '--diff-filter=M', '--max-count=' + recentCommitScan, '--pretty=format:%cI', '--', '*.md']);
   const days = [];
   raw.split(/\r?\n/).forEach((line) => {
     const key = line.trim().slice(0, 10);
@@ -163,6 +168,8 @@ function main() {
     if (dayKeys.length) {
       raw = git(repo, [
         'log',
+        '-M',
+        '--diff-filter=M',
         '--since', dayKeys[dayKeys.length - 1],
         '--pretty=format:%x1e%cI',
         '--name-only',
