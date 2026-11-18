@@ -1,0 +1,1 @@
+<meta name="description" content="Collection of notes on Home Economics: cooking, sewing, nutrition, child development, and home and family management. The goal is to record practical life skills for everyday living.">

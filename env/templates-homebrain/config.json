@@ -1,0 +1,8 @@
+{
+    "theme": "soft-cards",
+    "showThemeSwitcher": false,
+    "showNightDaySwitcher": true,
+    "checkoutLatestNotes": true,
+    "checkoutLatestGit": false,
+    "latestNotesSkip": ["^AGENTS\\.md$", "^SKILL\\.md$"]
+}
