@@ -280,6 +280,10 @@
                     <li data-hide-if-url-contains="/healthbrain/, healthnotes">
                         <a class="text-blue-800" target="_blank" href="https://healthnotes.wengindustries.com">⚕️ Health<br/>Notes</a>
                     </li>
+
+                    <li data-hide-if-url-contains="/homebrain/, homenotes">
+                        <a class="text-blue-800" target="_blank" href="https://homenotes.wengindustries.com">🏠 Home<br/>Economics</a>
+                    </li>
                 </ul>
             </div>
         </div>
