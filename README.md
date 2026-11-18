@@ -34,11 +34,12 @@ Write effortlessly using Obsidian or your preferred Markdown editor—no coding 
 
 ![](README-assets/app-devbrain.png)
 
-The Notes Brain Engine has powered Weng's thousands of notes on coding, 3d animation, business, and health.
+The Notes Brain Engine has powered Weng's thousands of notes on coding, 3d animation, business, health, and home economics.
 - Developer notes: [http://wengindustry.com/tools/devbrain/](http://wengindustry.com/tools/devbrain/)
 - 3d notes: [http://wengindustry.com/tools/3dbrain/](http://wengindustry.com/tools/3dbrain/)
 - Business notes (Tech Startups): [http://wengindustry.com/tools/bizbrain/](http://wengindustry.com/tools/bizbrain/)
 - Health notes: [http://wengindustry.com/tools/healthbrain/](http://wengindustry.com/tools/healthbrain/)
+- Home Economics notes: [https://homenotes.wengindustries.com](https://homenotes.wengindustries.com)
 
 ## Contribute to the Brain Notes Negine
 - Help make the engine even better. Please make sure to describe your pull requests.
@@ -392,7 +393,7 @@ It could say dubious owner or directory. If it says that, it also gave you instr
 
 It could say “This key is not known by any other names.. are you sure you want to continue connecting..” say yes. If it is still denied, then you’ll have to pair SSH on your VPS to the gitlab/github.
 
-If you have the repositories at different git repo services, you’ll have to test this for the different repos services. For example, my 3dbrain/curriculum, healthbrain/curriculum, and bizhealth/curriculum connects to Gitlab because I didn’t want git activity to show on my Github profile. I want only code related content at Github, so my devbrain/curriculum is on Github. You test for dubious owners/directories and denied / lack of SSH keys for a Github curriculum and for a Gitlab curriculum.
+If you have the repositories at different git repo services, you’ll have to test this for the different repos services. For example, my 3dbrain/curriculum, healthbrain/curriculum, bizbrain/curriculum, and homebrain/curriculum connects to Gitlab because I didn’t want git activity to show on my Github profile. I want only code related content at Github, so my devbrain/curriculum is on Github. You test for dubious owners/directories and denied / lack of SSH keys for a Github curriculum and for a Gitlab curriculum.
 
 You also want to update the urls.json at the root of env/ and their template subfolders. This is because the url is used for “See what’s changed” and when sharing note link, and opening internal note mentions.
 
@@ -413,7 +414,7 @@ You can have `brains/brain1`, `brains/brain2`, `brains/brain3` then at the folde
 
 ```
   "scripts": {
-    "pull-brains": "cd 3dbrain && npm run pull && npm run build-3dbrain; cd ../bizbrain && npm run pull && npm run build-bizbrain; cd ../devbrain && npm run pull  && npm run build-devbrain; cd ../healthbrain && npm run pull && npm run build-healthbrain"
+    "pull-brains": "cd 3dbrain && npm run pull && npm run build-3dbrain; cd ../bizbrain && npm run pull && npm run build-bizbrain; cd ../devbrain && npm run pull  && npm run build-devbrain; cd ../healthbrain && npm run pull && npm run build-healthbrain; cd ../homebrain && npm run pull && npm run build-homebrain"
   }
 ```
 

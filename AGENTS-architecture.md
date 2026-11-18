@@ -12,7 +12,8 @@ env/
 ├── templates-devbrain/     # Developer notes template
 ├── templates-3dbrain/      # 3D modeling notes template  
 ├── templates-bizbrain/     # Business notes template
-└── templates-healthbrain/  # Health notes template
+├── templates-healthbrain/  # Health notes template
+└── templates-homebrain/    # Home Economics notes template
 ```
 
 Each template contains:
@@ -61,6 +62,7 @@ npm run build-devbrain    # Copies template, caches data, renders HTML
 npm run build-3dbrain     # Same process for 3D notes
 npm run build-bizbrain    # Same process for business notes
 npm run build-healthbrain # Same process for health notes
+npm run build-homebrain   # Same process for home economics notes
 ```
 
 ## Core Components
@@ -114,7 +116,8 @@ devbrain/
 │   ├── templates-devbrain/  # Developer notes config
 │   ├── templates-3dbrain/   # 3D notes config
 │   ├── templates-bizbrain/  # Business notes config
-│   └── templates-healthbrain/ # Health notes config
+│   ├── templates-healthbrain/ # Health notes config
+│   └── templates-homebrain/   # Home Economics notes config
 ├── curriculum/              # Markdown notes (separate repo)
 └── future-*/               # Planned features (game modes, progress tracking)
 ```

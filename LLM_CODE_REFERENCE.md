@@ -64,7 +64,7 @@
 
 ### Multi-Brain Template System
 ```
-env/templates-{devbrain,3dbrain,bizbrain,healthbrain}/
+env/templates-{devbrain,3dbrain,bizbrain,healthbrain,homebrain}/
 ├── description.php     # Badge links and page description
 ├── title.php          # Page titles and branding
 ├── dir-snippets.php   # Curriculum directory path configuration
@@ -243,6 +243,7 @@ npm run build-devbrain    # Developer notes variant
 npm run build-3dbrain     # 3D modeling notes variant  
 npm run build-bizbrain    # Business notes variant
 npm run build-healthbrain # Health notes variant
+npm run build-homebrain   # Home Economics notes variant
 ```
 
 ## Performance Considerations
